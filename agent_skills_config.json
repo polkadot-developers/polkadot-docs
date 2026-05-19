@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:3076d122e54e7bc4847e4ddc93e404516599ae802a6cb740f8f48c63f9fb845f",
-  "generated": "2026-05-19T17:00:00Z",
+  "content_hash": "sha256:fe346a7e88c1f046e27b9003e71f8343e66d85d2ed727d4625501fb0a3b5b4cb",
+  "generated": "2026-05-19T20:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -3273,6 +3273,117 @@
     },
     {
       "chain_role": "isolated",
+      "description": "Assesses hardware, staking, and operational readiness to run a Polkadot validator node. Use when evaluating whether a machine or cloud instance meets Polkadot validator requirements, or when troubleshooting a validator that has been permissionlessly chilled. Key capabilities: minimum hardware checklist (CPU, NVMe SSD, RAM, network), tested VPS provider list, current minimum bond lookup, minimum self-stake (10,000 DOT since March 2026), minimum commission (10% since March 2026), slashing risk overview. Trigger phrases: 'validator requirements', 'become a polkadot validator', 'hardware for validator', 'minimum stake validator', 'validator self-stake', 'validator commission', 'chillOther validator'.",
+      "env_vars": [],
+      "error_patterns": [
+        {
+          "cause": "Validator self-stake dropped below 10,000 DOT (e.g. after a slash) or commission rate is set below 10%. Both conditions allow any account to permissionlessly call staking.chillOther.",
+          "pattern": "Validator was chilled by staking.chillOther",
+          "resolution": "Check the stash account balance and rebond DOT to restore self-stake above 10,000 DOT. Verify the validator commission rate is at least 10% via the Staking Dashboard (https://staking.polkadot.cloud/#/overview) or Polkadot.js UI. After fixing both, re-declare intent to validate."
+        },
+        {
+          "cause": "Total stake (self-stake plus nominators) is below the current era's minimum elected stake, which fluctuates and can exceed 1,000,000 DOT on Polkadot.",
+          "pattern": "Validator not elected despite meeting hardware requirements",
+          "resolution": "Check the current minimum elected stake on Subscan or the Staking Dashboard. Increase your bonded self-stake or attract more nominators. Consider starting on Kusama where the entry threshold is lower."
+        }
+      ],
+      "examples": [
+        {
+          "actions": [
+            "Present minimum CPU, storage, memory, and network requirements",
+            "List tested VPS provider families with notes on avoiding overprovisioned hosts",
+            "Advise to benchmark the chosen VPS before committing"
+          ],
+          "result": "User has a clear hardware checklist and a list of VPS families tested for Polkadot validators.",
+          "scenario": "Common scenario: pre-flight readiness check",
+          "user_says": "What hardware do I need to run a Polkadot validator?"
+        },
+        {
+          "actions": [
+            "Explain the permissionless chillOther mechanism introduced in the March 2026 upgrade",
+            "Direct user to check self-stake balance and commission rate",
+            "Instruct user to rebond DOT above 10,000 and set commission to at least 10%",
+            "Remind user to monitor self-stake balance to prevent recurrence"
+          ],
+          "result": "User understands why chillOther was triggered, restores compliant self-stake and commission, and re-declares intent to validate.",
+          "scenario": "Edge case: validator chilled by staking.chillOther",
+          "user_says": "Someone removed my validator from the active set using chillOther — how do I fix it?"
+        }
+      ],
+      "id": "onboard-polkadot-validator",
+      "invocation": "user",
+      "license": "CC-BY-4.0",
+      "prerequisites": {
+        "network": [
+          "Polkadot network access to look up current minimum bond requirements"
+        ],
+        "runtime": [],
+        "tokens": [
+          "DOT — minimum 10,000 DOT own self-stake required as of March 2026 runtime upgrade; elected-set minimum stake varies by era (can exceed 1,000,000 DOT on Polkadot)"
+        ],
+        "wallet": [
+          "Stash account with sufficient DOT for bonding"
+        ]
+      },
+      "primary_page": "node-infrastructure/run-a-validator/requirements.md",
+      "reference_code": {
+        "base_path": "",
+        "branch": "",
+        "files": [],
+        "repo": "none"
+      },
+      "source_pages": [
+        "node-infrastructure/run-a-validator/requirements.md"
+      ],
+      "steps": [
+        {
+          "action": "Verify hardware meets minimum requirements",
+          "description": "Confirm the machine meets or exceeds all Polkadot validator hardware minimums:\n\n**CPU:** x86-64 compatible, 8 physical cores at 3.4 GHz or higher. Recommended processors: Intel Ice Lake or newer (Xeon or Core), AMD Zen3 or newer (EPYC or Ryzen). Disable simultaneous multithreading (Intel Hyper-Threading or AMD SMT). Single-threaded performance is prioritized over core count.\n\n**Storage:** NVMe SSD, minimum 2 TB. Storage requirements grow as the chain grows — check https://stakeworld.github.io/docs/dbsize for current estimates. Prioritize low latency over throughput. Avoid VPS providers that use NVMe-over-TCP (appears local but underperforms).\n\n**Memory:** 32 GB DDR4 ECC.\n\n**Network:** Symmetric 500 Mbit/s minimum.\n\nTested VPS families: GCP c2/c2d, AWS c6id, OVH (budget option if specs are met), Digital Ocean Premium Droplets, Vultr high-bandwidth plans, Akamai Cloud (Linode), Scaleway high-performance instances, OnFinality (blockchain-specialized). Always benchmark the VPS before committing — some providers overprovision shared hosts.",
+          "order": 1,
+          "working_directory": "."
+        },
+        {
+          "action": "Check current minimum bond requirement",
+          "description": "The minimum total stake needed to be elected into the active validator set changes every era and can be in the millions of DOT. Check the current value using one of:\n\n- Chain State Values: https://wiki.polkadot.com/general/chain-state-values/\n- Subscan validator list: https://polkadot.subscan.io/validator_list?status=validator\n- Staking Dashboard: https://staking.polkadot.cloud/#/overview\n\nYour validator must be backed by at least this much stake (your own bonded DOT plus any nominator stake) to earn rewards. The minimum bond to start a validator instance is lower than the minimum elected stake — you can create a validator without being immediately elected.",
+          "order": 2,
+          "working_directory": "."
+        },
+        {
+          "action": "Confirm self-stake and commission requirements",
+          "description": "As of the March 2026 runtime upgrade, two additional on-chain requirements apply:\n\n**Minimum self-stake (10,000 DOT):** Your validator stash account must bond at least 10,000 DOT as slashable self-stake. This must come from your own stash — nominator stake does not count. If self-stake drops below 10,000 DOT (e.g. due to a slash), any account can call `staking.chillOther` to remove your validator from the active set. Monitor your self-stake balance and rebond promptly if needed.\n\n**Minimum commission (10%):** Your validator must set a commission rate of at least 10%. Validators with sub-10% commission are also permissionlessly chill-able. For non-custodial operator scenarios, see https://docs.polkadot.com/node-infrastructure/run-a-validator/operational-tasks/staking-operator-proxy/ for managing commission without direct stash control.",
+          "order": 3,
+          "working_directory": "."
+        },
+        {
+          "action": "Evaluate operational readiness and risk",
+          "description": "Before proceeding to node setup, confirm readiness on the following:\n\n**System administration skills:** Validators must troubleshoot and maintain node infrastructure. Unplanned downtime or misconfiguration can trigger slashing.\n\n**Security:** Review https://docs.polkadot.com/node-infrastructure/run-a-validator/operational-tasks/general-management/#secure-your-validator for required security hardening before exposing a validator node.\n\n**Start on Kusama:** If new to validation, start on Kusama (canary network, uses KSM) before Polkadot. Kusama has the same validator rules but lower financial stakes. Throughout the validator guides, look for 'Adjustments for Kusama' callouts.\n\n**Slashing risk:** Any DOT you bond is at risk if your validator fails or misbehaves. If you are uncertain about maintaining reliable uptime, consider nominating your DOT to a trusted existing validator instead.",
+          "order": 4,
+          "working_directory": "."
+        }
+      ],
+      "supplementary_context": {
+        "description": "Load for the operational setup steps that follow satisfying requirements.",
+        "pages": [
+          {
+            "relevance": "Step-by-step guide to installing and configuring the Polkadot validator binary after requirements are confirmed.",
+            "slug": "node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator",
+            "title": "Set Up a Validator Node",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator.md"
+          },
+          {
+            "relevance": "Explains how commission rates affect reward distribution between validators and nominators.",
+            "slug": "node-infrastructure-run-a-validator-staking-mechanics-rewards",
+            "title": "Rewards",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/staking-mechanics/rewards.md"
+          }
+        ]
+      },
+      "title": "Validate Polkadot Validator Requirements",
+      "version": "1.0.0",
+      "workflow_pattern": "domain-intelligence"
+    },
+    {
+      "chain_role": "isolated",
       "description": "Installs Chopsticks and creates a local fork of any Polkadot SDK-based chain for testing, debugging, and XCM simulation without touching live state. Covers global and local npm installation, YAML config file setup, fork creation via CLI flags or config, Polkadot.js interaction, block replay, and multi-chain XCM testing. Use when you need to test extrinsics, replay historical blocks, override chain storage, or simulate XCM messages locally. Trigger phrases: 'fork a chain with Chopsticks', 'local chain fork', 'replay blocks Chopsticks', 'test XCM locally', 'Chopsticks install'. Version: 1.3.0. Note: Chopsticks uses the Smoldot light client and does not support Ethereum JSON-RPC — MetaMask cannot connect to a Chopsticks fork.",
       "env_vars": [],
       "error_patterns": [
@@ -4899,44 +5010,47 @@
     },
     {
       "chain_role": "isolated",
-      "description": "Builds and runs a local Polkadot SDK development node with smart contract support and an ETH-RPC adapter at http://localhost:8545. Use when you need a fee-free isolated environment for deploying and testing EVM smart contracts before using Polkadot Hub TestNet. Supports Ethereum tools (Hardhat, Remix, MetaMask, Ethers.js) via the ETH-RPC adapter. Trigger phrases: 'local dev node', 'run node locally', 'revive-dev-node', 'localhost:8545', 'local Polkadot blockchain'. Requires Rust and Polkadot SDK build dependencies installed. Do NOT use as a substitute for TestNet validation — the local node exposes a subset of the Ethereum JSON-RPC API.",
+      "description": "Builds and runs a local Polkadot SDK development node with smart contract support and an ETH-RPC adapter at http://localhost:8545. Use when you need a fee-free isolated environment for deploying and testing EVM smart contracts before using Polkadot Hub TestNet. Supports Ethereum tools (Hardhat, Remix, MetaMask, Ethers.js) via the ETH-RPC adapter. Trigger phrases: 'local dev node', 'run node locally', 'revive-dev-node', 'localhost:8545', 'local Polkadot blockchain'. Requires Rust and Polkadot SDK build dependencies installed. Do NOT use as a substitute for TestNet validation — the local node exposes a subset of the Ethereum JSON-RPC API; some Foundry/Hardhat time-manipulation and debug methods may be absent.",
       "env_vars": [],
       "error_patterns": [
         {
-          "cause": "Missing system build dependencies such as clang, cmake, or protobuf-compiler.",
-          "pattern": "error: linker not found / error while loading shared libraries / could not compile",
-          "resolution": "Complete the Install Polkadot SDK Dependencies guide. On Ubuntu: sudo apt install -y cmake clang libclang-dev protobuf-compiler. On macOS: brew install cmake protobuf."
+          "cause": "The wasm32-unknown-unknown target is not installed.",
+          "pattern": "cargo build: error[E0463] can't find crate for 'std' / wasm32 target not found",
+          "resolution": "Run: rustup target add wasm32-unknown-unknown"
         },
         {
-          "cause": "The revive-dev-node is not running when eth-rpc starts, or it crashed before the adapter connected.",
-          "pattern": "Connection refused at localhost:8545 / eth-rpc exits immediately",
-          "resolution": "Ensure revive-dev-node --dev is running in a separate terminal and producing blocks before starting eth-rpc. The adapter connects via WebSocket to the node."
+          "cause": "Release builds consume significant RAM. Low-memory machines may OOM.",
+          "pattern": "cargo build: out of memory / killed",
+          "resolution": "Limit Cargo parallelism: cargo build -p revive-dev-node --bin revive-dev-node --release -- -j2"
         },
         {
-          "cause": "An Ethereum tool is calling a JSON-RPC method not implemented by the ETH-RPC adapter (e.g., anvil_* or debug_*).",
-          "pattern": "Method not found / eth_method not supported",
-          "resolution": "The local node supports a subset of the Ethereum JSON-RPC API. Use Polkadot Hub TestNet for full API compatibility. Check the Polkadot EVM differences documentation for supported methods."
+          "cause": "The revive-dev-node is not running, or was started in a different directory.",
+          "pattern": "ETH-RPC adapter: connection refused / cannot connect to node",
+          "resolution": "Confirm the node is running in its terminal (should be producing blocks). Both processes must be in the polkadot-sdk directory."
+        },
+        {
+          "cause": "The local ETH-RPC adapter exposes a subset of the Ethereum JSON-RPC API. Some debug/time methods are absent.",
+          "pattern": "Hardhat/Remix/MetaMask: method not supported / JSON-RPC method not found",
+          "resolution": "Check the Polkadot SDK documentation for supported RPC methods. Time-manipulation functions (evm_increaseTime, etc.) are not available. Use TestNet for behavior that requires full Ethereum RPC compatibility."
         }
       ],
       "examples": [
         {
           "actions": [
-            "Clone polkadot-sdk from GitHub",
-            "Build revive-dev-node with cargo build --release in polkadot-sdk/",
-            "Build eth-rpc adapter with cargo build --release",
+            "Clone polkadot-sdk repository",
+            "Build revive-dev-node with cargo build --release",
+            "Build eth-rpc with cargo build --release",
             "Start revive-dev-node --dev in terminal 1",
             "Start eth-rpc --dev in terminal 2",
             "Confirm ETH-RPC is listening at http://localhost:8545"
           ],
-          "result": "Local node produces blocks; ETH-RPC adapter accepts standard Ethereum JSON-RPC at localhost:8545.",
-          "scenario": "Common scenario: start a local dev environment for smart contract development",
-          "user_says": "Set up a local Polkadot node for testing my smart contracts"
+          "result": "Local Polkadot SDK node with ETH-RPC adapter running at http://localhost:8545, ready for smart contract deployment.",
+          "scenario": "Common scenario: start local dev environment",
+          "user_says": "Set up a local Polkadot node for smart contract testing"
         },
         {
           "actions": [
-            "Cancel the build with Ctrl+C",
-            "Check free disk space (df -h) — at least 20 GB required",
-            "Check free RAM — at least 8 GB recommended",
+            "Stop the build with Ctrl+C",
             "Restart build with limited parallelism: cargo build -p revive-dev-node --bin revive-dev-node --release -- -j2"
           ],
           "result": "Build completes more slowly with reduced CPU and memory usage.",
@@ -5038,7 +5152,7 @@
         ]
       },
       "title": "Set Up a Local Development Node",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -5614,58 +5728,58 @@
     },
     {
       "chain_role": "isolated",
-      "description": "Scaffolds a Hardhat project manually, installs OpenZeppelin contracts and dotenv, creates a MyNFT.sol ERC-721 contract and Ignition deployment module, compiles with Cancun EVM version, and deploys to Polkadot Hub TestNet via Hardhat Ignition. Use when deploying an ERC-721 NFT to Polkadot Hub. Requires testnet PAS tokens and a funded EVM wallet. Trigger phrases: 'deploy NFT Polkadot', 'ERC-721 Hardhat', 'deploy non-fungible token', 'mint NFT Polkadot Hub'. Uses OpenZeppelin Contracts v5.4.0+ requiring evmVersion cancun. Do NOT use for ERC-20 tokens; use deploy-erc20-token-hardhat instead.",
+      "description": "Scaffolds a Hardhat project, creates an ERC-721 NFT contract using OpenZeppelin, and deploys it to Polkadot Hub TestNet via Hardhat Ignition. Use when deploying an NFT smart contract with a local CLI toolchain. Key capabilities: manual Hardhat project scaffold (no interactive init), OpenZeppelin ERC-721 contract, dotenv private key handling, evmVersion: cancun for OpenZeppelin v5+, explicit gasPrice to prevent 'priority too low' errors, requiredConfirmations: 1 to prevent Ignition false-drops on TestNet. Trigger phrases: 'deploy NFT Hardhat Polkadot', 'ERC-721 Hardhat', 'mint NFT Polkadot Hub Hardhat'. Output: NFT contract address on Polkadot Hub TestNet. Do NOT use for browser/Remix-based deployment — use deploy-erc721-nft-remix instead.",
       "env_vars": [
         {
-          "description": "0x-prefixed EVM private key for the deployer account. Must be funded with testnet PAS. Never commit to version control.",
+          "description": "0x-prefixed EVM private key for the deployer account. Stored in .env — never commit to version control.",
           "name": "PRIVATE_KEY",
           "required": true
         }
       ],
       "error_patterns": [
         {
-          "cause": "OpenZeppelin Contracts v5.4.0+ uses the mcopy opcode requiring Cancun EVM version.",
-          "pattern": "CompilationError: Invalid opcode: MCOPY",
-          "resolution": "In hardhat.config.ts set evmVersion: 'cancun' inside solidity.settings, then run 'npx hardhat compile' again."
+          "cause": "OpenZeppelin v5.4.0+ uses the mcopy opcode (Cancun EVM). Missing evmVersion: 'cancun' in hardhat.config.ts.",
+          "pattern": "Invalid opcode: MCOPY",
+          "resolution": "Add `evmVersion: 'cancun'` to the `settings` block in `hardhat.config.ts` and recompile."
         },
         {
-          "cause": "Deployer account has insufficient PAS, or gasPrice is below the TestNet 1000 gwei base fee.",
-          "pattern": "Error: insufficient funds / Priority is too low",
-          "resolution": "Get testnet tokens at https://faucet.polkadot.io/. Verify hardhat.config.ts polkadotTestnet block includes gasPrice: 5000000000000."
+          "cause": "Gas price below the Polkadot Hub TestNet base fee of 1000 gwei.",
+          "pattern": "Error: Priority is too low / insufficient funds for gas",
+          "resolution": "Verify `gasPrice: 5000000000000` is set in the `polkadotTestnet` network config in `hardhat.config.ts`. If already set, check the PAS balance at https://faucet.polkadot.io/."
         },
         {
-          "cause": "Ignition lost track of deployment due to missing gasPrice or requiredConfirmations: 0.",
-          "pattern": "IGN401: Transaction dropped / Transaction Already Imported",
-          "resolution": "Delete ignition/deployments/, ensure gasPrice: 5000000000000 and ignition.requiredConfirmations: 1 in config, then redeploy."
+          "cause": "Ignition lost track of a transaction (often because gasPrice was below TestNet base fee). Retrying sends a duplicate nonce transaction.",
+          "pattern": "IGN401 / Transaction Already Imported",
+          "resolution": "First check if the contract was actually deployed: look for `deployed_addresses.json` in `ignition/deployments/` and verify the address has contract code via `eth_getCode`. If genuinely not deployed: delete `ignition/deployments/` and redeploy after adding `gasPrice: 5000000000000` to the config."
         },
         {
-          "cause": "hardhat.config.ts still uses Hardhat's vars.get() system rather than dotenv.",
-          "pattern": "Error: vars is not defined / Cannot read properties of undefined",
-          "resolution": "Add 'import \"dotenv/config\";' as the first line of hardhat.config.ts and replace vars.get('PRIVATE_KEY') with process.env.PRIVATE_KEY as string."
+          "cause": "Using @nomicfoundation/hardhat-toolbox instead of @nomicfoundation/hardhat-toolbox-viem.",
+          "pattern": "Compilation errors in hardhat.config.ts (Cannot find module)",
+          "resolution": "Run: npm install --save-dev @nomicfoundation/hardhat-toolbox-viem and update the import in hardhat.config.ts."
         }
       ],
       "examples": [
         {
           "actions": [
-            "Create project directory 'hardhat-nft-deployment' and run npm init -y",
-            "Install hardhat, OpenZeppelin contracts, and dotenv",
-            "Create hardhat.config.ts with dotenv, evmVersion: cancun, gasPrice 5000 gwei, requiredConfirmations: 1",
-            "Create .env with PRIVATE_KEY placeholder; ask user to fill it in",
-            "Create contracts/MyNFT.sol and ignition/modules/MyNFT.ts (replacing INSERT_OWNER_ADDRESS)",
+            "Scaffold hardhat-nft-deployment/ with npm init -y",
+            "Install Hardhat, hardhat-toolbox-viem, OpenZeppelin, dotenv",
+            "Fetch hardhat.config.ts and apply dotenv, evmVersion, gasPrice, requiredConfirmations substitutions",
+            "Create .env with PRIVATE_KEY and ask user to fill it in",
+            "Fetch MyNFT.sol to contracts/ and MyNFT.ts to ignition/modules/",
             "Run npx hardhat compile",
-            "Run npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotTestnet; delegate confirmation to user"
+            "Run npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotTestnet"
           ],
-          "result": "ERC-721 NFT contract deployed; contract address printed to console",
-          "scenario": "Common scenario: deploy a new ERC-721 NFT contract",
-          "user_says": "Deploy an ERC-721 NFT contract to Polkadot Hub TestNet"
+          "result": "ERC-721 NFT contract deployed to Polkadot Hub TestNet; contract address printed by Ignition.",
+          "scenario": "Common scenario: deploy ERC-721 NFT with Hardhat",
+          "user_says": "Deploy an ERC-721 NFT contract to Polkadot Hub TestNet using Hardhat"
         },
         {
           "actions": [
-            "Open hardhat.config.ts",
-            "Set solidity to: { version: '0.8.28', settings: { evmVersion: 'cancun' } }",
+            "Verify hardhat.config.ts has evmVersion: 'cancun' in the solidity settings block",
+            "If missing, add it: `settings: { evmVersion: 'cancun', optimizer: { enabled: true, runs: 200 } }`",
             "Run npx hardhat compile again"
           ],
-          "result": "Compilation succeeds with Cancun EVM version",
+          "result": "Compilation succeeds with Cancun EVM version enabled.",
           "scenario": "Edge case: compilation fails with MCOPY opcode error",
           "user_says": "Compilation fails with 'Invalid opcode: MCOPY'"
         }
@@ -5691,10 +5805,23 @@
       "primary_page": "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat.md",
       "project_structure": "hardhat-nft-deployment/\n├── artifacts/\n├── contracts/\n│   └── MyNFT.sol\n├── ignition/\n│   ├── deployments/\n│   └── modules/\n│       └── MyNFT.ts\n├── .env\n├── .gitignore\n├── hardhat.config.ts\n└── package.json",
       "reference_code": {
-        "base_path": "",
-        "branch": "",
-        "files": [],
-        "repo": "none"
+        "base_path": ".snippets/code/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat",
+        "branch": "master",
+        "files": [
+          {
+            "description": "Hardhat v3 config with viem toolbox plugin; uses vars.get() — substitute with dotenv before use",
+            "path": "hardhat.config.ts"
+          },
+          {
+            "description": "Minimal ERC-721 contract (ERC721 + Ownable) with safeMint(address to) and no URI storage",
+            "path": "MyNFT.sol"
+          },
+          {
+            "description": "Hardhat Ignition deployment module for MyNFT; accepts initialOwner as a parameter",
+            "path": "MyNFT.ts"
+          }
+        ],
+        "repo": "polkadot-developers/polkadot-docs"
       },
       "source_pages": [
         "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat.md"
@@ -5707,24 +5834,25 @@
             "cd hardhat-nft-deployment",
             "npm init -y"
           ],
-          "description": "Create a new directory and initialize a Node.js project. Do not use 'npx hardhat init' — it is interactive and non-deterministic. Manual scaffolding is used instead.",
+          "description": "Create a new directory and initialize a Node.js project. Do not use 'npx hardhat init' — it is interactive. Manual scaffolding is used instead.",
           "order": 1,
           "working_directory": "."
         },
         {
           "action": "Install Hardhat, OpenZeppelin, and dotenv",
           "commands": [
-            "npm install --save-dev hardhat@^2.27.0 @nomicfoundation/hardhat-toolbox",
+            "npm install --save-dev hardhat@^2.27.0 @nomicfoundation/hardhat-toolbox-viem",
             "npm install @openzeppelin/contracts dotenv"
           ],
-          "description": "Install Hardhat v2 toolchain, OpenZeppelin contracts (v5.4.0+), and dotenv for secure private key handling.",
+          "description": "Install Hardhat with the viem toolbox plugin, OpenZeppelin contracts (v5+), and dotenv for secure private key handling.",
           "order": 2,
           "working_directory": "hardhat-nft-deployment"
         },
         {
           "action": "Create the Hardhat configuration file",
-          "description": "Create a file named 'hardhat.config.ts' with the following content:\n\n```typescript\nimport { HardhatUserConfig } from 'hardhat/config';\nimport '@nomicfoundation/hardhat-toolbox';\nimport 'dotenv/config';\n\nconst config: HardhatUserConfig = {\n  solidity: {\n    version: '0.8.28',\n    settings: { evmVersion: 'cancun' }\n  },\n  networks: {\n    polkadotTestnet: {\n      url: 'https://services.polkadothub-rpc.com/testnet',\n      chainId: 420420417,\n      accounts: [process.env.PRIVATE_KEY as string],\n      gasPrice: 5000000000000\n    }\n  },\n  ignition: { requiredConfirmations: 1 }\n};\n\nexport default config;\n```\n\nKey points: (1) 'dotenv/config' must be the first functional import. (2) evmVersion: 'cancun' is required for OpenZeppelin v5.4.0+ (mcopy opcode). (3) gasPrice: 5000000000000 (5000 gwei) prevents 'priority is too low' errors on TestNet. (4) requiredConfirmations: 1 prevents Ignition from misreading pending transactions as dropped.",
+          "description": "Fetch the reference file `hardhat.config.ts` and save it as `hardhat.config.ts`. Then apply ALL of the following substitutions:\n\n1. Remove the line `import { vars } from 'hardhat/config';` and replace it with `import 'dotenv/config';` (add as the first import, before `hardhatToolboxViemPlugin`).\n\n2. Replace `accounts: [vars.get('PRIVATE_KEY')]` with `accounts: [process.env.PRIVATE_KEY as string]`.\n\n3. Inside the `settings` block, add `evmVersion: 'cancun'` alongside the optimizer settings (required for OpenZeppelin v5.4.0+ which uses the mcopy opcode).\n\n4. Inside the `polkadotTestnet` network object, add `gasPrice: 5000000000000` (5000 gwei — prevents 'priority is too low' errors; TestNet base fee is 1000 gwei).\n\n5. After the `networks` block, add `ignition: { requiredConfirmations: 1 }` (prevents Ignition from misreading pending transactions as dropped on TestNet).\n\nThe final `hardhat.config.ts` should import: hardhatToolboxViemPlugin, dotenv/config. Apply the same substitutions here as to any other file in this project that uses `vars.get('PRIVATE_KEY')`.",
           "order": 3,
+          "reference_file": "hardhat.config.ts",
           "working_directory": "hardhat-nft-deployment"
         },
         {
@@ -5742,20 +5870,22 @@
           "commands": [
             "mkdir -p contracts ignition/modules"
           ],
-          "description": "Create the contracts and ignition/modules directories that Hardhat expects.",
+          "description": "Create the contracts and ignition/modules directories.",
           "order": 5,
           "working_directory": "hardhat-nft-deployment"
         },
         {
-          "action": "Create the MyNFT.sol contract",
-          "description": "Create 'contracts/MyNFT.sol' with the following OpenZeppelin ERC-721 contract.Use the inline content below:\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.22;\n\nimport {ERC721} from '@openzeppelin/contracts/token/ERC721/ERC721.sol';\nimport {ERC721URIStorage} from '@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol';\nimport {Ownable} from '@openzeppelin/contracts/access/Ownable.sol';\n\ncontract MyNFT is ERC721, ERC721URIStorage, Ownable {\n    uint256 private _nextTokenId;\n    constructor(address initialOwner) ERC721('MyNFT', 'MNFT') Ownable(initialOwner) {}\n    function safeMint(address to, string memory uri) public onlyOwner {\n        uint256 tokenId = _nextTokenId++;\n        _safeMint(to, tokenId);\n        _setTokenURI(tokenId, uri);\n    }\n    function tokenURI(uint256 tokenId) public view override(ERC721, ERC721URIStorage) returns (string memory) { return super.tokenURI(tokenId); }\n    function supportsInterface(bytes4 interfaceId) public view override(ERC721, ERC721URIStorage) returns (bool) { return super.supportsInterface(interfaceId); }\n}\n```",
+          "action": "Fetch and save the MyNFT.sol contract",
+          "description": "Fetch the reference file `MyNFT.sol` and save it as `contracts/MyNFT.sol`. No substitutions needed — use the file as-is. The contract is a minimal ERC-721 (ERC721 + Ownable) with a `safeMint(address to)` function and no URI storage extension.",
           "order": 6,
+          "reference_file": "MyNFT.sol",
           "working_directory": "hardhat-nft-deployment"
         },
         {
-          "action": "Create the Ignition deployment module",
-          "description": "Create 'ignition/modules/MyNFT.ts'. Replace INSERT_OWNER_ADDRESS with the Ethereum address that should own the NFT contract (typically the address derived from your PRIVATE_KEY):\n\n```typescript\nimport { buildModule } from '@nomicfoundation/hardhat-ignition/modules';\n\nconst MyNFTModule = buildModule('MyNFTModule', (m) => {\n  const myNFT = m.contract('MyNFT', ['INSERT_OWNER_ADDRESS']);\n  return { myNFT };\n});\n\nexport default MyNFTModule;\n```",
+          "action": "Fetch and save the Ignition deployment module",
+          "description": "Fetch the reference file `MyNFT.ts` and save it as `ignition/modules/MyNFT.ts`. Replace `INSERT_OWNER_ADDRESS` with the Ethereum address that should own the NFT contract (typically the address derived from your PRIVATE_KEY in .env).",
           "order": 7,
+          "reference_file": "MyNFT.ts",
           "working_directory": "hardhat-nft-deployment"
         },
         {
@@ -5763,7 +5893,7 @@
           "commands": [
             "npx hardhat compile"
           ],
-          "description": "Compile MyNFT.sol. If compilation fails with 'Invalid opcode: MCOPY', ensure evmVersion: 'cancun' is set in hardhat.config.ts and recompile.",
+          "description": "Compile MyNFT.sol. If compilation fails with 'Invalid opcode: MCOPY', confirm `evmVersion: 'cancun'` is present in the `settings` block of `hardhat.config.ts` and recompile.",
           "expected_output": "Compiled 1 Solidity file successfully",
           "order": 8,
           "working_directory": "hardhat-nft-deployment"
@@ -5773,7 +5903,7 @@
           "commands": [
             "npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotTestnet"
           ],
-          "description": "Deploy the ERC-721 contract via Hardhat Ignition. Ignition will prompt to confirm the target network and chain ID — delegate this prompt to the user. Save the contract address printed on success.",
+          "description": "Deploy the ERC-721 contract via Hardhat Ignition. Ignition will prompt to confirm the target network and chain ID — delegate this prompt to the user. Save the contract address printed on success (needed for NFT minting and frontend integration). If the transaction appears stuck, check `ignition/deployments/` for `deployed_addresses.json` to confirm whether the contract was actually deployed despite the error.",
           "expected_output": "MyNFTModule#MyNFT - 0x...",
           "interactive": true,
           "order": 9,
@@ -5798,12 +5928,12 @@
         ]
       },
       "title": "Deploy an ERC-721 NFT Using Hardhat",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {
       "chain_role": "isolated",
-      "description": "Guides the user through deploying an ERC-721 NFT contract via Remix IDE (browser-based) connected to MetaMask on Polkadot Hub TestNet. Use when preferring no local toolchain or rapid prototyping. Covers contract creation using OpenZeppelin ERC-721, compilation in Remix, and deployment via MetaMask injected provider. Trigger phrases: 'deploy NFT Remix', 'ERC-721 Remix Polkadot', 'mint NFT using browser', 'Remix NFT Polkadot Hub'. All steps are GUI-based — agent delegates browser actions to the user. Do NOT use for automated or CLI-based deployments; use deploy-erc721-nft-hardhat instead.",
+      "description": "Guides the user through deploying an ERC-721 NFT contract via Remix IDE (browser-based) connected to MetaMask on Polkadot Hub TestNet. Use when preferring no local toolchain or for rapid prototyping. Covers contract creation using OpenZeppelin ERC-721 (minimal: ERC721 + Ownable, no URI storage), compilation in Remix, and deployment via MetaMask injected provider. Trigger phrases: 'deploy NFT Remix', 'ERC-721 Remix Polkadot', 'mint NFT using browser', 'Remix NFT Polkadot Hub'. All steps are GUI-based — agent delegates browser actions to the user. Do NOT use for automated or CLI-based deployments; use deploy-erc721-nft-hardhat instead.",
       "env_vars": [],
       "error_patterns": [
         {
@@ -5819,7 +5949,7 @@
         {
           "cause": "Contract code syntax error or Solidity version mismatch.",
           "pattern": "Compilation errors in Remix",
-          "resolution": "Verify the contract code was pasted correctly. In the Solidity Compiler tab, ensure the compiler version is 0.8.22 or later."
+          "resolution": "Verify the contract code was pasted correctly. In the Solidity Compiler tab, ensure the compiler version is 0.8.20 or later."
         }
       ],
       "examples": [
@@ -5831,7 +5961,7 @@
             "Enter owner address as constructor argument and click Deploy",
             "Confirm transaction in MetaMask"
           ],
-          "result": "ERC-721 NFT contract deployed; contract address shown in Remix Deployed Contracts panel",
+          "result": "ERC-721 NFT contract deployed; contract address shown in Remix Deployed Contracts panel.",
           "scenario": "Common scenario: deploy ERC-721 NFT via Remix IDE",
           "user_says": "Deploy an ERC-721 NFT using Remix"
         },
@@ -5841,7 +5971,7 @@
             "Paste the generated code into Remix as contracts/MyNFT.sol",
             "Proceed with the standard compile and deploy steps"
           ],
-          "result": "Custom ERC-721 contract with user-specified extensions compiled and deployed via Remix",
+          "result": "Custom ERC-721 contract with user-specified extensions compiled and deployed via Remix.",
           "scenario": "Edge case: user wants a custom NFT with additional features",
           "user_says": "I want to customize my NFT with a supply cap or royalties"
         }
@@ -5863,9 +5993,15 @@
       },
       "primary_page": "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix.md",
       "reference_code": {
-        "base_path": "",
-        "files": [],
-        "repo": "none"
+        "base_path": ".snippets/code/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix",
+        "branch": "master",
+        "files": [
+          {
+            "description": "Minimal ERC-721 contract (ERC721 + Ownable) with safeMint(address to) — no URI storage extension",
+            "path": "MyNFT.sol"
+          }
+        ],
+        "repo": "polkadot-developers/polkadot-docs"
       },
       "source_pages": [
         "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix.md"
@@ -5873,28 +6009,28 @@
       "steps": [
         {
           "action": "Open Remix IDE and create the contract file",
-          "description": "Delegate to the user: (1) Navigate to https://remix.ethereum.org in your web browser. (2) Under the 'contracts' folder, click 'Create new file' and name it 'MyNFT.sol'. (3) Paste the following ERC-721 contract code:\n\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.22;\n\nimport {ERC721} from '@openzeppelin/contracts/token/ERC721/ERC721.sol';\nimport {ERC721URIStorage} from '@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol';\nimport {Ownable} from '@openzeppelin/contracts/access/Ownable.sol';\n\ncontract MyNFT is ERC721, ERC721URIStorage, Ownable {\n    uint256 private _nextTokenId;\n    constructor(address initialOwner) ERC721('MyNFT', 'MNFT') Ownable(initialOwner) {}\n    function safeMint(address to, string memory uri) public onlyOwner {\n        uint256 tokenId = _nextTokenId++;\n        _safeMint(to, tokenId);\n        _setTokenURI(tokenId, uri);\n    }\n    function tokenURI(uint256 tokenId) public view override(ERC721, ERC721URIStorage) returns (string memory) { return super.tokenURI(tokenId); }\n    function supportsInterface(bytes4 interfaceId) public view override(ERC721, ERC721URIStorage) returns (bool) { return super.supportsInterface(interfaceId); }\n}\n```\n\nWait for the user to confirm the file has been created and the code pasted.",
+          "description": "Delegate to the user:\n(1) Navigate to https://remix.ethereum.org in your web browser.\n(2) Under the 'contracts' folder, click 'Create new file' and name it 'MyNFT.sol'.\n(3) Paste the following ERC-721 contract code:\n\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.20;\n\nimport \"@openzeppelin/contracts/token/ERC721/ERC721.sol\";\nimport \"@openzeppelin/contracts/access/Ownable.sol\";\n\ncontract MyNFT is ERC721, Ownable {\n    uint256 private _nextTokenId;\n\n    constructor(\n        address initialOwner\n    ) ERC721(\"MyToken\", \"MTK\") Ownable(initialOwner) {}\n\n    function safeMint(address to) public onlyOwner {\n        uint256 tokenId = _nextTokenId++;\n        _safeMint(to, tokenId);\n    }\n}\n```\n\nWait for the user to confirm the file has been created and the code pasted.\n\nTip: You can also generate a custom contract at https://wizard.openzeppelin.com/polkadot — paste the generated code instead if you want additional features.",
           "interactive": true,
           "order": 1,
           "working_directory": "."
         },
         {
           "action": "Compile the contract in Remix",
-          "description": "Delegate to the user: (1) Click the 'Solidity Compiler' icon in the left panel. (2) Click the 'Compile MyNFT.sol' button. Success: the compiler icon shows a green checkmark. If errors appear, check that the contract code was pasted correctly and the Solidity version is 0.8.22+.",
+          "description": "Delegate to the user:\n(1) Click the 'Solidity Compiler' icon in the left panel.\n(2) Click the 'Compile MyNFT.sol' button.\nSuccess: the compiler icon shows a green checkmark. If errors appear, verify the contract code was pasted correctly and the Solidity version is 0.8.20+.",
           "interactive": true,
           "order": 2,
           "working_directory": "."
         },
         {
           "action": "Connect MetaMask to Polkadot Hub TestNet",
-          "description": "Delegate to the user: (1) Click 'Deploy & Run Transactions' in the left panel. (2) In the 'Environment' dropdown, select 'Injected Provider - MetaMask'. (3) Approve the MetaMask connection popup. (4) Confirm MetaMask is on Polkadot Hub TestNet (chain ID 420420417). If not, add it via MetaMask Settings > Networks with RPC https://services.polkadothub-rpc.com/testnet. Confirm the funded account is visible.",
+          "description": "Delegate to the user:\n(1) Click 'Deploy & Run Transactions' in the left panel.\n(2) In the 'Environment' dropdown, hover over 'browser extension' and select 'Injected Provider - MetaMask'.\n(3) Approve the MetaMask connection popup.\n(4) Confirm MetaMask is on Polkadot Hub TestNet (chain ID 420420417). If not, add it via MetaMask Settings > Networks with RPC https://services.polkadothub-rpc.com/testnet. Confirm the funded account is visible.",
           "interactive": true,
           "order": 3,
           "working_directory": "."
         },
         {
           "action": "Deploy the NFT contract",
-          "description": "Delegate to the user: (1) Ensure 'MyNFT' is selected in the Contract dropdown. (2) Expand the Deploy section and enter the constructor argument: the owner address (typically your MetaMask wallet address). (3) Click 'Deploy'. (4) Confirm the transaction in MetaMask. Once deployed, the contract appears in 'Deployed Contracts'. Record the contract address.",
+          "description": "Delegate to the user:\n(1) Ensure 'MyNFT' is selected in the Contract dropdown.\n(2) Expand the Deploy section and enter the constructor argument: the owner address (typically your MetaMask wallet address).\n(3) Click 'Deploy'.\n(4) Confirm the transaction in MetaMask.\nOnce deployed, the contract appears in 'Deployed Contracts'. Record the contract address shown in the Remix terminal.",
           "interactive": true,
           "order": 4,
           "working_directory": "."
@@ -5918,12 +6054,12 @@
         ]
       },
       "title": "Deploy an ERC-721 NFT Using Remix IDE",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {
       "chain_role": "isolated",
-      "description": "Installs the Foundry nightly build (required for native Polkadot chain support), initializes a Forge project, configures foundry.toml for Polkadot Hub TestNet, deploys a contract via forge create, verifies it on Blockscout or Routescan, and interacts with it using cast. Use when building or deploying Solidity contracts on Polkadot Hub with the Foundry toolkit. Trigger phrases: 'Foundry Polkadot', 'forge deploy', 'forge create Polkadot', 'cast call Polkadot Hub'. Requires Foundry nightly — stable release lacks Polkadot chain definitions.",
+      "description": "Installs the Foundry nightly build (required for native Polkadot chain support), initializes a Forge project, configures foundry.toml for Polkadot Hub TestNet, deploys a contract via forge create, verifies it on Blockscout or Routescan, interacts with it using cast, and runs Solidity tests with forge test. Use when building or deploying Solidity contracts on Polkadot Hub with the Foundry toolkit. Trigger phrases: 'Foundry Polkadot', 'forge deploy', 'forge create Polkadot', 'cast call Polkadot Hub', 'forge test Polkadot'. Requires Foundry nightly — stable release lacks Polkadot chain definitions.",
       "env_vars": [
         {
           "description": "0x-prefixed EVM private key for the deployer account. Loaded via 'source .env' into the shell session. Must be funded with testnet PAS. Never commit to version control.",
@@ -5961,10 +6097,10 @@
             "Configure foundry.toml with Polkadot TestNet verifier settings",
             "Create .env with PRIVATE_KEY; ask user to fill in and run source .env",
             "Run forge build to compile",
-            "Run forge create src/Counter.sol:Counter --chain polkadot-testnet --rpc-url ... --private-key $PRIVATE_KEY --broadcast",
+            "Run forge create src/Counter.sol:Counter --chain polkadot-testnet --broadcast",
             "Verify: forge verify-contract CONTRACT_ADDRESS src/Counter.sol:Counter --chain polkadot-testnet"
           ],
-          "result": "Contract compiled, deployed, and verified on Polkadot Hub TestNet",
+          "result": "Contract compiled, deployed, and verified on Polkadot Hub TestNet.",
           "scenario": "Common scenario: install Foundry and deploy a contract",
           "user_says": "Set up Foundry and deploy a contract to Polkadot Hub TestNet"
         },
@@ -5974,7 +6110,7 @@
             "If not nightly, run 'foundryup --version nightly' to upgrade",
             "Retry the forge create command"
           ],
-          "result": "Foundry upgraded to nightly; polkadot-testnet chain recognized and deployment succeeds",
+          "result": "Foundry upgraded to nightly; polkadot-testnet chain recognized and deployment succeeds.",
           "scenario": "Edge case: stable Foundry installed instead of nightly",
           "user_says": "I get 'unknown chain polkadot-testnet' when running forge create"
         }
@@ -6033,7 +6169,7 @@
         },
         {
           "action": "Configure foundry.toml for Polkadot Hub TestNet",
-          "description": "Replace the contents of 'foundry.toml' with the following. Choose Blockscout (no API key) or Routescan:\n\nBlockscout:\n```toml\n[profile.default]\nsrc = \"src\"\nout = \"out\"\nlibs = [\"lib\"]\nsolc_version = \"0.8.28\"\n\n[etherscan]\npolkadot-testnet = { key = \"\", url = \"https://blockscout-testnet.polkadot.io/api?\" }\n```\n\nRoutescan:\n```toml\n[profile.default]\nsrc = \"src\"\nout = \"out\"\nlibs = [\"lib\"]\nsolc_version = \"0.8.28\"\n\n[etherscan]\npolkadot-testnet = { key = \"verifyContract\", url = \"https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan\" }\n```\n\nWith this config, use --chain polkadot-testnet in commands without specifying the RPC URL explicitly.",
+          "description": "Replace the contents of 'foundry.toml' with the following. Choose Blockscout (no API key) or Routescan:\n\nBlockscout:\n```toml\n[profile.default]\nsrc = \"src\"\nout = \"out\"\nlibs = [\"lib\"]\nsolc_version = \"0.8.28\"\n\n[etherscan]\npolkadot-testnet = { key = \"\", url = \"https://blockscout-testnet.polkadot.io/api?\" }\n```\n\nRoutescan:\n```toml\n[profile.default]\nsrc = \"src\"\nout = \"out\"\nlibs = [\"lib\"]\nsolc_version = \"0.8.28\"\n\n[etherscan]\npolkadot-testnet = { key = \"verifyContract\", url = \"https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan\" }\n```\n\nWith this config, use `--chain polkadot-testnet` in commands without specifying the RPC URL explicitly.",
           "order": 3,
           "working_directory": "my-foundry-project"
         },
@@ -6043,7 +6179,7 @@
             "printf 'PRIVATE_KEY=\\n' > .env",
             "echo '.env' >> .gitignore"
           ],
-          "description": "Create a .env file with an empty PRIVATE_KEY placeholder and add .env to .gitignore. Stop here and ask the user to edit .env with their 0x-prefixed private key for a testnet-funded account. Do NOT ask for the private key in chat. After confirmation, instruct the user to run 'source .env' in their terminal to load the variable into their shell session.",
+          "description": "Create a .env file with an empty PRIVATE_KEY placeholder and add .env to .gitignore. Stop here and ask the user to edit .env with their 0x-prefixed private key for a testnet-funded account. Do NOT ask for the private key in chat. After confirmation, instruct the user to run 'source .env' in their terminal to load the variable.",
           "order": 4,
           "working_directory": "my-foundry-project"
         },
@@ -6078,6 +6214,12 @@
           "description": "Replace INSERT_CONTRACT_ADDRESS and INSERT_ACCOUNT_ADDRESS with actual values.\n\nRead from contract:\n```bash\ncast call INSERT_CONTRACT_ADDRESS 'number()(uint256)' --chain polkadot-testnet\n```\n\nWrite to contract:\n```bash\ncast send INSERT_CONTRACT_ADDRESS 'setNumber(uint256)' 42 --chain polkadot-testnet --private-key $PRIVATE_KEY\n```\n\nCheck balance:\n```bash\ncast balance INSERT_ACCOUNT_ADDRESS --chain polkadot-testnet\n```",
           "order": 8,
           "working_directory": "my-foundry-project"
+        },
+        {
+          "action": "Run Solidity tests with forge test",
+          "description": "Foundry uses Solidity for writing tests. Run the test suite:\n\n```bash\nforge test\n```\n\nFor verbose output showing gas usage and detailed logs:\n```bash\nforge test -vvv\n```\n\nRun specific tests by name:\n```bash\nforge test --match-test testIncrement\n```\n\nRun tests with gas reporting:\n```bash\nforge test --gas-report\n```\n\n**Important:** `forge test` runs against standard Anvil (Ethereum node), not a Polkadot node. Anvil does not enforce Existential Deposit, and gas, timestamps, and runtime behavior follow Ethereum semantics — tests that pass locally may behave differently on Polkadot Hub TestNet. Use forge test for unit testing contract logic; test Polkadot-specific behavior against a local dev node or TestNet.",
+          "order": 9,
+          "working_directory": "my-foundry-project"
         }
       ],
       "supplementary_context": {
@@ -6098,7 +6240,7 @@
         ]
       },
       "title": "Use Foundry with Polkadot Hub",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -7234,50 +7376,46 @@
     },
     {
       "chain_role": "isolated",
-      "description": "Guides the user through deploying Remix IDE's default Storage.sol contract to Polkadot Hub TestNet via the browser-based Remix IDE and MetaMask wallet. All steps are browser GUI interactions — no local toolchain required. Use when testing the Polkadot Hub EVM environment, learning contract deployment basics, or demonstrating how Remix works with Polkadot Hub. Prerequisites: MetaMask installed and configured for Polkadot Hub TestNet (chain ID 420420417), testnet PAS tokens from https://faucet.polkadot.io/. Trigger phrases: 'deploy contract remix polkadot', 'remix ide polkadot hub', 'deploy storage contract remix'. Outcome: Storage contract deployed on Polkadot Hub TestNet.",
+      "description": "Guides the user through deploying Remix IDE's built-in Storage.sol contract to Polkadot Hub TestNet using MetaMask as the injected provider, then interacting with it. Use when introducing smart contract deployment on Polkadot Hub without a local toolchain. All steps are browser GUI interactions delegated to the user. Trigger phrases: 'deploy basic contract Remix', 'Remix Polkadot deploy', 'deploy Storage.sol Polkadot', 'first smart contract Polkadot Remix'. Requires MetaMask connected to Polkadot Hub TestNet (chain ID 420420417) with testnet PAS tokens. Do NOT use for CLI-based deployment — use deploy-basic-contract-hardhat instead.",
       "env_vars": [],
       "error_patterns": [
         {
-          "cause": "MetaMask connection was rejected or MetaMask is not installed.",
-          "pattern": "MetaMask: User denied account access / MetaMask not connected",
-          "resolution": "Click the MetaMask extension icon and ensure it is unlocked. Re-select 'Injected Provider - MetaMask' in the Remix Environment dropdown and approve the connection prompt."
+          "cause": "MetaMask is connected to a different network than Polkadot Hub TestNet.",
+          "pattern": "MetaMask: Wrong network / chain ID mismatch",
+          "resolution": "Open MetaMask and switch to Polkadot Hub TestNet (chain ID 420420417, RPC https://services.polkadothub-rpc.com/testnet)."
         },
         {
-          "cause": "The connected MetaMask account has no testnet PAS tokens.",
-          "pattern": "Transaction failed: insufficient funds for gas",
-          "resolution": "Visit https://faucet.polkadot.io/ to obtain testnet PAS tokens. Ensure the faucet is sending to the correct address shown in MetaMask."
+          "cause": "The MetaMask account does not have enough PAS tokens to pay for deployment gas.",
+          "pattern": "insufficient funds for gas",
+          "resolution": "Get testnet PAS tokens from https://faucet.polkadot.io/ for the connected account, then retry."
         },
         {
-          "cause": "MetaMask is connected to a different network instead of Polkadot Hub TestNet.",
-          "pattern": "Wrong network in MetaMask / chain ID mismatch",
-          "resolution": "Open MetaMask and switch to 'Polkadot Hub TestNet' (chain ID 420420417). If not configured, use the connect-wallet-polkadot-hub skill to add it."
-        },
-        {
-          "cause": "The Remix compiler version does not match the pragma in Storage.sol.",
-          "pattern": "Solidity compile error: pragma mismatch",
-          "resolution": "In the Solidity Compiler tab, select a compiler version compatible with the pragma at the top of the contract file."
+          "cause": "Gas price below the Polkadot Hub TestNet base fee of 1000 gwei.",
+          "pattern": "Transaction stuck / Priority is too low",
+          "resolution": "Retry the deployment; Remix and MetaMask typically handle gas estimation automatically. If repeated failures occur, check the TestNet status page or Discord for outages."
         }
       ],
       "examples": [
         {
           "actions": [
-            "Verify MetaMask is on Polkadot Hub TestNet and account has PAS tokens",
-            "Open remix.ethereum.org and locate contracts/1_Storage.sol",
-            "Compile with Solidity Compiler tab",
-            "Select Injected Provider - MetaMask in Deploy tab and click Deploy",
-            "Confirm MetaMask transaction and wait for mining"
+            "Confirm MetaMask is on Polkadot Hub TestNet with PAS balance",
+            "Open https://remix.ethereum.org and locate contracts/Storage.sol",
+            "Compile via the Solidity Compiler plugin",
+            "Select Injected Provider - MetaMask in the Deploy panel",
+            "Click Deploy and confirm transaction in MetaMask"
           ],
-          "result": "Storage contract deployed; appears in Remix Deployed Contracts panel with callable store/retrieve functions",
-          "scenario": "Common scenario: first contract deployment",
-          "user_says": "Deploy a smart contract on Polkadot Hub using Remix IDE"
+          "result": "Storage.sol deployed to Polkadot Hub TestNet; contract address shown in Remix Deployed Contracts panel.",
+          "scenario": "Common scenario: first contract deployment via Remix",
+          "user_says": "Deploy a basic smart contract to Polkadot Hub using Remix"
         },
         {
           "actions": [
-            "Direct user to https://faucet.polkadot.io/ to request testnet PAS tokens",
-            "Ask user to confirm the faucet sent tokens to the correct address",
-            "Once confirmed, retry the Deploy step in Remix"
+            "Direct user to https://faucet.polkadot.io/",
+            "User pastes MetaMask address and selects Polkadot Hub TestNet in the faucet",
+            "Wait for tokens to arrive (typically 30 seconds)",
+            "Retry the Deploy step in Remix"
           ],
-          "result": "User obtains testnet PAS tokens and deployment proceeds successfully",
+          "result": "User obtains testnet PAS tokens and deployment proceeds successfully.",
           "scenario": "Edge case: no testnet tokens",
           "user_says": "I try to deploy but MetaMask says insufficient funds"
         }
@@ -7294,7 +7432,7 @@
           "Modern web browser (Chrome or Firefox recommended)"
         ],
         "tokens": [
-          "Testnet PAS tokens from https://faucet.polkadot.io/ (rate limit: check faucet page)"
+          "Testnet PAS tokens from https://faucet.polkadot.io/ (base fee: 1000 gwei)"
         ],
         "wallet": [
           "MetaMask browser extension installed and configured for Polkadot Hub TestNet",
@@ -7304,6 +7442,7 @@
       "primary_page": "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix.md",
       "reference_code": {
         "base_path": "",
+        "branch": "",
         "files": [],
         "repo": "none"
       },
@@ -7313,33 +7452,33 @@
       "steps": [
         {
           "action": "Verify MetaMask is connected to Polkadot Hub TestNet",
-          "description": "Instruct the user: Open MetaMask and confirm the selected network is 'Polkadot Hub TestNet' (chain ID 420420417). If not configured, use the connect-wallet-polkadot-hub skill to add the network. Also confirm the account balance shows testnet PAS tokens. If the balance is zero, visit https://faucet.polkadot.io/ to request tokens. Wait for the user to confirm both conditions before proceeding.",
+          "description": "Instruct the user: Open MetaMask and confirm the selected network is 'Polkadot Hub TestNet' (chain ID 420420417). If not configured, use the connect-wallet-polkadot-hub skill to add the network. Confirm the account balance shows testnet PAS tokens. If the balance is zero, visit https://faucet.polkadot.io/ to request tokens. Wait for the user to confirm both conditions before proceeding.",
           "order": 1,
           "working_directory": "."
         },
         {
           "action": "Open Remix IDE and locate Storage.sol",
-          "description": "Instruct the user: Open https://remix.ethereum.org in the browser. In the left file explorer panel, expand the 'contracts/' folder. Click on '1_Storage.sol' to open it in the editor. This is the default Remix sample contract — no changes needed.",
+          "description": "Instruct the user: Open https://remix.ethereum.org in the browser. In the left file explorer panel, expand the 'contracts/' folder. Click on 'Storage.sol' to open it in the editor. This is the default Remix sample contract — no code changes are needed.",
           "order": 2,
           "working_directory": "."
         },
         {
           "action": "Compile Storage.sol in Remix",
-          "description": "Instruct the user: Click the Solidity Compiler icon (second icon in the left sidebar). Confirm the compiler version is 0.8.x or higher. Click the blue 'Compile 1_Storage.sol' button. Wait for the green checkmark indicating successful compilation. If there are errors, verify the compiler version matches the pragma in the file.",
+          "description": "Instruct the user: Click the Solidity Compiler icon in the left sidebar. Click the blue 'Compile Storage.sol' button. Wait for the green checkmark indicating successful compilation. If there are errors, verify Storage.sol is selected and the compiler version is 0.8.x or higher.",
           "expected_output": "Green checkmark on the Solidity Compiler sidebar icon; no errors shown.",
           "order": 3,
           "working_directory": "."
         },
         {
           "action": "Deploy to Polkadot Hub TestNet via MetaMask",
-          "description": "Instruct the user: Click the Deploy and Run Transactions icon (fourth icon in the left sidebar). In the Environment dropdown, select 'Injected Provider - MetaMask'. MetaMask will prompt for permission — click Connect. Confirm the Account field shows your MetaMask address and the Network shows Polkadot Hub TestNet (chain ID 420420417). Click the orange 'Deploy' button. MetaMask will open a transaction confirmation — click Confirm. Wait for the transaction to be mined (typically 15-30 seconds on TestNet).",
+          "description": "Instruct the user: Click the Deploy and Run Transactions icon in the left sidebar. In the Environment dropdown, select 'Injected Provider - MetaMask'. MetaMask will prompt for permission — click Connect. Confirm the Account field shows your MetaMask address and the network shows Polkadot Hub TestNet (chain ID 420420417). Click the orange 'Deploy' button. MetaMask will open a transaction confirmation — click Confirm. Wait for the transaction to be mined (typically 15-30 seconds on TestNet).",
           "expected_output": "Deployed contract appears in the 'Deployed Contracts' section at the bottom of the Deploy panel.",
           "order": 4,
           "working_directory": "."
         },
         {
           "action": "Interact with the deployed Storage contract",
-          "description": "Instruct the user: In the 'Deployed Contracts' panel, expand the deployed Storage contract. To write a value: enter a number in the field next to the 'store' button and click 'store'. Confirm the MetaMask transaction. To read the stored value: click the 'retrieve' button (no transaction needed). The return value shows in the Remix console below.",
+          "description": "Instruct the user: In the 'Deployed Contracts' panel, expand the deployed Storage contract. To write a value: enter a number in the field next to the 'store' button and click 'store'. Confirm the MetaMask transaction. To read the stored value: click the 'retrieve' button (read-only, no transaction needed). The return value appears in the Remix terminal below.",
           "expected_output": "retrieve() returns the number stored in the previous store() call.",
           "order": 5,
           "working_directory": "."
@@ -7355,13 +7494,7 @@
             "url": "https://docs.polkadot.com/smart-contracts/integrations/wallets.md"
           },
           {
-            "relevance": "How to obtain testnet PAS tokens for deployment transactions.",
-            "slug": "smart-contracts-faucet",
-            "title": "Get Tokens from the Official Faucet",
-            "url": "https://docs.polkadot.com/smart-contracts/faucet.md"
-          },
-          {
-            "relevance": "CLI-based alternative: deploy the same Storage contract using Hardhat and a local toolchain.",
+            "relevance": "CLI-based alternative to deploy the same type of contract using Hardhat and a local toolchain.",
             "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-basic-hardhat",
             "title": "Deploy a Basic Contract with Hardhat",
             "url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat.md"
@@ -7369,12 +7502,12 @@
         ]
       },
       "title": "Deploy a Basic Smart Contract with Remix IDE",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {
       "chain_role": "isolated",
-      "description": "Walks the user through selecting the MetaMask injected provider in Remix IDE's Deploy and Run tab to connect the browser-based IDE to Polkadot Hub TestNet. All steps are browser GUI interactions. Use before deploying or testing smart contracts via Remix on Polkadot Hub. Prerequisite: MetaMask must be installed and already configured with Polkadot Hub TestNet (chain ID 420420417) — use the connect-wallet-polkadot-hub skill first if needed. Trigger phrases: 'connect remix to polkadot', 'use remix ide polkadot hub', 'remix metamask polkadot', 'injected provider remix'. Outcome: Remix displays the MetaMask account address and is ready for contract deployment.",
+      "description": "Walks the user through opening Remix IDE, understanding its interface, and selecting the MetaMask injected provider in the Deploy and Run Transactions tab to connect the browser-based IDE to Polkadot Hub TestNet. All steps are browser GUI interactions. Use before deploying or testing smart contracts via Remix on Polkadot Hub. Prerequisite: MetaMask must be installed and configured with Polkadot Hub TestNet (chain ID 420420417) — use the connect-wallet-polkadot-hub skill first if needed. Trigger phrases: 'connect remix to polkadot', 'use remix ide polkadot hub', 'remix metamask polkadot', 'injected provider remix'. Outcome: Remix displays the MetaMask account address and is ready for contract deployment.",
       "env_vars": [],
       "error_patterns": [
         {
@@ -7398,11 +7531,11 @@
           "actions": [
             "Open https://remix.ethereum.org",
             "Click Deploy and Run Transactions tab",
-            "Select Injected Provider - MetaMask in the Environment dropdown",
+            "Click Environment dropdown, hover over 'browser extension', select 'Injected Provider - MetaMask'",
             "Approve the MetaMask connection popup",
             "Verify account address and chain ID 420420417 appear in the Deploy panel"
           ],
-          "result": "Remix IDE is connected to Polkadot Hub TestNet via MetaMask and ready for contract deployment",
+          "result": "Remix IDE is connected to Polkadot Hub TestNet via MetaMask and ready for contract deployment.",
           "scenario": "Common scenario: connect Remix before deployment",
           "user_says": "Connect Remix IDE to Polkadot Hub so I can deploy a contract"
         },
@@ -7412,7 +7545,7 @@
             "If network not present, direct to connect-wallet-polkadot-hub skill",
             "Confirm Remix updates to show chain ID 420420417 automatically"
           ],
-          "result": "Remix shows correct network after MetaMask network switch",
+          "result": "Remix shows correct network after MetaMask network switch.",
           "scenario": "Edge case: MetaMask on wrong network",
           "user_says": "Remix shows the wrong chain ID after connecting"
         }
@@ -7431,6 +7564,7 @@
       "primary_page": "smart-contracts/dev-environments/remix.md",
       "reference_code": {
         "base_path": "",
+        "branch": "",
         "files": [],
         "repo": "none"
       },
@@ -7440,25 +7574,25 @@
       "steps": [
         {
           "action": "Open Remix IDE",
-          "description": "Instruct the user: Open https://remix.ethereum.org in the browser. Wait for the IDE to fully load (the file explorer appears on the left). Ensure MetaMask is unlocked and set to Polkadot Hub TestNet before proceeding.",
+          "description": "Instruct the user: Open https://remix.ethereum.org in the browser. Wait for the IDE to fully load (the file explorer appears on the left). Ensure MetaMask is unlocked and set to Polkadot Hub TestNet before proceeding.\n\nThe Remix interface has three main areas:\n- **Plugin panel** (left sidebar): icons for file explorer, search, Solidity compiler, Deploy & run transactions, debugger, and Git.\n- **Editor panel** (center): where you write and modify Solidity files.\n- **Terminal** (bottom): shows compiler logs, deployment events, transactions, and console.log output.",
           "order": 1,
           "working_directory": "."
         },
         {
           "action": "Navigate to the Deploy and Run Transactions tab",
-          "description": "Instruct the user: Click the Deploy and Run Transactions icon in the left sidebar (it looks like a plug/Ethereum diamond — the fourth icon from top). The Deploy and Run Transactions panel opens on the left.",
+          "description": "Instruct the user: In the left plugin panel, click the Deploy and Run Transactions icon (the plug/Ethereum diamond icon). The Deploy and Run Transactions panel opens on the left.",
           "order": 2,
           "working_directory": "."
         },
         {
           "action": "Select Injected Provider - MetaMask",
-          "description": "Instruct the user: In the Environment dropdown at the top of the Deploy panel, select 'Injected Provider - MetaMask'. MetaMask will open a connection request popup — click 'Next' then 'Connect' to approve. If MetaMask does not open automatically, click the MetaMask extension icon, unlock it, then repeat this step.",
+          "description": "Instruct the user:\n(1) Click on the **Environment** dropdown at the top of the Deploy panel.\n(2) Hover over **browser extension**.\n(3) Select **Injected Provider - MetaMask**.\nMetaMask will open a connection request popup — click 'Next' then 'Connect' to approve. If MetaMask does not open automatically, click the MetaMask extension icon, unlock it, then repeat this step.",
           "order": 3,
           "working_directory": "."
         },
         {
           "action": "Verify the connection",
-          "description": "Instruct the user: Confirm the following in the Deploy panel: 1) The Account field shows your MetaMask wallet address. 2) The network indicator shows chain ID 420420417 (Polkadot Hub TestNet). If the chain ID shows a different value, switch networks in MetaMask to Polkadot Hub TestNet and the Remix panel will update automatically.",
+          "description": "Instruct the user: Confirm the following in the Deploy panel:\n1) The **Account** field shows your MetaMask wallet address.\n2) The network indicator shows chain ID 420420417 (Polkadot Hub TestNet).\nIf the chain ID shows a different value, switch networks in MetaMask to Polkadot Hub TestNet and the Remix panel will update automatically.",
           "expected_output": "Remix Deploy panel shows MetaMask account address and Polkadot Hub TestNet (chain ID 420420417).",
           "order": 4,
           "working_directory": "."
@@ -7482,51 +7616,48 @@
         ]
       },
       "title": "Connect Remix IDE to Polkadot Hub",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {
       "chain_role": "isolated",
-      "description": "Guides the user through adding Polkadot Hub TestNet (RPC, chain ID 420420417, PAS token) to MetaMask or Talisman and switching the active network. All steps are browser extension GUI interactions. Use before deploying smart contracts, using Remix IDE with Polkadot Hub, or obtaining testnet tokens. Trigger phrases: 'connect metamask polkadot hub', 'add polkadot network metamask', 'set up wallet polkadot testnet', 'configure talisman polkadot hub'. Outcome: wallet shows Polkadot Hub TestNet as active network and is ready for on-chain interactions.",
+      "description": "Adds Polkadot Hub TestNet to MetaMask or Talisman and funds the account with PAS tokens from the faucet. Use when a user needs to set up their browser wallet before deploying contracts or interacting with Polkadot Hub. Key capabilities: MetaMask 'Custom' tab flow to add a custom network, Talisman 'More → Manage Networks' flow, faucet token request. Trigger phrases: 'add polkadot hub metamask', 'configure wallet polkadot hub', 'connect metamask polkadot', 'add custom network metamask', 'talisman polkadot hub network'.",
       "env_vars": [],
       "error_patterns": [
         {
-          "cause": "The RPC URL was entered incorrectly or the TestNet endpoint is temporarily unavailable.",
-          "pattern": "Could not fetch chain ID / Invalid RPC URL",
-          "resolution": "Verify the RPC URL is exactly: https://services.polkadothub-rpc.com/testnet (no trailing slash). Check the Polkadot Hub TestNet status page or Discord for outages."
+          "cause": "Polkadot Hub TestNet is already added to MetaMask under a different network name.",
+          "pattern": "MetaMask: 'Chain ID already exists'",
+          "resolution": "In MetaMask, go to Settings > Networks and look for a network with chain ID 420420417. Switch to that network instead of adding a duplicate."
         },
         {
-          "cause": "A different endpoint was used that returns a different chain ID.",
-          "pattern": "Chain ID mismatch: expected 420420417",
-          "resolution": "Delete the incorrectly configured network from MetaMask and re-add it using the exact RPC URL and chain ID 420420417."
-        },
-        {
-          "cause": "Account not funded with testnet tokens.",
-          "pattern": "Network added but balance shows 0 PAS",
-          "resolution": "Visit https://faucet.polkadot.io/, paste your address, select Polkadot Hub TestNet, and request tokens."
+          "cause": "The Polkadot Hub TestNet RPC endpoint is temporarily unavailable.",
+          "pattern": "MetaMask: RPC URL request failed / network unreachable",
+          "resolution": "Check the Polkadot Hub TestNet status. The standard RPC is https://services.polkadothub-rpc.com/testnet. Retry after a few minutes."
         }
       ],
       "examples": [
         {
           "actions": [
-            "Open MetaMask, click network selector, click Add network, then Add a network manually",
-            "Enter network name, RPC URL (https://services.polkadothub-rpc.com/testnet), chain ID 420420417, symbol PAS",
+            "Open MetaMask and click the network dropdown",
+            "Click the Custom tab and then 'Add a custom network'",
+            "Fill in the network name, RPC URL (https://services.polkadothub-rpc.com/testnet), chain ID 420420417, and symbol PAS",
             "Save and switch to Polkadot Hub TestNet",
-            "Visit https://faucet.polkadot.io/ and request testnet PAS tokens"
+            "Obtain PAS tokens from https://faucet.polkadot.io/ if balance is 0"
           ],
-          "result": "MetaMask shows Polkadot Hub TestNet as active network with a non-zero PAS balance",
+          "result": "MetaMask connected to Polkadot Hub TestNet with a non-zero PAS balance",
           "scenario": "Common scenario: add Polkadot Hub TestNet to MetaMask",
-          "user_says": "Add Polkadot Hub TestNet to MetaMask and get some test tokens"
+          "user_says": "How do I connect MetaMask to Polkadot Hub TestNet?"
         },
         {
           "actions": [
-            "Verify the RPC URL is exactly https://services.polkadothub-rpc.com/testnet with no trailing slash",
-            "Check whether the Polkadot Hub TestNet is experiencing downtime",
-            "Retry adding the network once the endpoint is confirmed reachable"
+            "Open Talisman extension and click 'More'",
+            "Click 'Manage Networks' then '+ Add network'",
+            "Enter RPC URL, chain ID 420420417, and symbol PAS, then Save",
+            "Switch to Polkadot Hub TestNet in the Talisman network list"
           ],
-          "result": "Network added successfully once the correct RPC URL is verified and the endpoint is reachable",
-          "scenario": "Edge case: RPC URL rejected by MetaMask",
-          "user_says": "MetaMask says it could not fetch the chain ID when I enter the RPC URL"
+          "result": "Talisman configured for Polkadot Hub TestNet; ready to sign transactions",
+          "scenario": "Edge case: user prefers Talisman over MetaMask",
+          "user_says": "I use Talisman wallet — how do I add Polkadot Hub TestNet to it?"
         }
       ],
       "id": "connect-wallet-polkadot-hub",
@@ -7552,20 +7683,20 @@
       "steps": [
         {
           "action": "Open MetaMask network settings",
-          "description": "Instruct the user: Click the MetaMask extension icon in the browser toolbar to open it. Click the network selector at the top of the MetaMask popup (shows 'Ethereum Mainnet' by default). Click 'Add network' at the bottom of the network list. On the Add Network page, click 'Add a network manually'.",
+          "description": "Instruct the user: Click the MetaMask extension icon in the browser toolbar. Click the network dropdown at the top of the MetaMask popup (shows the currently active network). A network list appears — at the bottom, click the 'Custom' tab to switch to the custom networks view.",
           "order": 1,
           "working_directory": "."
         },
         {
           "action": "Enter Polkadot Hub TestNet network details",
-          "description": "Instruct the user: Fill in the following fields exactly as shown:\n- Network name: Polkadot Hub TestNet\n- New RPC URL: https://services.polkadothub-rpc.com/testnet\n- Chain ID: 420420417\n- Currency symbol: PAS\n- Block explorer URL: (leave blank — no standard explorer URL is defined)\nClick 'Save'. MetaMask will confirm the network was added.",
+          "description": "Instruct the user: In the Custom networks view, click the 'Add a custom network' button. Fill in the following fields exactly:\n- Network name: Polkadot Hub TestNet\n- New RPC URL: https://services.polkadothub-rpc.com/testnet\n- Chain ID: 420420417\n- Currency symbol: PAS\n- Block explorer URL: (leave blank — no standard explorer URL is defined)\nClick 'Save'. MetaMask will confirm the network was added.",
           "order": 2,
           "working_directory": "."
         },
         {
           "action": "Switch to Polkadot Hub TestNet",
-          "description": "Instruct the user: In MetaMask, click the network selector again. Select 'Polkadot Hub TestNet' from the list. The header now shows 'Polkadot Hub TestNet' and the balance shows PAS.",
-          "expected_output": "MetaMask header displays 'Polkadot Hub TestNet'; account balance shows PAS balance.",
+          "description": "Instruct the user: MetaMask will show the network in the list. Click 'Polkadot Hub TestNet' to switch to it. The network selector at the top of MetaMask now shows 'Polkadot Hub TestNet' and the balance shows PAS.",
+          "expected_output": "MetaMask network selector displays 'Polkadot Hub TestNet'; account balance shows PAS balance.",
           "order": 3,
           "working_directory": "."
         },
@@ -7578,7 +7709,7 @@
         },
         {
           "action": "Alternative: Add Polkadot Hub TestNet to Talisman",
-          "description": "If the user prefers Talisman instead of MetaMask, instruct them: Open the Talisman extension and click the settings icon. Go to Networks and Tokens, then Add Network. Enter the same network details as step 2: RPC URL: https://services.polkadothub-rpc.com/testnet, Chain ID: 420420417, Symbol: PAS. Save and switch to the Polkadot Hub TestNet network in Talisman.",
+          "description": "If the user prefers Talisman instead of MetaMask, instruct them: Open the Talisman extension and click on the Talisman icon in the browser toolbar. Click the 'More' button. Click 'Manage Networks'. Click the '+ Add network' button. Fill in the following details:\n- RPC URL: https://services.polkadothub-rpc.com/testnet\n- Chain ID: 420420417\n- Currency symbol: PAS\nClick Save. Polkadot Hub TestNet will now appear in the Talisman network list.",
           "order": 5,
           "working_directory": "."
         }
@@ -7607,7 +7738,7 @@
         ]
       },
       "title": "Connect a Wallet to Polkadot Hub",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -7795,7 +7926,7 @@
     },
     {
       "chain_role": "isolated",
-      "description": "Python workflow for compiling Solidity contracts with py-solc-x, deploying them to Polkadot Hub TestNet (chain ID 420420417) using Web3.py, and reading/writing contract state. Uses a Python virtualenv, .env file for the private key, and three scripts: compile.py, deploy.py, interact.py. Use when your project is Python-based and you need EVM contract interaction without Node.js. Key capabilities: virtualenv setup, py-solc-x Solidity compilation, Web3.py contract deployment, transaction signing with a local account, contract function calls. NOTE: Web3.js (the JavaScript library) has been sunset — for new JavaScript/TypeScript projects prefer Ethers.js or viem. This skill covers Web3.py (Python), which is actively maintained. Trigger phrases: 'web3.py polkadot', 'python smart contract deployment', 'deploy contract python', 'web3 python tutorial'.",
+      "description": "Python workflow for compiling Solidity contracts with py-solc-x, deploying them to Polkadot Hub TestNet (chain ID 420420417) using Web3.py, and reading/writing contract state. Uses a Python virtualenv, .env file for the private key, and three scripts: compile.py, deploy.py, update_storage.py. Use when your project is Python-based and you need EVM contract interaction without Node.js. Key capabilities: virtualenv setup, py-solc-x Solidity compilation, Web3.py contract deployment, transaction signing with a local account, contract function calls. NOTE: Web3.js (the JavaScript library) has been sunset — for new JavaScript/TypeScript projects prefer Ethers.js or viem. This skill covers Web3.py (Python), which is actively maintained. Trigger phrases: 'web3.py polkadot', 'python smart contract deployment', 'deploy contract python', 'web3 python tutorial'.",
       "env_vars": [
         {
           "description": "EVM account private key (with or without 0x prefix) for signing deployment and write transactions. Do NOT ask the user to type or paste their private key in the chat — they should edit the .env file directly.",
@@ -7817,36 +7948,36 @@
         {
           "cause": "The .env file is missing or PRIVATE_KEY is not defined in it.",
           "pattern": "KeyError: 'PRIVATE_KEY'",
-          "resolution": "Create a .env file in the web3py-contracts directory with the line: PRIVATE_KEY=0xYOUR_KEY. Ensure python-dotenv is installed and load_dotenv() is called before accessing os.environ['PRIVATE_KEY']."
+          "resolution": "Create a .env file in the web3py-project directory with the line: PRIVATE_KEY=0xYOUR_KEY. Ensure python-dotenv is installed and load_dotenv() is called before accessing os.environ['PRIVATE_KEY']."
         },
         {
           "cause": "Solidity pragma version mismatch.",
           "pattern": "SolcError: Source file requires different compiler version",
-          "resolution": "Ensure install_solc('0.8.20') is called in compile.py before compile_standard. The py-solc-x library downloads the compiler if not already cached."
+          "resolution": "Ensure solcx.install_solc('0.8.9') is called in compile.py before compile_source. The py-solc-x library downloads the compiler if not already cached."
         }
       ],
       "examples": [
         {
           "actions": [
-            "Create web3py-contracts/ directory and Python virtualenv",
+            "Create web3py-project/ directory and Python virtualenv",
             "Install web3, py-solc-x, python-dotenv via pip",
             "Instruct user to add PRIVATE_KEY to .env file directly (not in chat)",
-            "Create Storage.sol, compile.py, deploy.py, interact.py from inline code",
+            "Create Storage.sol, compile.py, deploy.py, update_storage.py from inline code",
             "Run python compile.py then python deploy.py",
-            "Run python interact.py to verify store/retrieve"
+            "Run python update_storage.py to verify setNumber/storedNumber"
           ],
-          "result": "Contract deployed and verified on Polkadot Hub TestNet; stored value updated to 42",
+          "result": "Contract deployed and verified on Polkadot Hub TestNet; storedNumber updated to 42",
           "scenario": "Common scenario: deploy a Storage contract to Polkadot Hub TestNet using Python",
           "user_says": "Deploy a smart contract to Polkadot Hub using Python and Web3.py"
         },
         {
           "actions": [
-            "Replace Storage.sol with the user's .sol file in the web3py-contracts/ directory",
-            "Update compile.py: change 'Storage.sol' key and 'Storage' contract name to match the user's file and contract name",
-            "Update deploy.py: change compiled['contracts']['YourFile.sol']['YourContract'] to match",
-            "Update interact.py: change the ABI extraction path and function calls to match the user's contract ABI"
+            "Replace Storage.sol with the user's .sol file in web3py-project/",
+            "Update compile.py: change 'Storage.sol' and 'Storage' to match the user's file and contract name",
+            "Update deploy.py: change the ABI/bytecode file paths to match",
+            "Update update_storage.py: change function calls to match the user's contract ABI"
           ],
-          "result": "Custom contract compiled and deployed; interact.py calls the contract's specific functions",
+          "result": "Custom contract compiled and deployed; update_storage.py calls the contract's specific functions",
           "scenario": "Edge case: user wants to deploy a custom contract instead of Storage",
           "user_says": "I have my own Solidity file — how do I deploy it with Web3.py?"
         }
@@ -7870,6 +8001,7 @@
         ]
       },
       "primary_page": "smart-contracts/libraries/web3-py.md",
+      "project_structure": "web3py-project/\n├── Storage.sol\n├── compile.py\n├── deploy.py\n├── update_storage.py\n├── .env\n├── .gitignore\n├── abis/\n│   └── Storage.json\n└── artifacts/\n    └── Storage.bin",
       "reference_code": {
         "base_path": "",
         "files": [],
@@ -7882,11 +8014,11 @@
         {
           "action": "Create project directory and Python virtual environment",
           "commands": [
-            "mkdir web3py-contracts && cd web3py-contracts",
+            "mkdir web3py-project && cd web3py-project",
             "python3 -m venv venv",
             "source venv/bin/activate"
           ],
-          "description": "Create a new directory named 'web3py-contracts', create a Python virtual environment inside it, and activate it. On Windows use 'venv\\Scripts\\activate' instead.",
+          "description": "Create a new directory named 'web3py-project', create a Python virtual environment inside it, and activate it. On Windows use `venv\\Scripts\\activate` instead.",
           "order": 1,
           "working_directory": "."
         },
@@ -7895,51 +8027,51 @@
           "commands": [
             "pip install web3 py-solc-x python-dotenv"
           ],
-          "description": "Install web3 (Web3.py — Ethereum/EVM Python client), py-solc-x (Python wrapper for the Solidity compiler), and python-dotenv (loads .env variables). This may take a minute as py-solc-x downloads a Solidity compiler binary.",
+          "description": "Install web3 (Web3.py — Ethereum/EVM Python client), py-solc-x (Python wrapper for the Solidity compiler), and python-dotenv (loads .env variables). py-solc-x downloads a Solidity compiler binary on first install.",
           "order": 2,
-          "working_directory": "web3py-contracts"
+          "working_directory": "web3py-project"
         },
         {
           "action": "Create the .env file with PRIVATE_KEY",
-          "description": "Create a file named '.env' in the web3py-contracts directory. Do NOT ask the user to type or paste their private key in the chat — instruct them to open the .env file in a text editor and add:\n\nPRIVATE_KEY=0xYOUR_PRIVATE_KEY_HERE\n\nReplace 0xYOUR_PRIVATE_KEY_HERE with the actual private key for the funded TestNet account. Also create a .gitignore file and add '.env' to it to prevent accidental commits:\n\necho '.env' > .gitignore",
+          "description": "Create a file named `.env` in the web3py-project directory. Do NOT ask the user to type or paste their private key in the chat — instruct them to open the .env file in a text editor and add:\n\n```\nPRIVATE_KEY=0xYOUR_PRIVATE_KEY_HERE\n```\n\nReplace `0xYOUR_PRIVATE_KEY_HERE` with the actual private key for the funded TestNet account. Also create a `.gitignore` file with `.env` to prevent accidental commits:\n\n```bash\necho '.env' > .gitignore\n```",
           "order": 3,
-          "working_directory": "web3py-contracts"
+          "working_directory": "web3py-project"
         },
         {
           "action": "Create the Storage.sol Solidity contract",
-          "description": "Create a file named 'Storage.sol' with the following content:\n\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.20;\n\ncontract Storage {\n    uint256 private storedNumber;\n\n    function store(uint256 num) public {\n        storedNumber = num;\n    }\n\n    function retrieve() public view returns (uint256) {\n        return storedNumber;\n    }\n}\n```\n\nThis is a simple Storage contract with a store(uint256) write function and a retrieve() read function.",
+          "description": "Create a file named `Storage.sol` with the following content:\n\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.9;\n\ncontract Storage {\n    uint256 public storedNumber;\n\n    function setNumber(uint256 _newNumber) public {\n        storedNumber = _newNumber;\n    }\n}\n```\n\nThis contract stores a number in `storedNumber` (publicly readable via auto-generated getter) and exposes `setNumber(uint256)` as the write function.",
           "order": 4,
-          "working_directory": "web3py-contracts"
+          "working_directory": "web3py-project"
         },
         {
           "action": "Create compile.py to compile the Solidity contract",
           "commands": [
             "python compile.py"
           ],
-          "description": "Create a file named 'compile.py' with the following content:\n\n```python\nfrom solcx import compile_standard, install_solc\nimport json\n\ninstall_solc('0.8.20')\n\nwith open('Storage.sol', 'r') as f:\n    source = f.read()\n\ncompiled = compile_standard(\n    {\n        'language': 'Solidity',\n        'sources': {'Storage.sol': {'content': source}},\n        'settings': {\n            'outputSelection': {\n                '*': {'*': ['abi', 'evm.bytecode']}\n            }\n        },\n    },\n    solc_version='0.8.20',\n)\n\nwith open('compiled.json', 'w') as f:\n    json.dump(compiled, f)\n\nprint('Compilation successful — compiled.json written.')\n```\n\nRun it to verify compilation works before proceeding.",
-          "expected_output": "Compilation successful — compiled.json written.",
+          "description": "Create a file named `compile.py` with the following content:\n\n```python\nimport json\nimport solcx\nfrom pathlib import Path\n\nSOLC_VERSION = '0.8.9'\ntry:\n    solcx.install_solc(SOLC_VERSION)\nexcept Exception as e:\n    print(f'Solc {SOLC_VERSION} already installed or error: {e}')\n\nsolcx.set_solc_version(SOLC_VERSION)\n\nwith open('Storage.sol', 'r') as f:\n    source = f.read()\n\ncompiled = solcx.compile_source(source, output_values=['abi', 'bin'], solc_version=SOLC_VERSION)\ncontract_id, iface = compiled.popitem()\n\nPath('abis').mkdir(exist_ok=True)\nPath('artifacts').mkdir(exist_ok=True)\n\nwith open('abis/Storage.json', 'w') as f:\n    json.dump(iface['abi'], f, indent=2)\n\nwith open('artifacts/Storage.bin', 'w') as f:\n    f.write(iface['bin'])\n\nprint('Contract compiled. ABI: abis/Storage.json, Bytecode: artifacts/Storage.bin')\n```\n\nRun it to confirm compilation succeeds before proceeding.",
+          "expected_output": "Contract compiled. ABI: abis/Storage.json, Bytecode: artifacts/Storage.bin",
           "order": 5,
-          "working_directory": "web3py-contracts"
+          "working_directory": "web3py-project"
         },
         {
           "action": "Create deploy.py to deploy the contract",
           "commands": [
             "python deploy.py"
           ],
-          "description": "Create a file named 'deploy.py' with the following content:\n\n```python\nimport json\nimport os\nfrom web3 import Web3\nfrom dotenv import load_dotenv\n\nload_dotenv()\n\nRPC_URL = 'https://services.polkadothub-rpc.com/testnet'\nCHAIN_ID = 420420417\nPRIVATE_KEY = os.environ['PRIVATE_KEY']\n\nw3 = Web3(Web3.HTTPProvider(RPC_URL))\nassert w3.is_connected(), 'Failed to connect to RPC endpoint'\n\naccount = w3.eth.account.from_key(PRIVATE_KEY)\nprint(f'Deploying from account: {account.address}')\n\nwith open('compiled.json') as f:\n    compiled = json.load(f)\n\ncontract_data = compiled['contracts']['Storage.sol']['Storage']\nabi = contract_data['abi']\nbytecode = contract_data['evm']['bytecode']['object']\n\nContract = w3.eth.contract(abi=abi, bytecode=bytecode)\nnonce = w3.eth.get_transaction_count(account.address)\n\ntx = Contract.constructor().build_transaction({\n    'chainId': CHAIN_ID,\n    'from': account.address,\n    'nonce': nonce,\n    'gasPrice': w3.to_wei('1000', 'gwei'),\n})\ntx['gas'] = w3.eth.estimate_gas(tx)\n\nsigned = account.sign_transaction(tx)\ntx_hash = w3.eth.send_raw_transaction(signed.raw_transaction)\nreceipt = w3.eth.wait_for_transaction_receipt(tx_hash)\n\nprint(f'Contract deployed at: {receipt.contractAddress}')\nwith open('contract_address.txt', 'w') as f:\n    f.write(receipt.contractAddress)\nprint('Address saved to contract_address.txt')\n```\n\nThe RPC URL is set to https://services.polkadothub-rpc.com/testnet and chain ID to 420420417 — no substitutions needed.",
-          "expected_output": "Deploying from account: 0x...\nContract deployed at: 0x...\nAddress saved to contract_address.txt",
+          "description": "Create a file named `deploy.py` with the following content:\n\n```python\nimport json\nimport os\nfrom web3 import Web3\nfrom dotenv import load_dotenv\n\nload_dotenv()\n\nRPC_URL = 'https://services.polkadothub-rpc.com/testnet'\nCHAIN_ID = 420420417\nPRIVATE_KEY = os.environ['PRIVATE_KEY']\n\nw3 = Web3(Web3.HTTPProvider(RPC_URL, request_kwargs={'timeout': 120}))\nassert w3.is_connected(), 'Failed to connect to RPC endpoint'\n\nformatted_key = PRIVATE_KEY if PRIVATE_KEY.startswith('0x') else f'0x{PRIVATE_KEY}'\naccount = w3.eth.account.from_key(formatted_key)\nprint(f'Deploying from: {account.address}')\n\nwith open('abis/Storage.json') as f:\n    abi = json.load(f)\nwith open('artifacts/Storage.bin') as f:\n    bytecode = f.read().strip()\n    if not bytecode.startswith('0x'):\n        bytecode = f'0x{bytecode}'\n\nContract = w3.eth.contract(abi=abi, bytecode=bytecode)\nnonce = w3.eth.get_transaction_count(account.address)\ngas_price = w3.to_wei('1000', 'gwei')\n\ntx = Contract.constructor().build_transaction({\n    'chainId': CHAIN_ID, 'from': account.address,\n    'nonce': nonce, 'gasPrice': gas_price\n})\ntx['gas'] = w3.eth.estimate_gas(tx)\n\nsigned = account.sign_transaction(tx)\ntx_hash = w3.eth.send_raw_transaction(signed.raw_transaction)\nreceipt = w3.eth.wait_for_transaction_receipt(tx_hash, timeout=300)\n\nprint(f'Contract deployed at: {receipt.contractAddress}')\nwith open('contract_address.txt', 'w') as f:\n    f.write(receipt.contractAddress)\nprint('Address saved to contract_address.txt')\n```\n\nRPC URL and chain ID are hardcoded to Polkadot Hub TestNet — no substitutions needed.",
+          "expected_output": "Deploying from: 0x...\nContract deployed at: 0x...\nAddress saved to contract_address.txt",
           "order": 6,
-          "working_directory": "web3py-contracts"
+          "working_directory": "web3py-project"
         },
         {
-          "action": "Create interact.py to call store and retrieve",
+          "action": "Create update_storage.py to call setNumber and read storedNumber",
           "commands": [
-            "python interact.py"
+            "python update_storage.py"
           ],
-          "description": "Create a file named 'interact.py' with the following content:\n\n```python\nimport json\nimport os\nfrom web3 import Web3\nfrom dotenv import load_dotenv\n\nload_dotenv()\n\nRPC_URL = 'https://services.polkadothub-rpc.com/testnet'\nCHAIN_ID = 420420417\nPRIVATE_KEY = os.environ['PRIVATE_KEY']\n\nw3 = Web3(Web3.HTTPProvider(RPC_URL))\naccount = w3.eth.account.from_key(PRIVATE_KEY)\n\nwith open('contract_address.txt') as f:\n    contract_address = f.read().strip()\n\nwith open('compiled.json') as f:\n    compiled = json.load(f)\nabi = compiled['contracts']['Storage.sol']['Storage']['abi']\n\ncontract = w3.eth.contract(address=contract_address, abi=abi)\n\n# Read current value\nvalue = contract.functions.retrieve().call()\nprint(f'Current stored value: {value}')\n\n# Write new value\nnonce = w3.eth.get_transaction_count(account.address)\ntx = contract.functions.store(42).build_transaction({\n    'chainId': CHAIN_ID,\n    'from': account.address,\n    'nonce': nonce,\n    'gasPrice': w3.to_wei('1000', 'gwei'),\n})\ntx['gas'] = w3.eth.estimate_gas(tx)\nsigned = account.sign_transaction(tx)\ntx_hash = w3.eth.send_raw_transaction(signed.raw_transaction)\nreceipt = w3.eth.wait_for_transaction_receipt(tx_hash)\nprint(f'store(42) tx: {receipt.transactionHash.hex()}')\n\n# Verify\nvalue = contract.functions.retrieve().call()\nprint(f'Updated stored value: {value}')\n```",
-          "expected_output": "Current stored value: 0\nstore(42) tx: 0x...\nUpdated stored value: 42",
+          "description": "Create a file named `update_storage.py` with the following content:\n\n```python\nimport json\nimport os\nfrom web3 import Web3\nfrom dotenv import load_dotenv\n\nload_dotenv()\n\nRPC_URL = 'https://services.polkadothub-rpc.com/testnet'\nCHAIN_ID = 420420417\nPRIVATE_KEY = os.environ['PRIVATE_KEY']\n\nw3 = Web3(Web3.HTTPProvider(RPC_URL))\nformatted_key = PRIVATE_KEY if PRIVATE_KEY.startswith('0x') else f'0x{PRIVATE_KEY}'\naccount = w3.eth.account.from_key(formatted_key)\n\nwith open('contract_address.txt') as f:\n    contract_address = f.read().strip()\n\nwith open('abis/Storage.json') as f:\n    abi = json.load(f)\n\ncontract = w3.eth.contract(address=contract_address, abi=abi)\n\n# Read current value\nvalue = contract.functions.storedNumber().call()\nprint(f'Current storedNumber: {value}')\n\n# Write new value\nnonce = w3.eth.get_transaction_count(account.address)\ntx = contract.functions.setNumber(42).build_transaction({\n    'chainId': CHAIN_ID, 'from': account.address,\n    'nonce': nonce, 'gasPrice': w3.to_wei('1000', 'gwei')\n})\ntx['gas'] = w3.eth.estimate_gas(tx)\nsigned = account.sign_transaction(tx)\ntx_hash = w3.eth.send_raw_transaction(signed.raw_transaction)\nreceipt = w3.eth.wait_for_transaction_receipt(tx_hash)\nprint(f'setNumber(42) tx: {receipt.transactionHash.hex()}')\n\n# Verify\nvalue = contract.functions.storedNumber().call()\nprint(f'Updated storedNumber: {value}')\n```",
+          "expected_output": "Current storedNumber: 0\nsetNumber(42) tx: 0x...\nUpdated storedNumber: 42",
           "order": 7,
-          "working_directory": "web3py-contracts"
+          "working_directory": "web3py-project"
         }
       ],
       "supplementary_context": {
@@ -7966,53 +8098,57 @@
         ]
       },
       "title": "Deploy and Interact with Smart Contracts on Polkadot Hub Using Web3.py",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
       "chain_role": "isolated",
-      "description": "Guides through using the ERC-20 precompile on Polkadot Hub, which wraps the native PAS token as an ERC-20 compatible interface at a fixed precompile address. Workflow: connect MetaMask to Polkadot Hub TestNet, load the precompile ABI in Remix IDE, and call read functions (balanceOf, allowance) and write functions (transfer, approve, transferFrom). Use when you need to interact with native PAS as an ERC-20 token from a Solidity contract or Remix. Key capabilities: MetaMask wallet connection, Remix At Address deployment against precompile, ERC-20 standard function calls on the native token. NOTE: The exact precompile address is documented in the source page — load https://docs.polkadot.com/smart-contracts/precompiles/erc20.md to find it. Trigger phrases: 'erc20 precompile polkadot', 'native token as erc20', 'pas erc20 interface', 'precompile erc20 remix'.",
+      "description": "Guides through using the ERC-20 precompile on Polkadot Hub, which provides a standard ERC-20 interface for assets managed by the Assets pallet (e.g., USDt at 0x000007C000000000000000000000000001200000, USDC at 0x0000053900000000000000000000000001200000). Supports three asset types: Trust-Backed Assets (suffix 01200000), Foreign Assets (suffix 02200000), and Pool Assets (suffix 03200000). NOTE: Metadata functions (name, symbol, decimals) are NOT available via this precompile. Workflow: connect MetaMask to Polkadot Hub TestNet, create IERC20-precompile.sol in Remix, load via At Address, and call read/write functions. Use when you need to interact with native Polkadot assets using standard ERC-20 calls. Trigger phrases: 'erc20 precompile polkadot', 'usdt usdc polkadot hub erc20', 'assets pallet erc20', 'precompile erc20 remix'.",
       "env_vars": [],
       "error_patterns": [
         {
-          "cause": "The IERC20.sol file was not compiled successfully before clicking At Address.",
+          "cause": "The IERC20-precompile.sol file was not compiled successfully before clicking At Address.",
           "pattern": "Remix: 'At Address' button disabled or no output",
-          "resolution": "Go to the Solidity Compiler tab, select compiler version 0.8.20, and click 'Compile IERC20.sol'. Then return to Deploy and Run and try At Address again."
+          "resolution": "Go to the Solidity Compiler tab, select compiler version 0.8.20 or higher, and click 'Compile IERC20-precompile.sol'. Then return to Deploy and Run and try At Address again."
         },
         {
           "cause": "MetaMask is still on Ethereum Mainnet or another network.",
           "pattern": "MetaMask: Wrong network — expected Custom (420420417)",
-          "resolution": "Open MetaMask, click the network selector, and switch to Polkadot Hub TestNet (chain ID 420420417). Use the add-polkadot-hub-testnet-metamask skill if the network is not listed."
+          "resolution": "Open MetaMask, click the network selector, and switch to Polkadot Hub TestNet (chain ID 420420417). Use the connect-wallet-polkadot-hub skill if the network is not listed."
         },
         {
-          "cause": "Attempting to transfer more PAS than the account holds.",
+          "cause": "Attempting to transfer more tokens than the account holds.",
           "pattern": "Transaction reverted: insufficient balance",
-          "resolution": "Call balanceOf first to confirm the available balance, then use an amount in wei that does not exceed it."
+          "resolution": "Call balanceOf first to confirm the available balance, then use an amount that does not exceed it."
+        },
+        {
+          "cause": "Metadata functions are not implemented in the ERC-20 precompile.",
+          "pattern": "Remix: call reverts on name() / symbol() / decimals()",
+          "resolution": "Remove name(), symbol(), and decimals() from the IERC20 interface. Query decimals from the Assets pallet storage directly if needed."
         }
       ],
       "examples": [
         {
           "actions": [
-            "Load source page to find the ERC-20 precompile address",
+            "Note the USDt precompile address: 0x000007C000000000000000000000000001200000",
             "Connect MetaMask to Polkadot Hub TestNet (chain ID 420420417)",
-            "Create IERC20.sol in Remix with the standard ERC-20 interface and compile it",
+            "Create IERC20-precompile.sol in Remix with the 6 standard ERC-20 functions and compile it",
             "Set Environment to Injected Provider - MetaMask in Deploy and Run tab",
-            "Click At Address with the precompile address",
-            "Expand balanceOf, enter the MetaMask address, and click call"
+            "Click At Address with 0x000007C000000000000000000000000001200000",
+            "Expand balanceOf, enter an account address, and click call"
           ],
-          "result": "uint256 PAS balance in wei displayed in Remix console",
-          "scenario": "Common scenario: check PAS balance via ERC-20 precompile in Remix",
-          "user_says": "How do I call balanceOf on the ERC-20 precompile in Remix?"
+          "result": "uint256 USDt balance in smallest units (6 decimals) displayed in Remix console",
+          "scenario": "Common scenario: check USDt balance via ERC-20 precompile in Remix",
+          "user_says": "How do I call balanceOf on the USDt ERC-20 precompile in Remix?"
         },
         {
           "actions": [
-            "Load source page to get the ERC-20 precompile address",
-            "In the Solidity contract, import or define the IERC20 interface",
-            "Store the precompile address as a constant: IERC20 constant PAS_ERC20 = IERC20(PRECOMPILE_ADDRESS)",
-            "Call PAS_ERC20.balanceOf(msg.sender) or PAS_ERC20.transfer(to, amount) as needed",
+            "Import or define the IERC20 interface (6 functions, no metadata functions)",
+            "Store the precompile address as a constant: IERC20 constant USDT = IERC20(0x000007C000000000000000000000000001200000)",
+            "Call USDT.balanceOf(msg.sender) or USDT.transfer(to, amount) as needed",
             "Deploy the wrapper contract via Remix with MetaMask connected to Polkadot Hub TestNet"
           ],
-          "result": "Solidity contract calls the ERC-20 precompile to read balances or transfer native PAS tokens",
+          "result": "Solidity contract calls the ERC-20 precompile to read balances or transfer Assets pallet tokens",
           "scenario": "Edge case: user wants to call the precompile from a Solidity contract",
           "user_says": "How do I use the ERC-20 precompile from inside my Solidity contract?"
         }
@@ -8045,55 +8181,54 @@
       ],
       "steps": [
         {
-          "action": "Find the ERC-20 precompile address from the source page",
-          "description": "Delegate to the user: Load the source page https://docs.polkadot.com/smart-contracts/precompiles/erc20.md to find the exact ERC-20 precompile address for Polkadot Hub TestNet. Note this address — it will be used in step 4 as the 'At Address' target in Remix. The address is a fixed precompile address that wraps the native PAS token.",
-          "interactive": true,
+          "action": "Identify the ERC-20 precompile address for your asset",
+          "description": "The ERC-20 precompile addresses are deterministic based on asset ID. Well-known Trust-Backed Assets on Polkadot Hub MainNet:\n- USDt (asset ID 1984): `0x000007C000000000000000000000000001200000`\n- USDC (asset ID 1337): `0x0000053900000000000000000000000001200000`\n\nAddress formula for Trust-Backed Assets: `0x` + assetId (8 hex digits, zero-padded) + 24 zero digits + `01200000`.\n\nFor Foreign Assets, use suffix `02200000` with the foreign asset index (not the XCM Location). For Pool Assets, use suffix `03200000`. Load https://docs.polkadot.com/smart-contracts/precompiles/erc20.md for the address converter and complete reference. Note the address you intend to use — it is required in step 4.",
           "order": 1,
           "working_directory": "."
         },
         {
           "action": "Connect MetaMask to Polkadot Hub TestNet",
-          "description": "Delegate to the user: Open MetaMask and switch to the Polkadot Hub TestNet network (chain ID 420420417, RPC https://services.polkadothub-rpc.com/testnet). If the network is not added yet, use the add-polkadot-hub-testnet-metamask skill to add it. Verify your PAS balance is non-zero before proceeding.",
+          "description": "Delegate to the user: Open MetaMask and switch to Polkadot Hub TestNet (chain ID 420420417, RPC https://services.polkadothub-rpc.com/testnet). If the network is not added yet, use the connect-wallet-polkadot-hub skill to add it. Verify your PAS balance is non-zero before proceeding.",
           "interactive": true,
           "order": 2,
           "working_directory": "."
         },
         {
           "action": "Open Remix IDE and create the ERC-20 interface file",
-          "description": "Delegate to the user: Open https://remix.ethereum.org in the browser. In the File Explorer panel (left sidebar), create a new file named 'IERC20.sol'. Paste the standard ERC-20 interface into the file:\n\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.20;\n\ninterface IERC20 {\n    function totalSupply() external view returns (uint256);\n    function balanceOf(address account) external view returns (uint256);\n    function transfer(address to, uint256 amount) external returns (bool);\n    function allowance(address owner, address spender) external view returns (uint256);\n    function approve(address spender, uint256 amount) external returns (bool);\n    function transferFrom(address from, address to, uint256 amount) external returns (bool);\n}\n```\n\nClick the Solidity Compiler tab (shield icon), set the compiler version to 0.8.20, and click 'Compile IERC20.sol'.",
+          "description": "Delegate to the user: Open https://remix.ethereum.org in the browser. In the File Explorer panel (left sidebar), create a new file named `IERC20-precompile.sol`. Paste the following interface into the file:\n\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ninterface IERC20 {\n    function totalSupply() external view returns (uint256);\n    function transfer(address to, uint256 amount) external returns (bool);\n    function balanceOf(address account) external view returns (uint256);\n    function allowance(address owner, address spender) external view returns (uint256);\n    function approve(address spender, uint256 amount) external returns (bool);\n    function transferFrom(address from, address to, uint256 amount) external returns (bool);\n}\n```\n\nIMPORTANT: The optional ERC-20 metadata functions (`name()`, `symbol()`, `decimals()`) are NOT implemented in this precompile — do not add them to the interface or they will revert.\n\nClick the Solidity Compiler tab (shield icon), set the compiler version to 0.8.20 (or higher), and click 'Compile IERC20-precompile.sol'.",
           "interactive": true,
           "order": 3,
           "working_directory": "."
         },
         {
           "action": "Connect Remix to MetaMask and load the precompile using At Address",
-          "description": "Delegate to the user: Click the Deploy and Run Transactions tab (Ethereum icon) in Remix. In the Environment dropdown, select 'Injected Provider - MetaMask'. MetaMask will pop up — confirm the connection to Remix. Verify the network shows 'Custom (420420417) network'. In the Contract dropdown, select 'IERC20'. In the 'At Address' input field, paste the ERC-20 precompile address obtained in step 1. Click the 'At Address' button. A new IERC20 instance should appear in the Deployed Contracts section below.",
+          "description": "Delegate to the user: Click the Deploy and Run Transactions tab (Ethereum icon) in Remix. In the Environment dropdown, select 'Injected Provider - MetaMask'. MetaMask will pop up — confirm the connection to Remix. Verify the network shows 'Custom (420420417) network'. In the Contract dropdown, select 'IERC20'. In the 'At Address' input field, paste the ERC-20 precompile address from step 1 (e.g., `0x000007C000000000000000000000000001200000` for USDt). Click the 'At Address' button. A new IERC20 instance should appear in the Deployed Contracts section below.",
           "interactive": true,
           "order": 4,
           "working_directory": "."
         },
         {
-          "action": "Call balanceOf to check PAS token balance",
-          "description": "Delegate to the user: In the Deployed Contracts section, expand the IERC20 instance. Click 'balanceOf' to expand it. In the 'account' field, paste your MetaMask account address. Click the 'call' button (blue). The output shows your PAS balance as a uint256 value in wei (18 decimals). To convert: divide the result by 10^18 to get the PAS amount.",
-          "expected_output": "uint256 balance in wei — should match MetaMask PAS balance * 10^18",
+          "action": "Call balanceOf to check token balance",
+          "description": "Delegate to the user: In the Deployed Contracts section, expand the IERC20 instance. Click 'balanceOf' to expand it. In the 'account' field, paste an account address. Click the 'call' button (blue). The output shows the token balance as a uint256 value. Divide by 10^decimals to get the human-readable amount (USDt and USDC use 6 decimals). To check total supply, call 'totalSupply' with no arguments.",
+          "expected_output": "uint256 balance for the account; 0 if the account holds none of this asset",
           "interactive": true,
           "order": 5,
           "working_directory": "."
         },
         {
           "action": "Call approve and transfer functions",
-          "description": "Delegate to the user: To approve a spender, expand the 'approve' function. Enter a spender address in the 'spender' field and an amount in wei in the 'amount' field. Click 'transact' (orange). MetaMask will prompt for confirmation — approve it. Wait for the transaction to confirm. To transfer tokens, expand 'transfer', enter the recipient address and amount in wei, and click 'transact'. Confirm in MetaMask.",
-          "expected_output": "Transaction confirmed in MetaMask; tx hash visible in Remix console",
+          "description": "Delegate to the user: To approve a spender, expand the 'approve' function. Enter a spender address in the 'spender' field and an amount in the smallest unit (e.g., 1000000 for 1 USDt with 6 decimals) in the 'amount' field. Click 'transact' (orange). MetaMask will prompt for confirmation — approve it. To transfer tokens, expand 'transfer', enter the recipient address and amount, and click 'transact'. Note: transfers will fail if the caller doesn't hold sufficient balance of the asset.",
+          "expected_output": "Transaction confirmed in MetaMask; tx hash visible in Remix console; bool true returned",
           "interactive": true,
           "order": 6,
           "working_directory": "."
         }
       ],
       "supplementary_context": {
-        "description": "Load these pages when the user needs the precompile address, wants to add MetaMask, or wants to call the precompile from a contract.",
+        "description": "Load these pages when the user needs the precompile address converter, wants to add MetaMask, or wants to call the precompile from a contract.",
         "pages": [
           {
-            "relevance": "Full ERC-20 precompile source page with the exact precompile address, complete ABI, and additional usage examples.",
+            "relevance": "Full ERC-20 precompile source page with the address converter, complete ABI, and all three asset type formats.",
             "slug": "smart-contracts-precompiles-erc20",
             "title": "Interact with the ERC20 Precompile",
             "url": "https://docs.polkadot.com/smart-contracts/precompiles/erc20.md"
@@ -8113,12 +8248,12 @@
         ]
       },
       "title": "Interact with the ERC-20 Precompile on Polkadot Hub via Remix",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
       "chain_role": "isolated",
-      "description": "Six-step workflow for using the Storage precompile on Polkadot Hub via Remix IDE. The Storage precompile provides a persistent key-value store accessible from smart contracts, mapping bytes32 keys to bytes values. Workflow: connect MetaMask, find the precompile address from the source page, create the precompile interface in Remix, load it via At Address, and call setBytes/getBytes. Use when you need on-chain persistent storage accessible directly from precompile calls without deploying a storage contract. Key capabilities: bytes32 key encoding, bytes value storage, Storage precompile ABI definition in Remix, MetaMask transaction signing. NOTE: The exact precompile address is documented in the source page — load https://docs.polkadot.com/smart-contracts/precompiles/storage.md to find it. Trigger phrases: 'storage precompile polkadot', 'setBytes getBytes precompile', 'polkadot hub key value storage', 'precompile storage remix'.",
+      "description": "Six-step workflow for using the Storage precompile on Polkadot Hub via Remix IDE. The Storage precompile (address 0x0000000000000000000000000000000000000901) provides low-level access to contract storage: read full/partial values (get, get_range, get_prefix), write/delete (set, remove), and inspect (has_key, length). Workflow: connect MetaMask, create IStorage.sol in Remix, load via At Address, and call storage functions. Use when you need fine-grained control over storage layout or want to read/write raw storage keys from Remix. Key capabilities: bytes32 key operations, partial reads with offset/length, key existence checks, storage management. Trigger phrases: 'storage precompile polkadot', 'IStorage precompile', 'polkadot hub key value storage', 'precompile storage remix'.",
       "env_vars": [],
       "error_patterns": [
         {
@@ -8127,36 +8262,40 @@
           "resolution": "Compile IStorage.sol first via the Solidity Compiler tab, then return to Deploy and Run. Ensure 'IStorage' is selected in the Contract dropdown before clicking At Address."
         },
         {
-          "cause": "The key used in getBytes does not match the key used in setBytes, or the setBytes transaction did not confirm.",
-          "pattern": "getBytes returns 0x (empty bytes)",
-          "resolution": "Ensure the bytes32 key in getBytes is identical to the one used in setBytes. Check Remix console for the setBytes transaction hash to confirm it was mined."
+          "cause": "The key used in get does not exist (has never been set), or the set transaction did not confirm.",
+          "pattern": "get reverts: key does not exist in storage",
+          "resolution": "Use has_key first to check existence. If it returns false, the key was not written. Check Remix console for the set transaction hash to confirm it was mined."
         },
         {
-          "cause": "Gas estimate too low for setBytes with a large value.",
+          "cause": "The sum of offset and length is greater than the actual stored value length.",
+          "pattern": "get_range reverts: offset + length exceeds value length",
+          "resolution": "Call length(key) first to check the stored value size, then ensure offset + length does not exceed it."
+        },
+        {
+          "cause": "Gas estimate too low for set with a large value.",
           "pattern": "MetaMask: Transaction failed with out of gas",
-          "resolution": "In MetaMask, increase the gas limit manually before confirming the setBytes transaction."
+          "resolution": "In MetaMask, increase the gas limit manually before confirming the set transaction. Large storage writes are more expensive."
         }
       ],
       "examples": [
         {
           "actions": [
-            "Load source page to get the Storage precompile address",
             "Connect MetaMask to Polkadot Hub TestNet (chain ID 420420417)",
-            "Create IStorage.sol in Remix with setBytes/getBytes interface and compile it",
-            "Set Environment to Injected Provider - MetaMask, select IStorage, click At Address with the precompile address",
-            "Call setBytes with a bytes32 key (hex-padded) and hex-encoded bytes value",
-            "Call getBytes with the same key to verify the stored value"
+            "Create IStorage.sol in Remix with the full IStorage interface (get, set, remove, has_key, etc.) and compile it",
+            "Set Environment to Injected Provider - MetaMask, select IStorage, click At Address with 0x0000000000000000000000000000000000000901",
+            "Call set with a bytes32 key and hex-encoded bytes value",
+            "Call get with the same key to verify the stored value",
+            "Call has_key to confirm the key exists"
           ],
-          "result": "Value stored on-chain via setBytes; getBytes returns the same hex-encoded bytes",
+          "result": "Value stored on-chain via set; get returns the same hex-encoded bytes; has_key returns true",
           "scenario": "Common scenario: store and retrieve bytes using the Storage precompile",
           "user_says": "How do I use the Storage precompile in Remix to store a value?"
         },
         {
           "actions": [
-            "Load source page to get the precompile address",
-            "In the user's contract, import or define the IStorage interface",
-            "Store the precompile address as a constant: IStorage constant STORE = IStorage(PRECOMPILE_ADDRESS)",
-            "Call STORE.setBytes(key, value) and STORE.getBytes(key) in contract functions",
+            "Import or define the IStorage interface in the user's contract",
+            "Store the precompile address as a constant: IStorage constant STORE = IStorage(0x0000000000000000000000000000000000000901)",
+            "Call STORE.set(key, value) and STORE.get(key) in contract functions",
             "Deploy the wrapper contract in Remix targeting Polkadot Hub TestNet"
           ],
           "result": "User's contract reads and writes key-value data through the Storage precompile",
@@ -8175,7 +8314,7 @@
           "Modern web browser (Chrome or Firefox recommended)"
         ],
         "tokens": [
-          "PAS balance for setBytes write transactions — obtain from https://faucet.polkadot.io/"
+          "PAS balance for set/remove write transactions — obtain from https://faucet.polkadot.io/"
         ],
         "wallet": [
           "MetaMask installed with Polkadot Hub TestNet configured (chain ID 420420417)"
@@ -8192,55 +8331,55 @@
       ],
       "steps": [
         {
-          "action": "Find the Storage precompile address from the source page",
-          "description": "Delegate to the user: Load https://docs.polkadot.com/smart-contracts/precompiles/storage.md to find the exact Storage precompile address for Polkadot Hub TestNet. Note this address — it will be used in step 4 as the 'At Address' target in Remix.",
+          "action": "Connect MetaMask to Polkadot Hub TestNet",
+          "description": "Delegate to the user: Open MetaMask and switch to Polkadot Hub TestNet (chain ID 420420417). If the network is not added, use the connect-wallet-polkadot-hub skill. Confirm a non-zero PAS balance. The Storage precompile is at the fixed address `0x0000000000000000000000000000000000000901` — note this for step 4.",
           "interactive": true,
           "order": 1,
           "working_directory": "."
         },
         {
-          "action": "Connect MetaMask to Polkadot Hub TestNet",
-          "description": "Delegate to the user: Open MetaMask and switch to Polkadot Hub TestNet (chain ID 420420417). If the network is not added, use the add-polkadot-hub-testnet-metamask skill. Confirm a non-zero PAS balance.",
+          "action": "Open Remix IDE",
+          "description": "Delegate to the user: Open https://remix.ethereum.org in the browser.",
           "interactive": true,
           "order": 2,
           "working_directory": "."
         },
         {
-          "action": "Create the Storage precompile interface in Remix",
-          "description": "Delegate to the user: Open https://remix.ethereum.org. Create a new file named 'IStorage.sol' and paste the following interface:\n\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.20;\n\ninterface IStorage {\n    function setBytes(bytes32 key, bytes memory value) external;\n    function getBytes(bytes32 key) external view returns (bytes memory);\n}\n```\n\nGo to the Solidity Compiler tab, set the version to 0.8.20, and click 'Compile IStorage.sol'. Confirm there are no errors.",
+          "action": "Create the IStorage interface in Remix and compile it",
+          "description": "Delegate to the user: Create a new file named `IStorage.sol` in Remix and paste the following interface (from the Polkadot SDK IStorage.sol at https://github.com/paritytech/polkadot-sdk/blob/62fa27df30d985600963fd5bcec1080e4c63fd4b/substrate/frame/revive/uapi/sol/IStorage.sol):\n\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ninterface IStorage {\n    // Read full value at key\n    function get(bytes32 key) external view returns (bytes memory);\n    // Read a range: offset bytes in, length bytes out\n    function get_range(bytes32 key, uint32 offset, uint32 length) external view returns (bytes memory);\n    // Read up to max_length bytes from the start\n    function get_prefix(bytes32 key, uint32 max_length) external view returns (bytes memory);\n    // Write value at key\n    function set(bytes32 key, bytes memory value) external;\n    // Delete value at key\n    function remove(bytes32 key) external;\n    // True if key exists (even if value is empty)\n    function has_key(bytes32 key) external view returns (bool);\n    // Length in bytes of the stored value\n    function length(bytes32 key) external view returns (uint32);\n}\n```\n\nGo to the Solidity Compiler tab, set the version to 0.8.20 or higher, and click 'Compile IStorage.sol'. Confirm there are no errors.",
           "interactive": true,
           "order": 3,
           "working_directory": "."
         },
         {
           "action": "Connect Remix to MetaMask and load the precompile using At Address",
-          "description": "Delegate to the user: Click the Deploy and Run Transactions tab in Remix. Set Environment to 'Injected Provider - MetaMask' and confirm the MetaMask connection popup. Verify the network displays 'Custom (420420417) network'. Select 'IStorage' in the Contract dropdown. Paste the Storage precompile address (from step 1) into the 'At Address' input. Click 'At Address'. An IStorage instance should appear in the Deployed Contracts section.",
+          "description": "Delegate to the user: Click the Deploy and Run Transactions tab in Remix. Set Environment to 'Injected Provider - MetaMask' and confirm the MetaMask connection popup. Verify the network displays 'Custom (420420417) network'. Select 'IStorage' in the Contract dropdown. Enter the Storage precompile address `0x0000000000000000000000000000000000000901` into the 'At Address' input. Click 'At Address'. An IStorage instance should appear in the Deployed Contracts section.",
           "interactive": true,
           "order": 4,
           "working_directory": "."
         },
         {
-          "action": "Call setBytes to store a value",
-          "description": "Delegate to the user: In the Deployed Contracts section, expand the IStorage instance. Expand the 'setBytes' function. In the 'key' field, enter a bytes32 value — for example, a 32-byte hex string: 0x6d79546573744b657900000000000000000000000000000000000000000000000 (this is 'myTestKey' zero-padded to 32 bytes). In the 'value' field, enter the hex-encoded bytes value you want to store — for example: 0x68656c6c6f (which is 'hello' in UTF-8). Click 'transact' (orange button). MetaMask will prompt for confirmation — approve it. Wait for the transaction to confirm.",
+          "action": "Call set to store a value",
+          "description": "Delegate to the user: In the Deployed Contracts section, expand the IStorage instance. Expand the 'set' function. In the 'key' field, enter a bytes32 value — for example, a 32-byte hex string: `0x6d79546573744b6579000000000000000000000000000000000000000000000000` (this is 'myTestKey' zero-padded to 32 bytes). In the 'value' field, enter hex-encoded bytes to store — for example: `0x68656c6c6f` (which is 'hello' in UTF-8). Click 'transact' (orange). MetaMask will prompt for confirmation — approve it. Wait for the transaction to confirm.",
           "expected_output": "Transaction confirmed; tx hash shown in Remix console",
           "interactive": true,
           "order": 5,
           "working_directory": "."
         },
         {
-          "action": "Call getBytes to retrieve the stored value",
-          "description": "Delegate to the user: In the IStorage instance, expand 'getBytes'. Enter the same bytes32 key used in setBytes. Click 'call' (blue button). The output displays the stored bytes value in hex. To decode: the hex 0x68656c6c6f decodes to 'hello' in UTF-8.",
-          "expected_output": "bytes output matching the hex value stored in setBytes",
+          "action": "Call get to retrieve the stored value",
+          "description": "Delegate to the user: In the IStorage instance, expand 'get'. Enter the same bytes32 key used in step 5. Click 'call' (blue). The output displays the stored bytes value in hex — `0x68656c6c6f` decodes to 'hello' in UTF-8. To check if the key exists, expand 'has_key' and call it with the same key — it should return true. To get the byte length without reading the data, call 'length' with the key.",
+          "expected_output": "bytes output matching the hex value stored in set; has_key returns true",
           "interactive": true,
           "order": 6,
           "working_directory": "."
         }
       ],
       "supplementary_context": {
-        "description": "Load these pages when the user needs the precompile address, wants to call the precompile from Solidity, or needs Remix connection help.",
+        "description": "Load these pages when the user needs the authoritative interface, wants to call the precompile from Solidity, or needs Remix connection help.",
         "pages": [
           {
-            "relevance": "Full Storage precompile source page with the exact precompile address, full ABI, and key encoding examples.",
+            "relevance": "Full Storage precompile source page with the authoritative IStorage interface, all function signatures, and usage examples.",
             "slug": "smart-contracts-precompiles-storage",
             "title": "Interact with the Storage Precompile",
             "url": "https://docs.polkadot.com/smart-contracts/precompiles/storage.md"
@@ -8260,50 +8399,49 @@
         ]
       },
       "title": "Interact with the Storage Precompile on Polkadot Hub via Remix",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
       "chain_role": "isolated",
-      "description": "Guides through using the System precompile on Polkadot Hub via Remix IDE. The System precompile exposes Substrate-native operations to EVM contracts: BLAKE2b/BLAKE2s hashing, sr25519 signature verification, account existence checks, and contract lifecycle operations (self-destruct, code retrieval). Workflow: connect MetaMask, find the precompile address from the source page, create the interface in Remix, load it via At Address, and call individual functions. NOTE: Several example inputs (sig, pubKey) are placeholder values — the step descriptions mark these as INSERT_SIGNATURE and INSERT_PUBLIC_KEY with instructions on how to obtain them. NOTE: The exact precompile address is documented in the source page — load https://docs.polkadot.com/smart-contracts/precompiles/system.md to find it. Use when you need Substrate cryptographic primitives from an EVM contract. Trigger phrases: 'system precompile polkadot', 'blake2 hash solidity', 'sr25519 verification evm', 'polkadot hub system precompile remix'.",
+      "description": "Guides through using the System precompile on Polkadot Hub (address 0x0000000000000000000000000000000000000900) via Remix IDE. The System precompile exposes Substrate-native operations: BLAKE2 hashing (hashBlake256, hashBlake128), sr25519 signature verification, ECDSA address conversion, account management (toAccountId), runtime queries (callerIsOrigin, callerIsRoot, minimumBalance, ownCodeHash, weightLeft), and contract lifecycle (terminate). Workflow: connect MetaMask, create ISystem.sol with the authoritative interface, load via At Address, and call functions. Use when you need Polkadot-native cryptographic primitives or runtime state queries from an EVM contract. Trigger phrases: 'system precompile polkadot', 'blake2 hash solidity', 'sr25519 verification evm', 'polkadot hub system precompile remix'.",
       "env_vars": [],
       "error_patterns": [
         {
-          "cause": "The sig or pubKey bytes are not the correct length or format for sr25519.",
-          "pattern": "Remix: call reverts on verifySignature with invalid inputs",
-          "resolution": "sr25519 signatures are 64 bytes (128 hex chars with 0x prefix = 130 chars total). Public keys are 32 bytes (64 hex chars). Use the subkey tool to generate a valid signature: subkey sign --scheme sr25519 --suri '//Alice' --message 'test'. Ensure all inputs are hex-encoded with 0x prefix."
+          "cause": "The interface definition uses old function names (blake2b, blake2s, verifySignature, accountExists) that do not exist in the actual precompile.",
+          "pattern": "ISystem.sol compilation error: function not found / wrong parameter types",
+          "resolution": "Replace with the correct interface: hashBlake256, hashBlake128, sr25519Verify (with uint8[64] calldata signature, bytes calldata message, bytes32 publicKey), toAccountId, etc. The authoritative source is at https://github.com/paritytech/polkadot-sdk/blob/62fa27df30d985600963fd5bcec1080e4c63fd4b/substrate/frame/revive/uapi/sol/ISystem.sol."
+        },
+        {
+          "cause": "The signature bytes (uint8[64]) or public key (bytes32) are not in the correct format.",
+          "pattern": "sr25519Verify returns false for known-valid signature",
+          "resolution": "sr25519 signatures are exactly 64 bytes (128 hex chars). Public keys are 32 bytes (64 hex chars). Ensure the uint8[64] array is passed as 64 separate decimal or hex values, not as a concatenated bytes string."
         },
         {
           "cause": "Incorrect precompile address entered, or MetaMask connected to the wrong network.",
           "pattern": "At Address: no contract at address",
-          "resolution": "Re-load the source page to get the correct System precompile address. Verify MetaMask shows chain ID 420420417."
-        },
-        {
-          "cause": "The interface in ISystem.sol may not match the exact ABI exposed by the precompile.",
-          "pattern": "ISystem.sol compilation error: function not found in interface",
-          "resolution": "Load https://docs.polkadot.com/smart-contracts/precompiles/system.md for the authoritative ABI and update the interface accordingly."
+          "resolution": "Re-verify the address is exactly 0x0000000000000000000000000000000000000900. Verify MetaMask shows chain ID 420420417."
         }
       ],
       "examples": [
         {
           "actions": [
-            "Load source page to get the System precompile address",
             "Connect MetaMask to Polkadot Hub TestNet (chain ID 420420417)",
-            "Create ISystem.sol in Remix with the BLAKE2 and other function signatures, then compile",
-            "Set Environment to Injected Provider - MetaMask, select ISystem, click At Address with the precompile address",
-            "Expand blake2b, enter hex-encoded input data (e.g. 0x68656c6c6f for 'hello'), click call",
-            "Record the BLAKE2b hash output"
+            "Create ISystem.sol in Remix with the correct interface (hashBlake256, hashBlake128, sr25519Verify, etc.) and compile",
+            "Set Environment to Injected Provider - MetaMask, select ISystem, click At Address with 0x0000000000000000000000000000000000000900",
+            "Expand hashBlake256, enter hex-encoded input data (e.g. 0x68656c6c6f for 'hello'), click call",
+            "Record the BLAKE2-256 hash output as bytes32"
           ],
-          "result": "BLAKE2b hash of the input bytes returned as hex in the Remix console",
-          "scenario": "Common scenario: compute a BLAKE2b hash using the System precompile in Remix",
-          "user_says": "How do I use the System precompile to hash data with BLAKE2b in Remix?"
+          "result": "BLAKE2-256 hash of the input bytes returned as bytes32 in the Remix console",
+          "scenario": "Common scenario: compute a BLAKE2-256 hash using the System precompile in Remix",
+          "user_says": "How do I use the System precompile to hash data with BLAKE2 in Remix?"
         },
         {
           "actions": [
-            "Generate a test signature using subkey: subkey sign --scheme sr25519 --suri '//Alice' --message 'test'",
-            "Note the 64-byte signature hex and the 32-byte Alice public key hex",
-            "In Remix, expand verifySignature on the ISystem instance",
-            "Enter INSERT_SIGNATURE (replace with the 64-byte sig), INSERT_PUBLIC_KEY (replace with Alice pubkey), and message (0x74657374 for 'test')",
+            "Generate a test signature: subkey sign --scheme sr25519 --suri '//Alice' --message 'test'",
+            "Note the 64-byte signature and get Alice's public key: subkey inspect --scheme sr25519 '//Alice'",
+            "In Remix, expand sr25519Verify on the ISystem instance",
+            "Enter the signature as uint8[64], the message as bytes, and publicKey as bytes32",
             "Click call and confirm the result is true"
           ],
           "result": "bool true returned — sr25519 signature verified on-chain via the System precompile",
@@ -8339,63 +8477,63 @@
       ],
       "steps": [
         {
-          "action": "Find the System precompile address from the source page",
-          "description": "Delegate to the user: Load https://docs.polkadot.com/smart-contracts/precompiles/system.md to find the exact System precompile address for Polkadot Hub TestNet. Note this address — it will be used in step 4 as the 'At Address' target in Remix.",
+          "action": "Connect MetaMask to Polkadot Hub TestNet",
+          "description": "Delegate to the user: Open MetaMask and switch to Polkadot Hub TestNet (chain ID 420420417). If the network is not added, use the connect-wallet-polkadot-hub skill. Confirm a non-zero PAS balance. The System precompile is at the fixed address `0x0000000000000000000000000000000000000900` — note this for step 4.",
           "interactive": true,
           "order": 1,
           "working_directory": "."
         },
         {
-          "action": "Connect MetaMask to Polkadot Hub TestNet",
-          "description": "Delegate to the user: Open MetaMask and switch to Polkadot Hub TestNet (chain ID 420420417). If the network is not added, use the add-polkadot-hub-testnet-metamask skill. Confirm a non-zero PAS balance.",
+          "action": "Open Remix IDE",
+          "description": "Delegate to the user: Open https://remix.ethereum.org in the browser.",
           "interactive": true,
           "order": 2,
           "working_directory": "."
         },
         {
-          "action": "Create the System precompile interface in Remix",
-          "description": "Delegate to the user: Open https://remix.ethereum.org. Create a new file named 'ISystem.sol' and paste the following interface:\n\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.20;\n\ninterface ISystem {\n    // BLAKE2 hashing\n    function blake2b(bytes memory data) external view returns (bytes memory);\n    function blake2s(bytes memory data) external view returns (bytes memory);\n    // sr25519 signature verification\n    function verifySignature(\n        bytes memory sig,\n        bytes memory pubKey,\n        bytes memory message\n    ) external view returns (bool);\n    // Account management\n    function accountExists(address account) external view returns (bool);\n    // Contract lifecycle\n    function killContract(address target) external;\n    function getCode(address target) external view returns (bytes memory);\n}\n```\n\nNote: Refer to the source page (https://docs.polkadot.com/smart-contracts/precompiles/system.md) for the authoritative function signatures — the interface above captures the key functions but the source page is the definitive reference. Go to the Solidity Compiler tab, set version to 0.8.20, and click 'Compile ISystem.sol'.",
+          "action": "Create the ISystem interface in Remix and compile it",
+          "description": "Delegate to the user: Create a new file named `ISystem.sol` in Remix. The authoritative source is at https://github.com/paritytech/polkadot-sdk/blob/62fa27df30d985600963fd5bcec1080e4c63fd4b/substrate/frame/revive/uapi/sol/ISystem.sol. Paste the following interface:\n\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ninterface ISystem {\n    // BLAKE2 hashing\n    function hashBlake256(bytes memory input) external pure returns (bytes32 digest);\n    function hashBlake128(bytes memory input) external pure returns (bytes32 digest);\n    // Signature verification\n    function sr25519Verify(uint8[64] calldata signature, bytes calldata message, bytes32 publicKey) external view returns (bool);\n    // ECDSA address conversion\n    function ecdsaToEthAddress(uint8[33] calldata publicKey) external view returns (bytes20);\n    // Account management\n    function toAccountId(address input) external view returns (bytes memory account_id);\n    // Runtime queries\n    function callerIsOrigin() external view returns (bool);\n    function callerIsRoot() external view returns (bool);\n    function minimumBalance() external view returns (uint);\n    function ownCodeHash() external view returns (bytes32);\n    function weightLeft() external view returns (uint64 refTime, uint64 proofSize);\n    // Contract lifecycle\n    function terminate(address beneficiary) external;\n}\n```\n\nGo to the Solidity Compiler tab, set version to 0.8.20 or higher, and click 'Compile ISystem.sol'.",
           "interactive": true,
           "order": 3,
           "working_directory": "."
         },
         {
           "action": "Connect Remix to MetaMask and load the precompile using At Address",
-          "description": "Delegate to the user: Click the Deploy and Run Transactions tab in Remix. Set Environment to 'Injected Provider - MetaMask' and confirm the MetaMask connection. Verify the network shows 'Custom (420420417) network'. Select 'ISystem' in the Contract dropdown. Paste the System precompile address (from step 1) into 'At Address'. Click 'At Address'. An ISystem instance should appear in the Deployed Contracts section.",
+          "description": "Delegate to the user: Click the Deploy and Run Transactions tab in Remix. Set Environment to 'Injected Provider - MetaMask' and confirm the MetaMask connection. Verify the network shows 'Custom (420420417) network'. Select 'ISystem' in the Contract dropdown. Enter the System precompile address `0x0000000000000000000000000000000000000900` into 'At Address'. Click 'At Address'. An ISystem instance should appear in the Deployed Contracts section.",
           "interactive": true,
           "order": 4,
           "working_directory": "."
         },
         {
-          "action": "Call blake2b to hash data",
-          "description": "Delegate to the user: In the Deployed Contracts section, expand the ISystem instance. Expand the 'blake2b' function. In the 'data' field, enter hex-encoded bytes to hash — for example: 0x68656c6c6f (UTF-8 for 'hello'). Click 'call' (blue). The output is the BLAKE2b hash of the input as hex-encoded bytes. You can also call 'blake2s' with the same input to get the BLAKE2s variant.",
-          "expected_output": "bytes: hex-encoded BLAKE2b hash of the input data",
+          "action": "Call hashBlake256 to hash data using BLAKE2-256",
+          "description": "Delegate to the user: In the Deployed Contracts section, expand the ISystem instance. Expand the 'hashBlake256' function. In the 'input' field, enter hex-encoded bytes to hash — for example: `0x68656c6c6f` (UTF-8 for 'hello'). Click 'call' (blue button). The output is the BLAKE2-256 hash as a bytes32 value. You can also call 'hashBlake128' with the same input to get the BLAKE2-128 variant (returned as bytes32 with trailing zeros).",
+          "expected_output": "bytes32: the BLAKE2-256 hash of the input data",
           "interactive": true,
           "order": 5,
           "working_directory": "."
         },
         {
-          "action": "Call verifySignature for sr25519 verification",
-          "description": "Delegate to the user: Expand the 'verifySignature' function. To use this function you need three values:\n\n- INSERT_SIGNATURE: Replace with a real sr25519 signature as hex bytes (64 bytes, 128 hex chars). Generate a signature using a Polkadot.js signer or subkey tool: subkey sign --scheme sr25519 --suri '//Alice' --message 'your_message'\n\n- INSERT_PUBLIC_KEY: Replace with the sr25519 public key (32 bytes, 64 hex chars) corresponding to the signer.\n\n- message: The message bytes that were signed (hex-encoded).\n\nEnter the three values in the 'sig', 'pubKey', and 'message' fields respectively, then click 'call'. The function returns true if the signature is valid, false otherwise.",
-          "expected_output": "bool: true if the sr25519 signature is valid for the given pubKey and message",
+          "action": "Call sr25519Verify for Polkadot signature verification",
+          "description": "Delegate to the user: Expand the 'sr25519Verify' function. You need three values:\n\n- **signature** (uint8[64]): A real sr25519 signature as a 64-element byte array. Generate using `subkey sign --scheme sr25519 --suri '//Alice' --message 'your_message'`, then split the 64-byte hex output into 64 decimal values.\n- **message** (bytes calldata): The message bytes that were signed (hex-encoded).\n- **publicKey** (bytes32): The sr25519 public key of the signer (32 bytes, from `subkey inspect --scheme sr25519 '//Alice'`).\n\nEnter all three values and click 'call'. The function returns `true` if the signature is valid.",
+          "expected_output": "bool: true if the sr25519 signature is valid for the given publicKey and message",
           "interactive": true,
           "order": 6,
           "working_directory": "."
         },
         {
-          "action": "Call accountExists to check account presence",
-          "description": "Delegate to the user: Expand the 'accountExists' function. Enter an Ethereum-format address (0x...) in the 'account' field. Click 'call'. The function returns true if the account exists on-chain (i.e. has been funded or deployed), false if it has never received any funds or activity.",
-          "expected_output": "bool: true if the account exists on Polkadot Hub TestNet, false otherwise",
+          "action": "Call toAccountId to convert an Ethereum address to a Substrate account ID",
+          "description": "Delegate to the user: Expand the 'toAccountId' function. Enter an Ethereum-format address (0x..., 20 bytes) in the 'input' field. Click 'call'. The function returns the native Substrate account ID bytes corresponding to that address. This is useful when contracts need to interact with runtime functionality that expects Substrate account IDs rather than H160 addresses.",
+          "expected_output": "bytes: the Substrate account ID corresponding to the input Ethereum address",
           "interactive": true,
           "order": 7,
           "working_directory": "."
         }
       ],
       "supplementary_context": {
-        "description": "Load these pages when the user needs the precompile address, wants to use sr25519 signing tools, or needs Remix setup help.",
+        "description": "Load these pages when the user needs the authoritative ISystem interface, wants to use sr25519 signing tools, or needs Remix setup help.",
         "pages": [
           {
-            "relevance": "Full System precompile source page with the exact precompile address, authoritative ABI, and all function signatures.",
+            "relevance": "Full System precompile source page with the exact precompile address, authoritative ISystem interface, and all function signatures.",
             "slug": "smart-contracts-precompiles-system",
             "title": "Interact with the System Precompile",
             "url": "https://docs.polkadot.com/smart-contracts/precompiles/system.md"
@@ -8415,31 +8553,31 @@
         ]
       },
       "title": "Interact with the System Precompile on Polkadot Hub via Remix",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
       "chain_role": "isolated",
-      "description": "Guides you through creating an IXcm Solidity interface in Remix, loading the XCM precompile, and calling weighMessage, execute, and send functions. Use when you need to test XCM message dispatch from a smart contract, estimate XCM execution weight, or send cross-chain messages from Polkadot Hub via Solidity. All interaction is browser-based using Remix IDE with MetaMask. Trigger phrases: 'XCM precompile', 'send XCM from contract', 'weighMessage', 'xcm execute', 'cross-chain from Solidity', 'IXcm interface'. Output: XCM weight estimates and on-chain transaction receipts.",
+      "description": "Guides you through creating an IXcm Solidity interface in Remix, loading the XCM precompile at 0x00000000000000000000000000000000000a0000, and calling weighMessage, execute, and send functions. Use when you need to test XCM message dispatch from a smart contract, estimate XCM execution weight, or send cross-chain messages from Polkadot Hub via Solidity. All interaction is browser-based using Remix IDE with MetaMask. The source page includes an example SCALE-encoded XCM message for testing weighMessage. Trigger phrases: 'XCM precompile', 'send XCM from contract', 'weighMessage', 'xcm execute', 'cross-chain from Solidity', 'IXcm interface'. Output: XCM weight estimates and on-chain transaction receipts.",
       "env_vars": [],
       "error_patterns": [
         {
-          "cause": "SCALE-encoded XCM bytes are malformed or the weight limit is too low.",
+          "cause": "SCALE-encoded XCM bytes are malformed, the weight limit is too low, or insufficient PAS balance.",
           "pattern": "Remix: transaction reverted on execute or send",
-          "resolution": "Verify the encoding against the example on the source page. Use weighMessage first to obtain the correct maxWeight. Ensure the correct precompile address is used for TestNet."
+          "resolution": "Use weighMessage first to get the correct weight. Verify the SCALE encoding against the example on the source page. Ensure the account has sufficient PAS (base fee is 1000 gwei on Polkadot Hub TestNet)."
         },
         {
           "cause": "Incorrect precompile address entered, or MetaMask is connected to the wrong network.",
           "pattern": "At Address: no contract at address",
-          "resolution": "Reload the source page to get the authoritative XCM precompile address. Verify MetaMask shows chain ID 420420417."
+          "resolution": "The XCM precompile address is exactly 0x00000000000000000000000000000000000a0000. Verify MetaMask shows chain ID 420420417."
         },
         {
-          "cause": "The interface definition does not match the ABI the precompile exposes.",
-          "pattern": "IXcm.sol compilation error: function not found",
-          "resolution": "Load https://docs.polkadot.com/smart-contracts/precompiles/xcm.md for the authoritative ABI and update IXcm.sol accordingly."
+          "cause": "The Weight struct is missing from the IXcm interface definition.",
+          "pattern": "IXcm.sol compilation error: Weight struct not found",
+          "resolution": "Load the authoritative interface from https://github.com/paritytech/polkadot-sdk/blob/cb629d46ebf00aa65624013a61f9c69ebf02b0b4/polkadot/xcm/pallet-xcm/src/precompiles/IXcm.sol and include the Weight struct definition."
         },
         {
-          "cause": "PAS balance too low to cover gas on Polkadot Hub TestNet (base fee: 1000 gwei).",
+          "cause": "PAS balance too low to cover gas (base fee: 1000 gwei on Polkadot Hub TestNet).",
           "pattern": "MetaMask: insufficient funds for gas",
           "resolution": "Obtain PAS tokens from https://faucet.polkadot.io/. Ensure the account has at least 0.01 PAS before submitting state-changing calls."
         }
@@ -8447,11 +8585,10 @@
       "examples": [
         {
           "actions": [
-            "Load XCM precompile address and IXcm ABI from source page",
-            "Create and compile IXcm.sol in Remix",
-            "Load precompile via At Address",
-            "Call weighMessage with encoded destination and message bytes",
-            "Read the returned weight estimate"
+            "Create and compile IXcm.sol in Remix with the IXcm interface and Weight struct from the Polkadot SDK",
+            "Load precompile via At Address: 0x00000000000000000000000000000000000a0000",
+            "Call weighMessage with the example SCALE-encoded message from the source page",
+            "Read the returned refTime and proofSize weight estimate"
           ],
           "result": "Weight estimate (refTime and proofSize) indicating the execution cost on the destination chain",
           "scenario": "Common scenario: estimate XCM execution fee before sending",
@@ -8459,10 +8596,10 @@
         },
         {
           "actions": [
-            "Compare SCALE-encoded message bytes against the source page example",
-            "Call weighMessage first to confirm the message decodes correctly",
-            "Check that maxWeight is at least the refTime returned by weighMessage",
-            "If revert persists, reload IXcm.sol ABI from source page to confirm interface matches precompile"
+            "Compare SCALE-encoded message bytes against the example in the source page",
+            "Call weighMessage first to confirm the message decodes correctly — if weighMessage also fails, the encoding is malformed",
+            "Check that maxWeight refTime is at least the value returned by weighMessage",
+            "If revert persists, reload IXcm.sol from the authoritative GitHub source to confirm Weight struct and function signatures match"
           ],
           "result": "Root cause identified (malformed encoding or wrong interface); corrected message executes successfully",
           "scenario": "Edge case: execute call reverts due to malformed SCALE encoding",
@@ -8497,36 +8634,36 @@
       ],
       "steps": [
         {
-          "action": "Find the XCM precompile address and IXcm ABI from the source page",
-          "description": "Delegate to the user: Load https://docs.polkadot.com/smart-contracts/precompiles/xcm.md to find the exact XCM precompile address for Polkadot Hub TestNet and the IXcm interface definition. Note the address — it will be used in step 4 as the 'At Address' target in Remix. The source page is the authoritative reference for the ABI.",
+          "action": "Connect MetaMask to Polkadot Hub TestNet",
+          "description": "Delegate to the user: Open MetaMask and switch to Polkadot Hub TestNet (chain ID 420420417). If the network is not added, use the connect-wallet-polkadot-hub skill. Confirm a non-zero PAS balance for gas fees. The XCM precompile is at the fixed address `0x00000000000000000000000000000000000a0000`.",
           "interactive": true,
           "order": 1,
           "working_directory": "."
         },
         {
-          "action": "Connect MetaMask to Polkadot Hub TestNet",
-          "description": "Delegate to the user: Open MetaMask and switch to Polkadot Hub TestNet (chain ID 420420417). If the network is not added, use the connect-wallet-polkadot-hub skill. Confirm a non-zero PAS balance for gas fees.",
+          "action": "Open Remix IDE",
+          "description": "Delegate to the user: Open https://remix.ethereum.org in the browser.",
           "interactive": true,
           "order": 2,
           "working_directory": "."
         },
         {
           "action": "Create the IXcm interface in Remix and compile it",
-          "description": "Delegate to the user: Open https://remix.ethereum.org. Create a new Solidity file named 'IXcm.sol'. Copy the IXcm interface definition from the source page (step 1) — the interface includes at minimum: weighMessage(bytes dest, bytes message), execute(bytes message, uint64 maxWeight), and send(bytes dest, bytes message). The source page is authoritative; use its exact ABI. Go to the Solidity Compiler tab, select version 0.8.20, and click 'Compile IXcm.sol'. Confirm there are no compilation errors.",
+          "description": "Delegate to the user: Create a new Solidity file named `IXcm.sol`. The authoritative interface is at https://github.com/paritytech/polkadot-sdk/blob/cb629d46ebf00aa65624013a61f9c69ebf02b0b4/polkadot/xcm/pallet-xcm/src/precompiles/IXcm.sol — copy the interface from there. The `IXcm` interface defines a `Weight` struct with `refTime` (uint64) and `proofSize` (uint64), and three functions:\n\n- `weighMessage(bytes calldata message) external view returns (Weight memory)` — estimates cost\n- `execute(bytes calldata message, Weight calldata maxWeight) external` — runs XCM locally\n- `send(bytes calldata dest, bytes calldata message) external` — dispatches XCM cross-chain\n\nAll XCM messages must be SCALE-encoded. Go to the Solidity Compiler tab, select version 0.8.20 or higher, and click 'Compile IXcm.sol'. Confirm there are no compilation errors.",
           "interactive": true,
           "order": 3,
           "working_directory": "."
         },
         {
           "action": "Load the XCM precompile using At Address in Remix",
-          "description": "Delegate to the user: Click the Deploy and Run Transactions tab in Remix. Set Environment to 'Injected Provider - MetaMask'. Confirm the MetaMask connection — verify the network shows 'Custom (420420417) network'. Select 'IXcm' in the Contract dropdown. Paste the XCM precompile address (from step 1) into the 'At Address' field. Click 'At Address'. An IXcm instance should appear in the Deployed Contracts section.",
+          "description": "Delegate to the user: Click the Deploy and Run Transactions tab in Remix. Set Environment to 'Injected Provider - MetaMask'. Confirm the MetaMask connection — verify the network shows 'Custom (420420417) network'. Select 'IXcm' in the Contract dropdown. Enter `0x00000000000000000000000000000000000a0000` into the 'At Address' field. Click 'At Address'. An IXcm instance should appear in the Deployed Contracts section.",
           "interactive": true,
           "order": 4,
           "working_directory": "."
         },
         {
           "action": "Call weighMessage to estimate XCM execution cost",
-          "description": "Delegate to the user: In the Deployed Contracts section, expand the IXcm instance. Expand the 'weighMessage' function. For 'dest': provide the SCALE-encoded multilocation bytes of the destination chain (see source page for encoding examples). For 'message': provide the SCALE-encoded XCM message bytes (the source page includes a complete encoded example). Click 'call' (blue button — read-only). The output is the estimated weight (refTime and proofSize) needed to execute the message.",
+          "description": "Delegate to the user: In the Deployed Contracts section, expand the IXcm instance. Expand the 'weighMessage' function. For the `message` parameter, you can use this example SCALE-encoded XCM message from the source page (withdraws assets, buys execution, and deposits to a beneficiary):\n\n```\n0x050c000401000003008c86471301000003008c8647000d010101000000010100368e8759910dab756d344995f1d3c79374ca8f70066d3a709e48029f6bf0ee7e\n```\n\nClick 'call' (blue button — read-only). The output is the estimated weight struct containing `refTime` and `proofSize` values.",
           "expected_output": "Weight object with refTime and proofSize fields representing the estimated execution cost",
           "interactive": true,
           "order": 5,
@@ -8534,7 +8671,7 @@
         },
         {
           "action": "Call execute to run an XCM message locally",
-          "description": "Delegate to the user: Expand the 'execute' function. For 'message': provide SCALE-encoded XCM bytes (use the example from the source page). For 'maxWeight': enter the refTime value returned by weighMessage in step 5, or a conservative upper bound. Click 'transact' (orange button — state-changing). MetaMask will prompt for gas approval — confirm. The call executes the XCM message in the context of the calling address on the local chain.",
+          "description": "Delegate to the user: Expand the 'execute' function. For `message`: provide SCALE-encoded XCM bytes (use the example from step 5). For `maxWeight`: enter the `Weight` struct using the `refTime` and `proofSize` values returned by weighMessage in step 5 (or a conservative upper bound). Click 'transact' (orange button — state-changing). MetaMask will prompt for gas approval — confirm. The call executes the XCM message in the context of the calling address on the local chain.",
           "expected_output": "Transaction receipt with status 1 (success); XCM execution event visible in Remix logs",
           "interactive": true,
           "order": 6,
@@ -8542,7 +8679,7 @@
         },
         {
           "action": "Call send to dispatch an XCM to another chain",
-          "description": "Delegate to the user: Expand the 'send' function. For 'dest': provide SCALE-encoded multilocation bytes for the target parachain (refer to source page for encoding). For 'message': provide SCALE-encoded XCM message bytes. Click 'transact' (orange). MetaMask prompts for gas — confirm. The XCM is dispatched toward the destination chain. Delivery and execution on the remote chain are asynchronous — use the xcm-tools skill to monitor delivery if needed.",
+          "description": "Delegate to the user: Expand the 'send' function. For `dest`: provide SCALE-encoded multilocation bytes for the target parachain (refer to source page for encoding examples). For `message`: provide SCALE-encoded XCM message bytes. Click 'transact' (orange). MetaMask prompts for gas — confirm. The XCM is dispatched toward the destination chain. Unlike execute, send does not require a weight parameter — the destination chain handles execution costs according to its fee structure. Delivery and execution on the remote chain are asynchronous.",
           "expected_output": "Transaction receipt with status 1; XcmMessageSent event in Remix logs",
           "interactive": true,
           "order": 7,
@@ -8553,7 +8690,7 @@
         "description": "Load these pages for XCM encoding details, precompile addresses, and cross-chain messaging concepts.",
         "pages": [
           {
-            "relevance": "Authoritative XCM precompile address, IXcm interface definition, and SCALE-encoded message examples.",
+            "relevance": "Authoritative XCM precompile address, IXcm interface definition, SCALE-encoded message examples, and the execute/weighMessage/send workflow.",
             "slug": "smart-contracts-precompiles-xcm",
             "title": "Interact with the XCM Precompile",
             "url": "https://docs.polkadot.com/smart-contracts/precompiles/xcm.md"
@@ -8573,7 +8710,7 @@
         ]
       },
       "title": "Interact with the XCM Precompile via Remix IDE",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {

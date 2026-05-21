@@ -23,7 +23,7 @@ Polkadot Hub supports two execution paths for running smart contracts: [PVM](/sm
 
 With EVM, you deploy the same unmodified Solidity contracts using the same standard Hardhat toolchain you already know. No special compiler plugins, no contract rewrites, and no porting effort. If your project compiles with vanilla Hardhat, it runs on Polkadot Hub through EVM.
 
-This tutorial walks you through cloning, compiling, testing, and deploying [Uniswap V2](https://docs.uniswap.org/contracts/v2/overview){target=\_blank} on Polkadot Hub using Hardhat and TypeScript. By the end, you will have a fully functioning UniswapV2Factory contract deployed to the Polkadot Hub TestNet.
+This tutorial walks you through cloning, compiling, testing, and deploying [Uniswap V2](https://docs.uniswap.org/contracts/v2/overview){target=\_blank} on Polkadot Hub using Hardhat and TypeScript. By the end, you will have a fully functioning `UniswapV2Factory` contract deployed to the Polkadot Hub TestNet.
 
 ## Prerequisites
 
@@ -32,7 +32,7 @@ Before starting, make sure you have:
 - [Node.js](https://nodejs.org/){target=\_blank} v22.0.0 or later and npm installed
 - Basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} and TypeScript
 - Familiarity with the [Hardhat](/smart-contracts/dev-environments/hardhat/){target=\_blank} development environment
-- Some test tokens to cover transaction fees, obtained from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}. See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet
+- Some test tokens to cover transaction fees, obtained from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank} (see [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet)
 - A wallet with a private key for signing transactions
 - Basic understanding of how AMMs and liquidity pools work
 

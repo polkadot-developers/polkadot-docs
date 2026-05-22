@@ -79,7 +79,7 @@ To reserve a parachain identifier, follow these steps:
 To securely deploy your parachain, it is essential to generate custom keys specifically for your collators (block producers). You should generate two sets of keys for each collator:
 
 <!-- TODO: Restore link to collators
-[collators](/reference/glossary/#collator){target=\_blank}
+collators
 OR the collators page under node infra section once launched -->
 
 - **Account keys**: Used to interact with the network and manage funds. These should be protected carefully and should never exist on the filesystem of the collator node.
@@ -194,7 +194,7 @@ Once you have the genesis state and runtime, you can now register these with you
 
     ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-10.webp)
 
-Your parachain's runtime logic and genesis are now part of the relay chain. The next step is to ensure you are able to run a collator to produce blocks for your parachain.
+Your parachain's runtime logic and genesis are now part of the relay chain. The next step is to ensure you are able to run a Collator to produce blocks for your parachain.
 
 !!!note 
     You may need to wait several hours for your parachain to onboard. Until it has onboarded, you will be unable to purchase coretime, and therefore will not be able to perform transactions on your network.

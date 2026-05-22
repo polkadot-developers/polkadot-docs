@@ -8,7 +8,7 @@ categories: Parachains, Tooling
 
 ## Introduction
 
-Light clients enable secure and efficient blockchain interaction without running a full node. They provide a trust-minimized alternative to JSON-RPC by verifying data through cryptographic proofs rather than blindly trusting remote nodes.
+Light clients enable secure and efficient blockchain interaction without running a Full Node. They provide a trust-minimized alternative to JSON-RPC by verifying data through cryptographic proofs rather than blindly trusting remote nodes.
 
 This guide covers:
 
@@ -50,7 +50,7 @@ Another common method of communication between a user interface (UI) and a node 
 - **Publicly accessible nodes**: The UI connects to a third-party-owned publicly accessible node client.
     - These nodes are convenient but centralized and less secure. Applications must maintain a list of backup nodes in case the primary node becomes unavailable.
 
-While light clients still communicate with [full nodes](/reference/glossary#full-node), they offer significant advantages for applications requiring a secure alternative to running a full node:
+While light clients still communicate with full nodes, they offer significant advantages for applications requiring a secure alternative to running a full node:
 
 | Full Node                                                                                       | Light Client                                                   |
 | :---------------------------------------------------------------------------------------------: | :------------------------------------------------------------: |

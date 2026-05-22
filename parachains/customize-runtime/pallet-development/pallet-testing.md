@@ -35,7 +35,7 @@ Before you begin, ensure you:
 
 ## Understanding FRAME Testing Tools
 
-[FRAME (Framework for Runtime Aggregation of Modularized Entities)](/reference/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\_blank} provides specialized testing macros and utilities that make pallet testing more efficient.
+FRAME (Framework for Runtime Aggregation of Modularized Entities) provides specialized testing macros and utilities that make pallet testing more efficient.
 
 ### Assertion Macros
 

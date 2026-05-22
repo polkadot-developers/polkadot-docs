@@ -21,7 +21,7 @@ In this guide, you will:
 
 - Build an XCM transfer transaction using ParaSpell XCM SDK.
 - Perform a dry run to validate the transfer.
-- Verify the [Existential Deposit (ED)](/reference/glossary/#existential-deposit){target=\_blank} requirement on the destination chain.
+- Verify the Existential Deposit (ED) requirement on the destination chain.
 - Retrieve information regarding the transfer, along with fee estimates.
 - Submit the transaction.
 
@@ -109,7 +109,7 @@ The result of the dry run will look similar to the following example output:
 
 ## Verify the Existential Deposit
 
-Check if the recipient account meets the [Existential Deposit (ED)](/reference/glossary/#existential-deposit){target=\_blank} requirement before sending by using [`verifyEdOnDestination`](https://paraspell.github.io/docs/xcm-api/xcm-sdk-functionality.html#verify-ed-on-destination){target=\_blank}:
+Check if the recipient account meets the Existential Deposit (ED) requirement before sending by using [`verifyEdOnDestination`](https://paraspell.github.io/docs/xcm-api/xcm-sdk-functionality.html#verify-ed-on-destination){target=\_blank}:
 
 ```ts title="index.ts"
 --8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/index.ts:72:88'

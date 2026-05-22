@@ -82,7 +82,7 @@ graph TB
 
 ### FRAME: Building Blocks for Your Runtime
 
-FRAME provides modular components called [pallets](/reference/glossary#pallet){target=\_blank} that you can compose to build your parachain's runtime. Each pallet provides specific functionality that you can customize and configure for your needs. This modular approach allows you to quickly assemble complex functionality without writing everything from scratch.
+FRAME provides a modular component called a Pallet that you can configure and combine to build your parachain's runtime. Each pallet provides specific functionality that you can customize for your needs. This modular approach allows you to quickly assemble complex functionality without writing everything from scratch.
 
 ```mermaid
 graph LR

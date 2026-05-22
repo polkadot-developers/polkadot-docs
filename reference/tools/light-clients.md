@@ -43,7 +43,7 @@ Light clients can quickly verify the blockchain's state, including GRANDPA final
 
 ## JSON-RPC and Light Client Comparison
 
-Another common method of communication between a user interface (UI) and a node is through the JSON-RPC protocol. Generally, the UI retrieves information from the node, fetches network or [pallet](/reference/glossary#pallet){target=\_blank} data, and interacts with the blockchain. This is typically done in one of two ways:
+Another common method of communication between a user interface (UI) and a node is through the JSON-RPC protocol. Generally, the UI retrieves information from the node, fetches network or Pallet data, and interacts with the blockchain. This is typically done in one of two ways:
 
 - **User-controlled nodes**: The UI connects to a node client installed on the user's machine.
     - These nodes are secure, but installation and maintenance can be inconvenient.

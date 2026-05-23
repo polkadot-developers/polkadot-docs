@@ -14,13 +14,16 @@ Documentation in this repository follows the **PaperMoon Documentation Style Gui
 
 ## Linting
 
-This repo ships a Vale configuration mirroring the PaperMoon styleguide's rules. Run locally:
+Vale rules and the PaperMoon vocab are not copied into this repo — they are pulled from the canonical [`papermoonio/documentation-style-guide`](https://github.com/papermoonio/documentation-style-guide) repo on every CI run, and on demand for local linting. The single source of truth is the styleguide repo.
 
 ```bash
-vale .
+./scripts/sync-styleguide-vale.sh   # pull canonical Vale rules + PaperMoon vocab
+vale .                              # lint
 ```
 
-CI runs `vale` against changed markdown files on every pull request (see `.github/workflows/vale.yml`).
+The `styles/PaperMoon/` and `styles/config/vocabularies/PaperMoon/` directories are gitignored. Project-specific vocab lives in `styles/config/vocabularies/Polkadot/` and is committed.
+
+CI runs the sync script and then Vale against changed markdown files on every pull request (see `.github/workflows/vale.yml`).
 
 ## Project-specific rules
 

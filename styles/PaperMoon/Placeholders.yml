@@ -1,8 +1,0 @@
-extends: existence
-message: "Use INSERT_UPPER_SNAKE_CASE placeholders that describe the value. Avoid '%s'."
-level: warning
-ignorecase: false
-tokens:
-  - "YOUR_[A-Z_]+_HERE"
-  - "INSERT_[A-Z_]+_HERE"
-  - "<your-[a-z-]+>"

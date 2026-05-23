@@ -5,7 +5,8 @@ on:
     paths:
       - "**.md"
       - ".vale.ini"
-      - "styles/**"
+      - "styles/config/vocabularies/Polkadot/**"
+      - "scripts/sync-styleguide-vale.sh"
       - ".github/workflows/vale.yml"
 
 permissions:
@@ -19,6 +20,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Sync canonical Vale rules from the PaperMoon styleguide
+        run: ./scripts/sync-styleguide-vale.sh
 
       - name: List changed markdown files
         id: changed

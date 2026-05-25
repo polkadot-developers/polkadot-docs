@@ -1,6 +1,7 @@
 ---
 title: Create an Account
 description: Step-by-step guide to creating Polkadot accounts using different programming languages and libraries, including JavaScript, Python, and Rust examples.
+short_description: Generate accounts using various SDKs in Rust, Python, and JavaScript.
 categories: Basics, Chain Interactions
 page_badges:
   test_workflow: polkadot-docs-create-account

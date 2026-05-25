@@ -1,6 +1,7 @@
 ---
 title: Create a Custom Pallet
 description: Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
+short_description: Build a pallet from scratch with custom logic.
 categories: Parachains
 page_badges:
   test_workflow: polkadot-docs-create-a-pallet

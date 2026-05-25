@@ -1,6 +1,7 @@
 ---
 title: Fork a Parachain Using Chopsticks
 description: Simplify Polkadot SDK development with Chopsticks. Learn essential features, how to install Chopsticks, and how to configure local blockchain forks.
+short_description: Create a local fork of a live parachain for testing.
 categories: Parachains, Tooling
 page_badges:
   test_workflow: polkadot-docs-fork-a-parachain

@@ -1,6 +1,7 @@
 ---
 title: Set Up the Polkadot SDK Parachain Template
 description: Learn how to set up and run the Polkadot SDK Parachain Template locally, creating a ready-to-customize foundation for your parachain.
+short_description: Set up and run the Polkadot SDK Parachain Template locally.
 categories: Basics, Parachains
 page_badges:
   tutorial_badge: Beginner

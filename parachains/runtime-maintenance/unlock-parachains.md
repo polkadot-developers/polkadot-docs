@@ -1,6 +1,7 @@
 ---
 title: Unlock a Parachain
 description: Learn how to unlock your parachain. This step-by-step guide covers verifying lock status, preparing calls, and executing the unlock process.
+short_description: Understand parachain lifecycle and unlock mechanisms.
 categories: Parachains
 ---
 

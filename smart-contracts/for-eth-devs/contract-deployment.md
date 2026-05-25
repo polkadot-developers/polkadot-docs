@@ -1,6 +1,7 @@
 ---
 title: Contract Deployment
 description: Compare deployment flows for REVM and PVM-based smart contracts on the Polkadot Hub. Includes single-step REVM flows and PVM's two-step deployment model.
+short_description: Deployment mechanics, gas estimation, and storage model.
 categories: Smart Contracts, Basics
 ---
 

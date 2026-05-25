@@ -1,6 +1,7 @@
 ---
 title: Indexers
 description: Discover blockchain indexers. Enhance data access, enable fast and complex queries, and optimize blockchain data for seamless app performance.
+short_description: Set up indexing solutions for querying blockchain data.
 categories: Tooling, Parachains
 ---
 

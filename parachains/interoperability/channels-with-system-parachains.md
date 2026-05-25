@@ -1,6 +1,7 @@
 ---
 title: Opening HRMP Channels with System Parachains
 description: Learn how to open HRMP channels with Polkadot system parachains. Discover the process for establishing bi-directional communication using a single XCM message.
+short_description: Connect with Asset Hub and other system parachains.
 categories: Parachains, Interoperability
 page_badges:
   tutorial_badge: Advanced

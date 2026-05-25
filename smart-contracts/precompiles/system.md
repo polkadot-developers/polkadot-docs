@@ -1,6 +1,7 @@
 ---
 title: Interact with the System Precompile
 description: Learn how to use the System precompile to access core runtime functionality, cryptographic operations, and system utilities from your smart contracts.
+short_description: Access core runtime functionality and cryptographic operations from smart contracts.
 categories: Smart Contracts
 ---
 

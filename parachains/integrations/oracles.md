@@ -1,6 +1,7 @@
 ---
 title: Oracles
 description: Learn about blockchain oracles, the essential bridges connecting blockchains with real-world data for decentralized applications in the Polkadot ecosystem.
+short_description: Connect your parachain to off-chain data sources.
 categories: Tooling, Parachains
 ---
 

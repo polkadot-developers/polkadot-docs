@@ -37,6 +37,10 @@ Per-component reference for the on-chain infrastructure Products consume:
 - **[Proof of Personhood](/reference/apps/infrastructure/pop/){target=\_blank}** — the Ring-VRF mechanism and the per-pallet surface (people, game, score, identity, ubc, coinage).
 - **[HOP](/reference/apps/infrastructure/hop/){target=\_blank}** — the cross-chain hop protocol.
 
+## Skills
+
+The [product-skills](/reference/apps/skills/){target=\_blank} repo reference — what skills exist, what each one does, and how to use them inside your Product workflow.
+
 ## Where to Go Next
 
 <div class="grid cards" markdown>

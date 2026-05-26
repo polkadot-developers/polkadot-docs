@@ -3,3 +3,4 @@ nav:
  - 'Hosts': hosts
  - 'Protocol': protocol
  - 'Infrastructure': infrastructure
+ - 'Skills': skills.md

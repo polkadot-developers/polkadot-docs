@@ -13,7 +13,7 @@ This section is the technical-depth companion to the [App Development](/apps/){t
 A **Polkadot Product** is a sandboxed application that runs inside a **Host** (Polkadot App, Polkadot Desktop, or Polkadot Web), talks to that Host through the **TrUAPI** protocol, and relies on Polkadot **Infrastructure** (Bulletin Chain, Statement Store, dotNS, Proof of Personhood, HOP) for the on-chain capabilities the Host doesn't provide itself. This reference is organized along those axes.
 
 !!! info "Depth target"
-    Each page in this section follows the same shape: a short conceptual frame at the top, then the developer-facing surface (Host-API method tables for Hosts, pallet surface tables for infrastructure) at the bottom.
+    Each page in this section follows the same shape: a short conceptual frame at the top, then the developer-facing surface (Host-API method tables for Hosts, pallet surface tables for infrastructure) at the bottom. The [TrUAPI](/reference/apps/protocol/truapi/){target=\_blank} subsection — one page per method group — is the depth model the rest of this reference is scaffolded toward.
 
 ## Hosts
 
@@ -22,6 +22,10 @@ A **Polkadot Product** is a sandboxed application that runs inside a **Host** (P
 - **[Polkadot App](/reference/apps/hosts/polkadot-app/){target=\_blank}** — the mobile Host. Holds the user's signing key, runs Proof of Personhood, and is the canonical signer for every transaction a Product submits anywhere in the Triangle.
 - **[Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/){target=\_blank}** — the desktop Host. Loads Products by `.dot` name, mediates signing requests to the paired mobile App, and exposes the Host API surface to the Product running inside it.
 - **[Polkadot Web](/reference/apps/hosts/polkadot-web/){target=\_blank}** — the web Host (`dot.li`). Loads Products in a browser sandbox; visiting flow, shield states, and onchain `polkadot.com` integration.
+
+## Protocol
+
+The **[TrUAPI](/reference/apps/protocol/truapi/){target=\_blank}** reference documents the protocol between Hosts and Products: the conceptual sandbox model, the 11 method groups (TrUAPI Calls, Permissions, Local Storage, Account Management, Signing, Chat, Statement Store, Preimage, Chain Interaction, Payment, Entropy), the versioning model, and the package reference table.
 
 ## Where to Go Next
 

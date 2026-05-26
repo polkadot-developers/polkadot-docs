@@ -27,6 +27,16 @@ A **Polkadot Product** is a sandboxed application that runs inside a **Host** (P
 
 The **[TrUAPI](/reference/apps/protocol/truapi/){target=\_blank}** reference documents the protocol between Hosts and Products: the conceptual sandbox model, the 11 method groups (TrUAPI Calls, Permissions, Local Storage, Account Management, Signing, Chat, Statement Store, Preimage, Chain Interaction, Payment, Entropy), the versioning model, and the package reference table.
 
+## Infrastructure
+
+Per-component reference for the on-chain infrastructure Products consume:
+
+- **[Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/){target=\_blank}** — content-addressed storage with explicit authorization, chunked uploads, time-bound retention, and renewal.
+- **[Statement Store](/reference/apps/infrastructure/statement-store/){target=\_blank}** — gossip-distributed, signed statements on the People Chain for real-time signaling between users.
+- **[dotNS](/reference/apps/infrastructure/dotns/){target=\_blank}** — the `.dot` name system, including PopRules pricing, the contract architecture, and the registration flow.
+- **[Proof of Personhood](/reference/apps/infrastructure/pop/){target=\_blank}** — the Ring-VRF mechanism and the per-pallet surface (people, game, score, identity, ubc, coinage).
+- **[HOP](/reference/apps/infrastructure/hop/){target=\_blank}** — the cross-chain hop protocol.
+
 ## Where to Go Next
 
 <div class="grid cards" markdown>

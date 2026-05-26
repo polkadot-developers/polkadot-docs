@@ -21,21 +21,18 @@ You only need PoP on the **dev account** you'll build against — the same accou
 - The Polkadot App installed and paired with Polkadot Desktop. See [Install and Pair](/apps/set-up/install-and-pair/){target=\_blank}.
 - Your target environment selected. See [Choose a Network](/apps/set-up/choose-a-network/){target=\_blank}.
 
-!!! note "PWallet as interim signer"
-    While the official Polkadot App for iOS and Android is in development, this guide uses **PWallet** (`app.dotsamalabs.com`) as a dev stand-in for the Polkadot App — the same one you paired in [Install and Pair](/apps/set-up/install-and-pair/){target=\_blank}. PWallet is an interim mobile signer only and does not perform PoP verification itself. Tapping **Verify Identity** in PWallet may trigger your device's biometric prompt (Face ID / Touch ID) to authorize the action — that's iOS-level device auth, not the PoP biometric scan. Today, this step just registers an identity for your account on the People Chain; the PoP biometric scan and ongoing peer-attestation arrive with the official Polkadot App.
-
 !!! tip "Multiple accounts for different purposes"
-    PWallet can hold multiple accounts as a signer, so you can keep separate keys for different purposes across the Polkadot Products ecosystem — for example, an everyday account, a Product-specific account, and a dedicated dev/test account. Each account will be able to obtain its own personhood-gated identity once the official Polkadot App ships.
+    The Polkadot App can hold multiple accounts as a signer, so you can keep separate keys for different purposes across the Polkadot Products ecosystem — for example, an everyday account, a Product-specific account, and a dedicated dev/test account. Each account can obtain its own personhood-gated identity.
 
 ## Complete the Verification
 
 Complete the verification on your paired mobile device:
 
-1. Open PWallet and tap **Verify Identity** on your dev account.
+1. Open the Polkadot App and tap **Verify Identity** on your dev account.
 
     ![](/images/apps/set-up/verify-your-identity/verify-your-identity-01.webp){: .browser-extension}
 
-2. PWallet may prompt for your device's biometric (Face ID / Touch ID) to confirm the action. Once you authorize, an identity is registered for your account on the People Chain. No government ID, no personal data leaves the device.
+2. The Polkadot App may prompt for your device's biometric (Face ID / Touch ID) to confirm the action. Once you authorize, an identity is registered for your account on the People Chain. No government ID, no personal data leaves the device.
 
 Your account is now linked to a Ring-VRF _alias_ on the People Chain — a context-specific pseudonym derived from your identity that's unlinkable across different Products. Personhood-gated features unlock for that account.
 

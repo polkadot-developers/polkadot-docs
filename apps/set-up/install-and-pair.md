@@ -24,7 +24,7 @@ Polkadot Desktop never holds your private key. Your identity lives on the Polkad
 Before starting, ensure you have:
 
 - A workstation running macOS, Windows, or Linux
-- A device with a working camera to run PWallet (the dev stand-in for the Polkadot App)
+- A device with a working camera to run the Polkadot App
 - Network connectivity on both devices for the pairing handshake
 
 ## Install Polkadot Desktop
@@ -40,28 +40,26 @@ Polkadot Desktop is the host application that loads Polkadot Products by their `
 
 On first launch, Desktop opens directly into the pairing screen described in the next section.
 
-## Set Up PWallet
+## Set Up the Polkadot App
 
-[PWallet](https://app.dotsamalabs.com){target=\_blank} is the dev stand-in for the Polkadot App. For the duration of internal testing, Polkadot Desktop routes signing requests to PWallet; once the official Polkadot App ships, it replaces PWallet in this flow.
+1. On a device with a camera, open the Polkadot App.
 
-1. On a device with a camera, open [PWallet](https://app.dotsamalabs.com/#/){target=\_blank}.
+    ![Polkadot App home screen on mobile device](/images/apps/set-up/install-and-pair/install-and-pair-02.webp){: .browser-extension}
 
-    ![PWallet home screen on mobile device](/images/apps/set-up/install-and-pair/install-and-pair-02.webp){: .browser-extension}
+2. Complete onboarding so you have an active account and the camera-scanning view available.
 
-2. Complete PWallet's onboarding so you have an active account and the camera-scanning view available.
+3. Keep the App open while you complete the pairing on Desktop.
 
-3. Keep PWallet open while you complete the pairing on Desktop.
+## Pair Polkadot Desktop with the Polkadot App
 
-## Pair Polkadot Desktop with PWallet
-
-Pairing is a one-time cryptographic handshake. Desktop displays a QR code, PWallet scans it, and PWallet returns a session public key that Desktop stores. From that point forward, Desktop knows who you are and can construct per-app sub-accounts, but every signing prompt still routes back to PWallet for approval.
+Pairing is a one-time cryptographic handshake. Desktop displays a QR code, the App scans it, and the App returns a session public key that Desktop stores. From that point forward, Desktop knows who you are and can construct per-app sub-accounts, but every signing prompt still routes back to the App for approval.
 
 ```mermaid
 sequenceDiagram
     participant Desktop as Polkadot Desktop
-    participant Wallet as PWallet
-    Desktop->>Wallet: pairing QR code (displayed / scanned)
-    Wallet->>Desktop: session public key
+    participant App as Polkadot App
+    Desktop->>App: pairing QR code (displayed / scanned)
+    App->>Desktop: session public key
 ```
 
 Follow these steps to complete the pairing:
@@ -70,19 +68,19 @@ Follow these steps to complete the pairing:
 
     ![Polkadot Desktop login screen displaying the pairing QR code](/images/apps/set-up/install-and-pair/install-and-pair-03.webp)
 
-2. In PWallet, open the camera-scanning view and scan the QR code shown on Desktop.
+2. In the Polkadot App, open the camera-scanning view and scan the QR code shown on Desktop.
 
-    ![PWallet camera scanning view ready to scan the QR code](/images/apps/set-up/install-and-pair/install-and-pair-04.webp){: .browser-extension}
+    ![Polkadot App camera scanning view ready to scan the QR code](/images/apps/set-up/install-and-pair/install-and-pair-04.webp){: .browser-extension}
 
-3. Confirm the pairing in PWallet when prompted. PWallet returns the session public key, and Desktop registers it as the signer for this workstation.
+3. Confirm the pairing in the Polkadot App when prompted. The App returns the session public key, and Desktop registers it as the signer for this workstation.
 
-    ![PWallet pairing confirmation prompt](/images/apps/set-up/install-and-pair/install-and-pair-05.webp){: .browser-extension}
+    ![Polkadot App pairing confirmation prompt](/images/apps/set-up/install-and-pair/install-and-pair-05.webp){: .browser-extension}
 
 4. Desktop transitions from the login screen to the Dashboard.
 
     ![Polkadot Desktop Dashboard after successful pairing](/images/apps/set-up/install-and-pair/install-and-pair-06.webp)
 
-After pairing, your identity on the People Chain is bound to PWallet for this Desktop session. Every subsequent signing request will route to PWallet, and you approve or reject each one on the signing device.
+After pairing, your identity on the People Chain is bound to the Polkadot App for this Desktop session. Every subsequent signing request will route to the App, and you approve or reject each one on the signing device.
 
 !!! note "Developer-Only UI Elements"
     The developer build of Polkadot Desktop exposes elements that may not appear, or may behave differently, in production builds.

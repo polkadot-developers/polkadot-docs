@@ -1,0 +1,7 @@
+nav:
+ - 'Overview': index.md
+ - 'Signing': signing.md
+ - 'Permissions': permissions.md
+ - 'Statement Store': statement-store.md
+ - 'Preimage': preimage.md
+ - 'Pocket': pocket.md

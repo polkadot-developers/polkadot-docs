@@ -30,7 +30,7 @@ CI runs the sync script and then Vale against changed markdown files on every pu
 These supplement (and where they conflict, override) the canonical styleguide:
 
 - **Customer override on heading case**: This site uses Chicago title case per the styleguide default.
-- **`{target=\_blank}` on external links** is enforced. Same-page anchors do not take it.
+- **External links open in a new tab**: this is handled by the MkDocs plugin configured for this site. Do not add `{target=\_blank}` manually — the canonical styleguide also drops the manual rule.
 - **Snippet includes**: Reusable code lives in `.snippets/code/` and is included via `--8<-- 'code/path/to/file.ext'`. Do not inline code that already exists as a snippet.
 - **Variables**: `variables.yml` at the repo root holds shared version pins and identifiers. Reference via `{{ variable_name }}`.
 

@@ -76,11 +76,7 @@ To reserve a parachain identifier, follow these steps:
 
 ## Generate Custom Keys for Your Collators
 
-To securely deploy your parachain, it is essential to generate custom keys specifically for your collators (block producers). You should generate two sets of keys for each collator:
-
-<!-- TODO: Restore link to collators
-collators
-OR the collators page under node infra section once launched -->
+To securely deploy your parachain, it is essential to generate custom keys specifically for your Collators (block producers). You should generate two sets of keys for each collator:
 
 - **Account keys**: Used to interact with the network and manage funds. These should be protected carefully and should never exist on the filesystem of the collator node.
 

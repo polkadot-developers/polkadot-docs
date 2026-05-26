@@ -1,6 +1,6 @@
 nav:
  - 'Overview': index.md
- - 'Quick Start': quick-start.md
+ - 'Quick Start': quick-start
  - 'Build a Full Product': build-a-full-product.md
  - 'Set Up': set-up
  - 'Build': build

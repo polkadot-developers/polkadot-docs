@@ -1499,7 +1499,7 @@
       "title": "Retrieve Runtime Metadata"
     },
     {
-      "built_at": "2026-04-21T19:30:00Z",
+      "built_at": "2026-05-27T21:00:00Z",
       "category": "tutorial",
       "notes": "Full end-to-end workflow: install, configure, fork a live chain, interact via JS API, replay blocks, and test XCM. Verifiable outcome ('you will see output indicating the RPC is listening'). Also contains a rich WebSocket API reference section (R1+R2+R3=12) that co-exists with the procedural content, but procedural score dominates at 20.",
       "priority": "high",
@@ -1535,7 +1535,7 @@
       "title": "Set Up and Use Chopsticks for Chain Forking"
     },
     {
-      "built_at": "2026-05-19T15:30:00Z",
+      "built_at": "2026-05-27T21:00:00Z",
       "category": "guide",
       "notes": "Covers installation through reading on-chain data, querying storage, calling runtime APIs, and signing/sending transactions. No explicit prerequisites section (K3 absent) and no numbered ordered steps (P1 absent), so guide rather than tutorial. Category is ambiguous with reference (procedural=10, reference=8, diff=2); guide wins by Rule 3. High priority because the workflow is self-contained, code is complete, and the Dedot client is a first-class alternative to Polkadot.js in the ecosystem.",
       "priority": "high",
@@ -1572,7 +1572,7 @@
       "title": "Interact with Polkadot Chains Using Dedot"
     },
     {
-      "built_at": "2026-04-21T19:30:00Z",
+      "built_at": "2026-05-27T21:00:00Z",
       "category": "guide",
       "notes": "Sequential workflow: install, initialize config via wizard, write a test suite, run tests. Verifiable outcome ('The test runner will output detailed results'). P1 absent because main flow lacks explicit numbered lists (wizard prompts are bullets, not ordered steps), putting procedural at 14 (below 15 threshold for tutorial). High priority due to self-contained workflow with prerequisites section, complete runnable code, and deterministic CLI-based execution.",
       "priority": "high",
@@ -1605,7 +1605,7 @@
       "title": "Set Up End-to-End Testing with Moonwall"
     },
     {
-      "built_at": "2026-05-19T15:30:00Z",
+      "built_at": "2026-05-27T21:00:00Z",
       "category": "tutorial",
       "notes": "Complete tutorial: install binary (macOS/Ubuntu/cargo), obtain chain spec via numbered steps, launch a full node, interact with it. Verifiable outcome ('You should see the installed version number' and node sync logs). Includes runtime compatibility requirements with Rust code examples. K3 absent (no explicit prerequisites section), K4 absent (no reference repo for the tutorial itself).",
       "priority": "high",
@@ -1676,7 +1676,7 @@
       "title": "Interact with a Polkadot Chain Using Polkadart"
     },
     {
-      "built_at": "2026-05-19T15:30:00Z",
+      "built_at": "2026-05-27T21:00:00Z",
       "category": "guide",
       "notes": "Covers installation, dynamic API generation, creating an API instance, reading chain constants/state, and sending transactions. Rubric yields priority=high (score=18) but overridden to medium: page carries a prominent maintenance-mode warning directing new projects to Dedot or PAPI. Building an agent skill around a deprecated library has limited value. Ambiguous guide/reference (procedural=11, reference=8, diff=3).",
       "priority": "medium",
@@ -1745,7 +1745,7 @@
       "title": "Bootstrap Parachain Development with Pop CLI"
     },
     {
-      "built_at": "2026-05-19T15:30:00Z",
+      "built_at": "2026-05-27T21:00:00Z",
       "category": "guide",
       "notes": "Walks through installing the library, connecting to a node, reading chain state (account balance), and submitting a balance transfer — all CLI/SDK steps with no GUI dependencies. No explicit 'you should see' outcome language prevents P4 from firing. K2 not awarded because actual code lives in --8<-- snippet includes whose content is not visible in the page source.",
       "priority": "high",
@@ -1776,7 +1776,7 @@
       "title": "Interact with a Polkadot Node Using Python Substrate Interface"
     },
     {
-      "built_at": "2026-05-19T15:30:00Z",
+      "built_at": "2026-05-27T21:00:00Z",
       "category": "tutorial",
       "notes": "Numbered installation steps (install CLI, add core deps), Rust/TOML files to create, and verifiable outcome language ('your Cargo.toml should look like this'). Covers the full workflow from prerequisites through reading chain constants/state and submitting a signed transaction. K2 not awarded due to INSERT_* placeholders (INSERT_NODE_URL, INSERT_ADDRESS, INSERT_SECRET_PHRASE) and unresolved {{dependencies.crates.*}} template variables.",
       "priority": "high",

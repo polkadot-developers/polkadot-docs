@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:48473ed0268b1ad43e3dc30fd6536aff2cac742dc2482bfd3c52f0cd1b241a34",
-  "generated": "2026-05-27T20:30:00Z",
+  "content_hash": "ff27bbe7c12a064ba00fab795b77e88e4536dc5840311078181dd616f7c68694",
+  "generated": "2026-05-27T21:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -3588,7 +3588,7 @@
         ]
       },
       "title": "Set Up and Use Chopsticks for Chain Forking",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -3726,7 +3726,7 @@
         ]
       },
       "title": "Set Up End-to-End Testing with Moonwall",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -5279,7 +5279,7 @@
         ]
       },
       "primary_page": "reference/tools/dedot.md",
-      "project_structure": "dedot-example/\n├── main.ts\n├── send-tx.ts\n└── package.json",
+      "project_structure": "dedot-example/\n├── main.ts\n├── send-tx.ts\n├── watch-events.ts\n└── package.json",
       "reference_code": {
         "base_path": ".snippets/code/reference/tools/dedot",
         "branch": "master",
@@ -5291,6 +5291,10 @@
           {
             "description": "Signs and submits a Balances.transfer extrinsic using a @polkadot/keyring keypair; demonstrates the full signTx flow",
             "path": "sign-and-send-tx-with-keyring.ts"
+          },
+          {
+            "description": "Demonstrates watching for on-chain events using the client.events.<pallet>.<eventName>.watch() subscription pattern (system.NewAccount as example).",
+            "path": "watch-on-chain-events.ts"
           }
         ],
         "repo": "polkadot-developers/polkadot-docs"
@@ -5348,6 +5352,13 @@
           "order": 6,
           "reference_file": "sign-and-send-tx-with-keyring.ts",
           "working_directory": "dedot-example"
+        },
+        {
+          "action": "Watch on-chain events",
+          "description": "Fetch the reference file `watch-on-chain-events.ts` and save it as `watch-events.ts`. The file demonstrates the event-watching pattern using `client.events.system.NewAccount.watch()`:\n\n```typescript\nconst unsub = await client.events.system.NewAccount.watch((events) => {\n  console.log('New Account Created', events);\n});\n```\n\nIntegrate this in `main.ts` by adding it after the client connects and before `client.disconnect()`. Replace `system.NewAccount` with any `<pallet>.<EventName>` to watch a different event. Call `unsub()` to unsubscribe when done.",
+          "order": 7,
+          "reference_file": "watch-on-chain-events.ts",
+          "working_directory": "dedot-example"
         }
       ],
       "supplementary_context": {
@@ -5368,7 +5379,7 @@
         ]
       },
       "title": "Interact with Polkadot Chains Using Dedot",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -5429,6 +5440,7 @@
         ]
       },
       "primary_page": "reference/tools/omninode.md",
+      "project_structure": "./\n└── chain_spec.json",
       "reference_code": {
         "base_path": "",
         "files": [],
@@ -5440,7 +5452,7 @@
       "steps": [
         {
           "action": "Install polkadot-omni-node",
-          "description": "Download the pre-built binary for your platform from the Polkadot SDK releases page: https://github.com/paritytech/polkadot-sdk/releases\n\nFind the latest stable release tag (e.g., polkadot-stable2409-2 or similar). Look for the asset named:\n- macOS Apple Silicon: polkadot-omni-node-aarch64-apple-darwin\n- macOS Intel: polkadot-omni-node-x86_64-apple-darwin\n- Linux x86_64: polkadot-omni-node (no suffix)\n\nReplace INSERT_RELEASE_TAG with the full tag name (e.g., polkadot-stable2409-2):\n\nFor macOS:\n```\ncurl -L -o polkadot-omni-node https://github.com/paritytech/polkadot-sdk/releases/download/INSERT_RELEASE_TAG/polkadot-omni-node-aarch64-apple-darwin\nchmod +x polkadot-omni-node\nsudo mv polkadot-omni-node /usr/local/bin/\n```\n\nFor Ubuntu/Linux:\n```\ncurl -L -o polkadot-omni-node https://github.com/paritytech/polkadot-sdk/releases/download/INSERT_RELEASE_TAG/polkadot-omni-node\nchmod +x polkadot-omni-node\nsudo mv polkadot-omni-node /usr/local/bin/\n```\n\nAlternatively, install from source (requires Rust — see prerequisites). Replace INSERT_VERSION with the crate version listed on https://crates.io/crates/polkadot-omni-node:\n```\ncargo install --locked polkadot-omni-node@INSERT_VERSION\n```",
+          "description": "Download the pre-built binary for your platform from the Polkadot SDK releases page: https://github.com/paritytech/polkadot-sdk/releases\n\nFind the latest stable release tag (e.g., polkadot-stable2603). Look for the asset named:\n- macOS Apple Silicon: polkadot-omni-node-aarch64-apple-darwin\n- macOS Intel: polkadot-omni-node-x86_64-apple-darwin\n- Linux x86_64: polkadot-omni-node (no suffix)\n\nReplace INSERT_RELEASE_TAG with the full tag name (e.g., polkadot-stable2603):\n\nFor macOS:\n```\ncurl -L -o polkadot-omni-node https://github.com/paritytech/polkadot-sdk/releases/download/INSERT_RELEASE_TAG/polkadot-omni-node-aarch64-apple-darwin\nchmod +x polkadot-omni-node\nsudo mv polkadot-omni-node /usr/local/bin/\n```\n\nFor Ubuntu/Linux:\n```\ncurl -L -o polkadot-omni-node https://github.com/paritytech/polkadot-sdk/releases/download/INSERT_RELEASE_TAG/polkadot-omni-node\nchmod +x polkadot-omni-node\nsudo mv polkadot-omni-node /usr/local/bin/\n```\n\nAlternatively, install from source (requires Rust — see prerequisites). Replace INSERT_VERSION with the crate version (current: 0.14.0):\n```\ncargo install --locked polkadot-omni-node@INSERT_VERSION\n```",
           "order": 1,
           "working_directory": "."
         },
@@ -5485,7 +5497,7 @@
         ]
       },
       "title": "Run a Parachain Node with Polkadot Omni Node",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -5631,7 +5643,7 @@
         ]
       },
       "title": "Interact with a Polkadot Node Using Python Substrate Interface",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -5784,7 +5796,7 @@
         ]
       },
       "title": "Interact with a Polkadot Node Using Subxt (Rust)",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -7432,7 +7444,7 @@
         ]
       },
       "title": "Query and Transact on Polkadot Chains with the Polkadot.js API",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {

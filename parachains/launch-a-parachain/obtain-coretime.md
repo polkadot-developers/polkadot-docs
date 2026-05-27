@@ -1,7 +1,7 @@
 ---
 title: Obtain Coretime
 description: Learn how to obtain coretime for block production with this guide, covering both on-demand and bulk options for smooth operations.
-short_description: Aquire blockspace using Polkadot's coretime model.
+short_description: Acquire blockspace using Polkadot's coretime model.
 categories: Parachains
 page_badges:
   tutorial_badge: Advanced

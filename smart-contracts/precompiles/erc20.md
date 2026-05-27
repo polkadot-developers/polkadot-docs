@@ -1,7 +1,7 @@
 ---
 title: Interact with the ERC20 Precompile
 description: Learn how to use the ERC20 precompile to interact with assets from the assets pallet using standard ERC20 token interfaces in your smart contracts.
-short_description: Interact with assets pallet assets using standard ERC20 interfaces.
+short_description: Interact with Assets pallet assets using standard ERC20 interfaces.
 categories: Smart Contracts
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/@polkadot/util@14.0.1/bundle-polkadot-util.js

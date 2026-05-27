@@ -4,6 +4,7 @@ description: Learn how to create a mock runtime environment for testing your cus
 short_description: Set up a mock runtime environment for testing.
 categories: Parachains
 page_badges:
+  tutorial_badge: Intermediate
   test_workflow: polkadot-docs-mock-runtime
 page_tests:
   path: polkadot-docs/parachains/customize-runtime/pallet-development/mock-runtime/tests/docs.test.ts

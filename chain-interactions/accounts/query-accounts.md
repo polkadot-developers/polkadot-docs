@@ -4,6 +4,7 @@ description: Learn how to query account information using five popular SDKs—Po
 short_description: Retrieve account information including balances, nonces, and metadata.
 categories: Chain Interactions, Tooling
 page_badges:
+  tutorial_badge: Beginner
   test_workflow: polkadot-docs-query-accounts
 page_tests:
   path: polkadot-docs/chain-interactions/query-accounts/tests/docs.test.ts

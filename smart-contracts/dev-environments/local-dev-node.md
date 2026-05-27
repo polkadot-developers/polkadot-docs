@@ -5,6 +5,7 @@ short_description: Spin up a local node for iterative development.
 categories: Smart Contracts
 tools: [Polkadot SDK node]
 page_badges:
+  tutorial_badge: Beginner
   test_workflow: polkadot-docs-local-dev-node
 page_tests:
   path: polkadot-docs/smart-contracts/local-dev-node/tests/docs.test.ts

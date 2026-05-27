@@ -4,6 +4,7 @@ description: Learn how to construct, sign, and submit transactions using PAPI, P
 short_description: Build transactions using various SDKs with proper encoding and formatting.
 categories: Chain Interactions, Tooling
 page_badges:
+  tutorial_badge: Intermediate
   test_workflow: polkadot-docs-send-transactions
 page_tests:
   path: polkadot-docs/chain-interactions/send-transactions/tests/docs.test.ts

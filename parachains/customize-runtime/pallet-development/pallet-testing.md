@@ -4,6 +4,7 @@ description: Learn how to efficiently test pallets in the Polkadot SDK, ensuring
 short_description: Write comprehensive tests for your pallet logic.
 categories: Parachains
 page_badges:
+  tutorial_badge: Intermediate
   test_workflow: polkadot-docs-pallet-testing
 page_tests:
   path: polkadot-docs/parachains/customize-runtime/pallet-development/pallet-testing/tests/docs.test.ts

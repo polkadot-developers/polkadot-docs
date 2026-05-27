@@ -4,6 +4,7 @@ description: Learn how to calculate transaction fees on Polkadot using Polkadot-
 short_description: Calculate transaction fees to ensure sufficient balance and optimize costs.
 categories: Chain Interactions, Tooling
 page_badges:
+  tutorial_badge: Beginner
   test_workflow: polkadot-docs-calculate-transaction-fees
 page_tests:
   path: polkadot-docs/chain-interactions/calculate-transaction-fees/tests/docs.test.ts

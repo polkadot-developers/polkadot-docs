@@ -4,6 +4,7 @@ description: Step-by-step guide to creating Polkadot accounts using different pr
 short_description: Generate accounts using various SDKs in Rust, Python, and JavaScript.
 categories: Basics, Chain Interactions
 page_badges:
+  tutorial_badge: Beginner
   test_workflow: polkadot-docs-create-account
 page_tests:
   path: polkadot-docs/chain-interactions/create-account/tests/docs.test.ts

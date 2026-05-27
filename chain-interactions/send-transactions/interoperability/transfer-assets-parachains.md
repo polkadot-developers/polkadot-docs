@@ -4,6 +4,7 @@ description: A step-by-step guide to using the ParaSpell XCM SDK to build, verif
 short_description: Construct and send XCM messages using ParaSpell XCM SDK and Polkadot API (PAPI).
 categories: Interoperability, Parachains
 page_badges:
+  tutorial_badge: Intermediate
   test_workflow: polkadot-docs-transfer-assets-parachains
 page_tests:
   path: polkadot-docs/chain-interactions/transfer-assets-parachains/tests/docs.test.ts

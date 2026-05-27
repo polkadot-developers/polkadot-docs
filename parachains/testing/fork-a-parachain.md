@@ -4,6 +4,7 @@ description: Simplify Polkadot SDK development with Chopsticks. Learn essential 
 short_description: Create a local fork of a live parachain for testing.
 categories: Parachains, Tooling
 page_badges:
+  tutorial_badge: Intermediate
   test_workflow: polkadot-docs-fork-a-parachain
 page_tests:
   path: polkadot-docs/parachains/testing/fork-a-parachain/tests/docs.test.ts

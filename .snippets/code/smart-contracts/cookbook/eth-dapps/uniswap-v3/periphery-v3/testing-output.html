@@ -1,0 +1,88 @@
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>npx hardhat test --network localNode</span>
+  <span data-ty>Compiled 112 Solidity files successfully (evm target: istanbul).</span>
+  <span data-ty></span>
+  <span data-ty>NonfungiblePositionManager</span>
+  <span data-ty> ✔ constructor — returns correct factory and WETH9 addresses (298ms)</span>
+  <span data-ty></span>
+  <span data-ty> #createAndInitializePoolIfNecessary</span>
+  <span data-ty>   ✔ creates a new pool and sets the initial sqrtPriceX96 (1234ms)</span>
+  <span data-ty>   ✔ is a no-op when the pool already exists and is initialized (987ms)</span>
+  <span data-ty></span>
+  <span data-ty> #mint</span>
+  <span data-ty>   ✔ fails if pool does not exist (312ms)</span>
+  <span data-ty>   in-range (full-range) position</span>
+  <span data-ty>     success cases</span>
+  <span data-ty>       ✔ mints exactly one NFT to the recipient (2156ms)</span>
+  <span data-ty>       ✔ decreases token0 and token1 balances of the caller (2087ms)</span>
+  <span data-ty>       ✔ records correct position data in positions() (2243ms)</span>
+  <span data-ty>       ✔ emits IncreaseLiquidity event with positive liquidity (2178ms)</span>
+  <span data-ty>     failure cases</span>
+  <span data-ty>       ✔ reverts when amount0Min slippage is not satisfied (1123ms)</span>
+  <span data-ty>   out-of-range position (above current price)</span>
+  <span data-ty>     ✔ mints a single-sided token0 position — zero token1 consumed (2089ms)</span>
+  <span data-ty>   out-of-range position (below current price)</span>
+  <span data-ty>     ✔ mints a single-sided token1 position — zero token0 consumed (2134ms)</span>
+  <span data-ty></span>
+  <span data-ty> #increaseLiquidity</span>
+  <span data-ty>   ✔ increases the position liquidity (2345ms)</span>
+  <span data-ty>   ✔ emits IncreaseLiquidity event (2276ms)</span>
+  <span data-ty></span>
+  <span data-ty> #decreaseLiquidity</span>
+  <span data-ty>   success cases</span>
+  <span data-ty>     ✔ stages removed tokens in tokensOwed (not immediately transferred) (3234ms)</span>
+  <span data-ty>     ✔ can remove all liquidity from a position (3189ms)</span>
+  <span data-ty>     ✔ emits DecreaseLiquidity event (3156ms)</span>
+  <span data-ty>   failure cases</span>
+  <span data-ty>     ✔ reverts when called by a non-owner (2087ms)</span>
+  <span data-ty>     ✔ reverts when requested liquidity exceeds the position (2134ms)</span>
+  <span data-ty></span>
+  <span data-ty> #collect</span>
+  <span data-ty>   tokensOwed from decreaseLiquidity</span>
+  <span data-ty>     ✔ transfers tokensOwed back to the owner (3567ms)</span>
+  <span data-ty>     ✔ emits Collect event (3489ms)</span>
+  <span data-ty>     ✔ collecting less than the maximum leaves remainder in tokensOwed (3623ms)</span>
+  <span data-ty>   swap fee accumulation</span>
+  <span data-ty>     ✔ LP collects accrued trading fees after swaps through the pool (7891ms)</span>
+  <span data-ty></span>
+  <span data-ty> #burn</span>
+  <span data-ty>   ✔ burns the NFT after full removal and collection (4234ms)</span>
+  <span data-ty>   ✔ reverts when liquidity has not been fully removed (3123ms)</span>
+  <span data-ty>   ✔ reverts when tokensOwed have not been collected (3087ms)</span>
+  <span data-ty></span>
+  <span data-ty>SwapRouter</span>
+  <span data-ty> ✔ constructor — returns correct factory and WETH9 addresses (289ms)</span>
+  <span data-ty></span>
+  <span data-ty> #exactInputSingle</span>
+  <span data-ty>   success cases</span>
+  <span data-ty>     ✔ swaps token0 for token1 via a single pool (2134ms)</span>
+  <span data-ty>     ✔ respects sqrtPriceLimitX96 and executes a partial fill (2087ms)</span>
+  <span data-ty>     ✔ sends output tokens to the specified recipient, not the caller (2156ms)</span>
+  <span data-ty>   failure cases</span>
+  <span data-ty>     ✔ reverts when output is below amountOutMinimum (1234ms)</span>
+  <span data-ty></span>
+  <span data-ty> #exactInput</span>
+  <span data-ty>   success cases</span>
+  <span data-ty>     ✔ swaps token0 → token1 → token2 via two pools (3456ms)</span>
+  <span data-ty>   failure cases</span>
+  <span data-ty>     ✔ reverts when output is below amountOutMinimum (2345ms)</span>
+  <span data-ty></span>
+  <span data-ty> #exactOutputSingle</span>
+  <span data-ty>   success cases</span>
+  <span data-ty>     ✔ buys an exact amount of token1 using token0 (2178ms)</span>
+  <span data-ty>     ✔ spends strictly less than amountInMaximum when pool has sufficient liquidity (2234ms)</span>
+  <span data-ty>   failure cases</span>
+  <span data-ty>     ✔ reverts when amountInMaximum is exceeded (1198ms)</span>
+  <span data-ty></span>
+  <span data-ty> #exactOutput</span>
+  <span data-ty>   success cases</span>
+  <span data-ty>     ✔ buys an exact amount of token2 using token0 through two pools (3589ms)</span>
+  <span data-ty>   failure cases</span>
+  <span data-ty>     ✔ reverts when amountInMaximum is exceeded (multi-hop) (2456ms)</span>
+  <span data-ty></span>
+  <span data-ty> pool price impact</span>
+  <span data-ty>   ✔ exactInputSingle moves the pool sqrtPriceX96 (2089ms)</span>
+  <span data-ty>   ✔ exactOutputSingle moves the pool sqrtPriceX96 (2134ms)</span>
+  <span data-ty></span>
+  <span data-ty>39 passing (2m)</span>
+</div>

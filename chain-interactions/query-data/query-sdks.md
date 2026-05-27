@@ -4,6 +4,7 @@ description: Learn how to query on-chain storage data on Polkadot Hub using PAPI
 short_description: Programmatically read blockchain state using PAPI, Polkadot.js, Dedot, Python Substrate Interface, and Subxt.
 categories: Chain Interactions, Tooling
 page_badges:
+  tutorial_badge: Intermediate
   test_workflow: polkadot-docs-query-sdks
 page_tests:
   path: polkadot-docs/chain-interactions/query-sdks/tests/docs.test.ts

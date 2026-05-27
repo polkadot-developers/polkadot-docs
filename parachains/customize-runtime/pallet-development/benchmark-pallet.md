@@ -4,6 +4,7 @@ description: Learn how to benchmark extrinsics in your custom pallet to generate
 short_description: Measure and optimize pallet performance with benchmarking.
 categories: Parachains
 page_badges:
+  tutorial_badge: Advanced
   test_workflow: polkadot-docs-benchmark-pallet
 page_tests:
   path: polkadot-docs/parachains/customize-runtime/pallet-development/benchmark-pallet/tests/docs.test.ts

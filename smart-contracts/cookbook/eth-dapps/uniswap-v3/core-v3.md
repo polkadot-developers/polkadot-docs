@@ -265,13 +265,13 @@ When prompted, confirm the target network name and chain ID. Ignition deploys th
 
     [:octicons-arrow-right-24: Reference](/smart-contracts/dev-environments/hardhat/)
 
--   <span class="badge tutorial">Tutorial</span> __Uniswap V2 Core__
+-   <span class="badge tutorial">Tutorial</span> __Uniswap V3 Periphery__
 
     ---
 
-    Compare with the Uniswap V2 Core deployment to see how V2's uniform liquidity model differs from V3's concentrated approach.
+    Deploy the SwapRouter and NonfungiblePositionManager contracts on Polkadot Hub to add token swaps and NFT-based liquidity position management on top of V3 Core.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/eth-dapps/uniswap-v2/core-v2/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/eth-dapps/uniswap-v3/periphery-v3/)
 
 -   <span class="badge guide">Guide</span> __Local Development Node__
 

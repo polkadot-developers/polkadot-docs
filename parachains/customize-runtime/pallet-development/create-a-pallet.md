@@ -4,6 +4,7 @@ description: Learn how to create custom pallets using FRAME, allowing for flexib
 short_description: Build a pallet from scratch with custom logic.
 categories: Parachains
 page_badges:
+  tutorial_badge: Beginner
   test_workflow: polkadot-docs-create-a-pallet
 page_tests:
   path: polkadot-docs/parachains/customize-runtime/pallet-development/create-a-pallet/tests/docs.test.ts

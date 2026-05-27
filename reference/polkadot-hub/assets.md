@@ -44,7 +44,7 @@ Each asset is identified by a unique ID and stores:
 - Sufficiency–whether the asset can keep an account alive without DOT
 - Metadata (name, symbol, decimals)
 
-If a balance falls below the configured minimum, called the [existential deposit](/reference/glossary/#existential-deposit){target=\_blank}, it may be removed as “dust.” This ensures efficient storage while giving developers control over asset economics.
+If a balance falls below the configured minimum, called the Existential Deposit, it may be removed as “dust.” This ensures efficient storage while giving developers control over asset economics.
 
 ## Common Asset IDs
 

@@ -26,7 +26,7 @@ Key responsibilities include:
 
 ## Consensus and Validation
 
-Parachain consensus operates in tandem with the relay chain, leveraging [Nominated Proof of Stake (NPoS)](/reference/glossary/#nominated-proof-of-stake-npos){target=\_blank} for shared security. The process ensures parachain transactions achieve finality through the following steps:
+Parachain consensus operates in tandem with the relay chain, leveraging Nominated Proof of Stake (NPoS) for shared security. The process ensures parachain transactions achieve finality through the following steps:
 
 1. **Packaging transactions**: Collators bundle transactions into PoV blocks (parablocks).
 2. **Submission to validator**: Parablocks are submitted to a randomly selected subset of relay chain validators, known as paravalidators.

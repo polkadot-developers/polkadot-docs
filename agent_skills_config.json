@@ -1,6 +1,6 @@
 {
-  "content_hash": "ff27bbe7c12a064ba00fab795b77e88e4536dc5840311078181dd616f7c68694",
-  "generated": "2026-05-27T21:00:00Z",
+  "content_hash": "5e74dcca5c6ad87f629556a6c1016d655144e9f5700b2263fbde5171248ee0d7",
+  "generated": "2026-05-27T21:30:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -4085,7 +4085,7 @@
         ]
       },
       "title": "Deploy an ERC-20 Token Using Remix IDE",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -4557,7 +4557,7 @@
         ]
       },
       "title": "Deploy Contracts to Polkadot Hub with Viem",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -9608,7 +9608,7 @@
         ]
       },
       "title": "Deploy Uniswap V2 Core on Polkadot Hub (EVM)",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -9778,7 +9778,7 @@
         ]
       },
       "title": "Deploy Uniswap V2 Periphery (Router) on Polkadot Hub (EVM)",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -10132,7 +10132,7 @@
         ]
       },
       "title": "Deploy Uniswap V3 Periphery on Polkadot Hub (EVM)",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "workflow_pattern": "sequential"
     }
   ]

@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:3d406376984a08683679ce1243d050c6d117b2f2913347dbc68fbc8e230ef470",
-  "generated": "2026-05-19T22:00:00Z",
+  "content_hash": "sha256:48473ed0268b1ad43e3dc30fd6536aff2cac742dc2482bfd3c52f0cd1b241a34",
+  "generated": "2026-05-27T20:30:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -134,7 +134,7 @@
         ]
       },
       "title": "Create a Polkadot Account Programmatically",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "workflow_pattern": "sequential"
     },
     {
@@ -276,7 +276,7 @@
         ]
       },
       "title": "Query Account Information with SDKs",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "workflow_pattern": "sequential"
     },
     {
@@ -430,7 +430,7 @@
         ]
       },
       "title": "Query On-Chain State with SDKs",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "workflow_pattern": "sequential"
     },
     {
@@ -572,7 +572,7 @@
         ]
       },
       "title": "Call Runtime APIs with SDKs",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "workflow_pattern": "sequential"
     },
     {
@@ -764,7 +764,7 @@
         ]
       },
       "title": "Send Transactions with SDKs",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "workflow_pattern": "sequential"
     },
     {
@@ -2892,7 +2892,7 @@
         {
           "actions": [
             "Confirm Rust toolchain with wasm32 target is installed (install-polkadot-sdk skill if not)",
-            "Clone polkadot-sdk-parachain-template from GitHub",
+            "Clone parachain-template from GitHub",
             "Run cargo build --release in the cloned directory (allow 20-60 minutes)",
             "Verify with ./target/release/parachain-template-node --version",
             "Start in dev mode with ./target/release/parachain-template-node --dev to confirm it works"
@@ -2924,7 +2924,7 @@
         ]
       },
       "primary_page": "parachains/launch-a-parachain/set-up-the-parachain-template.md",
-      "project_structure": "polkadot-sdk-parachain-template/\n├── node/\n├── pallets/\n│   └── template/\n├── runtime/\n├── Cargo.toml\n└── Cargo.lock",
+      "project_structure": "parachain-template/\n├── node/\n├── pallets/\n│   └── template/\n├── runtime/\n├── Cargo.toml\n├── Cargo.lock\n└── README.md",
       "reference_code": {
         "base_path": "",
         "branch": "",
@@ -2938,10 +2938,10 @@
         {
           "action": "Clone the Polkadot SDK Parachain Template",
           "commands": [
-            "git clone https://github.com/paritytech/polkadot-sdk-parachain-template.git",
-            "cd polkadot-sdk-parachain-template"
+            "git clone https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template",
+            "cd parachain-template"
           ],
-          "description": "Clone the official Polkadot SDK Parachain Template repository. The template contains a minimal parachain runtime with Aura consensus, standard FRAME pallets, and Cumulus integration for relay chain connectivity. It includes both a node binary and a runtime Wasm blob.",
+          "description": "Clone the official Polkadot SDK Parachain Template repository into a directory named 'parachain-template'. The template contains a minimal parachain runtime with Aura consensus, standard FRAME pallets, and Cumulus integration for relay chain connectivity.",
           "order": 1,
           "working_directory": "."
         },
@@ -2949,17 +2949,17 @@
           "action": "Review the template directory structure",
           "description": "Familiarize yourself with the key directories before building: 'node/' contains the node binary crate (CLI, RPC, service); 'runtime/' contains the parachain runtime (pallets, weights, Wasm); 'pallets/' contains a sample custom pallet. The 'Cargo.toml' at the root defines the workspace. No files need to be created or modified for the initial setup — the default configuration targets a local development network.",
           "order": 2,
-          "working_directory": "polkadot-sdk-parachain-template"
+          "working_directory": "parachain-template"
         },
         {
           "action": "Build the parachain node in release mode",
           "commands": [
-            "cargo build --release"
+            "cargo build --release --locked"
           ],
-          "description": "Compile the parachain node and runtime in release mode. This step is time-consuming (20-60 minutes on first build) because it compiles the entire Polkadot SDK dependency tree. Subsequent builds use the Rust incremental cache and are significantly faster. If compilation fails with 'linker not found', install the build-essential package (Linux) or Xcode command line tools (macOS). On low-memory machines (less than 8 GB RAM), reduce parallel jobs: CARGO_BUILD_JOBS=2 cargo build --release.",
+          "description": "Compile the parachain node and runtime in release mode with locked dependencies. This step is time-consuming (20-60 minutes on first build) because it compiles the entire Polkadot SDK dependency tree. Subsequent builds use the Rust incremental cache and are significantly faster. The '--locked' flag ensures exact dependency versions from Cargo.lock are used. If compilation fails with 'linker not found', install build-essential (Linux: `sudo apt install build-essential clang`) or Xcode command line tools (macOS: `xcode-select --install`). On low-memory machines (less than 8 GB RAM), reduce parallel jobs: `CARGO_BUILD_JOBS=2 cargo build --release --locked`.",
           "expected_output": "Compiling parachain-template-node v0.1.0\n...\nFinished release [optimized] target(s)",
           "order": 3,
-          "working_directory": "polkadot-sdk-parachain-template"
+          "working_directory": "parachain-template"
         },
         {
           "action": "Verify the binary was produced",
@@ -2969,7 +2969,7 @@
           "description": "Confirm the binary exists and reports its version. If the command fails with 'No such file or directory', the build did not complete successfully — review the cargo build output for compilation errors.",
           "expected_output": "parachain-template-node 0.1.0-...",
           "order": 4,
-          "working_directory": "polkadot-sdk-parachain-template"
+          "working_directory": "parachain-template"
         },
         {
           "action": "Run the node in local development mode",
@@ -2979,7 +2979,7 @@
           "description": "Start the node in development mode. In --dev mode the node runs as a single collator without a relay chain connection, using a local chain spec and instant block production. This verifies the binary works correctly. The node will not produce blocks in this mode without a connected relay chain — the 'Idle' output is expected. Press Ctrl+C to stop. The next step in the parachain launch series covers connecting to a relay chain.",
           "expected_output": "Running in --dev mode\n...\nIdle (0 peers)",
           "order": 5,
-          "working_directory": "polkadot-sdk-parachain-template"
+          "working_directory": "parachain-template"
         }
       ],
       "supplementary_context": {
@@ -3006,7 +3006,7 @@
         ]
       },
       "title": "Set Up the Polkadot SDK Parachain Template",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -7279,7 +7279,7 @@
         ]
       },
       "title": "Retrieve Polkadot Runtime Metadata",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {

@@ -125,6 +125,8 @@
   --color-border: var(--grey-200);
   /* Emphasized borders */
   --color-border-strong: var(--grey-300);
+  /* Tooltip underline */
+  --color-tooltip-underline: var(--grey-500);
   /* Hover color */
   --color-text-hover: var(--grey-900);
 
@@ -181,6 +183,8 @@
   --color-border: var(--grey-800);
   /* Emphasized borders */
   --color-border-strong: var(--grey-700);
+  /* Tooltip underline */
+  --color-tooltip-underline: var(--grey-600);
   /* Hover color */
   --color-text-hover: var(--grey-100);
 
@@ -265,6 +269,11 @@
 .md-typeset a:focus,
 .md-typeset a:hover {
   color: var(--color-text-hover);
+}
+
+.md-typeset [data-preview],
+.md-typeset abbr {
+  border-bottom-color: var(--color-tooltip-underline);
 }
 
 /* --- Layout --- */

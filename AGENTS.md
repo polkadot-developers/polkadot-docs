@@ -17,7 +17,7 @@ Documentation in this repository follows the **PaperMoon Documentation Style Gui
 Vale rules and the PaperMoon vocab are not copied into this repo — they are pulled from the canonical [`papermoonio/documentation-style-guide`](https://github.com/papermoonio/documentation-style-guide) repo on every CI run, and on demand for local linting. The single source of truth is the styleguide repo.
 
 ```bash
-./scripts/sync-styleguide-vale.sh   # pull canonical Vale rules + PaperMoon vocab
+./.github/scripts/sync-styleguide-vale.sh   # pull canonical Vale rules + PaperMoon vocab
 vale .                              # lint
 ```
 

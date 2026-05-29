@@ -6,11 +6,12 @@ on:
       - "**.md"
       - ".vale.ini"
       - "styles/config/vocabularies/Polkadot/**"
-      - "scripts/sync-styleguide-vale.sh"
+      - ".github/scripts/sync-styleguide-vale.sh"
       - ".github/workflows/vale.yml"
 
 permissions:
   contents: read
+  checks: write
   pull-requests: read
 
 jobs:
@@ -22,7 +23,7 @@ jobs:
           fetch-depth: 0
 
       - name: Sync canonical Vale rules from the PaperMoon styleguide
-        run: ./scripts/sync-styleguide-vale.sh
+        run: ./.github/scripts/sync-styleguide-vale.sh
 
       - name: List changed markdown files
         id: changed
@@ -38,7 +39,10 @@ jobs:
         uses: errata-ai/vale-action@reviewdog
         with:
           files: ${{ steps.changed.outputs.files }}
-          fail_on_error: true
-          reporter: github-pr-review
+          # Advisory only: surface findings in the Checks tab without blocking
+          # merge or spamming inline review comments. Reruns on every push, so
+          # the check status always reflects the latest commit.
+          fail_on_error: false
+          reporter: github-pr-check
           filter_mode: added
           token: ${{ secrets.GITHUB_TOKEN }}

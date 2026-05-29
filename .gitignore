@@ -11,7 +11,7 @@ scripts/__pycache__/*
 .kluster
 
 # Vale rules and vocab synced from papermoonio/documentation-style-guide
-# by scripts/sync-styleguide-vale.sh (CI runs the script before linting).
+# by .github/scripts/sync-styleguide-vale.sh (CI runs the script before linting).
 # The canonical repo is the single source of truth — never commit copies.
 styles/PaperMoon/
 styles/config/vocabularies/PaperMoon/

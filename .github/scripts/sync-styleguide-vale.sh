@@ -5,8 +5,8 @@
 # repo is the single source of truth.
 #
 # Usage:
-#   ./scripts/sync-styleguide-vale.sh           # sync from main
-#   ./scripts/sync-styleguide-vale.sh <ref>     # sync from a branch, tag, or sha
+#   ./.github/scripts/sync-styleguide-vale.sh           # sync from main
+#   ./.github/scripts/sync-styleguide-vale.sh <ref>     # sync from a branch, tag, or sha
 #
 # Project-specific vocab (styles/config/vocabularies/Polkadot/) is
 # managed in this repo and is NOT overwritten.

@@ -209,7 +209,7 @@ After running the command, you should see the following output, indicating the b
 
 --8<-- 'code/parachains/launch-a-parachain/deploy-to-polkadot/deploy-on-paseo.html'
 
-You must have the ports for the collator publicly accessible and discoverable to enable parachain nodes to peer with Paseo validator nodes to produce blocks. You can specify the ports with the `--port` command-line option. You can start the collator with a command similar to the following:
+You must have the ports for the collator publicly accessible and discoverable to enable parachain nodes to peer with Paseo validator nodes to produce blocks. You can specify the ports with the `--port` command-line option. You can start the collator with a command similar to the following (ensure you replace <YOUR_ID> with the "id" you used in the plain_chain_spec.json file:
 
 ```bash
 polkadot-omni-node --collator \
@@ -218,7 +218,7 @@ polkadot-omni-node --collator \
 --port 40333 \
 --rpc-port 8845 \
 --force-authoring \
---node-key-file ./data/chains/custom/network/secret_ed25519 \
+--node-key-file ./data/chains/<YOUR_ID>/network/secret_ed25519 \
 -- \
 --sync warp \
 --chain paseo \

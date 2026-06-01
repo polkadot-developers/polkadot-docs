@@ -218,7 +218,7 @@ polkadot-omni-node --collator \
 --port 40333 \
 --rpc-port 8845 \
 --force-authoring \
---node-key-file ./data/chains/<YOUR_ID>/network/secret_ed25519 \
+--node-key-file ./data/chains/INSERT_ID/network/secret_ed25519 \
 -- \
 --sync warp \
 --chain paseo \

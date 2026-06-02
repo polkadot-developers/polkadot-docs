@@ -32,6 +32,7 @@ validation:
 exclude_docs: |
    README.md
    LICENSE.md
+   AGENTS.md
 
 # Theme related settings
 theme:

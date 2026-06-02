@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:2d3fd92ae0551676b689c70b462614217f102d74fa4a0c88345e401b253333fd",
-  "generated": "2026-06-02T12:00:00Z",
+  "content_hash": "sha256:ab6faf503d754189d8f335ce81754e742dbccbe43c904f0a7933bf2c94263565",
+  "generated": "2026-06-02T14:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -2859,53 +2859,65 @@
         ]
       },
       "title": "Estimate XCM Fees for Asset Teleport",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "workflow_pattern": "sequential"
     },
     {
       "chain_role": "isolated",
-      "description": "Clones the Polkadot SDK Parachain Template, compiles it in release mode, and runs a local development node to verify the build and environment. Use as the first step in the parachain launch workflow before registering on Paseo testnet or a local relay chain. Requires the Polkadot SDK build environment from the install-polkadot-sdk skill. The template provides a minimal parachain runtime with Aura consensus, FRAME pallets, and a pre-configured Cumulus integration. Trigger phrases: 'parachain template', 'set up parachain Polkadot SDK', 'clone parachain template', 'build parachain template', 'Polkadot SDK parachain starter'. First step in the three-page parachain launch series.",
+      "description": "Clones the Polkadot SDK Parachain Template, installs the chain-spec-builder and polkadot-omni-node utilities, compiles the runtime in release mode, generates a development chain specification, and launches the node locally using polkadot-omni-node. Use as the first step in the parachain launch workflow before registering on Paseo testnet. Requires the Polkadot SDK build environment from the install-polkadot-sdk skill. Trigger phrases: 'parachain template', 'set up parachain Polkadot SDK', 'clone parachain template', 'build parachain template', 'polkadot-omni-node', 'chain-spec-builder parachain', 'Polkadot SDK parachain starter'.",
       "env_vars": [],
       "error_patterns": [
         {
           "cause": "The wasm32-unknown-unknown target is not installed in the Rust toolchain.",
           "pattern": "error[E0463]: can't find crate for 'std' / wasm32 target missing",
-          "resolution": "Run: rustup target add wasm32-unknown-unknown. If using a specific toolchain version, prefix with rustup target add wasm32-unknown-unknown --toolchain stable."
+          "resolution": "Run: `rustup target add wasm32-unknown-unknown`. If using a specific toolchain version, prefix with `--toolchain stable`."
         },
         {
           "cause": "C/C++ build tools are not installed on the system.",
           "pattern": "error: linking with 'cc' failed / linker not found",
-          "resolution": "On Ubuntu/Debian: sudo apt install build-essential clang. On macOS: xcode-select --install. Then re-run cargo build --release."
+          "resolution": "On Ubuntu/Debian: `sudo apt install build-essential clang`. On macOS: `xcode-select --install`. Then re-run `cargo build --release`."
         },
         {
           "cause": "Insufficient RAM for parallel Rust compilation — cargo uses one thread per CPU core by default.",
           "pattern": "Killed / process killed during compilation / OOM",
-          "resolution": "Reduce parallel compilation jobs: CARGO_BUILD_JOBS=2 cargo build --release. Consider adding swap space on Linux: sudo fallocate -l 4G /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile."
+          "resolution": "Reduce parallel compilation jobs: `CARGO_BUILD_JOBS=2 cargo build --release`. Consider adding swap space on Linux: `sudo fallocate -l 4G /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile`."
         },
         {
           "cause": "Cargo.lock is out of sync with the current Polkadot SDK release pinned in Cargo.toml.",
           "pattern": "error: package 'polkadot-sdk' not found / version mismatch in Cargo.lock",
-          "resolution": "Run cargo update to refresh the lock file to the latest compatible versions, then retry cargo build --release."
+          "resolution": "Run `cargo update` to refresh the lock file, then retry `cargo build --release`."
+        },
+        {
+          "cause": "chain-spec-builder was not installed or is not in PATH.",
+          "pattern": "chain-spec-builder: command not found",
+          "resolution": "Run `cargo install --locked staging-chain-spec-builder`. Verify it's in PATH with `which chain-spec-builder`."
+        },
+        {
+          "cause": "polkadot-omni-node was not installed or is not in PATH.",
+          "pattern": "polkadot-omni-node: command not found",
+          "resolution": "Run `cargo install --locked polkadot-omni-node`. Verify it's in PATH with `which polkadot-omni-node`."
         }
       ],
       "examples": [
         {
           "actions": [
             "Confirm Rust toolchain with wasm32 target is installed (install-polkadot-sdk skill if not)",
+            "Install chain-spec-builder and polkadot-omni-node via cargo install",
             "Clone parachain-template from GitHub",
-            "Run cargo build --release in the cloned directory (allow 20-60 minutes)",
-            "Verify with ./target/release/parachain-template-node --version",
-            "Start in dev mode with ./target/release/parachain-template-node --dev to confirm it works"
+            "Run cargo build --release --locked in the cloned directory (allow 20-60 minutes)",
+            "Verify Wasm blob exists at ./target/release/wbuild/parachain-template-runtime/",
+            "Generate chain_spec.json with chain-spec-builder",
+            "Start node with polkadot-omni-node --chain ./chain_spec.json --dev"
           ],
-          "result": "Template node built and running in dev mode; environment confirmed ready for the next parachain launch step",
+          "result": "Parachain template node built and running in dev mode; chain spec generated; environment confirmed ready for the next parachain launch step",
           "scenario": "Common scenario: first-time parachain developer setting up the template",
           "user_says": "How do I get the Polkadot SDK Parachain Template running on my machine?"
         },
         {
           "actions": [
             "Set CARGO_BUILD_JOBS=2 to limit parallel compilation threads",
-            "Add at least 4 GB of swap space: sudo fallocate -l 4G /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile",
-            "Re-run CARGO_BUILD_JOBS=2 cargo build --release"
+            "Add at least 4 GB of swap space: `sudo fallocate -l 4G /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile`",
+            "Re-run `CARGO_BUILD_JOBS=2 cargo build --release --locked`"
           ],
           "result": "Build completes successfully with reduced memory pressure from limited parallel jobs",
           "scenario": "Edge case: build is killed due to out-of-memory on a low-spec machine",
@@ -2919,12 +2931,12 @@
         "runtime": [
           "Rust toolchain with wasm32-unknown-unknown target — complete the install-polkadot-sdk skill first",
           "Git",
-          "Disk: at least 5 GB free for the build artifacts",
+          "Disk: at least 5 GB free for build artifacts",
           "RAM: 8 GB minimum; 16 GB recommended for parallel compilation"
         ]
       },
       "primary_page": "parachains/launch-a-parachain/set-up-the-parachain-template.md",
-      "project_structure": "parachain-template/\n├── node/\n├── pallets/\n│   └── template/\n├── runtime/\n├── Cargo.toml\n├── Cargo.lock\n└── README.md",
+      "project_structure": "parachain-template/\n├── node/\n├── pallets/\n│   └── template/\n├── runtime/\n├── target/\n│   └── release/\n│       └── wbuild/\n│           └── parachain-template-runtime/\n│               └── parachain_template_runtime.compact.compressed.wasm\n├── chain_spec.json\n├── Cargo.toml\n├── Cargo.lock\n└── README.md",
       "reference_code": {
         "base_path": "",
         "branch": "",
@@ -2936,49 +2948,69 @@
       ],
       "steps": [
         {
+          "action": "Install chain-spec-builder and polkadot-omni-node",
+          "commands": [
+            "cargo install --locked staging-chain-spec-builder",
+            "cargo install --locked polkadot-omni-node"
+          ],
+          "description": "Install the two Polkadot SDK utility tools required to generate a chain specification and run your parachain node. The `cargo install` path is OS-agnostic and builds from source using the version pinned in the official crates.io registry. Alternatively, download pre-built binaries from the Polkadot SDK GitHub release page at https://github.com/paritytech/polkadot-sdk/releases — choose the tag matching the parachain template's SDK version pin. On macOS (Apple Silicon) use the `aarch64-apple-darwin` suffix; on Ubuntu/Linux use the unsuffixed binary. After downloading: `chmod +x chain-spec-builder polkadot-omni-node && sudo mv chain-spec-builder polkadot-omni-node /usr/local/bin/`.",
+          "order": 1,
+          "working_directory": "."
+        },
+        {
           "action": "Clone the Polkadot SDK Parachain Template",
           "commands": [
             "git clone https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template",
             "cd parachain-template"
           ],
-          "description": "Clone the official Polkadot SDK Parachain Template repository into a directory named 'parachain-template'. The template contains a minimal parachain runtime with Aura consensus, standard FRAME pallets, and Cumulus integration for relay chain connectivity.",
-          "order": 1,
+          "description": "Clone the official Polkadot SDK Parachain Template into a directory named 'parachain-template'. The template contains a minimal parachain runtime with Aura consensus, standard FRAME pallets, and Cumulus integration for relay chain connectivity.",
+          "order": 2,
           "working_directory": "."
         },
         {
           "action": "Review the template directory structure",
           "description": "Familiarize yourself with the key directories before building: 'node/' contains the node binary crate (CLI, RPC, service); 'runtime/' contains the parachain runtime (pallets, weights, Wasm); 'pallets/' contains a sample custom pallet. The 'Cargo.toml' at the root defines the workspace. No files need to be created or modified for the initial setup — the default configuration targets a local development network.",
-          "order": 2,
-          "working_directory": "parachain-template"
-        },
-        {
-          "action": "Build the parachain node in release mode",
-          "commands": [
-            "cargo build --release --locked"
-          ],
-          "description": "Compile the parachain node and runtime in release mode with locked dependencies. This step is time-consuming (20-60 minutes on first build) because it compiles the entire Polkadot SDK dependency tree. Subsequent builds use the Rust incremental cache and are significantly faster. The '--locked' flag ensures exact dependency versions from Cargo.lock are used. If compilation fails with 'linker not found', install build-essential (Linux: `sudo apt install build-essential clang`) or Xcode command line tools (macOS: `xcode-select --install`). On low-memory machines (less than 8 GB RAM), reduce parallel jobs: `CARGO_BUILD_JOBS=2 cargo build --release --locked`.",
-          "expected_output": "Compiling parachain-template-node v0.1.0\n...\nFinished release [optimized] target(s)",
           "order": 3,
           "working_directory": "parachain-template"
         },
         {
-          "action": "Verify the binary was produced",
+          "action": "Compile the parachain runtime in release mode",
           "commands": [
-            "./target/release/parachain-template-node --version"
+            "cargo build --release --locked"
           ],
-          "description": "Confirm the binary exists and reports its version. If the command fails with 'No such file or directory', the build did not complete successfully — review the cargo build output for compilation errors.",
-          "expected_output": "parachain-template-node 0.1.0-...",
+          "description": "Compile the parachain runtime in release mode with locked dependencies. This step is time-consuming (20-60 minutes on first build) because it compiles the entire Polkadot SDK dependency tree. Subsequent builds use the Rust incremental cache and are significantly faster. The '--locked' flag ensures exact dependency versions from Cargo.lock are used. If compilation fails with 'linker not found', install build-essential (Linux: `sudo apt install build-essential clang`) or Xcode command line tools (macOS: `xcode-select --install`). On low-memory machines (less than 8 GB RAM), reduce parallel jobs: `CARGO_BUILD_JOBS=2 cargo build --release --locked`.",
+          "expected_output": "Finished release [optimized] target(s)",
           "order": 4,
           "working_directory": "parachain-template"
         },
         {
-          "action": "Run the node in local development mode",
+          "action": "Verify the compiled Wasm runtime blob",
           "commands": [
-            "./target/release/parachain-template-node --dev"
+            "ls -la ./target/release/wbuild/parachain-template-runtime/"
           ],
-          "description": "Start the node in development mode. In --dev mode the node runs as a single collator without a relay chain connection, using a local chain spec and instant block production. This verifies the binary works correctly. The node will not produce blocks in this mode without a connected relay chain — the 'Idle' output is expected. Press Ctrl+C to stop. The next step in the parachain launch series covers connecting to a relay chain.",
-          "expected_output": "Running in --dev mode\n...\nIdle (0 peers)",
+          "description": "Confirm the Wasm runtime blob was produced at `./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm`. If the file is absent, the build did not complete successfully — review the `cargo build` output for compilation errors.",
+          "expected_output": "parachain_template_runtime.compact.compressed.wasm",
           "order": 5,
+          "working_directory": "parachain-template"
+        },
+        {
+          "action": "Generate the development chain specification",
+          "commands": [
+            "chain-spec-builder create -t development --relay-chain paseo --para-id 1000 --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm named-preset development"
+          ],
+          "description": "Use `chain-spec-builder` to create a development chain specification for your parachain. `-t development` selects the development chain type. `--relay-chain paseo` specifies Paseo as the relay chain. `--para-id 1000` sets the parachain ID for local development. `named-preset development` selects the development genesis preset. This creates a `chain_spec.json` file in the current directory.",
+          "expected_output": "Wrote chain spec to chain_spec.json",
+          "order": 6,
+          "working_directory": "parachain-template"
+        },
+        {
+          "action": "Start the node in development mode with polkadot-omni-node",
+          "commands": [
+            "polkadot-omni-node --chain ./chain_spec.json --dev"
+          ],
+          "description": "Launch the parachain using `polkadot-omni-node` with the generated chain spec. The `--dev` flag starts the node without a relay chain connection, enables instant block finality, and purges all state on stop — giving a clean working state each restart. Verify the node is running by watching for increasing `finalized` block numbers in the log output. Press Ctrl+C to stop. The node is accessible at `ws://localhost:9944` for Polkadot.js Apps connections.",
+          "expected_output": "Running in --dev mode\n...\nfinalized #1",
+          "order": 7,
           "working_directory": "parachain-template"
         }
       ],
@@ -3006,7 +3038,7 @@
         ]
       },
       "title": "Set Up the Polkadot SDK Parachain Template",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -4699,7 +4731,7 @@
         ]
       },
       "title": "Set Up a Mock Runtime for Pallet Unit Testing",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "workflow_pattern": "sequential"
     },
     {
@@ -4857,7 +4889,7 @@
         ]
       },
       "title": "Write Unit Tests for a FRAME Pallet",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -6826,7 +6858,7 @@
         ]
       },
       "title": "Add an Existing Pallet to a Parachain Runtime",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -6996,7 +7028,7 @@
         ]
       },
       "title": "Configure Multiple Instances of a Pallet in a Runtime",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -7173,7 +7205,7 @@
         ]
       },
       "title": "Create a Custom FRAME Pallet",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-02T12:00:00Z",
+  "generated": "2026-06-02T14:00:00Z",
   "pages": {
     "chain-interactions/accounts/create-account.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -59,11 +59,11 @@
     },
     "chain-interactions/send-transactions/interoperability/estimate-xcm-fees.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T20:00:00Z",
+      "last_scanned": "2026-06-02T14:00:00Z",
       "skills": [
         "estimate-xcm-fees-teleport"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -239,19 +239,19 @@
     },
     "parachains/customize-runtime/add-existing-pallets.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T21:30:00Z",
+      "last_scanned": "2026-06-02T14:00:00Z",
       "skills": [
         "add-existing-pallet-to-runtime"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/add-pallet-instances.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T21:30:00Z",
+      "last_scanned": "2026-06-02T14:00:00Z",
       "skills": [
         "configure-multiple-pallet-instances"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/add-smart-contract-functionality.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -269,27 +269,27 @@
     },
     "parachains/customize-runtime/pallet-development/create-a-pallet.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T21:30:00Z",
+      "last_scanned": "2026-06-02T14:00:00Z",
       "skills": [
         "create-frame-pallet"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/pallet-development/mock-runtime.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T21:30:00Z",
+      "last_scanned": "2026-06-02T14:00:00Z",
       "skills": [
         "set-up-pallet-mock-runtime"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/pallet-development/pallet-testing.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T21:30:00Z",
+      "last_scanned": "2026-06-02T14:00:00Z",
       "skills": [
         "unit-test-frame-pallet"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/get-started.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -357,11 +357,11 @@
     },
     "parachains/launch-a-parachain/set-up-the-parachain-template.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-27T20:30:00Z",
+      "last_scanned": "2026-06-02T14:00:00Z",
       "skills": [
         "set-up-parachain-template"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/runtime-maintenance/coretime-renewal.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -982,10 +982,10 @@
   "summary": {
     "blocked": 23,
     "not_applicable": 12,
-    "stale": 15,
+    "stale": 8,
     "supplementary": 45,
     "total_candidates": 142,
     "uncovered": 0,
-    "up_to_date": 47
+    "up_to_date": 54
   }
 }

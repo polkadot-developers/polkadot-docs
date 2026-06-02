@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:3af2bbdf1a6823afec6028cab46b45f4bf7f6b10d0dbaabc4a616ddf05d6fc33",
-  "generated": "2026-06-02T00:00:00Z",
+  "content_hash": "sha256:0d578c27008d532c3bd5f4fe98b2f6aa949072e9c19dbd768f7a282b3585c9fa",
+  "generated": "2026-06-02T10:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -9037,7 +9037,7 @@
       "license": "CC-BY-4.0",
       "prerequisites": {
         "network": [
-          "Internet access to Polkadot Hub TestNet RPC: https://services.polkadothub-rpc.com/testnet (alt: https://eth-rpc-testnet.polkadot.io/)",
+          "Internet access to Polkadot Hub TestNet RPC: https://eth-rpc-testnet.polkadot.io/ (Parity) or https://services.polkadothub-rpc.com/testnet/ (OpsLayer)",
           "Internet access to the PAS faucet: https://faucet.polkadot.io/"
         ],
         "wallet": [
@@ -9056,7 +9056,7 @@
       "steps": [
         {
           "action": "Select the target network and note its parameters",
-          "description": "Choose the network to configure. Reference parameters:\n\n**Polkadot Hub TestNet** (for development):\n- Chain ID: `420420417`\n- RPC: `https://services.polkadothub-rpc.com/testnet` (alt: `https://eth-rpc-testnet.polkadot.io/`)\n- Currency: PAS (18 decimals)\n- Block explorer: https://blockscout.passet-hub.parity-testnet.parity.io/\n\n**Polkadot Hub MainNet** (uses real DOT — use TestNet for development):\n- Chain ID: `420420419`\n- RPC: `https://eth-rpc.polkadot.io/`\n- Currency: DOT (10 decimals)\n\n**Kusama Hub** (canary network):\n- Chain ID: `420420418`\n- RPC: `https://eth-rpc-kusama.polkadot.io/`\n- Currency: KSM\n\nFor smart contract development, use Polkadot Hub TestNet (chain ID 420420417).",
+          "description": "Choose the network to configure. Reference parameters:\n\n**Polkadot Hub TestNet** (for development):\n- Chain ID: `420420417`\n- RPC (Parity): `https://eth-rpc-testnet.polkadot.io/`\n- RPC (OpsLayer): `https://services.polkadothub-rpc.com/testnet/`\n- WSS: `wss://asset-hub-paseo-rpc.n.dwellir.com`\n- Currency: PAS (18 decimals)\n- Block explorer (Blockscout): https://blockscout-testnet.polkadot.io/\n- Block explorer (Routescan): https://polkadot.testnet.routescan.io/\n\n**Polkadot Hub MainNet** (uses real DOT — use TestNet for development):\n- Chain ID: `420420419`\n- RPC (Parity): `https://eth-rpc.polkadot.io/`\n- RPC (OpsLayer): `https://services.polkadothub-rpc.com/mainnet/`\n- WSS: `wss://polkadot-asset-hub-rpc.polkadot.io`\n- Currency: DOT (10 decimals)\n\n**Kusama Hub** (canary network):\n- Chain ID: `420420418`\n- RPC (Parity): `https://eth-rpc-kusama.polkadot.io/`\n- WSS: `wss://kusama-asset-hub-rpc.polkadot.io`\n- Currency: KSM\n- Block explorer: https://blockscout-kusama.polkadot.io/\n\nFor smart contract development, use Polkadot Hub TestNet (chain ID 420420417).",
           "order": 1,
           "working_directory": "."
         },
@@ -9097,7 +9097,7 @@
         ]
       },
       "title": "Connect to Polkadot Hub Networks and Get Test Tokens",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {

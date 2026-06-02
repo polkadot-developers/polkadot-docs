@@ -89,11 +89,11 @@
     },
     "chain-interactions/send-transactions/with-sdks.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-27T20:30:00Z",
+      "last_scanned": "2026-06-02T10:00:00Z",
       "skills": [
         "send-transactions-sdks"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/store-data/bulletin-chain.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -683,11 +683,11 @@
     },
     "smart-contracts/connect.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T16:00:00Z",
+      "last_scanned": "2026-06-02T10:00:00Z",
       "skills": [
         "connect-polkadot-hub-testnet"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/dapps/zero-to-hero.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -739,11 +739,11 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T21:30:00Z",
+      "last_scanned": "2026-06-02T10:00:00Z",
       "skills": [
         "deploy-basic-contract-hardhat"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -755,11 +755,11 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T22:00:00Z",
+      "last_scanned": "2026-06-02T10:00:00Z",
       "skills": [
         "deploy-erc20-token-hardhat"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -795,27 +795,27 @@
     },
     "smart-contracts/dev-environments/hardhat-polkadot.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T22:00:00Z",
+      "last_scanned": "2026-06-02T10:00:00Z",
       "skills": [
         "set-up-hardhat-pvm"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/dev-environments/hardhat.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T22:00:00Z",
+      "last_scanned": "2026-06-02T10:00:00Z",
       "skills": [
         "set-up-hardhat-evm"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/dev-environments/local-dev-node.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T18:00:00Z",
+      "last_scanned": "2026-06-02T10:00:00Z",
       "skills": [
         "set-up-local-dev-node"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/dev-environments/remix.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -982,10 +982,10 @@
   "summary": {
     "blocked": 23,
     "not_applicable": 12,
-    "stale": 43,
+    "stale": 36,
     "supplementary": 45,
     "total_candidates": 142,
     "uncovered": 0,
-    "up_to_date": 19
+    "up_to_date": 26
   }
 }

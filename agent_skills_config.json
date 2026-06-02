@@ -1,5 +1,5 @@
 {
-  "content_hash": "sha256:ab1607333c2f425815e324acc2426c685bf9c4c606ac68e5ae8102ce394876cb",
+  "content_hash": "sha256:8d87a8898edc25798d38654d7e56f497821d9073d936ff9463d454c41e7d954a",
   "generated": "2026-06-02T12:00:00Z",
   "outputs": {
     "public_root": "/ai/",
@@ -932,7 +932,7 @@
         ]
       },
       "title": "Install the Polkadot SDK",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -3326,7 +3326,7 @@
         ]
       },
       "title": "Set Up a Polkadot Validator Node",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -3437,7 +3437,7 @@
         ]
       },
       "title": "Validate Polkadot Validator Requirements",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "workflow_pattern": "domain-intelligence"
     },
     {
@@ -5066,7 +5066,7 @@
         ]
       },
       "title": "Benchmark a FRAME Pallet and Generate Weight Files",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -6461,7 +6461,7 @@
         ]
       },
       "title": "Spawn and Test a Parachain Network with Zombienet",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -7995,7 +7995,7 @@
         ]
       },
       "title": "Build a Wagmi dApp Connected to Polkadot Hub",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -9949,7 +9949,7 @@
         ]
       },
       "title": "Deploy Uniswap V3 Core on Polkadot Hub (EVM)",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "workflow_pattern": "sequential"
     },
     {

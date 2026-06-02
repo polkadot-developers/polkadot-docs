@@ -175,11 +175,11 @@
     },
     "node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T21:00:00Z",
+      "last_scanned": "2026-06-02T12:00:00Z",
       "skills": [
         "set-up-polkadot-validator-node"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -219,11 +219,11 @@
     },
     "node-infrastructure/run-a-validator/requirements.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T18:00:00Z",
+      "last_scanned": "2026-06-02T12:00:00Z",
       "skills": [
         "onboard-polkadot-validator"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "node-infrastructure/run-a-validator/staking-mechanics/offenses-and-slashes.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -261,11 +261,11 @@
     },
     "parachains/customize-runtime/pallet-development/benchmark-pallet.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T21:30:00Z",
+      "last_scanned": "2026-06-02T12:00:00Z",
       "skills": [
         "benchmark-frame-pallet"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/pallet-development/create-a-pallet.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -299,11 +299,11 @@
     },
     "parachains/install-polkadot-sdk.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T21:30:00Z",
+      "last_scanned": "2026-06-02T12:00:00Z",
       "skills": [
         "install-polkadot-sdk"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/integrations/indexers.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -675,11 +675,11 @@
     },
     "reference/tools/zombienet.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T16:00:00Z",
+      "last_scanned": "2026-06-02T12:00:00Z",
       "skills": [
         "spawn-test-network-zombienet"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/connect.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -723,11 +723,11 @@
     },
     "smart-contracts/cookbook/eth-dapps/uniswap-v3/core-v3.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T16:00:00Z",
+      "last_scanned": "2026-06-02T12:00:00Z",
       "skills": [
         "deploy-uniswap-v3-core-evm"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/eth-dapps/uniswap-v3/periphery-v3.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -911,11 +911,11 @@
     },
     "smart-contracts/libraries/wagmi.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T16:00:00Z",
+      "last_scanned": "2026-06-02T12:00:00Z",
       "skills": [
         "use-wagmi-polkadot-hub"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/libraries/web3-js.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -982,10 +982,10 @@
   "summary": {
     "blocked": 23,
     "not_applicable": 12,
-    "stale": 29,
+    "stale": 22,
     "supplementary": 45,
     "total_candidates": 142,
     "uncovered": 0,
-    "up_to_date": 33
+    "up_to_date": 40
   }
 }

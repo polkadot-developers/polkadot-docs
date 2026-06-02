@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:5b6eacc98f5fc204f45df8883904330d24337c9978750ee1ecdd1e5d41b83c7f",
-  "generated": "2026-06-02T15:30:00Z",
+  "content_hash": "sha256:4f3af0762a5ef8e59cc8af91de31a06c4d1a609df178661d5c99f5b6dc1ccd3a",
+  "generated": "2026-06-02T16:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -8840,9 +8840,9 @@
           "resolution": "Verify the Parathreads tab shows 'Onboarding' for PARA_ID. Confirm chain_spec_raw.json contains the correct para_id. Registration takes up to one epoch (600 blocks on Paseo)."
         },
         {
-          "cause": "The collator was started without '--rpc-methods=Unsafe'.",
-          "pattern": "author_insertKey: 'Method not found'",
-          "resolution": "Stop the collator, add '--rpc-methods=Unsafe' to the startup command, and restart. Never expose unsafe RPC methods to external network interfaces."
+          "cause": "Session key insertion attempted before the collator is fully started, or using the wrong RPC port (relay chain port instead of collator port).",
+          "pattern": "author_insertKey: curl: Connection refused or 'Method not found'",
+          "resolution": "Ensure the collator is running and syncing (look for log: 'Parachain synced'). Use port 8845 for the collator RPC (not port 9988, which is the embedded relay chain RPC). Note: `--rpc-methods=Unsafe` is no longer required for author_insertKey — the method is available by default."
         }
       ],
       "examples": [
@@ -8906,7 +8906,7 @@
       "steps": [
         {
           "action": "Obtain PAS tokens from the faucet",
-          "description": "Delegate to the user: Open https://faucet.polkadot.io/, select the 'Paseo' network, paste your SS58 account address, and submit. The faucet delivers 500 PAS per request. Verify the balance in Polkadot.js Apps before proceeding.",
+          "description": "Delegate to the user: Open https://faucet.polkadot.io/, select the 'Paseo' network, paste your SS58 account address, and submit. The faucet delivers 5000 PAS tokens per request. Verify the balance in Polkadot.js Apps before proceeding.",
           "interactive": true,
           "order": 1,
           "working_directory": "."
@@ -8922,10 +8922,10 @@
         {
           "action": "Generate collator session keys using subkey (Docker)",
           "commands": [
-            "docker run --rm -it parity/subkey generate --scheme sr25519",
-            "docker run --rm -it parity/subkey generate --scheme ed25519"
+            "docker run -it parity/subkey:latest generate --scheme sr25519",
+            "docker run -it parity/subkey:latest generate --scheme sr25519"
           ],
-          "description": "Run both commands. The first produces an SR25519 key (used for Aura block production); the second produces an ED25519 key (used for GRANDPA finality). Record both seed phrases and Account IDs securely. Never share the seed phrases. Save SR25519 Account ID as AURA_KEY and ED25519 Account ID as GRANDPA_KEY.",
+          "description": "Run the command twice: the first run produces the account key (used to manage funds and interact with the network — never store this on the collator filesystem); the second run produces the session key (stored in the parachain keystore for Aura block production — treat as a hot wallet and rotate regularly). Both keys are SR25519. Record all seed phrases and Account IDs securely. Save the first Account ID as ACCOUNT_KEY_SS58 and the second as SESSION_KEY_SS58. Session keys are inserted into the collator keystore in step 10.",
           "order": 3,
           "working_directory": "."
         },
@@ -8934,7 +8934,7 @@
           "commands": [
             "chain-spec-builder --chain-spec-path ./plain_chain_spec.json create --relay-chain paseo --para-id INSERT_PARA_ID --runtime target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm named-preset local_testnet"
           ],
-          "description": "Replace INSERT_PARA_ID with the value of PARA_ID from step 2 (e.g., 2000). This produces 'plain_chain_spec.json'. Then open 'plain_chain_spec.json' and make these edits: (1) Set the 'id' field to a unique string (e.g., 'my-parachain-paseo'). (2) Insert AURA_KEY and GRANDPA_KEY (from step 3) into the 'aura' and 'grandpa' genesis sections. (3) Confirm 'para_id' equals PARA_ID. Use the named-preset local_testnet. Save the file.",
+          "description": "Replace INSERT_PARA_ID with the value of PARA_ID from step 2 (e.g., 4508). This produces 'plain_chain_spec.json'. Then open 'plain_chain_spec.json' and make ALL of these edits:\n\n- `name`, `id`, and `protocolId` → set to unique values for your parachain (e.g., `\"id\": \"my-parachain-paseo\"`).\n- `para_id` and `parachainInfo.parachainId` → set to PARA_ID as a number without quotes (e.g., `4508`).\n- `balances` → list initial account balances in SS58 format.\n- `collatorSelection.invulnerables` → list the account key SS58 addresses (ACCOUNT_KEY_SS58 from step 3).\n- `session.keys` → list the session key SS58 addresses (SESSION_KEY_SS58 from step 3) with the `aura` scheme.\n- `sudo` → set the account that will have sudo access.\n\nSave the file after all edits are applied.",
           "order": 4,
           "working_directory": "parachain-template"
         },
@@ -9019,7 +9019,7 @@
         ]
       },
       "title": "Deploy a Parachain to the Polkadot TestNet (Paseo)",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {

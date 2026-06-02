@@ -299,7 +299,7 @@
       "title": "Bridge Assets from Ethereum to Polkadot via Snowbridge"
     },
     {
-      "built_at": "2026-04-21T18:30:00Z",
+      "built_at": "2026-06-02T12:00:00Z",
       "category": "tutorial",
       "notes": "Covers full XCM transfer workflow using ParaSpell SDK: build transaction, dry-run, verify existential deposit, get fee estimates, and submit. Uses Paseo testnet with faucet tokens. Self-contained. No cookbook badge.",
       "priority": "high",
@@ -332,7 +332,7 @@
       "title": "Transfer Assets Between Parachains with ParaSpell XCM SDK"
     },
     {
-      "built_at": "2026-04-21T18:30:00Z",
+      "built_at": "2026-06-02T12:00:00Z",
       "category": "tutorial",
       "notes": "Demonstrates paying DOT transfer fees in USDT using PAPI, Polkadot.js, or Subxt against a Chopsticks local fork (Alice dev account — no real tokens needed). Self-contained. No cookbook badge.",
       "priority": "high",
@@ -587,7 +587,7 @@
       "title": "Run a Block-Producing Collator for a System Parachain"
     },
     {
-      "built_at": "2026-04-21T18:30:00Z",
+      "built_at": "2026-06-02T12:00:00Z",
       "category": "tutorial",
       "notes": "Comprehensive setup guide for any parachain RPC node (archive or pruned) via Docker or systemd. Uses People Chain as example; substitution table provided for other system parachains. Covers snapshot download, binary install, service config, and sync verification. Node/validator setup shape.",
       "priority": "high",
@@ -620,7 +620,7 @@
       "title": "Run a Parachain RPC Node"
     },
     {
-      "built_at": "2026-04-21T19:00:00Z",
+      "built_at": "2026-06-02T12:00:00Z",
       "category": "tutorial",
       "notes": "Setup guide for Polkadot Hub RPC node (archive or pruned) via Docker or systemd, plus optional Ethereum RPC adapter (eth-rpc) for EVM compatibility. Includes snapshot download, service config, and sync verification. CLI flags reference table (R2) is supplementary. Node/validator setup shape.",
       "priority": "high",
@@ -1880,7 +1880,7 @@
       "title": "Connect to Polkadot Hub and Get Test Tokens"
     },
     {
-      "built_at": "2026-04-21T20:00:00Z",
+      "built_at": "2026-06-02T12:00:00Z",
       "category": "tutorial",
       "notes": "End-to-end tutorial covering Hardhat contract creation and deployment plus a full Next.js/Viem dApp with wallet connect, read, and write components. All steps are on one page (K1 = 5). Reference repo revm-hardhat-examples is listed in context.md (K4 = 3). K2 = 0 due to INSERT_PRIVATE_KEY_HERE placeholder in .env. The CONTRACT_ADDRESS TODO comment in contract.ts is a developer note, not a blocking placeholder. Workflow is predominantly CLI-driven (S1 = 4); MetaMask interactions are the end-product being built, not tutorial build steps.",
       "priority": "high",
@@ -2457,7 +2457,7 @@
       "title": "Use Wagmi to Interact with Smart Contracts on Polkadot Hub"
     },
     {
-      "built_at": "2026-04-21T21:30:00Z",
+      "built_at": "2026-06-02T12:00:00Z",
       "category": "tutorial",
       "notes": "Complete end-to-end tutorial: project init, provider setup, Solidity compilation, contract deployment, and interaction — all via CLI Node.js scripts. Explicit prerequisites section (K3) and fully CLI-driven workflow (S1). Priority score hits the high threshold at 18. Note: the page carries a sunset warning for Web3.js and recommends Ethers.js or Viem instead; a skill built from this page should include that deprecation notice.",
       "priority": "high",
@@ -2693,7 +2693,7 @@
       "title": "Store and Retrieve Data on the Bulletin Chain"
     },
     {
-      "built_at": "2026-05-19T21:30:00Z",
+      "built_at": "2026-06-02T12:00:00Z",
       "category": "tutorial",
       "notes": "PVM variant using polkavm-hardhat-examples repo. K1 awarded for the deploy-to-TestNet workflow, which is standalone; the local-node testing step references the Local Dev Node guide but the deployment outcome is achievable without it. K4 awarded — polkavm-hardhat-examples is listed in context.md.",
       "priority": "high",

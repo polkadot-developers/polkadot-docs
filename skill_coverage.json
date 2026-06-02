@@ -73,19 +73,19 @@
     },
     "chain-interactions/send-transactions/interoperability/transfer-assets-parachains.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T20:00:00Z",
+      "last_scanned": "2026-06-02T12:00:00Z",
       "skills": [
         "transfer-assets-parachains-paraspell"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/send-transactions/pay-fees-with-different-tokens.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T21:00:00Z",
+      "last_scanned": "2026-06-02T12:00:00Z",
       "skills": [
         "pay-fees-alternative-token"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/send-transactions/with-sdks.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -135,19 +135,19 @@
     },
     "node-infrastructure/run-a-node/parachain-rpc.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T21:00:00Z",
+      "last_scanned": "2026-06-02T12:00:00Z",
       "skills": [
         "run-parachain-rpc-node"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "node-infrastructure/run-a-node/polkadot-hub-rpc.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T21:00:00Z",
+      "last_scanned": "2026-06-02T12:00:00Z",
       "skills": [
         "run-polkadot-hub-rpc-node"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "node-infrastructure/run-a-node/relay-chain/bootnode.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -691,19 +691,19 @@
     },
     "smart-contracts/cookbook/dapps/zero-to-hero.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T16:00:00Z",
+      "last_scanned": "2026-06-02T12:00:00Z",
       "skills": [
         "build-dapp-viem-nextjs"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/eth-dapps/uniswap-v2/core-v2-pvm.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T21:30:00Z",
+      "last_scanned": "2026-06-02T12:00:00Z",
       "skills": [
         "deploy-uniswap-v2-core-pvm"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/eth-dapps/uniswap-v2/core-v2.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -919,11 +919,11 @@
     },
     "smart-contracts/libraries/web3-js.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
-      "last_scanned": "2026-05-19T16:00:00Z",
+      "last_scanned": "2026-06-02T12:00:00Z",
       "skills": [
         "deploy-interact-contracts-web3js"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/libraries/web3-py.md": {
       "last_edited": "2026-05-27T20:34:00+00:00",
@@ -982,10 +982,10 @@
   "summary": {
     "blocked": 23,
     "not_applicable": 12,
-    "stale": 22,
+    "stale": 15,
     "supplementary": 45,
     "total_candidates": 142,
     "uncovered": 0,
-    "up_to_date": 40
+    "up_to_date": 47
   }
 }

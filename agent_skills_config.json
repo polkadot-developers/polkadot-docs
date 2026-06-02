@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:ab6faf503d754189d8f335ce81754e742dbccbe43c904f0a7933bf2c94263565",
-  "generated": "2026-06-02T14:00:00Z",
+  "content_hash": "sha256:5b6eacc98f5fc204f45df8883904330d24337c9978750ee1ecdd1e5d41b83c7f",
+  "generated": "2026-06-02T15:30:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -7324,7 +7324,7 @@
         ]
       },
       "title": "Retrieve Polkadot Runtime Metadata",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -7815,7 +7815,7 @@
         },
         {
           "action": "Alternative: Add Polkadot Hub TestNet to Talisman",
-          "description": "If the user prefers Talisman instead of MetaMask, instruct them: Open the Talisman extension and click on the Talisman icon in the browser toolbar. Click the 'More' button. Click 'Manage Networks'. Click the '+ Add network' button. Fill in the following details:\n- RPC URL: https://services.polkadothub-rpc.com/testnet\n- Chain ID: 420420417\n- Currency symbol: PAS\nClick Save. Polkadot Hub TestNet will now appear in the Talisman network list.",
+          "description": "If the user prefers Talisman instead of MetaMask, instruct them through these six steps: (1) Install the Talisman extension from https://talisman.xyz/download and complete the setup wizard. (2) Click the Talisman icon in the browser toolbar, then click the 'More' button. (3) Click the 'Manage Networks' button. (4) Click the '+ Add network' button. (5) Fill in the network form with these exact values and click Save:\n- RPC URL: https://services.polkadothub-rpc.com/testnet\n- Chain ID: 420420417\n- Currency symbol: PAS\n(6) Polkadot Hub TestNet will now appear in the Talisman network list. After selecting the network, Talisman automatically configures the necessary RPC URL and chain ID.",
           "order": 5,
           "working_directory": "."
         }
@@ -7844,7 +7844,7 @@
         ]
       },
       "title": "Connect a Wallet to Polkadot Hub",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -8204,7 +8204,7 @@
         ]
       },
       "title": "Deploy and Interact with Smart Contracts on Polkadot Hub Using Web3.py",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -8288,7 +8288,7 @@
       "steps": [
         {
           "action": "Identify the ERC-20 precompile address for your asset",
-          "description": "The ERC-20 precompile addresses are deterministic based on asset ID. Well-known Trust-Backed Assets on Polkadot Hub MainNet:\n- USDt (asset ID 1984): `0x000007C000000000000000000000000001200000`\n- USDC (asset ID 1337): `0x0000053900000000000000000000000001200000`\n\nAddress formula for Trust-Backed Assets: `0x` + assetId (8 hex digits, zero-padded) + 24 zero digits + `01200000`.\n\nFor Foreign Assets, use suffix `02200000` with the foreign asset index (not the XCM Location). For Pool Assets, use suffix `03200000`. Load https://docs.polkadot.com/smart-contracts/precompiles/erc20.md for the address converter and complete reference. Note the address you intend to use — it is required in step 4.",
+          "description": "The ERC-20 precompile addresses are deterministic based on asset ID. Well-known Trust-Backed Assets on Polkadot Hub MainNet:\n- USDt (asset ID 1984): `0x000007C000000000000000000000000001200000`\n- USDC (asset ID 1337): `0x0000053900000000000000000000000001200000`\n\nAddress formula for Trust-Backed Assets: `0x` + assetId (8 hex digits, zero-padded) + 24 zero digits + `01200000`.\n\nFor Foreign Assets, use suffix `02200000` with the foreign asset index (not the XCM Location). To look up a Foreign Asset's index: (1) Open Polkadot.js Apps and connect to Polkadot Hub. (2) Navigate to Developer > Chain state. (3) Select the 'foreignAssets' module and the 'asset' storage method. (4) Click the '+' button to query all entries. (5) The integer key displayed next to each result is the foreign asset index — use it in the address formula with suffix `02200000`.\n\nFor Pool Assets, use suffix `03200000`. The source page at https://docs.polkadot.com/smart-contracts/precompiles/erc20.md includes an HTML address converter widget. Note the address you intend to use — it is required in step 4.",
           "order": 1,
           "working_directory": "."
         },
@@ -8354,7 +8354,7 @@
         ]
       },
       "title": "Interact with the ERC-20 Precompile on Polkadot Hub via Remix",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -8505,7 +8505,7 @@
         ]
       },
       "title": "Interact with the Storage Precompile on Polkadot Hub via Remix",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -8659,12 +8659,12 @@
         ]
       },
       "title": "Interact with the System Precompile on Polkadot Hub via Remix",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
       "chain_role": "isolated",
-      "description": "Guides you through creating an IXcm Solidity interface in Remix, loading the XCM precompile at 0x00000000000000000000000000000000000a0000, and calling weighMessage, execute, and send functions. Use when you need to test XCM message dispatch from a smart contract, estimate XCM execution weight, or send cross-chain messages from Polkadot Hub via Solidity. All interaction is browser-based using Remix IDE with MetaMask. The source page includes an example SCALE-encoded XCM message for testing weighMessage. Trigger phrases: 'XCM precompile', 'send XCM from contract', 'weighMessage', 'xcm execute', 'cross-chain from Solidity', 'IXcm interface'. Output: XCM weight estimates and on-chain transaction receipts.",
+      "description": "Guides you through creating an IXcm Solidity interface in Remix, loading the XCM precompile at 0x00000000000000000000000000000000000a0000, and calling weighMessage, execute, and send functions. Also covers invoking the XCM precompile via cross-contract calls from Hardhat. Use when you need to test XCM message dispatch from a smart contract, estimate XCM execution weight, send cross-chain messages from Polkadot Hub via Solidity, or call the precompile from another contract. All browser-based interaction uses Remix IDE with MetaMask. The source page includes an example SCALE-encoded XCM message for testing weighMessage. Trigger phrases: 'XCM precompile', 'send XCM from contract', 'weighMessage', 'xcm execute', 'cross-chain from Solidity', 'IXcm interface', 'cross contract xcm'. Output: XCM weight estimates and on-chain transaction receipts.",
       "env_vars": [],
       "error_patterns": [
         {
@@ -8816,7 +8816,7 @@
         ]
       },
       "title": "Interact with the XCM Precompile via Remix IDE",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {

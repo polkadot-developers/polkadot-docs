@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:0d578c27008d532c3bd5f4fe98b2f6aa949072e9c19dbd768f7a282b3585c9fa",
-  "generated": "2026-06-02T10:00:00Z",
+  "content_hash": "sha256:ab1607333c2f425815e324acc2426c685bf9c4c606ac68e5ae8102ce394876cb",
+  "generated": "2026-06-02T12:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -4313,7 +4313,7 @@
         ]
       },
       "title": "Deploy Contracts to Polkadot Hub with Ethers.js",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -6001,7 +6001,7 @@
         ]
       },
       "title": "Deploy an ERC-721 NFT Using Hardhat",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -6082,9 +6082,10 @@
       "steps": [
         {
           "action": "Open Remix IDE and create the contract file",
-          "description": "Delegate to the user:\n(1) Navigate to https://remix.ethereum.org in your web browser.\n(2) Under the 'contracts' folder, click 'Create new file' and name it 'MyNFT.sol'.\n(3) Paste the following ERC-721 contract code:\n\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.20;\n\nimport \"@openzeppelin/contracts/token/ERC721/ERC721.sol\";\nimport \"@openzeppelin/contracts/access/Ownable.sol\";\n\ncontract MyNFT is ERC721, Ownable {\n    uint256 private _nextTokenId;\n\n    constructor(\n        address initialOwner\n    ) ERC721(\"MyToken\", \"MTK\") Ownable(initialOwner) {}\n\n    function safeMint(address to) public onlyOwner {\n        uint256 tokenId = _nextTokenId++;\n        _safeMint(to, tokenId);\n    }\n}\n```\n\nWait for the user to confirm the file has been created and the code pasted.\n\nTip: You can also generate a custom contract at https://wizard.openzeppelin.com/polkadot — paste the generated code instead if you want additional features.",
+          "description": "Fetch the reference file `MyNFT.sol`. It contains a minimal ERC-721 contract (ERC721 + Ownable) with a `safeMint(address to)` function and no URI storage extension.\n\nDelegate to the user:\n(1) Navigate to https://remix.ethereum.org in your web browser.\n(2) Under the 'contracts' folder, click 'Create new file' and name it 'MyNFT.sol'.\n(3) Paste the fetched contract code into the editor.\n\nWait for the user to confirm the file has been created and the code pasted.\n\nTip: You can also generate a custom contract at https://wizard.openzeppelin.com/polkadot — paste the generated code instead if you want additional features.",
           "interactive": true,
           "order": 1,
+          "reference_file": "MyNFT.sol",
           "working_directory": "."
         },
         {
@@ -6127,7 +6128,7 @@
         ]
       },
       "title": "Deploy an ERC-721 NFT Using Remix IDE",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -6313,7 +6314,7 @@
         ]
       },
       "title": "Use Foundry with Polkadot Hub",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -7575,7 +7576,7 @@
         ]
       },
       "title": "Deploy a Basic Smart Contract with Remix IDE",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -7689,7 +7690,7 @@
         ]
       },
       "title": "Connect Remix IDE to Polkadot Hub",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -9214,9 +9215,9 @@
         {
           "action": "Install dependencies",
           "commands": [
-            "npm install polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers multiformats"
+            "npm install polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers multiformats dotenv"
           ],
-          "description": "Install polkadot-api (typed chain client), hdkd and hdkd-helpers (key derivation), and multiformats (CID decoding).",
+          "description": "Install polkadot-api (typed chain client), hdkd and hdkd-helpers (key derivation), multiformats (CID decoding), and dotenv for secure mnemonic handling.",
           "order": 3,
           "working_directory": "bulletin-store-example"
         },
@@ -9242,7 +9243,7 @@
         },
         {
           "action": "Create store-data.ts",
-          "description": "Fetch the reference file and save as store-data.ts. The script uses a dev phrase by default. Modify to use your authorized account's mnemonic: replace the DEV_PHRASE usage with your actual mnemonic. Replace 'INSERT_IMAGE_PATH' with the path to the file you want to store (ask the user for this path before running). Save the file.",
+          "description": "Fetch the reference file and save as `store-data.ts`. Then apply these substitutions:\n\n1. Add `import 'dotenv/config';` as the very first line of the file.\n\n2. Replace the line:\n   `const miniSecret = entropyToMiniSecret(mnemonicToEntropy(DEV_PHRASE));`\n   with:\n   `const miniSecret = entropyToMiniSecret(mnemonicToEntropy(process.env.MNEMONIC));`\n\n3. Remove `DEV_PHRASE` from the import on line 6 (from `@polkadot-labs/hdkd-helpers`). After the change, the import should read:\n   `import { entropyToMiniSecret, mnemonicToEntropy } from '@polkadot-labs/hdkd-helpers';`\n\n4. Replace `'INSERT_IMAGE_PATH'` with the path to the file you want to store (ask the user for this path before running). For example: `'./my-image.png'`.\n\nSave the file. This completes the mnemonic wiring — the `MNEMONIC` value from your `.env` file will be used automatically when the script runs.",
           "order": 6,
           "reference_file": "store-data.ts",
           "working_directory": "bulletin-store-example"
@@ -9270,7 +9271,7 @@
         ]
       },
       "title": "Store and Retrieve Data on the Bulletin Chain",
-      "version": "1.0.3",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {

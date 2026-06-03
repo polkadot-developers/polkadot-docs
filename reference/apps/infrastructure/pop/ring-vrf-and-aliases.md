@@ -27,7 +27,7 @@ Both rings produce Ring-VRF proofs; what differs is the strength of the membersh
 
 An **alias** is a *context-specific pseudonym* derived from the user's ring membership. Three properties define it:
 
-- **Anchored in personhood.** A valid Ring-VRF proof over an alias is also a valid proof of personhood for the user behind it — the alias *is* the personhood claim, scoped to the specific context.
+- **Anchored in personhood.** A valid Ring-VRF proof over an alias is also a valid proof of personhood for the user behind it — the alias is the personhood claim, scoped to the specific context.
 - **Scoped to a context.** The context is typically a Product's `.dot` domain. The same user produces a consistent alias every time they return to the same Product, but a different alias when they use any other Product.
 - **Verifiable without revealing the account.** A verifier confirms "this alias belongs to a real person in the ring" using a Ring-VRF proof. The verifier learns the alias, not the account behind it.
 

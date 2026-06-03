@@ -1,6 +1,6 @@
 ---
 title: Preimage Method Group
-description: TrUAPI method group for submitting off-chain content (preimages) that on-chain operations dereference by hash.
+description: TrUAPI method group for submitting off-chain content that on-chain operations dereference by hash, with preimage and Statement Store distinction.
 categories: Apps, Reference
 ---
 
@@ -8,17 +8,17 @@ categories: Apps, Reference
 
 ## Introduction
 
-The **Preimage** method group is the surface a Product uses to submit off-chain content that on-chain operations will dereference by hash. A typical use case is a governance proposal: the on-chain referendum points at a hash, the preimage is the bytes of the proposal call, and the bytes must be available when the referendum executes.
+The Preimage method group lets a Product submit off-chain content that on-chain operations dereference by hash. A typical use case is a governance proposal, where the on-chain referendum points at a hash, the preimage is the bytes of the proposal call, and the bytes must be available when the referendum executes.
 
-The Statement Store and the Preimage surfaces look superficially similar (submit bytes, get a hash, on-chain world references the hash), but they are not interchangeable — see the [Statement vs Preimage](/reference/apps/hosts/polkadot-desktop/preimage/#statement-vs-preimage){target=\_blank} decision table for which to use when.
+The Statement Store and Preimage surfaces look superficially similar because both submit bytes, return a hash, and let on-chain logic reference that hash. They are not interchangeable. See the [Statement vs Preimage](/reference/apps/hosts/polkadot-desktop/preimage/#statement-vs-preimage){target=\_blank} decision table for which to use when.
 
 ## Conceptual Contract
 
 The group covers:
 
-- **Submitting a preimage** for an on-chain operation that will reference it. The Host signs the submission with the user's per-Product account (subject to the standard signing model — `ChainSubmit` permission and per-transaction approval on the paired App).
-- **Hosting the bytes** so the referenced operation can dereference them when it executes. In practice the preimage layer often delegates to Bulletin Chain storage underneath; the Host handles the routing.
-- **Lifecycle management** — preimages are durable until the referenced operation completes (or until explicitly cleaned up), unlike statements which expire on TTL.
+- **Submitting a preimage**: The Product submits bytes for an on-chain operation that will reference them. The Host signs the submission with the user's per-Product account, subject to the standard signing model, the `ChainSubmit` permission, and per-transaction approval on the paired App.
+- **Hosting the bytes**: The preimage layer hosts the referenced bytes so the on-chain operation can dereference them when it executes. In practice, the Host often routes storage through Bulletin Chain.
+- **Lifecycle management**: Preimages are durable until the referenced operation completes or until they are explicitly cleaned up, unlike statements, which expire after their time to live (TTL).
 
 !!! warning "Provisional"
     The exact set of host calls in this group, supported preimage size limits, the relationship with Bulletin Chain storage, and any preimage-availability hooks for runtime introspection are still being finalized.

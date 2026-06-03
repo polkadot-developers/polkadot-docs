@@ -1,6 +1,6 @@
 ---
 title: App Development Reference
-description: Technical reference for building Polkadot Products — the Hosts that run them, the TrUAPI protocol between Host and Product, and the on-chain infrastructure they consume.
+description: Technical reference for building Polkadot Products, including Hosts, TrUAPI between Host and Product, and the on-chain infrastructure they consume.
 categories: Apps, Reference
 ---
 
@@ -8,38 +8,38 @@ categories: Apps, Reference
 
 ## Introduction
 
-This section is the technical-depth companion to the [App Development](/apps/){target=\_blank} how-to guides. Where `/apps/set-up/` and `/apps/build/` walk you through doing things, this section explains *what each component is, how it works, and where its limits are* — at the level a developer needs when integrating against the surface, not just consuming it.
+This section is the technical-depth companion to the [App Development](/apps/){target=\_blank} how-to guides. Where `/apps/set-up/` and `/apps/build/` walk you through tasks, this section explains what each component is, how it works, and where its limits are at the level a developer needs when integrating against the surface.
 
-A **Polkadot Product** is a sandboxed application that runs inside a **Host** (Polkadot App, Polkadot Desktop, or Polkadot Web), talks to that Host through the **TrUAPI** protocol, and relies on Polkadot **Infrastructure** (Bulletin Chain, Statement Store, dotNS, Proof of Personhood, HOP) for the on-chain capabilities the Host doesn't provide itself. This reference is organized along those axes.
+A Polkadot Product is a sandboxed application that runs inside a Host (Polkadot App, Polkadot Desktop, or Polkadot Web), talks to that Host through the TrUAPI protocol, and relies on Polkadot infrastructure (Bulletin Chain, Statement Store, dotNS, Proof of Personhood, HOP) for the on-chain capabilities the Host does not provide itself. This reference is organized along those axes.
 
 !!! info "Depth target"
-    Each page in this section follows the same shape: a short conceptual frame at the top, then the developer-facing surface (Host-API method tables for Hosts, pallet surface tables for infrastructure) at the bottom. The [TrUAPI](/reference/apps/protocol/truapi/){target=\_blank} subsection — one page per method group — is the depth model the rest of this reference is scaffolded toward.
+    Each page in this section follows the same shape, with a short conceptual frame at the top, then the developer-facing surface (Host API method tables for Hosts, pallet surface tables for infrastructure) at the bottom. The [TrUAPI](/reference/apps/protocol/truapi/){target=\_blank} subsection, with one page per method group, is the depth model for protocol reference pages.
 
 ## Hosts
 
 [Hosts](/reference/apps/hosts/){target=\_blank} are the runtime containers that load and run Polkadot Products:
 
-- **[Polkadot App](/reference/apps/hosts/polkadot-app/){target=\_blank}** — the mobile Host. Holds the user's signing key, runs Proof of Personhood, and is the canonical signer for every transaction a Product submits anywhere in the Triangle.
-- **[Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/){target=\_blank}** — the desktop Host. Loads Products by `.dot` name, mediates signing requests to the paired mobile App, and exposes the Host API surface to the Product running inside it.
-- **[Polkadot Web](/reference/apps/hosts/polkadot-web/){target=\_blank}** — the web Host (`dot.li`). Loads Products in a browser sandbox; visiting flow, shield states, and onchain `polkadot.com` integration.
+- [Polkadot App](/reference/apps/hosts/polkadot-app/){target=\_blank}: The mobile Host. Holds the user's signing key, runs Proof of Personhood, and is the canonical signer for every transaction a Product submits anywhere in the Triangle.
+- [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/){target=\_blank}: The desktop Host. Loads Products by `.dot` name, mediates signing requests to the paired mobile App, and exposes the Host API surface to the Product running inside it.
+- [Polkadot Web](/reference/apps/hosts/polkadot-web/){target=\_blank}: The web Host (`dot.li`). Loads Products in a browser sandbox and documents the visiting flow, shield states, and on-chain `polkadot.com` integration.
 
 ## Protocol
 
-The **[TrUAPI](/reference/apps/protocol/truapi/){target=\_blank}** reference documents the protocol between Hosts and Products: the conceptual sandbox model, the 11 method groups (TrUAPI Calls, Permissions, Local Storage, Account Management, Signing, Chat, Statement Store, Preimage, Chain Interaction, Payment, Entropy), the versioning model, and the package reference table.
+The [TrUAPI](/reference/apps/protocol/truapi/){target=\_blank} reference documents the protocol between Hosts and Products: the conceptual sandbox model, the 11 method groups (TrUAPI Calls, Permissions, Local Storage, Account Management, Signing, Chat, Statement Store, Preimage, Chain Interaction, Payment, Entropy), the versioning model, and the package reference table.
 
 ## Infrastructure
 
 Per-component reference for the on-chain infrastructure Products consume:
 
-- **[Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/){target=\_blank}** — content-addressed storage with explicit authorization, chunked uploads, time-bound retention, and renewal.
-- **[Statement Store](/reference/apps/infrastructure/statement-store/){target=\_blank}** — gossip-distributed, signed statements on the People Chain for real-time signaling between users.
-- **[dotNS](/reference/apps/infrastructure/dotns/){target=\_blank}** — the `.dot` name system, including PopRules pricing, the contract architecture, and the registration flow.
-- **[Proof of Personhood](/reference/apps/infrastructure/pop/){target=\_blank}** — the Ring-VRF mechanism and the per-pallet surface (people, game, score, identity, ubc, coinage).
-- **[HOP](/reference/apps/infrastructure/hop/){target=\_blank}** — the cross-chain hop protocol.
+- [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/){target=\_blank}: Content-addressed storage with explicit authorization, chunked uploads, time-bound retention, and renewal.
+- [Statement Store](/reference/apps/infrastructure/statement-store/){target=\_blank}: Gossip-distributed, signed statements on the People Chain for real-time signaling between users.
+- [dotNS](/reference/apps/infrastructure/dotns/){target=\_blank}: The `.dot` name system, including PopRules pricing, the contract architecture, and the registration flow.
+- [Proof of Personhood](/reference/apps/infrastructure/pop/){target=\_blank}: The Ring-VRF mechanism and the per-pallet surface (people, game, score, identity, universal basic capacity, coinage).
+- [HOP](/reference/apps/infrastructure/hop/){target=\_blank}: The cross-chain hop protocol.
 
 ## Skills
 
-The [product-skills](/reference/apps/skills/){target=\_blank} repo reference — what skills exist, what each one does, and how to use them inside your Product workflow.
+The [product-skills](/reference/apps/skills/){target=\_blank} repo reference documents what skills exist, what each one does, and how to use them inside your Product workflow.
 
 ## Where to Go Next
 
@@ -49,7 +49,7 @@ The [product-skills](/reference/apps/skills/){target=\_blank} repo reference —
 
     ---
 
-    Start with the Polkadot App — the mobile Host that holds the signing key and runs Proof of Personhood for every Product in the Triangle.
+    Start with the Polkadot App, the mobile Host that holds the signing key and runs Proof of Personhood for every Product in the Triangle.
 
     [:octicons-arrow-right-24: Reference](/reference/apps/hosts/polkadot-app/)
 
@@ -57,7 +57,7 @@ The [product-skills](/reference/apps/skills/){target=\_blank} repo reference —
 
     ---
 
-    If you're new here, start with the how-to guides — set up Polkadot Desktop, then build your first Product against the SDK surface this reference documents.
+    If you are new here, start with the how-to guides: set up Polkadot Desktop, then build your first Product against the SDK surface this reference documents.
 
     [:octicons-arrow-right-24: Get Started](/apps/set-up/install-and-pair/){target=\_blank}
 

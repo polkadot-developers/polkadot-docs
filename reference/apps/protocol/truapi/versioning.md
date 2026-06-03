@@ -1,6 +1,6 @@
 ---
 title: TrUAPI Versioning
-description: How TrUAPI versions evolve, what compatibility a Product can rely on across versions, and how to target a specific version range.
+description: How TrUAPI versions evolve, what compatibility a Product can rely on across Host versions, and how to target a specific version range safely.
 categories: Apps, Reference
 ---
 
@@ -15,13 +15,13 @@ TrUAPI is versioned. A Host implements a specific version of the protocol; a Pro
 
 ## What a Version Number Identifies
 
-A TrUAPI version identifies the **set of method groups, their signatures, and their semantics** as a single coherent surface. Two Hosts running the same version of TrUAPI must accept the same calls with the same parameters and return values with the same shape; a Product targeting that version can rely on consistent behavior across them.
+A TrUAPI version identifies the set of method groups, their signatures, and their semantics as a single coherent surface. Two Hosts running the same version of TrUAPI must accept the same calls with the same parameters and return values with the same shape; a Product targeting that version can rely on consistent behavior across them.
 
 A change between two versions can be:
 
-- **Additive** — new methods or new optional parameters. A Product targeting the older version still works against a Host on the newer version.
-- **Behavioral** — same signature, different behavior. Surfaced as a version bump with a documented behavior change; a Product targeting the older version may need to retest.
-- **Breaking** — removed or renamed methods, changed parameter shapes. A Product targeting an incompatible older version will not run on a Host that has dropped that version.
+- **Additive**: New methods or new optional parameters. A Product targeting the older version still works against a Host on the newer version.
+- **Behavioral**: Same signature, different behavior. This is surfaced as a version bump with a documented behavior change; a Product targeting the older version may need to retest.
+- **Breaking**: Removed or renamed methods, changed parameter shapes. A Product targeting an incompatible older version will not run on a Host that has dropped that version.
 
 ## What a Product Targets
 

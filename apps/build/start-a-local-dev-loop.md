@@ -8,24 +8,24 @@ categories: Basics, Apps
 
 ## Introduction
 
-With Polkadot Desktop installed, you're ready to start building — and the first thing you need is a fast inner loop: a way to see changes immediately without publishing to IPFS or registering a `.dot` name for every iteration. You do **not** need a verified identity or TestNet funds for this loop; those matter only later, when your Product calls features that require them. This page walks you through the loop.
+With Polkadot Desktop installed, you are ready to start building — and the first thing you need is a fast inner loop: a way to see changes immediately without publishing to IPFS or registering a `.dot` name for every iteration. You do _not_ need a verified identity or TestNet funds for this loop; those matter only later, when your Product calls features that require them. This page walks you through the loop.
 
-Polkadot Desktop is a specialized browser that loads Polkadot Products. In production it resolves a `.dot` domain name through a chain lookup and fetches the bundle from IPFS. During development that flow adds latency and a publishing step you do not want.
+Polkadot Desktop is a specialized browser that loads Polkadot Products. In production, it resolves a `.dot` domain name through a chain lookup and fetches the bundle from IPFS. During development, that flow adds latency and a publishing step you do not want.
 
 To make local development feel similar to standard web work, Polkadot Desktop whitelists `localhost` in its address bar. When you point it at `localhost:3000` (or any local port), Desktop bypasses `.dot` resolution entirely and loads your Product directly from the local origin. Live reload, source maps, and the rest of your toolchain behave exactly as they do in a regular browser.
 
-The localhost whitelist is a navigation-time bypass only. Your Product still runs inside the same sandbox as a published .dot Product: every chain or device call goes through the Host API, and Desktop still surfaces the same permission prompts (microphone, external requests,  chain submissions, and so on) for any capabilities your Product declares. This is the primary development loop you should use when building a Product.  
+The `localhost` whitelist is a navigation-time bypass only. Your Product still runs inside the same sandbox as a published `.dot` Product: every chain or device call goes through the Host API, and Desktop still surfaces the same permission prompts (microphone, external requests, chain submissions, and so on) for any capabilities your Product declares. This is the primary development loop you should use when building a Product.
 
 ## Prerequisites
 
 Before starting, ensure you have:
 
-- The [Polkadot Desktop installed](/apps/set-up/install-and-pair/){target=\_blank}
-- Set up a local development server for your Product (this page uses [Next.js](https://nextjs.org/){target=\_blank} as the example, but any framework that serves on `localhost` works)
-- Install [Node.js](https://nodejs.org/){target=\_blank} v18 or higher
+- [Polkadot Desktop](/apps/set-up/install-and-pair/) installed
+- A local development server for your Product (this page uses [Next.js](https://nextjs.org/) as the example, but any framework that serves on `localhost` works)
+- [Node.js](https://nodejs.org/) v18 or higher installed
 
 !!! note
-    For the local dev loop, you do **not** need:
+    For the local dev loop, you do _not_ need:
 
     - Proof of Personhood (PoP) verification
     - Funds on any chain
@@ -45,7 +45,7 @@ npx create-next-app@latest my-product
 cd my-product
 ```
 
-Then add the [Product SDK](https://github.com/paritytech/product-sdk){target=\_blank}, the single package that provides everything you need to build a Polkadot Product. It includes typed modules for chain interaction, signing, storage, and the Host API that subsequent guides in this track rely on:
+Then add the [Product SDK](https://github.com/paritytech/product-sdk), the single package that provides everything you need to build a Polkadot Product. It includes typed modules for chain interaction, signing, storage, and the Host API that subsequent guides in this track rely on:
 
 ```bash
 npm install @parity/product-sdk
@@ -113,11 +113,11 @@ From here, iterate as you would in any web project: edit, save, and watch the ch
 !!! tip
     The sandbox still applies. If your Product calls a Host API method that requires a permission, Desktop prompts the user exactly as it would for a published `.dot` Product. Test your permission flows locally — do not defer them to a staging build.
 
-    The environment you selected during set-up (Preview, Stable, or Paseo Next) determines which chain your Product connects to when it calls the Host API.
+    The environment you selected during setup (Preview, Stable, or Paseo Next) determines which chain your Product connects to when it calls the Host API.
 
 ## How localhost Navigation Differs from .dot Navigation
 
-The localhost whitelist changes only how Desktop finds your Product. Everything that happens after load is identical between the two flows.
+The `localhost` whitelist changes only how Desktop finds your Product. Everything that happens after load is identical between the two flows.
 
 |        Step         |         `.dot` navigation          |        `localhost` navigation        |
 | :-----------------: | :--------------------------------: | :----------------------------------: |
@@ -129,7 +129,7 @@ The localhost whitelist changes only how Desktop finds your Product. Everything 
 |  Permissions model  |              Enforced              |               Enforced               |
 |     Live reload     | Not applicable (immutable bundle)  | Works through your dev server's HMR  |
 
-The key takeaway: you can rely on `localhost` for fast iteration without losing fidelity with the production runtime. A Product that works correctly under the localhost whitelist will behave the same way once published as a `.dot` Product, because the Polkadot Desktop sandbox applies the same constraints in both modes.
+The key takeaway: you can rely on `localhost` for fast iteration without losing fidelity with the production runtime. A Product that works correctly under the `localhost` whitelist will behave the same way once published as a `.dot` Product, because the Polkadot Desktop sandbox applies the same constraints in both modes.
 
 ## Where to Go Next
 

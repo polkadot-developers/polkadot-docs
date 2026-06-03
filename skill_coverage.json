@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-03T18:00:00Z",
+  "generated": "2026-06-03T18:30:00Z",
   "pages": {
     "chain-interactions/accounts/create-account.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
@@ -577,19 +577,19 @@
     },
     "reference/tools/chopsticks.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
-      "last_scanned": "2026-05-27T21:00:00Z",
+      "last_scanned": "2026-06-03T18:30:00Z",
       "skills": [
         "set-up-chopsticks-fork"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/dedot.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
-      "last_scanned": "2026-05-27T21:00:00Z",
+      "last_scanned": "2026-06-03T18:30:00Z",
       "skills": [
         "interact-with-chain-dedot"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/light-clients.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
@@ -599,19 +599,19 @@
     },
     "reference/tools/moonwall.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
-      "last_scanned": "2026-05-27T21:00:00Z",
+      "last_scanned": "2026-06-03T18:30:00Z",
       "skills": [
         "set-up-e2e-testing-moonwall"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/omninode.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
-      "last_scanned": "2026-05-27T21:00:00Z",
+      "last_scanned": "2026-06-03T18:30:00Z",
       "skills": [
         "run-parachain-node-omni-node"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/papi.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
@@ -633,11 +633,11 @@
     },
     "reference/tools/polkadot-js-api.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
-      "last_scanned": "2026-05-27T21:00:00Z",
+      "last_scanned": "2026-06-03T18:30:00Z",
       "skills": [
         "use-polkadot-js-api"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/pop-cli.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
@@ -647,11 +647,11 @@
     },
     "reference/tools/py-substrate-interface.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
-      "last_scanned": "2026-05-27T21:00:00Z",
+      "last_scanned": "2026-06-03T18:30:00Z",
       "skills": [
         "interact-polkadot-node-py-substrate"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/sidecar.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
@@ -661,11 +661,11 @@
     },
     "reference/tools/subxt.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
-      "last_scanned": "2026-05-27T21:00:00Z",
+      "last_scanned": "2026-06-03T18:30:00Z",
       "skills": [
         "interact-polkadot-node-subxt"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/xcm-tools.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
@@ -982,10 +982,10 @@
   "summary": {
     "blocked": 23,
     "not_applicable": 12,
-    "stale": 12,
+    "stale": 5,
     "supplementary": 45,
     "total_candidates": 142,
     "uncovered": 0,
-    "up_to_date": 50
+    "up_to_date": 57
   }
 }

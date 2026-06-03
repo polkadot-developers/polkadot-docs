@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:ae9be4dca94ce41f435d7b4bed13b5fca2ce8ca84b3a3f5d93da9c1edc2810aa",
-  "generated": "2026-06-03T18:00:00Z",
+  "content_hash": "sha256:f60ebeaaeff27766b54860753b9cb950965ac82fdc203afc81c04c7b163fad53",
+  "generated": "2026-06-03T18:30:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -3620,7 +3620,7 @@
         ]
       },
       "title": "Set Up and Use Chopsticks for Chain Forking",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -3758,7 +3758,7 @@
         ]
       },
       "title": "Set Up End-to-End Testing with Moonwall",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -5317,11 +5317,11 @@
         "branch": "master",
         "files": [
           {
-            "description": "DedotClient initialization via WsProvider against a Polkadot Hub WebSocket endpoint, typed against PolkadotApi from @dedot/chaintypes",
+            "description": "DedotClient initialization via WsProvider against Polkadot mainnet (wss://rpc.polkadot.io), typed against PolkadotApi from @dedot/chaintypes",
             "path": "client-initialization-via-ws.ts"
           },
           {
-            "description": "Signs and submits a Balances.transfer extrinsic using a @polkadot/keyring keypair; demonstrates the full signTx flow",
+            "description": "Signs and submits a Balances.transferKeepAlive extrinsic using @polkadot/keyring; uses //Alice dev path by default — replace with real account URI/mnemonic for testnet/mainnet",
             "path": "sign-and-send-tx-with-keyring.ts"
           },
           {
@@ -5357,7 +5357,7 @@
         },
         {
           "action": "Fetch the DedotClient initialization script",
-          "description": "Fetch the reference file `client-initialization-via-ws.ts` and save it as `main.ts`. Then make these substitutions:\n(1) Replace `INSERT_ADDRESS` with the SS58 address you'll query.\n(2) Replace `wss://rpc.polkadot.io` with the target chain's WebSocket endpoint if needed.\n\nThe script connects via `WsProvider` and uses `PolkadotApi` (from `@dedot/chaintypes`) as the ChainApi interface for type safety. If you target a different chain, replace `PolkadotApi` with the appropriate ChainApi (e.g. `KusamaApi`) or omit it to fall back to `SubstrateApi`.",
+          "description": "Fetch the reference file `client-initialization-via-ws.ts` and save it as `main.ts`. Then make this substitution:\n- Replace `'wss://rpc.polkadot.io'` with the target chain's WebSocket endpoint if needed.\n\nThe script connects via `WsProvider` and uses `PolkadotApi` (from `@dedot/chaintypes`) as the ChainApi interface for type safety. If you target a different chain, replace `PolkadotApi` with the appropriate ChainApi (e.g. `KusamaApi`) or omit it to fall back to `SubstrateApi`.",
           "order": 3,
           "reference_file": "client-initialization-via-ws.ts",
           "working_directory": "dedot-example"
@@ -5380,7 +5380,7 @@
         },
         {
           "action": "Sign and send a transaction",
-          "description": "Fetch the reference file `sign-and-send-tx-with-keyring.ts` and save it as `send-tx.ts`. The pattern uses `@polkadot/keyring` for signing. Make these substitutions:\n(1) Replace `INSERT_DEST_ADDRESS` with the recipient SS58 address.\n(2) Replace `2_000_000_000_000n` with the desired amount in planck (1 DOT = 10^10 planck).\n\nThen install the signer dependency:\n\n```bash\nnpm install @polkadot/keyring @polkadot/util-crypto\n```\n\nRun with `npx tsx send-tx.ts`. The script will print the transaction hash on inclusion.",
+          "description": "Fetch the reference file `sign-and-send-tx-with-keyring.ts` and save it as `send-tx.ts`. The file uses `@polkadot/keyring` for signing. Make these substitutions:\n(1) Replace `'INSERT_DEST_ADDRESS'` with the recipient SS58 address.\n(2) Replace `2_000_000_000_000n` with the desired amount in planck (1 DOT = 10^10 planck).\n(3) Replace `'//Alice'` in `keyring.addFromUri('//Alice')` with the signing account's URI or mnemonic. `//Alice` is a dev-only path — it has no real tokens on TestNet or mainnet. Store the mnemonic in a `.env` file as `SEED_PHRASE=...`, add `.env` to `.gitignore`, and load it via `process.env.SEED_PHRASE`. Stop and ask the user to fill in `.env` before proceeding — do NOT ask for the mnemonic in chat.\n\nThen install the signer dependency:\n\n```bash\nnpm install @polkadot/keyring @polkadot/util-crypto\n```\n\nRun with `npx tsx send-tx.ts`. The script will print the transaction hash on inclusion.",
           "order": 6,
           "reference_file": "sign-and-send-tx-with-keyring.ts",
           "working_directory": "dedot-example"
@@ -5411,7 +5411,7 @@
         ]
       },
       "title": "Interact with Polkadot Chains Using Dedot",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -5475,6 +5475,7 @@
       "project_structure": "./\n└── chain_spec.json",
       "reference_code": {
         "base_path": "",
+        "branch": "",
         "files": [],
         "repo": "none"
       },
@@ -5529,7 +5530,7 @@
         ]
       },
       "title": "Run a Parachain Node with Polkadot Omni Node",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -5675,7 +5676,7 @@
         ]
       },
       "title": "Interact with a Polkadot Node Using Python Substrate Interface",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -5828,7 +5829,7 @@
         ]
       },
       "title": "Interact with a Polkadot Node Using Subxt (Rust)",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -7477,7 +7478,7 @@
         ]
       },
       "title": "Query and Transact on Polkadot Chains with the Polkadot.js API",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "workflow_pattern": "sequential"
     },
     {

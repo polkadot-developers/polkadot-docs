@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-**`pallet-score`** is the Proof of Personhood pallet for **personhood-anchored reputation and scoring**. It records per-alias scores that accumulate from on-chain activity, providing a primitive that a Product (or another pallet) can read to make decisions: "has this real person built up enough reputation in this context to be trusted with X?"
+`pallet-score` is the Proof of Personhood pallet for personhood-anchored reputation and scoring. It records per-alias scores that accumulate from on-chain activity, providing a primitive that a Product (or another pallet) can read to make decisions: "has this real person built up enough reputation in this context to be trusted with X?"
 
 The pallet's storage is keyed by alias, so two scores belonging to the same user across different Products do not link to each other or to the user's account.
 
@@ -17,9 +17,9 @@ The pallet's storage is keyed by alias, so two scores belonging to the same user
 
 ## What the Pallet Records
 
-The conceptual storage is **(alias, context) → score**:
+The conceptual storage is (alias, context) → score:
 
-- A user's *alias* in a specific context — typically a Product's `.dot` domain — has a per-context score.
+- A user's _alias_ in a specific context — typically a Product's `.dot` domain — has a per-context score.
 - The same user has different aliases in different contexts, so their scores in different contexts are stored under different keys and cannot be linked.
 - Scores can be positive (reputation earned) or negative (penalties), depending on the rules the context defines.
 
@@ -29,15 +29,15 @@ The pallet does not impose a single scoring rule; it provides the storage and th
 
 Two paths interact with `pallet-score`:
 
-- **Adjustment dispatch.** A call (typically under `under_alias`, but other patterns are possible) increments or decrements the score for the calling alias. Whether a Product can adjust scores directly, or whether adjustments are gated to specific privileged callers, depends on the context's configuration.
-- **Read access.** Anyone can read scores from chain state. The score is associated with an alias, so a reader cannot trivially identify the underlying user — but the alias is, by design, observable to anyone who knows the context.
+- **Adjustment dispatch**: A call (typically under `under_alias`, but other patterns are possible) increments or decrements the score for the calling alias. Whether a Product can adjust scores directly, or whether adjustments are gated to specific privileged callers, depends on the context's configuration.
+- **Read access**: Anyone can read scores from chain state. The score is associated with an alias, so a reader cannot trivially identify the underlying user — but the alias is, by design, observable to anyone who knows the context.
 
 ## Use Cases
 
 Two common patterns:
 
-- **Sybil-resistant reputation.** A reputation system that needs "real-person reputation" rather than "account reputation" reads from `pallet-score` to confirm the entity it is evaluating is a verified person and to retrieve their cumulative score.
-- **Gating with thresholds.** A Product gates a premium feature on a score threshold ("you need at least N reputation in this context to do X"); the threshold check reads from the pallet and the Product's UI only unlocks the feature if it passes.
+- **Sybil-resistant reputation**: A reputation system that needs "real-person reputation" rather than "account reputation" reads from `pallet-score` to confirm the entity it is evaluating is a verified person and to retrieve their cumulative score.
+- **Gating with thresholds**: A Product gates a premium feature on a score threshold ("you need at least N reputation in this context to do X"); the threshold check reads from the pallet and the Product's UI only unlocks the feature if it passes.
 
 ## Where to Go Next
 

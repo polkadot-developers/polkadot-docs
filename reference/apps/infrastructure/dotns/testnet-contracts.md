@@ -1,31 +1,31 @@
 ---
-title: dotNS Testnet Contracts
+title: dotNS TestNet Contracts
 description: Current Paseo TestNet contract addresses for the dotNS registry — registry core, registration and pricing, and lifecycle contract families.
 categories: Apps, Reference
 ---
 
-# Testnet Contracts
+# TestNet Contracts
 
 ## Introduction
 
-This page tracks the **current TestNet contract addresses** for the dotNS deployment on Paseo. A Product or tool that wants to interact with the registry directly on TestNet needs these addresses; the higher-level CLI and Polkadot Product SDK surfaces resolve them internally, but anyone integrating below those layers can look up what to call here.
+This page tracks the current TestNet contract addresses for the dotNS deployment on Paseo. A Product or tool that wants to interact with the registry directly on TestNet needs these addresses; the higher-level CLI and Polkadot Product SDK surfaces resolve them internally, but anyone integrating below those layers can look up what to call here.
 
 !!! warning "Provisional"
-    The current TestNet contract addresses are still being finalized as the dotNS deployment stabilizes. Addresses can change across redeployments during this window. The table below will be populated and kept in sync as the deployment is confirmed; until then, the [CLI](/reference/apps/infrastructure/dotns/cli/) and the [Register and Publish](/apps/deploy-and-publish/register-and-publish/){target=\_blank} flow target the current deployment automatically, and most developers should rely on those rather than calling contracts directly.
+    The current TestNet contract addresses are still being finalized as the dotNS deployment stabilizes. Addresses can change across redeployments during this window. The table below will be populated and kept in sync as the deployment is confirmed; until then, the [CLI](/reference/apps/infrastructure/dotns/cli/) and the [Register and Publish](/apps/deploy-and-publish/register-and-publish/) flow target the current deployment automatically, and most developers should rely on those rather than calling contracts directly.
 
 ## Contract Address Table
 
-| Contract | Responsibility | Paseo TestNet Address |
-|:---|:---|:---|
-| Registry | Holds `(namehash → record)` mappings; gates writes per-record. | _TBD_ |
-| Resolver | Read-side query surface for name records. | _TBD_ |
-| Records | Stores `contenthash`, owner, and per-name administrative fields. | _TBD_ |
-| Registrar | Orchestrates registration: PopRules check, fee collection, write. | _TBD_ |
-| PopRules | Evaluates a proposed registration against the pricing ladder. | _TBD_ |
-| Deposit | Manages deposits paid by open-tier registrations. | _TBD_ |
-| Transfer | Handles owner-changes for an existing name. | _TBD_ |
-| Renewal | Handles renewals where they apply. | _TBD_ |
-| Admin | Governance-routed operations (reserved names, contract upgrades). | _TBD_ |
+| Contract    | Responsibility                                                    | Paseo TestNet Address |
+|:------------|:------------------------------------------------------------------|:----------------------|
+| `Registry`  | Holds `(namehash → record)` mappings; gates writes per-record.    | _TBD_                 |
+| `Resolver`  | Read-side query surface for name records.                         | _TBD_                 |
+| `Records`   | Stores `contenthash`, owner, and per-name administrative fields.  | _TBD_                 |
+| `Registrar` | Orchestrates registration: PopRules check, fee collection, write. | _TBD_                 |
+| `PopRules`  | Evaluates a proposed registration against the pricing ladder.     | _TBD_                 |
+| `Deposit`   | Manages deposits paid by open-tier registrations.                 | _TBD_                 |
+| `Transfer`  | Handles owner-changes for an existing name.                       | _TBD_                 |
+| `Renewal`   | Handles renewals where they apply.                                | _TBD_                 |
+| `Admin`     | Governance-routed operations (reserved names, contract upgrades). | _TBD_                 |
 
 Addresses will appear in this table as the deployment is confirmed. In the meantime, the SDK and CLI resolve the right targets automatically.
 

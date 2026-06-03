@@ -17,20 +17,20 @@ This page documents the conceptual transfer flow and the rules dotNS enforces on
 
 ## What Changes on Transfer
 
-A transfer modifies one field of the name's record: the **owner**. Specifically:
+A transfer modifies one field of the name's record: the _owner_. Specifically:
 
-- The new owner becomes the account that can sign updates to the name's record (changing the contenthash, transferring again, setting fields).
+- The new owner becomes the account that can sign updates to the name's record (changing the `contenthash`, transferring again, setting fields).
 - The name itself — the dotted string the user sees — does not change.
 - The currently-attached `contenthash` does not change. Users navigating to the name continue to see the same Product bundle they saw before, unless and until the new owner updates it.
-- The PoP tier the original owner used to qualify for the name (Full or Lite tier eligibility) does **not** transfer with the name. The new owner inherits the name regardless of their own PoP tier, but any future renewal-time or PopRules-evaluated operations are checked against the new owner's status.
+- The PoP tier the original owner used to qualify for the name (Full or Lite tier eligibility) does _not_ transfer with the name. The new owner inherits the name regardless of their own PoP tier, but any future renewal-time or PopRules-evaluated operations are checked against the new owner's status.
 
 ## When the Tier Lock Matters
 
-The "PopRules-checked operations" caveat above matters most for **Lite-to-Full migration reservations**. If a PoP Lite holder registered `alice01.dot` and consequently has `alice.dot` reserved for 12 weeks, that reservation is tied to the **original** account, not to the name's record. Transferring `alice01.dot` to another account does not transfer the reserved `alice.dot` claim. Reservations are not transferable; the original holder either claims or forfeits the reservation themselves.
+The "PopRules-checked operations" caveat above matters most for Lite-to-Full migration reservations. If a PoP Lite holder registered `alice01.dot` and consequently has `alice.dot` reserved for 12 weeks, that reservation is tied to the _original_ account, not to the name's record. Transferring `alice01.dot` to another account does not transfer the reserved `alice.dot` claim. Reservations are not transferable; the original holder either claims or forfeits the reservation themselves.
 
 ## What a Product Should Know
 
-A Product reading a name's record from chain state should treat the owner field as **mutable**. A name pointing at the Product today may be transferred to a new owner tomorrow; the new owner may update the contenthash to a different Product. Products that depend on a specific name (linking to it, referencing it from on-chain state) should verify the contenthash at use, not cache the assumption that "name X points at us forever."
+A Product reading a name's record from chain state should treat the owner field as _mutable_. A name pointing at the Product today may be transferred to a new owner tomorrow; the new owner may update the `contenthash` to a different Product. Products that depend on a specific name (linking to it, referencing it from on-chain state) should verify the `contenthash` at use, not cache the assumption that "name X points at this Product forever."
 
 ## Where to Go Next
 

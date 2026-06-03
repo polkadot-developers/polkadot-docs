@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-The Bulletin Chain has **no token balance for storage**. A Product cannot "pay for storage" the way it pays a transaction fee on a typical chain — there is no fee-based access. Instead, every account that wants to write to Bulletin needs an **explicit authorization**: a record on the chain that grants a quota of transactions and bytes, with an expiration block.
+The Bulletin Chain has no token balance for storage. A Product cannot "pay for storage" the way it pays a transaction fee on a typical chain — there is no fee-based access. Instead, every account that wants to write to Bulletin needs an explicit authorization: a record on the chain that grants a quota of transactions and bytes, with an expiration block.
 
 A write attempted without authorization is rejected at the boundary. This page is the reference for how authorizations are shaped, how they are checked, and what happens when they expire.
 
@@ -16,9 +16,9 @@ A write attempted without authorization is rejected at the boundary. This page i
 
 An authorization is a per-account on-chain record stored in the `Authorizations` storage map of the `transaction-storage` pallet. It records, for the account it covers:
 
-- **Remaining transactions** — how many storage extrinsics the account may still submit before the quota is exhausted.
-- **Remaining bytes** — how many bytes total the account may still write across those transactions.
-- **Expiration block** — the block at which the authorization expires. Unused capacity is *not* refunded when this block passes.
+- **Remaining transactions**: How many storage extrinsics the account may still submit before the quota is exhausted.
+- **Remaining bytes**: How many bytes total the account may still write across those transactions.
+- **Expiration block**: The block at which the authorization expires. Unused capacity is _not_ refunded when this block passes.
 
 A Product can verify an account's current authorization by reading the `Authorizations` storage map for that account through the standard chain client.
 
@@ -35,7 +35,7 @@ The transaction counter is the one most Products will hit first. Even a small up
 
 Authorizations are time-bounded for a reason: storage on the network is finite, and an unexpiring authorization would let an inactive account hold reserved capacity indefinitely. When the expiration block passes:
 
-- Any remaining transaction and byte quota in that authorization is **forfeited** (not credited to a new authorization, not refunded to the user).
+- Any remaining transaction and byte quota in that authorization is _forfeited_ (not credited to a new authorization, not refunded to the user).
 - Subsequent storage attempts return an authorization error until a new authorization is provisioned.
 
 A Product whose users store data over time needs to think about authorization renewal as a first-class concern, not a once-at-onboarding step.
@@ -43,9 +43,9 @@ A Product whose users store data over time needs to think about authorization re
 ## Provisioning on TestNet
 
 !!! warning "Provisional"
-    The TestNet provisioning flow — the faucet endpoint, the request UX, governance- or sudo-routed grants where they apply — is being firmed up. The current flow lives in the [Get TestNet Funds](/apps/set-up/get-testnet-funds/){target=\_blank} guide; that guide is the source of truth as the surface stabilizes.
+    The TestNet provisioning flow — the faucet endpoint, the request UX, governance- or sudo-routed grants where they apply — is being firmed up. The current flow lives in the [Get TestNet Funds](/apps/set-up/get-testnet-funds/) guide; that guide is the source of truth as the surface stabilizes.
 
-On TestNet today, authorizations are provisioned through a faucet built into the Bulletin Chain Console. The [Get TestNet Funds](/apps/set-up/get-testnet-funds/){target=\_blank} guide walks through requesting an authorization for a paired account.
+On TestNet today, authorizations are provisioned through a faucet built into the Bulletin Chain Console. The [Get TestNet Funds](/apps/set-up/get-testnet-funds/) guide walks through requesting an authorization for a paired account.
 
 ## Where to Go Next
 
@@ -63,8 +63,7 @@ On TestNet today, authorizations are provisioned through a faucet built into the
 
     ---
 
-    The set-up step that provisions an authorization on TestNet alongside PAS tokens for transaction fees.
+    The setup step that provisions an authorization on TestNet alongside PAS tokens for transaction fees.
 
-    [:octicons-arrow-right-24: Get Started](/apps/set-up/get-testnet-funds/){target=\_blank}
-
+    [:octicons-arrow-right-24: Get Started](/apps/set-up/get-testnet-funds/)
 </div>

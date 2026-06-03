@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-This page documents the **sender side** of a HOP transfer: what a participant who initiates the send does, what they see as it routes, and how they observe whether it landed.
+This page documents the sender side of a HOP transfer: what a participant who initiates the send does, what they see as it routes, and how they observe whether it landed.
 
 For the protocol mechanics underneath, see [How It Works](/reference/apps/infrastructure/hop/how-it-works/). For the recipient's view, see [Recipient Journey](/reference/apps/infrastructure/hop/recipient/).
 
@@ -19,17 +19,17 @@ For the protocol mechanics underneath, see [How It Works](/reference/apps/infras
 
 From the sender's perspective:
 
-1. **Build the hop sequence.** Either specify the full route (sender-specified routing) or specify only the destination and let routing chains determine the intermediate hops dynamically.
-2. **Sign and dispatch.** A single signed transaction on the sender's chain initiates the send. The signing uses the standard mediated-signing flow — the user approves on the paired App per the usual model.
-3. **Watch the hops progress.** Each hop emits an event on the chain it landed on; the sender's UI (or backend, if the sender is a service) can subscribe to those events to track progress.
-4. **Observe finalization.** When the transfer lands on the destination chain, the destination emits a finalization event. The sender's flow can resolve at that point — typically by updating UI, posting a confirmation, or triggering the next step in a larger workflow.
+1. **Build the hop sequence**: Either specify the full route (sender-specified routing) or specify only the destination and let routing chains determine the intermediate hops dynamically.
+2. **Sign and dispatch**: A single signed transaction on the sender's chain initiates the send. The signing uses the standard mediated-signing flow — the user approves on the paired App per the usual model.
+3. **Watch the hops progress**: Each hop emits an event on the chain it landed on; the sender's UI (or backend, if the sender is a service) can subscribe to those events to track progress.
+4. **Observe finalization**: When the transfer lands on the destination chain, the destination emits a finalization event. The sender's flow can resolve at that point — typically by updating UI, posting a confirmation, or triggering the next step in a larger workflow.
 
 ## What Can Go Wrong
 
 The two common failure modes a sender's UI should handle:
 
-- **Mid-route rejection.** A hop fails verification on an intermediate or destination chain (the verifier rejects the proof, the receiving chain refuses for policy reasons, fees are insufficient). The funds typically remain reclaimable on the chain where the failure occurred; the sender's UI should make recovery visible.
-- **Timeout / loss of tracking.** A hop succeeds but the sender's monitoring loses visibility (the sender's node was offline during the relevant events). The funds are still where the chain says they are; the sender's UI should recover by reading the destination's state directly rather than assuming the worst from missing events.
+- **Mid-route rejection**: A hop fails verification on an intermediate or destination chain (the verifier rejects the proof, the receiving chain refuses for policy reasons, fees are insufficient). The funds typically remain reclaimable on the chain where the failure occurred; the sender's UI should make recovery visible.
+- **Timeout / loss of tracking**: A hop succeeds but the sender's monitoring loses visibility (the sender's node was offline during the relevant events). The funds are still where the chain says they are; the sender's UI should recover by reading the destination's state directly rather than assuming the worst from missing events.
 
 ## Where to Go Next
 

@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-**`pallet-ubc`** is the **Universal Basic Capacity** pallet. Its job is to give every verified person a periodic on-chain *capacity allotment* — most notably, a quota of fee-free transactions per period. The motivating use case is the **"first interaction is free" pattern**: a new user can sign and submit one or more transactions without first acquiring DOT, removing the cold-start friction that gates Web3 onboarding.
+`pallet-ubc` is the Universal Basic Capacity pallet. Its job is to give every verified person a periodic on-chain _capacity allotment_ — most notably, a quota of fee-free transactions per period. The motivating use case is the "first interaction is free" pattern: a new user can sign and submit one or more transactions without first acquiring DOT, removing the cold-start friction that gates Web3 onboarding.
 
 For a Product developer, `pallet-ubc` is the mechanism that lets your Product be the first thing a new user touches without forcing them to fund their account before they can do anything.
 
@@ -19,19 +19,19 @@ For a Product developer, `pallet-ubc` is the mechanism that lets your Product be
 
 Three primitives, organized around the per-period capacity model:
 
-- **The capacity allotment.** Each verified person receives a quota per period (the period length and quota amount are runtime parameters). Within the quota, the user can perform certain operations without paying transaction fees.
-- **Consumption tracking.** The pallet records each person's consumption against their current period's quota so subsequent operations correctly account for what is remaining.
-- **Eligibility checks.** Operations that *can* be performed under UBC have their eligibility verified at dispatch — a non-verified account, or an account that has already exhausted the period's quota, falls back to the normal fee path.
+- **The capacity allotment**: Each verified person receives a quota per period (the period length and quota amount are runtime parameters). Within the quota, the user can perform certain operations without paying transaction fees.
+- **Consumption tracking**: The pallet records each person's consumption against their current period's quota so subsequent operations correctly account for what is remaining.
+- **Eligibility checks**: Operations that _can_ be performed under UBC have their eligibility verified at dispatch — a non-verified account, or an account that has already exhausted the period's quota, falls back to the normal fee path.
 
 ## When a Product Reaches for UBC
 
-The canonical pattern is the **first-interaction onboarding flow**:
+The canonical pattern is the first-interaction onboarding flow:
 
-- A new user opens a Polkadot Product.
-- The Product has the user complete (or confirm) PoP via the App.
-- The Product invokes a UBC-eligible action — typically a small initial setup transaction, a "welcome" claim, a vote, or an action that establishes the user's presence in your Product.
-- The action goes through under the user's UBC quota; the user has not yet acquired any DOT and is still able to participate.
-- After the UBC quota is exhausted (within the period), subsequent transactions follow the normal fee path; by then the user has had a chance to fund their account through the normal channels.
+1. A new user opens a Polkadot Product.
+2. The Product has the user complete (or confirm) PoP via the App.
+3. The Product invokes a UBC-eligible action — typically a small initial setup transaction, a "welcome" claim, a vote, or an action that establishes the user's presence in your Product.
+4. The action goes through under the user's UBC quota; the user has not yet acquired any DOT and is still able to participate.
+5. After the UBC quota is exhausted (within the period), subsequent transactions follow the normal fee path; by then the user has had a chance to fund their account through the normal channels.
 
 The pallet's value is largely UX: removing the requirement to acquire and hold DOT before doing anything in the Product.
 
@@ -61,8 +61,7 @@ When any of these fail, the transaction does not silently fail — it follows th
 
     ---
 
-    The set-up step that produces the PoP status UBC requires.
+    The setup step that produces the PoP status UBC requires.
 
-    [:octicons-arrow-right-24: Get Started](/apps/set-up/verify-your-identity/){target=\_blank}
-
+    [:octicons-arrow-right-24: Get Started](/apps/set-up/verify-your-identity/)
 </div>

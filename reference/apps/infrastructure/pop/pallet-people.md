@@ -8,13 +8,13 @@ categories: Apps, Reference
 
 ## Introduction
 
-**`pallet-people`** is the foundational pallet of Polkadot's Proof of Personhood stack. It is what every other PoP pallet — game, score, identity, ubc, coinage — depends on, and it is what the runtime's `under_alias` origin resolves against.
+`pallet-people` is the foundational pallet of Polkadot's Proof of Personhood stack. It is what every other PoP pallet — game, score, identity, ubc, coinage — depends on, and it is what the runtime's `under_alias` origin resolves against.
 
 Its responsibilities cluster into three:
 
-1. **Maintaining the membership rings.** The full personhood ring (PoP Full) and the lite-people ring (PoP Lite) are this pallet's storage. Joining a ring means an entry is added; the ring's root is what subsequent Ring-VRF proofs are checked against.
-2. **Issuing aliases.** When a Product (via the App) requests an alias for a specific context, `pallet-people` is the runtime side that produces the alias and registers it as valid against the ring.
-3. **Implementing the `under_alias` origin.** When a runtime call comes in wrapped in `under_alias`, this is the pallet whose verification logic the runtime runs to decide whether to admit the call.
+- **Maintaining the membership rings**: The full personhood ring (PoP Full) and the lite-people ring (PoP Lite) are this pallet's storage. Joining a ring means an entry is added; the ring's root is what subsequent Ring-VRF proofs are checked against.
+- **Issuing aliases**: When a Product (via the App) requests an alias for a specific context, `pallet-people` is the runtime side that produces the alias and registers it as valid against the ring.
+- **Implementing the `under_alias` origin**: When a runtime call comes in wrapped in `under_alias`, this is the pallet whose verification logic the runtime runs to decide whether to admit the call.
 
 !!! warning "Provisional"
     The exact dispatch surface of `pallet-people` — the precise extrinsics, their parameter shapes, the storage map names, and the events emitted — is still being finalized. This page documents the conceptual responsibilities; the per-extrinsic reference will be added once the surface confirms.
@@ -23,10 +23,10 @@ Its responsibilities cluster into three:
 
 Two storage structures on `pallet-people` hold the rings:
 
-- **The full personhood ring**, holding the public keys of accounts that completed biometric PoP. Joining requires the App-side verification flow; the result is an extrinsic that adds the key.
-- **The lite-people ring**, holding accounts registered via a governance-authorized attestation. Attestations are submitted by approved attesters; the pallet validates and records the registration.
+- **The full personhood ring**: Holds the public keys of accounts that completed biometric PoP. Joining requires the App-side verification flow; the result is an extrinsic that adds the key.
+- **The lite-people ring**: Holds accounts registered via a governance-authorized attestation. Attestations are submitted by approved attesters; the pallet validates and records the registration.
 
-Each ring exposes a **ring root** — the cryptographic commitment used to verify Ring-VRF proofs. The root updates when membership changes; consumers of proofs read the current root from this pallet's storage when validating.
+Each ring exposes a _ring root_ — the cryptographic commitment used to verify Ring-VRF proofs. The root updates when membership changes; consumers of proofs read the current root from this pallet's storage when validating.
 
 ## Alias Issuance
 
@@ -47,7 +47,7 @@ This is the property that lets downstream pallets (game, score, identity, ubc) g
 
 ## Pallets That Depend on This One
 
-Every other pallet in the PoP set ultimately reads `pallet-people`'s ring root or accepts `under_alias` calls validated against it. The downstream pallets are listed in the [Proof of Personhood overview](/reference/apps/infrastructure/pop/){target=\_blank}; the foundational guarantee they all rely on is that this pallet's rings represent the current set of real persons on the network.
+Every other pallet in the PoP set ultimately reads `pallet-people`'s ring root or accepts `under_alias` calls validated against it. The downstream pallets are listed in the [Proof of Personhood overview](/reference/apps/infrastructure/pop/); the foundational guarantee they all rely on is that this pallet's rings represent the current set of real persons on the network.
 
 ## Where to Go Next
 
@@ -67,6 +67,5 @@ Every other pallet in the PoP set ultimately reads `pallet-people`'s ring root o
 
     The Product-side how-to including the `under_alias` dispatch pattern.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/use-personhood-in-your-app/){target=\_blank}
-
+    [:octicons-arrow-right-24: Get Started](/apps/build/use-personhood-in-your-app/)
 </div>

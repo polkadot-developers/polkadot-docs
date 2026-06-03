@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-This page documents the **recipient side** of a HOP transfer: what a participant or chain receiving the final hop sees, how the destination chain validates the incoming proof, and what settles when the validation passes.
+This page documents the recipient side of a HOP transfer: what a participant or chain receiving the final hop sees, how the destination chain validates the incoming proof, and what settles when the validation passes.
 
 For the protocol mechanics underneath, see [How It Works](/reference/apps/infrastructure/hop/how-it-works/). For the sender's view, see [Sender Journey](/reference/apps/infrastructure/hop/sender/).
 
@@ -19,12 +19,12 @@ For the protocol mechanics underneath, see [How It Works](/reference/apps/infras
 
 From the recipient's perspective:
 
-1. **An incoming hop lands.** The destination chain receives the final hop with its payload and proof.
-2. **The verifier validates.** The chain's HOP integration calls the configured verifier; only an accepted proof proceeds to settlement.
-3. **State settles.** The destination chain applies the payload's effect — crediting the recipient's account for an asset transfer, recording the message for a message-passing flow, or whatever the payload prescribed.
-4. **The destination emits a finalization event.** The event is what tells the sender (and the recipient's UI, if any) that the transfer completed.
+1. **An incoming hop lands**: The destination chain receives the final hop with its payload and proof.
+2. **The verifier validates**: The chain's HOP integration calls the configured verifier; only an accepted proof proceeds to settlement.
+3. **State settles**: The destination chain applies the payload's effect — crediting the recipient's account for an asset transfer, recording the message for a message-passing flow, or whatever the payload prescribed.
+4. **The destination emits a finalization event**: The event is what tells the sender (and the recipient's UI, if any) that the transfer completed.
 
-Importantly, the recipient does **not** typically have to explicitly accept the transfer — settlement happens automatically when the verifier accepts. Where two-sided acceptance is needed (a Coinage-style flow where the recipient can decline), that semantics is layered on top of HOP by the higher-level pallet, not built into HOP itself.
+Importantly, the recipient does _not_ typically have to explicitly accept the transfer — settlement happens automatically when the verifier accepts. Where two-sided acceptance is needed (a Coinage-style flow where the recipient can decline), that semantics is layered on top of HOP by the higher-level pallet, not built into HOP itself.
 
 ## What the Recipient's Product Sees
 
@@ -33,7 +33,7 @@ If the recipient is a user of a Polkadot Product, the Product subscribes to the 
 - The user's balance (or other state) updates as the destination chain's storage changes.
 - The Product UI surfaces the change to the user — typically as an arrived transfer or an updated state value.
 
-For asynchronous receive flows, the Product builds against the destination chain's chain-client surface — see [Read Chain State](/apps/build/read-chain-state/){target=\_blank} for the pattern.
+For asynchronous receive flows, the Product builds against the destination chain's chain-client surface — see [Read Chain State](/apps/build/read-chain-state/) for the pattern.
 
 ## Where to Go Next
 
@@ -53,6 +53,5 @@ For asynchronous receive flows, the Product builds against the destination chain
 
     The Product-side how-to for subscribing to chain state — the surface a recipient's Product uses to observe HOP-driven state changes.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/read-chain-state/){target=\_blank}
-
+    [:octicons-arrow-right-24: Get Started](/apps/build/read-chain-state/)
 </div>

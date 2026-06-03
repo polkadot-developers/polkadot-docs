@@ -8,16 +8,16 @@ categories: Apps, Reference
 
 ## Introduction
 
-**HOP** is Polkadot's **cross-chain hop protocol** — a mechanism for moving assets and messages between chains in the Polkadot ecosystem in a more flexible shape than a plain XCM transfer. The motivating use case is "hop a transfer through one or more intermediate chains to reach its destination," with the protocol handling the per-hop routing, the proofs, and the cleanup of intermediate state.
+HOP is Polkadot's cross-chain hop protocol — a mechanism for moving assets and messages between chains in the Polkadot ecosystem in a more flexible shape than a plain XCM transfer. The motivating use case is "hop a transfer through one or more intermediate chains to reach its destination," with the protocol handling the per-hop routing, the proofs, and the cleanup of intermediate state.
 
 For most Product developers, HOP is not something they will reach for in day-one flows. The standard payment patterns — `Balances.transfer_keep_alive` for merchant flows, Coinage for personhood-aware payments — cover the common cases without needing HOP. HOP becomes relevant when a Product crosses chain boundaries in a way that standard XCM doesn't cleanly handle.
 
 !!! warning "Current state caveats"
     HOP is being actively built and three caveats apply to integrations against the current code:
 
-    - **`NoopVerifier` is not production-ready.** The current verifier implementation is a development stand-in. Production-grade verification is forthcoming.
-    - **The repository README is out of date.** Where the README and this reference disagree, this reference reflects the intended direction; the README will be updated separately.
-    - **`pallet-hop-promotion` status is evolving.** The promotion pallet that pairs with HOP for certain flows is in flux; integrations should not depend on its current shape.
+    - **`NoopVerifier` is not production-ready**: The current verifier implementation is a development stand-in. Production-grade verification is forthcoming.
+    - **The repository README is out of date**: Where the README and this reference disagree, this reference reflects the intended direction; the README will be updated separately.
+    - **`pallet-hop-promotion` status is evolving**: The promotion pallet that pairs with HOP for certain flows is in flux; integrations should not depend on its current shape.
 
     These notes will be removed from this page as each item resolves.
 
@@ -25,16 +25,9 @@ For most Product developers, HOP is not something they will reach for in day-one
 
 Three places HOP shows up in a Product context:
 
-- **As a building block under cross-chain payments** — Coinage and other payment flows can route through HOP underneath when the sender and recipient are on different chains. The Product surface (Coinage, `Balances.transfer_keep_alive`) is what a Product calls; HOP is the layer beneath that makes the cross-chain part work.
-- **As a primitive for cross-chain messaging beyond payments** — moving non-asset payloads (state references, capability handles) across chain boundaries in flows that need more flexibility than plain XCM.
-- **As a target for node-operator and runtime-developer work** — running a HOP-enabled node, integrating HOP into a new Substrate chain. These node-operator and SDK-integration paths are forthcoming separately.
-
-## What to Read Next
-
-Two pages cover the developer-observable surface:
-
-- [How It Works](/reference/apps/infrastructure/hop/how-it-works/) — the conceptual protocol.
-- [Sender Journey](/reference/apps/infrastructure/hop/sender/) and [Recipient Journey](/reference/apps/infrastructure/hop/recipient/) — the two sides of a HOP transfer, from a participant's perspective.
+- **As a building block under cross-chain payments**: Coinage and other payment flows can route through HOP underneath when the sender and recipient are on different chains. The Product surface (Coinage, `Balances.transfer_keep_alive`) is what a Product calls; HOP is the layer beneath that makes the cross-chain part work.
+- **As a primitive for cross-chain messaging beyond payments**: Moving non-asset payloads (state references, capability handles) across chain boundaries in flows that need more flexibility than plain XCM.
+- **As a target for node-operator and runtime-developer work**: Running a HOP-enabled node, integrating HOP into a new Substrate chain. These node-operator and SDK-integration paths are forthcoming separately.
 
 ## Where to Go Next
 

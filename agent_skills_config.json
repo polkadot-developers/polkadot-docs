@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:f60ebeaaeff27766b54860753b9cb950965ac82fdc203afc81c04c7b163fad53",
-  "generated": "2026-06-03T18:30:00Z",
+  "content_hash": "sha256:00b956cb390bf0986f3820590862be29e952ecb49a9468beabd00f2c7850a081",
+  "generated": "2026-06-03T19:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -4057,7 +4057,7 @@
       "steps": [
         {
           "action": "Fetch the ERC-20 contract source",
-          "description": "Fetch the reference file `contracts/MyToken.sol` and display its contents to the user. This is an OpenZeppelin ERC-20 contract (MyToken) with a configurable name, symbol, and mint function. The user will paste this into Remix IDE in the next step.",
+          "description": "Fetch the reference file `contracts/MyToken.sol` and display its contents to the user. This is an OpenZeppelin ERC-20 contract (MyToken) with a configurable name, symbol, and mint function. The user will paste this into Remix IDE in the next step. Alternatively, the user can generate a custom contract using the OpenZeppelin Contracts Wizard for Polkadot at https://wizard.openzeppelin.com/polkadot.",
           "order": 1,
           "reference_file": "contracts/MyToken.sol",
           "working_directory": "."
@@ -4070,7 +4070,7 @@
         },
         {
           "action": "Configure the Solidity compiler in Remix",
-          "description": "Click the 'Solidity compiler' tab (shield icon) in the left sidebar. Set the following:\n- Compiler version: select 0.8.20 or higher (match the pragma in the contract source)\n- EVM version: select 'cancun' from the Advanced Configuration dropdown — required for OpenZeppelin v5.4.0+ (mcopy opcode)\nClick 'Compile MyToken.sol'. A green checkmark indicates success. If compilation fails with 'Unknown key', verify the EVM version is set to 'cancun'.",
+          "description": "Click the 'Solidity compiler' tab (shield icon) in the left sidebar. Select the Solidity compiler version matching the pragma in the contract source (0.8.20 or higher), then click 'Compile MyToken.sol'. A green checkmark indicates success.\n\nNote: If the contract uses OpenZeppelin v5.4.0 or later, compilation may fail with an invalid opcode error unless EVM version is set to 'cancun' in Advanced Configuration.",
           "order": 3,
           "working_directory": "."
         },
@@ -4117,7 +4117,7 @@
         ]
       },
       "title": "Deploy an ERC-20 Token Using Remix IDE",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -4426,7 +4426,7 @@
         ]
       },
       "primary_page": "smart-contracts/libraries/viem.md",
-      "project_structure": "viem-deploy/\n├── abis/\n├── artifacts/\n├── contracts/\n│   └── Storage.sol\n├── src/\n│   ├── chainConfig.ts\n│   ├── compile.ts\n│   ├── createClient.ts\n│   ├── createWallet.ts\n│   ├── deploy.ts\n│   └── interact.ts\n├── .env\n├── .gitignore\n└── package.json",
+      "project_structure": "viem-project/\n├── abis/\n├── artifacts/\n├── contracts/\n│   └── Storage.sol\n├── src/\n│   ├── chainConfig.ts\n│   ├── compile.ts\n│   ├── createClient.ts\n│   ├── createWallet.ts\n│   ├── deploy.ts\n│   └── interact.ts\n├── .env\n├── .gitignore\n└── package.json",
       "reference_code": {
         "base_path": ".snippets/code/smart-contracts/libraries/viem",
         "branch": "master",
@@ -4469,11 +4469,11 @@
         {
           "action": "Create the project directory and initialize",
           "commands": [
-            "mkdir viem-deploy && cd viem-deploy",
+            "mkdir viem-project && cd viem-project",
             "npm init -y && npm pkg set type=module",
             "mkdir -p src contracts abis artifacts"
           ],
-          "description": "Create and initialize an ESM Node.js project in a new `viem-deploy` directory. ESM is required for Viem v2. Pre-create the canonical layout directories (`src/`, `contracts/`, `abis/`, `artifacts/`) — the reference scripts assume this layout for relative paths.",
+          "description": "Create and initialize an ESM Node.js project in a new `viem-project` directory. ESM is required for Viem v2. Pre-create the canonical layout directories (`src/`, `contracts/`, `abis/`, `artifacts/`) — the reference scripts assume this layout for relative paths.",
           "order": 1,
           "working_directory": "."
         },
@@ -4481,11 +4481,11 @@
           "action": "Install dependencies",
           "commands": [
             "npm install viem dotenv",
-            "npm install --save-dev solc typescript tsx @types/node"
+            "npm install --save-dev typescript ts-node @types/node"
           ],
-          "description": "Install viem (v2), dotenv for credential management, solc for Solidity compilation, and TypeScript tooling.",
+          "description": "Install viem (v2), dotenv for credential management, solc for Solidity compilation, and TypeScript tooling (ts-node for execution).",
           "order": 2,
-          "working_directory": "viem-deploy"
+          "working_directory": "viem-project"
         },
         {
           "action": "Create .env file and .gitignore",
@@ -4495,74 +4495,74 @@
           ],
           "description": "Create .env with an empty PRIVATE_KEY placeholder. Stop and ask the user to edit .env directly by adding PRIVATE_KEY=0x<their_key>. Do NOT ask for the key in chat. Wait for confirmation before continuing.",
           "order": 3,
-          "working_directory": "viem-deploy"
+          "working_directory": "viem-project"
         },
         {
           "action": "Fetch the chain configuration",
           "description": "Fetch the reference file `chainConfig.ts` and save it as `src/chainConfig.ts`. Verify or substitute:\n(1) Chain ID is `420420417`.\n(2) RPC URL is `https://services.polkadothub-rpc.com/testnet`.\n(3) Replace any `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, `INSERT_CURRENCY_SYMBOL` placeholders.\n\n**Important:** the same set of placeholders also appears in `createClient.ts` (step 6) and `createWallet.ts` (step 7) — apply the same substitutions consistently in all three files.",
           "order": 4,
           "reference_file": "chainConfig.ts",
-          "working_directory": "viem-deploy"
+          "working_directory": "viem-project"
         },
         {
           "action": "Fetch the Storage.sol contract",
           "description": "Fetch the reference file `Storage.sol` and save it as `contracts/Storage.sol`. The contract has a `storedNumber` public state variable and a `setNumber(uint256 _newNumber)` setter. No substitutions needed.",
           "order": 5,
           "reference_file": "Storage.sol",
-          "working_directory": "viem-deploy"
+          "working_directory": "viem-project"
         },
         {
           "action": "Fetch the public client setup",
           "description": "Fetch the reference file `createClient.ts` and save it as `src/createClient.ts`. **Apply the same `INSERT_*` substitutions you applied to chainConfig.ts** (the file declares the chain locally and has the same 8 placeholders). Constructs a viem `PublicClient` against the Polkadot Hub TestNet chain definition; used for reads and tx receipts.",
           "order": 6,
           "reference_file": "createClient.ts",
-          "working_directory": "viem-deploy"
+          "working_directory": "viem-project"
         },
         {
           "action": "Fetch the wallet client setup",
           "description": "Fetch the reference file `createWallet.ts` and save it as `src/createWallet.ts`. **Apply the same `INSERT_*` substitutions you applied to chainConfig.ts** (this file also declares the chain locally and has 9 placeholders — including a duplicate RPC URL for the `public.http` rpcUrls entry). Add `import \"dotenv/config\";` as the first line; the client reads `PRIVATE_KEY` from env.",
           "order": 7,
           "reference_file": "createWallet.ts",
-          "working_directory": "viem-deploy"
+          "working_directory": "viem-project"
         },
         {
           "action": "Fetch the compilation script",
           "description": "Fetch the reference file `compile.ts` and save it as `src/compile.ts`. The script invokes `solc` against `contracts/Storage.sol` and writes ABI + bytecode artifacts to `abis/` and `artifacts/`.",
           "order": 8,
           "reference_file": "compile.ts",
-          "working_directory": "viem-deploy"
+          "working_directory": "viem-project"
         },
         {
           "action": "Compile the Solidity contract",
           "commands": [
-            "npx tsx src/compile.ts"
+            "npx ts-node src/compile.ts"
           ],
           "description": "Run the compile script. Verify that `abis/Storage.json` and `artifacts/Storage.bin` (or equivalent) exist before deploying.",
           "order": 9,
-          "working_directory": "viem-deploy"
+          "working_directory": "viem-project"
         },
         {
           "action": "Fetch the deployment script",
           "description": "Fetch the reference file `deploy.ts` and save it as `src/deploy.ts`. Apply these substitutions:\n(1) Add `import \"dotenv/config\";` as the very first line.\n(2) Replace `INSERT_PRIVATE_KEY` with `process.env.PRIVATE_KEY as \\`0x${string}\\``.\n\nThe script reads chain config and RPC endpoint from `createClient.ts` and `createWallet.ts` (already substituted in steps 6-7). It reads artifacts from `../abis` and `../artifacts` relative to the script location, which resolves correctly when the script is in `src/`.",
           "order": 10,
           "reference_file": "deploy.ts",
-          "working_directory": "viem-deploy"
+          "working_directory": "viem-project"
         },
         {
           "action": "Deploy the contract to Polkadot Hub TestNet",
           "commands": [
-            "npx tsx src/deploy.ts"
+            "npx ts-node src/deploy.ts"
           ],
           "description": "Run the deployment script. Save the deployed contract address from the output.\n\nIf the transaction fails with `insufficient funds`: visit https://faucet.polkadot.io/ and fund the deployer account.\nIf the transaction fails with `fee cap too low` or similar gas errors: add a `gasPrice` override in `deploy.ts` (e.g. `gasPrice: parseGwei('5000')`).",
           "order": 11,
-          "working_directory": "viem-deploy"
+          "working_directory": "viem-project"
         },
         {
           "action": "Fetch the interaction script and interact with the deployed contract",
-          "description": "Fetch the reference file `interact.ts` and save it as `src/interact.ts`. Replace `INSERT_CONTRACT_ADDRESS` with the deployed address from the previous step and `INSERT_PRIVATE_KEY` with `` process.env.PRIVATE_KEY as `0x${string}` ``. Run it with `npx tsx src/interact.ts`. Verify the value returned by reading `storedNumber` changes after calling `setNumber(value)`.",
+          "description": "Fetch the reference file `interact.ts` and save it as `src/interact.ts`. Replace `INSERT_CONTRACT_ADDRESS` with the deployed address from the previous step and `INSERT_PRIVATE_KEY` with `` process.env.PRIVATE_KEY as `0x${string}` ``. Run it with `npx ts-node src/interact.ts`. Verify the value returned by reading `storedNumber` changes after calling `setNumber(value)`.",
           "order": 12,
           "reference_file": "interact.ts",
-          "working_directory": "viem-deploy"
+          "working_directory": "viem-project"
         }
       ],
       "supplementary_context": {
@@ -4589,7 +4589,7 @@
         ]
       },
       "title": "Deploy Contracts to Polkadot Hub with Viem",
-      "version": "1.0.3",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -9642,7 +9642,7 @@
         ]
       },
       "title": "Deploy Uniswap V2 Core on Polkadot Hub (EVM)",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -9812,7 +9812,7 @@
         ]
       },
       "title": "Deploy Uniswap V2 Periphery (Router) on Polkadot Hub (EVM)",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -10116,7 +10116,7 @@
         },
         {
           "action": "Convert hardhat.config.ts to use dotenv and add gas configuration",
-          "description": "Modify hardhat.config.ts with all of the following changes:\n1. Add `import 'dotenv/config';` as the very first line.\n2. Change `import { HardhatUserConfig, vars } from \"hardhat/config\";` to `import { HardhatUserConfig } from \"hardhat/config\";`.\n3. In the polkadotTestnet network block, replace `accounts: vars.has(\"TESTNET_PRIVATE_KEY\") ? [vars.get(\"TESTNET_PRIVATE_KEY\")] : []` with `accounts: process.env.TESTNET_PRIVATE_KEY ? [process.env.TESTNET_PRIVATE_KEY] : []`.\n4. In the polkadotTestnet network block, add `gasPrice: 5000000000000,` (5000 gwei — 5x the TestNet base fee).\n5. Confirm `ignition.requiredConfirmations` is 1 (already set).\n6. Preserve `bytecodeHash: \"none\"` in the Solidity compiler settings — required so the compiled UniswapV3Pool bytecode hash matches the hardcoded POOL_INIT_CODE_HASH in PoolAddress.sol, enabling correct CREATE2 pool address derivation.\n7. Preserve `allowUnlimitedContractSize: true` for the hardhat network — several Periphery contracts exceed the 24KB EIP-170 limit and require this for local testing.\nSave the file.",
+          "description": "Modify hardhat.config.ts with all of the following changes:\n1. Add `import 'dotenv/config';` as the very first line.\n2. Change `import { HardhatUserConfig, vars } from \"hardhat/config\";` to `import { HardhatUserConfig } from \"hardhat/config\";`.\n3. In the polkadotTestnet network block, replace `accounts: vars.has(\"TESTNET_PRIVATE_KEY\") ? [vars.get(\"TESTNET_PRIVATE_KEY\")] : []` with `accounts: process.env.TESTNET_PRIVATE_KEY ? [process.env.TESTNET_PRIVATE_KEY] : []`.\n4. In the polkadotTestnet network block, add `gasPrice: 5000000000000,` (5000 gwei — 5x the TestNet base fee).\n5. Confirm `ignition.requiredConfirmations` is 1 (already set).\n6. Preserve `bytecodeHash: \"none\"` in the Solidity compiler settings — required so the compiled UniswapV3Pool bytecode hash matches the hardcoded POOL_INIT_CODE_HASH in PoolAddress.sol, enabling correct CREATE2 pool address derivation.\n7. Preserve `allowUnlimitedContractSize: true` for the hardhat network — several Periphery contracts exceed the 24KB EIP-170 limit and require this for local testing.\nSave the file.\n8. For the localNode network, the reference config sets gasPrice: 50000000000 (50 gwei) — this matches the gas price reported by the local Polkadot development node. Preserve this setting if present.",
           "order": 4,
           "working_directory": "revm-hardhat-examples/uniswap-v3-periphery-hardhat"
         },
@@ -10166,7 +10166,7 @@
         ]
       },
       "title": "Deploy Uniswap V3 Periphery on Polkadot Hub (EVM)",
-      "version": "1.0.2",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     }
   ]

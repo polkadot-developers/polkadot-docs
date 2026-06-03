@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-03T18:30:00Z",
+  "generated": "2026-06-03T19:00:00Z",
   "pages": {
     "chain-interactions/accounts/create-account.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
@@ -707,19 +707,19 @@
     },
     "smart-contracts/cookbook/eth-dapps/uniswap-v2/core-v2.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
-      "last_scanned": "2026-05-27T21:30:00Z",
+      "last_scanned": "2026-06-03T19:00:00Z",
       "skills": [
         "deploy-uniswap-v2-core-evm"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/eth-dapps/uniswap-v2/periphery-v2.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
-      "last_scanned": "2026-05-27T21:30:00Z",
+      "last_scanned": "2026-06-03T19:00:00Z",
       "skills": [
         "deploy-uniswap-v2-periphery-evm"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/eth-dapps/uniswap-v3/core-v3.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
@@ -731,11 +731,11 @@
     },
     "smart-contracts/cookbook/eth-dapps/uniswap-v3/periphery-v3.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
-      "last_scanned": "2026-05-27T21:30:00Z",
+      "last_scanned": "2026-06-03T19:00:00Z",
       "skills": [
         "deploy-uniswap-v3-periphery-evm"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
@@ -763,11 +763,11 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
-      "last_scanned": "2026-05-27T21:30:00Z",
+      "last_scanned": "2026-06-03T19:00:00Z",
       "skills": [
         "deploy-erc20-token-remix"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
@@ -903,11 +903,11 @@
     },
     "smart-contracts/libraries/viem.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
-      "last_scanned": "2026-05-27T21:30:00Z",
+      "last_scanned": "2026-06-03T19:00:00Z",
       "skills": [
         "deploy-contracts-viem"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/libraries/wagmi.md": {
       "last_edited": "2026-06-02T06:15:47+00:00",
@@ -982,10 +982,10 @@
   "summary": {
     "blocked": 23,
     "not_applicable": 12,
-    "stale": 5,
+    "stale": 0,
     "supplementary": 45,
     "total_candidates": 142,
     "uncovered": 0,
-    "up_to_date": 57
+    "up_to_date": 62
   }
 }

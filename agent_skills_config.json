@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:4f3af0762a5ef8e59cc8af91de31a06c4d1a609df178661d5c99f5b6dc1ccd3a",
-  "generated": "2026-06-02T16:00:00Z",
+  "content_hash": "sha256:ae9be4dca94ce41f435d7b4bed13b5fca2ce8ca84b3a3f5d93da9c1edc2810aa",
+  "generated": "2026-06-03T18:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -134,7 +134,7 @@
         ]
       },
       "title": "Create a Polkadot Account Programmatically",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "workflow_pattern": "sequential"
     },
     {
@@ -276,7 +276,7 @@
         ]
       },
       "title": "Query Account Information with SDKs",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "workflow_pattern": "sequential"
     },
     {
@@ -430,7 +430,7 @@
         ]
       },
       "title": "Query On-Chain State with SDKs",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "workflow_pattern": "sequential"
     },
     {
@@ -572,7 +572,7 @@
         ]
       },
       "title": "Call Runtime APIs with SDKs",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "workflow_pattern": "sequential"
     },
     {
@@ -1815,7 +1815,7 @@
         ]
       },
       "title": "Query On-Chain Data with Sidecar REST API",
-      "version": "1.1.2",
+      "version": "1.1.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -1961,7 +1961,7 @@
         ]
       },
       "title": "Estimate Transaction Fees with PAPI",
-      "version": "1.1.2",
+      "version": "1.1.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -2668,7 +2668,7 @@
         ]
       },
       "title": "Replay and Dry-Run XCMs Using Chopsticks",
-      "version": "1.1.2",
+      "version": "1.1.3",
       "workflow_pattern": "sequential"
     },
     {

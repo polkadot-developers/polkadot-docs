@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:48e9f1be44f0476b5e095e53a06967f82faa943dd750f5f652e67f9698ad2e78",
-  "generated": "2026-06-04T18:45:00Z",
+  "content_hash": "sha256:93df384fbdb76168bae912012a4c301701905879af5a514446c8227b15672940",
+  "generated": "2026-06-04T17:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -3446,7 +3446,7 @@
         },
         {
           "action": "Evaluate operational readiness and risk",
-          "description": "Before proceeding to node setup, confirm readiness on the following:\n\n**System administration skills:** Validators must troubleshoot and maintain node infrastructure. Unplanned downtime or misconfiguration can trigger slashing.\n\n**Security:** Review https://docs.polkadot.com/node-infrastructure/run-a-validator/operational-tasks/general-management/#secure-your-validator for required security hardening before exposing a validator node.\n\n**Start on Kusama:** If new to validation, start on Kusama (canary network, uses KSM) before Polkadot. Kusama has the same validator rules but lower financial stakes. Throughout the validator guides, look for 'Adjustments for Kusama' callouts.\n\n**Slashing risk:** Any DOT you bond is at risk if your validator fails or misbehaves. If you are uncertain about maintaining reliable uptime, consider nominating your DOT to a trusted existing validator instead.",
+          "description": "Before proceeding to node setup, confirm readiness on the following:\n\n**System administration skills:** Validators must troubleshoot and maintain node infrastructure. Unplanned downtime or misconfiguration can trigger slashing.\n\n**Security:** Review https://docs.polkadot.com/node-infrastructure/run-a-validator/operational-tasks/general-management/#secure-your-validator for required security hardening before exposing a validator node.\n\n**VPS acceptable use policies:** Different VPS providers have varying acceptable use policies. Some (e.g., Digital Ocean) require explicit permission for cryptocurrency-related activities. Review your provider's terms before deploying to avoid account suspension or server shutdown.\n\n**Start on Kusama:** If new to validation, start on Kusama (canary network, uses KSM) before Polkadot. Kusama has the same validator rules but lower financial stakes. Throughout the validator guides, look for 'Adjustments for Kusama' callouts.\n\n**Slashing risk:** Any DOT you bond is at risk if your validator fails or misbehaves. If you are uncertain about maintaining reliable uptime, consider nominating your DOT to a trusted existing validator instead.",
           "order": 4,
           "working_directory": "."
         }
@@ -3469,7 +3469,7 @@
         ]
       },
       "title": "Validate Polkadot Validator Requirements",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "workflow_pattern": "domain-intelligence"
     },
     {
@@ -5002,7 +5002,7 @@
           "commands": [
             "touch weights.rs"
           ],
-          "description": "Create pallets/pallet-custom/src/weights.rs with a WeightInfo trait and () placeholder implementation:\n\n```rust\npub trait WeightInfo {\n    fn set_counter_value() -> frame::prelude::Weight;\n    fn increment() -> frame::prelude::Weight;\n    fn decrement() -> frame::prelude::Weight;\n}\n\nimpl WeightInfo for () {\n    fn set_counter_value() -> frame::prelude::Weight { frame::prelude::Weight::from_parts(10_000, 0) }\n    fn increment() -> frame::prelude::Weight { frame::prelude::Weight::from_parts(15_000, 0) }\n    fn decrement() -> frame::prelude::Weight { frame::prelude::Weight::from_parts(15_000, 0) }\n}\n```\n\nThe () impl is used in tests; benchmark-generated values will replace this file in the final step.",
+          "description": "Create `pallets/pallet-custom/src/weights.rs` with a `WeightInfo` trait and `()` placeholder implementation. The `weights` module must be nested inside the `#[frame::pallet] pub mod pallet` block:\n\n```rust\n#[frame::pallet]\npub mod pallet {\n    use frame::prelude::*;\n    pub use weights::WeightInfo;\n\n    pub mod weights {\n        use frame::prelude::*;\n\n        pub trait WeightInfo {\n            fn set_counter_value() -> Weight;\n            fn increment() -> Weight;\n            fn decrement() -> Weight;\n        }\n\n        impl WeightInfo for () {\n            fn set_counter_value() -> Weight {\n                Weight::from_parts(10_000, 0)\n            }\n            fn increment() -> Weight {\n                Weight::from_parts(15_000, 0)\n            }\n            fn decrement() -> Weight {\n                Weight::from_parts(15_000, 0)\n            }\n        }\n    }\n\n    // ... rest of pallet\n}\n```\n\nThe `WeightInfo for ()` implementation provides placeholder weights for development. The `pub use weights::WeightInfo;` re-export makes `WeightInfo` accessible at the pallet level. If you are using a different pallet, update the `weights` module to use your pallet's function names. The benchmark-generated `weights.rs` will replace this placeholder file in the final step.",
           "order": 4,
           "working_directory": "polkadot-sdk-parachain-template/pallets/pallet-custom/src"
         },
@@ -5098,7 +5098,7 @@
         ]
       },
       "title": "Benchmark a FRAME Pallet and Generate Weight Files",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "workflow_pattern": "sequential"
     },
     {
@@ -5835,7 +5835,7 @@
     },
     {
       "chain_role": "isolated",
-      "description": "Scaffolds a Hardhat project, creates an ERC-721 NFT contract using OpenZeppelin, and deploys it to Polkadot Hub TestNet via Hardhat Ignition. Use when deploying an NFT smart contract with a local CLI toolchain. Key capabilities: manual Hardhat project scaffold (no interactive init), OpenZeppelin ERC-721 contract, dotenv private key handling, evmVersion: cancun for OpenZeppelin v5+, explicit gasPrice to prevent 'priority too low' errors, requiredConfirmations: 1 to prevent Ignition false-drops on TestNet. Trigger phrases: 'deploy NFT Hardhat Polkadot', 'ERC-721 Hardhat', 'mint NFT Polkadot Hub Hardhat'. Output: NFT contract address on Polkadot Hub TestNet. Do NOT use for browser/Remix-based deployment — use deploy-erc721-nft-remix instead.",
+      "description": "Scaffolds a Hardhat project, creates an ERC-721 NFT contract using OpenZeppelin, and deploys it to Polkadot Hub TestNet via Hardhat Ignition. Use when deploying an NFT smart contract with a local CLI toolchain. Key capabilities: manual Hardhat project scaffold (no interactive init), OpenZeppelin ERC-721 contract (also generatable via https://wizard.openzeppelin.com/polkadot), dotenv private key handling, evmVersion: cancun for OpenZeppelin v5+, explicit gasPrice to prevent 'priority too low' errors, requiredConfirmations: 1 to prevent Ignition false-drops on TestNet. Trigger phrases: 'deploy NFT Hardhat Polkadot', 'ERC-721 Hardhat', 'mint NFT Polkadot Hub Hardhat'. Output: NFT contract address on Polkadot Hub TestNet. Do NOT use for browser/Remix-based deployment — use deploy-erc721-nft-remix instead.",
       "env_vars": [
         {
           "description": "0x-prefixed EVM private key for the deployer account. Stored in .env — never commit to version control.",
@@ -6035,7 +6035,7 @@
         ]
       },
       "title": "Deploy an ERC-721 NFT Using Hardhat",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -6116,7 +6116,7 @@
       "steps": [
         {
           "action": "Open Remix IDE and create the contract file",
-          "description": "Fetch the reference file `MyNFT.sol`. It contains a minimal ERC-721 contract (ERC721 + Ownable) with a `safeMint(address to)` function and no URI storage extension.\n\nDelegate to the user:\n(1) Navigate to https://remix.ethereum.org in your web browser.\n(2) Under the 'contracts' folder, click 'Create new file' and name it 'MyNFT.sol'.\n(3) Paste the fetched contract code into the editor.\n\nWait for the user to confirm the file has been created and the code pasted.\n\nTip: You can also generate a custom contract at https://wizard.openzeppelin.com/polkadot — paste the generated code instead if you want additional features.",
+          "description": "Fetch the reference file `MyNFT.sol`. It contains a minimal ERC-721 contract (ERC721 + Ownable) with a `safeMint(address to)` function and no URI storage extension.\n\nDelegate to the user:\n1. Navigate to https://remix.ethereum.org in your web browser.\n2. Under the `contracts` folder, select the **Create new file** button and name your contract `MyNFT.sol`.\n3. Paste the fetched contract code into the editor.\n\nWait for the user to confirm the file has been created and the code pasted.\n\nTip: You can also generate a custom contract at https://wizard.openzeppelin.com/polkadot — paste the generated code instead if you want additional features (supply cap, royalties, etc.).",
           "interactive": true,
           "order": 1,
           "reference_file": "MyNFT.sol",
@@ -6131,7 +6131,7 @@
         },
         {
           "action": "Connect MetaMask to Polkadot Hub TestNet",
-          "description": "Delegate to the user:\n(1) Click 'Deploy & Run Transactions' in the left panel.\n(2) In the 'Environment' dropdown, hover over 'browser extension' and select 'Injected Provider - MetaMask'.\n(3) Approve the MetaMask connection popup.\n(4) Confirm MetaMask is on Polkadot Hub TestNet (chain ID 420420417). If not, add it via MetaMask Settings > Networks with RPC https://services.polkadothub-rpc.com/testnet. Confirm the funded account is visible.",
+          "description": "Delegate to the user:\n1. Select **Deploy & Run Transactions** from the left panel.\n2. Ensure MetaMask is connected to Polkadot Hub TestNet (chain ID 420420417), then select the **Environment** dropdown and select **Injected Provider - MetaMask**.\n3. Configure the contract parameters by entering the address that will own the deployed NFT contract.\n4. Select the **Deploy** button to initiate the deployment.\n5. Approve the transaction in MetaMask when prompted.\n\nOnce successfully deployed, the terminal displays the transaction details including the contract address and deployment transaction hash, and your contract appears in **Deployed Contracts**.",
           "interactive": true,
           "order": 3,
           "working_directory": "."
@@ -6162,7 +6162,7 @@
         ]
       },
       "title": "Deploy an ERC-721 NFT Using Remix IDE",
-      "version": "1.3.0",
+      "version": "1.3.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -6313,13 +6313,13 @@
         },
         {
           "action": "Verify the contract on the block explorer",
-          "description": "Replace INSERT_CONTRACT_ADDRESS with the address from step 6.\n\nBlockscout:\n```bash\nforge verify-contract INSERT_CONTRACT_ADDRESS src/Counter.sol:Counter --chain polkadot-testnet\n```\n\nRoutescan:\n```bash\nforge verify-contract INSERT_CONTRACT_ADDRESS src/Counter.sol:Counter --verifier-url 'https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan' --etherscan-api-key 'verifyContract' --chain polkadot-testnet\n```\n\nExpected output: 'Response: OK' and a URL to the verified contract.",
+          "description": "Replace `INSERT_CONTRACT_ADDRESS` with the address from step 6.\n\n**Blockscout (no API key required):**\n```bash\nforge verify-contract INSERT_CONTRACT_ADDRESS \\\n    src/Counter.sol:Counter \\\n    --chain polkadot-testnet\n```\n\n**Routescan:**\n```bash\nforge verify-contract INSERT_CONTRACT_ADDRESS \\\n    src/Counter.sol:Counter \\\n    --verifier-url 'https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan' \\\n    --etherscan-api-key 'verifyContract' \\\n    --chain polkadot-testnet\n```\n\nExpected output: `Response: OK` and a URL to the verified contract.\n\n**For contracts with constructor arguments**, append:\n```bash\n--constructor-args $(cast abi-encode \"constructor(uint256,address)\" 42 INSERT_DEPLOYER_ADDRESS)\n```\n\nReplace `INSERT_DEPLOYER_ADDRESS` with the deployer wallet address used in step 6.",
           "order": 7,
           "working_directory": "my-foundry-project"
         },
         {
           "action": "Interact with the contract using Cast",
-          "description": "Replace INSERT_CONTRACT_ADDRESS and INSERT_ACCOUNT_ADDRESS with actual values.\n\nRead from contract:\n```bash\ncast call INSERT_CONTRACT_ADDRESS 'number()(uint256)' --chain polkadot-testnet\n```\n\nWrite to contract:\n```bash\ncast send INSERT_CONTRACT_ADDRESS 'setNumber(uint256)' 42 --chain polkadot-testnet --private-key $PRIVATE_KEY\n```\n\nCheck balance:\n```bash\ncast balance INSERT_ACCOUNT_ADDRESS --chain polkadot-testnet\n```",
+          "description": "Replace `INSERT_CONTRACT_ADDRESS` and `INSERT_ACCOUNT_ADDRESS` with actual values.\n\n**Read from contract:**\n```bash\ncast call INSERT_CONTRACT_ADDRESS 'number()(uint256)' --chain polkadot-testnet\n```\n\n**Write to contract:**\n```bash\ncast send INSERT_CONTRACT_ADDRESS 'setNumber(uint256)' 42 --chain polkadot-testnet --private-key $PRIVATE_KEY\n```\n\n**Check balance:**\n```bash\ncast balance INSERT_ACCOUNT_ADDRESS --chain polkadot-testnet\n```\n\n**Forge Scripts (for more complex interactions):** For programmatic contract interaction, create scripts in the `script/` directory using Solidity. These scripts can read and write contract state and are invoked with `forge script script/YourScript.s.sol --chain polkadot-testnet`.",
           "order": 8,
           "working_directory": "my-foundry-project"
         },
@@ -6348,7 +6348,7 @@
         ]
       },
       "title": "Use Foundry with Polkadot Hub",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -7566,20 +7566,20 @@
         },
         {
           "action": "Open Remix IDE and locate Storage.sol",
-          "description": "Instruct the user: Open https://remix.ethereum.org in the browser. In the left file explorer panel, expand the 'contracts/' folder. Click on 'Storage.sol' to open it in the editor. This is the default Remix sample contract — no code changes are needed.",
+          "description": "Instruct the user: Open https://remix.ethereum.org in the browser. Wait for the default workspace to load. In the left file explorer panel, expand the `contracts/` folder and locate `Storage.sol` — this is the default Remix sample contract. Click on `Storage.sol` to open it in the editor. No code changes are needed.",
           "order": 2,
           "working_directory": "."
         },
         {
           "action": "Compile Storage.sol in Remix",
-          "description": "Instruct the user: Click the Solidity Compiler icon in the left sidebar. Click the blue 'Compile Storage.sol' button. Wait for the green checkmark indicating successful compilation. If there are errors, verify Storage.sol is selected and the compiler version is 0.8.x or higher.",
+          "description": "Instruct the user:\n1. Select the **Solidity Compiler** plugin from the left panel.\n2. Select the **Compile Storage.sol** button.\n\nThe **Solidity Compiler** icon will display a green checkmark once the contract compiles successfully. If any issues arise, errors and warnings appear in the terminal panel at the bottom of the screen. Verify the contract is open and the compiler version is 0.8.x or higher.",
           "expected_output": "Green checkmark on the Solidity Compiler sidebar icon; no errors shown.",
           "order": 3,
           "working_directory": "."
         },
         {
           "action": "Deploy to Polkadot Hub TestNet via MetaMask",
-          "description": "Instruct the user: Click the Deploy and Run Transactions icon in the left sidebar. In the Environment dropdown, select 'Injected Provider - MetaMask'. MetaMask will prompt for permission — click Connect. Confirm the Account field shows your MetaMask address and the network shows Polkadot Hub TestNet (chain ID 420420417). Click the orange 'Deploy' button. MetaMask will open a transaction confirmation — click Confirm. Wait for the transaction to be mined (typically 15-30 seconds on TestNet).",
+          "description": "Instruct the user:\n1. Select **Deploy & Run Transactions** from the left panel.\n2. Ensure MetaMask is connected to Polkadot Hub TestNet (chain ID 420420417), then select the **Environment** dropdown and select **Injected Provider - MetaMask**.\n3. Select the **Deploy** button to initiate the deployment.\n\nWhen prompted, approve the transaction in MetaMask. After deployment succeeds, the terminal displays the contract address and transaction hash, and the contract appears in **Deployed Contracts**.",
           "expected_output": "Deployed contract appears in the 'Deployed Contracts' section at the bottom of the Deploy panel.",
           "order": 4,
           "working_directory": "."
@@ -7610,7 +7610,7 @@
         ]
       },
       "title": "Deploy a Basic Smart Contract with Remix IDE",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -7682,7 +7682,7 @@
       "steps": [
         {
           "action": "Open Remix IDE",
-          "description": "Instruct the user: Open https://remix.ethereum.org in the browser. Wait for the IDE to fully load (the file explorer appears on the left). Ensure MetaMask is unlocked and set to Polkadot Hub TestNet before proceeding.\n\nThe Remix interface has three main areas:\n- **Plugin panel** (left sidebar): icons for file explorer, search, Solidity compiler, Deploy & run transactions, debugger, and Git.\n- **Editor panel** (center): where you write and modify Solidity files.\n- **Terminal** (bottom): shows compiler logs, deployment events, transactions, and console.log output.",
+          "description": "Instruct the user: Open https://remix.ethereum.org in the browser. Wait for the IDE to fully load (the file explorer appears on the left). Ensure MetaMask is unlocked and set to Polkadot Hub TestNet before proceeding.\n\nThe Remix interface has three main areas:\n- **Editor panel** (center): The main coding area where you write and modify Solidity files. Supports syntax highlighting, auto-completion, and linting.\n- **Terminal** (bottom): Shows logs from the compiler, deployment events, transactions, and console.log output.\n- **Plugin panel** (left sidebar): Icons for each preloaded plugin, the plugin manager, and settings. Key plugins include:\n  - **File explorer**: Displays your workspace. Create, open, rename, and organize Solidity files.\n  - **File search**: Quick search tool for finding symbols, functions, or text within project files.\n  - **Solidity compiler**: Compile contracts, select compiler versions, enable optimizations, view errors.\n  - **Deploy & run transactions**: Deploy contracts, choose environment, send transactions, call functions.\n  - **Debugger**: Step through transaction execution line-by-line; inspect variables, stack, storage slots.\n  - **Git**: Basic Git version control — initialize repos, view diffs, commit changes, browse history.",
           "order": 1,
           "working_directory": "."
         },
@@ -7724,7 +7724,7 @@
         ]
       },
       "title": "Connect Remix IDE to Polkadot Hub",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "workflow_pattern": "sequential"
     },
     {

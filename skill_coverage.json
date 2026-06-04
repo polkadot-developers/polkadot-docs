@@ -219,11 +219,11 @@
     },
     "node-infrastructure/run-a-validator/requirements.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-02T12:00:00Z",
+      "last_scanned": "2026-06-04T17:00:00Z",
       "skills": [
         "onboard-polkadot-validator"
       ],
-      "status": "stale"
+      "status": "current"
     },
     "node-infrastructure/run-a-validator/staking-mechanics/offenses-and-slashes.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
@@ -261,11 +261,11 @@
     },
     "parachains/customize-runtime/pallet-development/benchmark-pallet.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-02T12:00:00Z",
+      "last_scanned": "2026-06-04T17:00:00Z",
       "skills": [
         "benchmark-frame-pallet"
       ],
-      "status": "stale"
+      "status": "current"
     },
     "parachains/customize-runtime/pallet-development/create-a-pallet.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
@@ -747,11 +747,11 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-02T12:00:00Z",
+      "last_scanned": "2026-06-04T17:00:00Z",
       "skills": [
         "deploy-basic-contract-remix"
       ],
-      "status": "stale"
+      "status": "current"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
@@ -771,27 +771,27 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-02T12:00:00Z",
+      "last_scanned": "2026-06-04T17:00:00Z",
       "skills": [
         "deploy-erc721-nft-hardhat"
       ],
-      "status": "stale"
+      "status": "current"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-02T12:00:00Z",
+      "last_scanned": "2026-06-04T17:00:00Z",
       "skills": [
         "deploy-erc721-nft-remix"
       ],
-      "status": "stale"
+      "status": "current"
     },
     "smart-contracts/dev-environments/foundry.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-02T12:00:00Z",
+      "last_scanned": "2026-06-04T17:00:00Z",
       "skills": [
         "set-up-foundry-polkadot-hub"
       ],
-      "status": "stale"
+      "status": "current"
     },
     "smart-contracts/dev-environments/hardhat-polkadot.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
@@ -819,11 +819,11 @@
     },
     "smart-contracts/dev-environments/remix.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-02T12:00:00Z",
+      "last_scanned": "2026-06-04T17:00:00Z",
       "skills": [
         "connect-remix-polkadot"
       ],
-      "status": "stale"
+      "status": "current"
     },
     "smart-contracts/explorers.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",

@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:bb44c94b85787f64bac858add7c0d52305d79560beedbce52402d3d2a6f1b7ae",
-  "generated": "2026-06-04T20:00:00Z",
+  "content_hash": "sha256:f64fcc9b8f54557edeea2d846718b4f8f78191768beda90917b98c35946efe81",
+  "generated": "2026-06-04T20:30:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -6687,7 +6687,7 @@
         ]
       },
       "title": "Deploy and Interact with Smart Contracts Using Web3.js",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "workflow_pattern": "sequential"
     },
     {
@@ -7849,7 +7849,7 @@
         ]
       },
       "title": "Connect a Wallet to Polkadot Hub",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -8209,7 +8209,7 @@
         ]
       },
       "title": "Deploy and Interact with Smart Contracts on Polkadot Hub Using Web3.py",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -8510,7 +8510,7 @@
         ]
       },
       "title": "Interact with the Storage Precompile on Polkadot Hub via Remix",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -8664,7 +8664,7 @@
         ]
       },
       "title": "Interact with the System Precompile on Polkadot Hub via Remix",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -8821,7 +8821,7 @@
         ]
       },
       "title": "Interact with the XCM Precompile via Remix IDE",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "workflow_pattern": "sequential"
     },
     {

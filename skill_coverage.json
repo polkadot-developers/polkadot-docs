@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-04T20:00:00Z",
+  "generated": "2026-06-04T20:30:00Z",
   "pages": {
     "chain-interactions/accounts/create-account.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
@@ -887,11 +887,11 @@
     },
     "smart-contracts/integrations/wallets.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-02T15:30:00Z",
+      "last_scanned": "2026-06-04T20:30:00Z",
       "skills": [
         "connect-wallet-polkadot-hub"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/libraries/ethers-js.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
@@ -919,19 +919,19 @@
     },
     "smart-contracts/libraries/web3-js.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-02T12:00:00Z",
+      "last_scanned": "2026-06-04T20:30:00Z",
       "skills": [
         "deploy-interact-contracts-web3js"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/libraries/web3-py.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-02T15:30:00Z",
+      "last_scanned": "2026-06-04T20:30:00Z",
       "skills": [
         "deploy-interact-contracts-web3py"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/overview.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
@@ -955,37 +955,37 @@
     },
     "smart-contracts/precompiles/storage.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-02T15:30:00Z",
+      "last_scanned": "2026-06-04T20:30:00Z",
       "skills": [
         "interact-storage-precompile-remix"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/precompiles/system.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-02T15:30:00Z",
+      "last_scanned": "2026-06-04T20:30:00Z",
       "skills": [
         "interact-system-precompile-remix"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/precompiles/xcm.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-02T15:30:00Z",
+      "last_scanned": "2026-06-04T20:30:00Z",
       "skills": [
         "interact-xcm-precompile-remix"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     }
   },
   "schema_version": "1",
   "summary": {
     "blocked": 23,
     "not_applicable": 12,
-    "stale": 6,
+    "stale": 0,
     "supplementary": 45,
     "total_candidates": 142,
     "uncovered": 0,
-    "up_to_date": 49
+    "up_to_date": 55
   }
 }

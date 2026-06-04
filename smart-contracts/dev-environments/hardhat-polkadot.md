@@ -1,6 +1,7 @@
 ---
 title: Use Hardhat with Polkadot Hub
 description: Learn how to set up, configure, and use Hardhat Polkadot to create, compile, test, and deploy Solidity smart contracts on Polkadot Hub using the PVM runtime.
+short_description: Set up Hardhat Polkadot to deploy Solidity contracts using the PVM runtime.
 categories: Smart Contracts, Tooling
 toggle:
   group: hardhat

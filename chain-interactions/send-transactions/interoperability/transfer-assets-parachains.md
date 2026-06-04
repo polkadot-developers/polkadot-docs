@@ -1,6 +1,7 @@
 ---
 title: Transfer Assets Between Parachains
 description: A step-by-step guide to using the ParaSpell XCM SDK to build, verify, and execute a transfer from one Parachain to another.
+short_description: Construct and send XCM messages using ParaSpell XCM SDK and Polkadot API (PAPI).
 categories: Interoperability, Parachains
 page_badges:
   tutorial_badge: Intermediate

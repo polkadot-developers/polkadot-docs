@@ -2,6 +2,7 @@
 title: Uniswap V2 Core with EVM on Polkadot
 description: Deploy and test unmodified Uniswap V2 Core contracts on Polkadot Hub using standard Hardhat and TypeScript with the EVM execution path.
 categories: Smart Contracts, Tooling
+tools: [Hardhat]
 page_badges:
   tutorial_badge: Intermediate
 toggle:

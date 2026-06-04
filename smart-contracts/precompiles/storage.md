@@ -1,6 +1,7 @@
 ---
 title: Interact with the Storage Precompile
 description: Learn how to use the Storage precompile for low-level contract storage access, including reads, writes, partial reads, key inspection, and storage management.
+short_description: Access low-level contract storage with reads, writes, and key inspection.
 categories: Smart Contracts
 ---
 

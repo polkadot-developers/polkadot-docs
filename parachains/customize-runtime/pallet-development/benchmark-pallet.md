@@ -1,6 +1,7 @@
 ---
 title: Benchmark Your Pallet
 description: Learn how to benchmark extrinsics in your custom pallet to generate precise weight calculations suitable for production use.
+short_description: Measure and optimize pallet performance with benchmarking.
 categories: Parachains
 page_badges:
   tutorial_badge: Advanced

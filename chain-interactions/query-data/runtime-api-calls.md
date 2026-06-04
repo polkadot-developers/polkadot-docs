@@ -1,6 +1,7 @@
 ---
 title: Runtime API Calls
 description: Learn how to call Polkadot runtime APIs to access the Wasm runtime and retrieve computed results using PAPI, Polkadot.js, Dedot, Python, and Subxt.
+short_description: Execute runtime APIs directly for specialized queries and operations.
 categories: Polkadot Protocol, Tooling
 ---
 

@@ -1,6 +1,7 @@
 ---
 title: Mock Your Runtime
 description: Learn how to create a mock runtime environment for testing your custom pallets in isolation, enabling comprehensive unit testing before runtime integration.
+short_description: Set up a mock runtime environment for testing.
 categories: Parachains
 page_badges:
   tutorial_badge: Intermediate

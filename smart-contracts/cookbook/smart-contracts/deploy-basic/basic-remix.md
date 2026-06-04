@@ -2,6 +2,7 @@
 title: Deploy a Basic Contract with Remix IDE
 description: Learn how to deploy a basic smart contract to Polkadot Hub using Remix IDE, ideal for rapid prototyping, learning, and visual development.
 categories: Smart Contracts
+tools: [Remix]
 ---
 
 # Deploy a Basic Contract with Remix IDE

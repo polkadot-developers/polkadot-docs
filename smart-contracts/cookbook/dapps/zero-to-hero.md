@@ -2,6 +2,7 @@
 title: Zero to Hero Smart Contract DApp
 description: Learn how to build a decentralized application on Polkadot Hub using Viem and Next.js by creating a simple dApp that interacts with a smart contract.
 categories: Smart Contracts, Tooling
+tools: [Hardhat, viem, Next.js]
 page_badges:
   tutorial_badge: Intermediate
   test_workflow: polkadot-docs-zero-to-hero-dapp
@@ -13,7 +14,7 @@ page_tests:
 
 Decentralized applications (dApps) are a key component of the Web3 ecosystem, enabling developers to build applications that communicate directly with blockchain networks. Polkadot Hub, a blockchain with smart contract support, serves as a robust platform for deploying and interacting with dApps.
 
-This tutorial will guide you through building a fully functional dApp that interacts with a smart contract on Polkadot Hub. You'll create and deploy a smart contract with Hardhat, and then use [Viem](https://viem.sh/){target=\_blank} for blockchain interactions and [Next.js](https://nextjs.org/){target=\_blank} for the frontend. By the end, you'll have a dApp that lets users connect their wallets, retrieve on-chain data, and execute transactions.
+This tutorial will guide you through building a fully functional dApp that interacts with a smart contract on Polkadot Hub. You'll create and deploy a smart contract with Hardhat, and then use [viem](https://viem.sh/){target=\_blank} for blockchain interactions and [Next.js](https://nextjs.org/){target=\_blank} for the frontend. By the end, you'll have a dApp that lets users connect their wallets, retrieve on-chain data, and execute transactions.
 
 ## Prerequisites
 
@@ -918,7 +919,7 @@ cd zero-to-hero-dapp
 
     ---
 
-    Learn how to port an Ethereum project to Polkadot Hub using Hardhat and Viem.
+    Learn how to port an Ethereum project to Polkadot Hub using Hardhat and viem.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/eth-dapps/uniswap-v2/)
 

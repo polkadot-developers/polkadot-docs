@@ -1,6 +1,7 @@
 ---
 title: Storage Migrations
 description: Ensure smooth runtime upgrades with storage migrations, update data formats, and prevent errors. Learn when and how to implement migrations efficiently.
+short_description: Safely migrate storage when updating runtime logic.
 categories: Parachains
 ---
 

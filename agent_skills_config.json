@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:24ba54e8dfec90fe912478bcfc1f190b9a1113b9c3e35c4632deee95d828b40a",
-  "generated": "2026-06-04T18:30:00Z",
+  "content_hash": "sha256:48e9f1be44f0476b5e095e53a06967f82faa943dd750f5f652e67f9698ad2e78",
+  "generated": "2026-06-04T18:45:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -3620,7 +3620,7 @@
         ]
       },
       "title": "Set Up and Use Chopsticks for Chain Forking",
-      "version": "1.3.0",
+      "version": "1.3.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -3967,7 +3967,7 @@
         ]
       },
       "title": "Build a Zero-to-Hero Smart Contract DApp with Viem and Next.js",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -4480,10 +4480,10 @@
         {
           "action": "Install dependencies",
           "commands": [
-            "npm install viem dotenv",
+            "npm install viem solc dotenv",
             "npm install --save-dev typescript ts-node @types/node"
           ],
-          "description": "Install viem (v2), dotenv for credential management, solc for Solidity compilation, and TypeScript tooling (ts-node for execution).",
+          "description": "Install viem (Ethereum client library), solc (Solidity compiler — required by compile.ts), dotenv (credential management), and TypeScript tooling (ts-node for execution).",
           "order": 2,
           "working_directory": "viem-project"
         },
@@ -4589,7 +4589,7 @@
         ]
       },
       "title": "Deploy Contracts to Polkadot Hub with Viem",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -5412,7 +5412,7 @@
         ]
       },
       "title": "Interact with Polkadot Chains Using Dedot",
-      "version": "1.3.0",
+      "version": "1.3.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -6495,7 +6495,7 @@
         ]
       },
       "title": "Spawn and Test a Parachain Network with Zombienet",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -7944,9 +7944,9 @@
         {
           "action": "Install Wagmi v3 and peer dependencies",
           "commands": [
-            "npm install wagmi viem@2.x @tanstack/react-query"
+            "npm install wagmi@3 viem @tanstack/react-query"
           ],
-          "description": "Install wagmi (React hooks for Ethereum), viem v2 (low-level EVM transport), and @tanstack/react-query (required peer dependency for Wagmi v3 data-fetching hooks).",
+          "description": "Install wagmi@3 (React hooks for Ethereum), viem (low-level EVM transport), and @tanstack/react-query (required peer dependency for Wagmi v3 data-fetching hooks). Note: in Wagmi v3, useAccount has been renamed to useConnection.",
           "order": 2,
           "working_directory": "wagmi-dapp"
         },
@@ -7964,7 +7964,7 @@
         },
         {
           "action": "Add wallet connection component",
-          "description": "Create src/components/ConnectWallet.tsx with the following content:\n\n```typescript\n'use client';\nimport { useAccount, useConnect, useDisconnect } from 'wagmi';\n\nexport function ConnectWallet() {\n  const { address, isConnected } = useAccount();\n  const { connect, connectors } = useConnect();\n  const { disconnect } = useDisconnect();\n\n  if (isConnected) {\n    return (\n      <div>\n        <p>Connected: {address}</p>\n        <button onClick={() => disconnect()}>Disconnect</button>\n      </div>\n    );\n  }\n\n  return (\n    <div>\n      {connectors.map((connector) => (\n        <button key={connector.id} onClick={() => connect({ connector })}>\n          Connect {connector.name}\n        </button>\n      ))}\n    </div>\n  );\n}\n```\n\nThis renders a connect/disconnect button using the injected (MetaMask) connector.",
+          "description": "Create src/components/ConnectWallet.tsx with the following content:\n\n```typescript\n'use client';\nimport { useConnection, useConnect, useDisconnect } from 'wagmi';\nimport { injected } from 'wagmi/connectors';\n\nexport function ConnectWallet() {\n  const { address, isConnected } = useConnection();\n  const { connect } = useConnect();\n  const { disconnect } = useDisconnect();\n\n  if (isConnected) {\n    return (\n      <div>\n        <p>Connected: {address}</p>\n        <button onClick={() => disconnect()}>Disconnect</button>\n      </div>\n    );\n  }\n\n  return (\n    <div>\n      <button onClick={() => connect({ connector: injected() })}>\n        Connect MetaMask\n      </button>\n    </div>\n  );\n}\n```\n\nThis renders a connect/disconnect button using the injected (MetaMask) connector. Wagmi v3 renamed `useAccount` to `useConnection` — use `useConnection` for all account state.",
           "order": 5,
           "working_directory": "wagmi-dapp"
         },
@@ -7982,7 +7982,7 @@
         },
         {
           "action": "Add Storage contract write interaction using useWriteContract",
-          "description": "Create `src/components/StorageWrite.tsx` to send a `store(uint256)` transaction to the same contract used in step 7:\n\n```typescript\n'use client';\nimport { useWriteContract, useAccount } from 'wagmi';\nimport { polkadotHubTestnet } from '../wagmi';\nimport { useState } from 'react';\n\nconst STORAGE_ABI = [\n  {\n    inputs: [{ internalType: 'uint256', name: 'num', type: 'uint256' }],\n    name: 'store',\n    outputs: [],\n    stateMutability: 'nonpayable',\n    type: 'function',\n  },\n] as const;\n\nconst CONTRACT_ADDRESS = '0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3' as `0x${string}`;\n\nexport function StorageWrite() {\n  const { isConnected } = useAccount();\n  const { writeContract, isPending, isSuccess } = useWriteContract();\n  const [value, setValue] = useState('');\n\n  const handleStore = () => {\n    writeContract({\n      address: CONTRACT_ADDRESS,\n      abi: STORAGE_ABI,\n      functionName: 'store',\n      args: [BigInt(value)],\n      chainId: polkadotHubTestnet.id,\n    });\n  };\n\n  if (!isConnected) return <p>Connect your wallet to write.</p>;\n\n  return (\n    <div>\n      <input value={value} onChange={e => setValue(e.target.value)} placeholder='Enter number' />\n      <button onClick={handleStore} disabled={isPending}>\n        {isPending ? 'Storing...' : 'Store'}\n      </button>\n      {isSuccess && <p>Transaction submitted!</p>}\n    </div>\n  );\n}\n```\n\nSame address as step 6. This step requires a connected wallet (from step 3's `ConnectWallet`) and PAS tokens for the transaction fee — get tokens from <https://faucet.polkadot.io/>.",
+          "description": "Create `src/components/StorageWrite.tsx` to send a `setNumber(uint256)` transaction to the same contract used in step 7:\n\n```typescript\n'use client';\nimport { useWriteContract, useConnection } from 'wagmi';\nimport { useState } from 'react';\n\nconst STORAGE_ABI = [\n  {\n    inputs: [{ internalType: 'uint256', name: '_newNumber', type: 'uint256' }],\n    name: 'setNumber',\n    outputs: [],\n    stateMutability: 'nonpayable',\n    type: 'function',\n  },\n] as const;\n\nconst CONTRACT_ADDRESS = '0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3' as `0x${string}`;\n\nexport function StorageWrite() {\n  const { isConnected } = useConnection();\n  const { writeContract, isPending, isSuccess } = useWriteContract();\n  const [value, setValue] = useState('');\n\n  const handleSetNumber = () => {\n    writeContract({\n      address: CONTRACT_ADDRESS,\n      abi: STORAGE_ABI,\n      functionName: 'setNumber',\n      args: [BigInt(value)],\n    });\n  };\n\n  if (!isConnected) return <p>Connect your wallet to write.</p>;\n\n  return (\n    <div>\n      <input value={value} onChange={e => setValue(e.target.value)} placeholder='Enter number' />\n      <button onClick={handleSetNumber} disabled={isPending}>\n        {isPending ? 'Confirming...' : 'Set Number'}\n      </button>\n      {isSuccess && <p>Transaction submitted!</p>}\n    </div>\n  );\n}\n```\n\nSame address as step 7 (`0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3`). Requires a connected wallet (from step 5) and PAS tokens for the transaction fee — get tokens from https://faucet.polkadot.io/.",
           "order": 8,
           "working_directory": "wagmi-dapp"
         },
@@ -8029,7 +8029,7 @@
         ]
       },
       "title": "Build a Wagmi dApp Connected to Polkadot Hub",
-      "version": "1.0.2",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -8356,7 +8356,7 @@
         ]
       },
       "title": "Interact with the ERC-20 Precompile on Polkadot Hub via Remix",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "workflow_pattern": "sequential"
     },
     {

@@ -2044,7 +2044,7 @@
       "title": "Deploy an ERC-20 Token Using Hardhat"
     },
     {
-      "built_at": "2026-06-03T19:00:00Z",
+      "built_at": "2026-06-04T19:30:00Z",
       "category": "tutorial",
       "notes": "Complete browser-based tutorial: create contract in Remix, compile, deploy, and mint via MetaMask. No CLI commands (P2 not fired). S1 not fired — workflow is GUI-driven (Remix IDE + MetaMask); a skill agent would require browser automation. Contract code sourced from revm-hardhat-examples (K4 awarded).",
       "priority": "high",
@@ -2364,7 +2364,7 @@
       "title": "Connect a Wallet to Polkadot Hub"
     },
     {
-      "built_at": "2026-04-21T20:00:00Z",
+      "built_at": "2026-06-04T19:30:00Z",
       "category": "tutorial",
       "notes": "Complete tutorial: project setup, Solidity compilation, deployment, and contract interaction via Ethers.js. Explicit numbered steps in the deploy section (P1). Self-contained with prerequisites listed. Code via --8<-- includes from polkadot-cookbook (K4). INSERT_* placeholders for RPC URL, chain ID, and mnemonic require substitution (K2=0).",
       "priority": "high",
@@ -2693,7 +2693,7 @@
       "title": "Store and Retrieve Data on the Bulletin Chain"
     },
     {
-      "built_at": "2026-06-02T12:00:00Z",
+      "built_at": "2026-06-04T19:30:00Z",
       "category": "tutorial",
       "notes": "PVM variant using polkavm-hardhat-examples repo. K1 awarded for the deploy-to-TestNet workflow, which is standalone; the local-node testing step references the Local Dev Node guide but the deployment outcome is achievable without it. K4 awarded — polkavm-hardhat-examples is listed in context.md.",
       "priority": "high",
@@ -2728,7 +2728,7 @@
       "title": "Deploy Uniswap V2 Core on Polkadot Hub (PVM)"
     },
     {
-      "built_at": "2026-06-03T19:00:00Z",
+      "built_at": "2026-06-04T19:30:00Z",
       "category": "tutorial",
       "notes": "EVM variant using revm-hardhat-examples repo and standard Hardhat + TypeScript; no PVM compiler plugin. P3 not awarded — key management is via `npx hardhat vars set` CLI, no file to write. K4 awarded — revm-hardhat-examples is listed in context.md. Testing step references Local Dev Node guide but TestNet deployment is self-contained.",
       "priority": "high",
@@ -2762,7 +2762,7 @@
       "title": "Deploy Uniswap V2 Core on Polkadot Hub (EVM)"
     },
     {
-      "built_at": "2026-06-03T19:00:00Z",
+      "built_at": "2026-06-04T19:30:00Z",
       "category": "tutorial",
       "notes": "Deploys WETH9, UniswapV2Factory, and UniswapV2Router02 via Hardhat Ignition. The V2 Core Solidity dependency is a local file reference resolved automatically by npm install from the same cloned repo — no separately deployed Core contracts are needed. K1 awarded as self-contained; the editorial prerequisite 'complete Core tutorial first' is educational context, not a technical blocker for deployment. K4 awarded — revm-hardhat-examples is listed in context.md.",
       "priority": "high",
@@ -2796,7 +2796,7 @@
       "title": "Deploy Uniswap V2 Periphery (Router) on Polkadot Hub (EVM)"
     },
     {
-      "built_at": "2026-05-15T15:30:00Z",
+      "built_at": "2026-06-04T19:30:00Z",
       "category": "tutorial",
       "notes": "K1=0: test step references external Local Development Node guide; deployment workflow itself is self-contained. K4=3: revm-hardhat-examples repo with pinned commit (3ff28ae). No P3: reader clones the repo, not creates files.",
       "priority": "high",
@@ -2831,7 +2831,7 @@
       "title": "Deploy Uniswap V3 Core with EVM on Polkadot Hub"
     },
     {
-      "built_at": "2026-06-03T19:00:00Z",
+      "built_at": "2026-06-04T19:30:00Z",
       "category": "tutorial",
       "notes": "Full deploy+test workflow for SwapRouter and NonfungiblePositionManager. The 'complete V3 Core tutorial' prereq is a code dependency resolved automatically via local npm file reference in the cloned monorepo; the Ignition module deploys Factory+WETH9+SwapRouter+NFPM in one shot, making this self-contained. Pinned to commit 96696ad15c3cf01b9168a71ad5114f27c34a8726 with docs.test.ts confirming CI-tested code.",
       "priority": "high",

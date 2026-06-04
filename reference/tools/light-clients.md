@@ -36,7 +36,7 @@ FN -- Response (validated via Merkle proof) --> LC
 
 In the diagram above, the decentralized application queries on-chain account information through the light client. The light client runs as part of the application and requires minimal memory and computational resources. It uses Merkle proofs to verify the state retrieved from a full node in a trust-minimized manner. Polkadot-compatible light clients utilize warp syncing, which downloads only block headers.
 
-Light clients can quickly verify the blockchain's state, including [GRANDPA finality](/reference/glossary#grandpa){target=\_blank} justifications.
+Light clients can quickly verify the blockchain's state, including [GRANDPA finality](/reference/glossary#ghost-based-recursive-ancestor-deriving-prefix-agreement-grandpa){target=\_blank} justifications.
 
 !!!note "What does it mean to be trust-minimized?"
     _Trust-minimized_ means that the light client does not need to fully trust the full node from which it retrieves the state. This is achieved through the use of Merkle proofs, which allow the light client to verify the correctness of the state by checking the Merkle tree root.

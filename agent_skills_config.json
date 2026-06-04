@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:00b956cb390bf0986f3820590862be29e952ecb49a9468beabd00f2c7850a081",
-  "generated": "2026-06-03T19:00:00Z",
+  "content_hash": "sha256:23ec02fb2c4b5efe8602e37b1b7f6b592e1d6d21b1bca3375c5f1b039810cde6",
+  "generated": "2026-06-04T00:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -764,7 +764,7 @@
         ]
       },
       "title": "Send Transactions with SDKs",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "workflow_pattern": "sequential"
     },
     {
@@ -2148,7 +2148,7 @@
         ]
       },
       "title": "Transfer Assets Between Parachains with ParaSpell XCM SDK",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -2301,7 +2301,7 @@
         ]
       },
       "title": "Pay Transaction Fees with an Alternative Token",
-      "version": "1.1.3",
+      "version": "1.1.4",
       "workflow_pattern": "sequential"
     },
     {
@@ -2453,7 +2453,7 @@
         ]
       },
       "title": "Run a Parachain RPC Node",
-      "version": "1.1.3",
+      "version": "1.1.4",
       "workflow_pattern": "sequential"
     },
     {
@@ -2859,7 +2859,7 @@
         ]
       },
       "title": "Estimate XCM Fees for Asset Teleport",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -3201,7 +3201,7 @@
         ]
       },
       "title": "Run an RPC Node for Polkadot Hub",
-      "version": "1.1.3",
+      "version": "1.1.4",
       "workflow_pattern": "sequential"
     },
     {
@@ -9304,7 +9304,7 @@
         ]
       },
       "title": "Store and Retrieve Data on the Bulletin Chain",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {

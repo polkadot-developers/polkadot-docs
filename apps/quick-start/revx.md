@@ -111,9 +111,9 @@ After signing the transaction, you will see the deployment progress in the termi
 
     ---
 
-    Prefer the terminal? Install the `dot` CLI and ship a Polkadot Product end to end from your workstation.
+    Prefer the terminal? Install the Playground CLI and ship a Polkadot Product end to end from your workstation.
 
-    [:octicons-arrow-right-24: Open the CLI Quick Start](/apps/playground-cli/)
+    [:octicons-arrow-right-24: Open the CLI Quick Start](/apps/quick-start/playground-cli/)
 
 -   <span class="badge guide">Guide</span> **Build Guides**
 

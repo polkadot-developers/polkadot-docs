@@ -43,14 +43,6 @@ build: $(VENV)/.installed ## Build the static site and validate it compiles clea
 	$(MKDOCS) build --strict $(ARGS) || \
 		(echo "\nError: Build failed. Fix the errors above, then re-run: make build\n  Tip: run 'make serve' to preview and identify broken references interactively." && exit 1)
 
-.PHONY: gen-cookbook
-gen-cookbook: $(VENV)/.installed ## Generate the cookbook index table (pass TARGET=path/to/section)
-ifndef TARGET
-	$(error TARGET is required. Example: make gen-cookbook TARGET=smart-contracts/cookbook)
-endif
-	$(PYTHON) $(SCRIPTS_DIR)/generate-cookbook-indexes.py $(TARGET) || \
-		(echo "\nError: Failed to generate cookbook index for '$(TARGET)'.\n  Ensure the path exists under polkadot-docs/ and contains a .nav.yml file." && exit 1)
-
 .PHONY: help
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -60,4 +52,3 @@ help:
 	@echo "                  pass extra flags with ARGS: make serve ARGS='--watch-theme'"
 	@echo "  build         to build the static site and validate it compiles cleanly (mirrors CI)"
 	@echo "                  pass extra flags with ARGS: make build ARGS='-d site'"
-	@echo "  gen-cookbook  to regenerate the cookbook index table (requires TARGET=path/to/section)"

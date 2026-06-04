@@ -112,8 +112,9 @@ markdown_extensions:
 
 # Hooks
 hooks:
-  - hooks/glossary_abbreviations.py
+  - hooks/auto_index_table.py
   - hooks/footer_nav.py
+  - hooks/glossary_abbreviations.py
   - hooks/synthesize_ancestors.py
 
 # Plugins

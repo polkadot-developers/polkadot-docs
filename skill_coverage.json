@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-04T18:45:00Z",
+  "generated": "2026-06-04T19:00:00Z",
   "pages": {
     "chain-interactions/accounts/create-account.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
@@ -277,19 +277,19 @@
     },
     "parachains/customize-runtime/pallet-development/mock-runtime.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-02T14:00:00Z",
+      "last_scanned": "2026-06-04T19:00:00Z",
       "skills": [
         "set-up-pallet-mock-runtime"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/pallet-development/pallet-testing.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-02T14:00:00Z",
+      "last_scanned": "2026-06-04T19:00:00Z",
       "skills": [
         "unit-test-frame-pallet"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/get-started.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
@@ -357,11 +357,11 @@
     },
     "parachains/launch-a-parachain/set-up-the-parachain-template.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-02T14:00:00Z",
+      "last_scanned": "2026-06-04T19:00:00Z",
       "skills": [
         "set-up-parachain-template"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/runtime-maintenance/coretime-renewal.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
@@ -599,19 +599,19 @@
     },
     "reference/tools/moonwall.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-03T18:30:00Z",
+      "last_scanned": "2026-06-04T19:00:00Z",
       "skills": [
         "set-up-e2e-testing-moonwall"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/omninode.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-03T18:30:00Z",
+      "last_scanned": "2026-06-04T19:00:00Z",
       "skills": [
         "run-parachain-node-omni-node"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/papi.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
@@ -647,11 +647,11 @@
     },
     "reference/tools/py-substrate-interface.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-03T18:30:00Z",
+      "last_scanned": "2026-06-04T19:00:00Z",
       "skills": [
         "interact-polkadot-node-py-substrate"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/sidecar.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
@@ -661,11 +661,11 @@
     },
     "reference/tools/subxt.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
-      "last_scanned": "2026-06-03T18:30:00Z",
+      "last_scanned": "2026-06-04T19:00:00Z",
       "skills": [
         "interact-polkadot-node-subxt"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/xcm-tools.md": {
       "last_edited": "2026-06-04T16:12:28+00:00",
@@ -982,10 +982,10 @@
   "summary": {
     "blocked": 23,
     "not_applicable": 12,
-    "stale": 34,
+    "stale": 20,
     "supplementary": 45,
     "total_candidates": 142,
     "uncovered": 0,
-    "up_to_date": 28
+    "up_to_date": 35
   }
 }

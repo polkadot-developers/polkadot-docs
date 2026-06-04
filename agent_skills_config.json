@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:23ec02fb2c4b5efe8602e37b1b7f6b592e1d6d21b1bca3375c5f1b039810cde6",
-  "generated": "2026-06-04T00:00:00Z",
+  "content_hash": "sha256:24ba54e8dfec90fe912478bcfc1f190b9a1113b9c3e35c4632deee95d828b40a",
+  "generated": "2026-06-04T18:15:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -932,7 +932,7 @@
         ]
       },
       "title": "Install the Polkadot SDK",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "workflow_pattern": "sequential"
     },
     {
@@ -1136,7 +1136,7 @@
         ]
       },
       "title": "Deploy a Basic Smart Contract with Hardhat",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -1313,7 +1313,7 @@
         ]
       },
       "title": "Deploy an ERC-20 Token Using Hardhat",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -1495,7 +1495,7 @@
         ]
       },
       "title": "Set Up Hardhat with the Polkadot Plugin (PVM)",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -1667,7 +1667,7 @@
         ]
       },
       "title": "Set Up Hardhat for Polkadot Hub (EVM)",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -5166,6 +5166,7 @@
         "wallet": []
       },
       "primary_page": "smart-contracts/dev-environments/local-dev-node.md",
+      "project_structure": "polkadot-sdk/\n└── target/\n    └── release/\n        ├── revive-dev-node\n        └── eth-rpc",
       "reference_code": {
         "base_path": "",
         "branch": "",
@@ -5245,7 +5246,7 @@
         ]
       },
       "title": "Set Up a Local Development Node",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -9131,7 +9132,7 @@
         ]
       },
       "title": "Connect to Polkadot Hub Networks and Get Test Tokens",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "workflow_pattern": "sequential"
     },
     {

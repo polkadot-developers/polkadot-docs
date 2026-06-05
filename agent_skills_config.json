@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:f64fcc9b8f54557edeea2d846718b4f8f78191768beda90917b98c35946efe81",
-  "generated": "2026-06-04T20:30:00Z",
+  "content_hash": "sha256:6f810e8a2ba0680f554db8f718a40ee99262c926fde23deda7350502f36bd48a",
+  "generated": "2026-06-05T14:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -3428,7 +3428,7 @@
       "steps": [
         {
           "action": "Verify hardware meets minimum requirements",
-          "description": "Confirm the machine meets or exceeds all Polkadot validator hardware minimums:\n\n**CPU:** x86-64 compatible, 8 physical cores at 3.4 GHz or higher. Recommended processors: Intel Ice Lake or newer (Xeon or Core), AMD Zen3 or newer (EPYC or Ryzen). Disable simultaneous multithreading (Intel Hyper-Threading or AMD SMT). Single-threaded performance is prioritized over core count.\n\n**Storage:** NVMe SSD, minimum 2 TB. Storage requirements grow as the chain grows — check https://stakeworld.github.io/docs/dbsize for current estimates. Prioritize low latency over throughput. Avoid VPS providers that use NVMe-over-TCP (appears local but underperforms).\n\n**Memory:** 32 GB DDR4 ECC.\n\n**Network:** Symmetric 500 Mbit/s minimum.\n\nTested VPS families: GCP c2/c2d, AWS c6id, OVH (budget option if specs are met), Digital Ocean Premium Droplets, Vultr high-bandwidth plans, Akamai Cloud (Linode), Scaleway high-performance instances, OnFinality (blockchain-specialized). Always benchmark the VPS before committing — some providers overprovision shared hosts.",
+          "description": "Confirm the machine meets or exceeds all Polkadot validator hardware minimums:\n\n**CPU:** x86-64 compatible, 8 physical cores at 3.4 GHz or higher. Recommended processors: Intel Ice Lake or newer (Xeon or Core), AMD Zen3 or newer (EPYC or Ryzen). Disable simultaneous multithreading (Intel Hyper-Threading or AMD SMT). Single-threaded performance is prioritized over core count.\n\n**Storage:** NVMe SSD, minimum 2 TB. Storage requirements grow as the chain grows — check https://stakeworld.github.io/docs/dbsize for current estimates. Prioritize low latency over throughput. Avoid VPS providers that use NVMe-over-TCP (appears local but underperforms).\n\n**Memory:** 32 GB DDR4 ECC.\n\n**Network:** Symmetric 500 Mbit/s minimum.\n\nTested VPS families: GCP c2/c2d, AWS c6id, OVH (budget option if specs are met), Digital Ocean Premium Droplets, Vultr high-bandwidth plans, Akamai Cloud (Linode), Scaleway high-performance instances, OnFinality (blockchain-specialized). Always benchmark the VPS before committing — some providers overprovision shared hosts.\n\n**Acceptable use policies:** Some VPS providers have varying acceptable use policies for cryptocurrency-related activities. For example, Digital Ocean requires explicit permission and defines unauthorized mining as network abuse. Review your provider's terms before deploying to avoid account suspension or server shutdown.",
           "order": 1,
           "working_directory": "."
         },
@@ -3469,7 +3469,7 @@
         ]
       },
       "title": "Validate Polkadot Validator Requirements",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "workflow_pattern": "domain-intelligence"
     },
     {
@@ -5059,7 +5059,7 @@
           "commands": [
             "curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/<SDK_TAG>/substrate/.maintain/frame-weight-template.hbs --output ./pallets/pallet-custom/frame-weight-template.hbs"
           ],
-          "description": "Download the official Polkadot SDK weight template. Replace `<SDK_TAG>` with the specific Polkadot SDK release tag matching your runtime (e.g., `polkadot-stable2412-2`). Check the template download URL in the docs at https://docs.polkadot.com/parachains/customize-runtime/pallet-development/benchmark-pallet/ for the exact version.\n\n```bash\ncurl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/<SDK_TAG>/substrate/.maintain/frame-weight-template.hbs \\\n--output ./pallets/pallet-custom/frame-weight-template.hbs\n```\n\nThe weight template is a Handlebars file that transforms raw benchmark data into a formatted Rust source file following Polkadot SDK conventions.",
+          "description": "Download the official Polkadot SDK weight template. Check the Polkadot SDK release page (https://github.com/paritytech/polkadot-sdk/releases) for the latest stable tag. Replace `<SDK_TAG>` with the tag matching your runtime (e.g., `polkadot-stable2412-2`). The docs page at https://docs.polkadot.com/parachains/customize-runtime/pallet-development/benchmark-pallet/ shows the version variable that resolves to the current recommended tag.\n\n```bash\ncurl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/<SDK_TAG>/substrate/.maintain/frame-weight-template.hbs \\\n--output ./pallets/pallet-custom/frame-weight-template.hbs\n```\n\nThe weight template is a Handlebars file that transforms raw benchmark data into a formatted Rust source file following Polkadot SDK conventions.",
           "order": 11,
           "working_directory": "polkadot-sdk-parachain-template"
         },
@@ -5098,7 +5098,7 @@
         ]
       },
       "title": "Benchmark a FRAME Pallet and Generate Weight Files",
-      "version": "1.0.4",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -6035,7 +6035,7 @@
         ]
       },
       "title": "Deploy an ERC-721 NFT Using Hardhat",
-      "version": "1.2.2",
+      "version": "1.2.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -6162,12 +6162,12 @@
         ]
       },
       "title": "Deploy an ERC-721 NFT Using Remix IDE",
-      "version": "1.3.1",
+      "version": "1.3.2",
       "workflow_pattern": "sequential"
     },
     {
       "chain_role": "isolated",
-      "description": "Installs the Foundry nightly build (required for native Polkadot chain support), initializes a Forge project, configures foundry.toml for Polkadot Hub TestNet, deploys a contract via forge create, verifies it on Blockscout or Routescan, interacts with it using cast, and runs Solidity tests with forge test. Use when building or deploying Solidity contracts on Polkadot Hub with the Foundry toolkit. Trigger phrases: 'Foundry Polkadot', 'forge deploy', 'forge create Polkadot', 'cast call Polkadot Hub', 'forge test Polkadot'. Requires Foundry nightly — stable release lacks Polkadot chain definitions.",
+      "description": "Installs the Foundry nightly build (required for native Polkadot chain support), initializes a Forge project, configures foundry.toml for Polkadot Hub TestNet, deploys a contract via forge create, verifies it on Blockscout or Routescan, interacts with it using cast, and runs Solidity tests with forge test. Use when building or deploying Solidity contracts on Polkadot Hub with the Foundry toolkit. Trigger phrases: 'Foundry Polkadot', 'forge deploy', 'forge create Polkadot', 'cast call Polkadot Hub', 'forge test Polkadot'. Requires Foundry nightly — stable release lacks Polkadot chain definitions. Supports polkadot-testnet (chain ID 420420417), polkadot (420420419), and kusama (420420418) as built-in named chains.",
       "env_vars": [
         {
           "description": "0x-prefixed EVM private key for the deployer account. Loaded via 'source .env' into the shell session. Must be funded with testnet PAS. Never commit to version control.",
@@ -6277,7 +6277,7 @@
         },
         {
           "action": "Configure foundry.toml for Polkadot Hub TestNet",
-          "description": "Replace the contents of 'foundry.toml' with the following. Choose Blockscout (no API key) or Routescan:\n\nBlockscout:\n```toml\n[profile.default]\nsrc = \"src\"\nout = \"out\"\nlibs = [\"lib\"]\nsolc_version = \"0.8.28\"\n\n[etherscan]\npolkadot-testnet = { key = \"\", url = \"https://blockscout-testnet.polkadot.io/api?\" }\n```\n\nRoutescan:\n```toml\n[profile.default]\nsrc = \"src\"\nout = \"out\"\nlibs = [\"lib\"]\nsolc_version = \"0.8.28\"\n\n[etherscan]\npolkadot-testnet = { key = \"verifyContract\", url = \"https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan\" }\n```\n\nWith this config, use `--chain polkadot-testnet` in commands without specifying the RPC URL explicitly.",
+          "description": "Replace the contents of 'foundry.toml' with the following. Choose Blockscout (no API key) or Routescan:\n\nBlockscout:\n```toml\n[profile.default]\nsrc = \"src\"\nout = \"out\"\nlibs = [\"lib\"]\nsolc_version = \"0.8.28\"\n\n[etherscan]\npolkadot-testnet = { key = \"\", url = \"https://blockscout-testnet.polkadot.io/api?\" }\n```\n\nRoutescan:\n```toml\n[profile.default]\nsrc = \"src\"\nout = \"out\"\nlibs = [\"lib\"]\nsolc_version = \"0.8.28\"\n\n[etherscan]\npolkadot-testnet = { key = \"verifyContract\", url = \"https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan\" }\n```\n\nWith this config, use `--chain polkadot-testnet` in commands without specifying the RPC URL explicitly.\n\n**Available networks with built-in RPC endpoints:**\n\n| Network | Chain Flag | Built-in RPC Endpoint | Chain ID |\n|---|---|---|---|\n| Polkadot TestNet | `--chain polkadot-testnet` | `https://services.polkadothub-rpc.com/testnet` | 420420417 |\n| Polkadot | `--chain polkadot` | `https://services.polkadothub-rpc.com/mainnet` | 420420419 |\n| Kusama | `--chain kusama` | `https://kusama-asset-hub-eth-rpc.polkadot.io` | 420420418 |",
           "order": 3,
           "working_directory": "my-foundry-project"
         },
@@ -6348,7 +6348,7 @@
         ]
       },
       "title": "Use Foundry with Polkadot Hub",
-      "version": "1.2.2",
+      "version": "1.3.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -7613,7 +7613,7 @@
         ]
       },
       "title": "Deploy a Basic Smart Contract with Remix IDE",
-      "version": "1.2.2",
+      "version": "1.2.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -7727,7 +7727,7 @@
         ]
       },
       "title": "Connect Remix IDE to Polkadot Hub",
-      "version": "1.2.2",
+      "version": "1.2.3",
       "workflow_pattern": "sequential"
     },
     {

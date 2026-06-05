@@ -204,12 +204,12 @@ Now that you have the foundation for using viem with Polkadot Hub, consider expl
 -   <span class="badge external">External</span> __Advanced viem Features__
 
     ---
+
     Explore viem's documentation:
+
     <ul class="card-list">
     <li>[:octicons-arrow-right-24: Multi call](https://viem.sh/docs/contract/multicall#multicall){target=\_blank}</li>
-
     <li>[:octicons-arrow-right-24: Batch transactions](https://viem.sh/docs/clients/transports/http#batch-json-rpc){target=\_blank}</li>
-
     <li>[:octicons-arrow-right-24: Custom actions](https://viem.sh/docs/clients/custom#extending-with-actions-or-configuration){target=\_blank}</li>
     </ul>
 
@@ -218,9 +218,9 @@ Now that you have the foundation for using viem with Polkadot Hub, consider expl
     ---
 
     Integrate viem with the following frameworks for comprehensive testing:
+
     <ul class="card-list">
     <li>[:octicons-arrow-right-24: Hardhat](https://hardhat.org/){target=\_blank}</li>
-
     <li>[:octicons-arrow-right-24: Foundry](https://getfoundry.sh/){target=\_blank}</li>
     </ul>
 
@@ -229,6 +229,7 @@ Now that you have the foundation for using viem with Polkadot Hub, consider expl
     ---
 
     Learn how to subscribe to and process contract events:
+
     <ul class="card-list">
     <li>[:octicons-arrow-right-24: Event subscription](https://viem.sh/docs/actions/public/watchEvent#watchevent){target=\_blank}</li>
     </ul>
@@ -238,9 +239,9 @@ Now that you have the foundation for using viem with Polkadot Hub, consider expl
     ---
 
     Combine viem the following technologies to create full-stack applications:
+
     <ul class="card-list">
     <li>[:octicons-arrow-right-24: Next.js](https://nextjs.org/docs){target=\_blank}</li>
-
     <li>[:octicons-arrow-right-24: Node.js](https://nodejs.org/en){target=\_blank}</li>
     </ul>
 

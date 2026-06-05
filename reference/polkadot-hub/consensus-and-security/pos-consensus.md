@@ -8,7 +8,7 @@ categories: Polkadot Protocol
 
 ## Introduction
 
-Polkadot's Proof of Stake consensus model leverages a unique hybrid approach by design to promote decentralized and secure network operations. In traditional Proof of Stake (PoS) systems, a node's ability to validate transactions is tied to its token holdings, which can lead to centralization risks and limited validator participation. Polkadot addresses these concerns through its [Nominated Proof of Stake (NPoS)](/reference/glossary/#nominated-proof-of-stake-npos){target=\_blank} model and a combination of advanced consensus mechanisms to ensure efficient block production and strong finality guarantees. This combination enables the Polkadot network to scale while maintaining security and decentralization.
+Polkadot's Proof of Stake consensus model leverages a unique hybrid approach by design to promote decentralized and secure network operations. In traditional Proof of Stake (PoS) systems, a node's ability to validate transactions is tied to its token holdings, which can lead to centralization risks and limited validator participation. Polkadot addresses these concerns through its Nominated Proof of Stake (NPoS) model and a combination of advanced consensus mechanisms to ensure efficient block production and strong finality guarantees. This combination enables the Polkadot network to scale while maintaining security and decentralization.
 
 ## Nominated Proof of Stake
 
@@ -61,7 +61,7 @@ This design ensures continuous block production, even in cases of multiple compe
 
 ### Additional Resources
 
-For further technical insights about BABE, including cryptographic details and formal proofs, see the [BABE paper](https://research.web3.foundation/Polkadot/protocols/block-production/Babe){target=\_blank} from Web3 Foundation.
+For further technical insights about BABE, including cryptographic details and formal proofs, see the [BABE paper](https://github.com/paritytech/research/blob/master/docs/Polkadot/protocols/block-production/Babe.md){target=\_blank}.
 
 ## Finality Gadget - GRANDPA
 
@@ -120,7 +120,6 @@ Key features of BEEFY include:
 - **Merkle Mountain Ranges (MMR)**: This data structure is used to efficiently store and transmit proofs between chains, optimizing data storage and reducing transmission overhead.
 - **ECDSA signature schemes**: BEEFY uses ECDSA signatures, which are widely supported on Ethereum and other EVM-based chains, making integration with these ecosystems smoother.
 - **Light client optimization**: BEEFY reduces the computational burden on light clients by allowing them to check for a super-majority of validator votes rather than needing to process all validator signatures, improving performance.
-
 
 
 

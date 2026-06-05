@@ -6,7 +6,7 @@ categories: Smart Contracts, Tooling
 
 # Uniswap V2 on Polkadot
 
-[Uniswap V2](https://docs.uniswap.org/contracts/v2/overview){target=\_blank} is one of the most widely deployed decentralized exchange protocols. Its Automated Market Maker (AMM) architecture enables permissionless token swaps, liquidity provision, and price discovery for any ERC-20 token pair.
+[Uniswap V2](https://developers.uniswap.org/docs/protocols/v2/overview){target=\_blank} is one of the most widely deployed decentralized exchange protocols. Its Automated Market Maker (AMM) architecture enables permissionless token swaps, liquidity provision, and price discovery for any ERC-20 token pair.
 
 The Uniswap V2 stack is split into two layers:
 

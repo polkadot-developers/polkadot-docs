@@ -10,8 +10,8 @@ const WETH_ADDRESS = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
 // WETH has 18 decimals
 const WETH_UNITS = 1_000_000_000_000_000_000n;
 
-// Amount to bridge: 0.001 WETH
-const AMOUNT = (WETH_UNITS / 1000n).toString();
+// Amount to bridge: 0.001 WETH (raw units as bigint)
+const AMOUNT = WETH_UNITS / 1000n;
 
 // Your Polkadot address to receive the bridged tokens (SS58 format)
 const RECIPIENT_ADDRESS = 'INSERT_YOUR_POLKADOT_ADDRESS';
@@ -42,7 +42,7 @@ async function approveTokens() {
   }
 
   // Approve the Snowbridge Gateway contract to spend WETH
-  const { result: approveTx } = await approveToken(signer, BigInt(AMOUNT), 'WETH');
+  const { result: approveTx } = await approveToken(signer, AMOUNT, 'WETH');
   console.log(`Approval transaction hash: ${approveTx.hash}`);
 
   // Wait for confirmation
@@ -61,23 +61,26 @@ async function bridgeToPolkadot() {
 
   // Build and execute the bridge transfer
   // Note: 'AssetHubPolkadot' is the SDK identifier for Polkadot Hub
-  const result = await EvmBuilder(provider)
+  const txHash = await EvmBuilder(provider)
+    .from('Ethereum')
     .to('AssetHubPolkadot')
     .currency({
       symbol: 'WETH',
       amount: AMOUNT,
     })
-    .address(RECIPIENT_ADDRESS)
+    .recipient(RECIPIENT_ADDRESS)
     .signer(signer)
     .build();
 
   console.log('Bridge transaction submitted!');
-  console.log(`Transaction hash: ${result.response.hash}`);
+  console.log(`Transaction hash: ${txHash}`);
   console.log('Transfer will arrive in approximately 30 minutes.');
 
   // Wait for Ethereum confirmation
-  await result.response.wait();
-  console.log('Ethereum transaction confirmed! Waiting for bridge relay...');
+  const receipt = await provider.waitForTransaction(txHash);
+  console.log(
+    `Ethereum transaction confirmed in block ${receipt?.blockNumber}. Waiting for bridge relay...`,
+  );
 }
 
 bridgeToPolkadot();

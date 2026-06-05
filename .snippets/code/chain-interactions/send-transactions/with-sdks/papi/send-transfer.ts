@@ -1,6 +1,5 @@
 import { createClient } from 'polkadot-api';
-import { getWsProvider } from 'polkadot-api/ws-provider';
-import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
+import { getWsProvider } from 'polkadot-api/ws';
 import { polkadotTestNet } from '@polkadot-api/descriptors';
 import { cryptoWaitReady } from '@polkadot/util-crypto';
 import { Keyring } from '@polkadot/keyring';
@@ -21,9 +20,7 @@ async function main() {
     console.log(`Sender address: ${sender.address}`);
 
     // Create the client connection
-    const client = createClient(
-      withPolkadotSdkCompat(getWsProvider(POLKADOT_TESTNET_RPC))
-    );
+    const client = createClient(getWsProvider(POLKADOT_TESTNET_RPC));
 
     // Get the typed API
     const api = client.getTypedApi(polkadotTestNet);

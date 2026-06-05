@@ -1,6 +1,5 @@
-import { createClient } from 'polkadot-api';
-import { getWsProvider } from 'polkadot-api/ws-provider/node';
-import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
+import { Binary, createClient } from 'polkadot-api';
+import { getWsProvider } from 'polkadot-api/ws';
 import { pah } from '@polkadot-api/descriptors';
 
 const ASSET_HUB_RPC = 'INSERT_WS_ENDPOINT';
@@ -13,9 +12,7 @@ const ADDRESS = 'INSERT_ADDRESS';
 
 async function main() {
   // Create the client connection
-  const client = createClient(
-    withPolkadotSdkCompat(getWsProvider(ASSET_HUB_RPC))
-  );
+  const client = createClient(getWsProvider(ASSET_HUB_RPC));
 
   // Get the typed API for Polkadot Hub
   const api = client.getTypedApi(pah);
@@ -28,8 +25,8 @@ async function main() {
 
   if (assetMetadata) {
     console.log('Asset Metadata:');
-    console.log(`  Name: ${assetMetadata.name.asText()}`);
-    console.log(`  Symbol: ${assetMetadata.symbol.asText()}`);
+    console.log(`  Name: ${Binary.toText(assetMetadata.name)}`);
+    console.log(`  Symbol: ${Binary.toText(assetMetadata.symbol)}`);
     console.log(`  Decimals: ${assetMetadata.decimals}`);
   }
 

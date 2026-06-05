@@ -4,6 +4,9 @@ description: Learn how to register a local asset on Polkadot Hub, including prer
 categories: Basics, Chain Interactions
 page_badges:
   tutorial_badge: Beginner
+  test_workflow: polkadot-docs-register-local-asset
+page_tests:
+  path: polkadot-docs/chain-interactions/register-local-asset/tests/docs.test.ts
 ---
 
 # Register a Local Asset on Polkadot Hub

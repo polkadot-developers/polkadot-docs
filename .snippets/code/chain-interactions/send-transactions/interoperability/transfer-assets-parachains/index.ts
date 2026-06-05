@@ -36,7 +36,8 @@ async function transfer() {
       symbol: 'PAS',
       amount: 10n * PAS_UNITS, // 10 PAS
     })
-    .address(RECIPIENT_ADDRESS)
+    .recipient(RECIPIENT_ADDRESS)
+    .sender(SENDER_ADDRESS)
     .build();
 
   console.log('Built transaction:', inspect(tx, { colors: true, depth: null }));
@@ -59,8 +60,8 @@ async function dryRunTransfer() {
       symbol: 'PAS',
       amount: 10n * PAS_UNITS,
     })
-    .address(RECIPIENT_ADDRESS)
-    .senderAddress(SENDER_ADDRESS)
+    .recipient(RECIPIENT_ADDRESS)
+    .sender(SENDER_ADDRESS)
     .dryRun();
 
   console.log(inspect(tx, { colors: true, depth: null }));
@@ -77,8 +78,8 @@ async function verifyED() {
       symbol: 'PAS',
       amount: 10n * PAS_UNITS,
     })
-    .address(RECIPIENT_ADDRESS)
-    .senderAddress(SENDER_ADDRESS)
+    .recipient(RECIPIENT_ADDRESS)
+    .sender(SENDER_ADDRESS)
     .verifyEdOnDestination();
 
   console.log(`ED verification ${isValid ? 'successful' : 'failed'}.`);
@@ -95,8 +96,8 @@ async function XcmTransferInfo() {
       symbol: 'PAS',
       amount: 10n * PAS_UNITS,
     })
-    .address(RECIPIENT_ADDRESS)
-    .senderAddress(SENDER_ADDRESS)
+    .recipient(RECIPIENT_ADDRESS)
+    .sender(SENDER_ADDRESS)
     .getTransferInfo();
 
   console.log('Transfer Info:', info);

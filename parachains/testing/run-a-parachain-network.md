@@ -3,6 +3,7 @@ title: Run a Parachain Network
 description: Learn how to deploy a local parachain test network using Zombienet, including building a custom collator and verifying block production.
 categories: Parachains, Tooling
 page_badges:
+  tutorial_badge: Intermediate
   test_workflow: polkadot-docs-run-a-parachain-network
 page_tests:
   path: polkadot-docs/networks/run-a-parachain-network/tests/docs.test.ts

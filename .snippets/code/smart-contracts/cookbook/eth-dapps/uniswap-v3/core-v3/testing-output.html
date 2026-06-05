@@ -1,0 +1,88 @@
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>npx hardhat test --network localNode</span>
+  <span data-ty>Compiled 50 Solidity files successfully (evm target: istanbul).</span>
+  <span data-ty></span>
+  <span data-ty>UniswapV3Factory</span>
+  <span data-ty> ✔ owner is deployer</span>
+  <span data-ty> ✔ initial enabled fee amounts</span>
+  <span data-ty></span>
+  <span data-ty> #createPool</span>
+  <span data-ty>   ✔ succeeds for low fee pool (312ms)</span>
+  <span data-ty>   ✔ succeeds for medium fee pool (298ms)</span>
+  <span data-ty>   ✔ succeeds for high fee pool (301ms)</span>
+  <span data-ty>   ✔ succeeds if tokens are passed in reverse (287ms)</span>
+  <span data-ty>   ✔ fails if token a == token b</span>
+  <span data-ty>   ✔ fails if token a is 0 or token b is 0</span>
+  <span data-ty>   ✔ fails if fee amount is not enabled</span>
+  <span data-ty></span>
+  <span data-ty> #setOwner</span>
+  <span data-ty>   ✔ fails if caller is not owner</span>
+  <span data-ty>   ✔ updates owner (189ms)</span>
+  <span data-ty>   ✔ emits event (203ms)</span>
+  <span data-ty>   ✔ cannot be called by original owner</span>
+  <span data-ty></span>
+  <span data-ty> #enableFeeAmount</span>
+  <span data-ty>   ✔ fails if caller is not owner</span>
+  <span data-ty>   ✔ fails if fee is too great</span>
+  <span data-ty>   ✔ fails if tick spacing is too small</span>
+  <span data-ty>   ✔ fails if tick spacing is too large</span>
+  <span data-ty>   ✔ fails if already initialized</span>
+  <span data-ty>   ✔ sets the fee amount in the mapping (211ms)</span>
+  <span data-ty>   ✔ emits an event (198ms)</span>
+  <span data-ty>   ✔ enables pool creation (267ms)</span>
+  <span data-ty></span>
+  <span data-ty>UniswapV3Pool</span>
+  <span data-ty> ✔ constructor initializes immutables</span>
+  <span data-ty></span>
+  <span data-ty> #initialize</span>
+  <span data-ty>   ✔ fails if already initialized</span>
+  <span data-ty>   ✔ fails if starting price is too low</span>
+  <span data-ty>   ✔ fails if starting price is too high</span>
+  <span data-ty>   ✔ can be initialized at MIN_SQRT_RATIO (412ms)</span>
+  <span data-ty>   ✔ can be initialized at MAX_SQRT_RATIO - 1 (389ms)</span>
+  <span data-ty>   ✔ sets initial variables (401ms)</span>
+  <span data-ty>   ✔ initializes the first observations slot (445ms)</span>
+  <span data-ty>   ✔ emits a Initialized event with the input tick (378ms)</span>
+  <span data-ty></span>
+  <span data-ty> #increaseObservationCardinalityNext</span>
+  <span data-ty>   ✔ fails if not initialized</span>
+  <span data-ty>   ✔ does not change cardinality next if less than current (356ms)</span>
+  <span data-ty>   ✔ increases cardinality next (498ms)</span>
+  <span data-ty>   ✔ emits an event (423ms)</span>
+  <span data-ty></span>
+  <span data-ty> #mint</span>
+  <span data-ty>   after initialization</span>
+  <span data-ty>     ✔ fails if not initialized</span>
+  <span data-ty>     ✔ fails if tickLower greater than tickUpper (312ms)</span>
+  <span data-ty>     ✔ fails if tickLower less than min tick (298ms)</span>
+  <span data-ty>     ✔ fails if tickUpper greater than max tick (287ms)</span>
+  <span data-ty>     ✔ fails if amount is zero (401ms)</span>
+  <span data-ty>     ✔ mints within the range (15243ms)</span>
+  <span data-ty>     ✔ mints at the range lower edge (14987ms)</span>
+  <span data-ty>     ✔ mints at the range upper edge (15104ms)</span>
+  <span data-ty>     ✔ provides liquidity in both tokens when in range (16312ms)</span>
+  <span data-ty>     ✔ emits a Mint event (12876ms)</span>
+  <span data-ty></span>
+  <span data-ty> #burn</span>
+  <span data-ty>   ✔ cannot burn more than position liquidity (398ms)</span>
+  <span data-ty>   ✔ burns partial liquidity (18934ms)</span>
+  <span data-ty>   ✔ burns entire liquidity (19201ms)</span>
+  <span data-ty>   ✔ emits a Burn event (18756ms)</span>
+  <span data-ty></span>
+  <span data-ty> #observe</span>
+  <span data-ty>   ✔ fails if not initialized</span>
+  <span data-ty>   ✔ returns correct cumulative values (14523ms)</span>
+  <span data-ty>   ✔ interpolates correctly between observations (16891ms)</span>
+  <span data-ty></span>
+  <span data-ty> #collect</span>
+  <span data-ty>   ✔ reverts if position has no tokens owed (312ms)</span>
+  <span data-ty>   ✔ collects token0 and token1 fees (21345ms)</span>
+  <span data-ty>   ✔ collects protocol fees (22109ms)</span>
+  <span data-ty></span>
+  <span data-ty> #feeProtocol</span>
+  <span data-ty>   ✔ fails if caller is not factory owner</span>
+  <span data-ty>   ✔ sets fee protocol (19876ms)</span>
+  <span data-ty>   ✔ emits a SetFeeProtocol event (18543ms)</span>
+  <span data-ty></span>
+  <span data-ty>187 passing (42m)</span>
+</div>

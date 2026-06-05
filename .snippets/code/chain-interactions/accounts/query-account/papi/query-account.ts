@@ -1,6 +1,5 @@
 import { createClient } from 'polkadot-api';
-import { getWsProvider } from 'polkadot-api/ws-provider';
-import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
+import { getWsProvider } from 'polkadot-api/ws';
 import { polkadotTestNet } from '@polkadot-api/descriptors';
 
 const POLKADOT_HUB_RPC = 'INSERT_WS_ENDPOINT';
@@ -10,9 +9,7 @@ const PAS_UNITS = 10_000_000_000;
 async function main() {
   try {
     // Create the client connection
-    const client = createClient(
-      withPolkadotSdkCompat(getWsProvider(POLKADOT_HUB_RPC))
-    );
+    const client = createClient(getWsProvider(POLKADOT_HUB_RPC));
 
     // Get the typed API
     const api = client.getTypedApi(polkadotTestNet);

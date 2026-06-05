@@ -76,11 +76,7 @@ To reserve a parachain identifier, follow these steps:
 
 ## Generate Custom Keys for Your Collators
 
-To securely deploy your parachain, it is essential to generate custom keys specifically for your collators (block producers). You should generate two sets of keys for each collator:
-
-<!-- TODO: Restore link to collators
-[collators](/reference/glossary/#collator){target=\_blank}
-OR the collators page under node infra section once launched -->
+To securely deploy your parachain, it is essential to generate custom keys specifically for your Collators (block producers). You should generate two sets of keys for each collator:
 
 - **Account keys**: Used to interact with the network and manage funds. These should be protected carefully and should never exist on the filesystem of the collator node.
 
@@ -100,7 +96,7 @@ Ensure that this command is executed twice to generate the keys for both the acc
 
 ## Generate the Chain Specification
 
-Polkadot SDK-based parachains are defined by a file called the [chain specification](/reference/glossary/#chain-specification){target=\_blank}, or chain spec for short. There are two types of chain spec files:
+Polkadot SDK-based parachains are defined by a file called the Chain Specification, or chain spec for short. There are two types of chain spec files:
 
 - **Plain chain spec**: A human-readable JSON file that can be modified to suit your parachain's requirements. It serves as a template for initial configuration and includes human-readable keys and structures.
 - **Raw chain spec**: A binary-encoded file used to start your parachain node. This file is generated from the plain chain spec and contains the encoded information necessary for the parachain node to synchronize with the blockchain network. It ensures compatibility across different runtime versions by providing data in a format directly interpretable by the node's runtime, regardless of upgrades since the chain's genesis.
@@ -194,7 +190,7 @@ Once you have the genesis state and runtime, you can now register these with you
 
     ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-10.webp)
 
-Your parachain's runtime logic and genesis are now part of the relay chain. The next step is to ensure you are able to run a collator to produce blocks for your parachain.
+Your parachain's runtime logic and genesis are now part of the relay chain. The next step is to ensure you are able to run a Collator to produce blocks for your parachain.
 
 !!!note 
     You may need to wait several hours for your parachain to onboard. Until it has onboarded, you will be unable to purchase coretime, and therefore will not be able to perform transactions on your network.

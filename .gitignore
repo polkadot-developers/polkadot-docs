@@ -5,6 +5,7 @@ target
 Cargo.lock
 .DS_Store
 scripts/__pycache__/*
+.scratch/
 
 .github/instructions/kluster-code-verify.instructions.md
 .kluster

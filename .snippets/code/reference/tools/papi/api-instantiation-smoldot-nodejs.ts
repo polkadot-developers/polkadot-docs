@@ -14,10 +14,11 @@ const workerPath = fileURLToPath(
 
 const worker = new Worker(workerPath);
 const smoldot = startFromWorker(worker);
-const chain = await smoldot.addChain({ chainSpec });
 
 // Set up a client to connect to the Polkadot relay chain
-const client = createClient(getSmProvider(chain));
+const client = createClient(
+  getSmProvider(() => smoldot.addChain({ chainSpec })),
+);
 
 // To interact with the chain's API, use `TypedApi` for access to
 // all the necessary types and calls associated with this chain

@@ -1,13 +1,10 @@
 import { createClient } from 'polkadot-api';
-import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 import { polkadotTestNet } from '@polkadot-api/descriptors';
-import { getWsProvider } from 'polkadot-api/ws-provider';
+import { getWsProvider } from 'polkadot-api/ws';
 
 async function calculateFees() {
   // Connect to chain
-  const client = createClient(
-    withPolkadotSdkCompat(getWsProvider('INSERT_WS_ENDPOINT'))
-  );
+  const client = createClient(getWsProvider('INSERT_WS_ENDPOINT'));
 
   // Get typed API
   const api = client.getTypedApi(polkadotTestNet);

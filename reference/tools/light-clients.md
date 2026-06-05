@@ -8,7 +8,7 @@ categories: Parachains, Tooling
 
 ## Introduction
 
-Light clients enable secure and efficient blockchain interaction without running a full node. They provide a trust-minimized alternative to JSON-RPC by verifying data through cryptographic proofs rather than blindly trusting remote nodes.
+Light clients enable secure and efficient blockchain interaction without running a Full Node. They provide a trust-minimized alternative to JSON-RPC by verifying data through cryptographic proofs rather than blindly trusting remote nodes.
 
 This guide covers:
 
@@ -36,21 +36,21 @@ FN -- Response (validated via Merkle proof) --> LC
 
 In the diagram above, the decentralized application queries on-chain account information through the light client. The light client runs as part of the application and requires minimal memory and computational resources. It uses Merkle proofs to verify the state retrieved from a full node in a trust-minimized manner. Polkadot-compatible light clients utilize warp syncing, which downloads only block headers.
 
-Light clients can quickly verify the blockchain's state, including [GRANDPA finality](/reference/glossary#grandpa){target=\_blank} justifications.
+Light clients can quickly verify the blockchain's state, including GRANDPA finality justifications.
 
 !!!note "What does it mean to be trust-minimized?"
     _Trust-minimized_ means that the light client does not need to fully trust the full node from which it retrieves the state. This is achieved through the use of Merkle proofs, which allow the light client to verify the correctness of the state by checking the Merkle tree root.
 
 ## JSON-RPC and Light Client Comparison
 
-Another common method of communication between a user interface (UI) and a node is through the JSON-RPC protocol. Generally, the UI retrieves information from the node, fetches network or [pallet](/reference/glossary#pallet){target=\_blank} data, and interacts with the blockchain. This is typically done in one of two ways:
+Another common method of communication between a user interface (UI) and a node is through the JSON-RPC protocol. Generally, the UI retrieves information from the node, fetches network or Pallet data, and interacts with the blockchain. This is typically done in one of two ways:
 
 - **User-controlled nodes**: The UI connects to a node client installed on the user's machine.
     - These nodes are secure, but installation and maintenance can be inconvenient.
 - **Publicly accessible nodes**: The UI connects to a third-party-owned publicly accessible node client.
     - These nodes are convenient but centralized and less secure. Applications must maintain a list of backup nodes in case the primary node becomes unavailable.
 
-While light clients still communicate with [full nodes](/reference/glossary#full-node), they offer significant advantages for applications requiring a secure alternative to running a full node:
+While light clients still communicate with full nodes, they offer significant advantages for applications requiring a secure alternative to running a full node:
 
 | Full Node                                                                                       | Light Client                                                   |
 | :---------------------------------------------------------------------------------------------: | :------------------------------------------------------------: |

@@ -3,6 +3,7 @@ title: Unit Test Pallets
 description: Learn how to efficiently test pallets in the Polkadot SDK, ensuring the reliability and security of your pallets operations.
 categories: Parachains
 page_badges:
+  tutorial_badge: Intermediate
   test_workflow: polkadot-docs-pallet-testing
 page_tests:
   path: polkadot-docs/parachains/customize-runtime/pallet-development/pallet-testing/tests/docs.test.ts
@@ -34,7 +35,7 @@ Before you begin, ensure you:
 
 ## Understanding FRAME Testing Tools
 
-[FRAME (Framework for Runtime Aggregation of Modularized Entities)](/reference/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\_blank} provides specialized testing macros and utilities that make pallet testing more efficient.
+FRAME (Framework for Runtime Aggregation of Modularized Entities) provides specialized testing macros and utilities that make pallet testing more efficient.
 
 ### Assertion Macros
 

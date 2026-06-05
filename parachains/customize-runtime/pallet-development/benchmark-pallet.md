@@ -3,6 +3,7 @@ title: Benchmark Your Pallet
 description: Learn how to benchmark extrinsics in your custom pallet to generate precise weight calculations suitable for production use.
 categories: Parachains
 page_badges:
+  tutorial_badge: Advanced
   test_workflow: polkadot-docs-benchmark-pallet
 page_tests:
   path: polkadot-docs/parachains/customize-runtime/pallet-development/benchmark-pallet/tests/docs.test.ts
@@ -244,7 +245,7 @@ To execute benchmarks, your pallet must be integrated into the runtime's benchma
 
     When you build the runtime with `--features runtime-benchmarks`, this configuration ensures all necessary benchmarking code across all pallets (including yours) is included.
 
-2. **Update runtime configuration**: Using the the placeholder implementation, run development benchmarks as follows:
+2. **Update runtime configuration**: Using the placeholder implementation, run development benchmarks as follows:
 
     ```rust title="runtime/src/configs/mod.rs"
     impl pallet_custom::Config for Runtime {

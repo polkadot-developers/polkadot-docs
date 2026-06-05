@@ -4,6 +4,9 @@ description: Learn step-by-step how to register a foreign asset on Polkadot Hub 
 categories: Interoperability, Parachains
 page_badges:
   tutorial_badge: Intermediate
+  test_workflow: polkadot-docs-register-foreign-asset
+page_tests:
+  path: polkadot-docs/chain-interactions/register-foreign-asset/tests/docs.test.ts
 ---
 
 # Register a Foreign Asset on Polkadot Hub

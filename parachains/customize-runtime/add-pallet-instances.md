@@ -1,6 +1,7 @@
 ---
 title: Add Multiple Pallet Instances
 description: Learn how to implement multiple instances of the same pallet in your Polkadot SDK-based runtime, from adding dependencies to configuring unique instances.
+short_description: Configure and use multiple instances of the same pallet.
 categories: Parachains
 page_badges:
   tutorial_badge: Intermediate

@@ -1,6 +1,7 @@
 ---
 title: Coretime Renewal
 description: Learn how to renew coretime manually or automatically to ensure uninterrupted parachain operation with predictable pricing and minimal risk.
+short_description: Renew coretime to ensure uninterrupted parachain operation.
 categories: Parachains
 ---
 

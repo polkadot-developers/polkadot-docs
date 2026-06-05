@@ -1,7 +1,9 @@
 ---
 title: Use Foundry with Polkadot Hub
 description: Learn how to create, compile, test, deploy, and verify smart contracts on Polkadot Hub using Foundry, a fast and portable Ethereum toolkit.
+short_description: Compile, test, deploy, and verify contracts with Foundry.
 categories: Smart Contracts, Tooling
+tools: [Foundry]
 page_badges:
   tutorial_badge: Beginner
   test_workflow: polkadot-docs-foundry

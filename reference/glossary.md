@@ -64,6 +64,10 @@ In the context of pallets containing functions to be dispatched to the runtime, 
 
 A chain specification file defines the properties required to run a node in an active or new Polkadot SDK-built network. It often contains the initial genesis runtime code, network properties (such as the network's name), the initial state for some pallets, and the boot node list. The chain specification file makes it easy to use a single Polkadot SDK codebase as the foundation for multiple independently configured chains.
 
+## Chain State
+
+Chain state (also referred to as on-chain state) is the complete set of data stored in a Polkadot SDK-based blockchain's key-value database at any given point in time. It represents everything the runtime currently knows and manages about the network.
+
 ## Collator
 
 An [author](#block-author) of a [parachain](#parachain) network.
@@ -132,7 +136,7 @@ Function objects that act as the entry points in FRAME [pallets](#pallet). Inter
 
 ## Events
 
-A means of recording that some particular [state](#state) transition happened.
+A means of recording that some particular [chain state](#chain-state) transition happened.
 
 In the context of [FRAME](#frame-framework-for-runtime-aggregation-of-modularized-entities), events are composable data types that each [pallet](#pallet) can individually define. Events in FRAME are implemented as a set of transient storage items inspected immediately after a block has been executed and reset during block initialization.
 
@@ -143,7 +147,7 @@ There are two orchestration engines in Polkadot SDK, _WebAssembly_ and _native_.
 
 - The _native executor_ uses a natively compiled runtime embedded in the node to execute calls. This is a performance optimization available to up-to-date nodes.
 
-- The _WebAssembly executor_ uses a [Wasm](#webassembly-wasm) binary and a Wasm interpreter to execute calls. The binary is guaranteed to be up-to-date regardless of the version of the blockchain node because it is persisted in the [state](#state) of the Polkadot SDK-based chain.
+- The _WebAssembly executor_ uses a [Wasm](#webassembly-wasm) binary and a Wasm interpreter to execute calls. The binary is guaranteed to be up-to-date regardless of the version of the blockchain node because it is persisted in the [chain state](#chain-state) of the Polkadot SDK-based chain.
 
 ## Existential Deposit
 
@@ -225,7 +229,7 @@ Polkadot SDK uses the [Rust implementation](https://github.com/libp2p/rust-libp2
 
 ## Light Client
 
-A type of blockchain node that doesn't store the [chain state](#state) or produce blocks.
+A type of blockchain node that doesn't store the [chain state](#chain-state) or produce blocks.
 
 A light client can verify cryptographic primitives and provides a [remote procedure call (RPC)](https://en.wikipedia.org/wiki/Remote_procedure_call){target=\_blank} server, enabling blockchain users to interact with the network.
 

@@ -1,6 +1,7 @@
 ---
 title: Add an Existing Pallet to the Runtime
 description: Learn how to include and configure pallets in a Polkadot SDK-based runtime, from adding dependencies to implementing necessary traits.
+short_description: Integrate pre-built pallets from the FRAME ecosystem.
 categories: Parachains
 page_badges:
   tutorial_badge: Intermediate

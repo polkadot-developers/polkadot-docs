@@ -1,6 +1,7 @@
 ---
 title: Query On-Chain State with Sidecar REST API
 description: Learn how to query on-chain state on Polkadot using the Sidecar REST API with curl, including account balances, asset data, and block information.
+short_description: Query chain data through standardized REST endpoints for simpler integration.
 categories: Chain Interactions, Tooling
 ---
 

@@ -1,6 +1,7 @@
 ---
 title: Replay and Dry Run XCMs
 description: Replay and dry-run XCMs using Chopsticks with full logging enabled. Diagnose issues, trace message flow, and debug complex cross-chain interactions.
+short_description: Replay and dry-run XCMs using Chopsticks to diagnose issues and debug cross-chain interactions.
 categories: Interoperability, Tooling
 page_badges:
   tutorial_badge: Advanced

@@ -1,6 +1,7 @@
 ---
 title: Register a Local Asset
 description: Learn how to register a local asset on Polkadot Hub, including prerequisites, deposits, and step-by-step instructions using Polkadot.js Apps.
+short_description: Register assets created in Asset Hub on Polkadot Hub.
 categories: Basics, Chain Interactions
 page_badges:
   tutorial_badge: Beginner

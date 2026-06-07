@@ -25,9 +25,7 @@
         "frame/std",
     ]
 
-    [workspace.members]
-    members = [
-        "node",
-        "pallets/*",
-        "runtime",
-    ]
+    [workspace]
+    default-members = ["pallets/template", "runtime"]
+    members = ["node", "pallets/pallet-custom", "pallets/template", "runtime"]
+    resolver = "2"

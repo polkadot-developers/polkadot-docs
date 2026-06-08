@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:fdef3123e89e44663fb6d3ef2f4035f30b4c87daa877b44571ed71999177cdaa",
-  "generated": "2026-06-08T15:30:00Z",
+  "content_hash": "sha256:7d5c50799c681274e0f8bcf45bff7df3a1d50280e61893f23a70c0f38e52a2e0",
+  "generated": "2026-06-08T16:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -1313,7 +1313,7 @@
         ]
       },
       "title": "Deploy an ERC-20 Token Using Hardhat",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -1495,7 +1495,7 @@
         ]
       },
       "title": "Set Up Hardhat with the Polkadot Plugin (PVM)",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -1571,9 +1571,15 @@
       "invocation": "user",
       "license": "CC-BY-4.0",
       "prerequisites": {
+        "network": [
+          "Polkadot Hub TestNet RPC: https://services.polkadothub-rpc.com/testnet (chain ID 420420417)"
+        ],
         "runtime": [
           "Node.js LTS (18.x, 20.x, or 22.x — even major version numbers only)",
           "npm, pnpm, or yarn"
+        ],
+        "tokens": [
+          "Testnet PAS tokens for gas fees — get from https://faucet.polkadot.io/ (TestNet base fee: 1000 gwei)"
         ],
         "wallet": [
           "An EVM private key (0x-prefixed) for a funded testnet account — needed before deploying contracts"
@@ -1667,7 +1673,7 @@
         ]
       },
       "title": "Set Up Hardhat for Polkadot Hub (EVM)",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -3551,7 +3557,9 @@
         "runtime": [
           "Node.js v18+",
           "npm (included with Node.js) or yarn or pnpm"
-        ]
+        ],
+        "tokens": [],
+        "wallet": []
       },
       "primary_page": "reference/tools/chopsticks.md",
       "project_structure": "my-chopsticks-project/\n├── package.json\n├── node_modules/\n└── polkadot.yml",
@@ -3640,7 +3648,7 @@
         ]
       },
       "title": "Set Up and Use Chopsticks for Chain Forking",
-      "version": "1.3.1",
+      "version": "1.3.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -5266,7 +5274,7 @@
         ]
       },
       "title": "Set Up a Local Development Node",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -5329,7 +5337,9 @@
         "runtime": [
           "Node.js v18+",
           "npm or pnpm"
-        ]
+        ],
+        "tokens": [],
+        "wallet": []
       },
       "primary_page": "reference/tools/dedot.md",
       "project_structure": "dedot-example/\n├── main.ts\n├── send-tx.ts\n├── watch-events.ts\n└── package.json",
@@ -5432,7 +5442,7 @@
         ]
       },
       "title": "Interact with Polkadot Chains Using Dedot",
-      "version": "1.3.1",
+      "version": "1.3.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -9099,6 +9109,10 @@
           "Internet access to Polkadot Hub TestNet RPC: https://eth-rpc-testnet.polkadot.io/ (Parity) or https://services.polkadothub-rpc.com/testnet/ (OpsLayer)",
           "Internet access to the PAS faucet: https://faucet.polkadot.io/"
         ],
+        "runtime": [],
+        "tokens": [
+          "For TestNet: PAS tokens from https://faucet.polkadot.io/ (rate limit: approximately 500 PAS per 24 hours per address)"
+        ],
         "wallet": [
           "MetaMask browser extension installed (https://metamask.io/download/)"
         ]
@@ -9156,7 +9170,7 @@
         ]
       },
       "title": "Connect to Polkadot Hub Networks and Get Test Tokens",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "workflow_pattern": "sequential"
     },
     {

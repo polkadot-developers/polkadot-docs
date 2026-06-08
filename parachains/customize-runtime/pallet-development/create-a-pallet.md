@@ -90,10 +90,10 @@ To integrate your custom pallet into the Polkadot SDK-based runtime, configure t
     !!!note "Version Management"
         The parachain template uses workspace inheritance to maintain consistent dependency versions across all packages. The actual versions are defined in the root `Cargo.toml` file, ensuring compatibility throughout the project. By using `workspace = true`, your pallet automatically inherits the correct versions.
 
-2. The parachain template already includes `pallets/*` in the workspace members, so your new pallet is automatically recognized. Verify this by checking the root `Cargo.toml`:
+2. `pallets/pallet-custom` has already been automatically included in the workspace members of the parachain template, so your new pallet is automatically recognized. Verify this by checking the root `Cargo.toml`:
 
     ```toml title="Cargo.toml"
-    --8<-- 'code/parachains/customize-runtime/pallet-development/create-a-pallet/Cargo.toml:28:33'
+    --8<-- 'code/parachains/customize-runtime/pallet-development/create-a-pallet/Cargo.toml:28:31'
     ```
 
 ## Initialize the Pallet Structure

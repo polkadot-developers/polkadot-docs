@@ -1,7 +1,7 @@
 {
   "candidates": [
     {
-      "built_at": "2026-04-21T17:00:00Z",
+      "built_at": "2026-06-05T19:00:00Z",
       "category": "tutorial",
       "notes": "Complete, multi-language tutorial (TypeScript, Python, Rust) covering account key generation. Fully self-contained with cookbook-tested code. All three language variants could become one skill or three; one skill covering the PAPI/TypeScript path is recommended.",
       "priority": "high",
@@ -35,7 +35,7 @@
       "title": "Create a Polkadot Account Programmatically"
     },
     {
-      "built_at": "2026-04-21T17:00:00Z",
+      "built_at": "2026-06-05T19:00:00Z",
       "category": "tutorial",
       "notes": "Multi-SDK tutorial covering PAPI, Polkadot.js, Dedot, Python Substrate Interface, and Subxt. Each SDK variant is self-contained. Cookbook-backed with CI badges. Recommend one skill targeting the PAPI variant as the primary path.",
       "priority": "high",
@@ -103,7 +103,7 @@
       "title": "Query On-Chain State with Sidecar REST API"
     },
     {
-      "built_at": "2026-04-21T17:00:00Z",
+      "built_at": "2026-06-05T19:00:00Z",
       "category": "tutorial",
       "notes": "Multi-SDK tutorial (PAPI, Polkadot.js, Dedot, Python Substrate Interface, Subxt) for querying account balance and asset info. Cookbook-backed. Recommend primary skill targeting PAPI TypeScript path.",
       "priority": "high",
@@ -137,7 +137,7 @@
       "title": "Query On-Chain State with SDKs"
     },
     {
-      "built_at": "2026-04-21T17:00:00Z",
+      "built_at": "2026-06-05T19:00:00Z",
       "category": "tutorial",
       "notes": "Multi-SDK tutorial demonstrating AccountNonceApi and Metadata runtime API calls. Reference API table at the bottom is supplementary. Cookbook-backed with CI badge.",
       "priority": "high",
@@ -299,7 +299,7 @@
       "title": "Bridge Assets from Ethereum to Polkadot via Snowbridge"
     },
     {
-      "built_at": "2026-04-21T18:30:00Z",
+      "built_at": "2026-06-02T12:00:00Z",
       "category": "tutorial",
       "notes": "Covers full XCM transfer workflow using ParaSpell SDK: build transaction, dry-run, verify existential deposit, get fee estimates, and submit. Uses Paseo testnet with faucet tokens. Self-contained. No cookbook badge.",
       "priority": "high",
@@ -332,7 +332,7 @@
       "title": "Transfer Assets Between Parachains with ParaSpell XCM SDK"
     },
     {
-      "built_at": "2026-04-21T18:30:00Z",
+      "built_at": "2026-06-02T12:00:00Z",
       "category": "tutorial",
       "notes": "Demonstrates paying DOT transfer fees in USDT using PAPI, Polkadot.js, or Subxt against a Chopsticks local fork (Alice dev account — no real tokens needed). Self-contained. No cookbook badge.",
       "priority": "high",
@@ -365,7 +365,7 @@
       "title": "Pay Transaction Fees with an Alternative Token"
     },
     {
-      "built_at": "2026-05-19T12:00:00Z",
+      "built_at": "2026-06-05T19:00:00Z",
       "category": "tutorial",
       "notes": "Multi-SDK tutorial for constructing, signing, and submitting balance transfers (PAPI, Polkadot.js, Dedot, Python Substrate Interface, Subxt). Cookbook-backed. Fundamental SDK skill and likely prerequisite for other chain-interaction skills.",
       "priority": "high",
@@ -489,7 +489,7 @@
       "title": "Register a Local Asset on Polkadot Hub"
     },
     {
-      "built_at": "2026-05-19T12:00:00Z",
+      "built_at": "2026-06-05T19:00:00Z",
       "category": "tutorial",
       "notes": "Multi-OS installation guide (macOS, Linux, Windows WSL) for the Polkadot SDK. Numbered steps throughout, multiple CLI commands (brew, apt, rustup, cargo build), and verification steps with expected output. Cookbook CI badge present (K4). Self-contained from scratch — covers all dependency installation and SDK build. Optional kitchensink explore step uses Polkadot.js Apps GUI but does not affect the primary installation workflow (S1 still fires). Serves as prerequisite for most parachain development skills (create-frame-pallet, set-up-the-parachain-template, etc.).",
       "priority": "high",
@@ -587,7 +587,7 @@
       "title": "Run a Block-Producing Collator for a System Parachain"
     },
     {
-      "built_at": "2026-04-21T18:30:00Z",
+      "built_at": "2026-06-02T12:00:00Z",
       "category": "tutorial",
       "notes": "Comprehensive setup guide for any parachain RPC node (archive or pruned) via Docker or systemd. Uses People Chain as example; substitution table provided for other system parachains. Covers snapshot download, binary install, service config, and sync verification. Node/validator setup shape.",
       "priority": "high",
@@ -620,7 +620,7 @@
       "title": "Run a Parachain RPC Node"
     },
     {
-      "built_at": "2026-04-21T19:00:00Z",
+      "built_at": "2026-06-02T12:00:00Z",
       "category": "tutorial",
       "notes": "Setup guide for Polkadot Hub RPC node (archive or pruned) via Docker or systemd, plus optional Ethereum RPC adapter (eth-rpc) for EVM compatibility. Includes snapshot download, service config, and sync verification. CLI flags reference table (R2) is supplementary. Node/validator setup shape.",
       "priority": "high",
@@ -1041,7 +1041,7 @@
       "title": "Create a Custom FRAME Pallet"
     },
     {
-      "built_at": "2026-04-21T20:30:00Z",
+      "built_at": "2026-05-19T21:30:00Z",
       "category": "tutorial",
       "notes": "Tutorial for creating a minimal mock runtime (mock.rs) using construct_runtime! and #[derive_impl] for isolated pallet testing: create mock module, configure frame_system and pallet Config traits, set up genesis storage helpers. K1=0 — requires completed create-frame-pallet (counter pallet in pallets/pallet-custom). Code uses MkDocs snippet includes but complete reference available in collapsible (K2=4). All CLI steps are programmatic (S1=4). Cookbook CI badge present. Part of pallet development series alongside create-frame-pallet, unit-test-frame-pallet, and benchmark-frame-pallet.",
       "priority": "high",
@@ -1075,7 +1075,7 @@
       "title": "Set Up a Mock Runtime for Pallet Unit Testing"
     },
     {
-      "built_at": "2026-04-21T20:30:00Z",
+      "built_at": "2026-05-19T21:30:00Z",
       "category": "tutorial",
       "notes": "Tutorial for writing comprehensive pallet unit tests using FRAME macros (assert_ok!, assert_noop!, System::assert_last_event!): create tests.rs, test basic operations, error conditions, access control, event emission, and genesis configuration. Inline Rust test code is fully shown (no snippet includes; K2=4). K1=0 — requires create-frame-pallet and set-up-pallet-mock-runtime. All steps are CLI/programmatic (S1=4). Cookbook CI badge present. Final step before benchmarking in the pallet development series.",
       "priority": "high",
@@ -1109,7 +1109,7 @@
       "title": "Write Unit Tests for a FRAME Pallet"
     },
     {
-      "built_at": "2026-04-21T20:30:00Z",
+      "built_at": "2026-05-19T21:30:00Z",
       "category": "tutorial",
       "notes": "Tutorial covering the full benchmarking workflow: create benchmarking.rs module, define WeightInfo trait, annotate extrinsics, enable runtime-benchmarks Cargo feature, build WASM runtime with benchmarks, install frame-omni-bencher, download weight template, execute benchmarks, and integrate generated weights.rs into production runtime. K1=0 — requires a working parachain template and pallet (e.g., from create-frame-pallet series), but page explicitly supports substitution with any pallet. R2 fires for CLI flag descriptions (--steps, --repeat, --heap-pages, --wasm-execution). Cookbook CI badge present.",
       "priority": "high",
@@ -1499,7 +1499,7 @@
       "title": "Retrieve Runtime Metadata"
     },
     {
-      "built_at": "2026-04-21T19:30:00Z",
+      "built_at": "2026-05-27T21:00:00Z",
       "category": "tutorial",
       "notes": "Full end-to-end workflow: install, configure, fork a live chain, interact via JS API, replay blocks, and test XCM. Verifiable outcome ('you will see output indicating the RPC is listening'). Also contains a rich WebSocket API reference section (R1+R2+R3=12) that co-exists with the procedural content, but procedural score dominates at 20.",
       "priority": "high",
@@ -1535,7 +1535,7 @@
       "title": "Set Up and Use Chopsticks for Chain Forking"
     },
     {
-      "built_at": "2026-05-19T15:30:00Z",
+      "built_at": "2026-05-27T21:00:00Z",
       "category": "guide",
       "notes": "Covers installation through reading on-chain data, querying storage, calling runtime APIs, and signing/sending transactions. No explicit prerequisites section (K3 absent) and no numbered ordered steps (P1 absent), so guide rather than tutorial. Category is ambiguous with reference (procedural=10, reference=8, diff=2); guide wins by Rule 3. High priority because the workflow is self-contained, code is complete, and the Dedot client is a first-class alternative to Polkadot.js in the ecosystem.",
       "priority": "high",
@@ -1572,7 +1572,7 @@
       "title": "Interact with Polkadot Chains Using Dedot"
     },
     {
-      "built_at": "2026-04-21T19:30:00Z",
+      "built_at": "2026-05-27T21:00:00Z",
       "category": "guide",
       "notes": "Sequential workflow: install, initialize config via wizard, write a test suite, run tests. Verifiable outcome ('The test runner will output detailed results'). P1 absent because main flow lacks explicit numbered lists (wizard prompts are bullets, not ordered steps), putting procedural at 14 (below 15 threshold for tutorial). High priority due to self-contained workflow with prerequisites section, complete runnable code, and deterministic CLI-based execution.",
       "priority": "high",
@@ -1605,7 +1605,7 @@
       "title": "Set Up End-to-End Testing with Moonwall"
     },
     {
-      "built_at": "2026-05-19T15:30:00Z",
+      "built_at": "2026-05-27T21:00:00Z",
       "category": "tutorial",
       "notes": "Complete tutorial: install binary (macOS/Ubuntu/cargo), obtain chain spec via numbered steps, launch a full node, interact with it. Verifiable outcome ('You should see the installed version number' and node sync logs). Includes runtime compatibility requirements with Rust code examples. K3 absent (no explicit prerequisites section), K4 absent (no reference repo for the tutorial itself).",
       "priority": "high",
@@ -1676,7 +1676,7 @@
       "title": "Interact with a Polkadot Chain Using Polkadart"
     },
     {
-      "built_at": "2026-05-19T15:30:00Z",
+      "built_at": "2026-05-27T21:00:00Z",
       "category": "guide",
       "notes": "Covers installation, dynamic API generation, creating an API instance, reading chain constants/state, and sending transactions. Rubric yields priority=high (score=18) but overridden to medium: page carries a prominent maintenance-mode warning directing new projects to Dedot or PAPI. Building an agent skill around a deprecated library has limited value. Ambiguous guide/reference (procedural=11, reference=8, diff=3).",
       "priority": "medium",
@@ -1745,7 +1745,7 @@
       "title": "Bootstrap Parachain Development with Pop CLI"
     },
     {
-      "built_at": "2026-05-19T15:30:00Z",
+      "built_at": "2026-05-27T21:00:00Z",
       "category": "guide",
       "notes": "Walks through installing the library, connecting to a node, reading chain state (account balance), and submitting a balance transfer — all CLI/SDK steps with no GUI dependencies. No explicit 'you should see' outcome language prevents P4 from firing. K2 not awarded because actual code lives in --8<-- snippet includes whose content is not visible in the page source.",
       "priority": "high",
@@ -1776,7 +1776,7 @@
       "title": "Interact with a Polkadot Node Using Python Substrate Interface"
     },
     {
-      "built_at": "2026-05-19T15:30:00Z",
+      "built_at": "2026-05-27T21:00:00Z",
       "category": "tutorial",
       "notes": "Numbered installation steps (install CLI, add core deps), Rust/TOML files to create, and verifiable outcome language ('your Cargo.toml should look like this'). Covers the full workflow from prerequisites through reading chain constants/state and submitting a signed transaction. K2 not awarded due to INSERT_* placeholders (INSERT_NODE_URL, INSERT_ADDRESS, INSERT_SECRET_PHRASE) and unresolved {{dependencies.crates.*}} template variables.",
       "priority": "high",
@@ -1880,7 +1880,7 @@
       "title": "Connect to Polkadot Hub and Get Test Tokens"
     },
     {
-      "built_at": "2026-04-21T20:00:00Z",
+      "built_at": "2026-06-02T12:00:00Z",
       "category": "tutorial",
       "notes": "End-to-end tutorial covering Hardhat contract creation and deployment plus a full Next.js/Viem dApp with wallet connect, read, and write components. All steps are on one page (K1 = 5). Reference repo revm-hardhat-examples is listed in context.md (K4 = 3). K2 = 0 due to INSERT_PRIVATE_KEY_HERE placeholder in .env. The CONTRACT_ADDRESS TODO comment in contract.ts is a developer note, not a blocking placeholder. Workflow is predominantly CLI-driven (S1 = 4); MetaMask interactions are the end-product being built, not tutorial build steps.",
       "priority": "high",
@@ -1948,7 +1948,7 @@
       "title": "Deploy Uniswap V2 on Polkadot Hub"
     },
     {
-      "built_at": "2026-05-19T12:00:00Z",
+      "built_at": "2026-06-05T19:00:00Z",
       "category": "tutorial",
       "notes": "Concise end-to-end tutorial: scaffold Hardhat project, configure polkadotTestnet network, create Storage.sol, compile, deploy via Ignition to TestNet. All code uses --8<-- snippet includes from polkadot-cookbook (K4 = 3; CI badge confirms tested). K2 = 4 (includes expand to complete code in the published site). All steps are CLI-driven with no GUI interactions (S1 = 4). Explicit prerequisites section covers Node.js version, test tokens, and wallet (K3 = 3). Verified outcome shown via terminal output snippet.",
       "priority": "high",
@@ -2011,7 +2011,7 @@
       "title": "Deploy a Basic Smart Contract with Remix IDE"
     },
     {
-      "built_at": "2026-05-19T12:00:00Z",
+      "built_at": "2026-05-19T22:00:00Z",
       "category": "tutorial",
       "notes": "Complete end-to-end tutorial: clone template, compile, test, deploy to Polkadot Hub TestNet. Reference repo revm-hardhat-examples confirmed in context. P3 not fired — tutorial uses a cloned template repo rather than instructing the reader to create files from scratch. CI badge confirms recipe is tested in polkadot-cookbook.",
       "priority": "high",
@@ -2044,7 +2044,7 @@
       "title": "Deploy an ERC-20 Token Using Hardhat"
     },
     {
-      "built_at": "2026-04-21T20:00:00Z",
+      "built_at": "2026-06-04T19:30:00Z",
       "category": "tutorial",
       "notes": "Complete browser-based tutorial: create contract in Remix, compile, deploy, and mint via MetaMask. No CLI commands (P2 not fired). S1 not fired — workflow is GUI-driven (Remix IDE + MetaMask); a skill agent would require browser automation. Contract code sourced from revm-hardhat-examples (K4 awarded).",
       "priority": "high",
@@ -2172,7 +2172,7 @@
       "title": "Use Foundry with Polkadot Hub"
     },
     {
-      "built_at": "2026-05-19T12:00:00Z",
+      "built_at": "2026-05-19T22:00:00Z",
       "category": "tutorial",
       "notes": "Complete workflow: initialize project, compile Solidity to PVM bytecode via resolc, test locally with a Substrate node, and deploy to TestNet. Has an explicit prerequisites section, numbered steps throughout, and clear outcome language ('You should see JSON files containing the contract ABIs and bytecodes'). Backed by polkadot-cookbook CI. PVM variant using @parity/hardhat-polkadot — mirrors the EVM skill but targets PolkaVM runtime. P3 not fired: the init wizard creates project files; no explicit file-creation code block on the page.",
       "priority": "high",
@@ -2205,7 +2205,7 @@
       "title": "Set Up Hardhat with the Polkadot Plugin (PVM)"
     },
     {
-      "built_at": "2026-05-19T12:00:00Z",
+      "built_at": "2026-05-19T22:00:00Z",
       "category": "tutorial",
       "notes": "Covers Hardhat project initialization, network configuration for Polkadot Hub TestNet (full hardhat.config.ts file shown — P3 fires), and contract verification with Blockscout or Routescan. Self-contained setup workflow with explicit prerequisites and outcome language. Backed by polkadot-cookbook CI. Standard EVM variant with no PVM/resolc dependency.",
       "priority": "high",
@@ -2364,7 +2364,7 @@
       "title": "Connect a Wallet to Polkadot Hub"
     },
     {
-      "built_at": "2026-04-21T20:00:00Z",
+      "built_at": "2026-06-04T19:30:00Z",
       "category": "tutorial",
       "notes": "Complete tutorial: project setup, Solidity compilation, deployment, and contract interaction via Ethers.js. Explicit numbered steps in the deploy section (P1). Self-contained with prerequisites listed. Code via --8<-- includes from polkadot-cookbook (K4). INSERT_* placeholders for RPC URL, chain ID, and mnemonic require substitution (K2=0).",
       "priority": "high",
@@ -2397,7 +2397,7 @@
       "title": "Deploy Contracts to Polkadot Hub with Ethers.js"
     },
     {
-      "built_at": "2026-04-21T20:00:00Z",
+      "built_at": "2026-06-03T19:00:00Z",
       "category": "guide",
       "notes": "End-to-end TypeScript guide using viem: project init, chain config, wallet client, compilation, deployment, and contract interaction. No explicit numbered steps (P1=0) so scores as guide rather than tutorial despite full workflow coverage. Self-contained with prerequisites listed. INSERT_* placeholders for RPC URL, chain ID, and private key require substitution (K2=0). Companion to deploy-contracts-ethers-js.",
       "priority": "high",
@@ -2457,7 +2457,7 @@
       "title": "Use Wagmi to Interact with Smart Contracts on Polkadot Hub"
     },
     {
-      "built_at": "2026-04-21T21:30:00Z",
+      "built_at": "2026-06-02T12:00:00Z",
       "category": "tutorial",
       "notes": "Complete end-to-end tutorial: project init, provider setup, Solidity compilation, contract deployment, and interaction — all via CLI Node.js scripts. Explicit prerequisites section (K3) and fully CLI-driven workflow (S1). Priority score hits the high threshold at 18. Note: the page carries a sunset warning for Web3.js and recommends Ethers.js or Viem instead; a skill built from this page should include that deprecation notice.",
       "priority": "high",
@@ -2693,7 +2693,7 @@
       "title": "Store and Retrieve Data on the Bulletin Chain"
     },
     {
-      "built_at": "2026-05-19T12:00:00Z",
+      "built_at": "2026-06-04T19:30:00Z",
       "category": "tutorial",
       "notes": "PVM variant using polkavm-hardhat-examples repo. K1 awarded for the deploy-to-TestNet workflow, which is standalone; the local-node testing step references the Local Dev Node guide but the deployment outcome is achievable without it. K4 awarded — polkavm-hardhat-examples is listed in context.md.",
       "priority": "high",
@@ -2728,7 +2728,7 @@
       "title": "Deploy Uniswap V2 Core on Polkadot Hub (PVM)"
     },
     {
-      "built_at": "2026-05-15T15:30:00Z",
+      "built_at": "2026-06-04T19:30:00Z",
       "category": "tutorial",
       "notes": "EVM variant using revm-hardhat-examples repo and standard Hardhat + TypeScript; no PVM compiler plugin. P3 not awarded — key management is via `npx hardhat vars set` CLI, no file to write. K4 awarded — revm-hardhat-examples is listed in context.md. Testing step references Local Dev Node guide but TestNet deployment is self-contained.",
       "priority": "high",
@@ -2762,7 +2762,7 @@
       "title": "Deploy Uniswap V2 Core on Polkadot Hub (EVM)"
     },
     {
-      "built_at": "2026-05-15T15:30:00Z",
+      "built_at": "2026-06-04T19:30:00Z",
       "category": "tutorial",
       "notes": "Deploys WETH9, UniswapV2Factory, and UniswapV2Router02 via Hardhat Ignition. The V2 Core Solidity dependency is a local file reference resolved automatically by npm install from the same cloned repo — no separately deployed Core contracts are needed. K1 awarded as self-contained; the editorial prerequisite 'complete Core tutorial first' is educational context, not a technical blocker for deployment. K4 awarded — revm-hardhat-examples is listed in context.md.",
       "priority": "high",
@@ -2796,7 +2796,7 @@
       "title": "Deploy Uniswap V2 Periphery (Router) on Polkadot Hub (EVM)"
     },
     {
-      "built_at": "2026-05-15T15:30:00Z",
+      "built_at": "2026-06-04T19:30:00Z",
       "category": "tutorial",
       "notes": "K1=0: test step references external Local Development Node guide; deployment workflow itself is self-contained. K4=3: revm-hardhat-examples repo with pinned commit (3ff28ae). No P3: reader clones the repo, not creates files.",
       "priority": "high",
@@ -2831,7 +2831,7 @@
       "title": "Deploy Uniswap V3 Core with EVM on Polkadot Hub"
     },
     {
-      "built_at": "2026-05-15T16:00:00Z",
+      "built_at": "2026-06-04T19:30:00Z",
       "category": "tutorial",
       "notes": "Full deploy+test workflow for SwapRouter and NonfungiblePositionManager. The 'complete V3 Core tutorial' prereq is a code dependency resolved automatically via local npm file reference in the cloned monorepo; the Ignition module deploys Factory+WETH9+SwapRouter+NFPM in one shot, making this self-contained. Pinned to commit 96696ad15c3cf01b9168a71ad5114f27c34a8726 with docs.test.ts confirming CI-tested code.",
       "priority": "high",
@@ -2868,7 +2868,7 @@
       "title": "Deploy Uniswap V3 Periphery with EVM on Polkadot Hub"
     }
   ],
-  "generated": "2026-05-15T16:00:00Z",
+  "generated": "2026-05-19T22:00:00Z",
   "not_applicable": [
     {
       "category": "not_applicable",

@@ -1,6 +1,6 @@
 {
   "schema_version": "1",
-  "last_checked": "2026-05-19T11:46:33Z",
+  "last_checked": "2026-06-08T15:32:35Z",
   "docs_repo": {
     "branch": "master",
     "last_checked_commit": "cc6c24ebf10e1e4e620ad152ae9af9e3d19aa6ae"
@@ -12,7 +12,7 @@
     },
     "polkadot-cookbook": {
       "branch": "master",
-      "last_checked_commit": "8a5f73878efe1b1f67fb18b0dd715f3ea04f231e"
+      "last_checked_commit": "f19584b762d66aeebfbce605f8a5a3fc132d2155"
     },
     "polkavm-hardhat-examples": {
       "branch": "master",

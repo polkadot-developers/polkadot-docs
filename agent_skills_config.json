@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:6498058fe1059aa5be819d22fe318fb9aacd5ee7dfa95422cf43bc48b3a0165f",
-  "generated": "2026-06-08T19:00:00Z",
+  "content_hash": "sha256:a659d8115036afaed788a624a78003e30ad4e87f6fa821f85e03aed8d7c23586",
+  "generated": "2026-06-08T20:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -5971,7 +5971,7 @@
             "cd hardhat-nft-deployment",
             "npm init -y"
           ],
-          "description": "Create a new directory and initialize a Node.js project. Do not use 'npx hardhat init' — it is interactive. Manual scaffolding is used instead.",
+          "description": "Create a new directory and initialize a Node.js project. The source page uses 'npx hardhat@^2.27.0 init', but this command is interactive and cannot run in an agent session. This skill manually scaffolds the project instead: create the directory, initialize npm, then install Hardhat and the viem toolbox plugin explicitly in step 2.",
           "order": 1,
           "working_directory": "."
         },
@@ -6065,7 +6065,7 @@
         ]
       },
       "title": "Deploy an ERC-721 Using Hardhat",
-      "version": "1.3.0",
+      "version": "1.4.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -6186,7 +6186,7 @@
         ]
       },
       "title": "Deploy an ERC-721 NFT Using Remix",
-      "version": "1.4.0",
+      "version": "1.5.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -6378,7 +6378,7 @@
         ]
       },
       "title": "Use Foundry with Polkadot Hub",
-      "version": "1.4.0",
+      "version": "1.5.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -7655,7 +7655,7 @@
         ]
       },
       "title": "Deploy a Basic Smart Contract with Remix IDE",
-      "version": "1.3.0",
+      "version": "1.4.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -7769,7 +7769,7 @@
         ]
       },
       "title": "Use the Remix IDE on Polkadot Hub",
-      "version": "1.3.0",
+      "version": "1.4.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -8878,7 +8878,7 @@
         ]
       },
       "title": "Interact with the XCM Precompile via Remix IDE",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "workflow_pattern": "sequential"
     },
     {

@@ -747,11 +747,11 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-08T19:00:00Z",
+      "last_scanned": "2026-06-08T20:00:00Z",
       "skills": [
         "deploy-basic-contract-remix"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
@@ -771,27 +771,27 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-08T19:00:00Z",
+      "last_scanned": "2026-06-08T20:00:00Z",
       "skills": [
         "deploy-erc721-nft-hardhat"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-08T19:00:00Z",
+      "last_scanned": "2026-06-08T20:00:00Z",
       "skills": [
         "deploy-erc721-nft-remix"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/dev-environments/foundry.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-08T19:00:00Z",
+      "last_scanned": "2026-06-08T20:00:00Z",
       "skills": [
         "set-up-foundry-polkadot-hub"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/dev-environments/hardhat-polkadot.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
@@ -819,11 +819,11 @@
     },
     "smart-contracts/dev-environments/remix.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-08T19:00:00Z",
+      "last_scanned": "2026-06-08T20:00:00Z",
       "skills": [
         "connect-remix-polkadot"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/explorers.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
@@ -971,11 +971,11 @@
     },
     "smart-contracts/precompiles/xcm.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-08T19:00:00Z",
+      "last_scanned": "2026-06-08T20:00:00Z",
       "skills": [
         "interact-xcm-precompile-remix"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     }
   },
   "schema_version": "1",

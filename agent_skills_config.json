@@ -1,5 +1,5 @@
 {
-  "content_hash": "sha256:7d5c50799c681274e0f8bcf45bff7df3a1d50280e61893f23a70c0f38e52a2e0",
+  "content_hash": "sha256:bd65b223dc388bdab86835b3c687f7dedee11ddde83dfbbf04ace7fef97077d5",
   "generated": "2026-06-08T16:00:00Z",
   "outputs": {
     "public_root": "/ai/",
@@ -764,7 +764,7 @@
         ]
       },
       "title": "Send Transactions with SDKs",
-      "version": "1.0.8",
+      "version": "1.0.9",
       "workflow_pattern": "sequential"
     },
     {
@@ -932,7 +932,7 @@
         ]
       },
       "title": "Install the Polkadot SDK",
-      "version": "1.0.6",
+      "version": "1.0.7",
       "workflow_pattern": "sequential"
     },
     {
@@ -1136,7 +1136,7 @@
         ]
       },
       "title": "Deploy a Basic Smart Contract with Hardhat",
-      "version": "1.2.2",
+      "version": "1.2.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -9511,7 +9511,7 @@
         ]
       },
       "title": "Deploy Uniswap V2 Core on Polkadot Hub (PVM)",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -9681,7 +9681,7 @@
         ]
       },
       "title": "Deploy Uniswap V2 Core on Polkadot Hub (EVM)",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -9851,7 +9851,7 @@
         ]
       },
       "title": "Deploy Uniswap V2 Periphery (Router) on Polkadot Hub (EVM)",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -10205,7 +10205,7 @@
         ]
       },
       "title": "Deploy Uniswap V3 Periphery on Polkadot Hub (EVM)",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "workflow_pattern": "sequential"
     }
   ]

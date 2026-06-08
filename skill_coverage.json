@@ -1,71 +1,61 @@
 {
-  "schema_version": "1",
   "generated": "2026-06-08T15:32:35Z",
-  "summary": {
-    "total_candidates": 142,
-    "up_to_date": 28,
-    "stale": 34,
-    "uncovered": 0,
-    "blocked": 23,
-    "not_applicable": 12,
-    "supplementary": 45
-  },
   "pages": {
     "chain-interactions/accounts/create-account.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-08T15:30:00Z",
+      "last_scanned": "2026-06-08T16:00:00Z",
       "skills": [
         "create-polkadot-account"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/accounts/query-accounts.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-08T15:30:00Z",
+      "last_scanned": "2026-06-08T16:00:00Z",
       "skills": [
         "query-account-info-sdks"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/query-data/query-rest.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-08T15:30:00Z",
+      "last_scanned": "2026-06-08T16:00:00Z",
       "skills": [
         "query-chain-data-sidecar-rest"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/query-data/query-sdks.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-08T15:30:00Z",
+      "last_scanned": "2026-06-08T16:00:00Z",
       "skills": [
         "query-chain-state-sdks"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/query-data/runtime-api-calls.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-08T15:30:00Z",
+      "last_scanned": "2026-06-08T16:00:00Z",
       "skills": [
         "call-runtime-apis-sdks"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/send-transactions/calculate-transaction-fees.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-08T15:30:00Z",
+      "last_scanned": "2026-06-08T16:00:00Z",
       "skills": [
         "calculate-transaction-fees-papi"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/send-transactions/interoperability/debug-and-preview-xcms.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-08T15:30:00Z",
+      "last_scanned": "2026-06-08T16:00:00Z",
       "skills": [
         "replay-dry-run-xcm-chopsticks"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/send-transactions/interoperability/estimate-xcm-fees.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
@@ -987,5 +977,15 @@
       ],
       "status": "stale"
     }
+  },
+  "schema_version": "1",
+  "summary": {
+    "blocked": 23,
+    "not_applicable": 12,
+    "stale": 27,
+    "supplementary": 45,
+    "total_candidates": 142,
+    "uncovered": 0,
+    "up_to_date": 35
   }
 }

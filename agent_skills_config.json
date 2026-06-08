@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:28b1dbaef371d9b250433009ae9396a8e7f46b1dd50840f04cd5c3b07a1a96da",
-  "generated": "2026-06-08T16:30:00Z",
+  "content_hash": "sha256:a39b5e0484ddbd81e634543aaa1c57b9901b757d0803ca4285483d159e1416ed",
+  "generated": "2026-06-08T16:45:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -134,7 +134,7 @@
         ]
       },
       "title": "Create a Polkadot Account Programmatically",
-      "version": "1.0.9",
+      "version": "1.0.10",
       "workflow_pattern": "sequential"
     },
     {
@@ -276,7 +276,7 @@
         ]
       },
       "title": "Query Account Information with SDKs",
-      "version": "1.0.9",
+      "version": "1.0.10",
       "workflow_pattern": "sequential"
     },
     {
@@ -430,7 +430,7 @@
         ]
       },
       "title": "Query On-Chain State with SDKs",
-      "version": "1.0.9",
+      "version": "1.0.10",
       "workflow_pattern": "sequential"
     },
     {
@@ -572,7 +572,7 @@
         ]
       },
       "title": "Call Runtime APIs with SDKs",
-      "version": "1.0.9",
+      "version": "1.0.10",
       "workflow_pattern": "sequential"
     },
     {
@@ -1730,13 +1730,13 @@
       "license": "CC-BY-4.0",
       "prerequisites": {
         "network": [
-          "Parity public Sidecar endpoint: https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io (no setup required)",
+          "Parity public Sidecar endpoints (no setup required): Polkadot Hub — https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io; Polkadot — https://polkadot-public-sidecar.parity-chains.parity.io; Kusama Hub — https://kusama-asset-hub-public-sidecar.parity-chains.parity.io; Kusama — https://kusama-public-sidecar.parity-chains.parity.io",
           "OR: WebSocket RPC endpoint for a Polkadot Hub node (if running Sidecar locally)"
         ],
         "runtime": [
           "curl (pre-installed on macOS and Linux; use WSL on Windows)",
           "jq (optional, for formatted JSON output — install with: apt install jq  or  brew install jq)",
-          "Node.js v18+ and npm (only if running Sidecar locally)"
+          "Node.js v18+ and npm, or Docker (only if running Sidecar locally)"
         ]
       },
       "primary_page": "chain-interactions/query-data/query-rest.md",
@@ -1751,7 +1751,7 @@
       "steps": [
         {
           "action": "Choose your Sidecar endpoint",
-          "description": "You have two options:\n\n**Option A — Public endpoint (recommended for testing):** Use Parity's hosted Sidecar at `https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io`. No setup required; skip to step 2.\n\n**Option B — Local Sidecar:** Run your own instance for production or high-frequency queries.\n\n```bash\n# Install globally\nnpm install -g @substrate/api-sidecar\n\n# Start with Polkadot Hub mainnet endpoint\nSAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io substrate-api-sidecar\n```\n\nWait for `SAS listening on http://127.0.0.1:8080/` before proceeding. If using the local instance, replace the base URL in all following steps with `http://127.0.0.1:8080`.",
+          "description": "You have two options:\n\n**Option A — Public endpoint (recommended for testing):** Parity hosts public Sidecar instances for multiple chains (no setup required):\n- Polkadot Hub: `https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io`\n- Polkadot: `https://polkadot-public-sidecar.parity-chains.parity.io`\n- Kusama Hub: `https://kusama-asset-hub-public-sidecar.parity-chains.parity.io`\n- Kusama: `https://kusama-public-sidecar.parity-chains.parity.io`\n\nSkip to step 2 if using a public endpoint.\n\n**Option B — Local Sidecar:** Run your own instance for production or high-frequency queries.\n\n**npm:**\n```bash\nnpm install -g @substrate/api-sidecar\nSAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io substrate-api-sidecar\n```\n\n**Docker:**\n```bash\ndocker run --rm -p 8080:8080 \\\n  -e SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io \\\n  parity/substrate-api-sidecar\n```\n\nWait for `SAS listening on http://127.0.0.1:8080/` before proceeding. If using the local instance, replace the base URL in all following steps with `http://127.0.0.1:8080`.",
           "order": 1,
           "working_directory": "."
         },
@@ -1760,7 +1760,7 @@
           "commands": [
             "curl -s \"https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/INSERT_SS58_ADDRESS/balance-info\" | jq ."
           ],
-          "description": "Query the balance-info endpoint. Replace `INSERT_SS58_ADDRESS` with the target SS58 address. Response fields: `free` — spendable planck; `reserved` — locked/staked; `frozen` — frozen amounts; `transferable` — actual balance available to transfer (new field); `nonce` — transaction count. Divide raw planck values by 10^10 to convert to DOT/PAS. Omit `| jq .` if jq is not installed.",
+          "description": "Query the balance-info endpoint. Replace `INSERT_SS58_ADDRESS` with the target SS58 address. Response fields: `free` — spendable planck; `reserved` — locked/staked; `frozen` — frozen amounts; `transferable` — actual balance available to transfer (new field); `nonce` — transaction count. Divide raw planck values by 10^10 to convert to DOT/PAS. Omit `| jq .` if jq is not installed. To query at a specific block, append `?at=<blockNumber>` or `?at=<0xBlockHash>` — this works for all endpoints in steps 2–6.",
           "expected_output": "{\"at\":{\"hash\":\"0x...\",\"height\":\"12345\"},\"nonce\":\"0\",\"tokenSymbol\":\"DOT\",\"free\":\"...\",\"reserved\":\"...\",\"frozen\":\"...\",\"transferable\":\"...\"}",
           "order": 2,
           "working_directory": "."
@@ -1841,7 +1841,7 @@
         ]
       },
       "title": "Query On-Chain Data with Sidecar REST API",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -1987,7 +1987,7 @@
         ]
       },
       "title": "Estimate Transaction Fees with PAPI",
-      "version": "1.1.4",
+      "version": "1.1.5",
       "workflow_pattern": "sequential"
     },
     {
@@ -2694,7 +2694,7 @@
         ]
       },
       "title": "Replay and Dry-Run XCMs Using Chopsticks",
-      "version": "1.1.4",
+      "version": "1.1.5",
       "workflow_pattern": "sequential"
     },
     {

@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:03d00277ec3fa9757d8ad17a29a7cafe58e6d57fd5e7e5aa5ad5253b394f65ce",
-  "generated": "2026-06-08T15:00:00Z",
+  "content_hash": "sha256:fdef3123e89e44663fb6d3ef2f4035f30b4c87daa877b44571ed71999177cdaa",
+  "generated": "2026-06-08T15:30:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -134,7 +134,7 @@
         ]
       },
       "title": "Create a Polkadot Account Programmatically",
-      "version": "1.0.8",
+      "version": "1.0.9",
       "workflow_pattern": "sequential"
     },
     {
@@ -276,7 +276,7 @@
         ]
       },
       "title": "Query Account Information with SDKs",
-      "version": "1.0.8",
+      "version": "1.0.9",
       "workflow_pattern": "sequential"
     },
     {
@@ -430,7 +430,7 @@
         ]
       },
       "title": "Query On-Chain State with SDKs",
-      "version": "1.0.8",
+      "version": "1.0.9",
       "workflow_pattern": "sequential"
     },
     {
@@ -572,7 +572,7 @@
         ]
       },
       "title": "Call Runtime APIs with SDKs",
-      "version": "1.0.8",
+      "version": "1.0.9",
       "workflow_pattern": "sequential"
     },
     {
@@ -1780,6 +1780,26 @@
           "working_directory": "."
         },
         {
+          "action": "Query asset details",
+          "commands": [
+            "curl -s \"https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/pallets/assets/storage/Asset?keys[]=1984\" | jq ."
+          ],
+          "description": "Query the full asset configuration for asset ID 1984 (USDT). Response includes `owner`, `issuer`, `admin`, `freezer` accounts, total `supply`, `minBalance`, `isSufficient` (whether this asset can pay for account existence — accounts holding only this asset don't need native tokens), and `accounts` (number of holders). Replace `1984` with any registered asset ID.",
+          "expected_output": "{\"at\":{...},\"pallet\":\"assets\",\"storageItem\":\"Asset\",\"keys\":[\"1984\"],\"owner\":\"5...\",\"supply\":\"...\",\"minBalance\":\"...\",\"isSufficient\":true,\"accounts\":\"...\",\"status\":\"Live\"}",
+          "order": 5,
+          "working_directory": "."
+        },
+        {
+          "action": "Query foreign asset balances",
+          "commands": [
+            "curl -s \"https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/INSERT_SS58_ADDRESS/foreign-asset-balances\" | jq ."
+          ],
+          "description": "Query cross-chain asset balances for assets bridged from other parachains. Replace `INSERT_SS58_ADDRESS` with the target SS58 address. Foreign assets are identified by their XCM location (e.g., a parachain ID and asset index). The response lists each foreign asset with its balance, isFrozen, and isSufficient flags. Returns an empty `items` array if the account holds no foreign assets.",
+          "expected_output": "{\"at\":{...},\"items\":[{\"assetId\":{...},\"balance\":\"...\",\"isFrozen\":false,\"isSufficient\":false}]}",
+          "order": 6,
+          "working_directory": "."
+        },
+        {
           "action": "Query block information",
           "commands": [
             "curl -s \"https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/blocks/head\" | jq .",
@@ -1787,7 +1807,7 @@
           ],
           "description": "The first command fetches the latest finalized block. The second fetches a specific block by number — replace `INSERT_BLOCK_NUMBER` with any block number. The response includes block number, hash, parentHash, stateRoot, extrinsicsRoot, and extrinsics list.",
           "expected_output": "{\"number\":\"12345\",\"hash\":\"0x...\",\"parentHash\":\"0x...\",\"extrinsics\":[...]}",
-          "order": 5,
+          "order": 7,
           "working_directory": "."
         }
       ],
@@ -1815,7 +1835,7 @@
         ]
       },
       "title": "Query On-Chain Data with Sidecar REST API",
-      "version": "1.1.4",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -1961,7 +1981,7 @@
         ]
       },
       "title": "Estimate Transaction Fees with PAPI",
-      "version": "1.1.3",
+      "version": "1.1.4",
       "workflow_pattern": "sequential"
     },
     {
@@ -2558,10 +2578,10 @@
             "npm init -y && npm pkg set type=module",
             "npm install -g @acala-network/chopsticks@latest",
             "npm install --save-dev typescript @types/node tsx",
-            "npm install polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers",
+            "npm install polkadot-api@2.0.1 @polkadot-labs/hdkd@0.0.28 @polkadot-labs/hdkd-helpers@0.0.29",
             "npx tsc --init"
           ],
-          "description": "Create the working directory, initialize an ESM Node.js project, and install all dependencies. Chopsticks is installed globally to avoid version conflicts. polkadot-api, @polkadot-labs/hdkd, and @polkadot-labs/hdkd-helpers are used by the replay and dry-run scripts.",
+          "description": "Create the working directory, initialize an ESM Node.js project, and install all dependencies. Chopsticks is installed globally to avoid version conflicts. polkadot-api@2.0.1, @polkadot-labs/hdkd@0.0.28, and @polkadot-labs/hdkd-helpers@0.0.29 are used by the replay and dry-run scripts.",
           "order": 1,
           "working_directory": "."
         },
@@ -2668,7 +2688,7 @@
         ]
       },
       "title": "Replay and Dry-Run XCMs Using Chopsticks",
-      "version": "1.1.3",
+      "version": "1.1.4",
       "workflow_pattern": "sequential"
     },
     {

@@ -1,19 +1,9 @@
 {
-  "schema_version": "1",
-  "generated": "2026-06-08T14:50:00Z",
-  "summary": {
-    "total_candidates": 142,
-    "up_to_date": 0,
-    "stale": 62,
-    "uncovered": 0,
-    "blocked": 23,
-    "not_applicable": 12,
-    "supplementary": 45
-  },
+  "generated": "2026-06-08T15:00:00Z",
   "pages": {
     "chain-interactions/accounts/create-account.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-05T19:00:00Z",
+      "last_scanned": "2026-06-08T15:00:00Z",
       "skills": [
         "create-polkadot-account"
       ],
@@ -21,7 +11,7 @@
     },
     "chain-interactions/accounts/query-accounts.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-05T19:00:00Z",
+      "last_scanned": "2026-06-08T15:00:00Z",
       "skills": [
         "query-account-info-sdks"
       ],
@@ -29,7 +19,7 @@
     },
     "chain-interactions/query-data/query-rest.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-04T18:00:00Z",
+      "last_scanned": "2026-06-08T15:00:00Z",
       "skills": [
         "query-chain-data-sidecar-rest"
       ],
@@ -37,7 +27,7 @@
     },
     "chain-interactions/query-data/query-sdks.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-05T19:00:00Z",
+      "last_scanned": "2026-06-08T15:00:00Z",
       "skills": [
         "query-chain-state-sdks"
       ],
@@ -45,7 +35,7 @@
     },
     "chain-interactions/query-data/runtime-api-calls.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-05T19:00:00Z",
+      "last_scanned": "2026-06-08T15:00:00Z",
       "skills": [
         "call-runtime-apis-sdks"
       ],
@@ -99,7 +89,7 @@
     },
     "chain-interactions/send-transactions/with-sdks.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-05T19:00:00Z",
+      "last_scanned": "2026-06-08T15:00:00Z",
       "skills": [
         "send-transactions-sdks"
       ],
@@ -309,7 +299,7 @@
     },
     "parachains/install-polkadot-sdk.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-05T19:00:00Z",
+      "last_scanned": "2026-06-08T15:00:00Z",
       "skills": [
         "install-polkadot-sdk"
       ],
@@ -987,5 +977,15 @@
       ],
       "status": "stale"
     }
+  },
+  "schema_version": "1",
+  "summary": {
+    "blocked": 23,
+    "not_applicable": 12,
+    "stale": 62,
+    "supplementary": 45,
+    "total_candidates": 142,
+    "uncovered": 0,
+    "up_to_date": 0
   }
 }

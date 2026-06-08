@@ -59,11 +59,11 @@
     },
     "chain-interactions/send-transactions/interoperability/estimate-xcm-fees.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-04T18:30:00Z",
+      "last_scanned": "2026-06-08T16:00:00Z",
       "skills": [
         "estimate-xcm-fees-teleport"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
@@ -73,19 +73,19 @@
     },
     "chain-interactions/send-transactions/interoperability/transfer-assets-parachains.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-04T18:30:00Z",
+      "last_scanned": "2026-06-08T16:00:00Z",
       "skills": [
         "transfer-assets-parachains-paraspell"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/send-transactions/pay-fees-with-different-tokens.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-04T18:30:00Z",
+      "last_scanned": "2026-06-08T16:00:00Z",
       "skills": [
         "pay-fees-alternative-token"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/send-transactions/with-sdks.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
@@ -97,11 +97,11 @@
     },
     "chain-interactions/store-data/bulletin-chain.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-04T20:00:00Z",
+      "last_scanned": "2026-06-08T16:00:00Z",
       "skills": [
         "store-retrieve-data-bulletin-chain"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/token-operations/convert-assets.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
@@ -135,19 +135,19 @@
     },
     "node-infrastructure/run-a-node/parachain-rpc.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-04T18:30:00Z",
+      "last_scanned": "2026-06-08T16:00:00Z",
       "skills": [
         "run-parachain-rpc-node"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "node-infrastructure/run-a-node/polkadot-hub-rpc.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-04T18:30:00Z",
+      "last_scanned": "2026-06-08T16:00:00Z",
       "skills": [
         "run-polkadot-hub-rpc-node"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "node-infrastructure/run-a-node/relay-chain/bootnode.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
@@ -219,11 +219,11 @@
     },
     "node-infrastructure/run-a-validator/requirements.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-05T14:00:00Z",
+      "last_scanned": "2026-06-08T16:00:00Z",
       "skills": [
         "onboard-polkadot-validator"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "node-infrastructure/run-a-validator/staking-mechanics/offenses-and-slashes.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
@@ -982,10 +982,10 @@
   "summary": {
     "blocked": 23,
     "not_applicable": 12,
-    "stale": 41,
+    "stale": 34,
     "supplementary": 45,
     "total_candidates": 142,
     "uncovered": 0,
-    "up_to_date": 21
+    "up_to_date": 28
   }
 }

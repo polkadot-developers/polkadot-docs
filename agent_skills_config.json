@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:2105f94043b3ca9a5ac2c7fad41858caa62783ea42f1d18a71dd0fceaa16cf57",
-  "generated": "2026-06-08T18:30:00Z",
+  "content_hash": "sha256:6498058fe1059aa5be819d22fe318fb9aacd5ee7dfa95422cf43bc48b3a0165f",
+  "generated": "2026-06-08T19:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -6064,8 +6064,8 @@
           }
         ]
       },
-      "title": "Deploy an ERC-721 NFT Using Hardhat",
-      "version": "1.2.3",
+      "title": "Deploy an ERC-721 Using Hardhat",
+      "version": "1.3.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -6160,17 +6160,11 @@
           "working_directory": "."
         },
         {
-          "action": "Connect MetaMask to Polkadot Hub TestNet",
-          "description": "Delegate to the user:\n1. Select **Deploy & Run Transactions** from the left panel.\n2. Ensure MetaMask is connected to Polkadot Hub TestNet (chain ID 420420417), then select the **Environment** dropdown and select **Injected Provider - MetaMask**.\n3. Configure the contract parameters by entering the address that will own the deployed NFT contract.\n4. Select the **Deploy** button to initiate the deployment.\n5. Approve the transaction in MetaMask when prompted.\n\nOnce successfully deployed, the terminal displays the transaction details including the contract address and deployment transaction hash, and your contract appears in **Deployed Contracts**.",
+          "action": "Deploy the NFT contract via MetaMask",
+          "description": "Delegate to the user:\n1. Select **Deploy & Run Transactions** from the left panel.\n2. Ensure your MetaMask wallet is connected to Polkadot Hub TestNet (chain ID 420420417), then select the **Environment** dropdown and select **Injected Provider - MetaMask**.\n3. Configure the contract parameters by entering the address that will own the deployed NFT contract (typically your MetaMask wallet address).\n4. Select the **Deploy** button to initiate the deployment.\n5. Approve the transaction in MetaMask when prompted.\n\nOnce successfully deployed, the terminal displays the transaction details including the contract address and deployment transaction hash, and the contract appears in **Deployed Contracts**. Record the contract address shown.",
+          "expected_output": "Deployed contract appears in 'Deployed Contracts' section; contract address printed in Remix terminal.",
           "interactive": true,
           "order": 3,
-          "working_directory": "."
-        },
-        {
-          "action": "Deploy the NFT contract",
-          "description": "Delegate to the user:\n(1) Ensure 'MyNFT' is selected in the Contract dropdown.\n(2) Expand the Deploy section and enter the constructor argument: the owner address (typically your MetaMask wallet address).\n(3) Click 'Deploy'.\n(4) Confirm the transaction in MetaMask.\nOnce deployed, the contract appears in 'Deployed Contracts'. Record the contract address shown in the Remix terminal.",
-          "interactive": true,
-          "order": 4,
           "working_directory": "."
         }
       ],
@@ -6191,8 +6185,8 @@
           }
         ]
       },
-      "title": "Deploy an ERC-721 NFT Using Remix IDE",
-      "version": "1.3.2",
+      "title": "Deploy an ERC-721 NFT Using Remix",
+      "version": "1.4.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -6342,21 +6336,27 @@
           "working_directory": "my-foundry-project"
         },
         {
+          "action": "Alternatively, deploy using a Forge deployment script",
+          "description": "For more complex deployments, create a deployment script in the `script/` directory:\n\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.28;\n\nimport {Script} from \"forge-std/Script.sol\";\nimport {Counter} from \"../src/Counter.sol\";\n\ncontract CounterScript is Script {\n    function run() external {\n        uint256 deployerPrivateKey = vm.envUint(\"PRIVATE_KEY\");\n        vm.startBroadcast(deployerPrivateKey);\n        Counter counter = new Counter();\n        vm.stopBroadcast();\n    }\n}\n```\n\nSave this as `script/Counter.s.sol`. Replace `Counter` with your contract name and update the import path as needed.\n\nRun the deployment script:\n```bash\nforge script script/Counter.s.sol:CounterScript \\\n    --chain polkadot-testnet \\\n    --broadcast\n```\n\nThe `--broadcast` flag submits the transactions to the network. Save the deployed contract address printed in the output — needed for verification and interaction.",
+          "order": 7,
+          "working_directory": "my-foundry-project"
+        },
+        {
           "action": "Verify the contract on the block explorer",
           "description": "Replace `INSERT_CONTRACT_ADDRESS` with the address from step 6.\n\n**Blockscout (no API key required):**\n```bash\nforge verify-contract INSERT_CONTRACT_ADDRESS \\\n    src/Counter.sol:Counter \\\n    --chain polkadot-testnet\n```\n\n**Routescan:**\n```bash\nforge verify-contract INSERT_CONTRACT_ADDRESS \\\n    src/Counter.sol:Counter \\\n    --verifier-url 'https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan' \\\n    --etherscan-api-key 'verifyContract' \\\n    --chain polkadot-testnet\n```\n\nExpected output: `Response: OK` and a URL to the verified contract.\n\n**For contracts with constructor arguments**, append:\n```bash\n--constructor-args $(cast abi-encode \"constructor(uint256,address)\" 42 INSERT_DEPLOYER_ADDRESS)\n```\n\nReplace `INSERT_DEPLOYER_ADDRESS` with the deployer wallet address used in step 6.",
-          "order": 7,
+          "order": 8,
           "working_directory": "my-foundry-project"
         },
         {
           "action": "Interact with the contract using Cast",
           "description": "Replace `INSERT_CONTRACT_ADDRESS` and `INSERT_ACCOUNT_ADDRESS` with actual values.\n\n**Read from contract:**\n```bash\ncast call INSERT_CONTRACT_ADDRESS 'number()(uint256)' --chain polkadot-testnet\n```\n\n**Write to contract:**\n```bash\ncast send INSERT_CONTRACT_ADDRESS 'setNumber(uint256)' 42 --chain polkadot-testnet --private-key $PRIVATE_KEY\n```\n\n**Check balance:**\n```bash\ncast balance INSERT_ACCOUNT_ADDRESS --chain polkadot-testnet\n```\n\n**Forge Scripts (for more complex interactions):** For programmatic contract interaction, create scripts in the `script/` directory using Solidity. These scripts can read and write contract state and are invoked with `forge script script/YourScript.s.sol --chain polkadot-testnet`.",
-          "order": 8,
+          "order": 9,
           "working_directory": "my-foundry-project"
         },
         {
           "action": "Run Solidity tests with forge test",
           "description": "Foundry uses Solidity for writing tests. Run the test suite:\n\n```bash\nforge test\n```\n\nFor verbose output showing gas usage and detailed logs:\n```bash\nforge test -vvv\n```\n\nRun specific tests by name:\n```bash\nforge test --match-test testIncrement\n```\n\nRun tests with gas reporting:\n```bash\nforge test --gas-report\n```\n\n**Important:** `forge test` runs against standard Anvil (Ethereum node), not a Polkadot node. Anvil does not enforce Existential Deposit, and gas, timestamps, and runtime behavior follow Ethereum semantics — tests that pass locally may behave differently on Polkadot Hub TestNet. Use forge test for unit testing contract logic; test Polkadot-specific behavior against a local dev node or TestNet.",
-          "order": 9,
+          "order": 10,
           "working_directory": "my-foundry-project"
         }
       ],
@@ -6378,7 +6378,7 @@
         ]
       },
       "title": "Use Foundry with Polkadot Hub",
-      "version": "1.3.0",
+      "version": "1.4.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -7655,12 +7655,12 @@
         ]
       },
       "title": "Deploy a Basic Smart Contract with Remix IDE",
-      "version": "1.2.3",
+      "version": "1.3.0",
       "workflow_pattern": "sequential"
     },
     {
       "chain_role": "isolated",
-      "description": "Walks the user through opening Remix IDE, understanding its interface, and selecting the MetaMask injected provider in the Deploy and Run Transactions tab to connect the browser-based IDE to Polkadot Hub TestNet. All steps are browser GUI interactions. Use before deploying or testing smart contracts via Remix on Polkadot Hub. Prerequisite: MetaMask must be installed and configured with Polkadot Hub TestNet (chain ID 420420417) — use the connect-wallet-polkadot-hub skill first if needed. Trigger phrases: 'connect remix to polkadot', 'use remix ide polkadot hub', 'remix metamask polkadot', 'injected provider remix'. Outcome: Remix displays the MetaMask account address and is ready for contract deployment.",
+      "description": "Walks the user through opening Remix IDE, understanding its interface (editor panel, terminal, Solidity compiler, Deploy & Run Transactions, Debugger, Git plugins), and connecting it to Polkadot Hub via the MetaMask injected provider. Use before deploying or testing smart contracts via Remix on Polkadot Hub. Prerequisite: MetaMask must be installed and configured with Polkadot Hub (chain ID 420420417) — use the connect-wallet-polkadot-hub skill first if needed. Trigger phrases: 'connect remix to polkadot', 'use remix ide polkadot hub', 'remix metamask polkadot', 'injected provider remix', 'set up remix polkadot'. Outcome: Remix displays the MetaMask account address and is ready for contract deployment.",
       "env_vars": [],
       "error_patterns": [
         {
@@ -7727,25 +7727,25 @@
       "steps": [
         {
           "action": "Open Remix IDE",
-          "description": "Instruct the user: Open https://remix.ethereum.org in the browser. Wait for the IDE to fully load (the file explorer appears on the left). Ensure MetaMask is unlocked and set to Polkadot Hub TestNet before proceeding.\n\nThe Remix interface has three main areas:\n- **Editor panel** (center): The main coding area where you write and modify Solidity files. Supports syntax highlighting, auto-completion, and linting.\n- **Terminal** (bottom): Shows logs from the compiler, deployment events, transactions, and console.log output.\n- **Plugin panel** (left sidebar): Icons for each preloaded plugin, the plugin manager, and settings. Key plugins include:\n  - **File explorer**: Displays your workspace. Create, open, rename, and organize Solidity files.\n  - **File search**: Quick search tool for finding symbols, functions, or text within project files.\n  - **Solidity compiler**: Compile contracts, select compiler versions, enable optimizations, view errors.\n  - **Deploy & run transactions**: Deploy contracts, choose environment, send transactions, call functions.\n  - **Debugger**: Step through transaction execution line-by-line; inspect variables, stack, storage slots.\n  - **Git**: Basic Git version control — initialize repos, view diffs, commit changes, browse history.",
+          "description": "Instruct the user: Open https://remix.ethereum.org in the browser. Wait for the IDE to fully load (the file explorer appears on the left).\n\nThe Remix interface has three main areas:\n- **Editor panel** (center): The main coding area where you write and modify Solidity files. Supports syntax highlighting, auto-completion, and linting.\n- **Terminal** (bottom): Shows logs from the compiler, deployment events, transactions, and console.log output.\n- **Plugin panel** (left sidebar): Icons for each preloaded plugin. Key plugins include:\n  - **File explorer**: Displays your workspace. Create, open, rename, and organize Solidity files.\n  - **File search**: Quick search tool for finding symbols, functions, or text within project files.\n  - **Solidity compiler**: Compile contracts, select compiler versions, enable optimizations, view errors.\n  - **Deploy & run transactions**: Deploy contracts, choose environment, send transactions, call functions.\n  - **Debugger**: Step through transaction execution line-by-line; inspect variables, stack, storage slots.\n  - **Git**: Basic Git version control — initialize repos, view diffs, commit changes, browse history.",
           "order": 1,
           "working_directory": "."
         },
         {
-          "action": "Navigate to the Deploy and Run Transactions tab",
-          "description": "Instruct the user: In the left plugin panel, click the Deploy and Run Transactions icon (the plug/Ethereum diamond icon). The Deploy and Run Transactions panel opens on the left.",
+          "action": "Switch MetaMask to Polkadot",
+          "description": "Instruct the user: Open MetaMask and switch the network to Polkadot Hub TestNet (chain ID 420420417). If the network is not in the MetaMask list, follow the connect-wallet-polkadot-hub skill to add it. Ensure MetaMask is unlocked before proceeding.",
           "order": 2,
           "working_directory": "."
         },
         {
-          "action": "Select Injected Provider - MetaMask",
-          "description": "Instruct the user:\n(1) Click on the **Environment** dropdown at the top of the Deploy panel.\n(2) Hover over **browser extension**.\n(3) Select **Injected Provider - MetaMask**.\nMetaMask will open a connection request popup — click 'Next' then 'Connect' to approve. If MetaMask does not open automatically, click the MetaMask extension icon, unlock it, then repeat this step.",
+          "action": "Select Injected Provider - MetaMask in the Deploy panel",
+          "description": "Instruct the user:\n(1) In the left plugin panel, click the **Deploy and Run Transactions** icon.\n(2) Click on the **Environment** dropdown.\n(3) Hover over **browser extension**.\n(4) Select **Injected Provider - MetaMask**.\nMetaMask will open a connection request popup — click 'Next' then 'Connect' to approve. If MetaMask does not open automatically, click the MetaMask extension icon, unlock it, then repeat this step.",
           "order": 3,
           "working_directory": "."
         },
         {
           "action": "Verify the connection",
-          "description": "Instruct the user: Confirm the following in the Deploy panel:\n1) The **Account** field shows your MetaMask wallet address.\n2) The network indicator shows chain ID 420420417 (Polkadot Hub TestNet).\nIf the chain ID shows a different value, switch networks in MetaMask to Polkadot Hub TestNet and the Remix panel will update automatically.",
+          "description": "Instruct the user: Confirm the following in the Deploy panel:\n1) The **Account** field shows your MetaMask wallet address.\n2) The network indicator shows chain ID 420420417 (Polkadot Hub TestNet).\nTo switch accounts later, change the active account in MetaMask — Remix updates automatically.",
           "expected_output": "Remix Deploy panel shows MetaMask account address and Polkadot Hub TestNet (chain ID 420420417).",
           "order": 4,
           "working_directory": "."
@@ -7768,8 +7768,8 @@
           }
         ]
       },
-      "title": "Connect Remix IDE to Polkadot Hub",
-      "version": "1.2.3",
+      "title": "Use the Remix IDE on Polkadot Hub",
+      "version": "1.3.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -8786,6 +8786,7 @@
       "primary_page": "smart-contracts/precompiles/xcm.md",
       "reference_code": {
         "base_path": "",
+        "branch": "",
         "files": [],
         "repo": "none"
       },
@@ -8831,7 +8832,7 @@
         },
         {
           "action": "Call execute to run an XCM message locally",
-          "description": "Delegate to the user: Expand the 'execute' function. For `message`: provide SCALE-encoded XCM bytes (use the example from step 5). For `maxWeight`: enter the `Weight` struct using the `refTime` and `proofSize` values returned by weighMessage in step 5 (or a conservative upper bound). Click 'transact' (orange button — state-changing). MetaMask will prompt for gas approval — confirm. The call executes the XCM message in the context of the calling address on the local chain.",
+          "description": "Delegate to the user: Expand the 'execute' function. For `message`: provide SCALE-encoded XCM bytes (use the example from step 5). For `maxWeight`: enter the `Weight` struct using the `refTime` and `proofSize` values returned by weighMessage in step 5 (or a conservative upper bound). Click 'transact' (orange button — state-changing). MetaMask will prompt for gas approval — confirm. The call executes the XCM message in the context of the calling address on the local chain.\n\nYou can use the [papi console](https://dev.papi.how/extrinsics#networkId=localhost&endpoint=wss%3A%2F%2Ftestnet-passet-hub.polkadot.io) to examine the complete extrinsic structure for this operation and verify the encoding.",
           "expected_output": "Transaction receipt with status 1 (success); XCM execution event visible in Remix logs",
           "interactive": true,
           "order": 6,
@@ -8843,6 +8844,13 @@
           "expected_output": "Transaction receipt with status 1; XcmMessageSent event in Remix logs",
           "interactive": true,
           "order": 7,
+          "working_directory": "."
+        },
+        {
+          "action": "Invoke XCM precompile from another smart contract",
+          "description": "Beyond direct interaction via Remix, you can integrate XCM functionality directly into your existing smart contracts by importing the `IXcm` interface. This enables cross-chain capabilities within your application's contract logic (e.g., DeFi protocols, governance systems).\n\nExample contract import pattern:\n```solidity\nimport './IXcm.sol';\n\ncontract MyContract {\n    IXcm constant XCM = IXcm(0x00000000000000000000000000000000000a0000);\n\n    function sendXcm(bytes calldata dest, bytes calldata message) external {\n        XCM.send(dest, message);\n    }\n}\n```\n\nDeploy `MyContract` via Remix or Hardhat, then call `sendXcm` with the appropriate SCALE-encoded destination and message bytes. Substitute the precompile address exactly: `0x00000000000000000000000000000000000a0000`.",
+          "interactive": true,
+          "order": 8,
           "working_directory": "."
         }
       ],
@@ -8870,7 +8878,7 @@
         ]
       },
       "title": "Interact with the XCM Precompile via Remix IDE",
-      "version": "1.1.2",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {

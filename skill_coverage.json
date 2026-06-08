@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-08T18:30:00Z",
+  "generated": "2026-06-08T19:00:00Z",
   "pages": {
     "chain-interactions/accounts/create-account.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
@@ -747,7 +747,7 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-05T14:00:00Z",
+      "last_scanned": "2026-06-08T19:00:00Z",
       "skills": [
         "deploy-basic-contract-remix"
       ],
@@ -771,7 +771,7 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-05T14:00:00Z",
+      "last_scanned": "2026-06-08T19:00:00Z",
       "skills": [
         "deploy-erc721-nft-hardhat"
       ],
@@ -779,7 +779,7 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-05T14:00:00Z",
+      "last_scanned": "2026-06-08T19:00:00Z",
       "skills": [
         "deploy-erc721-nft-remix"
       ],
@@ -787,7 +787,7 @@
     },
     "smart-contracts/dev-environments/foundry.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-05T14:00:00Z",
+      "last_scanned": "2026-06-08T19:00:00Z",
       "skills": [
         "set-up-foundry-polkadot-hub"
       ],
@@ -819,7 +819,7 @@
     },
     "smart-contracts/dev-environments/remix.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-05T14:00:00Z",
+      "last_scanned": "2026-06-08T19:00:00Z",
       "skills": [
         "connect-remix-polkadot"
       ],
@@ -971,7 +971,7 @@
     },
     "smart-contracts/precompiles/xcm.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-04T20:30:00Z",
+      "last_scanned": "2026-06-08T19:00:00Z",
       "skills": [
         "interact-xcm-precompile-remix"
       ],
@@ -982,10 +982,10 @@
   "summary": {
     "blocked": 23,
     "not_applicable": 12,
-    "stale": 6,
+    "stale": 0,
     "supplementary": 45,
     "total_candidates": 142,
     "uncovered": 0,
-    "up_to_date": 56
+    "up_to_date": 62
   }
 }

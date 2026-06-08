@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:a39b5e0484ddbd81e634543aaa1c57b9901b757d0803ca4285483d159e1416ed",
-  "generated": "2026-06-08T16:45:00Z",
+  "content_hash": "sha256:1d0564f619e0e1e346d90cd282a42ef156bf501fbb8948f58dff2a96bcc892eb",
+  "generated": "2026-06-08T17:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -3064,7 +3064,7 @@
         ]
       },
       "title": "Set Up the Polkadot SDK Parachain Template",
-      "version": "1.3.1",
+      "version": "1.3.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -4917,7 +4917,7 @@
         ]
       },
       "title": "Write Unit Tests for a FRAME Pallet",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "workflow_pattern": "sequential"
     },
     {
@@ -5126,7 +5126,7 @@
         ]
       },
       "title": "Benchmark a FRAME Pallet and Generate Weight Files",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -6890,7 +6890,7 @@
         ]
       },
       "title": "Add an Existing Pallet to a Parachain Runtime",
-      "version": "1.1.2",
+      "version": "1.1.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -7060,7 +7060,7 @@
         ]
       },
       "title": "Configure Multiple Instances of a Pallet in a Runtime",
-      "version": "1.1.2",
+      "version": "1.1.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -7237,7 +7237,7 @@
         ]
       },
       "title": "Create a Custom FRAME Pallet",
-      "version": "1.1.2",
+      "version": "1.1.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -9055,7 +9055,7 @@
         ]
       },
       "title": "Deploy a Parachain to the Polkadot TestNet (Paseo)",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "workflow_pattern": "sequential"
     },
     {

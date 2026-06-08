@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:f689862420e1c2a9bcb2a59bf22fdde69bf6fb0004ea7314d9398a62fdd470a1",
-  "generated": "2026-06-08T18:00:00Z",
+  "content_hash": "sha256:2105f94043b3ca9a5ac2c7fad41858caa62783ea42f1d18a71dd0fceaa16cf57",
+  "generated": "2026-06-08T18:30:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -6603,7 +6603,7 @@
         ]
       },
       "primary_page": "smart-contracts/libraries/web3-js.md",
-      "project_structure": "web3js-project/\n├── abis/\n├── artifacts/\n├── contracts/\n│   └── Storage.sol\n├── scripts/\n│   ├── compile.js\n│   ├── connectToProvider.js\n│   ├── deploy.js\n│   └── updateStorage.js\n├── contract-address.json\n└── package.json",
+      "project_structure": "web3js-project/\n├── abis/\n├── artifacts/\n├── contracts/\n│   └── Storage.sol\n├── scripts/\n│   ├── compile.js\n│   ├── connectToProvider.js\n│   ├── deploy.js\n│   ├── fetchLastBlock.js\n│   └── updateStorage.js\n├── contract-address.json\n└── package.json",
       "reference_code": {
         "base_path": ".snippets/code/smart-contracts/libraries/web3-js",
         "branch": "master",
@@ -6627,6 +6627,10 @@
           {
             "description": "Calls `setNumber(value)` on the deployed Storage contract via Web3.js, then reads `storedNumber` to confirm.",
             "path": "updateStorage.js"
+          },
+          {
+            "description": "Verifies the Web3 provider connection by fetching the latest block number from Polkadot Hub TestNet.",
+            "path": "fetchLastBlock.js"
           }
         ],
         "repo": "polkadot-developers/polkadot-docs"
@@ -6667,10 +6671,18 @@
           "working_directory": "web3js-project"
         },
         {
-          "action": "Create the provider connection script and verify connectivity",
+          "action": "Create the provider connection script",
           "description": "Fetch the reference file `connectToProvider.js` and save it as `scripts/connectToProvider.js`. Then make these substitutions:\n(1) Replace `INSERT_RPC_URL` with `https://services.polkadothub-rpc.com/testnet`\n(2) Replace `INSERT_CHAIN_ID` with `420420417`\n(3) Replace `INSERT_CHAIN_NAME` with `polkadot-hub-testnet`\n\nThen verify: `node scripts/connectToProvider.js`\nExpected output: `Connected to chain ID: 420420417`",
           "order": 4,
           "reference_file": "connectToProvider.js",
+          "working_directory": "web3js-project"
+        },
+        {
+          "action": "Verify provider connectivity by fetching the latest block",
+          "description": "Fetch the reference file `fetchLastBlock.js` and save it as `scripts/fetchLastBlock.js`. It uses `createProvider` from connectToProvider.js — ensure that file already exists. Run it:\n\n```bash\nnode scripts/fetchLastBlock.js\n```\n\nExpected output: `Last block: <number>` where the number matches the current Polkadot Hub TestNet block height. If you see an error, verify the RPC URL is correct and `connectToProvider.js` is present.",
+          "expected_output": "Last block: <current block number>",
+          "order": 5,
+          "reference_file": "fetchLastBlock.js",
           "working_directory": "web3js-project"
         },
         {
@@ -6680,21 +6692,21 @@
           ],
           "description": "Fetch the reference file `compile.js` and save it as `scripts/compile.js`. The script reads `contracts/Storage.sol`, compiles it with solc, saves ABI to `abis/Storage.json` and bytecode to `artifacts/Storage.bin`. Then run it to compile.",
           "expected_output": "ABI and bytecode saved",
-          "order": 5,
+          "order": 6,
           "reference_file": "compile.js",
           "working_directory": "web3js-project"
         },
         {
           "action": "Create the deployment script and deploy the contract",
           "description": "Fetch the reference file `deploy.js` and save it as `scripts/deploy.js`. Then substitute:\n(1) Replace `INSERT_PRIVATE_KEY` with `process.env.PRIVATE_KEY` (do NOT hardcode the key)\n(2) Ensure the RPC URL points to `https://services.polkadothub-rpc.com/testnet`\n\nSet `PRIVATE_KEY` in your environment: `export PRIVATE_KEY=0x...` (never commit this). Then deploy:\n\n```bash\nnode scripts/deploy.js\n```\n\nExpected: contract address saved in `contract-address.json`. Record this address.",
-          "order": 6,
+          "order": 7,
           "reference_file": "deploy.js",
           "working_directory": "web3js-project"
         },
         {
           "action": "Create the interaction script and interact with the contract",
           "description": "Fetch the reference file `updateStorage.js` and save it as `scripts/updateStorage.js`. Then substitute:\n(1) Replace `INSERT_PRIVATE_KEY` with `process.env.PRIVATE_KEY`\n(2) Replace `INSERT_CONTRACT_ADDRESS` with the address from step 6, or ensure `contract-address.json` is read automatically\n(3) Verify the ABI references `abis/Storage.json`\n\nThen run: `node scripts/updateStorage.js`\nExpected: current stored value displayed, then updated to 1.",
-          "order": 7,
+          "order": 8,
           "reference_file": "updateStorage.js",
           "working_directory": "web3js-project"
         }
@@ -6717,7 +6729,7 @@
         ]
       },
       "title": "Deploy and Interact with Smart Contracts Using Web3.js",
-      "version": "1.0.4",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -7358,7 +7370,7 @@
         ]
       },
       "title": "Retrieve Polkadot Runtime Metadata",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -7512,7 +7524,7 @@
         ]
       },
       "title": "Query and Transact on Polkadot Chains with the Polkadot.js API",
-      "version": "1.3.1",
+      "version": "1.3.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -7879,7 +7891,7 @@
         ]
       },
       "title": "Connect a Wallet to Polkadot Hub",
-      "version": "1.2.2",
+      "version": "1.2.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -8142,7 +8154,7 @@
         ]
       },
       "primary_page": "smart-contracts/libraries/web3-py.md",
-      "project_structure": "web3py-project/\n├── Storage.sol\n├── compile.py\n├── deploy.py\n├── update_storage.py\n├── .env\n├── .gitignore\n├── abis/\n│   └── Storage.json\n└── artifacts/\n    └── Storage.bin",
+      "project_structure": "web3py-project/\n├── Storage.sol\n├── compile.py\n├── deploy.py\n├── fetch_last_block.py\n├── update_storage.py\n├── .env\n├── .gitignore\n├── abis/\n│   └── Storage.json\n└── artifacts/\n    └── Storage.bin",
       "reference_code": {
         "base_path": "",
         "files": [],
@@ -8173,15 +8185,22 @@
           "working_directory": "web3py-project"
         },
         {
+          "action": "Verify provider connectivity by fetching the latest block",
+          "description": "Create a file named `fetch_last_block.py` with the following content to verify the Web3.py connection works before proceeding to contract compilation:\n\n```python\nfrom web3 import Web3\n\n\ndef main():\n    try:\n        PROVIDER_RPC = 'https://services.polkadothub-rpc.com/testnet'\n        web3 = Web3(Web3.HTTPProvider(PROVIDER_RPC))\n        latest_block = web3.eth.block_number\n        print('Last block: ' + str(latest_block))\n    except Exception as error:\n        print('Error connecting to Polkadot Hub TestNet: ' + str(error))\n\n\nif __name__ == '__main__':\n    main()\n```\n\nRun it:\n\n```bash\npython fetch_last_block.py\n```\n\nExpected output: `Last block: <current block number>`. If connection fails, verify the RPC URL and that Web3.py is installed in the virtualenv.",
+          "expected_output": "Last block: <current block number>",
+          "order": 3,
+          "working_directory": "web3py-project"
+        },
+        {
           "action": "Create the .env file with PRIVATE_KEY",
           "description": "Create a file named `.env` in the web3py-project directory. Do NOT ask the user to type or paste their private key in the chat — instruct them to open the .env file in a text editor and add:\n\n```\nPRIVATE_KEY=0xYOUR_PRIVATE_KEY_HERE\n```\n\nReplace `0xYOUR_PRIVATE_KEY_HERE` with the actual private key for the funded TestNet account. Also create a `.gitignore` file with `.env` to prevent accidental commits:\n\n```bash\necho '.env' > .gitignore\n```",
-          "order": 3,
+          "order": 4,
           "working_directory": "web3py-project"
         },
         {
           "action": "Create the Storage.sol Solidity contract",
           "description": "Create a file named `Storage.sol` with the following content:\n\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.9;\n\ncontract Storage {\n    uint256 public storedNumber;\n\n    function setNumber(uint256 _newNumber) public {\n        storedNumber = _newNumber;\n    }\n}\n```\n\nThis contract stores a number in `storedNumber` (publicly readable via auto-generated getter) and exposes `setNumber(uint256)` as the write function.",
-          "order": 4,
+          "order": 5,
           "working_directory": "web3py-project"
         },
         {
@@ -8191,7 +8210,7 @@
           ],
           "description": "Create a file named `compile.py` with the following content:\n\n```python\nimport json\nimport solcx\nfrom pathlib import Path\n\nSOLC_VERSION = '0.8.9'\ntry:\n    solcx.install_solc(SOLC_VERSION)\nexcept Exception as e:\n    print(f'Solc {SOLC_VERSION} already installed or error: {e}')\n\nsolcx.set_solc_version(SOLC_VERSION)\n\nwith open('Storage.sol', 'r') as f:\n    source = f.read()\n\ncompiled = solcx.compile_source(source, output_values=['abi', 'bin'], solc_version=SOLC_VERSION)\ncontract_id, iface = compiled.popitem()\n\nPath('abis').mkdir(exist_ok=True)\nPath('artifacts').mkdir(exist_ok=True)\n\nwith open('abis/Storage.json', 'w') as f:\n    json.dump(iface['abi'], f, indent=2)\n\nwith open('artifacts/Storage.bin', 'w') as f:\n    f.write(iface['bin'])\n\nprint('Contract compiled. ABI: abis/Storage.json, Bytecode: artifacts/Storage.bin')\n```\n\nRun it to confirm compilation succeeds before proceeding.",
           "expected_output": "Contract compiled. ABI: abis/Storage.json, Bytecode: artifacts/Storage.bin",
-          "order": 5,
+          "order": 6,
           "working_directory": "web3py-project"
         },
         {
@@ -8201,7 +8220,7 @@
           ],
           "description": "Create a file named `deploy.py` with the following content:\n\n```python\nimport json\nimport os\nfrom web3 import Web3\nfrom dotenv import load_dotenv\n\nload_dotenv()\n\nRPC_URL = 'https://services.polkadothub-rpc.com/testnet'\nCHAIN_ID = 420420417\nPRIVATE_KEY = os.environ['PRIVATE_KEY']\n\nw3 = Web3(Web3.HTTPProvider(RPC_URL, request_kwargs={'timeout': 120}))\nassert w3.is_connected(), 'Failed to connect to RPC endpoint'\n\nformatted_key = PRIVATE_KEY if PRIVATE_KEY.startswith('0x') else f'0x{PRIVATE_KEY}'\naccount = w3.eth.account.from_key(formatted_key)\nprint(f'Deploying from: {account.address}')\n\nwith open('abis/Storage.json') as f:\n    abi = json.load(f)\nwith open('artifacts/Storage.bin') as f:\n    bytecode = f.read().strip()\n    if not bytecode.startswith('0x'):\n        bytecode = f'0x{bytecode}'\n\nContract = w3.eth.contract(abi=abi, bytecode=bytecode)\nnonce = w3.eth.get_transaction_count(account.address)\ngas_price = w3.to_wei('1000', 'gwei')\n\ntx = Contract.constructor().build_transaction({\n    'chainId': CHAIN_ID, 'from': account.address,\n    'nonce': nonce, 'gasPrice': gas_price\n})\ntx['gas'] = w3.eth.estimate_gas(tx)\n\nsigned = account.sign_transaction(tx)\ntx_hash = w3.eth.send_raw_transaction(signed.raw_transaction)\nreceipt = w3.eth.wait_for_transaction_receipt(tx_hash, timeout=300)\n\nprint(f'Contract deployed at: {receipt.contractAddress}')\nwith open('contract_address.txt', 'w') as f:\n    f.write(receipt.contractAddress)\nprint('Address saved to contract_address.txt')\n```\n\nRPC URL and chain ID are hardcoded to Polkadot Hub TestNet — no substitutions needed.",
           "expected_output": "Deploying from: 0x...\nContract deployed at: 0x...\nAddress saved to contract_address.txt",
-          "order": 6,
+          "order": 7,
           "working_directory": "web3py-project"
         },
         {
@@ -8211,7 +8230,7 @@
           ],
           "description": "Create a file named `update_storage.py` with the following content:\n\n```python\nimport json\nimport os\nfrom web3 import Web3\nfrom dotenv import load_dotenv\n\nload_dotenv()\n\nRPC_URL = 'https://services.polkadothub-rpc.com/testnet'\nCHAIN_ID = 420420417\nPRIVATE_KEY = os.environ['PRIVATE_KEY']\n\nw3 = Web3(Web3.HTTPProvider(RPC_URL))\nformatted_key = PRIVATE_KEY if PRIVATE_KEY.startswith('0x') else f'0x{PRIVATE_KEY}'\naccount = w3.eth.account.from_key(formatted_key)\n\nwith open('contract_address.txt') as f:\n    contract_address = f.read().strip()\n\nwith open('abis/Storage.json') as f:\n    abi = json.load(f)\n\ncontract = w3.eth.contract(address=contract_address, abi=abi)\n\n# Read current value\nvalue = contract.functions.storedNumber().call()\nprint(f'Current storedNumber: {value}')\n\n# Write new value\nnonce = w3.eth.get_transaction_count(account.address)\ntx = contract.functions.setNumber(42).build_transaction({\n    'chainId': CHAIN_ID, 'from': account.address,\n    'nonce': nonce, 'gasPrice': w3.to_wei('1000', 'gwei')\n})\ntx['gas'] = w3.eth.estimate_gas(tx)\nsigned = account.sign_transaction(tx)\ntx_hash = w3.eth.send_raw_transaction(signed.raw_transaction)\nreceipt = w3.eth.wait_for_transaction_receipt(tx_hash)\nprint(f'setNumber(42) tx: {receipt.transactionHash.hex()}')\n\n# Verify\nvalue = contract.functions.storedNumber().call()\nprint(f'Updated storedNumber: {value}')\n```",
           "expected_output": "Current storedNumber: 0\nsetNumber(42) tx: 0x...\nUpdated storedNumber: 42",
-          "order": 7,
+          "order": 8,
           "working_directory": "web3py-project"
         }
       ],
@@ -8239,7 +8258,7 @@
         ]
       },
       "title": "Deploy and Interact with Smart Contracts on Polkadot Hub Using Web3.py",
-      "version": "1.1.2",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -8540,7 +8559,7 @@
         ]
       },
       "title": "Interact with the Storage Precompile on Polkadot Hub via Remix",
-      "version": "1.1.2",
+      "version": "1.1.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -8694,7 +8713,7 @@
         ]
       },
       "title": "Interact with the System Precompile on Polkadot Hub via Remix",
-      "version": "1.1.2",
+      "version": "1.1.3",
       "workflow_pattern": "sequential"
     },
     {

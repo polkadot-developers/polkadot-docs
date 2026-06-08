@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-08T17:00:00Z",
+  "generated": "2026-06-08T18:30:00Z",
   "pages": {
     "chain-interactions/accounts/create-account.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
@@ -461,11 +461,11 @@
     },
     "reference/parachains/chain-data.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-04T20:00:00Z",
+      "last_scanned": "2026-06-08T18:30:00Z",
       "skills": [
         "retrieve-runtime-metadata"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/parachains/consensus/async-backing.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
@@ -633,11 +633,11 @@
     },
     "reference/tools/polkadot-js-api.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-04T20:00:00Z",
+      "last_scanned": "2026-06-08T18:30:00Z",
       "skills": [
         "use-polkadot-js-api"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/pop-cli.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
@@ -887,11 +887,11 @@
     },
     "smart-contracts/integrations/wallets.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-04T20:30:00Z",
+      "last_scanned": "2026-06-08T18:30:00Z",
       "skills": [
         "connect-wallet-polkadot-hub"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/libraries/ethers-js.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
@@ -919,19 +919,19 @@
     },
     "smart-contracts/libraries/web3-js.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-04T20:30:00Z",
+      "last_scanned": "2026-06-08T18:30:00Z",
       "skills": [
         "deploy-interact-contracts-web3js"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/libraries/web3-py.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-04T20:30:00Z",
+      "last_scanned": "2026-06-08T18:30:00Z",
       "skills": [
         "deploy-interact-contracts-web3py"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/overview.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
@@ -955,19 +955,19 @@
     },
     "smart-contracts/precompiles/storage.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-04T20:30:00Z",
+      "last_scanned": "2026-06-08T18:30:00Z",
       "skills": [
         "interact-storage-precompile-remix"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/precompiles/system.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
-      "last_scanned": "2026-06-04T20:30:00Z",
+      "last_scanned": "2026-06-08T18:30:00Z",
       "skills": [
         "interact-system-precompile-remix"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/precompiles/xcm.md": {
       "last_edited": "2026-06-08T15:31:01+00:00",
@@ -982,10 +982,10 @@
   "summary": {
     "blocked": 23,
     "not_applicable": 12,
-    "stale": 13,
+    "stale": 6,
     "supplementary": 45,
     "total_candidates": 142,
     "uncovered": 0,
-    "up_to_date": 49
+    "up_to_date": 56
   }
 }

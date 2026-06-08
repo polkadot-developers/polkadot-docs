@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-08T16:00:00Z",
+  "generated": "2026-06-08T16:30:00Z",
   "pages": {
     "chain-interactions/accounts/create-account.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
@@ -175,11 +175,11 @@
     },
     "node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-04T18:30:00Z",
+      "last_scanned": "2026-06-08T16:30:00Z",
       "skills": [
         "set-up-polkadot-validator-node"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
@@ -277,11 +277,11 @@
     },
     "parachains/customize-runtime/pallet-development/mock-runtime.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-04T19:00:00Z",
+      "last_scanned": "2026-06-08T16:30:00Z",
       "skills": [
         "set-up-pallet-mock-runtime"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/pallet-development/pallet-testing.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
@@ -599,11 +599,11 @@
     },
     "reference/tools/moonwall.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-04T19:00:00Z",
+      "last_scanned": "2026-06-08T16:30:00Z",
       "skills": [
         "set-up-e2e-testing-moonwall"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/omninode.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
@@ -691,11 +691,11 @@
     },
     "smart-contracts/cookbook/dapps/zero-to-hero.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-04T18:45:00Z",
+      "last_scanned": "2026-06-08T16:30:00Z",
       "skills": [
         "build-dapp-viem-nextjs"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/eth-dapps/uniswap-v2/core-v2-pvm.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
@@ -763,11 +763,11 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-04T19:30:00Z",
+      "last_scanned": "2026-06-08T16:30:00Z",
       "skills": [
         "deploy-erc20-token-remix"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
@@ -895,19 +895,19 @@
     },
     "smart-contracts/libraries/ethers-js.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-04T19:30:00Z",
+      "last_scanned": "2026-06-08T16:30:00Z",
       "skills": [
         "deploy-contracts-ethers-js"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/libraries/viem.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
-      "last_scanned": "2026-06-04T18:45:00Z",
+      "last_scanned": "2026-06-08T16:30:00Z",
       "skills": [
         "deploy-contracts-viem"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/libraries/wagmi.md": {
       "last_edited": "2026-06-05T19:01:39+00:00",
@@ -982,10 +982,10 @@
   "summary": {
     "blocked": 23,
     "not_applicable": 12,
-    "stale": 34,
+    "stale": 27,
     "supplementary": 45,
     "total_candidates": 142,
     "uncovered": 0,
-    "up_to_date": 28
+    "up_to_date": 35
   }
 }

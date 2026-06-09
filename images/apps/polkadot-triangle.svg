@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="520" viewBox="0 0 600 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Polkadot Triangle: Polkadot Desktop at the top, Polkadot App at the bottom-left, Polkadot Web at the bottom-right, with Polkadot Product running inside">
+  <defs>
+    <style>
+      .node-name { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", sans-serif; font-size: 14px; font-weight: 700; letter-spacing: -0.01em; }
+      .node-sub  { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", sans-serif; font-size: 11px; font-weight: 500; }
+      .center-name { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+      .center-sub  { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", sans-serif; font-size: 12px; font-weight: 400; }
+    </style>
+  </defs>
+
+  <!-- Triangle edges (drawn first; covered by pills where they overlap) -->
+  <g stroke="#E6007A" stroke-width="2" stroke-linecap="round" fill="none">
+    <line x1="300" y1="95" x2="100" y2="440" />
+    <line x1="300" y1="95" x2="500" y2="440" />
+    <line x1="100" y1="440" x2="500" y2="440" />
+  </g>
+
+  <!-- Center label: Polkadot Product runs inside -->
+  <g>
+    <text x="300" y="305" text-anchor="middle" class="center-name" fill="#E6007A">Polkadot Product</text>
+    <text x="300" y="325" text-anchor="middle" class="center-sub" fill="#E6007A" opacity="0.7">runs inside</text>
+  </g>
+
+  <!-- Polkadot Desktop (top apex) -->
+  <g>
+    <rect x="220" y="57" width="160" height="76" rx="38" fill="#E6007A" />
+    <text x="300" y="89" text-anchor="middle" class="node-name" fill="#FFFFFF">Polkadot Desktop</text>
+    <text x="300" y="109" text-anchor="middle" class="node-sub" fill="#FFFFFF" opacity="0.85">workstation host</text>
+  </g>
+
+  <!-- Polkadot App (bottom-left) -->
+  <g>
+    <rect x="20" y="402" width="160" height="76" rx="38" fill="#E6007A" />
+    <text x="100" y="434" text-anchor="middle" class="node-name" fill="#FFFFFF">Polkadot App</text>
+    <text x="100" y="454" text-anchor="middle" class="node-sub" fill="#FFFFFF" opacity="0.85">mobile signer</text>
+  </g>
+
+  <!-- Polkadot Web (bottom-right) -->
+  <g>
+    <rect x="420" y="402" width="160" height="76" rx="38" fill="#E6007A" />
+    <text x="500" y="434" text-anchor="middle" class="node-name" fill="#FFFFFF">Polkadot Web</text>
+    <text x="500" y="454" text-anchor="middle" class="node-sub" fill="#FFFFFF" opacity="0.85">browser host (dot.li)</text>
+  </g>
+</svg>

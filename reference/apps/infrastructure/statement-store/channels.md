@@ -62,5 +62,5 @@ The SDK's `ChannelStore<T>` exposes the standard surface:
 
     The Product-side how-to including the `ChannelStore` walkthrough.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/exchange-ephemeral-messages/)
+    [:octicons-arrow-right-24: Get Started](/apps/build/pub-sub-off-chain-data/)
 </div>

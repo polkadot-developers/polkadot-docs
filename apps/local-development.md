@@ -10,13 +10,7 @@ categories: Basics, Apps
 
 This is the canonical development path for building Polkadot Products: your Product runs locally on a dev server, Polkadot Desktop loads it from `localhost`, and you iterate with live reload — the same fast inner loop you would use for any web project, with the Polkadot sandbox fully active.
 
-If you came here from [Quick Start](/apps/quick-start/) (RevX or playground-cli), this is where you take a Product you built there and continue developing it locally with your own editor and toolchain. If you are starting fresh after [Get Started](/apps/), this is the natural next step before exploring the [Build](/apps/build/) recipes.
-
-Polkadot Desktop is a specialized browser that loads Polkadot Products. In production, it resolves a `.dot` domain name through a chain lookup and fetches the bundle from IPFS. During development, that flow adds latency and a publishing step you do not want.
-
-To make local development feel similar to standard web work, Polkadot Desktop whitelists `localhost` in its address bar. When you point it at `localhost:3000` (or any local port), Desktop bypasses `.dot` resolution entirely and loads your Product directly from the local origin. Live reload, source maps, and the rest of your toolchain behave exactly as they do in a regular browser.
-
-The `localhost` whitelist is a navigation-time bypass only. Your Product still runs inside the same sandbox as a published `.dot` Product: every chain or device call goes through the Host API, and Desktop still surfaces the same permission prompts (microphone, external requests, chain submissions, and so on) for any capabilities your Product declares. This is the primary development loop you should use when building a Product.
+If you came here from [Quick Start](/apps/quick-start/) (RevX or the CLI), this is where you take a Product you built there and continue developing it locally with your own editor and toolchain. If you are starting fresh after [Get Started](/apps/get-started/), this is the natural next step before exploring the [Build](/apps/build/) guides.
 
 ## Prerequisites
 
@@ -137,20 +131,20 @@ The key takeaway: you can rely on `localhost` for fast iteration without losing 
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> **Accounts and Signing**
+-   <span class="badge guide">Guide</span> **Sign and Submit Transactions**
 
     ---
 
-    Wire your Product up to a paired account so it can request signatures from PWallet through the Host API.
+    Wire your Product up to a paired account so it can request signatures from the Polkadot App through the Host API.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/accounts-and-signing/)
+    [:octicons-arrow-right-24: Get Started](/apps/build/sign-and-submit/)
 
--   <span class="badge guide">Guide</span> **Request Permissions**
+-   <span class="badge guide">Guide</span> **Build Guides**
 
     ---
 
-    Learn how the sandbox Permissions model works and how to request capabilities your Product needs at runtime.
+    Add capabilities to your Product — on-chain reads, decentralized storage, off-chain pub/sub, and local persistence — one package-anchored guide at a time.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/request-permissions/)
+    [:octicons-arrow-right-24: Open Build Guides](/apps/build/)
 
 </div>

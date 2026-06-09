@@ -6,21 +6,20 @@ categories: Basics, Apps
 
 # Publish and Subscribe to Off-Chain Data
 
-> **Packages:** [`statement-store`](https://www.npmjs.com/package/@parity/product-sdk-statement-store) (headline) · [`signer`](https://www.npmjs.com/package/@parity/product-sdk-signer)
->
-> **Reference:** [Statement Store](/reference/apps/infrastructure/statement-store/){target=\_blank}
+!!! info "Packages"
+    **Primary:** [`statement-store`](/apps/build/#the-product-sdk-packages) · **Utility:** [`signer`](/apps/build/#the-product-sdk-packages)
 
 ## Prerequisites
 
-- Completed [Install and Pair](/apps/set-up/install-and-pair/){target=\_blank} so you have a paired Polkadot Desktop and a signer for product-scoped accounts.
-- Completed [Get TestNet Funds](/apps/set-up/get-testnet-funds/){target=\_blank} — the People Chain's `pallet-statement-store` gates submissions on a per-account allowance (`max_count` live statements and `max_size` total bytes), provisioned during set-up.
-- A Hello World Product scaffolded — see [Start a Local Dev Loop](/apps/build/start-a-local-dev-loop/){target=\_blank} if you don't have one yet.
+- Completed [Install Desktop and Pair](/apps/get-started/){target=\_blank} so you have a paired Polkadot Desktop and a signer for product-scoped accounts.
+- Completed [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/){target=\_blank} — the People Chain's `pallet-statement-store` gates submissions on a per-account allowance (`max_count` live statements and `max_size` total bytes), provisioned during set-up.
+- A Hello World Product scaffolded — see [Local Development](/apps/local-development/){target=\_blank} if you don't have one yet.
 
 PoP and PAS funds are not required for the Statement Store itself — submissions don't pay transaction fees. The allowance is the gating mechanism; PAS is only relevant if your Product later interacts with chains that charge fees.
 
 ## Introduction
 
-The **Statement Store** lets your Product **publish and subscribe to off-chain data** — small, signed payloads that propagate peer-to-peer without ever entering chain storage. It's a network-layer pub/sub primitive on Polkadot's People Chain: a Product publishes statements, the People Chain runtime validates them, and the node propagates them over the network's gossip layer to peers that have subscribed to a matching topic filter. Because statements live off-chain — in the node's local statement pool, decaying after a short TTL (default 30 seconds, configurable per submission) rather than in block storage — the chain only commits the allowance and validation rules while the gossip layer carries the payloads.
+The **[Statement Store](/reference/apps/infrastructure/statement-store/){target=\_blank}** lets your Product **publish and subscribe to off-chain data** — small, signed payloads that propagate peer-to-peer without ever entering chain storage. It's a network-layer pub/sub primitive on Polkadot's [People Chain](/reference/glossary/#people-chain){target=\_blank}: a Product publishes statements, the People Chain runtime validates them, and the node propagates them over the network's gossip layer to peers that have subscribed to a matching topic filter. Because statements live off-chain — in the node's local statement pool, decaying after a short TTL (default 30 seconds, configurable per submission) rather than in block storage — the chain only commits the allowance and validation rules while the gossip layer carries the payloads.
 
 That separation — pallet rules on chain, payloads in gossip — is what makes the Statement Store the right tool for **real-time signaling between users of your Product**: chat messages, live presence ("Alice is online"), multiplayer cursors in a shared document, typing indicators, post-feed updates, "now playing" status — anything that has to propagate fast and doesn't need to be permanent. Each user running your Product is an instance; the SDK tags every statement with `blake2b(appName)` as its primary topic, so subscribers see only your Product's traffic and the node filters everything else out at the boundary.
 
@@ -48,13 +47,15 @@ The Statement Store and Bulletin Chain compose well: Polkadot App's Chat uses th
 
 ## Set Up Your Statement Store Client
 
-Every snippet in this guide is **Product code** — modules placed inside the Product running at `localhost:3000` (per [Start a Local Dev Loop](/apps/build/start-a-local-dev-loop/){target=\_blank}), loaded by Polkadot Desktop. Signing requests route through the Host (Polkadot Desktop) to the user's paired Polkadot App on their phone, which holds the signing keys; your Product never derives, sees, or holds keys.
+Every snippet in this guide is **Product code** — modules placed inside the Product running at `localhost:3000` (per [Local Development](/apps/local-development/){target=\_blank}), loaded by Polkadot Desktop. Signing requests route through the Host (Polkadot Desktop) to the user's paired Polkadot App on their phone, which holds the signing keys; your Product never derives, sees, or holds keys.
 
 Install the SDKs at pinned versions so the snippets type-check predictably:
 
 ```bash
 npm install @parity/product-sdk@0.8.0 @parity/product-sdk-statement-store@0.4.0
 ```
+
+This guide installs the individual packages it uses. The umbrella `@parity/product-sdk` re-exports them too, so a single dependency works equally well. See [Umbrella or Individual Packages](/apps/build/#umbrella-or-individual-packages) for the tradeoff.
 
 `StatementStoreClient` is the high-level client. It wraps the People Chain node's `statement_submit` and `statement_subscribeStatement` JSON-RPC methods, handles JSON encoding of your payload, requests authentication proofs from the Host, and deduplicates incoming statements. Connect it once at the top of your Product:
 

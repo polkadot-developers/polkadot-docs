@@ -6,11 +6,14 @@ categories: Apps
 
 # Read On-Chain Data
 
+!!! info "Packages"
+    **Primary:** [`chain-client`](/apps/build/#the-product-sdk-packages) · **Utility:** [`descriptors`](/apps/build/#the-product-sdk-packages)
+
 ## Introduction
 
 This page is for developers building Polkadot Products that need to read on-chain state — account balances, storage items, runtime constants — from inside a Polkadot host container. It covers the `@parity/product-sdk-chain-client` package, which gives your Product a typed, host-aware client for any Polkadot SDK-based chain.
 
-The code examples throughout this guide use the **Paseo Bulletin chain** and **Paseo Asset Hub**, both confirmed working with Polkadot Desktop v0.3.17 and `@parity/product-sdk` v0.8.0. The same patterns apply to any other chain — swap in the descriptor and RPC endpoint for the chain you need, and the client shape stays identical.
+The code examples throughout this guide use the **Paseo Bulletin chain** and **Paseo Asset Hub**, both confirmed working with Polkadot Desktop and `@parity/product-sdk` v0.8.0. The same patterns apply to any other chain — swap in the descriptor and RPC endpoint for the chain you need, and the client shape stays identical.
 
 The SDK ships two connection paths. A zero-config **Preset** path (`getChainAPI`) returns a ready-to-use client for a known environment. A **Bring Your Own Descriptors (BYOD)** path (`createChainClient`) lets you import chain descriptors explicitly and compose any set of chains your Product needs. Both produce the same client shape, so the rest of your read code stays identical.
 
@@ -20,9 +23,9 @@ All connections are routed through the host. The SDK is designed to run exclusiv
 
 Before starting, ensure you have:
 
-- A Polkadot Product project with a TypeScript toolchain
+- A Polkadot Product project — from a [Quick Start](/apps/quick-start/) deploy or a [Local Development](/apps/local-development/) setup, with a TypeScript toolchain
 - Node.js with ESM support (`@parity/product-sdk-chain-client` is ESM only)
-- Polkadot Desktop v0.3.17 or later to run your Product inside a host container. See [Install and Pair](/apps/set-up/install-and-pair/)
+- Polkadot Desktop to run your Product inside a host container. See [Install Desktop and Pair](/apps/get-started/)
 
 !!! note
     You do NOT need funded accounts to read chain state. Reads are unsigned and require only a running host container.
@@ -216,7 +219,7 @@ Use `client.destroy()` for normal cleanup and reserve `destroyAll()` for full-pr
 
     Move from reading state to signing transactions with your paired account.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/accounts-and-signing/)
+    [:octicons-arrow-right-24: Get Started](/apps/build/sign-and-submit/)
 
 -   <span class="badge guide">Guide</span> **Store Data On-Chain**
 

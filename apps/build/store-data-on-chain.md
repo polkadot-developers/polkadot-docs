@@ -6,30 +6,33 @@ categories: Basics, Apps
 
 # Store Data on Chain
 
+!!! info "Packages"
+    **Primary:** [`cloud-storage`](/apps/build/#the-product-sdk-packages) · **Utilities:** [`tx`](/apps/build/#the-product-sdk-packages) · [`signer`](/apps/build/#the-product-sdk-packages)
+
 ## Prerequisites
 
-- Completed [Install and Pair](/apps/set-up/install-and-pair/){target=\_blank}, [Verify Your Identity](/apps/set-up/verify-your-identity/){target=\_blank}, and [Get TestNet Funds](/apps/set-up/get-testnet-funds/){target=\_blank} — your account has PAS funds **and** a Bulletin Chain authorization.
-- A Hello World Product scaffolded — see [Start a Local Dev Loop](/apps/build/start-a-local-dev-loop/){target=\_blank} if you don't have one yet.
+- Completed [Install Desktop and Pair](/apps/get-started/){target=\_blank} and [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/){target=\_blank} — your account has PAS funds **and** a Bulletin Chain authorization.
+- A Polkadot Product project — from a [Quick Start](/apps/quick-start/){target=\_blank} deploy or a [Local Development](/apps/local-development/){target=\_blank} setup.
 
 ## Introduction
 
-The Bulletin Chain is Polkadot's decentralized, content-addressed storage layer for Products. You write data, the chain returns a Content Identifier (CID — a Blake2b-256 hash of the bytes), and anyone with that CID can fetch the data back from the network. If you've used IPFS, this is the same mental model — content addressed by hash, retrieved peer-to-peer; the difference is that the storage records and authorizations live natively on Polkadot. Data is retained for about two weeks by default; renewing keeps it alive, and without renewal it falls off.
+The [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/){target=\_blank} is Polkadot's decentralized, content-addressed storage layer for Products. You write data, the chain returns a Content Identifier (CID — a Blake2b-256 hash of the bytes), and anyone with that CID can fetch the data back from the network. If you've used IPFS, this is the same mental model — content addressed by hash, retrieved peer-to-peer; the difference is that the storage records and authorizations live natively on Polkadot. Data is retained for about two weeks by default; renewing keeps it alive, and without renewal it falls off.
 
 Why a Polkadot Product would pick this over a centralized cloud bucket:
 
 - **No vendor account or infrastructure to provision.** Your Product writes through the chain client it already uses — there's no AWS account, no bucket policies, and no presigned URLs to issue.
 - **Content-addressed by design.** The CID is a hash of the bytes, so readers verify what they got matches what was stored without having to trust the host. Two users uploading the same file produce the same CID, which means deduplication is automatic.
 - **Permissionless reads.** Anyone with the CID can fetch. There's no URL signing, no read auth, and no CDN to configure. Privacy via encryption is your responsibility — encrypt before storing if the payload is sensitive.
-- **Composable with on-chain identity.** A CID can be referenced from the People Chain, attached to a Statement, pointed at by a `.dot` name, or read by any pallet. The data shares a trust boundary with your Product's accounts and authorizations.
+- **Composable with on-chain identity.** A CID can be referenced from the [People Chain](/reference/glossary/#people-chain){target=\_blank}, attached to a Statement, pointed at by a `.dot` name, or read by any pallet. The data shares a trust boundary with your Product's accounts and authorizations.
 
-There are no token balances on the Bulletin Chain itself; access is gated by an explicit storage authorization (covered in [Get TestNet Funds](/apps/set-up/get-testnet-funds/){target=\_blank}).
+There are no token balances on the Bulletin Chain itself; access is gated by an explicit storage authorization (covered in [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/){target=\_blank}).
 
 !!! info "Storage options for your Product"
     The Bulletin Chain is the right layer for content that needs to outlive a session and be fetched later by hash. For other shapes of data, reach for a different layer:
 
     - **Local KvStore** — per-Product, per-device key-value. User preferences, drafts, cached values. Not synced across devices. See [Persist Data Locally](/apps/build/persist-data-locally/){target=\_blank}.
     - **Bulletin Chain** (this page) — content-addressed, on-chain, retained ~2 weeks by default and renewable. Content readers fetch later by hash — profile photos, published articles, app bundles.
-    - **Statement Store** — gossip-distributed, short-lived (default 30s TTL), allowance-gated. Real-time signaling between users — chat messages, presence, typing indicators, multiplayer state. See [Exchange Ephemeral Messages](/apps/build/exchange-ephemeral-messages/){target=\_blank}.
+    - **Statement Store** — gossip-distributed, short-lived (default 30s TTL), allowance-gated. Real-time signaling between users — chat messages, presence, typing indicators, multiplayer state. See [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/){target=\_blank}.
 
 This page covers five flows, in order of complexity:
 
@@ -42,13 +45,13 @@ This page covers five flows, in order of complexity:
 By the end you will have stored data on the Bulletin Chain, retrieved it, renewed it, and understand how to dispatch the cross-chain and Preimage paths — the building blocks for any Product that publishes content on Polkadot.
 
 !!! note "Network"
-    The flows on this page target **Paseo Next**, the default environment in Polkadot Desktop development builds. If you switched environments during set-up, see [Choose a Network](/apps/set-up/choose-a-network/){target=\_blank} for the corresponding endpoints.
+    The flows on this page target **Paseo Next**, the default environment in Polkadot Desktop development builds. If you switched environments during setup, select the matching network from the environment selector in Polkadot Desktop.
 
 All flows in this guide use [`@parity/product-sdk`](https://www.npmjs.com/package/@parity/product-sdk){target=\_blank}, the canonical Polkadot Product SDK. Bulletin Chain operations come through `CloudStorageClient` from [`@parity/product-sdk-cloud-storage`](https://www.npmjs.com/package/@parity/product-sdk-cloud-storage){target=\_blank} (re-exported by the umbrella), which wraps the lower-level `@parity/bulletin-sdk` with built-in chunking, DAG-PB manifests, authorization helpers, and a bundled chain descriptor. The SDK is pre-1.0 — minor API changes are expected during the `0.x` line.
 
 ## Set Up Your Storage Client
 
-Every snippet in this guide is **Product code** — modules you place inside the Product running at `localhost:3000` (per [Start a Local Dev Loop](/apps/build/start-a-local-dev-loop/){target=\_blank}), loaded by Polkadot Desktop. Run nothing from a terminal; the snippets execute in the browser context Polkadot Desktop's localhost bypass loads them into. The signer for every Bulletin transaction comes from the Host (your paired account in Polkadot Desktop) — your Product never derives keys.
+Every snippet in this guide is **Product code** — modules you place inside the Product running at `localhost:3000` (per [Local Development](/apps/local-development/){target=\_blank}), loaded by Polkadot Desktop. Run nothing from a terminal; the snippets execute in the browser context Polkadot Desktop's localhost bypass loads them into. The signer for every Bulletin transaction comes from the Host (your paired account in Polkadot Desktop) — your Product never derives keys.
 
 1. Install the SDK in your Product's project:
 
@@ -56,7 +59,7 @@ Every snippet in this guide is **Product code** — modules you place inside the
     npm install @parity/product-sdk
     ```
 
-    The umbrella package brings in `@parity/product-sdk-cloud-storage` (where `CloudStorageClient` lives, used later for advanced operations), `@parity/product-sdk-host` (the Preimage manager used later), and `polkadot-api` itself.
+    The umbrella package brings in `@parity/product-sdk-cloud-storage` (where `CloudStorageClient` lives, used later for advanced operations), `@parity/product-sdk-host` (the Preimage manager used later), and `polkadot-api` itself. To keep your bundle smaller, you can install those individual packages directly instead — see [Umbrella or Individual Packages](/apps/build/#umbrella-or-individual-packages) for the tradeoff.
 
 2. Create the SDK app and connect the wallet:
 
@@ -118,7 +121,7 @@ The returned `StoreResult.cid` is the manifest CID; `StoreResult.chunks.chunkCid
 
 ## Get Authorization
 
-The Bulletin Chain has no token balance for storage — every account needs an explicit authorization that grants a quota of transactions and bytes before it can write. You should already have one from [Get TestNet Funds](/apps/set-up/get-testnet-funds/){target=\_blank}; if not, follow the [Get Authorization](/chain-interactions/store-data/bulletin-chain/#get-authorization){target=\_blank} steps in the canonical tutorial to request your storage quota through the Console UI faucet.
+The Bulletin Chain has no token balance for storage — every account needs an explicit authorization that grants a quota of transactions and bytes before it can write. You should already have one from [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/){target=\_blank}; if not, follow the [Get Authorization](/chain-interactions/store-data/bulletin-chain/#get-authorization){target=\_blank} steps in the canonical tutorial to request your storage quota through the Console UI faucet.
 
 !!! note
     The `authorize_account` extrinsic requires Root origin. You cannot self-authorize programmatically — on Polkadot TestNet, use the Console UI faucet before submitting any `store` extrinsic from your Product.
@@ -229,13 +232,13 @@ Once your Product reads and writes data correctly against TestNet, ship it:
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> **Exchange Ephemeral Messages**
+-   <span class="badge guide">Guide</span> **Publish and Subscribe to Off-Chain Data**
 
     ---
 
     For pub/sub semantics rather than durable content addressing, route through the Statement Store.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/exchange-ephemeral-messages/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/build/pub-sub-off-chain-data/){target=\_blank}
 
 -   <span class="badge guide">Guide</span> **Read Chain State**
 

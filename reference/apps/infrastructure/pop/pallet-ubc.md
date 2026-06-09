@@ -63,5 +63,5 @@ When any of these fail, the transaction does not silently fail — it follows th
 
     The setup step that produces the PoP status UBC requires.
 
-    [:octicons-arrow-right-24: Get Started](/apps/set-up/verify-your-identity/)
+    [:octicons-arrow-right-24: Get Started](/reference/apps/infrastructure/pop/)
 </div>

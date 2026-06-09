@@ -43,9 +43,9 @@ A Product whose users store data over time needs to think about authorization re
 ## Provisioning on TestNet
 
 !!! warning "Provisional"
-    The TestNet provisioning flow — the faucet endpoint, the request UX, governance- or sudo-routed grants where they apply — is being firmed up. The current flow lives in the [Get TestNet Funds](/apps/set-up/get-testnet-funds/) guide; that guide is the source of truth as the surface stabilizes.
+    The TestNet provisioning flow — the faucet endpoint, the request UX, governance- or sudo-routed grants where they apply — is being firmed up. The current flow lives in the [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/) guide; that guide is the source of truth as the surface stabilizes.
 
-On TestNet today, authorizations are provisioned through a faucet built into the Bulletin Chain Console. The [Get TestNet Funds](/apps/set-up/get-testnet-funds/) guide walks through requesting an authorization for a paired account.
+On TestNet today, authorizations are provisioned through a faucet built into the Bulletin Chain Console. The [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/) guide walks through requesting an authorization for a paired account.
 
 ## Where to Go Next
 
@@ -65,5 +65,5 @@ On TestNet today, authorizations are provisioned through a faucet built into the
 
     The setup step that provisions an authorization on TestNet alongside PAS tokens for transaction fees.
 
-    [:octicons-arrow-right-24: Get Started](/apps/set-up/get-testnet-funds/)
+    [:octicons-arrow-right-24: Get Started](/apps/get-started/get-testnet-tokens/)
 </div>

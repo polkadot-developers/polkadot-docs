@@ -1,6 +1,7 @@
 nav:
- - 'Sign and Submit': sign-and-submit.md
- - 'Read Chain State': read-chain-state.md
- - 'Store Data On-Chain': store-data-on-chain.md
+ - 'Overview': index.md
+ - 'Sign and Submit Transactions': sign-and-submit.md
+ - 'Read On-Chain Data': read-chain-state.md
+ - 'Store Data on Chain': store-data-on-chain.md
  - 'Publish and Subscribe to Off-Chain Data': pub-sub-off-chain-data.md
  - 'Persist Data Locally': persist-data-locally.md

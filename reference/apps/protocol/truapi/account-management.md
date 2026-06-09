@@ -43,6 +43,6 @@ Account resolution is local and instantaneous. The Host computes the derived add
 
     The Product-side how-to: getting an account, building a transaction, and submitting it.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/accounts-and-signing/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/build/sign-and-submit/){target=\_blank}
 
 </div>

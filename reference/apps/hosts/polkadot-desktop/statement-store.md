@@ -10,7 +10,7 @@ categories: Apps, Reference
 
 The Statement Store is a network-layer pub/sub primitive on Polkadot's People Chain for short-lived, gossiped, signed statements. Products do not talk to a Statement Store node directly; they go through Polkadot Desktop's Host API, which adds the things a Product on its own cannot do safely, including producing an authentication proof on the user's behalf, attaching the right account context, and applying the per-Product topic scope.
 
-This page documents what Desktop adds when it mediates Statement Store traffic for a Product. The Statement Store itself (the pallet, the gossip layer, the lifecycle and validation rules) is documented separately in the [Statement Store infrastructure reference](/reference/apps/infrastructure/statement-store/){target=\_blank}. The Product-side how-to is the [Exchange Ephemeral Messages](/apps/build/exchange-ephemeral-messages/){target=\_blank} guide.
+This page documents what Desktop adds when it mediates Statement Store traffic for a Product. The Statement Store itself (the pallet, the gossip layer, the lifecycle and validation rules) is documented separately in the [Statement Store infrastructure reference](/reference/apps/infrastructure/statement-store/){target=\_blank}. The Product-side how-to is the [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/){target=\_blank} guide.
 
 ## What Desktop Adds
 
@@ -46,7 +46,7 @@ Both layers are reached through Desktop's Host API and the same per-Product acco
 
     The Product-side how-to: setting up the Statement Store client, subscribing, publishing typed statements, and using channels for last-write-wins state.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/exchange-ephemeral-messages/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/build/pub-sub-off-chain-data/){target=\_blank}
 
 - <span class="badge guide">Guide</span> **Store Data on Chain**
 

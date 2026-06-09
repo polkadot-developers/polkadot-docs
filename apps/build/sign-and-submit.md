@@ -6,11 +6,14 @@ categories: Apps
 
 # Sign and Submit Transactions
 
+!!! info "Packages"
+    **Primary:** [`signer`](/apps/build/#the-product-sdk-packages) · **Utilities:** [`tx`](/apps/build/#the-product-sdk-packages) · [`address`](/apps/build/#the-product-sdk-packages)
+
 ## Introduction
 
 This page is for developers building Polkadot Products that need to derive accounts and sign payloads — raw bytes or full transactions — from inside a Polkadot host container. It covers the `@parity/product-sdk-signer` package, which gives your Product a typed, host-aware signing interface.
 
-The code examples throughout this guide are confirmed working with Polkadot Desktop v0.3.17 and `@parity/product-sdk` v0.9.0. The same patterns apply regardless of the specific chain you target — only the SS58 prefix and dotNS identifier change.
+The code examples throughout this guide are confirmed working with Polkadot Desktop and `@parity/product-sdk` v0.9.0. The same patterns apply regardless of the specific chain you target — only the SS58 prefix and dotNS identifier change.
 
 The SDK exposes a single orchestrator, `SignerManager`, that wraps both the production host path (Polkadot Desktop) and a deterministic dev path (Alice / Bob) behind the same `Result`-typed API. You call `connect()`, pick an account, and sign — the SDK handles the rest.
 
@@ -20,9 +23,9 @@ Each Product receives its own isolated account, derived deterministically from y
 
 Before starting, ensure you have:
 
-- A Polkadot Product project with a TypeScript toolchain
+- A Polkadot Product project with a TypeScript toolchain — from a [Quick Start](/apps/quick-start/) deploy or a [Local Development](/apps/local-development/) setup
 - Node.js 20 or later with ESM support (`@parity/product-sdk-signer` is ESM only)
-- Polkadot Desktop v0.3.17 or later to run your Product inside a host container. See [Install and Pair Polkadot Desktop](/apps/set-up/install-and-pair/)
+- Polkadot Desktop to run your Product inside a host container. See [Install Desktop and Pair](/apps/get-started/)
 
 !!! note
     To test signing without a host container, use `manager.connect("dev")`. This loads the standard Substrate dev accounts (Alice, Bob, and others) locally and does not require Polkadot Desktop. See [Test Without a Host](#test-without-a-host).

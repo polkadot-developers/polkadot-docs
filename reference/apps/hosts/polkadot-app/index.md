@@ -23,8 +23,8 @@ Two other groups of App features are also documented here:
 
 From a Product developer's perspective, three things matter about how the App runs:
 
-- **Session pairing**: Pairing establishes a session, not a copy of the key. When the user pairs the App with Polkadot Desktop, the App returns a derived _session public key_ (see [Install and Pair](/apps/set-up/install-and-pair/){target=\_blank}). Desktop stores that public key so it can identify the user and construct per-Product sub-accounts. The private key never leaves the phone.
-- **Asynchronous signing**: Signing is asynchronous because it happens on a separate device. When a Product calls `signAndSubmit`, Desktop renders a signing modal locally, but the actual signature happens on the user's phone after they approve in the App. Build UI that tolerates the round-trip; see the [Accounts and Signing](/apps/build/accounts-and-signing/){target=\_blank} guide for the patterns.
+- **Session pairing**: Pairing establishes a session, not a copy of the key. When the user pairs the App with Polkadot Desktop, the App returns a derived _session public key_ (see [Install Desktop and Pair](/apps/get-started/){target=\_blank}). Desktop stores that public key so it can identify the user and construct per-Product sub-accounts. The private key never leaves the phone.
+- **Asynchronous signing**: Signing is asynchronous because it happens on a separate device. When a Product calls `signAndSubmit`, Desktop renders a signing modal locally, but the actual signature happens on the user's phone after they approve in the App. Build UI that tolerates the round-trip; see the [Sign and Submit Transactions](/apps/build/sign-and-submit/){target=\_blank} guide for the patterns.
 - **PoP verification**: The App is the only place PoP runs. A Product can gate features on Proof of Personhood (alias-based or general personhood), but the verification flow itself happens in the App. The Product never sees the underlying biometric or the user's identity record, only the alias or alias-proof it requested through TrUAPI.
 
 ## Host API Consumption
@@ -68,6 +68,6 @@ At a high level, the App both consumes and produces parts of the Host API surfac
 
     The how-to guide for wiring a Product up to a paired account and submitting signed transactions through the SDK.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/accounts-and-signing/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/build/sign-and-submit/){target=\_blank}
 
 </div>

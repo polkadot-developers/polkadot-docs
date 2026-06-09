@@ -32,7 +32,7 @@ The People Chain recognizes two personhood tiers, both registered in the App:
 - **PoP Full**: Cryptographically proven personhood. The user completes the full verification flow in the App: a biometric scan plus ongoing peer-attestation via recurring online sessions. The user's key joins the active membership ring on the People Chain. PoP Full holders can generate zero-knowledge proofs that they are a real person without revealing which one.
 - **PoP Lite**: Third-party attestation. An attester authorized by governance submits an on-chain attestation that an account belongs to a real user. The account is then registered against a separate `lite-people` ring on the People Chain alongside a communication identifier and a username. Lite supply is bounded by governance, which is the spam-resistance mechanism. Lite holders can produce lite-ring Ring-VRF proofs but do not yet hold membership in the full personhood ring.
 
-Lite is the on-ramp; Full is the destination. The dotNS registrar uses tier to gate which name lengths a user can register for free. See [Verify Your Identity](/apps/set-up/verify-your-identity/){target=\_blank} for the full PopRules tier table.
+Lite is the on-ramp; Full is the destination. The dotNS registrar uses tier to gate which name lengths a user can register for free. See [dotNS PopRules Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/){target=\_blank} for the full PopRules tier table.
 
 ## What This Unlocks for a Product
 
@@ -61,6 +61,6 @@ Both patterns are documented in [Use Personhood in Your App](/apps/build/use-per
 
     The setup step where the developer completes PoP, plus the PopRules tier table.
 
-    [:octicons-arrow-right-24: Get Started](/apps/set-up/verify-your-identity/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/reference/apps/infrastructure/dotns/poprules-pricing/){target=\_blank}
 
 </div>

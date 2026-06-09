@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-This section is the technical-depth companion to the [App Development](/apps/){target=\_blank} how-to guides. Where `/apps/set-up/` and `/apps/build/` walk you through tasks, this section explains what each component is, how it works, and where its limits are at the level a developer needs when integrating against the surface.
+This section is the technical-depth companion to the [App Development](/apps/){target=\_blank} how-to guides. Where `/apps/get-started/` and `/apps/build/` walk you through tasks, this section explains what each component is, how it works, and where its limits are at the level a developer needs when integrating against the surface.
 
 A Polkadot Product is a sandboxed application that runs inside a Host (Polkadot App, Polkadot Desktop, or Polkadot Web), talks to that Host through the TrUAPI protocol, and relies on Polkadot infrastructure (Bulletin Chain, Statement Store, dotNS, Proof of Personhood, HOP) for the on-chain capabilities the Host does not provide itself. This reference is organized along those axes.
 
@@ -59,6 +59,6 @@ The [product-skills](/reference/apps/skills/){target=\_blank} repo reference doc
 
     If you are new here, start with the how-to guides: set up Polkadot Desktop, then build your first Product against the SDK surface this reference documents.
 
-    [:octicons-arrow-right-24: Get Started](/apps/set-up/install-and-pair/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/get-started/){target=\_blank}
 
 </div>

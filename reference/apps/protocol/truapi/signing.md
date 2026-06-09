@@ -45,6 +45,6 @@ For the full mediated-signing flow (the three-actor model, the `ChainSubmit` per
 
     The Product-side how-to with the `try`/`catch` patterns for `HostRejectedError` and `TimeoutError`.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/accounts-and-signing/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/build/sign-and-submit/){target=\_blank}
 
 </div>

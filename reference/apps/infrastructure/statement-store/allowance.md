@@ -37,7 +37,7 @@ Independent of the per-account allowance, each statement payload has a hard 512-
 ## Provisioning on TestNet
 
 !!! warning "Provisional"
-    The process for obtaining a Statement Store allowance on TestNet is still being defined. The [Get TestNet Funds](/apps/set-up/get-testnet-funds/) guide is the source of truth as the provisioning flow stabilizes.
+    The process for obtaining a Statement Store allowance on TestNet is still being defined. The [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/) guide is the source of truth as the provisioning flow stabilizes.
 
 On TestNet today, allowances are provisioned by calling the `increase_allowance_by` extrinsic — typically through a governance or sudo route, since the call is privileged.
 
@@ -59,5 +59,5 @@ On TestNet today, allowances are provisioned by calling the `increase_allowance_
 
     The setup step where TestNet allowances are provisioned.
 
-    [:octicons-arrow-right-24: Get Started](/apps/set-up/get-testnet-funds/)
+    [:octicons-arrow-right-24: Get Started](/apps/get-started/get-testnet-tokens/)
 </div>

@@ -6,6 +6,9 @@ categories: Apps
 
 # Persist Data Locally
 
+!!! info "Packages"
+    **Primary:** [`local-storage`](/apps/build/#the-product-sdk-packages)
+
 ## Introduction
 
 If your Product needs to remember something between sessions — a saved theme, an unsubmitted draft, a cached response — this is the page. The `@parity/product-sdk-local-storage` package gives you a `LocalKvStore`: a string-keyed store with convenience methods for both plain strings and JSON-serializable values, and the same interface wherever your Product runs.
@@ -15,7 +18,7 @@ Two things to know up front:
 - **It's local to the device.** Data written on one device isn't visible on another — there's no cross-device sync. If the data must follow the user everywhere, it belongs on-chain instead (see the callout below).
 - **It's isolated per Product.** The Host namespaces every key by your Product's `.dot` domain, so two Products on the same Host can't read or write each other's data — automatically, with nothing for you to manage.
 
-`createLocalKvStore()` auto-detects the backend at runtime. When your Product runs inside a Polkadot Host (Desktop, PWallet, or Web), reads and writes route through the Host. When your Product runs outside a Host — for example, during local development in a browser tab — the store falls back to the browser's `localStorage`. The same application code works in both environments with no changes.
+`createLocalKvStore()` auto-detects the backend at runtime. When your Product runs inside a Polkadot Host (Desktop, the Polkadot App, or Web), reads and writes route through the Host. When your Product runs outside a Host — for example, during local development in a browser tab — the store falls back to the browser's `localStorage`. The same application code works in both environments with no changes.
 
 Within a single Product, storage is shared across every modality the Product runs in — full-screen view, dashboard card, and chat widget all see the same values.
 
@@ -24,13 +27,13 @@ Within a single Product, storage is shared across every modality the Product run
 
     - **Local KvStore** (this page) — per-Product, per-device key-value. User preferences, drafts, cached values. Not synced across devices.
     - **Bulletin Chain** — content-addressed, on-chain, retained ~2 weeks by default and renewable. Content readers fetch later by hash — profile photos, published articles, app bundles. See [Store Data on Chain](/apps/build/store-data-on-chain/){target=_blank}.
-    - **Statement Store** — gossip-distributed, short-lived (default 30s TTL), allowance-gated. Real-time signaling between users — chat messages, presence, typing indicators. See [Exchange Ephemeral Messages](/apps/build/exchange-ephemeral-messages/){target=_blank}.
+    - **Statement Store** — gossip-distributed, short-lived (default 30s TTL), allowance-gated. Real-time signaling between users — chat messages, presence, typing indicators. See [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/){target=_blank}.
 
 ## Prerequisites
 
 Before starting, ensure you have:
 
-- Set up a Polkadot Product project using the [Start a Local Dev Loop](/apps/build/start-a-local-dev-loop/) guide
+- A Polkadot Product project — from a [Quick Start](/apps/quick-start/) deploy or a [Local Development](/apps/local-development/) setup
 - Install Node.js and npm
 
 ## Install the SDK

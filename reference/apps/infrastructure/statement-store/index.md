@@ -12,7 +12,7 @@ The Statement Store is a network-layer pub/sub primitive on Polkadot's People Ch
 
 The split is the point: pallet rules on chain, payloads in gossip. The chain commits the allowance and validation rules; the gossip layer carries the payloads. This is what makes the Statement Store the right tool for real-time signaling between users of a Product — chat messages, presence, multiplayer cursors, typing indicators, "now playing" status — anything that has to propagate fast and does not need to be permanent.
 
-For when to reach for this versus the Bulletin Chain or local storage, see the [Storage options for your Product](/apps/build/exchange-ephemeral-messages/) callout.
+For when to reach for this versus the Bulletin Chain or local storage, see the [Storage options for your Product](/apps/build/pub-sub-off-chain-data/) callout.
 
 ## How a Statement Reaches Subscribers
 
@@ -72,5 +72,5 @@ If the content needs to outlive the TTL, store it on the Bulletin Chain and publ
 
     The Product-side how-to: setting up the client, subscribing, publishing typed statements, using channels.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/exchange-ephemeral-messages/)
+    [:octicons-arrow-right-24: Get Started](/apps/build/pub-sub-off-chain-data/)
 </div>

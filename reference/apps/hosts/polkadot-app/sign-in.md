@@ -35,7 +35,7 @@ The handshake is one-time per session; subsequent Product calls inside the sessi
 Both Sign In and `signAndSubmit` route to the App and require user approval, but they serve different jobs:
 
 - **Sign In**: Establishes session identity. It runs once when the user lands in a Host, and reruns if the session expires. It tells the Host who the user is so the Host can construct per-Product sub-accounts and surface Product UI.
-- **`signAndSubmit`**: Signs a _specific transaction_ with a Product's account. Every transaction requires its own approval in the App; there is no "auto-sign for the rest of this session" mode. This is intentional. See the [Accounts and Signing](/apps/build/accounts-and-signing/){target=\_blank} reference for the rationale.
+- **`signAndSubmit`**: Signs a _specific transaction_ with a Product's account. Every transaction requires its own approval in the App; there is no "auto-sign for the rest of this session" mode. This is intentional. See the [Sign and Submit Transactions](/apps/build/sign-and-submit/){target=\_blank} reference for the rationale.
 
 A Product that wants to gate a feature on "is this the real user paired with this session?" can rely on the session being authenticated already and instead reach for alias-based or `under_alias` patterns. Re-running Sign In is not the right primitive for that.
 
@@ -49,7 +49,7 @@ A Product that wants to gate a feature on "is this the real user paired with thi
 
     How `signAndSubmit` works for per-transaction signing: the surface a Product actually calls, with the round-trip-to-phone pattern.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/accounts-and-signing/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/build/sign-and-submit/){target=\_blank}
 
 - <span class="badge guide">Guide</span> **Install and Pair**
 
@@ -57,6 +57,6 @@ A Product that wants to gate a feature on "is this the real user paired with thi
 
     The set-up step that establishes the initial paired session between Desktop and the App, before Sign In with Polkadot can resolve.
 
-    [:octicons-arrow-right-24: Get Started](/apps/set-up/install-and-pair/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/get-started/){target=\_blank}
 
 </div>

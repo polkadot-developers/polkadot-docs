@@ -10,7 +10,7 @@ To build and test, your account needs two things on TestNet: a balance of [PAS](
 
 ## Prerequisites
 
-- Complete [Install and Pair](/apps/get-started/) so Polkadot Desktop is paired with your signer.
+- Complete [Install Desktop and Pair](/apps/get-started/) so Polkadot Desktop is paired with your signer.
 
 ## Get Tokens
 
@@ -32,7 +32,7 @@ Some Polkadot infrastructure services use a separate allowance-based access mode
 
 ??? note "Service Allowances — Bulletin Chain Storage"
 
-    The Bulletin Chain has no token balance for storage — every account needs an explicit authorization that grants a quota of transactions and bytes before it can store data on-chain. Without authorization, storage extrinsics will be rejected.
+    The [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/){target=\_blank} has no token balance for storage — every account needs an explicit authorization that grants a quota of transactions and bytes before it can store data on-chain. Without authorization, storage extrinsics will be rejected.
 
     On TestNet, you provision this authorization through the faucet built into the Bulletin Chain Console. Follow the [Get Authorization](/chain-interactions/store-data/bulletin-chain/#get-authorization){target=\_blank} steps in the Bulletin Chain tutorial to request your storage quota.
 
@@ -40,14 +40,14 @@ Some Polkadot infrastructure services use a separate allowance-based access mode
 
 ??? note "Service Allowances — Statement Store"
 
-    The Statement Store lets accounts publish off-chain statements that are gossiped and persisted by the network. Access is controlled by an on-chain `StatementAllowance` record that specifies two limits per account: `max_count` (the maximum number of statements the account can publish) and `max_size` (the maximum total bytes across those statements).
+    The [Statement Store](/reference/apps/infrastructure/statement-store/){target=\_blank} lets accounts publish off-chain statements that are gossiped and persisted by the network. Access is controlled by an on-chain `StatementAllowance` record that specifies two limits per account: `max_count` (the maximum number of statements the account can publish) and `max_size` (the maximum total bytes across those statements).
 
     !!! warning "Provisional"
         The process for obtaining a Statement Store allowance on TestNet is not yet documented. Check back for updates, or ask in the developer community for available access paths.
 
 ??? note "Service Allowances — dotNS Names"
 
-    dotNS (`.dot` name registration) uses a hybrid model. Open names — those that anyone can register — require a deposit paid in PAS. Names reserved for accounts with Proof of Personhood Full or PoP Lite status are free to register for eligible accounts, with no deposit required.
+    [dotNS](/reference/apps/infrastructure/dotns/){target=\_blank} (`.dot` name registration) uses a hybrid model. Open names — those that anyone can register — require a deposit paid in PAS. Names reserved for accounts with Proof of Personhood Full or PoP Lite status are free to register for eligible accounts, with no deposit required.
 
     See the [dotNS PopRules pricing reference](/reference/apps/infrastructure/dotns/poprules-pricing/){target=\_blank} for full pricing and tier details.
 

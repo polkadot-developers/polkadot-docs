@@ -4,7 +4,50 @@ description: Build Polkadot Products — sandboxed apps that run inside the Polk
 categories: Apps
 ---
 
-# Apps
+# Build a Polkadot Product
+
+<div class="grid cards" markdown>
+
+-   :material-cellphone-arrow-down:{ .lg } __Get the Polkadot App__
+
+    ---
+
+    The Polkadot App is your wallet, identity, and signer — the center of everything you build. Install it first; every path below connects through it.
+
+    [:material-apple: App Store](#){ .md-button } [:material-google-play: Google Play](#){ .md-button }
+
+</div>
+
+!!! warning "Provisional"
+    Store links are pending the public release of the Polkadot App. Open the App and follow the on-screen instructions to create your account — that account is your developer identity for Polkadot Products.
+
+## Then Pick Your Path
+
+<div class="grid cards" markdown>
+
+-   :material-rocket-launch:{ .lg } __Deploy a Product in Under 15 Minutes__
+
+    ---
+
+    Go from nothing to a live `.dot` Product — in your browser with RevX, or from the terminal with the CLI. No local environment to set up.
+
+    [:octicons-arrow-right-24: Quick Start](/apps/quick-start/)
+
+-   :material-laptop:{ .lg } __Develop Locally (the Full Route)__
+
+    ---
+
+    Install Polkadot Desktop, pair it with your phone, and iterate with live reload — then build features and deploy and publish your Product.
+
+    [:octicons-arrow-right-24: Get Started](/apps/get-started/)
+
+</div>
+
+---
+
+## What Is a Polkadot Product?
+
+**Polkadot Products** are what _you_ build — third-party applications that run _inside_ one of the Polkadot Apps. Products are sandboxed single-page apps (HTML / JS / CSS), addressed by `.dot` names (e.g. `awesome.dot`), registered onchain through a decentralized name service, and they never see the user's private key. The bundle itself is published to a decentralized cloud storage provider and fetched by the Host on demand.
 
 **Polkadot Apps** are the three applications that can host Polkadot Products — collectively, known as the **Polkadot Triangle**:
 
@@ -16,16 +59,8 @@ categories: Apps
 | **[Polkadot App](/reference/apps/hosts/polkadot-app/){target=\_blank}** | The mobile wallet and signer. Holds the user's private key and approves every signing request. |
 | **[Polkadot Web](/reference/apps/hosts/polkadot-web/){target=\_blank}** | The browser host at `dot.li`. Resolves `.dot` names client-side via a light client and renders the Product in a sandboxed iframe. |
 
-**Polkadot Products** are what _you_ build — third-party applications that run _inside_ one of the Polkadot Apps. Products are sandboxed single-page apps (HTML / JS / CSS), addressed by `.dot` names, and never see the user's private key.
-
-This documentation section covers everything you need to build, deploy, and ship a Polkadot Product that runs on the Polkadot Apps.
-
 !!! info "In one sentence"
     You build Polkadot Products. They run inside one of the Polkadot Apps. This section teaches you how.
-
-## What Is a Polkadot Product?
-
-A Polkadot Product is a sandboxed single-page application that runs inside one of the Polkadot Apps. Products are addressed by `.dot` names (e.g. `awesome.dot`), registered onchain through a decentralized name service. The bundle itself is published to a decentralized cloud storage provider and fetched by the Host on demand.
 
 For the architectural breakdown — how the Product, SDK, Host, and Polkadot infrastructure relate — see the [App Development Reference](/reference/apps/){target=\_blank}.
 
@@ -35,7 +70,7 @@ Polkadot Apps is a complete environment for building Web3 decentralized applicat
 
 **Wallet built-in**: The Polkadot App on the user's phone is the wallet for every Polkadot Product they use. No wallet integration code, no "Connect Wallet" button to design, no signing plumbing to maintain. Your Product receives a derived per-user account and asks for signatures; approvals happen on the user's phone.
 
-**Identity built-in**: Per-Product accounts are derived from the user's `.dot` identity, so there is no signup flow. With Proof of Personhood, you can gate features on verified-human status without seeing who the user is — privacy-preserving humans-only access, built into the platform. Need to recognize the same user across two of your Products? Same alias system, scoped to your Product set.
+**Identity built-in**: Per-Product accounts are derived from the user's `.dot` identity, so there is no signup flow. With [Proof of Personhood](/reference/apps/infrastructure/pop/){target=\_blank}, you can gate features on verified-human status without seeing who the user is — privacy-preserving humans-only access, built into the platform. Need to recognize the same user across two of your Products? Same alias system, scoped to your Product set.
 
 **Decentralized hosting**: Your bundle lives on a decentralized cloud storage provider. Your `.dot` name lives in a decentralized name service. There is no centralized hosting provider, no DNS service, no platform in the middle. Users fetch your Product directly and verify it themselves.
 
@@ -52,28 +87,3 @@ Polkadot Apps is a complete environment for building Web3 decentralized applicat
 Permissions — things like microphone access, outbound network requests, and on-chain transaction submission — are declared in your Product's [manifest](/reference/apps/hosts/polkadot-desktop/permissions/){target=\_blank} and prompted at runtime. Users see exactly what your Product can access before they grant it. The Host enforces the boundary inside its [sandbox](/reference/apps/protocol/truapi/sandbox/){target=\_blank}, not your code.
 
 **Three Hosts, one Product**: The same `.dot` bundle runs in the mobile Polkadot App, on the workstation in Polkadot Desktop, and in any browser via Polkadot Web. You do not write three apps — the Triangle abstracts the platform.
-
-## Choose Your Path
-
-Two places to start, depending on what you want to do:
-
-<div class="grid cards" markdown>
-
--   :material-rocket-launch:{ .lg } __Quick Start__
-
-    ---
-
-    Build a Polkadot Product in 15 minutes without installing a local dev environment. Use a hosted IDE (RevX) or the `dot` CLI.
-
-    [:octicons-arrow-right-24: Try it](/apps/quick-start/)
-
--   :material-flag-checkered:{ .lg } __Get Started__
-
-    ---
-
-    Install the Polkadot App, install Polkadot Desktop, pair them, and fund your TestNet account. The universal foundation — every other path assumes you have done this.
-
-    [:octicons-arrow-right-24: Begin](/apps/get-started/)
-
-</div>
-

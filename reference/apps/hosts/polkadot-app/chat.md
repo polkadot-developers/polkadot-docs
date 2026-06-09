@@ -52,7 +52,7 @@ Messages a Product sends before it has registered as a bot in a room are queued 
 
 Chat is the model composition for Product developers building real-time-with-durable-content features. It pairs two infrastructure layers documented separately in this reference:
 
-- **Statement Store**: Carries signaling, such as presence, typing indicators, message-arrival notifications, and room-membership events. Statements are gossiped, allowance-gated, and short-lived. For mechanics, see [Exchange Ephemeral Messages](/apps/build/exchange-ephemeral-messages/){target=\_blank}.
+- **Statement Store**: Carries signaling, such as presence, typing indicators, message-arrival notifications, and room-membership events. Statements are gossiped, allowance-gated, and short-lived. For mechanics, see [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/){target=\_blank}.
 - **Bulletin Chain**: Stores the encrypted message content readers fetch by CID after they see the statement that points to it. See [Store Data on Chain](/apps/build/store-data-on-chain/){target=\_blank}.
 
 The composition is general. Many Products with chat-like or activity-feed semantics will use the same split: Statement Store for the live signal, Bulletin Chain for content that needs to survive longer than a session.
@@ -67,6 +67,6 @@ The composition is general. Many Products with chat-like or activity-feed semant
 
     The underlying Statement Store layer that Chat is built on — useful when you need pub/sub semantics without the full Chat surface.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/exchange-ephemeral-messages/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/build/pub-sub-off-chain-data/){target=\_blank}
 
 </div>

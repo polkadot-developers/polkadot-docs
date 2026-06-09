@@ -98,7 +98,7 @@ npx skills add product-skills
 
     The how-to guides themselves, the same conceptual content the skills above index into.
 
-    [:octicons-arrow-right-24: Get Started](/apps/set-up/install-and-pair/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/get-started/){target=\_blank}
 
 - <span class="badge external">External</span> **product-skills repo**
 

@@ -4,8 +4,4 @@ nav:
  - 'Read Chain State': read-chain-state.md
  - 'Store Data On-Chain': store-data-on-chain.md
  - 'Publish and Subscribe to Off-Chain Data': pub-sub-off-chain-data.md
- - 'Add Chat': add-chat.md
- - 'Use Personhood in Your App': use-personhood-in-your-app.md
- - 'Request Permissions': request-permissions.md
  - 'Persist Data Locally': persist-data-locally.md
- - 'Accept a Payment': accept-a-payment.md

@@ -9,3 +9,4 @@ scripts/__pycache__/*
 
 .github/instructions/kluster-code-verify.instructions.md
 .kluster
+.claude/scheduled_tasks.lock

@@ -1,5 +1,4 @@
 nav:
- - 'Start a Local Dev Loop': start-a-local-dev-loop.md
  - 'Sign and Submit': sign-and-submit.md
  - 'Read Chain State': read-chain-state.md
  - 'Store Data On-Chain': store-data-on-chain.md

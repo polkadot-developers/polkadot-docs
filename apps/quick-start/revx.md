@@ -19,7 +19,7 @@ By the end of this Quick Start you'll have configured an AI provider in App Buil
 You need an API key for an AI provider supported by App Builder (for example, OpenAI or Anthropic).
 
 !!! warning "Provisional"
-    Publish-time prerequisites for the final `Publish to .dot` step are still being confirmed — specifically which signer is used and whether the reader needs a verified identity or TestNet funds for the `.dot` registration. Until settled, the publish step may require completing parts of the [Set Up](/apps/set-up/){target=\_blank} track (install PWallet, pair, verify identity, fund the account).
+    Publish-time prerequisites for the final `Publish to .dot` step are still being confirmed — specifically which signer is used and whether the reader needs a verified identity or TestNet funds for the `.dot` registration. Until settled, the publish step may require completing parts of the [Get Started](/apps/get-started/){target=\_blank} track (install PWallet, pair, verify identity, fund the account).
 
 ## Open RevX
 
@@ -123,13 +123,13 @@ After signing the transaction, you will see the deployment progress in the termi
 
     [:octicons-arrow-right-24: Open Build Guides](/apps/build/)
 
--   <span class="badge guide">Set Up</span> **Build Locally with Polkadot Desktop**
+-   <span class="badge guide">Local Dev</span> **Continue Locally with Polkadot Desktop**
 
     ---
 
-    Ready to write Polkadot Products from scratch (no AI scaffold)? Set up Polkadot Desktop, pair your wallet, and verify your identity — the canonical local development environment.
+    Ready to write Polkadot Products from scratch (or take your RevX-built Product further)? Set up the local dev loop: Polkadot Desktop loads from `localhost`, you iterate with live reload.
 
-    [:octicons-arrow-right-24: Start Set Up](/apps/set-up/install-and-pair/)
+    [:octicons-arrow-right-24: Local Development](/apps/local-development/)
 
 </div>
 

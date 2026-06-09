@@ -1,14 +1,16 @@
 ---
-title: Start a Local Dev Loop
-description: Run a Polkadot Product locally inside Polkadot Desktop using the localhost whitelist for fast iteration with live reload, no chain or IPFS required.
+title: Local Development
+description: Set up a local development environment for Polkadot Products — run your Product inside Polkadot Desktop using the localhost whitelist for fast iteration with live reload.
 categories: Basics, Apps
 ---
 
-# Start a Local Dev Loop
+# Local Development
 
 ## Introduction
 
-With Polkadot Desktop installed, you are ready to start building — and the first thing you need is a fast inner loop: a way to see changes immediately without publishing to IPFS or registering a `.dot` name for every iteration. You do _not_ need a verified identity or TestNet funds for this loop; those matter only later, when your Product calls features that require them. This page walks you through the loop.
+This is the canonical development path for building Polkadot Products: your Product runs locally on a dev server, Polkadot Desktop loads it from `localhost`, and you iterate with live reload — the same fast inner loop you would use for any web project, with the Polkadot sandbox fully active.
+
+If you came here from [Quick Start](/apps/quick-start/) (RevX or playground-cli), this is where you take a Product you built there and continue developing it locally with your own editor and toolchain. If you are starting fresh after [Get Started](/apps/), this is the natural next step before exploring the [Build](/apps/build/) recipes.
 
 Polkadot Desktop is a specialized browser that loads Polkadot Products. In production, it resolves a `.dot` domain name through a chain lookup and fetches the bundle from IPFS. During development, that flow adds latency and a publishing step you do not want.
 
@@ -20,7 +22,7 @@ The `localhost` whitelist is a navigation-time bypass only. Your Product still r
 
 Before starting, ensure you have:
 
-- [Polkadot Desktop](/apps/set-up/install-and-pair/) installed
+- [Polkadot Desktop](/apps/get-started/) installed
 - A local development server for your Product (this page uses [Next.js](https://nextjs.org/) as the example, but any framework that serves on `localhost` works)
 - [Node.js](https://nodejs.org/) v18 or higher installed
 
@@ -36,7 +38,7 @@ Before starting, ensure you have:
 
 ## Create Your First Product
 
-You need a local project to serve from `localhost`. Any framework that serves over HTTP works. The steps below scaffold a minimal Next.js project as the example.
+You need a local project to serve from `localhost`. Any framework that serves over HTTP works. The following steps scaffold a minimal Next.js project as the example.
 
 Run the following command and follow the prompts to create a new project:
 
@@ -55,7 +57,7 @@ With the SDK installed, continue to the next section to start the dev server and
 
 ## Start Your Local Dev Server
 
-First, run your Product the same way you would for any web app. The example below uses a Next.js project, but the steps are identical for Vite, Create React App, or any other framework that serves over HTTP on `localhost`.
+First, run your Product the same way you would for any web app. The following example uses a Next.js project, but the steps are identical for Vite, Create React App, or any other framework that serves over HTTP on `localhost`.
 
 1. From your project root, install dependencies:
 

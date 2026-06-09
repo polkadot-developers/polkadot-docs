@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Polkadot Apps architecture: your Polkadot Product uses the Product SDK to talk to a Polkadot App (App, Desktop, or Web), which accesses Polkadot infrastructure">
+  <defs>
+    <style>
+      .layer-name  { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", sans-serif; font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
+      .layer-sub   { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", sans-serif; font-size: 11px; font-weight: 500; }
+      .annotation  { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", sans-serif; font-size: 11px; font-weight: 500; font-style: italic; }
+    </style>
+  </defs>
+
+  <!-- Layer 1: Your Polkadot Product (solid pink) -->
+  <g>
+    <rect x="160" y="10" width="240" height="60" rx="12" fill="#E6007A" />
+    <text x="280" y="36" text-anchor="middle" class="layer-name" fill="#FFFFFF">Your Polkadot Product</text>
+    <text x="280" y="56" text-anchor="middle" class="layer-sub" fill="#FFFFFF" opacity="0.85">what you write</text>
+  </g>
+
+  <text x="280" y="90" text-anchor="middle" class="annotation" fill="#E6007A" opacity="0.7">uses ↓</text>
+
+  <!-- Layer 2: Product SDK -->
+  <g>
+    <rect x="30" y="100" width="500" height="86" rx="12" fill="#E6007A" fill-opacity="0.08" stroke="#E6007A" stroke-width="1.5" />
+    <text x="280" y="126" text-anchor="middle" class="layer-name" fill="#E6007A">Product SDK</text>
+    <text x="280" y="147" text-anchor="middle" class="layer-sub" fill="#E6007A" opacity="0.78">chain access · decentralized storage · signed pub/sub</text>
+    <text x="280" y="166" text-anchor="middle" class="layer-sub" fill="#E6007A" opacity="0.78">payments · chat · identity · local storage</text>
+  </g>
+
+  <text x="280" y="206" text-anchor="middle" class="annotation" fill="#E6007A" opacity="0.7">talks to a Host ↓</text>
+
+  <!-- Layer 3: Polkadot Apps (the Hosts) -->
+  <g>
+    <rect x="30" y="216" width="500" height="72" rx="12" fill="#E6007A" fill-opacity="0.08" stroke="#E6007A" stroke-width="1.5" />
+    <text x="280" y="243" text-anchor="middle" class="layer-name" fill="#E6007A">Polkadot Apps  ·  App  ·  Desktop  ·  Web</text>
+    <text x="280" y="265" text-anchor="middle" class="layer-sub" fill="#E6007A" opacity="0.78">wallet · sandbox · permissions · request routing</text>
+  </g>
+
+  <text x="280" y="305" text-anchor="middle" class="annotation" fill="#E6007A" opacity="0.7">which access ↓</text>
+
+  <!-- Layer 4: Polkadot Infrastructure -->
+  <g>
+    <rect x="30" y="315" width="500" height="68" rx="12" fill="#E6007A" fill-opacity="0.08" stroke="#E6007A" stroke-width="1.5" />
+    <text x="280" y="341" text-anchor="middle" class="layer-name" fill="#E6007A">Polkadot Infrastructure</text>
+    <text x="280" y="363" text-anchor="middle" class="layer-sub" fill="#E6007A" opacity="0.78">chains · decentralized cloud storage · name service</text>
+  </g>
+</svg>

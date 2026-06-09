@@ -123,13 +123,13 @@ pg deploy --signer dev --domain my-app
 
     [:octicons-arrow-right-24: Open the RevX Quick Start](/apps/quick-start/revx/)
 
--   <span class="badge guide">Set Up</span> **Pair Polkadot Desktop**
+-   <span class="badge guide">Local Dev</span> **Continue Locally with Polkadot Desktop**
 
     ---
 
-    If you ran the dev-only flow above, complete the canonical Set Up track to pair your wallet and run your Products in Polkadot Desktop.
+    Move from the CLI demo to the canonical local dev loop — Polkadot Desktop loading your Product from `localhost` with live reload.
 
-    [:octicons-arrow-right-24: Start Set Up](/apps/set-up/install-and-pair/)
+    [:octicons-arrow-right-24: Local Development](/apps/local-development/)
 
 -   <span class="badge guide">Guide</span> **Build Guides**
 

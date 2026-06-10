@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-On-chain `polkadot.com` is the on-chain-published presence behind the `polkadot.com` discovery surface. Practically, it is a Polkadot Product whose job is to point at other Polkadot Products as a directory and discovery layer for the ecosystem, served the same way any other Polkadot Product is served as a published bundle, resolved through DotNS, and loaded by Polkadot Web (or Polkadot Desktop) into the Host sandbox.
+On-chain `polkadot.com` is `polkadot.com` itself, served as a Polkadot Product. It is the discovery layer for the ecosystem — a directory that points at other Polkadot Products — but it is not hosted on a centralized server. It is published as a bundle, resolved through [DotNS](/reference/apps/infrastructure/dotns/), and loaded by Polkadot Web (or Polkadot Desktop) into the Host sandbox, the same way any other Product is.
 
 This page explains what makes the on-chain `polkadot.com` Product different from any other Product, and where it fits in the larger publishing flow. Mechanically, it is not different, and that is the point.
 

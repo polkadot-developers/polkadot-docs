@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-The TrUAPI Calls method group covers the lifecycle of the Host-Product relationship, including the calls a Product uses to identify itself to its Host on load, and the calls the Host uses to introduce the rest of the TrUAPI surface that the Product is allowed to consume. Every other method group sits on top of this one. A Product cannot invoke a capability until it has completed the lifecycle handshake.
+The TrUAPI Calls method group is the lifecycle handshake between a Product and its Host. When a Product loads, it identifies itself to the Host; the Host responds with the TrUAPI surface the Product is allowed to use. Every other method group sits on top of this one — a Product cannot invoke any capability until the handshake completes.
 
 For Product developers, this is mostly implicit. The [`@parity/product-sdk`](https://www.npmjs.com/package/@parity/product-sdk){target=\_blank} core handles the handshake in `createApp()` and exposes the resulting `App` object that the rest of the SDK relies on. For Host developers, this is the entry point that every Host implementation has to honor.
 

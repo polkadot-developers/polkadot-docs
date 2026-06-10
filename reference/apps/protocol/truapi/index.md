@@ -8,9 +8,9 @@ categories: Apps, Reference
 
 ## Introduction
 
-TrUAPI is the protocol between Polkadot Hosts and the Products that run inside them. It is the only interface a Product has to the rest of the world. Every chain interaction, storage write, outbound request, signing operation, and Proof of Personhood proof crosses the TrUAPI boundary, and the Host on the other side of that boundary enforces the sandbox.
+TrUAPI is the protocol every Polkadot Product uses to talk to the Host running it. It is the _only_ interface a Product has to the rest of the world — every chain interaction, storage write, outbound request, signing operation, and Proof of Personhood proof crosses this boundary, and the Host on the other side enforces the sandbox.
 
-If the Triangle architecture is "three Hosts running Products," TrUAPI is the contract by which a Product talks to the Host that is running it.
+Put differently: if the Polkadot Triangle is "three Hosts that run Products," TrUAPI is the contract by which a Product talks to whichever Host is loading it. Most Product developers will never call TrUAPI directly — the [Product SDK](/reference/glossary/#polkadot-sdk) (the `@parity/product-sdk` family of packages) wraps it in typed methods. But the methods you call go through TrUAPI, and the Host validates and routes everything.
 
 !!! note "TrUAPI and its packages"
     **TrUAPI** is the name of the protocol — the specification, maintained at [`paritytech/truapi`](https://github.com/paritytech/truapi){target=\_blank}. It ships as two layers of packages: [`@parity/truapi`](https://www.npmjs.com/package/@parity/truapi){target=\_blank} is the low-level generated protocol client (the wire), and the [`@parity/product-sdk`](https://www.npmjs.com/package/@parity/product-sdk){target=\_blank} family is the higher-level SDK most Products use. This reference uses "TrUAPI" for the protocol surface and names the `@parity/product-sdk-*` package in the [Packages](/reference/apps/protocol/truapi/packages/){target=\_blank} table that wraps each group.

@@ -8,9 +8,15 @@ categories: Apps, Reference
 
 ## Introduction
 
-Polkadot Web is the browser-based Host in the Triangle architecture, served at `dot.li`. It is the third sibling alongside the [Polkadot App](/reference/apps/hosts/polkadot-app/){target=\_blank} and [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/){target=\_blank}, and its job is the same as theirs, loading Polkadot Products inside a Host-governed sandbox and mediating everything they touch through the Host API, including signing, chain access, storage, and outbound requests.
+Polkadot Web is the browser-based Host that loads Polkadot Products from any browser tab — no install required. Served at `dot.li`, it is the third sibling alongside the [Polkadot App](/reference/apps/hosts/polkadot-app/) and [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/). Its job is the same as theirs: load a Polkadot Product inside a sandbox, mediate everything it touches (signing, chain access, storage, outbound requests) through the Host API.
 
-What makes Polkadot Web different from Polkadot Desktop is not the model but the _delivery_. Web runs in a regular browser instead of an installed application, which changes the trust surface (the browser is the runtime), the visiting flow (Products are loaded by navigating in a browser tab, not from an installer's address bar), and the upgrade path (Products and the Host itself update on page load, not via an OS installer). The Product surface a developer targets, including the `.dot` name, the TrUAPI surface, and the per-Product sub-account, is the same.
+What makes Web different from Desktop is not the _model_ — it is the _delivery_. Web runs in a regular browser instead of an installed application, which changes:
+
+- **The trust surface**: The browser is the runtime.
+- **The visiting flow**: A Product is loaded by navigating to it in a browser tab, not from an installed address bar.
+- **The upgrade path**: Products and the Host itself update on page load, not via an OS installer.
+
+The Product surface a developer targets — `.dot` name addressing, the TrUAPI surface, the per-Product sub-account model — is the same in either Host.
 
 !!! warning "Provisional"
     Polkadot Web is being actively built and several of its developer-facing surfaces are not yet finalized. Pages in this subsection document the conceptual model and the parts that are stable; surface-level specifics carry per-page provisional callouts and will be filled in once confirmed.

@@ -8,9 +8,9 @@ categories: Apps, Reference
 
 ## Introduction
 
-HOP is Polkadot's cross-chain hop protocol — a mechanism for moving assets and messages between chains in the Polkadot ecosystem in a more flexible shape than a plain XCM transfer. The motivating use case is "hop a transfer through one or more intermediate chains to reach its destination," with the protocol handling the per-hop routing, the proofs, and the cleanup of intermediate state.
+HOP is Polkadot's cross-chain hop protocol — a mechanism for moving assets and messages between chains in the Polkadot ecosystem with more flexibility than a plain XCM transfer. The use case is *"hop a transfer through one or more intermediate chains to reach its destination,"* with HOP handling the per-hop routing, proofs, and cleanup of intermediate state.
 
-For most Product developers, HOP is not something they will reach for in day-one flows. The standard payment patterns — `Balances.transfer_keep_alive` for merchant flows, Coinage for personhood-aware payments — cover the common cases without needing HOP. HOP becomes relevant when a Product crosses chain boundaries in a way that standard XCM doesn't cleanly handle.
+For most Product developers, HOP is not something you will reach for in day-one flows. The standard payment patterns — `Balances.transfer_keep_alive` for merchant flows, [Coinage](/reference/apps/infrastructure/pop/pallet-coinage/) for personhood-aware payments — cover the common cases without needing HOP. HOP becomes relevant when a Product crosses chain boundaries in a way standard XCM does not cleanly handle.
 
 !!! warning "Current state caveats"
     HOP is being actively built and three caveats apply to integrations against the current code:

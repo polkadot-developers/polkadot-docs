@@ -8,7 +8,9 @@ categories: Apps, Reference
 
 ## Introduction
 
-The Bulletin Chain is Polkadot's decentralized, content-addressed storage layer for Products. A Product writes data, the chain returns a _Content Identifier (CID)_ — a Blake2b-256 hash of the bytes — and anyone with that CID can fetch the data back peer-to-peer from the network. If you have used IPFS, the mental model is the same — content addressed by hash, retrieved without a central host; the difference is that storage records and authorizations live natively on Polkadot.
+The Bulletin Chain is Polkadot's decentralized cloud storage layer for Products. Your Product's files and content live there, addressed by their hash so anyone can verify what they fetched. A Product writes data; the chain returns a [Content Identifier (CID)](/reference/glossary/#content-identifier-cid), which is a Blake2b-256 hash of the bytes, and anyone with that CID can fetch the data back peer-to-peer from the network.
+
+If you have used IPFS, the mental model is the same: content addressed by hash, retrieved without a central host. The difference is that storage records and authorizations live natively on Polkadot.
 
 Four properties define how a Product interacts with Bulletin:
 

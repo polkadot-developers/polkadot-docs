@@ -8,16 +8,22 @@ categories: Apps, Reference
 
 ## Introduction
 
-This section is the technical-depth companion to the [App Development](/apps/){target=\_blank} how-to guides. Where `/apps/get-started/` and `/apps/build/` walk you through tasks, this section explains what each component is, how it works, and where its limits are at the level a developer needs when integrating against the surface.
+This is the technical-depth companion to the [App Development](/apps/){target=\_blank} how-to guides. Where the guides walk you through tasks step by step, this section explains _what each component is, how it works, and where its limits are_ — the level of detail you need when integrating against the surface.
 
-A Polkadot Product is a sandboxed application that runs inside a Host (Polkadot App, Polkadot Desktop, or Polkadot Web), talks to that Host through the TrUAPI protocol, and relies on Polkadot infrastructure (Bulletin Chain, Statement Store, dotNS, Proof of Personhood, HOP) for the on-chain capabilities the Host does not provide itself. This reference is organized along those axes.
+A _Polkadot Product_ is a sandboxed application you build that runs inside one of the Polkadot Apps. The Host it runs in mediates everything sensitive — signing, chain access, storage, outbound requests — through a protocol called _TrUAPI_, and the Product talks to Polkadot's on-chain infrastructure through the SDK and the Host. This reference is organized along those axes: Hosts, the TrUAPI protocol between Host and Product, and the infrastructure components Products consume.
 
 !!! info "Depth target"
-    Each page in this section follows the same shape, with a short conceptual frame at the top, then the developer-facing surface (Host API method tables for Hosts, pallet surface tables for infrastructure) at the bottom. The [TrUAPI](/reference/apps/protocol/truapi/){target=\_blank} subsection, with one page per method group, is the depth model for protocol reference pages.
+    Each page in this section follows the same shape: a short conceptual frame up top, then the developer-facing surface (Host API method tables for Hosts, pallet surface tables for infrastructure) at the bottom. The [TrUAPI](/reference/apps/protocol/truapi/){target=\_blank} subsection, with one page per method group, is the depth model for protocol reference pages.
+
+## Architecture
+
+Your Product sits at the top of a layered stack. You write the Product itself; everything below — the [Product SDK](/reference/glossary/#polkadot-sdk) that exposes typed methods, the Polkadot Apps that load and sandbox your Product, and the underlying chains, decentralized storage, and name service — is provided by the platform. The [Host](/reference/glossary/#host) (whichever Polkadot App is loading your Product) mediates every interaction through [TrUAPI](/reference/apps/protocol/truapi/) and prompts the user for anything sensitive.
+
+![Polkadot Apps architecture: your Polkadot Product uses the Product SDK to talk to a Polkadot App (App, Desktop, or Web), which accesses Polkadot infrastructure](/images/apps/polkadot-environment.svg){ style="max-width: 560px; display: block; margin: 1.5rem auto;" }
 
 ## Hosts
 
-[Hosts](/reference/apps/hosts/){target=\_blank} are the runtime containers that load and run Polkadot Products:
+Hosts are the runtime containers that load and run Polkadot Products:
 
 - [Polkadot App](/reference/apps/hosts/polkadot-app/){target=\_blank}: The mobile Host. Holds the user's signing key, runs Proof of Personhood, and is the canonical signer for every transaction a Product submits anywhere in the Triangle.
 - [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/){target=\_blank}: The desktop Host. Loads Products by `.dot` name, mediates signing requests to the paired mobile App, and exposes the Host API surface to the Product running inside it.

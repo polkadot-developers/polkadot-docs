@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-Chat is the Polkadot App's in-App messaging surface. It is also the canonical example of a composition that runs across two of Polkadot's infrastructure layers. The Statement Store carries the real-time signaling (who is online, who said what, when), and the Bulletin Chain stores the encrypted message content that has to outlive the gossip TTL.
+Chat is the Polkadot App's in-App messaging surface — and the canonical example of a feature that composes two Polkadot infrastructure layers. The [Statement Store](/reference/apps/infrastructure/statement-store/) carries the real-time signaling (who is online, who said what, when); the [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/) stores the encrypted message content that has to outlive the gossip TTL.
 
 A Product can participate in Chat in two ways:
 

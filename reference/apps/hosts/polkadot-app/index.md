@@ -8,16 +8,18 @@ categories: Apps, Reference
 
 ## Introduction
 
-The Polkadot App is the mobile Host in the [Triangle](/reference/glossary/){target=\_blank} architecture, alongside Polkadot Desktop and Polkadot Web. It runs on the user's phone and plays three roles no other Host plays:
+The Polkadot App is the mobile wallet that holds every Polkadot Product user's private key. It runs on the user's phone and is the only place in the [Polkadot Triangle](/reference/glossary/#triangle) where the key lives — [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/) and [Polkadot Web](/reference/apps/hosts/polkadot-web/) never touch it.
 
-- **Key custodian**: The user's private key lives on the device, in the App's on-device storage. No other Host and no Product ever sees the key.
-- **Universal signer**: Every signing request that originates from a Product, whether the Product runs inside Desktop or Web, is routed back to the App for the user to approve on their phone.
-- **Proof of Personhood verifier**: [Proof of Personhood](pop/) is the privacy-preserving "real human" check that unlocks alias-gated features across Polkadot Products. It is performed inside the App.
+From a Product developer's perspective, the App plays three roles no other Host plays:
 
-Two other groups of App features are also documented here:
+- **It holds the user's private key**: The key lives on the device, in the App's on-device storage. No other Host and no Product ever sees the key.
+- **It signs every transaction**: Every signing request that originates from a Product — whether the Product runs inside Desktop or Web — is routed back to the App for the user to approve on their phone.
+- **It runs Proof of Personhood**: [Proof of Personhood](pop/) is the privacy-preserving "real human" check that unlocks alias-gated features. The verification happens inside the App; the Product never sees who the user is.
 
-- **Host-level features**: [Chat](chat/) is the messaging surface that pairs the Statement Store and Bulletin Chain, and [Sign In with Polkadot](sign-in/) is the cross-Host authentication handshake initiated by Desktop or Web.
-- **Payment-side features**: [Coinage](coinage/) is the peer-to-peer payment flow, and [Pocket](pocket/) is the App-side recipient counterpart to Desktop's Pocket send flow.
+The App also exposes two groups of features that Products integrate against:
+
+- **Host-level features**: [Chat](chat/) is the messaging surface that pairs the [Statement Store](/reference/apps/infrastructure/statement-store/) and [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/). [Sign In with Polkadot](sign-in/) is the cross-Host authentication handshake initiated by Desktop or Web.
+- **Payment-side features**: [Coinage](coinage/) is the peer-to-peer payment flow. [Pocket](pocket/) is the App-side recipient counterpart to Desktop's Pocket send flow.
 
 ## How It Works
 
@@ -27,12 +29,12 @@ From a Product developer's perspective, three things matter about how the App ru
 - **Asynchronous signing**: Signing is asynchronous because it happens on a separate device. When a Product calls `signAndSubmit`, Desktop renders a signing modal locally, but the actual signature happens on the user's phone after they approve in the App. Build UI that tolerates the round-trip; see the [Sign and Submit Transactions](/apps/build/sign-and-submit/){target=\_blank} guide for the patterns.
 - **PoP verification**: The App is the only place PoP runs. A Product can gate features on Proof of Personhood (alias-based or general personhood), but the verification flow itself happens in the App. The Product never sees the underlying biometric or the user's identity record, only the alias or alias-proof it requested through TrUAPI.
 
-## Host API Consumption
+## Where the App Fits in the SDK Surface
 
-At a high level, the App both consumes and produces parts of the Host API surface:
+The App is both a consumer and a producer of [TrUAPI](/reference/apps/protocol/truapi/) methods:
 
-- The App consumes Host API methods for chain interaction and storage when its own internal features (Chat, Coinage, PoP) need to talk to People Chain, Statement Store, or Bulletin Chain.
-- The App produces the signing primitive that every other Host's `signAndSubmit` ultimately resolves against. Methods like `createProof` and `getAnonymousAlias`, which Products invoke through `@parity/product-sdk`, complete in the App on the user's phone.
+- The App **consumes** Host API methods for chain interaction and storage when its own features (Chat, Coinage, PoP) need to talk to the People Chain, Statement Store, or Bulletin Chain.
+- The App **produces** the signing primitive every other Host's `signAndSubmit` ultimately resolves against. Methods Products call through the SDK — like `createProof` and `getAnonymousAlias` — complete in the App on the user's phone.
 
 ## Where to Go Next
 

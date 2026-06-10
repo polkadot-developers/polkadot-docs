@@ -8,13 +8,13 @@ categories: Apps, Reference
 
 ## Introduction
 
-Three properties explain why TrUAPI is shaped the way it is and why a Product cannot hold the user's root key, talk to the chain directly, and skip the Host:
+A Polkadot Product runs inside a sandbox enforced by the Host. The sandbox is what makes the platform meaningfully different from "run third-party code in a browser tab" — three deliberate constraints, none of which a Product can bypass:
 
-- A Product gets a derived sub-account, not the user's root identity.
-- The Host API is the only egress, meaning the only way a Product can reach the world outside its sandbox.
-- Permissions selectively relax isolation for the capabilities the user has explicitly granted.
+- A Product gets a derived **sub-account**, not the user's root identity.
+- The Host API is the **only egress** — the only way a Product can reach the world outside its sandbox.
+- **Permissions** selectively relax isolation for the capabilities the user has explicitly granted.
 
-Each property is a deliberate constraint, and each is what makes the Polkadot Products model meaningfully different from a generic "run third-party code in a browser tab." This page is the deep dive.
+This page is the deep dive on what each constraint means and how it is enforced.
 
 ## Why Derived Sub-Accounts, Not Root Identity
 

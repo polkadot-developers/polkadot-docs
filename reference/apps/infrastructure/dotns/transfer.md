@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-A `.dot` name is owned by an account on Asset Hub, and ownership is transferable. A transfer changes who controls the name's record — who can update its `contenthash`, sell it on, or set its administrative fields — without changing the name itself or the data it currently points at.
+A `.dot` name is owned by an account on Asset Hub, and that ownership is transferable. A transfer changes _who controls the name's record_ — who can update where it points (its `contenthash`), sell it on, or set administrative fields — without changing the name itself or what it currently resolves to.
 
 This page documents the conceptual transfer flow and the rules dotNS enforces on it.
 

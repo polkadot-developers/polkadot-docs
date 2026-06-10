@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-Sign In with Polkadot is the Host-level authentication handshake between a desktop or web Host (Polkadot Desktop, or Polkadot Web at `dot.li`) and the Polkadot App on the user's phone. Its job is to establish, on demand, that the user driving Desktop or Web is the same person who holds the key in the paired App, without copying the key off the phone.
+Sign In with Polkadot is the handshake that lets a user authenticate to [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/) or [Polkadot Web](/reference/apps/hosts/polkadot-web/) using just their paired Polkadot App on their phone — no password, no extension, no copied keys. Desktop or Web initiates the handshake, the user approves on their phone, and the session is established.
 
 This feature lives in the App's reference because the App is the side that _resolves_ the handshake, while Desktop or Web initiates it and the App signs.
 

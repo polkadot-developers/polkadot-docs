@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-The privacy property Polkadot's Proof of Personhood delivers — _"two Products cannot correlate that they share a user without an explicit cross-domain grant"_ — rests on two pieces of machinery: Ring-VRF, the cryptographic primitive that produces context-specific pseudonyms; and the `under_alias` runtime origin, the mechanism that lets pallets gate logic on those pseudonyms instead of on raw accounts.
+Polkadot's Proof of Personhood delivers a key privacy guarantee: _two Products cannot correlate that they share a user without an explicit cross-domain grant from that user_. That guarantee rests on two pieces of machinery — _Ring-VRF_, the cryptographic primitive that produces context-specific pseudonyms (aliases), and the _`under_alias` runtime origin_, the mechanism that lets pallets gate logic on those pseudonyms instead of on raw accounts.
 
 This page is the conceptual deep dive on both. The Product-side how-to for using them is [Use Personhood in Your App](/apps/build/use-personhood-in-your-app/); the App-side reference for _where_ PoP runs is the [Polkadot App's Proof of Personhood](/reference/apps/hosts/polkadot-app/pop/) page.
 

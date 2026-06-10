@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-A preimage is the original content of a hash that has been referenced on-chain. For example, a referendum points at the hash of a governance proposal, and the preimage is the proposal's bytes. The on-chain record holds only the hash; the preimage itself lives off-chain and must be made available for the referenced operation to execute. Polkadot Desktop exposes a preimage submission surface that Products can use through the Host API.
+A **preimage** is the original content of a hash that has been referenced on-chain. The classic example: a governance referendum points at the hash of a proposal, and the preimage is the proposal's actual bytes. The chain stores only the hash to keep block size down; the bytes have to be made available off-chain before the referenced operation can execute. Polkadot Desktop exposes a preimage submission surface that Products can call through the Host API.
 
 This page is the reference for that surface. The [Bulletin Chain reference](/reference/apps/infrastructure/bulletin-chain/){target=\_blank} documents the storage layer that preimage submission often interacts with.
 

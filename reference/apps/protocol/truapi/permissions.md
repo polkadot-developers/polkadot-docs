@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-The Permissions method group is what every other method group implicitly defers to. Before a Product can sign a transaction, make an outbound request, or access the microphone, the Host checks whether the Product declared the required permission and whether the user granted it. The Permissions method group is the way a Product reads its own permission state and the way the Host enforces it.
+The Permissions method group is the gate every other method group implicitly passes through. Before a Product can sign a transaction, make an outbound request, or access the microphone, the Host checks two things: did the Product declare the required permission, and did the user grant it? This method group is how a Product reads its own permission state, and how the Host enforces it.
 
 Most Products do not call these methods explicitly. Declarations live in the Product's manifest, and gating happens at the boundary of the methods that actually need a permission, such as signing, network, and media. The Permissions method group exposes the runtime query surface for checking whether a permission is granted.
 

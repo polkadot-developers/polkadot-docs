@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-`pallet-people` is the foundational pallet of Polkadot's Proof of Personhood stack. It is what every other PoP pallet — game, score, identity, ubc, coinage — depends on, and it is what the runtime's `under_alias` origin resolves against.
+`pallet-people` is the foundation of [Polkadot's Proof of Personhood](/reference/apps/infrastructure/pop/) on the People Chain. It's the pallet that records who has completed personhood verification, issues the aliases other Products gate on, and exposes the `under_alias` runtime origin every other PoP pallet (game, score, identity, ubc, coinage) builds on top of.
 
 Its responsibilities cluster into three:
 

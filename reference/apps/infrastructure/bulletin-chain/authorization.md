@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-The Bulletin Chain has no token balance for storage. A Product cannot "pay for storage" the way it pays a transaction fee on a typical chain — there is no fee-based access. Instead, every account that wants to write to Bulletin needs an explicit authorization: a record on the chain that grants a quota of transactions and bytes, with an expiration block.
+The Bulletin Chain has no token balance for storage — you cannot "pay for storage" the way you pay a transaction fee on a typical chain. Instead, every account that wants to write to Bulletin needs an explicit **authorization**: an on-chain record that grants a quota of transactions and bytes, with an expiration block.
 
 A write attempted without authorization is rejected at the boundary. This page is the reference for how authorizations are shaped, how they are checked, and what happens when they expire.
 

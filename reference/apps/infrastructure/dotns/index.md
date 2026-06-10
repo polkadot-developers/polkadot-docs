@@ -8,12 +8,14 @@ categories: Apps, Reference
 
 ## Introduction
 
-dotNS is the `.dot` name system: the on-chain registry that turns a human-readable name like `myproduct.dot` into the content reference (CID) of a published Polkadot Product bundle. It is the lookup every Host runs whenever a user navigates to a `.dot` address.
+dotNS is Polkadot's decentralized name service for Products — the registry that turns a human-readable `.dot` name like `awesome.dot` into the published Polkadot Product it points at. It's the lookup every Host runs whenever a user navigates to a `.dot` address.
+
+If you have used a DNS provider, the role is similar: human-readable names map to content. The differences: dotNS is on-chain (no DNS provider in the middle), name resolution returns a [Content Identifier (CID)](/reference/glossary/#content-identifier-cid) for a Product bundle (not an IP address), and pricing is tied to [Proof of Personhood](/reference/apps/infrastructure/pop/) so spam farming short names is bounded.
 
 Four properties shape how a Product developer interacts with dotNS:
 
 - **The registry lives on Asset Hub**: Names, owners, and the content references they point at are stored as contract state on Asset Hub, not on the People Chain or Bulletin Chain.
-- **Name resolution is content-addressed at the end**: A `.dot` name resolves to a CID, and the CID points at bytes on the Bulletin Chain (or via an IPFS gateway). See [Name Mechanism](/reference/apps/infrastructure/dotns/name-mechanism/).
+- **Name resolution is content-addressed at the end**: A `.dot` name resolves to a CID, and the CID points at bytes on the [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/) (or via an IPFS gateway). See [Name Mechanism](/reference/apps/infrastructure/dotns/name-mechanism/).
 - **Pricing is personhood-gated by PopRules**: Short names are free for personhood holders; longer or numerically-suffixed names are open to anyone but require a deposit. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
 - **The architecture is a small set of cooperating contracts**: Not a single registrar — a set of contracts each handling a slice of the model. See [Architecture](/reference/apps/infrastructure/dotns/architecture/).
 

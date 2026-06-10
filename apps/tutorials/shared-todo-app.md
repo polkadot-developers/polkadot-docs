@@ -136,7 +136,7 @@ The UI is a single client component. All the SDK behavior you've built lives in 
 
 ## Run It
 
-Start the dev server and load the Product in Polkadot Desktop (per [Local Development](/apps/local-development/)):
+Start the dev server and load the Product in Polkadot Desktop (per [Set Up Your Project](/apps/build/#set-up-your-project)):
 
 ```bash
 npm run dev
@@ -151,7 +151,7 @@ Then walk the same checks this tutorial's reference app was verified with:
 
 ## Ship It
 
-The board runs from `localhost` inside your host container — the remaining step is making it a real, discoverable Product. [Deploy Your App](/apps/deploy-your-app/) walks through bundling, publishing, and registering a `.dot` name for it.
+The board runs from `localhost` inside your host container — the remaining step is making it a real, discoverable Product. [Register and Publish](/apps/deploy-and-publish/register-and-publish/) walks through bundling, publishing, and registering a `.dot` name for it. Once it is live, the same bundle opens in Polkadot Desktop and on Polkadot Web — at `https://<name>.dot.li` in any browser.
 
 ## Where to Go Next
 

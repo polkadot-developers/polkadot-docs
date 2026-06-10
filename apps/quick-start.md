@@ -101,7 +101,7 @@ Deploy a Polkadot Product in under 15 minutes and see it live under a `.dot` nam
 
     ![RevX App Builder showing the transaction signing prompt](/images/apps/revx/revx-11.webp)
 
-    After signing the transaction, you will see the deployment progress in the terminal. Your Product is now live under its `.dot` name.
+    After signing the transaction, you will see the deployment progress in the terminal. Your Product is now live under its `.dot` name — open it in Polkadot Desktop, or on Polkadot Web at `https://<name>.dot.li` in any browser.
 
     !!! warning "Provisional"
         The deployed-Product-in-the-browser step is blocked on a signer issue, so the final screenshot is pending. Until then, the signing prompt above is the last visible state for this route.

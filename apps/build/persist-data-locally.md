@@ -14,26 +14,28 @@ This guide covers the `@parity/product-sdk-local-storage` package, which provide
 !!! info "Storage options for your Product"
     `LocalKvStore` is the right tool for device-local, per-Product key-value data. When your data needs to outlive the device or be visible to other users, reach for an on-chain layer instead:
 
-    - **Local KvStore** (this page): per-Product, per-device key-value. User preferences, drafts, cached values. Not synced across devices.
-    - **Bulletin Chain**: content-addressed, on-chain, retained ~2 weeks by default and renewable. Content readers fetch later by hash: profile photos, published articles, app bundles. See [Store Data on Chain](/apps/build/store-data-on-chain/){target=_blank}.
-    - **Statement Store**: gossip-distributed, short-lived (default 30s TTL), allowance-gated. Real-time signaling between users: chat messages, presence, typing indicators. See [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/){target=_blank}.
+    - **Local KvStore** (this page): Per-Product, per-device key-value. User preferences, drafts, cached values. Not synced across devices.
+    - **Bulletin Chain**: Content-addressed, on-chain, retained ~2 weeks by default and renewable. Content readers fetch later by hash: profile photos, published articles, app bundles. See [Store Data on Chain](/apps/build/store-data-on-chain/).
+    - **Statement Store**: Gossip-distributed, short-lived (default 30s TTL), allowance-gated. Real-time signaling between users: chat messages, presence, typing indicators. See [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/).
 
 ## Prerequisites
 
-- A Polkadot Product project running locally (see [Set Up Your Project](/apps/build/#set-up-your-project)).
-- Node.js 20 or later with ESM support (`@parity/product-sdk-local-storage` is ESM only).
+Before starting, ensure you have:
+
+- A Polkadot Product project running locally (see [Set Up Your Project](/apps/build/#set-up-your-project))
+- Node.js 20 or later with ESM support (`@parity/product-sdk-local-storage` is ESM only)
 
 ## Install the SDK
 
 You have two installation options depending on your needs:
 
-- **Individual package**: install only what you use. Keeps your bundle smaller and makes dependencies explicit.
+- **Individual package**: Install only what you use. Keeps your bundle smaller and makes dependencies explicit.
 
     ```bash
     npm install @parity/product-sdk-local-storage
     ```
 
-- **Umbrella package**: install the full SDK in one command. Convenient when your Product uses several SDK features (local storage, signing, cloud storage, etc.) and bundle size is not a concern.
+- **Umbrella package**: Install the full SDK in one command. Convenient when your Product uses several SDK features (local storage, signing, cloud storage, etc.) and bundle size is not a concern.
 
     ```bash
     npm install @parity/product-sdk
@@ -82,13 +84,13 @@ Use `store.remove(key)` to delete a key. The method does not throw if the key do
 
 Within a Product, multiple features may share the same `LocalKvStore`. Prefixes partition the namespace further to avoid key collisions between those features.
 
-Pass a `prefix` option to `createLocalKvStore()` to prepend `prefix:` to every key operated on by that store instance. For example, `createLocalKvStore({ prefix: "feature" })` stores the key `"setting"` internally as `"feature:setting"`.
+Pass a `prefix` option to `createLocalKvStore()` to prepend `prefix:` to every key operated on by that store instance. For example, `createLocalKvStore({ prefix: 'feature' })` stores the key `'setting'` internally as `'feature:setting'`.
 
 ```typescript title="prefixed-store.ts"
 --8<-- 'code/apps/build/persist-data-locally/prefixed-store.ts'
 ```
 
-The Host-enforced Product-level namespace is separate from any developer-defined prefix. The Host's Product namespace is applied on top of your `prefix`, so a key `"setting"` in a `{ prefix: "feature" }` store ends up stored as something like `"myproduct.dot:feature:setting"`, without you needing to construct that path yourself.
+The Host-enforced Product-level namespace is separate from any developer-defined prefix. The Host's Product namespace is applied on top of your `prefix`, so a key `'setting'` in a `{ prefix: 'feature' }` store ends up stored as something like `'myproduct.dot:feature:setting'`, without you needing to construct that path yourself.
 
 ## Use React Hooks
 

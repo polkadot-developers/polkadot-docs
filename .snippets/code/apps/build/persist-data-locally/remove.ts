@@ -1,1 +1,1 @@
-await store.remove("network");
+await store.remove('network');

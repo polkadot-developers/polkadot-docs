@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import { useProductSDK } from "@parity/product-sdk/react";
+import { useProductSDK } from '@parity/product-sdk/react';
 
 function StorageActions() {
-    const app = useProductSDK();
+  const app = useProductSDK();
 
-    async function handleRemove() {
-        await app.localStorage.remove("network");
-    }
+  async function handleRemove() {
+    await app.localStorage.remove('network');
+  }
 
-    async function handleClear() {
-        // Removes every key scoped to this Product.
-        await app.localStorage.clear();
-    }
+  async function handleClear() {
+    // Removes every key scoped to this Product.
+    await app.localStorage.clear();
+  }
 
-    return (
-        <div>
-            <button onClick={handleRemove}>Remove &quot;network&quot;</button>
-            <button onClick={handleClear}>Clear all</button>
-        </div>
-    );
+  return (
+    <div>
+      <button onClick={handleRemove}>Remove &quot;network&quot;</button>
+      <button onClick={handleClear}>Clear all</button>
+    </div>
+  );
 }

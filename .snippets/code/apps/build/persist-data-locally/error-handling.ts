@@ -1,5 +1,5 @@
 try {
-    await store.set("key", "value");
+  await store.set('key', 'value');
 } catch (error) {
-    console.error("Failed to write to store:", (error as Error).message);
+  console.error('Failed to write to store:', (error as Error).message);
 }

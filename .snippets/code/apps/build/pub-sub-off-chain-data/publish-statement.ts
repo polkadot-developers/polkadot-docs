@@ -15,8 +15,8 @@ const accepted = await client.publish<ChatMessage>(
     ts: Date.now(),
   },
   {
-    topic2: 'room-42',  // scope to a specific room, doc, or context
-    ttlSeconds: 60,     // override the default 30s TTL
+    topic2: 'room-42', // scope to a specific room, doc, or context
+    ttlSeconds: 60, // override the default 30s TTL
   },
 );
 

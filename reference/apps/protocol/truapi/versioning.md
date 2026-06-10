@@ -31,9 +31,12 @@ Most Products will target a single version line and let the SDK abstract the per
 
 ## How the SDK Maps to Versions
 
-The [`@parity/product-sdk`](https://www.npmjs.com/package/@parity/product-sdk){target=\_blank} family of packages is versioned in lockstep with the TrUAPI versions they wrap. A given SDK version targets a specific TrUAPI version line; pinning your SDK pins your TrUAPI surface implicitly.
+!!! warning "Roadmap"
+    The version-range model and SDK-to-protocol mapping described in this section are the intended design, not what ships today. The shipping protocol is a single version line (`v1`); manifest version-ranges and lockstep SDK versioning are not yet implemented. This section describes where versioning is headed.
 
-When TrUAPI introduces a behavioral change, the SDK absorbs it where it can; where it cannot (a removed method, an incompatible parameter), it bumps a major version, and your Product upgrade path is to update the SDK pin and re-test against the new TrUAPI surface.
+The intent is for the [`@parity/product-sdk`](https://www.npmjs.com/package/@parity/product-sdk){target=\_blank} family of packages to be versioned in lockstep with the TrUAPI versions they wrap, so that a given SDK version targets a specific TrUAPI version line and pinning your SDK pins your TrUAPI surface implicitly.
+
+Under that model, when TrUAPI introduces a behavioral change the SDK would absorb it where it can; where it cannot (a removed method, an incompatible parameter), it would bump a major version, and a Product's upgrade path would be to update the SDK pin and re-test against the new TrUAPI surface.
 
 For the package map, see [Packages](/reference/apps/protocol/truapi/packages/){target=\_blank}.
 

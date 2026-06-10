@@ -20,7 +20,14 @@ The group covers:
 - **Watching the result**: The Host returns the outcome — signature obtained (Host then broadcasts), explicit user rejection (`HostRejectedError`), or session timeout (`TimeoutError`).
 - **Surfacing status transitions**: Through PAPI's `submitAndWatch` companion surface, the Product sees status events (`signing`, `broadcasting`, `in-block`, and `finalized`) as the transaction progresses.
 
-The contract the Host enforces is the one that makes the model trustworthy: every transaction requires a per-request approval on the phone. There is no auto-sign mode, no session-scoped consent, and no path for a Product to obtain a signature without the user actively approving the specific payload they were shown.
+The default contract is the one that makes the model trustworthy: every transaction requires a per-request approval on the phone, with no session-scoped consent and no path for a Product to obtain a signature without the user approving the specific payload they were shown. This per-request flow is what a Product gets unless an Auto-Signing resource has been explicitly allocated.
+
+### Auto-Signing
+
+The shipping [`@parity/truapi`](https://www.npmjs.com/package/@parity/truapi){target=\_blank} wire carries an **Auto-Signing** capability on top of the per-request default. A Product requests it as an allocatable resource through `host_request_resource_allocation`; the user must explicitly grant the allocation, and the Host scopes what it covers. Polkadot Desktop ships this as `signing-bot-autopair`, which pairs a signing bot so that allocated transactions are signed without a per-transaction prompt. Auto-Signing is opt-in, user-granted, and bounded — it does not remove the approval requirement for ordinary signing; it replaces it, within the allocated scope, with an up-front consent the user can revoke.
+
+!!! note "Newer than the v0.2 method-group surface"
+    Auto-Signing is carried by the `@parity/truapi` wire but is not part of the v0.2 method-group surface documented in these pages, so it is a place where the shipping protocol is ahead of the documented groups. A Host implementer working only from the v0.2 method groups will not find it there; a Product running on today's Desktop can use it.
 
 For the full mediated-signing flow (the three-actor model, the `ChainSubmit` permission, failure-mode UX), see the [Signing in Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/signing/){target=\_blank} reference.
 

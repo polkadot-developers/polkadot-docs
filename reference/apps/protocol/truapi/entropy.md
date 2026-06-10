@@ -1,6 +1,6 @@
 ---
 title: Entropy Method Group
-description: TrUAPI method group for verifiable randomness sourced from the Host, suitable for use cases that need on-chain-grounded entropy in Products.
+description: TrUAPI method group for deriving deterministic per-Product entropy from the user's root key, suitable for seeding Product-local key material — not for randomness.
 categories: Apps, Reference
 ---
 
@@ -8,33 +8,36 @@ categories: Apps, Reference
 
 ## Introduction
 
-The Entropy method group lets a Product obtain randomness sourced from the Host rather than from its own runtime. A Product uses this group instead of the browser's `crypto.getRandomValues` or a server-side CSPRNG when it needs verifiability. Host-provided entropy can be tied to on-chain commitments, such as block hashes, verifiable random function (VRF) outputs, or beacon values, giving a Product a randomness source that an external party can check against the chain.
+The Entropy method group lets a Product obtain a stable secret derived from the user's root key, scoped to that Product. A Product uses it to seed key material it needs to hold itself — an encryption key for local data, a deterministic identifier, a seed for a Product-side keypair — without ever touching the user's root entropy or asking the user to manage a separate secret.
 
-This matters for use cases where the user or another party needs to trust that a random value was not chosen adversarially after the fact, such as lottery-style draws, fair-shuffle games, and randomized selection inside a `pallet-airdrop`-style flow.
+The value is **deterministic**: it is derived from the user's root [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki){target=\_blank} entropy through a three-layer BLAKE2b-256 keyed-hashing scheme, so the same input always produces the same output. A Product that asks for the same derivation context tomorrow, or on another device the user has restored, gets the same 32 bytes back. This is what makes it useful for seeding: the Product can re-derive its key material instead of storing it.
+
+!!! danger "Not a randomness source"
+    Host-derived entropy is **deterministic and pre-computable** — it is key-derivation, not randomness. Do **not** use it for lottery draws, fair-shuffle games, randomized selection, or any flow where a value must be unpredictable to the parties involved. Anyone who can reproduce the derivation can predict the output. For unpredictable values, use the browser's `crypto.getRandomValues`; for randomness that an external party must be able to verify against the chain, use an on-chain VRF or beacon directly, not this group.
+
+This is the same `entropy = randomness` confusion behind the RFC-7 bug, where a Host minted a random `rootAccountSecret` instead of deriving it. The point of this group is the opposite of randomness: reproducible derivation.
 
 ## Conceptual Contract
 
-The group exposes verifiable-randomness primitives:
+The group exposes a single derivation primitive:
 
-- **Requesting a random value**: The Product receives an attached commitment to the chain state the value was derived from, so a verifier can reproduce or check the derivation.
-- **Subscribing to a randomness beacon**: Protocols that need a fresh value per block or per epoch can subscribe to randomness updates.
-- **Binding entropy to a context**: Two Products asking for randomness for different contexts cannot accidentally share an entropy value that should have been independent.
+- **Deriving entropy for a context**: The Product requests 32 bytes of entropy derived from the user's root entropy and bound to a derivation context. The same context always yields the same bytes; two different contexts yield independent values, so a Product cannot accidentally reuse one secret where it meant to use another.
 
-For uses where verifiability is not required, such as UI animations or retry jitter, use the browser's standard randomness API. The Entropy group is the right tool when randomness is part of a user-visible fairness contract.
+There is no subscription, no per-block or per-epoch update, and no randomness beacon. The group is one `host_derive_entropy` request and its deterministic response.
 
 !!! warning "Provisional"
-    The exact set of host calls in this group, the supported randomness sources (block hash, VRF, beacon), the binding-context surface, and the verifier-side tooling for checking a value against the chain are still being finalized.
+    The exact derivation-context surface (how a Product names and scopes a derivation) and the SDK wrapper around `host_derive_entropy` are still being finalized. The deterministic-derivation contract described here matches the TrUAPI v0.2 spec and is stable.
 
 ## Where to Go Next
 
 <div class="grid cards" markdown>
 
-- <span class="badge learn">Learn</span> **Chain Interaction**
+- <span class="badge learn">Learn</span> **Sandbox and Sub-Accounts**
 
     ---
 
-    The method group most often paired with Entropy for reading the on-chain state the randomness commits to.
+    Why a Product is scoped to derived material rather than the user's root identity — the same derivation principle this group exposes for arbitrary secrets.
 
-    [:octicons-arrow-right-24: Reference](/reference/apps/protocol/truapi/chain-interaction/)
+    [:octicons-arrow-right-24: Reference](/reference/apps/protocol/truapi/sandbox/)
 
 </div>

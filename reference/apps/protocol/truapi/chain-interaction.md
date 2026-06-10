@@ -1,6 +1,6 @@
 ---
 title: Chain Interaction Method Group
-description: TrUAPI method group for reading chain state and subscribing to changes, behind @polkadot-apps/chain-client and the typed PAPI API exposed per chain.
+description: TrUAPI method group for reading chain state and subscribing to changes, behind @parity/product-sdk-chain-client and the typed PAPI API exposed per chain.
 categories: Apps, Reference
 ---
 
@@ -10,7 +10,7 @@ categories: Apps, Reference
 
 The Chain Interaction method group lets a Product read on-chain state, including account balances, storage items, and runtime constants, and subscribe to changes on those values. It is the foundation most Products build on. Reading state is usually the first thing a Product does after lifecycle setup.
 
-The Product SDK wraps this surface as [`@polkadot-apps/chain-client`](https://www.npmjs.com/package/@polkadot-apps/chain-client){target=\_blank}, which gives the Product a typed PAPI client per connected chain. The same code works whether the Product runs inside a Host, where calls route through the Host's chain client, or outside one in development, where the client falls back to a direct WebSocket connection.
+The Product SDK wraps this surface as [`@parity/product-sdk-chain-client`](https://www.npmjs.com/package/@parity/product-sdk-chain-client){target=\_blank}, which gives the Product a typed PAPI client per connected chain. The same code works whether the Product runs inside a Host, where calls route through the Host's chain client, or outside one in development, where the client falls back to a direct WebSocket connection.
 
 ## Conceptual Contract
 

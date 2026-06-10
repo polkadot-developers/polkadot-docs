@@ -12,11 +12,14 @@ TrUAPI is the protocol between Polkadot Hosts and the Products that run inside t
 
 If the Triangle architecture is "three Hosts running Products," TrUAPI is the contract by which a Product talks to the Host that is running it.
 
+!!! note "TrUAPI and its packages"
+    **TrUAPI** is the name of the protocol — the specification, maintained at [`paritytech/truapi`](https://github.com/paritytech/truapi){target=\_blank}. It ships as two layers of packages: [`@parity/truapi`](https://www.npmjs.com/package/@parity/truapi){target=\_blank} is the low-level generated protocol client (the wire), and the [`@parity/product-sdk`](https://www.npmjs.com/package/@parity/product-sdk){target=\_blank} family is the higher-level SDK most Products use. This reference uses "TrUAPI" for the protocol surface and names the `@parity/product-sdk-*` package in the [Packages](/reference/apps/protocol/truapi/packages/){target=\_blank} table that wraps each group.
+
 This reference documents the protocol surface in three layers:
 
 1. **Conceptual model**: Why the Host-Product boundary exists, what derived sub-accounts mean, and how the sandbox enforces isolation. See [Sandbox and Sub-Accounts](/reference/apps/protocol/truapi/sandbox/){target=\_blank}.
 2. **Operational properties**: The protocol's versioning model and the packages that implement it. See [Versioning](/reference/apps/protocol/truapi/versioning/){target=\_blank} and [Packages](/reference/apps/protocol/truapi/packages/){target=\_blank}.
-3. **Method groups**: Eleven groups covering every capability a Product can reach. One page per group is linked in [The Eleven Method Groups](#the-eleven-method-groups).
+3. **Method groups**: Eleven groups covering the capabilities a Product reaches for. One page per group is linked in [The Eleven Method Groups](#the-eleven-method-groups). A few host-lifecycle methods sit outside these groups — see the note below.
 
 !!! warning "Provisional"
     The complete per-method reference for TrUAPI remains provisional. The method-group pages below cover what each group is for and the conceptual contract; the exhaustive per-method signatures, parameter shapes, and return types will be added as the surface stabilizes.
@@ -44,7 +47,13 @@ A Product developer can usually rely on the Product SDK (the [`@parity/product-s
 | [Preimage](/reference/apps/protocol/truapi/preimage/){target=\_blank}                     | Off-chain content addressed by hash for on-chain operations to dereference.                          |
 | [Chain Interaction](/reference/apps/protocol/truapi/chain-interaction/){target=\_blank}   | Reading chain state and subscribing to changes through the Host.                                     |
 | [Payment](/reference/apps/protocol/truapi/payment/){target=\_blank}                       | Payment-flow primitives (general `Balances` transfers and the Pocket flow).                          |
-| [Entropy](/reference/apps/protocol/truapi/entropy/){target=\_blank}                       | Verifiable randomness the Host provides to Products.                                                 |
+| [Entropy](/reference/apps/protocol/truapi/entropy/){target=\_blank}                       | Deterministic per-Product entropy derived from the user's root key (key-derivation, not randomness). |
+
+!!! note "Methods outside the eleven groups"
+    A small number of host-lifecycle methods in the TrUAPI v0.2 spec are not part of any of the eleven groups above — `host_navigate_to`, `host_push_notification`, and `host_feature_supported`. They are Host-environment hooks rather than Product capabilities, and are documented per-Host rather than in this protocol surface.
+
+!!! warning "Cross-Host conformance is the target, not yet the guarantee"
+    TrUAPI is specified as a single canonical surface, and the intent is that a Product runs unchanged across every Host. Today that holds between Polkadot Web and Polkadot Desktop, which share the TypeScript host-container (SCALE, `host_*` calls). The mobile Polkadot App — the canonical signer for transactions — currently exposes a hand-written JSON bridge whose method names differ from the spec and, in places, between iOS and Android. Treat "the same surface on every Host" as the conformance goal the spec defines, not a settled property of every shipping Host. See the cross-host conformance tracking in the SDK team's work.
 
 ## High-Level Diagram
 

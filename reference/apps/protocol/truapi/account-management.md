@@ -1,6 +1,6 @@
 ---
 title: Account Management Method Group
-description: TrUAPI Account Management method group for resolving sub-accounts, reading account state, and using @polkadot-apps/signer to get Product accounts.
+description: TrUAPI Account Management method group for resolving sub-accounts, reading account state, and using @parity/product-sdk-signer to get Product accounts.
 categories: Apps, Reference
 ---
 
@@ -10,7 +10,7 @@ categories: Apps, Reference
 
 The Account Management method group lets a Product discover which account it should operate against. A Polkadot Product never sees the user's root identity; it sees a per-Product sub-account derived from the user's identity and the Product's `.dot` domain. See [Sandbox and Sub-Accounts](/reference/apps/protocol/truapi/sandbox/){target=\_blank} for the derivation model. This method group is the surface that resolves that sub-account, exposes its address, and returns related state.
 
-The Product SDK wraps this surface as `SignerManager.getProductAccount(dotNsIdentifier, derivationIndex)` in [`@polkadot-apps/signer`](https://www.npmjs.com/package/@polkadot-apps/signer){target=\_blank}.
+The Product SDK wraps this surface as `SignerManager.getProductAccount(dotNsIdentifier, derivationIndex)` in [`@parity/product-sdk-signer`](https://www.npmjs.com/package/@parity/product-sdk-signer){target=\_blank}.
 
 ## Conceptual Contract
 

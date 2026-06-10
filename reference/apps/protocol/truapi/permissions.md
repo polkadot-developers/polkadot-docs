@@ -20,6 +20,9 @@ Three things sit in this group:
 - **Permission grants and re-prompts**: The Host can expose runtime prompts for capabilities the user can elect at runtime rather than at install. The set of runtime-elective permissions versus install-time-only permissions is part of the Host's policy.
 - **Permission-denied error reporting**: Every capability-gated method group bubbles up consistently, so a Product can treat `PermissionDenied` as a uniform failure mode wherever it happens.
 
+!!! note "Permission names: spec vs. Host-side aliases"
+    Some permission names in this documentation are Host-side normalizations, not the literal identifiers in the TrUAPI v0.2 spec. In particular, `ExternalRequest` (outbound network access) is a Polkadot Desktop alias; the protocol-level construct is `RemotePermission::Remote(Vec<String>)`, which carries the list of permitted hosts. A Host implementer reading the spec should map the friendly names used here to their spec enum variants.
+
 For the conceptual model and the Product-side how-to, see the [Polkadot Desktop Permissions reference](/reference/apps/hosts/polkadot-desktop/permissions/){target=\_blank} and the [Request Permissions](/apps/build/request-permissions/){target=\_blank} guide.
 
 !!! warning "Provisional"

@@ -10,7 +10,7 @@ categories: Apps, Reference
 
 The Payment method group lets a Product accept or initiate payments. Payments are signed transactions like any other transaction, but this group collects the two payment shapes a Product is most likely to need, the standard `Balances.transfer_keep_alive` flow and the personhood-aware Pocket flow.
 
-For most Product use cases, this group is consumed through `@polkadot-apps/tx` and helpers in `@polkadot-apps/utils` (formatting, validation), with the same `signAndSubmit` round trip every other signed call goes through.
+For most Product use cases, this group is consumed through `@parity/product-sdk-tx` and helpers in `@parity/product-sdk-utils` (formatting, validation), with the same `signAndSubmit` round trip every other signed call goes through.
 
 ## Conceptual Contract
 

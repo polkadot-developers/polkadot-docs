@@ -2,57 +2,47 @@
 title: Persist Data Locally
 description: Learn how to store and retrieve application data between sessions in a Polkadot Product using the @parity/product-sdk-local-storage package.
 categories: Apps
+tutorial_badge: Beginner
 ---
 
 # Persist Data Locally
 
-!!! info "Packages"
-    **Primary:** [`local-storage`](/apps/build/#the-product-sdk-packages)
-
 ## Introduction
 
-If your Product needs to remember something between sessions — a saved theme, an unsubmitted draft, a cached response — this is the page. The `@parity/product-sdk-local-storage` package gives you a `LocalKvStore`: a string-keyed store with convenience methods for both plain strings and JSON-serializable values, and the same interface wherever your Product runs.
-
-Two things to know up front:
-
-- **It's local to the device.** Data written on one device isn't visible on another — there's no cross-device sync. If the data must follow the user everywhere, it belongs on-chain instead (see the callout below).
-- **It's isolated per Product.** The Host namespaces every key by your Product's `.dot` domain, so two Products on the same Host can't read or write each other's data — automatically, with nothing for you to manage.
-
-`createLocalKvStore()` auto-detects the backend at runtime. When your Product runs inside a Polkadot Host (Desktop, the Polkadot App, or Web), reads and writes route through the Host. When your Product runs outside a Host — for example, during local development in a browser tab — the store falls back to the browser's `localStorage`. The same application code works in both environments with no changes.
-
-Within a single Product, storage is shared across every modality the Product runs in — full-screen view, dashboard card, and chat widget all see the same values.
+This guide covers the `@parity/product-sdk-local-storage` package, which provides a `LocalKvStore` for storing and retrieving key-value data between sessions. Use it for device-local data like saved preferences, unsubmitted drafts, or cached responses. Data is scoped to your Product and device; it does not sync across devices or leak between Products on the same Host.
 
 !!! info "Storage options for your Product"
     `LocalKvStore` is the right tool for device-local, per-Product key-value data. When your data needs to outlive the device or be visible to other users, reach for an on-chain layer instead:
 
-    - **Local KvStore** (this page) — per-Product, per-device key-value. User preferences, drafts, cached values. Not synced across devices.
-    - **Bulletin Chain** — content-addressed, on-chain, retained ~2 weeks by default and renewable. Content readers fetch later by hash — profile photos, published articles, app bundles. See [Store Data on Chain](/apps/build/store-data-on-chain/){target=_blank}.
-    - **Statement Store** — gossip-distributed, short-lived (default 30s TTL), allowance-gated. Real-time signaling between users — chat messages, presence, typing indicators. See [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/){target=_blank}.
+    - **Local KvStore** (this page): per-Product, per-device key-value. User preferences, drafts, cached values. Not synced across devices.
+    - **Bulletin Chain**: content-addressed, on-chain, retained ~2 weeks by default and renewable. Content readers fetch later by hash: profile photos, published articles, app bundles. See [Store Data on Chain](/apps/build/store-data-on-chain/){target=_blank}.
+    - **Statement Store**: gossip-distributed, short-lived (default 30s TTL), allowance-gated. Real-time signaling between users: chat messages, presence, typing indicators. See [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/){target=_blank}.
 
 ## Prerequisites
 
-Before starting, ensure you have:
-
-- A Polkadot Product project — from a [Quick Start](/apps/quick-start/) deploy or a [Local Development](/apps/local-development/) setup
-- Install Node.js and npm
+- A Polkadot Product project running locally (see [Set Up Your Project](/apps/build/#set-up-your-project)).
+- Node.js 20 or later with ESM support (`@parity/product-sdk-local-storage` is ESM only).
 
 ## Install the SDK
 
 You have two installation options depending on your needs:
 
-- **Individual package** — install only what you use. Keeps your bundle smaller and makes dependencies explicit.
+- **Individual package**: install only what you use. Keeps your bundle smaller and makes dependencies explicit.
 
     ```bash
     npm install @parity/product-sdk-local-storage
     ```
 
-- **Umbrella package** — install the full SDK in one command. Convenient when your Product uses several SDK features (local storage, signing, cloud storage, etc.) and bundle size is not a concern.
+- **Umbrella package**: install the full SDK in one command. Convenient when your Product uses several SDK features (local storage, signing, cloud storage, etc.) and bundle size is not a concern.
 
     ```bash
     npm install @parity/product-sdk
     ```
 
 All import paths shown in this guide work with both options.
+
+!!! note "Code examples"
+    Each snippet in this guide is a standalone file you add to your Product's source tree. The filenames match the `title` shown in the code block header (for example, `initialize.ts`, `set-get-string.ts`). They are not meant to be concatenated; import and use each one independently wherever it fits in your Product.
 
 ## Initialize the Store
 
@@ -98,7 +88,7 @@ Pass a `prefix` option to `createLocalKvStore()` to prepend `prefix:` to every k
 --8<-- 'code/apps/build/persist-data-locally/prefixed-store.ts'
 ```
 
-The Host-enforced Product-level namespace is separate from any developer-defined prefix. The Host's Product namespace is applied on top of your `prefix`, so a key `"setting"` in a `{ prefix: "feature" }` store ends up stored as something like `"myproduct.dot:feature:setting"` — without you needing to construct that path yourself.
+The Host-enforced Product-level namespace is separate from any developer-defined prefix. The Host's Product namespace is applied on top of your `prefix`, so a key `"setting"` in a `{ prefix: "feature" }` store ends up stored as something like `"myproduct.dot:feature:setting"`, without you needing to construct that path yourself.
 
 ## Use React Hooks
 
@@ -130,26 +120,26 @@ To remove a key or clear all storage for your Product, access `app.localStorage`
 - Storage is not synced across devices. Values written on one Host instance are not visible on another.
 - `app.localStorage.clear()` and `store.remove()` are scoped to your Product. You cannot read or modify another Product's keys.
 - React hooks (`useLocalStorage`, `useLocalStorageString`) are only available via the umbrella package `@parity/product-sdk`. The standalone `@parity/product-sdk-local-storage` package exposes no React hooks.
-- When running outside a host container, the store falls back to the browser's `localStorage`. Browser `localStorage` has no persistence guarantees in private or incognito sessions — data may be cleared when the tab closes.
+- When running outside a host container, the store falls back to the browser's `localStorage`. Browser `localStorage` has no persistence guarantees in private or incognito sessions; data may be cleared when the tab closes.
 
 ## Where to Go Next
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> **Store Data On-Chain**
+-   <span class="badge guide">Guide</span> **Store Data on Chain**
 
     ---
 
-    For data that must be recorded and verifiable on-chain.
+    When data must outlive the device and be fetchable by anyone, move it to the Bulletin Chain.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/store-data-on-chain/)
+    [:octicons-arrow-right-24: Store Data on Chain](/apps/build/store-data-on-chain/)
 
--   <span class="badge guide">Guide</span> **Read Chain State**
+-   <span class="badge guide">Guide</span> **Deploy Your Product**
 
     ---
 
-    Query live chain data from within your Polkadot Product.
+    You've covered the capabilities; ship your Product to a live `.dot` name with the Quick Start deploy routes.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/read-chain-state/)
+    [:octicons-arrow-right-24: Quick Start](/apps/quick-start/)
 
 </div>

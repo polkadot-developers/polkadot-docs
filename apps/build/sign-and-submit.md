@@ -2,45 +2,38 @@
 title: Sign and Submit Transactions
 description: Derive product-scoped accounts and sign transactions from a Polkadot Product using the Product SDK, with all approvals routed to the Polkadot App.
 categories: Apps
+tutorial_badge: Beginner
 ---
 
 # Sign and Submit Transactions
 
-!!! info "Packages"
-    **Primary:** [`signer`](/apps/build/#the-product-sdk-packages) · **Utilities:** [`tx`](/apps/build/#the-product-sdk-packages) · [`address`](/apps/build/#the-product-sdk-packages)
-
 ## Introduction
 
-This page is for developers building Polkadot Products that need to derive accounts and sign payloads — raw bytes or full transactions — from inside a Polkadot host container. It covers the `@parity/product-sdk-signer` package, which gives your Product a typed, host-aware signing interface.
-
-The code examples throughout this guide are confirmed working with Polkadot Desktop and `@parity/product-sdk` v0.9.0. The same patterns apply regardless of the specific chain you target — only the SS58 prefix and dotNS identifier change.
-
-The SDK exposes a single orchestrator, `SignerManager`, that wraps both the production host path (Polkadot Desktop) and a deterministic dev path (Alice / Bob) behind the same `Result`-typed API. You call `connect()`, pick an account, and sign — the SDK handles the rest.
-
-Each Product receives its own isolated account, derived deterministically from your identity. The account for `app-a.dot` is not linkable to the account for `app-b.dot` without explicit cross-product permission. This per-Product isolation is a core privacy property of the platform, not an implementation detail.
+This guide covers the `@parity/product-sdk-signer` package, which gives your Product a typed, host-aware signing interface for deriving accounts and signing payloads (raw bytes or full transactions) from inside a Polkadot host container. The SDK exposes a single orchestrator, `SignerManager`, that wraps both the production host path (Polkadot Desktop) and a deterministic dev path behind the same `Result`-typed API.
 
 ## Prerequisites
 
-Before starting, ensure you have:
-
-- A Polkadot Product project with a TypeScript toolchain — from a [Quick Start](/apps/quick-start/) deploy or a [Local Development](/apps/local-development/) setup
-- Node.js 20 or later with ESM support (`@parity/product-sdk-signer` is ESM only)
-- Polkadot Desktop to run your Product inside a host container. See [Install Desktop and Pair](/apps/get-started/)
+- A Polkadot Product project running locally (see [Set Up Your Project](/apps/build/#set-up-your-project)), with a TypeScript toolchain.
+- Node.js 20 or later with ESM support (`@parity/product-sdk-signer` is ESM only).
+- Polkadot Desktop to run your Product inside a host container. See [Install Desktop and Pair](/apps/get-started/).
 
 !!! note
     To test signing without a host container, use `manager.connect("dev")`. This loads the standard Substrate dev accounts (Alice, Bob, and others) locally and does not require Polkadot Desktop. See [Test Without a Host](#test-without-a-host).
+
+!!! note "Code examples"
+    The snippets in this guide are standalone; each one illustrates one concept and can be pasted into your Product independently. They are confirmed working with Polkadot Desktop and `@parity/product-sdk` v0.9.0.
 
 ## Install the SDK
 
 You have two installation options depending on your needs:
 
-- **Individual package** — install only the signer. Keeps your bundle smaller and makes dependencies explicit.
+- **Individual package**: install only the signer. Keeps your bundle smaller and makes dependencies explicit.
 
     ```bash
     npm install @parity/product-sdk-signer
     ```
 
-- **Umbrella package** — install the full SDK in one command. Convenient when your Product uses several SDK features (signing, chain client, cloud storage, etc.) and bundle size is not a concern.
+- **Umbrella package**: install the full SDK in one command. Convenient when your Product uses several SDK features (signing, chain client, cloud storage, etc.) and bundle size is not a concern.
 
     ```bash
     npm install @parity/product-sdk
@@ -52,17 +45,17 @@ All import paths shown in this guide work with both options.
 
 Every product-scoped account is identified by a `ProductAccountId` tuple:
 
-- **`dotNsIdentifier`** — the dotNS identifier of the Product requesting the account, for example the `.dot` name your Product is loaded under.
-- **`derivationIndex`** — a non-negative integer chosen by the Product. Index `0` is the conventional default; higher indices give you additional sub-accounts within the same Product.
+- **`dotNsIdentifier`**: the dotNS identifier of the Product requesting the account, for example the `.dot` name your Product is loaded under.
+- **`derivationIndex`**: a non-negative integer chosen by the Product. Index `0` is the conventional default; higher indices give you additional sub-accounts within the same Product.
 
 The same `(dotNsIdentifier, derivationIndex)` pair always yields the same public key, so your Product can reproduce the same address across sessions without persisting it.
 
 !!! note "Per-Product isolation is a privacy feature"
-    `app-a.dot` and `app-b.dot` produce different addresses for the same user. This prevents passive on-chain correlation across Products. Sharing an account across Products requires explicit permission — it is never the default.
+    `app-a.dot` and `app-b.dot` produce different addresses for the same user. This prevents passive on-chain correlation across Products. Sharing an account across Products requires explicit permission; it is never the default.
 
 ## Set Up SignerManager
 
-Construct `SignerManager` once and hold it for the lifetime of your Product. Always set `ss58Prefix` and `dappName` explicitly. Use the `onConnect` callback to request any resources your Product needs immediately after connection — the callback fires exactly once per connect and re-fires automatically after any auto-reconnect.
+Construct `SignerManager` once and hold it for the lifetime of your Product. Always set `ss58Prefix` and `dappName` explicitly. Use the `onConnect` callback to request any resources your Product needs immediately after connection; the callback fires exactly once per connect and re-fires automatically after any auto-reconnect.
 
 ```typescript
 import { SignerManager } from '@parity/product-sdk-signer';
@@ -76,13 +69,13 @@ const manager = new SignerManager({
 });
 ```
 
-- **`ss58Prefix`** — the SS58 address-format prefix for the target network. Use `0` for the Polkadot relay chain.
-- **`dappName`** — a human-readable name for your Product, shown in Desktop UI.
-- **`onConnect`** — fires once per connection transition. Use `ctx.requestResourceAllocation` to request permissions such as `AutoSigning` up front, before any signing call is made.
+- **`ss58Prefix`**: the SS58 address-format prefix for the target network. Use `0` for the Polkadot relay chain.
+- **`dappName`**: a human-readable name for your Product, shown in Desktop UI.
+- **`onConnect`**: fires once per connection transition. Use `ctx.requestResourceAllocation` to request permissions such as `AutoSigning` up front, before any signing call is made.
 
 ## Connect to the Host
 
-Call `connect()` to establish a session with the host and discover available accounts. `connect()`, `selectAccount()`, `getProductAccount()`, and `signRaw()` all return a `Result` — always check `.ok` before accessing `.value`. (`getSigner()` returns a nullable directly, not a `Result`.)
+Call `connect()` to establish a session with the host and discover available accounts. `connect()`, `selectAccount()`, `getProductAccount()`, and `signRaw()` all return a `Result`; always check `.ok` before accessing `.value`. (`getSigner()` returns a nullable directly, not a `Result`.)
 
 ```typescript
 const connectResult = await manager.connect();
@@ -103,11 +96,11 @@ if (accounts.length > 0 && !manager.getState().selectedAccount) {
 }
 ```
 
-`connect()` defaults to the host provider. Outside a host container it returns `HostUnavailableError` — use `connect("dev")` for local testing instead. See [Test Without a Host](#test-without-a-host).
+`connect()` defaults to the host provider. Outside a host container it returns `HostUnavailableError`; use `connect("dev")` for local testing instead. See [Test Without a Host](#test-without-a-host).
 
 ## Get a Product Account
 
-`getProductAccount` requests the product-scoped account for a given `dotNsIdentifier` from the host. This is a host-only API — it returns `HostUnavailableError` when the active provider is `"dev"`.
+`getProductAccount` requests the product-scoped account for a given `dotNsIdentifier` from the host. This is a host-only API; it returns `HostUnavailableError` when the active provider is `"dev"`.
 
 ```typescript
 const accountResult = await manager.getProductAccount('my-product.dot', 0);
@@ -121,15 +114,15 @@ const { address, publicKey } = accountResult.value;
 
 The returned `SignerAccount` exposes:
 
-- **`address`** — the SS58-encoded address for the current network.
-- **`publicKey`** — the raw 32-byte public key.
-- **`name`** — an optional display name, or `null`.
+- **`address`**: the SS58-encoded address for the current network.
+- **`publicKey`**: the raw 32-byte public key.
+- **`name`**: an optional display name, or `null`.
 
 ## Sign Arbitrary Bytes
 
 Use `signRaw` to sign an arbitrary byte payload with the currently selected account. This is useful for off-chain authentication, message proofs, and any use case that does not require a full transaction.
 
-`signRaw` returns a `Result<Uint8Array, SignerError>` — it never throws. Always check `.ok` before accessing `.value`.
+`signRaw` returns a `Result<Uint8Array, SignerError>`; it never throws. Always check `.ok` before accessing `.value`.
 
 ```typescript
 const selectResult = manager.selectAccount(accountResult.value.address);
@@ -142,7 +135,7 @@ const payload = new TextEncoder().encode('hello polkadot');
 const result = await manager.signRaw(payload);
 
 if (result.ok) {
-  console.log(result.value); // Uint8Array — the raw signature
+  console.log(result.value); // Uint8Array - the raw signature
 } else {
   console.error(result.error.message);
 }
@@ -152,7 +145,7 @@ if (result.ok) {
 
 To sign a transaction, get a `PolkadotSigner` from `SignerManager` and pass it directly to PAPI's `signAndSubmit`. The SDK handles routing the signing request to Desktop, which renders a signing modal and forwards to the Polkadot App.
 
-`@parity/product-sdk-signer` provides only the signer interface — chain connectivity uses polkadot-api directly. Set up your PAPI client separately:
+`@parity/product-sdk-signer` provides only the signer interface; chain connectivity uses polkadot-api directly. Set up your PAPI client separately:
 
 ```typescript
 import { createClient } from 'polkadot-api';
@@ -210,15 +203,15 @@ try {
 }
 ```
 
-- **`HostRejectedError`** — the user explicitly denied the request. Return the user to a stable state and let them retry.
-- **`TimeoutError`** — the signing session expired. Treat this the same as a rejection.
+- **`HostRejectedError`**: the user explicitly denied the request. Return the user to a stable state and let them retry.
+- **`TimeoutError`**: the signing session expired. Treat this the same as a rejection.
 
 !!! tip "Design for async latency"
     Signing is asynchronous because the Polkadot App runs on a separate device. Show a non-blocking pending state rather than freezing the interface, and make sure your retry path is idempotent in case the user attempts the same action twice.
 
 ## Test Without a Host
 
-During development, use `connect("dev")` to load the standard Substrate dev accounts (Alice, Bob, Charlie, Dave, Eve, Ferdie) without needing Polkadot Desktop. The signing API is identical — only the provider changes.
+During development, use `connect("dev")` to load the standard Substrate dev accounts (Alice, Bob, Charlie, Dave, Eve, Ferdie) without needing Polkadot Desktop. The signing API is identical; only the provider changes.
 
 ```typescript
 const result = await manager.connect("dev");
@@ -229,7 +222,7 @@ if (!selectResult.ok) return;
 
 const signResult = await manager.signRaw(new TextEncoder().encode('test'));
 if (signResult.ok) {
-  console.log(signResult.value); // Uint8Array — the raw signature
+  console.log(signResult.value); // Uint8Array - the raw signature
 }
 ```
 
@@ -239,7 +232,7 @@ if (signResult.ok) {
 ## Limitations
 
 - `getProductAccount`, `getProductAccountAlias`, and `createRingVRFProof` require an active host connection. They are not available in `"dev"` mode.
-- The package is ESM only — your Product's build pipeline must support ESM imports.
+- The package is ESM only; your Product's build pipeline must support ESM imports.
 - `SignerManager.destroy()` is terminal. After calling it, all subsequent method calls return `DestroyedError`. Use `disconnect()` for a reversible reset.
 - Account persistence across page reloads requires the host to expose `localStorage`. Outside a host container, persistence silently no-ops.
 
@@ -247,13 +240,13 @@ if (signResult.ok) {
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> **Read Chain State**
+-   <span class="badge guide">Guide</span> **Store Data on Chain**
 
     ---
 
-    Query on-chain storage, constants, and account balances from your Polkadot Product.
+    Your Product can sign; next, use that signer to store content on the Bulletin Chain and fetch it from anywhere by CID.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/read-chain-state/)
+    [:octicons-arrow-right-24: Store Data on Chain](/apps/build/store-data-on-chain/)
 
 -   <span class="badge external">External</span> **polkadot-api Docs**
 

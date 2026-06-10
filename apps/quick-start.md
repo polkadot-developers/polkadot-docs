@@ -1,21 +1,21 @@
 ---
 title: Quick Start
-description: Deploy a Polkadot Product in under 15 minutes — in the browser with RevX or from the terminal with the CLI. No local environment required.
+description: Deploy a Polkadot Product in under 15 minutes, in the browser with RevX or from the terminal with the CLI. No local environment required.
 categories: Apps
 ---
 
 # Quick Start
 
-Deploy a Polkadot Product in under 15 minutes and see it live under a `.dot` name — with no local development environment to set up. There are two ways to do it: generate one in your browser with RevX, or ship one from your terminal with the CLI. Pick the route that fits you.
+Deploy a Polkadot Product in under 15 minutes and see it live under a `.dot` name, with no local development environment to set up. There are two ways to do it: generate one in your browser with RevX, or ship one from your terminal with the CLI. Pick the route that fits you.
 
-!!! info "The only prerequisite"
-    You need the [Polkadot App](/apps/) installed on your phone — it signs the final publish step. Everything else runs in your browser or terminal.
+!!! info "Prerequisite"
+    You need the [Polkadot App](/apps/) installed on your phone; it signs the final publish step. Everything else runs in your browser or terminal.
 
 === "In the browser (RevX)"
 
-    This is the browser-based route — no local install needed, your whole IDE runs in the browser.
+    This is the browser-based route, with no local install needed: your whole IDE runs in the browser.
 
-    You'll use App Builder, a track inside the [RevX](https://revx.dev/){target=\_blank} browser IDE that scaffolds Polkadot Products from a natural-language prompt and publishes them to a `.dot` name. The output is a **Polkadot Product** — the same kind of `.dot`-published app the [Build](/apps/build/){target=\_blank} guides teach you to write by hand.
+    You'll use App Builder, a track inside the [RevX](https://revx.dev/){target=\_blank} browser IDE that scaffolds Polkadot Products from a natural-language prompt and publishes them to a `.dot` name. The output is a **Polkadot Product**, the same kind of `.dot`-published app the [Build](/apps/build/){target=\_blank} guides teach you to write by hand.
 
     By the end you'll have configured an AI provider in App Builder, generated a Polkadot Product from a prompt, inspected the generated code, and published it to `.dot`.
 
@@ -24,7 +24,7 @@ Deploy a Polkadot Product in under 15 minutes and see it live under a `.dot` nam
     You need an API key for an AI provider supported by App Builder (for example, OpenAI or Anthropic).
 
     !!! warning "Provisional"
-        The `Publish to .dot` step signs with your Polkadot App. Whether the `.dot` registration also needs TestNet funds or a verified identity is still being confirmed — if the publish step asks for either, complete the matching steps in [Get Started](/apps/get-started/){target=\_blank} first.
+        The `Publish to .dot` step signs with your Polkadot App. Whether the `.dot` registration also needs TestNet funds or a verified identity is still being confirmed; if the publish step asks for either, complete the matching steps in [Get Started](/apps/get-started/){target=\_blank} first.
 
     **Open RevX**
 
@@ -87,7 +87,7 @@ Deploy a Polkadot Product in under 15 minutes and see it live under a `.dot` nam
 
     **Inspect the Generated Code**
 
-    Once generation completes, open the generated files in the editor to review what was produced. You can continue iterating on the application from within RevX — refining the prompt, editing code directly, or layering additional changes through the chat interface.
+    Once generation completes, open the generated files in the editor to review what was produced. You can continue iterating on the application from within RevX: refine the prompt, edit code directly, or layering additional changes through the chat interface.
 
     ![RevX editor showing the generated app source files open for inspection](/images/apps/revx/revx-09.webp)
 
@@ -110,23 +110,10 @@ Deploy a Polkadot Product in under 15 minutes and see it live under a `.dot` nam
 
     This is the terminal-based route for getting a Polkadot Product deployed end to end from your workstation.
 
-    You'll install playground-cli — the `pg` command — pair it with your Polkadot App, build your Product, and publish it to a `.dot` name. The CLI is the command-line counterpart to Polkadot Desktop: Desktop runs published Products by their `.dot` names; `pg` takes a project on disk and turns it into one.
+    You'll install playground-cli (the `pg` command), pair it with your Polkadot App, build your Product, and publish it to a `.dot` name. The CLI is the command-line counterpart to Polkadot Desktop: Desktop runs published Products by their `.dot` names; `pg` takes a project on disk and turns it into one.
 
     !!! info "CLI version"
         This route targets playground-cli `0.27.1`. The CLI is in active development and breaking changes between versions are expected. To follow along, install this version (or check this page's last update against the latest release).
-
-    **Prerequisites**
-
-    - macOS or Linux with `curl` available. (Windows: use WSL.)
-    - A signer for the deploy step — the Polkadot App is the recommended path.
-
-    !!! warning "Provisional — picking a signer"
-        The CLI supports two signer modes; the Quick Start happy path is still being settled:
-
-        - Mobile signer (`--signer phone`, default) — use the Polkadot App on a camera-equipped device. Required for the interactive `pg init` QR login. Recommended for any deploy you intend to keep.
-        - Dev-only signer (`--signer dev`) — no phone needed; uses shared development keys (e.g., `--suri //Alice`). Positioned in the CLI for CI and local iteration. Caveat: the deployed `.dot` Product is owned by the shared dev account, not by you.
-
-        `pg init` installs the rest of the toolchain (rustup, nightly, rust-src, foundry, cdm, IPFS, gh) for you. To install them yourself, see the [upstream playground-cli README](https://github.com/paritytech/playground-cli){target=\_blank}.
 
     **Install the CLI**
 
@@ -143,7 +130,7 @@ Deploy a Polkadot Product in under 15 minutes and see it live under a `.dot` nam
         ```
 
     !!! note "Command aliases"
-        The installer registers two interchangeable commands — `playground` (canonical) and `pg` (short alias). This guide uses `pg` throughout.
+        The installer registers two interchangeable commands: `playground` (canonical) and `pg` (short alias). This guide uses `pg` throughout.
 
     **Initialize**
 
@@ -157,6 +144,10 @@ Deploy a Polkadot Product in under 15 minutes and see it live under a `.dot` nam
 
     !!! tip
         Toolchain install runs in parallel with the login step, so you can scan the QR code while dependencies download.
+
+    !!! note "Signer modes"
+        - **Mobile signer** (`--signer phone`, default): pairs with the Polkadot App via QR code. Required for `pg init` and recommended for any deploy you intend to keep.
+        - **Dev-only signer** (`--signer dev`): no phone needed; uses shared development keys (e.g., `--suri //Alice`). The deployed `.dot` Product will be owned by the shared dev account, not by you.
 
     **Build**
 
@@ -173,10 +164,10 @@ Deploy a Polkadot Product in under 15 minutes and see it live under a `.dot` nam
     `pg deploy` runs the full pipeline: build the frontend, upload artifacts to the Polkadot Bulletin Chain, and register a `.dot` domain via DotNS. Before building, it always runs your package manager's install step to keep dependencies in sync.
 
     ```bash
-    # Interactive — pg prompts for signer, domain, and build directory
+    # Interactive - pg prompts for signer, domain, and build directory
     pg deploy
 
-    # Dev signer — no phone needed (the deployed Product is owned by the shared dev account)
+    # Dev signer - no phone needed (the deployed Product is owned by the shared dev account)
     pg deploy --signer dev --domain my-app
     ```
 
@@ -215,23 +206,15 @@ Deploy a Polkadot Product in under 15 minutes and see it live under a `.dot` nam
 
 ## Where to Go Next
 
-You've deployed a Polkadot Product. To keep building it — with your own editor, the full toolchain, and the Build guides — continue with the local development route.
+You've deployed a Polkadot Product. To keep building it with your own editor and toolchain, head to the Build guides; they open with [project setup](/apps/build/#set-up-your-project) (Polkadot Desktop loads your Product from `localhost` and you iterate with live reload), then add capabilities one package-anchored guide at a time.
 
 <div class="grid cards" markdown>
-
--   <span class="badge guide">Local Dev</span> **Continue Locally with Polkadot Desktop**
-
-    ---
-
-    Set up the canonical local dev loop: Polkadot Desktop loads your Product from `localhost`, and you iterate with live reload.
-
-    [:octicons-arrow-right-24: Local Development](/apps/local-development/)
 
 -   <span class="badge guide">Guide</span> **Build Guides**
 
     ---
 
-    Add capabilities to your Product — signing, on-chain reads, decentralized storage, off-chain pub/sub, and local persistence — one package-anchored guide at a time.
+    Set up the local dev loop, then add capabilities to your Product: signing, on-chain reads, decentralized storage, off-chain pub/sub, and local persistence.
 
     [:octicons-arrow-right-24: Open Build Guides](/apps/build/)
 

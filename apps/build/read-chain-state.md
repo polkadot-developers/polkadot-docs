@@ -2,30 +2,20 @@
 title: Read On-Chain Data
 description: Connect a Polkadot Product to one or more chains and read storage, constants, and account state using the @parity/product-sdk-chain-client package.
 categories: Apps
+tutorial_badge: Beginner
 ---
 
 # Read On-Chain Data
 
-!!! info "Packages"
-    **Primary:** [`chain-client`](/apps/build/#the-product-sdk-packages) · **Utility:** [`descriptors`](/apps/build/#the-product-sdk-packages)
-
 ## Introduction
 
-This page is for developers building Polkadot Products that need to read on-chain state — account balances, storage items, runtime constants — from inside a Polkadot host container. It covers the `@parity/product-sdk-chain-client` package, which gives your Product a typed, host-aware client for any Polkadot SDK-based chain.
-
-The code examples throughout this guide use the **Paseo Bulletin chain** and **Paseo Asset Hub**, both confirmed working with Polkadot Desktop and `@parity/product-sdk` v0.8.0. The same patterns apply to any other chain — swap in the descriptor and RPC endpoint for the chain you need, and the client shape stays identical.
-
-The SDK ships two connection paths. A zero-config **Preset** path (`getChainAPI`) returns a ready-to-use client for a known environment. A **Bring Your Own Descriptors (BYOD)** path (`createChainClient`) lets you import chain descriptors explicitly and compose any set of chains your Product needs. Both produce the same client shape, so the rest of your read code stays identical.
-
-All connections are routed through the host. The SDK is designed to run exclusively inside a Polkadot host container (Polkadot Browser or Desktop). There is no direct WebSocket fallback — the `rpcs` field in `createChainClient` is kept for API compatibility but does not affect runtime behavior.
+This guide covers the `@parity/product-sdk-chain-client` package, which gives your Product a typed, host-aware client for reading on-chain state (account balances, storage items, and runtime constants) from inside a Polkadot host container. The SDK ships two connection paths: a zero-config **Preset** path (`getChainAPI`) and a **Bring Your Own Descriptors (BYOD)** path (`createChainClient`) for explicit descriptor control. Both produce the same client shape.
 
 ## Prerequisites
 
-Before starting, ensure you have:
-
-- A Polkadot Product project — from a [Quick Start](/apps/quick-start/) deploy or a [Local Development](/apps/local-development/) setup, with a TypeScript toolchain
-- Node.js with ESM support (`@parity/product-sdk-chain-client` is ESM only)
-- Polkadot Desktop to run your Product inside a host container. See [Install Desktop and Pair](/apps/get-started/)
+- A Polkadot Product project running locally (see [Set Up Your Project](/apps/build/#set-up-your-project)), with a TypeScript toolchain.
+- Node.js 20 or later with ESM support (`@parity/product-sdk-chain-client` is ESM only).
+- Polkadot Desktop to run your Product inside a host container. See [Install Desktop and Pair](/apps/get-started/).
 
 !!! note
     You do NOT need funded accounts to read chain state. Reads are unsigned and require only a running host container.
@@ -34,13 +24,13 @@ Before starting, ensure you have:
 
 You have two installation options depending on your needs:
 
-- **Individual packages** — install only what you use. Keeps your bundle smaller and makes dependencies explicit.
+- **Individual packages**: install only what you use. Keeps your bundle smaller and makes dependencies explicit.
 
     ```bash
     npm install @parity/product-sdk-chain-client
     ```
 
-- **Umbrella package** — install the full SDK in one command. Convenient when your Product uses several SDK features (chain client, signing, cloud storage, etc.) and bundle size is not a concern.
+- **Umbrella package**: install the full SDK in one command. Convenient when your Product uses several SDK features (chain client, signing, cloud storage, etc.) and bundle size is not a concern.
 
     ```bash
     npm install @parity/product-sdk
@@ -78,7 +68,7 @@ The returned client exposes one property per chain in the preset (`assetHub`, `b
 
 ## Connect Using Custom Descriptors (BYOD)
 
-When you need explicit control over which chains and descriptors your Product uses, use `createChainClient` and supply your own descriptors and RPC endpoints. This is called the **Bring Your Own Descriptors (BYOD)** path — you import the chain descriptor objects yourself instead of relying on the preset.
+When you need explicit control over which chains and descriptors your Product uses, use `createChainClient` and supply your own descriptors and RPC endpoints. This is called the **Bring Your Own Descriptors (BYOD)** path: you import the chain descriptor objects yourself instead of relying on the preset.
 
 ```ts
 import { createChainClient } from "@parity/product-sdk-chain-client";
@@ -99,7 +89,7 @@ const client = await createChainClient({
 client.destroy();
 ```
 
-The keys you choose in `chains` (`assetHub`, `bulletin`) become the property names on the returned client. Pick names that read naturally in your call sites — the rest of the SDK is fully typed against them.
+The keys you choose in `chains` (`assetHub`, `bulletin`) become the property names on the returned client. Pick names that read naturally in your call sites; the rest of the SDK is fully typed against them.
 
 !!! note
     The `rpcs` field is required by the API but connections are routed through the host at runtime. The URLs are used as documentation and for tooling purposes.
@@ -157,12 +147,12 @@ This is the recommended pattern whenever your Product needs to assemble a view f
 
 ## Access the Raw PAPI Client
 
-For advanced flows that the typed surface does not cover — raw storage subscriptions, low-level block tracking, or building a `ContractRuntime` for pallet-revive — every chain on the client exposes the underlying `PolkadotClient` under `.raw`.
+For advanced flows that the typed surface does not cover (raw storage subscriptions, low-level block tracking, or building a `ContractRuntime` for pallet-revive), every chain on the client exposes the underlying `PolkadotClient` under `.raw`.
 
 ```ts
 // Subscribe to every new finalized block on the Bulletin chain
 const subscription = client.raw.bulletin.finalizedBlock$.subscribe((block) => {
-    console.log(`Finalized block #${block.number} — ${block.hash}`);
+    console.log(`Finalized block #${block.number} - ${block.hash}`);
 });
 
 // Unsubscribe when done
@@ -173,7 +163,7 @@ Use the raw client only when you need to step outside the typed query/constants 
 
 ## Detect Whether You're Inside a Host
 
-The SDK re-exports two helpers from `@parity/product-sdk-host` for detecting whether your Product is running inside a host container. Use these when behavior should branch — for example, showing a connection status indicator.
+The SDK re-exports two helpers from `@parity/product-sdk-host` for detecting whether your Product is running inside a host container. Use these when behavior should branch, for example, showing a connection status indicator.
 
 ```ts
 import { isInsideContainer, isInsideContainerSync } from "@parity/product-sdk-chain-client";
@@ -187,7 +177,7 @@ const inContainerSync = isInsideContainerSync();    // sync, for top-level guard
 
 ## Clean Up Connections
 
-Each client owns one or more connections. Tear them down when your Product no longer needs them — typically on view unmount or process shutdown.
+Each client owns one or more connections. Tear them down when your Product no longer needs them, typically on view unmount or process shutdown.
 
 ```ts
 import { destroyAll } from "@parity/product-sdk-chain-client";
@@ -195,7 +185,7 @@ import { destroyAll } from "@parity/product-sdk-chain-client";
 // Close only the connections owned by this client
 client.destroy();
 
-// Global escape hatch — closes every connection the SDK has open
+// Global escape hatch - closes every connection the SDK has open
 destroyAll();
 ```
 
@@ -204,8 +194,8 @@ Use `client.destroy()` for normal cleanup and reserve `destroyAll()` for full-pr
 ## Limitations
 
 - The `paseo` environment is the only preset wired up today. `polkadot` and `kusama` throw at runtime.
-- The package is ESM only — your Product's build pipeline must support ESM imports.
-- Descriptors are imported by subpath (`@parity/product-sdk-descriptors/paseo-bulletin`), not from the package root. Bundlers that do not honour `exports` subpaths will fail to resolve them.
+- The package is ESM only; your Product's build pipeline must support ESM imports.
+- Descriptors are imported by subpath (`@parity/product-sdk-descriptors/paseo-bulletin`), not from the package root. Bundlers that do not honor `exports` subpaths will fail to resolve them.
 - The SDK runs exclusively inside a host container. There is no direct WebSocket fallback outside of one.
 - Reactive subscriptions (watching a storage item over time) are not covered on this page. A dedicated page on subscriptions will follow.
 
@@ -213,21 +203,13 @@ Use `client.destroy()` for normal cleanup and reserve `destroyAll()` for full-pr
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> **Accounts and Signing**
+-   <span class="badge guide">Guide</span> **Sign and Submit Transactions**
 
     ---
 
-    Move from reading state to signing transactions with your paired account.
+    Your Product can read the chain; next, let it act on the user's behalf, with every approval on their phone.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/sign-and-submit/)
-
--   <span class="badge guide">Guide</span> **Store Data On-Chain**
-
-    ---
-
-    Write to chain storage from your Product, including fee handling and confirmation.
-
-    [:octicons-arrow-right-24: Get Started](/apps/build/store-data-on-chain/)
+    [:octicons-arrow-right-24: Sign and Submit Transactions](/apps/build/sign-and-submit/)
 
 -   <span class="badge external">External</span> **polkadot-api Docs**
 

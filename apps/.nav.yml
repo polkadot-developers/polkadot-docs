@@ -2,7 +2,6 @@ nav:
  - 'Overview': index.md
  - 'Quick Start': quick-start.md
  - 'Get Started': get-started
- - 'Local Development': local-development.md
  - 'Build': build
  - 'Deploy and Publish': deploy-and-publish
  - 'Tutorials': tutorials

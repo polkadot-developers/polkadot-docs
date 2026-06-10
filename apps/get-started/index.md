@@ -8,22 +8,22 @@ categories: Apps
 
 ![Diagram: Polkadot Desktop displays a QR code that the Polkadot App scans; the App returns a session public key, and from then on every signing request routes from Desktop to the App for signature.](/images/apps/get-started/install-and-pair/pairing-flow.svg){: .browser-extension}
 
-You should already have the **Polkadot App** on your phone from the [homepage](/apps/) — it holds your key and approves signing. This page installs **Polkadot Desktop**, where your Product runs, and pairs the two with a QR scan, then forwards you to TestNet funding. About 10 minutes.
+You should already have the **Polkadot App** on your phone from the [Apps overview](/apps/); it holds your key and approves signing. This page installs **Polkadot Desktop**, where your Product runs, and pairs the two with a QR scan, then forwards you to TestNet funding. About 10 minutes.
 
 Two pieces of the Polkadot Triangle need to be talking to each other: Polkadot Desktop, where your Product runs, and the Polkadot App on your phone, where signing happens.
 
-Polkadot Desktop never holds your private key. Your identity lives on the Polkadot [People Chain](/reference/glossary/#people-chain){target=\_blank}, your private key lives in the Polkadot App, and Polkadot Desktop only ever holds a derived session public key — enough to identify you and construct per-Product accounts, but not enough to sign anything on its own.
+Polkadot Desktop never holds your private key. Your identity lives on the Polkadot [People Chain](/reference/glossary/#people-chain){target=\_blank}, your private key lives in the Polkadot App, and Polkadot Desktop only ever holds a derived session public key, enough to identify you and construct per-Product accounts, but not enough to sign anything on its own.
 
 ## Prerequisites
 
-- The [Polkadot App](/apps/) installed on your phone with an account created — it is your developer identity and signing device for Polkadot Products
+- The [Polkadot App](/apps/) installed on your phone with an account created; it is your developer identity and signing device for Polkadot Products
 - A workstation running macOS, Windows, or Linux
 - A device (iOS or Android) with a working camera
 - Network connectivity on both devices
 
 ## Install Polkadot Desktop
 
-1. Download the development build of Polkadot Desktop — official distribution link pending.
+1. Download the development build of Polkadot Desktop (official distribution link pending).
 
 2. Install the application using your platform's standard installer.
 
@@ -32,7 +32,7 @@ Polkadot Desktop never holds your private key. Your identity lives on the Polkad
     ![Polkadot Desktop login screen showing the pairing QR code and the network selector at the top right with Paseo Next V2 selected.](/images/apps/get-started/install-and-pair/install-and-pair-02.webp){: .browser-extension}
 
     !!! note "Skip for development"
-        The login screen also exposes a **Skip (Dev only)** button. Skipping the pairing drops you straight into Desktop without a paired signer — useful for inspecting Desktop or testing a local Product that does not require signing, but most development flows assume a paired Polkadot App.
+        The login screen also exposes a **Skip (Dev only)** button. Skipping the pairing drops you straight into Desktop without a paired signer, useful for inspecting Desktop or testing a local Product that does not require signing, but most development flows assume a paired Polkadot App.
 
 ## Pair Polkadot Desktop with the Polkadot App
 

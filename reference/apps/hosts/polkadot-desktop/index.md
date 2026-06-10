@@ -18,7 +18,7 @@ This section documents Desktop's developer-facing surface, including how a Produ
 
 From a Product developer's perspective, three properties are load-bearing:
 
-- **`.dot`-name addressing**: A published Product is addressed by its `.dot` name. Desktop resolves the name through DotNS, fetches the published bundle, and loads it in the sandbox. During development, Desktop's address bar accepts `localhost:PORT` as a whitelisted bypass so you can iterate against a local dev server. See [Local Development](/apps/local-development/){target=\_blank}.
+- **`.dot`-name addressing**: A published Product is addressed by its `.dot` name. Desktop resolves the name through DotNS, fetches the published bundle, and loads it in the sandbox. During development, Desktop's address bar accepts `localhost:PORT` as a whitelisted bypass so you can iterate against a local dev server. See [Set Up Your Project](/apps/build/#set-up-your-project){target=\_blank}.
 - **Sandboxed runtime**: A Product runs inside a sandboxed container, not as an arbitrary browser tab. The Product cannot make outbound network requests, access local storage, or sign transactions except through the Host API. See [Permissions](/reference/apps/hosts/polkadot-desktop/permissions/){target=\_blank}.
 - **Mediated signing**: Every transaction a Product submits, whether the dispatch is through the Product SDK or directly through TrUAPI, goes through Desktop's signing modal and on to the paired App. The Product never has the option to sign without user approval. See [Signing](/reference/apps/hosts/polkadot-desktop/signing/){target=\_blank}.
 

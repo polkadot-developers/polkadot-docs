@@ -28,26 +28,26 @@ The Polkadot Faucet distributes free PAS tokens to developers.
 
 ## Service Allowances
 
-Some Polkadot infrastructure services use a separate allowance-based access model. These allowances are independent of your token balance — even with enough PAS to cover fees, a missing allowance will cause the service to reject your request.
+Some Polkadot infrastructure services use a separate allowance-based access model. These allowances are independent of your token balance; even with enough PAS to cover fees, a missing allowance will cause the service to reject your request.
 
-??? note "Service Allowances — Bulletin Chain Storage"
+??? note "Service Allowances: Bulletin Chain Storage"
 
-    The [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/){target=\_blank} has no token balance for storage — every account needs an explicit authorization that grants a quota of transactions and bytes before it can store data on-chain. Without authorization, storage extrinsics will be rejected.
+    The [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/){target=\_blank} has no token balance for storage; every account needs an explicit authorization that grants a quota of transactions and bytes before it can store data on-chain; without authorization, storage extrinsics will be rejected.
 
-    On TestNet, you provision this authorization through the faucet built into the Bulletin Chain Console. Follow the [Get Authorization](/chain-interactions/store-data/bulletin-chain/#get-authorization){target=\_blank} steps in the Bulletin Chain tutorial to request your storage quota.
+    On TestNet, request your storage authorization directly from the [Bulletin Chain authorization page](https://paritytech.github.io/polkadot-bulletin-chain/authorizations){target=\_blank}. This is required before submitting any `store` extrinsic from your Product.
 
     After your authorization request is confirmed, you can verify the allocation on-chain by querying the `Authorizations` storage map of the `transaction-storage` pallet for your account.
 
-??? note "Service Allowances — Statement Store"
+??? note "Service Allowances: Statement Store"
 
     The [Statement Store](/reference/apps/infrastructure/statement-store/){target=\_blank} lets accounts publish off-chain statements that are gossiped and persisted by the network. Access is controlled by an on-chain `StatementAllowance` record that specifies two limits per account: `max_count` (the maximum number of statements the account can publish) and `max_size` (the maximum total bytes across those statements).
 
     !!! warning "Provisional"
         The process for obtaining a Statement Store allowance on TestNet is not yet documented. Check back for updates, or ask in the developer community for available access paths.
 
-??? note "Service Allowances — dotNS Names"
+??? note "Service Allowances: dotNS Names"
 
-    [dotNS](/reference/apps/infrastructure/dotns/){target=\_blank} (`.dot` name registration) uses a hybrid model. Open names — those that anyone can register — require a deposit paid in PAS. Names reserved for accounts with Proof of Personhood Full or PoP Lite status are free to register for eligible accounts, with no deposit required.
+    [dotNS](/reference/apps/infrastructure/dotns/){target=\_blank} (`.dot` name registration) uses a hybrid model. Open names (those that anyone can register) require a deposit paid in PAS. Names reserved for accounts with Proof of Personhood Full or PoP Lite status are free to register for eligible accounts, with no deposit required.
 
     See the [dotNS PopRules pricing reference](/reference/apps/infrastructure/dotns/poprules-pricing/){target=\_blank} for full pricing and tier details.
 
@@ -55,12 +55,12 @@ Some Polkadot infrastructure services use a separate allowance-based access mode
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Local Dev</span> __Set Up Local Development__
+-   <span class="badge guide">Guide</span> __Build Your Product__
 
     ---
 
-    Run your Product against a local dev server using Polkadot Desktop's `localhost` bypass.
+    Set up a local project, load it in Polkadot Desktop via the `localhost` bypass, and add capabilities guide by guide.
 
-    [:octicons-arrow-right-24: Local Development](/apps/local-development/)
+    [:octicons-arrow-right-24: Set Up Your Project](/apps/build/#set-up-your-project)
 
 </div>

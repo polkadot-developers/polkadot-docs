@@ -6,17 +6,21 @@ categories: Apps
 
 # Install Polkadot Desktop and Pair
 
-![Diagram: Polkadot Desktop displays a QR code that the Polkadot App scans; the App returns a session public key, and from then on every signing request routes from Desktop to the App for signature.](/images/apps/get-started/install-and-pair/pairing-flow.svg){: .browser-extension}
+## Introduction
 
-You should already have the **Polkadot App** on your phone from the [Apps overview](/apps/); it holds your key and approves signing. This page installs **Polkadot Desktop**, where your Product runs, and pairs the two with a QR scan, then forwards you to TestNet funding. About 10 minutes.
+You should already have the Polkadot App on your phone from the [Apps overview](/apps/); it holds your key and approves signing. This page covers installing Polkadot Desktop, where your Product runs, and pairing the two with a QR scan, then forwards you to TestNet funding. About 10 minutes.
 
 Two pieces of the Polkadot Triangle need to be talking to each other: Polkadot Desktop, where your Product runs, and the Polkadot App on your phone, where signing happens.
 
-Polkadot Desktop never holds your private key. Your identity lives on the Polkadot [People Chain](/reference/glossary/#people-chain){target=\_blank}, your private key lives in the Polkadot App, and Polkadot Desktop only ever holds a derived session public key, enough to identify you and construct per-Product accounts, but not enough to sign anything on its own.
+![Diagram: Polkadot Desktop displays a QR code that the Polkadot App scans; the App returns a session public key, and from then on every signing request routes from Desktop to the App for signature.](/images/apps/get-started/install-and-pair/pairing-flow.svg){: .browser-extension}
+
+Polkadot Desktop never holds your private key. Your identity lives on the Polkadot [People Chain](/reference/glossary/#people-chain), your private key lives in the Polkadot App, and Polkadot Desktop only ever holds a derived session public key — enough to identify you and construct per-Product accounts, but not enough to sign anything on its own.
 
 ## Prerequisites
 
-- The [Polkadot App](/apps/) installed on your phone with an account created; it is your developer identity and signing device for Polkadot Products
+Before getting started, ensure you have:
+
+- The [Polkadot App](/apps/) installed on your phone with an account created (your developer identity and signing device for Polkadot Products)
 - A workstation running macOS, Windows, or Linux
 - A device (iOS or Android) with a working camera
 - Network connectivity on both devices
@@ -40,15 +44,15 @@ Pairing is a one-time cryptographic handshake. Desktop displays the QR code, the
 
 1. Leave the QR code visible on the Polkadot Desktop login screen.
 
-2. In the Polkadot App, open the camera-scanning view and scan the QR code shown on Desktop. A "Link a new device?" prompt appears with the Desktop version details.
+2. In the Polkadot App, open the camera-scanning view and scan the QR code shown on Desktop. A **Link a new device?** prompt appears with the Desktop version details.
 
     ![Polkadot App showing the "Link a new device?" prompt listing Polkadot Desktop with Cancel and Link buttons.](/images/apps/get-started/install-and-pair/install-and-pair-03.webp){: .browser-extension}
 
-3. Tap **Link** to confirm. The App briefly shows a "Connecting device..." state while the handshake completes.
+3. Tap **Link** to confirm. The App briefly shows a **Connecting device...** state while the handshake completes.
 
     ![Polkadot App showing the "Connecting device..." state with a loading spinner.](/images/apps/get-started/install-and-pair/install-and-pair-04.webp){: .browser-extension}
 
-4. Desktop transitions from the QR code to a "Completing pairing..." state.
+4. Desktop transitions from the QR code to a **Completing pairing...** state.
 
     ![Polkadot Desktop showing the "Completing pairing..." state with a loading spinner where the QR code was.](/images/apps/get-started/install-and-pair/install-and-pair-05.webp){: .browser-extension}
 
@@ -58,11 +62,11 @@ Pairing is a one-time cryptographic handshake. Desktop displays the QR code, the
 
 After pairing, your identity on the People Chain is bound to the Polkadot App for this Desktop session. Every subsequent signing request will route to the App, and you approve or reject each one on the signing device.
 
-## Next
+## Where to Go Next
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Next</span> __Get TestNet Tokens__
+-   <span class="badge guide">Guide</span> **Get TestNet Tokens**
 
     ---
 

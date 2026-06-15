@@ -2,7 +2,8 @@
 title: Sign and Submit Transactions
 description: Derive product-scoped accounts and sign transactions from a Polkadot Product using the Product SDK, with all approvals routed to the Polkadot App.
 categories: Apps
-tutorial_badge: Beginner
+page_badges:
+  tutorial_badge: Beginner
 ---
 
 # Sign and Submit Transactions

@@ -2,7 +2,8 @@
 title: Store Data on Chain
 description: Store and retrieve Bulletin Chain data from a Polkadot Product, Hello World, larger files, renewal, cross-chain via People Chain, preimage-authorized uploads.
 categories: Apps
-tutorial_badge: Intermediate
+page_badges:
+  tutorial_badge: Intermediate
 ---
 
 # Store Data on Chain

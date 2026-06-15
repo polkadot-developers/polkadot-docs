@@ -2,7 +2,8 @@
 title: Publish and Subscribe to Off-Chain Data
 description: Publish and subscribe to off-chain data from a Polkadot Product using the Statement Store. Filter by topic, publish statements, and use channels.
 categories: Apps
-tutorial_badge: Intermediate
+page_badges:
+  tutorial_badge: Intermediate
 ---
 
 # Publish and Subscribe to Off-Chain Data

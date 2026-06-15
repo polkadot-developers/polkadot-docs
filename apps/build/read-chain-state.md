@@ -2,7 +2,8 @@
 title: Read On-Chain Data
 description: Connect a Polkadot Product to one or more chains and read storage, constants, and account state using the @parity/product-sdk-chain-client package.
 categories: Apps
-tutorial_badge: Beginner
+page_badges:
+  tutorial_badge: Beginner
 ---
 
 # Read On-Chain Data

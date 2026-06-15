@@ -2,7 +2,8 @@
 title: Persist Data Locally
 description: Learn how to store and retrieve application data between sessions in a Polkadot Product using the @parity/product-sdk-local-storage package.
 categories: Apps
-tutorial_badge: Beginner
+page_badges:
+  tutorial_badge: Beginner
 ---
 
 # Persist Data Locally

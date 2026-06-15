@@ -9,13 +9,13 @@ tutorial_badge: Beginner
 
 ## Introduction
 
-This guide covers the `@parity/product-sdk-chain-client` package, which gives your Product a typed, host-aware client for reading on-chain state (account balances, storage items, and runtime constants) from inside a Polkadot host container. The SDK ships two connection paths: a zero-config **Preset** path (`getChainAPI`) and a **Bring Your Own Descriptors (BYOD)** path (`createChainClient`) for explicit descriptor control. Both produce the same client shape.
+This guide covers the `@parity/product-sdk-chain-client` package, which gives your Product a typed, host-aware client for reading on-chain state (account balances, storage items, and runtime constants) from inside a Polkadot host container. The SDK ships two connection paths: a zero-config **Preset** path (`getChainAPI`) and a __Bring Your Own Descriptors (BYOD)__ path (`createChainClient`) for explicit descriptor control. Both produce the same client shape.
 
 ## Prerequisites
 
-- A Polkadot Product project running locally (see [Set Up Your Project](/apps/build/#set-up-your-project)), with a TypeScript toolchain.
-- Node.js 20 or later with ESM support (`@parity/product-sdk-chain-client` is ESM only).
-- Polkadot Desktop to run your Product inside a host container. See [Install Desktop and Pair](/apps/get-started/).
+- A Polkadot Product project running locally (see [Set Up Your Project](/apps/build/#set-up-your-project)), with a TypeScript toolchain
+- Node.js 20 or later with ESM support (`@parity/product-sdk-chain-client` is ESM only)
+- Polkadot Desktop to run your Product inside a host container. See [Install Desktop and Pair](/apps/get-started/)
 
 !!! note
     You do NOT need funded accounts to read chain state. Reads are unsigned and require only a running host container.
@@ -24,13 +24,13 @@ This guide covers the `@parity/product-sdk-chain-client` package, which gives yo
 
 You have two installation options depending on your needs:
 
-- **Individual packages**: install only what you use. Keeps your bundle smaller and makes dependencies explicit.
+- **Individual packages**: Install only what you use. Keeps your bundle smaller and makes dependencies explicit.
 
     ```bash
     npm install @parity/product-sdk-chain-client
     ```
 
-- **Umbrella package**: install the full SDK in one command. Convenient when your Product uses several SDK features (chain client, signing, cloud storage, etc.) and bundle size is not a concern.
+- **Umbrella package**: Install the full SDK in one command. Convenient when your Product uses several SDK features, such as chain client, signing, and cloud storage, and bundle size is not a concern.
 
     ```bash
     npm install @parity/product-sdk
@@ -50,10 +50,10 @@ The descriptors package exposes typed `ChainDefinition` objects through subpath 
 
 The Preset path is the fastest way to get a working client. `getChainAPI(env)` returns a client preconfigured with the descriptors and RPC endpoints for the requested environment.
 
-```ts
-import { getChainAPI } from "@parity/product-sdk-chain-client";
+```typescript
+import { getChainAPI } from '@parity/product-sdk-chain-client';
 
-const client = await getChainAPI("paseo");
+const client = await getChainAPI('paseo');
 
 const fee = await client.bulletin.query.TransactionStorage.ByteFee.getValue();
 const blockNumber = await client.assetHub.query.System.Number.getValue();
@@ -61,19 +61,19 @@ const blockNumber = await client.assetHub.query.System.Number.getValue();
 client.destroy();
 ```
 
-The returned client exposes one property per chain in the preset (`assetHub`, `bulletin`, `individuality`), each typed by the underlying [polkadot-api](https://papi.how){target=\_blank} (PAPI) descriptor.
+The returned client exposes one property per chain in the preset (`assetHub`, `bulletin`, `individuality`), each typed by the underlying [polkadot-api](https://papi.how) (PAPI) descriptor.
 
 !!! warning "Only `paseo` is live"
     `getChainAPI` accepts the `Environment` values `paseo`, `polkadot`, and `kusama`, but only `paseo` is wired up at the moment. Calling `getChainAPI('polkadot')` or `getChainAPI('kusama')` throws at runtime.
 
 ## Connect Using Custom Descriptors (BYOD)
 
-When you need explicit control over which chains and descriptors your Product uses, use `createChainClient` and supply your own descriptors and RPC endpoints. This is called the **Bring Your Own Descriptors (BYOD)** path: you import the chain descriptor objects yourself instead of relying on the preset.
+When you need explicit control over which chains and descriptors your Product uses, use `createChainClient` and supply your own descriptors and RPC endpoints. This is called the _Bring Your Own Descriptors (BYOD)_ path. You import the chain descriptor objects yourself instead of relying on the preset.
 
-```ts
-import { createChainClient } from "@parity/product-sdk-chain-client";
-import { paseo_asset_hub } from "@parity/product-sdk-descriptors/paseo-asset-hub";
-import { paseo_bulletin } from "@parity/product-sdk-descriptors/paseo-bulletin";
+```typescript
+import { createChainClient } from '@parity/product-sdk-chain-client';
+import { paseo_asset_hub } from '@parity/product-sdk-descriptors/paseo-asset-hub';
+import { paseo_bulletin } from '@parity/product-sdk-descriptors/paseo-bulletin';
 
 const client = await createChainClient({
     chains: {
@@ -81,8 +81,8 @@ const client = await createChainClient({
         bulletin: paseo_bulletin,
     },
     rpcs: {
-        assetHub: ["wss://paseo-asset-hub-next-rpc.polkadot.io"],
-        bulletin: ["wss://paseo-bulletin-next-rpc.polkadot.io"],
+        assetHub: ['wss://paseo-asset-hub-next-rpc.polkadot.io'],
+        bulletin: ['wss://paseo-bulletin-next-rpc.polkadot.io'],
     },
 });
 
@@ -107,26 +107,26 @@ client.<chainName>.query.<Pallet>.<Item>.getValue(...args)
 
 The following examples show common read operations. Each one maps directly to a pallet storage item and requires no transaction or signature.
 
-??? example "Byte Fee"
+??? code "Byte Fee"
     `TransactionStorage.ByteFee` returns the current cost per byte for on-chain storage on the Bulletin chain.
 
-    ```ts
+    ```typescript
     const fee = await client.bulletin.query.TransactionStorage.ByteFee.getValue();
     console.log(`${fee} planck/byte`);
     ```
 
-??? example "Block Number"
+??? code "Block Number"
     `System.Number` returns the current best block number for the chain.
 
-    ```ts
+    ```typescript
     const blockNumber = await client.assetHub.query.System.Number.getValue();
     ```
 
-??? example "Account State"
+??? code "Account State"
     `System.Account` returns the full account record for an address, including nonce and balance buckets.
 
-    ```ts
-    const address = "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY";
+    ```typescript
+    const address = '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY';
 
     const account = await client.assetHub.query.System.Account.getValue(address);
     const { nonce, data: { free, reserved, frozen } } = account;
@@ -134,9 +134,9 @@ The following examples show common read operations. Each one maps directly to a 
 
 ## Read Multiple Chains in Parallel
 
-Because each chain has its own connection under the hood, reads across chains are independent and can be issued in parallel with `Promise.all`.
+Because each chain has its own connection internally, reads across chains are independent and can be issued in parallel with `Promise.all`.
 
-```ts
+```typescript
 const [fee, blockNumber] = await Promise.all([
     client.bulletin.query.TransactionStorage.ByteFee.getValue(),
     client.assetHub.query.System.Number.getValue(),
@@ -147,12 +147,12 @@ This is the recommended pattern whenever your Product needs to assemble a view f
 
 ## Access the Raw PAPI Client
 
-For advanced flows that the typed surface does not cover (raw storage subscriptions, low-level block tracking, or building a `ContractRuntime` for pallet-revive), every chain on the client exposes the underlying `PolkadotClient` under `.raw`.
+For advanced flows that the typed surface does not cover, such as raw storage subscriptions, low-level block tracking, or building a `ContractRuntime` for pallet-revive, every chain on the client exposes the underlying `PolkadotClient` under `.raw`.
 
-```ts
+```typescript
 // Subscribe to every new finalized block on the Bulletin chain
 const subscription = client.raw.bulletin.finalizedBlock$.subscribe((block) => {
-    console.log(`Finalized block #${block.number} - ${block.hash}`);
+    console.log(`Finalized block #${block.number}: ${block.hash}`);
 });
 
 // Unsubscribe when done
@@ -165,8 +165,8 @@ Use the raw client only when you need to step outside the typed query/constants 
 
 The SDK re-exports two helpers from `@parity/product-sdk-host` for detecting whether your Product is running inside a host container. Use these when behavior should branch, for example, showing a connection status indicator.
 
-```ts
-import { isInsideContainer, isInsideContainerSync } from "@parity/product-sdk-chain-client";
+```typescript
+import { isInsideContainer, isInsideContainerSync } from '@parity/product-sdk-chain-client';
 
 const inContainer = await isInsideContainer();      // async, canonical
 const inContainerSync = isInsideContainerSync();    // sync, for top-level guards
@@ -179,13 +179,13 @@ const inContainerSync = isInsideContainerSync();    // sync, for top-level guard
 
 Each client owns one or more connections. Tear them down when your Product no longer needs them, typically on view unmount or process shutdown.
 
-```ts
-import { destroyAll } from "@parity/product-sdk-chain-client";
+```typescript
+import { destroyAll } from '@parity/product-sdk-chain-client';
 
 // Close only the connections owned by this client
 client.destroy();
 
-// Global escape hatch - closes every connection the SDK has open
+// Global escape hatch: closes every connection the SDK has open
 destroyAll();
 ```
 
@@ -217,6 +217,6 @@ Use `client.destroy()` for normal cleanup and reserve `destroyAll()` for full-pr
 
     Reference for the typed PAPI surface that `@parity/product-sdk-chain-client` exposes per chain.
 
-    [:octicons-arrow-right-24: Visit Site](https://papi.how){target=\_blank}
+    [:octicons-arrow-right-24: Visit Site](https://papi.how)
 
 </div>

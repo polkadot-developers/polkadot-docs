@@ -13,7 +13,7 @@ Each [Build guide](/apps/build/) takes one `product-sdk` capability from zero to
 What you will build, and which package carries each part:
 
 |      Capability      |                  Package                   |                                                     Role in the app                                                     |
-|:--------------------:|:------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------:|
+| :------------------: | :----------------------------------------: | :---------------------------------------------------------------------------------------------------------------------: |
 | Identity and signing | `signer` (via the umbrella's `wallet` API) | Connect to the Host and get the account that authors and signs everything                                               |
 | Local persistence    | `local-storage`                            | The board renders instantly from the device's last known state                                                          |
 | Real-time sharing    | `statement-store`                          | Every mutation gossips to other participants as a signed statement                                                      |
@@ -90,7 +90,7 @@ The board should render instantly on launch before the Host connection and befor
 --8<-- "code/apps/tutorials/shared-todo-app/board.ts"
 ```
 
-`getJSON`/`setJSON` handle serialization, and the SDK namespaces keys per Product automatically, so no prefixing is needed. The store backend is auto-detected (Host or plain browser), a detail covered in [Persist Data Locally](/apps/build/persist-data-locally/).
+The `getJSON` and `setJSON` helpers handle serialization, and the SDK namespaces keys per Product automatically, so no prefixing is needed. The store backend is auto-detected (Host or plain browser), a detail covered in [Persist Data Locally](/apps/build/persist-data-locally/).
 
 Note what this file _does not_ contain: mutation logic. Adding, toggling, and deleting todos are defined in the next section as events, so that a change made locally and a change arriving from the network flow through identical code.
 
@@ -101,9 +101,10 @@ The [Statement Store](/reference/apps/infrastructure/statement-store/) gossips s
 - The whole board does not fit inside the 512-byte statement cap, so each statement carries one mutation: an upsert of a single todo, or a deletion.
 - Statements have a 30-second TTL. They are signaling, not storage. A participant who joins late sees nothing until the next mutation; that gap is closed by the durable snapshots in the next section.
 
-```typescript title="lib/sync.ts"
---8<-- "code/apps/tutorials/shared-todo-app/sync.ts"
-```
+??? code "lib/sync.ts"
+    ```typescript title="lib/sync.ts"
+    --8<-- "code/apps/tutorials/shared-todo-app/sync.ts"
+    ```
 
 The pieces:
 
@@ -115,9 +116,10 @@ The pieces:
 
 Statements vanish after 30 seconds; the board should not. The [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/) stores content-addressed data on chain: upload bytes, get back a CID, and fetch by CID from anywhere. The app uploads the whole board as a JSON snapshot, then announces the CID on a last-write-wins channel so every participant knows where the freshest snapshot lives. Announcements are published with a one-hour TTL because the default 30 seconds would make the board undiscoverable almost immediately. A participant who joins within that window receives the latest live announcement on subscribe and loads the board from the Bulletin Chain; beyond it, the board appears once any participant saves again:
 
-```typescript title="lib/snapshot.ts"
---8<-- "code/apps/tutorials/shared-todo-app/snapshot.ts"
-```
+??? code "lib/snapshot.ts"
+    ```typescript title="lib/snapshot.ts"
+    --8<-- "code/apps/tutorials/shared-todo-app/snapshot.ts"
+    ```
 
 The pieces:
 
@@ -130,9 +132,10 @@ The pieces:
 
 The UI is a single client component. All the SDK behavior you have built lives in `lib/`; the page wires it to React state. The two functions worth reading closely are `dispatch` (apply a local mutation, persist it, broadcast it) and `receiveEvent` (apply a remote mutation through the _same_ merge), plus `handleSaveBoard` and `receiveSnapshot` doing the equivalent pair for snapshots:
 
-```tsx title="app/page.tsx"
---8<-- "code/apps/tutorials/shared-todo-app/page.tsx"
-```
+??? code "app/page.tsx"
+    ```tsx title="app/page.tsx"
+    --8<-- "code/apps/tutorials/shared-todo-app/page.tsx"
+    ```
 
 ## Run It
 
@@ -144,10 +147,10 @@ npm run dev
 
 Then walk the same checks this tutorial's reference app was verified with:
 
-1. Identity: Click **Connect**; your account address appears in the header and a green **live** badge confirms the statement subscription.
-2. Local persistence: Add todos, reload the page, and the board comes back instantly from device storage.
-3. Real-time sync: Open the Product in a second host client and connect; a todo added in one appears in the other within a couple of seconds.
-4. Durability: Click **Save board**; after the signing approval, the snapshot CID appears in the footer. Connect a third client with no local state within the announcement's one-hour TTL: it receives the announced CID and loads the board from the Bulletin Chain.
+1. **Identity**: Click **Connect**; your account address appears in the header and a green live badge confirms the statement subscription.
+2. **Local persistence**: Add todos, reload the page, and the board comes back instantly from device storage.
+3. **Real-time sync**: Open the Product in a second host client and connect; a todo added in one appears in the other within a couple of seconds.
+4. **Durability**: Click **Save board**; after the signing approval, the snapshot CID appears in the footer. Connect a third client with no local state within the announcement's one-hour TTL: it receives the announced CID and loads the board from the Bulletin Chain.
 
 ## Ship It
 

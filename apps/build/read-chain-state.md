@@ -9,13 +9,15 @@ tutorial_badge: Beginner
 
 ## Introduction
 
-This guide covers the `@parity/product-sdk-chain-client` package, which gives your Product a typed, host-aware client for reading on-chain state (account balances, storage items, and runtime constants) from inside a Polkadot host container. The SDK ships two connection paths: a zero-config **Preset** path (`getChainAPI`) and a __Bring Your Own Descriptors (BYOD)__ path (`createChainClient`) for explicit descriptor control. Both produce the same client shape.
+This guide covers the `@parity/product-sdk-chain-client` package, which gives your Product a typed, host-aware client for reading on-chain state (account balances, storage items, and runtime constants) from inside a Polkadot host container. The SDK ships two connection paths: a zero-config Preset path (`getChainAPI`) and a Bring Your Own Descriptors (BYOD) path (`createChainClient`) for explicit descriptor control. Both produce the same client shape.
 
 ## Prerequisites
 
-- A Polkadot Product project running locally (see [Set Up Your Project](/apps/build/#set-up-your-project)), with a TypeScript toolchain
+Before starting, ensure you have:
+
+- A Polkadot Product project running locally (see [Set Up Your Project](/apps/build/#set-up-your-project)) with a TypeScript toolchain
 - Node.js 20 or later with ESM support (`@parity/product-sdk-chain-client` is ESM only)
-- Polkadot Desktop to run your Product inside a host container. See [Install Desktop and Pair](/apps/get-started/)
+- Polkadot Desktop to run your Product inside a host container (see [Install Desktop and Pair](/apps/get-started/))
 
 !!! note
     You do not need funded accounts to read chain state. Reads are unsigned and require only a running host container.
@@ -46,9 +48,13 @@ npm install @parity/product-sdk-descriptors
 
 The descriptors package exposes typed `ChainDefinition` objects through subpath imports (for example, `@parity/product-sdk-descriptors/paseo-bulletin`). Each subpath corresponds to one chain.
 
-## Connect Using a Preset
+## Connect to a Chain
 
-The Preset path is the fastest way to get a working client. `getChainAPI(env)` returns a client preconfigured with the descriptors and RPC endpoints for the requested environment.
+The SDK provides two connection paths. The Preset path (`getChainAPI`) is the fastest way to get a working client — it comes preconfigured with descriptors and RPC endpoints for supported environments. Use the BYOD path (`createChainClient`) when you need explicit control over which chains and descriptors your Product uses.
+
+### Connect Using a Preset
+
+`getChainAPI(env)` returns a client preconfigured with the descriptors and RPC endpoints for the requested environment.
 
 ```typescript
 import { getChainAPI } from '@parity/product-sdk-chain-client';
@@ -66,14 +72,18 @@ The returned client exposes one property per chain in the preset (`assetHub`, `b
 !!! warning "Not every environment is live"
     `getChainAPI` accepts the `Environment` values `polkadot`, `kusama`, `paseo`, `summit`, `local`, and `westend`. Only `paseo` and `summit` are wired up at the moment; calling an environment that is not yet live throws at runtime.
 
-## Connect Using Custom Descriptors (BYOD)
+### Connect Using Custom Descriptors (BYOD)
 
-When you need explicit control over which chains and descriptors your Product uses, use `createChainClient` and supply your own descriptors. This is called the **Bring Your Own Descriptors (BYOD)** path: you import the chain descriptor objects yourself instead of relying on the preset.
+Use `createChainClient` to supply your own descriptors and RPC endpoints, importing the chain descriptor objects you need directly instead of relying on a preset.
 
 ```typescript
 import { createChainClient } from '@parity/product-sdk-chain-client';
-import { paseo_asset_hub } from '@parity/product-sdk-descriptors/paseo-asset-hub';
-import { paseo_bulletin } from '@parity/product-sdk-descriptors/paseo-bulletin';
+import {
+  paseo_asset_hub,
+} from '@parity/product-sdk-descriptors/paseo-asset-hub';
+import {
+  paseo_bulletin,
+} from '@parity/product-sdk-descriptors/paseo-bulletin';
 
 const client = await createChainClient({
   chains: {
@@ -162,7 +172,10 @@ Use the raw client only when you need to step outside the typed query/constants 
 The SDK re-exports two helpers from `@parity/product-sdk-host` for detecting whether your Product is running inside a host container. Use these when behavior should branch, for example, showing a connection status indicator.
 
 ```typescript
-import { isInsideContainer, isInsideContainerSync } from '@parity/product-sdk-chain-client';
+import {
+  isInsideContainer,
+  isInsideContainerSync,
+} from '@parity/product-sdk-chain-client';
 
 const inContainer = await isInsideContainer(); // async, canonical
 const inContainerSync = isInsideContainerSync(); // sync, for top-level guards
@@ -215,7 +228,7 @@ Use `client.destroy()` for normal cleanup and reserve `destroyAll()` for full-pr
 
     [:octicons-arrow-right-24: Visit Site](https://papi.how)
 
--   <span class="badge external">External</span> **product-sdk API Reference**
+-   <span class="badge external">External</span> **Product SDK API Reference**
 
     ---
 

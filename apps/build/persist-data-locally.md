@@ -144,7 +144,7 @@ To remove a key or clear all storage for your Product, access `app.localStorage`
 
     [:octicons-arrow-right-24: Quick Start](/apps/quick-start/)
 
--   <span class="badge external">External</span> **product-sdk API Reference**
+-   <span class="badge external">External</span> **Product SDK API Reference**
 
     ---
 

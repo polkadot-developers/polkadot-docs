@@ -2,7 +2,7 @@
 
 import { client } from './setup-client';
 
-// e.g. a File the user dropped, an asset bundled with your Product.
+// e.g., a File the user dropped, an asset bundled with your Product.
 declare const largeFile: Uint8Array;
 
 const estimate = client.estimateAuthorization(largeFile.length);

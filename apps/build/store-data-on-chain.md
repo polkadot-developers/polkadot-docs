@@ -23,8 +23,10 @@ This guide covers the [Bulletin Chain](/reference/apps/infrastructure/bulletin-c
 
 ## Prerequisites
 
-- Complete [Install Desktop and Pair](/apps/get-started/) and [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/); your account needs PAS funds and a Bulletin Chain authorization. If you have not obtained a Bulletin Chain authorization yet, request one from the [Bulletin Chain authorization page](https://paritytech.github.io/polkadot-bulletin-chain/authorizations)
-- A Polkadot Product project running locally. See [Set Up Your Project](/apps/build/#set-up-your-project)
+Before starting, ensure you have:
+
+- Completed the [Install Desktop and Pair](/apps/get-started/) and [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/) guides; your account needs PAS funds and a Bulletin Chain authorization. If you have not obtained a Bulletin Chain authorization yet, request one from the [Bulletin Chain authorization page](https://paritytech.github.io/polkadot-bulletin-chain/authorizations)
+- A Polkadot Product project running locally (see [Set Up Your Project](/apps/build/#set-up-your-project))
 
 ## Install the SDK
 
@@ -148,7 +150,7 @@ PoP-gated identity lives on the People Chain. When a Product needs to attach con
 
 The flow has three phases:
 
-1. People Chain authorizes your account against its local `transactionStorage` instance. (Authorization on People Chain is independent of your Bulletin Chain authorization.)
+1. People Chain authorizes your account against its local `transactionStorage` instance (authorization on People Chain is independent of your Bulletin Chain authorization).
 2. Your account submits `transactionStorage.store(data)` on People Chain. The receipt yields a People-Chain-side `(block, index)` pair plus the computed CID.
 3. People Chain dispatches an XCM message to the Bulletin Chain that mirrors the storage record. Once XCM execution completes, the data is addressable from the Bulletin Chain's collator network with the same CID. Your Product can read it via `client.fetchBytes(cid)` exactly as if you had written directly to Bulletin.
 
@@ -161,7 +163,7 @@ Bulletin Chain has a second authorization model alongside the per-account quota 
 This is the right path when:
 
 - A sponsor (an app, a parachain, or governance) pre-authorizes content for someone else to upload.
-- The People Chain -> Bulletin XCM flow described in [Cross-Chain Storage from People Chain](#cross-chain-storage-from-people-chain) authorizes a hash on Bulletin, and the actual bytes get submitted by the user's Product.
+- The People Chain → Bulletin XCM flow described in [Cross-Chain Storage from People Chain](#cross-chain-storage-from-people-chain) authorizes a hash on Bulletin, and the actual bytes get submitted by the user's Product.
 
 The Host API exposes the submission side through `getPreimageManager` from `@parity/product-sdk-host` (already installed via the umbrella package in Set Up). Polkadot Desktop mediates the call. The Product never holds a signer for this path because the underlying transaction is unsigned.
 
@@ -172,7 +174,7 @@ The Host API exposes the submission side through `getPreimageManager` from `@par
 `preimageManager.submit(payload)` resolves with the Blake2b-256 hash of the payload, which is the same hash format as a Bulletin CID. The submission is rejected if no `authorize_preimage` exists for that hash. Reading is permissionless; subscribe via `preimageManager.lookup(key, callback)`.
 
 !!! warning "Provisional"
-    The Bulletin Chain preimage authorization flow is live on TestNet today, but the cross-chain authorization path (People Chain -> Bulletin) and production environment endpoints are not yet finalized. The submission has a Host-side timeout (~120s on the current dev build) before it resolves; production timeouts may shift. The `@parity/product-sdk` API surface is pre-1.0; minor API changes are expected during the `0.x` line.
+    The Bulletin Chain preimage authorization flow is live on TestNet today, but the cross-chain authorization path (People Chain → Bulletin) and production environment endpoints are not yet finalized. The submission has a Host-side timeout (~120s on the current dev build) before it resolves; production timeouts may shift. The `@parity/product-sdk` API surface is pre-1.0; minor API changes are expected during the `0.x` line.
 
 The mechanics:
 
@@ -195,7 +197,7 @@ The flows in this guide target the same chain but differ in authorization, atomi
 | Bulletin store (small)          | Bulletin authorization                               | Single tx                    | ~2 weeks (renewable) | Most Product writes                                             |
 | Bulletin store (chunked)        | Bulletin authorization                               | Multi-tx + DAG-PB manifest   | ~2 weeks (renewable) | Files larger than 8 MiB                                         |
 | Cross-chain via People Chain    | People-Chain authorization                           | XCM (eventually consistent)  | ~2 weeks (renewable) | PoP-attached writes                                             |
-| Bulletin preimage submission    | Pre-authorized hash (no per-account quota, no fees)  | Single unsigned tx           | ~2 weeks (renewable) | Sponsored uploads; receiving People Chain -> Bulletin XCM dispatches |
+| Bulletin preimage submission    | Pre-authorized hash (no per-account quota, no fees)  | Single unsigned tx           | ~2 weeks (renewable) | Sponsored uploads; receiving People Chain → Bulletin XCM dispatches |
 
 For deeper comparison and the full pallet reference, see [Data Storage Reference](/reference/polkadot-hub/data-storage/).
 
@@ -219,7 +221,7 @@ For deeper comparison and the full pallet reference, see [Data Storage Reference
 
     [:octicons-arrow-right-24: Read On-Chain Data](/apps/build/read-chain-state/)
 
--   <span class="badge external">External</span> **product-sdk API Reference**
+-   <span class="badge external">External</span> **Product SDK API Reference**
 
     ---
 

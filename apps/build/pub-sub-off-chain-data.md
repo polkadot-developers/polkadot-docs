@@ -125,7 +125,7 @@ Two limits worth designing around:
 
     [:octicons-arrow-right-24: Store Data on Chain](/apps/build/store-data-on-chain/)
 
--   <span class="badge external">External</span> **product-sdk API Reference**
+-   <span class="badge external">External</span> **Product SDK API Reference**
 
     ---
 

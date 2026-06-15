@@ -9,7 +9,7 @@ categories: Apps
 The Build section is a cookbook of focused recipes, one per [`product-sdk`](https://github.com/paritytech/product-sdk){target=\_blank} package; each recipe takes a single capability and walks you from an empty project to working Product code. They apply no matter how you started: a [Quick Start](/apps/quick-start/) deploy (RevX or CLI) or a project you [set up yourself](#set-up-your-project). Pick the capability your Product needs, in any order; the recipes are ordered by how little they ask of you, and the first one requires no account and no tokens.
 
 !!! tip "Full API reference"
-    Each recipe walks one path through a package. For the complete `product-sdk` surface (every package, class, and method), see the [product-sdk API reference](https://paritytech.github.io/product-sdk/){target=\_blank}.
+    Each recipe walks one path through a package. For the complete `product-sdk` surface (every package, class, and method), see the [Product SDK API reference](https://paritytech.github.io/product-sdk/){target=\_blank}.
 
 ## Set Up Your Project
 
@@ -97,7 +97,7 @@ Your Product is now running inside the Polkadot Desktop sandbox, served from you
 Each guide is built around one _primary_ package and weaves in _utility_ packages where they are needed. The full source is at [`paritytech/product-sdk`](https://github.com/paritytech/product-sdk){target=\_blank}. Here is what each package is for:
 
 |      Package      |                                                                                                                    What it does                                                                                                                     |                                     Guide                                      |
-|:-------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------:|
+|:-----------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------:|
 |  `chain-client`   |                                                A typed, host-routed client for reading on-chain storage, constants, and account state across one or more chains, with no RPC infrastructure to run.                                                 |              [Read On-Chain Data](/apps/build/read-chain-state/)               |
 |     `signer`      |                                             Derives product-scoped accounts and requests signatures, routing every approval to the user's Polkadot App. Your Product signs without ever handling keys.                                              |          [Sign and Submit Transactions](/apps/build/sign-and-submit/)          |
 |  `cloud-storage`  | A high-level client for the [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/){target=\_blank}, Polkadot's content-addressed storage. Uploads and retrieves data by CID, with chunking, manifests, and authorization handled for you. |            [Store Data on Chain](/apps/build/store-data-on-chain/)             |

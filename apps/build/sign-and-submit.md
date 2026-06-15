@@ -15,9 +15,9 @@ This guide covers the `@parity/product-sdk-signer` package, which gives your Pro
 
 Before starting, ensure you have:
 
-- A Polkadot Product project running locally (see [Set Up Your Project](/apps/build/#set-up-your-project)), with a TypeScript toolchain
+- A Polkadot Product project running locally (see [Set Up Your Project](/apps/build/#set-up-your-project)) with a TypeScript toolchain
 - Node.js 20 or later with ESM support (`@parity/product-sdk-signer` is ESM only)
-- Polkadot Desktop to run your Product inside a host container. See [Install Desktop and Pair](/apps/get-started/)
+- Polkadot Desktop to run your Product inside a host container (see [Install Desktop and Pair](/apps/get-started/))
 
 !!! note
     To test signing without a host container, use `manager.connect('dev')`. This loads the standard Substrate dev accounts (Alice, Bob, and others) locally and does not require Polkadot Desktop. See [Test Without a Host](#test-without-a-host).
@@ -258,7 +258,7 @@ if (signResult.ok) {
 
     [:octicons-arrow-right-24: Visit Site](https://papi.how){target=\_blank}
 
--   <span class="badge external">External</span> **product-sdk API Reference**
+-   <span class="badge external">External</span> **Product SDK API Reference**
 
     ---
 

@@ -20,7 +20,7 @@ This guide covers the `@parity/product-sdk-local-storage` package, which provide
 
 ## Prerequisites
 
-Before starting, ensure you have:
+Before getting started, ensure you have:
 
 - A Polkadot Product project running locally (see [Set Up Your Project](/apps/build/#set-up-your-project))
 - Node.js 20 or later with ESM support (`@parity/product-sdk-local-storage` is ESM only)

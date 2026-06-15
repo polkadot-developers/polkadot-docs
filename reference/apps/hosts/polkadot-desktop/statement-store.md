@@ -10,7 +10,7 @@ categories: Apps, Reference
 
 The Statement Store is a network-layer pub/sub primitive on Polkadot's People Chain for short-lived, gossiped, signed statements. Products do not talk to a Statement Store node directly; they go through Polkadot Desktop's Host API, which adds the things a Product on its own cannot do safely, including producing an authentication proof on the user's behalf, attaching the right account context, and applying the per-Product topic scope.
 
-This page documents what Desktop adds when it mediates Statement Store traffic for a Product. The Statement Store itself (the pallet, the gossip layer, the lifecycle and validation rules) is documented separately in the [Statement Store infrastructure reference](/reference/apps/infrastructure/statement-store/){target=\_blank}. The Product-side how-to is the [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/){target=\_blank} guide.
+This page documents what Desktop adds when it mediates Statement Store traffic for a Product. The Statement Store itself (the pallet, the gossip layer, the lifecycle and validation rules) is documented separately in the [Statement Store infrastructure reference](/reference/apps/infrastructure/statement-store/). The Product-side how-to is the [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/) guide.
 
 ## What Desktop Adds
 
@@ -29,7 +29,7 @@ A few responsibilities sit with the Product, not with Desktop:
 
 ## Composition with the Bulletin Chain
 
-The Statement Store is the right layer for ephemeral signaling. When content needs to outlive the statement TTL, the canonical pattern is to store it on the Bulletin Chain and publish the resulting CID as the statement payload. This composition powers the App's [Chat](/reference/apps/hosts/polkadot-app/chat/){target=\_blank} feature and many other Product patterns:
+The Statement Store is the right layer for ephemeral signaling. When content needs to outlive the statement TTL, the canonical pattern is to store it on the Bulletin Chain and publish the resulting CID as the statement payload. This composition powers the App's [Chat](/reference/apps/hosts/polkadot-app/chat/) feature and many other Product patterns:
 
 - **Statement Store** carries the live signal (presence, "new message arrived", typing indicators).
 - **Bulletin Chain** stores the durable content readers fetch later by hash.
@@ -46,7 +46,7 @@ Both layers are reached through Desktop's Host API and the same per-Product acco
 
     The Product-side how-to: setting up the Statement Store client, subscribing, publishing typed statements, and using channels for last-write-wins state.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/pub-sub-off-chain-data/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/build/pub-sub-off-chain-data/)
 
 - <span class="badge guide">Guide</span> **Store Data on Chain**
 
@@ -54,6 +54,6 @@ Both layers are reached through Desktop's Host API and the same per-Product acco
 
     The Bulletin Chain layer that composes with the Statement Store: write the durable content, publish the CID as a statement.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/store-data-on-chain/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/build/store-data-on-chain/)
 
 </div>

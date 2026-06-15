@@ -24,12 +24,12 @@ The default contract is the one that makes the model trustworthy: every transact
 
 ### Auto-Signing
 
-The shipping [`@parity/truapi`](https://www.npmjs.com/package/@parity/truapi){target=\_blank} wire carries an **Auto-Signing** capability on top of the per-request default. A Product requests it as an allocatable resource through `host_request_resource_allocation`; the user must explicitly grant the allocation, and the Host scopes what it covers. Polkadot Desktop ships this as `signing-bot-autopair`, which pairs a signing bot so that allocated transactions are signed without a per-transaction prompt. Auto-Signing is opt-in, user-granted, and bounded — it does not remove the approval requirement for ordinary signing; it replaces it, within the allocated scope, with an up-front consent the user can revoke.
+The shipping [`@parity/truapi`](https://www.npmjs.com/package/@parity/truapi) wire carries an **Auto-Signing** capability on top of the per-request default. A Product requests it as an allocatable resource through `host_request_resource_allocation`; the user must explicitly grant the allocation, and the Host scopes what it covers. Polkadot Desktop ships this as `signing-bot-autopair`, which pairs a signing bot so that allocated transactions are signed without a per-transaction prompt. Auto-Signing is opt-in, user-granted, and bounded — it does not remove the approval requirement for ordinary signing; it replaces it, within the allocated scope, with an up-front consent the user can revoke.
 
 !!! note "Newer than the v0.2 method-group surface"
     Auto-Signing is carried by the `@parity/truapi` wire but is not part of the v0.2 method-group surface documented in these pages, so it is a place where the shipping protocol is ahead of the documented groups. A Host implementer working only from the v0.2 method groups will not find it there; a Product running on today's Desktop can use it.
 
-For the full mediated-signing flow (the three-actor model, the `ChainSubmit` permission, failure-mode UX), see the [Signing in Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/signing/){target=\_blank} reference.
+For the full mediated-signing flow (the three-actor model, the `ChainSubmit` permission, failure-mode UX), see the [Signing in Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/signing/) reference.
 
 !!! warning "Provisional"
     Edge cases still being defined include multi-signature flows that aggregate across multiple Hosts, batched transactions that present as a single user prompt, and custom signing policies (delegation, time-windowed allowances). The single-transaction, single-prompt contract described in this section is stable.
@@ -52,6 +52,6 @@ For the full mediated-signing flow (the three-actor model, the `ChainSubmit` per
 
     The Product-side how-to with the `try`/`catch` patterns for `HostRejectedError` and `TimeoutError`.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/sign-and-submit/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/build/sign-and-submit/)
 
 </div>

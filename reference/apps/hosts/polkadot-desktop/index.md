@@ -18,9 +18,9 @@ This section documents Desktop's developer-facing surface: how a Product runs in
 
 From a Product developer's perspective, three properties define how Desktop behaves:
 
-- **`.dot`-name addressing**: A published Product is addressed by its `.dot` name. Desktop resolves the name through [DotNS](/reference/apps/infrastructure/dotns/), fetches the published bundle, and loads it in the sandbox. During development, Desktop's address bar accepts `localhost:PORT` as a whitelisted bypass so you can iterate against a local dev server. See [Set Up Your Project](/apps/build/#set-up-your-project){target=\_blank}.
-- **Sandboxed runtime**: A Product runs inside a sandboxed container, not an arbitrary browser tab. It cannot make outbound network requests, access local storage, or sign transactions except through the Host API. See [Permissions](/reference/apps/hosts/polkadot-desktop/permissions/){target=\_blank}.
-- **Mediated signing**: Every transaction a Product submits — whether dispatched through the Product SDK or directly through TrUAPI — goes through Desktop's signing modal and on to the paired App. There is no path for a Product to sign without user approval. See [Signing](/reference/apps/hosts/polkadot-desktop/signing/){target=\_blank}.
+- **`.dot`-name addressing**: A published Product is addressed by its `.dot` name. Desktop resolves the name through [DotNS](/reference/apps/infrastructure/dotns/), fetches the published bundle, and loads it in the sandbox. During development, Desktop's address bar accepts `localhost:PORT` as a whitelisted bypass so you can iterate against a local dev server. See [Set Up Your Project](/apps/build/#set-up-your-project).
+- **Sandboxed runtime**: A Product runs inside a sandboxed container, not an arbitrary browser tab. It cannot make outbound network requests, access local storage, or sign transactions except through the Host API. See [Permissions](/reference/apps/hosts/polkadot-desktop/permissions/).
+- **Mediated signing**: Every transaction a Product submits — whether dispatched through the Product SDK or directly through TrUAPI — goes through Desktop's signing modal and on to the paired App. There is no path for a Product to sign without user approval. See [Signing](/reference/apps/hosts/polkadot-desktop/signing/).
 
 ## Where Desktop Fits in the SDK Surface
 
@@ -69,7 +69,7 @@ Desktop both consumes and produces the [TrUAPI](/reference/apps/protocol/truapi/
 
     ---
 
-    Desktop's peer-to-peer send flow. Pair this with the [App-side recipient view](/reference/apps/hosts/polkadot-app/pocket/){target=\_blank} for the full round trip.
+    Desktop's peer-to-peer send flow. Pair this with the [App-side recipient view](/reference/apps/hosts/polkadot-app/pocket/) for the full round trip.
 
     [:octicons-arrow-right-24: Reference](/reference/apps/hosts/polkadot-desktop/pocket/)
 

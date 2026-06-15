@@ -10,7 +10,7 @@ categories: Apps, Reference
 
 Polkadot Desktop is the mediator in the signing model; the Polkadot App on the user's phone is the signer. Desktop never has the private key, and Desktop cannot sign anything on its own. Every transaction a Product submits, no matter how small, completes only after the user explicitly approves it on their phone.
 
-This page is the reference for how that mediation actually works. The Product-side how-to lives at [Sign and Submit Transactions](/apps/build/sign-and-submit/){target=\_blank}; this page documents the part of the flow Desktop owns.
+This page is the reference for how that mediation actually works. The Product-side how-to lives at [Sign and Submit Transactions](/apps/build/sign-and-submit/); this page documents the part of the flow Desktop owns.
 
 ## The Three-Actor Model
 
@@ -65,7 +65,7 @@ Two failure modes are first-class and your Product UI should handle both:
 - **User-initiated rejection**: The user dismissed the prompt on the App. From your Product's perspective, this should be treated like a cancellation. Return the user to a stable UI state and let them retry. The Product SDK surfaces this as `HostRejectedError`.
 - **Session timeout**: The countdown reached zero before the user responded. From your Product's perspective, this is functionally identical to a rejection. Use the same response: stable UI, retry available. The Product SDK surfaces this as `TimeoutError`.
 
-For the Product-side `try`/`catch` pattern, see [Sign and Submit Transactions](/apps/build/sign-and-submit/){target=\_blank}.
+For the Product-side `try`/`catch` pattern, see [Sign and Submit Transactions](/apps/build/sign-and-submit/).
 
 A practical UI consequence: do not freeze your interface for the duration of a sign request. The user may glance at their phone, get distracted, and approve later. Show a non-blocking pending state and make sure your retry path is idempotent in case the user attempts the same action twice.
 
@@ -79,7 +79,7 @@ A practical UI consequence: do not freeze your interface for the duration of a s
 
     The Product-side how-to for building, signing, and submitting transactions, including the `try`/`catch` patterns for the failure modes documented above.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/sign-and-submit/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/build/sign-and-submit/)
 
 - <span class="badge learn">Learn</span> **Permissions**
 

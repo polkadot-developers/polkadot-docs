@@ -18,19 +18,19 @@ This guide covers the `@parity/product-sdk-chain-client` package, which gives yo
 - Polkadot Desktop to run your Product inside a host container. See [Install Desktop and Pair](/apps/get-started/)
 
 !!! note
-    You do NOT need funded accounts to read chain state. Reads are unsigned and require only a running host container.
+    You do not need funded accounts to read chain state. Reads are unsigned and require only a running host container.
 
 ## Install the SDK
 
 You have two installation options depending on your needs:
 
-- **Umbrella package** (recommended starting point): install the full SDK in one command. Convenient when your Product uses several SDK features (chain client, signing, cloud storage, etc.) and bundle size is not a concern.
+- **Umbrella package** (recommended starting point): Install the full SDK in one command. Convenient when your Product uses several SDK features (chain client, signing, cloud storage, etc.) and bundle size is not a concern.
 
     ```bash
     npm install @parity/product-sdk
     ```
 
-- **Individual packages**: install only what you use. Keeps your bundle smaller and makes dependencies explicit; switch to this later as a bundle-size optimization.
+- **Individual packages**: Install only what you use. Keeps your bundle smaller and makes dependencies explicit; switch to this later as a bundle-size optimization.
 
     ```bash
     npm install @parity/product-sdk-chain-client
@@ -76,10 +76,10 @@ import { paseo_asset_hub } from '@parity/product-sdk-descriptors/paseo-asset-hub
 import { paseo_bulletin } from '@parity/product-sdk-descriptors/paseo-bulletin';
 
 const client = await createChainClient({
-    chains: {
-        assetHub: paseo_asset_hub,
-        bulletin: paseo_bulletin,
-    },
+  chains: {
+    assetHub: paseo_asset_hub,
+    bulletin: paseo_bulletin,
+  },
 });
 
 client.destroy();
@@ -122,7 +122,10 @@ The following examples show common read operations. Each one maps directly to a 
     const address = '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY';
 
     const account = await client.assetHub.query.System.Account.getValue(address);
-    const { nonce, data: { free, reserved, frozen } } = account;
+    const {
+      nonce,
+      data: { free, reserved, frozen },
+    } = account;
     ```
 
 ## Read Multiple Chains in Parallel
@@ -131,8 +134,8 @@ Because each chain has its own connection internally, reads across chains are in
 
 ```typescript
 const [fee, blockNumber] = await Promise.all([
-    client.bulletin.query.TransactionStorage.ByteFee.getValue(),
-    client.assetHub.query.System.Number.getValue(),
+  client.bulletin.query.TransactionStorage.ByteFee.getValue(),
+  client.assetHub.query.System.Number.getValue(),
 ]);
 ```
 
@@ -145,7 +148,7 @@ For advanced flows that the typed surface does not cover, such as raw storage su
 ```typescript
 // Subscribe to every new finalized block on the Bulletin chain
 const subscription = client.raw.bulletin.finalizedBlock$.subscribe((block) => {
-    console.log(`Finalized block #${block.number}: ${block.hash}`);
+  console.log(`Finalized block #${block.number}: ${block.hash}`);
 });
 
 // Unsubscribe when done
@@ -154,19 +157,19 @@ subscription.unsubscribe();
 
 Use the raw client only when you need to step outside the typed query/constants shape. Most reads should go through the typed surface above.
 
-## Detect Whether You're Inside a Host
+## Detect Whether You Are Inside a Host
 
 The SDK re-exports two helpers from `@parity/product-sdk-host` for detecting whether your Product is running inside a host container. Use these when behavior should branch, for example, showing a connection status indicator.
 
 ```typescript
 import { isInsideContainer, isInsideContainerSync } from '@parity/product-sdk-chain-client';
 
-const inContainer = await isInsideContainer();      // async, canonical
-const inContainerSync = isInsideContainerSync();    // sync, for top-level guards
+const inContainer = await isInsideContainer(); // async, canonical
+const inContainerSync = isInsideContainerSync(); // sync, for top-level guards
 ```
 
 !!! note
-    You generally do NOT need to branch on this. The client routes calls correctly when inside a host container; detection is for cases where your Product itself wants to adapt its UI or telemetry.
+    You generally do not need to branch on this. The client routes calls correctly when inside a host container; detection is for cases where your Product itself wants to adapt its UI or telemetry.
 
 ## Clean Up Connections
 
@@ -189,7 +192,7 @@ Use `client.destroy()` for normal cleanup and reserve `destroyAll()` for full-pr
 - The `paseo` and `summit` environments are the only presets wired up today. Other `Environment` values throw at runtime.
 - The package is ESM only; your Product's build pipeline must support ESM imports.
 - Descriptors are imported by subpath (`@parity/product-sdk-descriptors/paseo-bulletin`), not from the package root. Bundlers that do not honor `exports` subpaths will fail to resolve them.
-- The SDK runs exclusively inside a host container. There is no direct WebSocket fallback outside of one.
+- Host-routed reads require a host container. Development builds outside a Host can use the direct WebSocket fallback.
 - Reactive subscriptions (watching a storage item over time) are not covered on this page. A dedicated page on subscriptions will follow.
 
 ## Where to Go Next

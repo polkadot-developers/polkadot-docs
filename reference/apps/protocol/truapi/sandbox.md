@@ -28,7 +28,7 @@ Instead, each Product gets a per-domain sub-account, derived deterministically f
 
 The trade-off is that the Product cannot accumulate "the user's full identity." It can only see the user's behavior in this Product. Cross-Product correlation is a permission the user grants explicitly, not a default.
 
-For the Product-side how-to that consumes this surface, see [Sign and Submit Transactions](/apps/build/sign-and-submit/){target=\_blank}.
+For the Product-side how-to that consumes this surface, see [Sign and Submit Transactions](/apps/build/sign-and-submit/).
 
 ## Why the Host API Is the Only Egress
 
@@ -61,7 +61,7 @@ Every permission is a narrow, declared widening, not a broad "trust this Product
 
     The Product-side how-to that consumes the sub-account surface: setting up the signer, building transactions, and submitting them through the Host.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/sign-and-submit/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/build/sign-and-submit/)
 
 - <span class="badge guide">Guide</span> **Request Permissions**
 
@@ -69,7 +69,7 @@ Every permission is a narrow, declared widening, not a broad "trust this Product
 
     The how-to for declaring and requesting the permissions that selectively relax sandbox isolation.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/request-permissions/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/build/request-permissions/)
 
 - <span class="badge learn">Learn</span> **Signing in Polkadot Desktop**
 

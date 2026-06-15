@@ -46,7 +46,7 @@ The umbrella package provides `createApp` and re-exports the rest of the SDK; sw
 
 ## Set Up Your Statement Store Client
 
-Every snippet in this guide is **Product code**: modules placed inside the Product running at `localhost:3000` (per [Set Up Your Project](/apps/build/#set-up-your-project)), loaded by Polkadot Desktop. Signing requests route through the Host (Polkadot Desktop) to the user's paired Polkadot App on their phone, which holds the signing keys; your Product never derives, sees, or holds keys.
+Every snippet in this guide is Product code: modules placed inside the Product running at `localhost:3000` (per [Set Up Your Project](/apps/build/#set-up-your-project)), loaded by Polkadot Desktop. Signing requests route through the Host (Polkadot Desktop) to the user's paired Polkadot App on their phone, which holds the signing keys; your Product never derives, sees, or holds keys.
 
 `StatementStoreClient` is the high-level client. It wraps the People Chain node's `statement_submit` and `statement_subscribeStatement` JSON-RPC methods, handles JSON encoding of your payload, requests authentication proofs from the Host, and deduplicates incoming statements. Connect it once at the top of your Product:
 

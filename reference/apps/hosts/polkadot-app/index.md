@@ -33,8 +33,8 @@ From a Product developer's perspective, three things matter about how the App ru
 
 The App is both a consumer and a producer of [TrUAPI](/reference/apps/protocol/truapi/) methods:
 
-- The App **consumes** Host API methods for chain interaction and storage when its own features (Chat, Coinage, PoP) need to talk to the People Chain, Statement Store, or Bulletin Chain.
-- The App **produces** the signing primitive every other Host's `signAndSubmit` ultimately resolves against. Methods Products call through the SDK — like `createProof` and `getAnonymousAlias` — complete in the App on the user's phone.
+- The App consumes Host API methods for chain interaction and storage when its own features (Chat, Coinage, PoP) need to talk to the People Chain, Statement Store, or Bulletin Chain.
+- The App produces the signing primitive every other Host's `signAndSubmit` ultimately resolves against. Methods Products call through the SDK — like `createProof` and `getAnonymousAlias` — complete in the App on the user's phone.
 
 ## Where to Go Next
 

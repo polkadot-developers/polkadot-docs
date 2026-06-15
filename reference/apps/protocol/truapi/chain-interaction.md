@@ -10,7 +10,7 @@ categories: Apps, Reference
 
 The Chain Interaction method group lets a Product read on-chain state, including account balances, storage items, and runtime constants, and subscribe to changes on those values. It is the foundation most Products build on. Reading state is usually the first thing a Product does after lifecycle setup.
 
-The Product SDK wraps this surface as [`@parity/product-sdk-chain-client`](https://www.npmjs.com/package/@parity/product-sdk-chain-client){target=\_blank}, which gives the Product a typed PAPI client per connected chain. The same code works whether the Product runs inside a Host, where calls route through the Host's chain client, or outside one in development, where the client falls back to a direct WebSocket connection.
+The Product SDK wraps this surface as [`@parity/product-sdk-chain-client`](https://www.npmjs.com/package/@parity/product-sdk-chain-client), which gives the Product a typed PAPI client per connected chain. The same code works whether the Product runs inside a Host, where calls route through the Host's chain client, or outside one in development, where the client falls back to a direct WebSocket connection.
 
 ## Conceptual Contract
 
@@ -22,7 +22,7 @@ The group exposes the chain-client surface a Product expects, with the Host hand
 - **Reading multiple chains in parallel**: Independent connections per chain let reads compose with `Promise.all`.
 - **Dropping to the raw PAPI client**: `.raw` exposes the underlying `PolkadotClient` for advanced flows the typed surface does not cover, such as custom remote procedure call methods, low-level submissions, and raw storage subscriptions.
 
-For the conceptual model and the Product-side how-to, see [Read Chain State](/apps/build/read-chain-state/){target=\_blank}.
+For the conceptual model and the Product-side how-to, see [Read Chain State](/apps/build/read-chain-state/).
 
 !!! warning "Provisional"
     Subscription error semantics (reconnection, missed-events recovery), per-Host differences in how the underlying connection is routed, and the precise set of presets shipped with the SDK are still being finalized.
@@ -37,7 +37,7 @@ For the conceptual model and the Product-side how-to, see [Read Chain State](/ap
 
     The Product-side how-to: preset and BYOD connection paths, reading storage / constants / account state, multi-chain reads.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/read-chain-state/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/build/read-chain-state/)
 
 - <span class="badge learn">Learn</span> **Signing**
 

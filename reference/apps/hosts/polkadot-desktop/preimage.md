@@ -8,14 +8,14 @@ categories: Apps, Reference
 
 ## Introduction
 
-A **preimage** is the original content of a hash that has been referenced on-chain. The classic example: a governance referendum points at the hash of a proposal, and the preimage is the proposal's actual bytes. The chain stores only the hash to keep block size down; the bytes have to be made available off-chain before the referenced operation can execute. Polkadot Desktop exposes a preimage submission surface that Products can call through the Host API.
+A preimage is the original content of a hash that has been referenced on-chain. The classic example: a governance referendum points at the hash of a proposal, and the preimage is the proposal's actual bytes. The chain stores only the hash to keep block size down; the bytes have to be made available off-chain before the referenced operation can execute. Polkadot Desktop exposes a preimage submission surface that Products can call through the Host API.
 
-This page is the reference for that surface. The [Bulletin Chain reference](/reference/apps/infrastructure/bulletin-chain/){target=\_blank} documents the storage layer that preimage submission often interacts with.
+This page is the reference for that surface. The [Bulletin Chain reference](/reference/apps/infrastructure/bulletin-chain/) documents the storage layer that preimage submission often interacts with.
 
 ## What the Preimage Surface Does
 
 !!! warning "Provisional"
-    The exact set of host calls Desktop exposes for preimage submission, the supported size limits, and the lifecycle hooks for preimage availability are still being finalized. This page documents the conceptual model; the current method-group frame is in the [Preimage TrUAPI reference](/reference/apps/protocol/truapi/preimage/){target=\_blank}.
+    The exact set of host calls Desktop exposes for preimage submission, the supported size limits, and the lifecycle hooks for preimage availability are still being finalized. This page documents the conceptual model; the current method-group frame is in the [Preimage TrUAPI reference](/reference/apps/protocol/truapi/preimage/).
 
 Conceptually, the preimage surface lets a Product:
 
@@ -54,6 +54,6 @@ A useful rule of thumb: if your Product would still be correct after the bytes e
 
     The Product-side how-to for Bulletin Chain storage, which the preimage surface often delegates to underneath.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/store-data-on-chain/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/build/store-data-on-chain/)
 
 </div>

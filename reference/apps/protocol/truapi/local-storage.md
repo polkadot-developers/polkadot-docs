@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-The Local Storage method group exposes the per-Product, per-device key-value store a Product uses to remember values between sessions, such as user preferences, drafts, and cached values. The Product SDK wraps this group as a `KvStore` in the [`@parity/product-sdk-local-storage`](https://www.npmjs.com/package/@parity/product-sdk-local-storage){target=\_blank} package.
+The Local Storage method group exposes the per-Product, per-device key-value store a Product uses to remember values between sessions, such as user preferences, drafts, and cached values. The Product SDK wraps this group as a `KvStore` in the [`@parity/product-sdk-local-storage`](https://www.npmjs.com/package/@parity/product-sdk-local-storage) package.
 
 Two properties matter for how this group is shaped:
 
@@ -38,6 +38,6 @@ Reads return `null` for absent keys; deletes are idempotent (no error on missing
 
     The Product-side how-to: initializing the store, reading and writing values, prefix namespaces, error handling.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/persist-data-locally/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/build/persist-data-locally/)
 
 </div>

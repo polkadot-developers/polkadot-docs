@@ -16,7 +16,7 @@ What makes Web different from Desktop is not the _model_ — it is the _delivery
 - **The visiting flow**: A Product is loaded by navigating to it in a browser tab, not from an installed address bar.
 - **The upgrade path**: Products and the Host itself update on page load, not via an OS installer.
 
-The Product surface a developer targets — `.dot` name addressing, the TrUAPI surface, the per-Product sub-account model — is the same in either Host.
+The Product surface a developer targets, including `.dot` name addressing, the TrUAPI surface, and the per-Product sub-account model, is the same in either Host.
 
 !!! warning "Provisional"
     Polkadot Web is being actively built and several of its developer-facing surfaces are not yet finalized. Pages in this subsection document the conceptual model and the parts that are stable; surface-level specifics carry per-page provisional callouts and will be filled in once confirmed.
@@ -33,16 +33,16 @@ At a high level, three properties matter to a Product developer building for Web
 
 Two concepts are specific enough to Web to deserve their own pages:
 
-- [Visiting a Product](/reference/apps/hosts/polkadot-web/visiting/){target=\_blank}: How a `.dot` name is resolved and a Product is loaded into a browser tab, and how this differs from Desktop's address-bar flow.
-- [Shield States](/reference/apps/hosts/polkadot-web/shield-states/){target=\_blank}: The security-indicator UI that surfaces the trust posture of the loaded Product, including bundle verification and Host state.
+- [Visiting a Product](/reference/apps/hosts/polkadot-web/visiting/): How a `.dot` name is resolved and a Product is loaded into a browser tab, and how this differs from Desktop's address-bar flow.
+- [Shield States](/reference/apps/hosts/polkadot-web/shield-states/): The security-indicator UI that surfaces the trust posture of the loaded Product, including bundle verification and Host state.
 
 ## Host API on Web
 
-The TrUAPI surface a Product calls on Web is materially the same as on Desktop. There are a small number of capabilities where the underlying behavior differs because of the browser context (storage, outbound requests, media access), and those are documented at [Host API](/reference/apps/hosts/polkadot-web/host-api/){target=\_blank}.
+The TrUAPI surface a Product calls on Web is materially the same as on Desktop. There are a small number of capabilities where the underlying behavior differs because of the browser context (storage, outbound requests, media access), and those are documented at [Host API](/reference/apps/hosts/polkadot-web/host-api/).
 
 ## On-Chain `polkadot.com`
 
-A Polkadot Product can also serve as the meta-surface that points to other Products: a discovery layer running as a Product itself. The canonical instance of this is [On-Chain polkadot.com](/reference/apps/hosts/polkadot-web/onchain-polkadot-com/){target=\_blank}, which is the on-chain-published presence backing the `polkadot.com` site.
+A Polkadot Product can also serve as the meta-surface that points to other Products: a discovery layer running as a Product itself. The canonical instance of this is [On-Chain polkadot.com](/reference/apps/hosts/polkadot-web/onchain-polkadot-com/), which is the on-chain-published presence backing the `polkadot.com` site.
 
 ## Upload Journeys
 

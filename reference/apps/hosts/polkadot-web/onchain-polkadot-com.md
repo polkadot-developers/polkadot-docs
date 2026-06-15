@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-On-chain `polkadot.com` is `polkadot.com` itself, served as a Polkadot Product. It is the discovery layer for the ecosystem — a directory that points at other Polkadot Products — but it is not hosted on a centralized server. It is published as a bundle, resolved through [DotNS](/reference/apps/infrastructure/dotns/), and loaded by Polkadot Web (or Polkadot Desktop) into the Host sandbox, the same way any other Product is.
+On-chain `polkadot.com` is `polkadot.com` itself, served as a Polkadot Product. It is the discovery layer for the ecosystem, a directory that points at other Polkadot Products, but it is not hosted on a centralized server. It is published as a bundle, resolved through [DotNS](/reference/apps/infrastructure/dotns/), and loaded by Polkadot Web or Polkadot Desktop into the Host sandbox, the same way any other Product is.
 
 This page explains what makes the on-chain `polkadot.com` Product different from any other Product, and where it fits in the larger publishing flow. Mechanically, it is not different, and that is the point.
 
@@ -19,7 +19,7 @@ A Polkadot Product is addressed by its `.dot` name, but `.dot` names alone are f
 Putting discovery on-chain as a Polkadot Product itself has two properties an off-chain discovery site does not:
 
 - **Verifiable provenance**: The directory's contents are addressable and verifiable; a user can confirm that the discovery layer they are looking at matches the on-chain CID that DotNS resolves to, and the same shield-state checks that apply to any other Product apply here.
-- **Composability**: Other Products can read the same on-chain discovery state through the chain client surface (see [Read Chain State](/apps/build/read-chain-state/){target=\_blank}), without needing a private API to a centralized directory.
+- **Composability**: Other Products can read the same on-chain discovery state through the chain client surface (see [Read Chain State](/apps/build/read-chain-state/)), without needing a private API to a centralized directory.
 
 ## Implications for a Product Developer
 
@@ -38,7 +38,7 @@ If you are building a Product, two things matter about on-chain `polkadot.com`:
 
     The Product-side how-to for bundling and publishing your Product, including the artifact-addressing steps that any directory-listed Product goes through.
 
-    [:octicons-arrow-right-24: Get Started](/apps/deploy-and-publish/publish-your-app-bundle/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/deploy-and-publish/publish-your-app-bundle/)
 
 - <span class="badge guide">Guide</span> **Read Chain State**
 
@@ -46,6 +46,6 @@ If you are building a Product, two things matter about on-chain `polkadot.com`:
 
     The how-to for reading on-chain state from inside a Product, including reading state published by other Products like on-chain `polkadot.com`.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/read-chain-state/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/build/read-chain-state/)
 
 </div>

@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-When a user opens a Polkadot Product on Polkadot Web, they're trusting a few things: that the bundle their browser fetched matches what [DotNS](/reference/apps/infrastructure/dotns/) says the `.dot` name points at, that the Host's state is what it should be, and that nothing in the runtime has been tampered with. **Shield states** are how Polkadot Web surfaces that trust posture in the browser UI — a security indicator the user can glance at to see whether the loaded Product is in a known-good state.
+When a user opens a Polkadot Product on Polkadot Web, they're trusting a few things: that the bundle their browser fetched matches what [DotNS](/reference/apps/infrastructure/dotns/) says the `.dot` name points at, that the Host's state is what it should be, and that nothing in the runtime has been tampered with. Shield states are how Polkadot Web surfaces that trust posture in the browser UI — a security indicator the user can glance at to see whether the loaded Product is in a known-good state.
 
 This page documents what shield states exist, what each one means, and when the state changes.
 

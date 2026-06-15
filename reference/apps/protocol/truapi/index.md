@@ -8,18 +8,18 @@ categories: Apps, Reference
 
 ## Introduction
 
-TrUAPI is the protocol every Polkadot Product uses to talk to the Host running it. It is the _only_ interface a Product has to the rest of the world — every chain interaction, storage write, outbound request, signing operation, and Proof of Personhood proof crosses this boundary, and the Host on the other side enforces the sandbox.
+TrUAPI is the protocol every Polkadot Product uses to talk to the Host running it. It is the _only_ interface a Product has to the rest of the world. Every chain interaction, storage write, outbound request, signing operation, and Proof of Personhood proof crosses this boundary, and the Host on the other side enforces the sandbox.
 
-Put differently: if the Polkadot Triangle is "three Hosts that run Products," TrUAPI is the contract by which a Product talks to whichever Host is loading it. Most Product developers will never call TrUAPI directly — the [Product SDK](/reference/glossary/#polkadot-sdk) (the `@parity/product-sdk` family of packages) wraps it in typed methods. But the methods you call go through TrUAPI, and the Host validates and routes everything.
+In the Polkadot Triangle, three Hosts run Products. TrUAPI is the contract by which a Product talks to whichever Host is loading it. Most Product developers will never call TrUAPI directly. The [Product SDK](/reference/glossary/#polkadot-sdk) (the `@parity/product-sdk` family of packages) wraps it in typed methods. The methods you call still go through TrUAPI, and the Host validates and routes everything.
 
 !!! note "TrUAPI and its packages"
-    **TrUAPI** is the name of the protocol — the specification, maintained at [`paritytech/truapi`](https://github.com/paritytech/truapi){target=\_blank}. It ships as two layers of packages: [`@parity/truapi`](https://www.npmjs.com/package/@parity/truapi){target=\_blank} is the low-level generated protocol client (the wire), and the [`@parity/product-sdk`](https://www.npmjs.com/package/@parity/product-sdk){target=\_blank} family is the higher-level SDK most Products use. This reference uses "TrUAPI" for the protocol surface and names the `@parity/product-sdk-*` package in the [Packages](/reference/apps/protocol/truapi/packages/){target=\_blank} table that wraps each group.
+    TrUAPI is the name of the protocol specification maintained at [`paritytech/truapi`](https://github.com/paritytech/truapi). It ships as two layers of packages: [`@parity/truapi`](https://www.npmjs.com/package/@parity/truapi) is the low-level generated protocol client (the wire), and the [`@parity/product-sdk`](https://www.npmjs.com/package/@parity/product-sdk) family is the higher-level SDK most Products use. This reference uses "TrUAPI" for the protocol surface and names the `@parity/product-sdk-*` package in the [Packages](/reference/apps/protocol/truapi/packages/) table that wraps each group.
 
 This reference documents the protocol surface in three layers:
 
-1. **Conceptual model**: Why the Host-Product boundary exists, what derived sub-accounts mean, and how the sandbox enforces isolation. See [Sandbox and Sub-Accounts](/reference/apps/protocol/truapi/sandbox/){target=\_blank}.
-2. **Operational properties**: The protocol's versioning model and the packages that implement it. See [Versioning](/reference/apps/protocol/truapi/versioning/){target=\_blank} and [Packages](/reference/apps/protocol/truapi/packages/){target=\_blank}.
-3. **Method groups**: Eleven groups covering the capabilities a Product reaches for. One page per group is linked in [The Eleven Method Groups](#the-eleven-method-groups). A few host-lifecycle methods sit outside these groups — see the note below.
+1. **Conceptual model**: Why the Host-Product boundary exists, what derived sub-accounts mean, and how the sandbox enforces isolation. See [Sandbox and Sub-Accounts](/reference/apps/protocol/truapi/sandbox/).
+2. **Operational properties**: The protocol's versioning model and the packages that implement it. See [Versioning](/reference/apps/protocol/truapi/versioning/) and [Packages](/reference/apps/protocol/truapi/packages/).
+3. **Method groups**: Eleven groups covering the capabilities a Product reaches for. One page per group is linked in [The Eleven Method Groups](#the-eleven-method-groups). A few host-lifecycle methods sit outside these groups; see the note below.
 
 !!! warning "Provisional"
     The complete per-method reference for TrUAPI remains provisional. The method-group pages below cover what each group is for and the conceptual contract; the exhaustive per-method signatures, parameter shapes, and return types will be added as the surface stabilizes.
@@ -31,23 +31,23 @@ TrUAPI has two distinct readerships, and the per-method pages are written to ser
 - **Product developers**: You build Products that call the TrUAPI surface. You need to know what each method does, what permissions gate it, what it returns, and how the Product SDK wraps it.
 - **Host developers**: You build Hosts that implement the TrUAPI surface. You need to know what each method must guarantee, how to validate the Product's call, and how to enforce the sandbox at every entry point.
 
-A Product developer can usually rely on the Product SDK (the [`@parity/product-sdk`](https://www.npmjs.com/package/@parity/product-sdk){target=\_blank} family of packages) and never call TrUAPI directly. A Host developer is reading the same pages to know what the SDK calls underneath, and what their Host has to honor.
+A Product developer can usually rely on the Product SDK (the [`@parity/product-sdk`](https://www.npmjs.com/package/@parity/product-sdk) family of packages) and never call TrUAPI directly. A Host developer is reading the same pages to know what the SDK calls underneath, and what their Host has to honor.
 
 ## The Eleven Method Groups
 
 | Group                                                                                     | Covers                                                                                               |
 |:-----------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------:|
-| [TrUAPI Calls](/reference/apps/protocol/truapi/calls/){target=\_blank}                    | The lifecycle calls Products use to identify themselves and the Host uses to introduce capabilities. |
-| [Permissions](/reference/apps/protocol/truapi/permissions/){target=\_blank}               | Declaring, querying, and gating on Product capabilities.                                             |
-| [Local Storage](/reference/apps/protocol/truapi/local-storage/){target=\_blank}           | The `KvStore` API for per-Product, per-device key-value persistence.                                 |
-| [Account Management](/reference/apps/protocol/truapi/account-management/){target=\_blank} | Resolving per-Product sub-accounts and reading their state.                                          |
-| [Signing](/reference/apps/protocol/truapi/signing/){target=\_blank}                       | The mediated signing flow for building transactions and dispatching them through the paired App.     |
-| [Chat](/reference/apps/protocol/truapi/chat/){target=\_blank}                             | Room and bot registration, typed message publishing, custom message rendering.                       |
-| [Statement Store](/reference/apps/protocol/truapi/statement-store/){target=\_blank}       | Publishing and subscribing to gossip-distributed signed statements on People Chain.                  |
-| [Preimage](/reference/apps/protocol/truapi/preimage/){target=\_blank}                     | Off-chain content addressed by hash for on-chain operations to dereference.                          |
-| [Chain Interaction](/reference/apps/protocol/truapi/chain-interaction/){target=\_blank}   | Reading chain state and subscribing to changes through the Host.                                     |
-| [Payment](/reference/apps/protocol/truapi/payment/){target=\_blank}                       | Payment-flow primitives (general `Balances` transfers and the Pocket flow).                          |
-| [Entropy](/reference/apps/protocol/truapi/entropy/){target=\_blank}                       | Deterministic per-Product entropy derived from the user's root key (key-derivation, not randomness). |
+| [TrUAPI Calls](/reference/apps/protocol/truapi/calls/)                    | The lifecycle calls Products use to identify themselves and the Host uses to introduce capabilities. |
+| [Permissions](/reference/apps/protocol/truapi/permissions/)               | Declaring, querying, and gating on Product capabilities.                                             |
+| [Local Storage](/reference/apps/protocol/truapi/local-storage/)           | The `KvStore` API for per-Product, per-device key-value persistence.                                 |
+| [Account Management](/reference/apps/protocol/truapi/account-management/) | Resolving per-Product sub-accounts and reading their state.                                          |
+| [Signing](/reference/apps/protocol/truapi/signing/)                       | The mediated signing flow for building transactions and dispatching them through the paired App.     |
+| [Chat](/reference/apps/protocol/truapi/chat/)                             | Room and bot registration, typed message publishing, custom message rendering.                       |
+| [Statement Store](/reference/apps/protocol/truapi/statement-store/)       | Publishing and subscribing to gossip-distributed signed statements on People Chain.                  |
+| [Preimage](/reference/apps/protocol/truapi/preimage/)                     | Off-chain content addressed by hash for on-chain operations to dereference.                          |
+| [Chain Interaction](/reference/apps/protocol/truapi/chain-interaction/)   | Reading chain state and subscribing to changes through the Host.                                     |
+| [Payment](/reference/apps/protocol/truapi/payment/)                       | Payment-flow primitives (general `Balances` transfers and the Pocket flow).                          |
+| [Entropy](/reference/apps/protocol/truapi/entropy/)                       | Deterministic per-Product entropy derived from the user's root key (key-derivation, not randomness). |
 
 !!! note "Methods outside the eleven groups"
     A small number of host-lifecycle methods in the TrUAPI v0.2 spec are not part of any of the eleven groups above — `host_navigate_to`, `host_push_notification`, and `host_feature_supported`. They are Host-environment hooks rather than Product capabilities, and are documented per-Host rather than in this protocol surface.

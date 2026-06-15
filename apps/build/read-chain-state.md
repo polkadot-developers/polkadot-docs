@@ -24,16 +24,16 @@ This guide covers the `@parity/product-sdk-chain-client` package, which gives yo
 
 You have two installation options depending on your needs:
 
-- **Individual packages**: Install only what you use. Keeps your bundle smaller and makes dependencies explicit.
-
-    ```bash
-    npm install @parity/product-sdk-chain-client
-    ```
-
-- **Umbrella package**: Install the full SDK in one command. Convenient when your Product uses several SDK features, such as chain client, signing, and cloud storage, and bundle size is not a concern.
+- **Umbrella package** (recommended starting point): install the full SDK in one command. Convenient when your Product uses several SDK features (chain client, signing, cloud storage, etc.) and bundle size is not a concern.
 
     ```bash
     npm install @parity/product-sdk
+    ```
+
+- **Individual packages**: install only what you use. Keeps your bundle smaller and makes dependencies explicit; switch to this later as a bundle-size optimization.
+
+    ```bash
+    npm install @parity/product-sdk-chain-client
     ```
 
 All import paths shown in this guide work with both options.
@@ -63,12 +63,12 @@ client.destroy();
 
 The returned client exposes one property per chain in the preset (`assetHub`, `bulletin`, `individuality`), each typed by the underlying [polkadot-api](https://papi.how) (PAPI) descriptor.
 
-!!! warning "Only `paseo` is live"
-    `getChainAPI` accepts the `Environment` values `paseo`, `polkadot`, and `kusama`, but only `paseo` is wired up at the moment. Calling `getChainAPI('polkadot')` or `getChainAPI('kusama')` throws at runtime.
+!!! warning "Not every environment is live"
+    `getChainAPI` accepts the `Environment` values `polkadot`, `kusama`, `paseo`, `summit`, `local`, and `westend`. Only `paseo` and `summit` are wired up at the moment; calling an environment that is not yet live throws at runtime.
 
 ## Connect Using Custom Descriptors (BYOD)
 
-When you need explicit control over which chains and descriptors your Product uses, use `createChainClient` and supply your own descriptors and RPC endpoints. This is called the _Bring Your Own Descriptors (BYOD)_ path. You import the chain descriptor objects yourself instead of relying on the preset.
+When you need explicit control over which chains and descriptors your Product uses, use `createChainClient` and supply your own descriptors. This is called the **Bring Your Own Descriptors (BYOD)** path: you import the chain descriptor objects yourself instead of relying on the preset.
 
 ```typescript
 import { createChainClient } from '@parity/product-sdk-chain-client';
@@ -80,22 +80,15 @@ const client = await createChainClient({
         assetHub: paseo_asset_hub,
         bulletin: paseo_bulletin,
     },
-    rpcs: {
-        assetHub: ['wss://paseo-asset-hub-next-rpc.polkadot.io'],
-        bulletin: ['wss://paseo-bulletin-next-rpc.polkadot.io'],
-    },
 });
 
 client.destroy();
 ```
 
-The keys you choose in `chains` (`assetHub`, `bulletin`) become the property names on the returned client. Pick names that read naturally in your call sites; the rest of the SDK is fully typed against them.
-
-!!! note
-    The `rpcs` field is required by the API but connections are routed through the host at runtime. The URLs are used as documentation and for tooling purposes.
+The keys you choose in `chains` (`assetHub`, `bulletin`) become the property names on the returned client. Pick names that read naturally in your call sites; the rest of the SDK is fully typed against them. Connections are routed through the host at runtime, so you don't supply RPC endpoints yourself.
 
 !!! tip "Using a different chain"
-    To connect to a chain other than `paseo_bulletin`, find its descriptor in `@parity/product-sdk-descriptors` and its WebSocket endpoint, then add both under the same key in `chains` and `rpcs`. The client surface (`client.<yourKey>.query.*`) is automatically typed to match the descriptor you supplied.
+    To connect to a chain other than `paseo_bulletin`, find its descriptor in `@parity/product-sdk-descriptors`, then add it under a new key in `chains`. The client surface (`client.<yourKey>.query.*`) is automatically typed to match the descriptor you supplied.
 
 ## Read Storage and Constants
 
@@ -193,7 +186,7 @@ Use `client.destroy()` for normal cleanup and reserve `destroyAll()` for full-pr
 
 ## Limitations
 
-- The `paseo` environment is the only preset wired up today. `polkadot` and `kusama` throw at runtime.
+- The `paseo` and `summit` environments are the only presets wired up today. Other `Environment` values throw at runtime.
 - The package is ESM only; your Product's build pipeline must support ESM imports.
 - Descriptors are imported by subpath (`@parity/product-sdk-descriptors/paseo-bulletin`), not from the package root. Bundlers that do not honor `exports` subpaths will fail to resolve them.
 - The SDK runs exclusively inside a host container. There is no direct WebSocket fallback outside of one.
@@ -218,5 +211,13 @@ Use `client.destroy()` for normal cleanup and reserve `destroyAll()` for full-pr
     Reference for the typed PAPI surface that `@parity/product-sdk-chain-client` exposes per chain.
 
     [:octicons-arrow-right-24: Visit Site](https://papi.how)
+
+-   <span class="badge external">External</span> **product-sdk API Reference**
+
+    ---
+
+    The full `product-sdk` surface beyond this recipe: every package, class, and method.
+
+    [:octicons-arrow-right-24: Visit Site](https://paritytech.github.io/product-sdk/){target=\_blank}
 
 </div>

@@ -29,16 +29,16 @@ Before starting, ensure you have:
 
 You have two installation options depending on your needs:
 
-- **Individual package**: Install only the signer. Keeps your bundle smaller and makes dependencies explicit.
-
-    ```bash
-    npm install @parity/product-sdk-signer
-    ```
-
-- **Umbrella package**: Install the full SDK in one command. Convenient when your Product uses several SDK features (signing, chain client, cloud storage, and more) and bundle size is not a concern.
+- **Umbrella package** (recommended starting point): Install the full SDK in one command. Convenient when your Product uses several SDK features (signing, chain client, cloud storage, and more) and bundle size is not a concern.
 
     ```bash
     npm install @parity/product-sdk
+    ```
+
+- **Individual package**: Install only the signer. Keeps your bundle smaller and makes dependencies explicit; switch to this later as a bundle-size optimization.
+
+    ```bash
+    npm install @parity/product-sdk-signer
     ```
 
 All import paths shown in this guide work with both options.
@@ -256,6 +256,14 @@ if (signResult.ok) {
 
     Reference for the typed PAPI signer interface that `@parity/product-sdk-signer` exposes.
 
-    [:octicons-arrow-right-24: Visit Site](https://papi.how)
+    [:octicons-arrow-right-24: Visit Site](https://papi.how){target=\_blank}
+
+-   <span class="badge external">External</span> **product-sdk API Reference**
+
+    ---
+
+    The full `product-sdk` surface beyond this recipe: every package, class, and method.
+
+    [:octicons-arrow-right-24: Visit Site](https://paritytech.github.io/product-sdk/){target=\_blank}
 
 </div>

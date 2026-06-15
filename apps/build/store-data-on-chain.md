@@ -46,7 +46,7 @@ Create the SDK app and connect the wallet:
 --8<-- "code/apps/build/store-data-on-chain/setup-app.ts"
 ```
 
-`createApp({ name })` returns an `App` with `app.wallet`, `app.storage`, `app.chain`, and `app.cloudStorage`, the high-level Bulletin Chain API exposing `upload()`, `fetch()`, and `computeCid()`. The exported `app` is reused across the simple sections that follow.
+`createApp({ name })` returns an `App` with `app.wallet`, `app.localStorage`, `app.chain`, and `app.cloudStorage`, the high-level Bulletin Chain API exposing `upload()`, `fetch()`, and `computeCid()`. The exported `app` is reused across the simple sections that follow.
 
 ## Store a Hello World
 
@@ -218,5 +218,13 @@ For deeper comparison and the full pallet reference, see [Data Storage Reference
     Pair Bulletin writes with chain reads via the Host API's PAPI provider.
 
     [:octicons-arrow-right-24: Read On-Chain Data](/apps/build/read-chain-state/)
+
+-   <span class="badge external">External</span> **product-sdk API Reference**
+
+    ---
+
+    The full `product-sdk` surface beyond this recipe: every package, class, and method.
+
+    [:octicons-arrow-right-24: Visit Site](https://paritytech.github.io/product-sdk/){target=\_blank}
 
 </div>

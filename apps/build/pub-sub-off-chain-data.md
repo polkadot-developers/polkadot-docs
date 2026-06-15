@@ -36,13 +36,13 @@ Before starting, ensure you have:
 
 ## Install the SDK
 
-Install the SDKs at pinned versions so the snippets type-check predictably:
+Install the SDK at pinned versions so the snippets type-check predictably. Lead with the umbrella `@parity/product-sdk` (the recommended starting point), alongside the `statement-store` package the snippets import directly:
 
 ```bash
 npm install @parity/product-sdk@0.8.0 @parity/product-sdk-statement-store@0.4.0
 ```
 
-This guide installs the individual packages it uses. The umbrella `@parity/product-sdk` re-exports them too, so a single dependency works equally well. See [Umbrella or Individual Packages](/apps/build/#umbrella-or-individual-packages) for the tradeoff.
+The umbrella package provides `createApp` and re-exports the rest of the SDK; switch to individual packages later as a bundle-size optimization. See [Umbrella or Individual Packages](/apps/build/#umbrella-or-individual-packages) for the tradeoff.
 
 ## Set Up Your Statement Store Client
 
@@ -124,5 +124,13 @@ Two limits worth designing around:
     For durable, content-addressed payloads, route through the Bulletin Chain. Pair with the Statement Store by publishing the CID as a Statement.
 
     [:octicons-arrow-right-24: Store Data on Chain](/apps/build/store-data-on-chain/)
+
+-   <span class="badge external">External</span> **product-sdk API Reference**
+
+    ---
+
+    The full `product-sdk` surface beyond this recipe: every package, class, and method.
+
+    [:octicons-arrow-right-24: Visit Site](https://paritytech.github.io/product-sdk/){target=\_blank}
 
 </div>

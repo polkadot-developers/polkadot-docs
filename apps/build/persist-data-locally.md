@@ -29,16 +29,16 @@ Before starting, ensure you have:
 
 You have two installation options depending on your needs:
 
-- **Individual package**: Install only what you use. Keeps your bundle smaller and makes dependencies explicit.
-
-    ```bash
-    npm install @parity/product-sdk-local-storage
-    ```
-
-- **Umbrella package**: Install the full SDK in one command. Convenient when your Product uses several SDK features (local storage, signing, cloud storage, etc.) and bundle size is not a concern.
+- **Umbrella package** (recommended starting point): Install the full SDK in one command. Convenient when your Product uses several SDK features (local storage, signing, cloud storage, etc.) and bundle size is not a concern.
 
     ```bash
     npm install @parity/product-sdk
+    ```
+
+- **Individual package**: Install only what you use. Keeps your bundle smaller and makes dependencies explicit; switch to this later as a bundle-size optimization.
+
+    ```bash
+    npm install @parity/product-sdk-local-storage
     ```
 
 All import paths shown in this guide work with both options.
@@ -48,7 +48,7 @@ All import paths shown in this guide work with both options.
 
 ## Initialize the Store
 
-`createLocalKvStore()` is an async factory. You must `await` it before performing any read or write, because the function inspects the runtime environment to choose the correct backend.
+`createLocalKvStore()` is an async factory. You must `await` it before performing any read or write, because the function connects to the Host storage backend before the store is usable.
 
 ```typescript title="initialize.ts"
 --8<-- 'code/apps/build/persist-data-locally/initialize.ts'
@@ -122,7 +122,7 @@ To remove a key or clear all storage for your Product, access `app.localStorage`
 - Storage is not synced across devices. Values written on one Host instance are not visible on another.
 - `app.localStorage.clear()` and `store.remove()` are scoped to your Product. You cannot read or modify another Product's keys.
 - React hooks (`useLocalStorage`, `useLocalStorageString`) are only available via the umbrella package `@parity/product-sdk`. The standalone `@parity/product-sdk-local-storage` package exposes no React hooks.
-- When running outside a host container, the store falls back to the browser's `localStorage`. Browser `localStorage` has no persistence guarantees in private or incognito sessions; data may be cleared when the tab closes.
+- `createLocalKvStore()` requires a Host backend. Running outside a host container, it throws `Host storage unavailable`; there is no browser `localStorage` fallback. Run your Product inside Polkadot Desktop to use local storage.
 
 ## Where to Go Next
 
@@ -143,5 +143,13 @@ To remove a key or clear all storage for your Product, access `app.localStorage`
     You've covered the capabilities; ship your Product to a live `.dot` name with the Quick Start deploy routes.
 
     [:octicons-arrow-right-24: Quick Start](/apps/quick-start/)
+
+-   <span class="badge external">External</span> **product-sdk API Reference**
+
+    ---
+
+    The full `product-sdk` surface beyond this recipe: every package, class, and method.
+
+    [:octicons-arrow-right-24: Visit Site](https://paritytech.github.io/product-sdk/){target=\_blank}
 
 </div>

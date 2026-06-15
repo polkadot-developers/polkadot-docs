@@ -8,6 +8,9 @@ categories: Apps
 
 The Build section is a cookbook of focused recipes, one per [`product-sdk`](https://github.com/paritytech/product-sdk){target=\_blank} package; each recipe takes a single capability and walks you from an empty project to working Product code. They apply no matter how you started: a [Quick Start](/apps/quick-start/) deploy (RevX or CLI) or a project you [set up yourself](#set-up-your-project). Pick the capability your Product needs, in any order; the recipes are ordered by how little they ask of you, and the first one requires no account and no tokens.
 
+!!! tip "Full API reference"
+    Each recipe walks one path through a package. For the complete `product-sdk` surface (every package, class, and method), see the [product-sdk API reference](https://paritytech.github.io/product-sdk/){target=\_blank}.
+
 ## Set Up Your Project
 
 Every guide assumes a Product project running locally in [Polkadot Desktop](/apps/get-started/). The steps below apply no matter how you bootstrapped your Product: a [Quick Start](/apps/quick-start/) deploy (RevX or CLI) or a project created from scratch.
@@ -91,7 +94,7 @@ Your Product is now running inside the Polkadot Desktop sandbox, served from you
 
     <span class="badge beginner">Beginner</span>
 
-    Your Product needs to remember things on this device: preferences, drafts, cached values. Per-Product key-value storage that works inside a Host or in a plain browser tab.
+    Your Product needs to remember things on this device: preferences, drafts, cached values. Per-Product key-value storage backed by the Host, persisted across sessions.
 
     [:octicons-arrow-right-24: Persist Data Locally](/apps/build/persist-data-locally/)
 
@@ -107,7 +110,7 @@ Each guide is built around one _primary_ package and weaves in _utility_ package
 | `signer` | Derives product-scoped accounts and requests signatures, routing every approval to the user's Polkadot App. Your Product signs without ever handling keys. | [Sign and Submit Transactions](/apps/build/sign-and-submit/) |
 | `cloud-storage` | A high-level client for the [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/){target=\_blank}, Polkadot's content-addressed storage. Uploads and retrieves data by CID, with chunking, manifests, and authorization handled for you. | [Store Data on Chain](/apps/build/store-data-on-chain/) |
 | `statement-store` | A pub/sub client for the [Statement Store](/reference/apps/infrastructure/statement-store/){target=\_blank}: publish and subscribe to signed, short-lived statements gossiped peer-to-peer off-chain. Ideal for real-time signaling between users. | [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/) |
-| `local-storage` | A per-Product, per-device key-value store that auto-detects its backend (Host or the browser), so the same code works everywhere. | [Persist Data Locally](/apps/build/persist-data-locally/) |
+| `local-storage` | A per-Product, per-device key-value store backed by the Host, for preferences, drafts, and cached values that persist across sessions. | [Persist Data Locally](/apps/build/persist-data-locally/) |
 
 These five anchor the current recipes because their surfaces are stable. Other packages in the SDK (`contracts`, `keys`, `crypto`, `host`) will get recipes of their own as their surfaces stabilize.
 

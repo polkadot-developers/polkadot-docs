@@ -32,8 +32,6 @@ This reference is organized into two halves: the mechanism (Ring-VRF, aliases, t
 | [`pallet-ubc`](/reference/apps/infrastructure/pop/pallet-ubc/)           | Universal Basic Capacity — the per-person on-chain capacity primitives.                                                               |
 | [`pallet-coinage`](/reference/apps/infrastructure/pop/pallet-coinage/)   | The personhood-aware peer-to-peer payment surface behind the App's Coinage feature.                                                   |
 
-For the Product-side how-to consuming these pallets, see [Use Personhood in Your App](/apps/build/use-personhood-in-your-app/).
-
 ## Where to Go Next
 
 <div class="grid cards" markdown>
@@ -54,11 +52,4 @@ For the Product-side how-to consuming these pallets, see [Use Personhood in Your
 
     [:octicons-arrow-right-24: Reference](/reference/apps/infrastructure/pop/pallet-people/)
 
-- <span class="badge guide">Guide</span> **Use Personhood in Your App**
-
-    ---
-
-    The Product-side how-to for alias-gated checks and `under_alias` dispatch.
-
-    [:octicons-arrow-right-24: Get Started](/apps/build/use-personhood-in-your-app/)
 </div>

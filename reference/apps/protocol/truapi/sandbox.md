@@ -63,14 +63,6 @@ Every permission is a narrow, declared widening, not a broad "trust this Product
 
     [:octicons-arrow-right-24: Get Started](/apps/build/sign-and-submit/)
 
-- <span class="badge guide">Guide</span> **Request Permissions**
-
-    ---
-
-    The how-to for declaring and requesting the permissions that selectively relax sandbox isolation.
-
-    [:octicons-arrow-right-24: Get Started](/apps/build/request-permissions/)
-
 - <span class="badge learn">Learn</span> **Signing in Polkadot Desktop**
 
     ---

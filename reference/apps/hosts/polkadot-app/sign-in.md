@@ -13,7 +13,7 @@ Sign In with Polkadot is the handshake that lets a user authenticate to [Polkado
 This feature lives in the App's reference because the App is the side that _resolves_ the handshake, while Desktop or Web initiates it and the App signs.
 
 !!! info "Products do not invoke this directly"
-    For a Product running inside Polkadot Desktop, sign-in is complete before your code loads. The user paired their App with Desktop during set-up, and Desktop established a session at that point. Sign In with Polkadot is the host-level primitive sitting underneath your Product's session, not a function you call. The Product-side surfaces you reach for instead are `getAnonymousAlias`, `createProof`, and `under_alias`; see [Use Personhood in Your App](/apps/build/use-personhood-in-your-app/).
+    For a Product running inside Polkadot Desktop, sign-in is complete before your code loads. The user paired their App with Desktop during set-up, and Desktop established a session at that point. Sign In with Polkadot is the host-level primitive sitting underneath your Product's session, not a function you call. The Product-side surfaces you reach for instead are `getAnonymousAlias`, `createProof`, and `under_alias`.
 
 ## How the Handshake Works
 

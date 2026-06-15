@@ -10,8 +10,6 @@ categories: Apps, Reference
 
 A Polkadot Product runs inside a Host-governed sandbox; it cannot reach the network, the chain, the user's microphone, or any other resource without an explicit permission. Permissions are declared in your Product's manifest and enforced by Polkadot Desktop at the Host API boundary. This page is the reference for what each permission means, how the declaration works, and what happens when the user denies a permission.
 
-The Product-side how-to for requesting permissions is the [Request Permissions](/apps/build/request-permissions/){target=\_blank} guide.
-
 ## Capability Types
 
 !!! warning "Provisional"
@@ -41,14 +39,6 @@ A Product that crashes on `PermissionDenied` (instead of falling through to a gr
 ## Where to Go Next
 
 <div class="grid cards" markdown>
-
-- <span class="badge guide">Guide</span> **Request Permissions**
-
-    ---
-
-    The Product-side how-to: declaring permissions in your manifest, handling `PermissionDenied`, and designing the user-facing prompt copy.
-
-    [:octicons-arrow-right-24: Get Started](/apps/build/request-permissions/){target=\_blank}
 
 - <span class="badge learn">Learn</span> **Signing**
 

@@ -33,7 +33,7 @@ From the sender's side in Desktop:
 4. After the sender approves on their App, Desktop dispatches the Pocket transfer.
 5. The recipient sees an incoming Pocket item in their App and either accepts or declines (see [Pocket Recipient](/reference/apps/hosts/polkadot-app/pocket/){target=\_blank}).
 
-For everyday merchant-style payments where the payer is responsive in a browser or a Product, and the merchant wants the funds settled, use the standard `Balances.transfer_keep_alive` flow in the [Accept a Payment](/apps/build/accept-a-payment/){target=\_blank} guide. Pocket is the right tool when the recipient identity matters more than the recipient address, and when accept-decline semantics fit the interaction.
+For everyday merchant-style payments where the payer is responsive in a browser or a Product, and the merchant wants the funds settled, use the standard `Balances.transfer_keep_alive` flow. Pocket is the right tool when the recipient identity matters more than the recipient address, and when accept-decline semantics fit the interaction.
 
 ## Where to Go Next
 
@@ -46,13 +46,5 @@ For everyday merchant-style payments where the payer is responsive in a browser 
     The other half of the round trip: what a Pocket transfer looks like to the recipient, including the accept and decline mechanics.
 
     [:octicons-arrow-right-24: Reference](/reference/apps/hosts/polkadot-app/pocket/)
-
-- <span class="badge guide">Guide</span> **Accept a Payment**
-
-    ---
-
-    The standard `Balances.transfer_keep_alive` payment flow for merchant-style cases where Pocket's accept-decline semantics aren't a fit.
-
-    [:octicons-arrow-right-24: Get Started](/apps/build/accept-a-payment/){target=\_blank}
 
 </div>

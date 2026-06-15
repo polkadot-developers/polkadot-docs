@@ -30,14 +30,6 @@ The Payment group does not introduce new signing semantics. Every payment-side t
 
 <div class="grid cards" markdown>
 
-- <span class="badge guide">Guide</span> **Accept a Payment**
-
-    ---
-
-    The Product-side how-to for the standard `Balances.transfer_keep_alive` payment flow.
-
-    [:octicons-arrow-right-24: Get Started](/apps/build/accept-a-payment/){target=\_blank}
-
 - <span class="badge learn">Learn</span> **Pocket on Polkadot Desktop**
 
     ---

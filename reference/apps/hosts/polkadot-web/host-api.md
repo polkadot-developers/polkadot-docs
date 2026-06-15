@@ -48,12 +48,4 @@ A Product that uses none of those three categories needs no Web-specific code.
 
     [:octicons-arrow-right-24: Get Started](/apps/build/persist-data-locally/){target=\_blank}
 
-- <span class="badge guide">Guide</span> **Request Permissions**
-
-    ---
-
-    The how-to for declaring and handling permissions, including the categories that pick up extra browser-prompt behavior on Web.
-
-    [:octicons-arrow-right-24: Get Started](/apps/build/request-permissions/){target=\_blank}
-
 </div>

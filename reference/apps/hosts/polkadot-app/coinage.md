@@ -11,7 +11,7 @@ categories: Apps, Reference
 Coinage is the Polkadot App's peer-to-peer payment feature. From a user perspective, it is a way to send and receive funds App-to-App with the privacy and personhood properties of the underlying `pallet-coinage` primitive. From a Product developer perspective, Coinage is one of two payment surfaces a Product can route through:
 
 - **Coinage**: Personhood-gated, peer-to-peer payments where the App is the originating UI on both sides.
-- **Standard `Balances` transfer surface**: General transfers and merchant-style flows, covered in the [Accept a Payment](/apps/build/accept-a-payment/){target=\_blank} guide.
+- **Standard `Balances` transfer surface**: General transfers and merchant-style flows.
 
 !!! info "Underlying asset: HOLLAR before pUSD"
     Coinage is backed by a stablecoin on Asset Hub (configured via `UnderlyingAssetId`). The configured asset is HOLLAR, and the system is designed to migrate to pUSD when pUSD lands. The asset is an implementation detail of the recycler, onboard, and offboard layer, not a gate on the developer-facing surface. The narrative below is stable across the HOLLAR-to-pUSD transition.
@@ -32,14 +32,6 @@ For the pallet-level storage model, privacy primitives, and dispatch surface, se
 ## Where to Go Next
 
 <div class="grid cards" markdown>
-
-- <span class="badge guide">Guide</span> **Accept a Payment**
-
-    ---
-
-    The standard `Balances.transfer_keep_alive` flow for merchant-style payments, which most Products will reach for first.
-
-    [:octicons-arrow-right-24: Get Started](/apps/build/accept-a-payment/){target=\_blank}
 
 - <span class="badge learn">Learn</span> **Proof of Personhood**
 

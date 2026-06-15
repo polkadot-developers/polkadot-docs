@@ -23,7 +23,7 @@ Three things sit in this group:
 !!! note "Permission names: spec vs. Host-side aliases"
     Some permission names in this documentation are Host-side normalizations, not the literal identifiers in the TrUAPI v0.2 spec. In particular, `ExternalRequest` (outbound network access) is a Polkadot Desktop alias; the protocol-level construct is `RemotePermission::Remote(Vec<String>)`, which carries the list of permitted hosts. A Host implementer reading the spec should map the friendly names used here to their spec enum variants.
 
-For the conceptual model and the Product-side how-to, see the [Polkadot Desktop Permissions reference](/reference/apps/hosts/polkadot-desktop/permissions/) and the [Request Permissions](/apps/build/request-permissions/) guide.
+For the conceptual model, see the [Polkadot Desktop Permissions](/reference/apps/hosts/polkadot-desktop/permissions/) reference.
 
 !!! warning "Provisional"
     The exhaustive permission taxonomy and the exact runtime-query surface (method names, parameter shapes, return values) are still being finalized. This page documents the conceptual contract; the per-method specifics will be added as the surface confirms.
@@ -39,13 +39,5 @@ For the conceptual model and the Product-side how-to, see the [Polkadot Desktop 
     Host-side enforcement: capability types, manifest declaration, and the denial UX.
 
     [:octicons-arrow-right-24: Reference](/reference/apps/hosts/polkadot-desktop/permissions/)
-
-- <span class="badge guide">Guide</span> **Request Permissions**
-
-    ---
-
-    The Product-side how-to for declaring permissions and handling denial.
-
-    [:octicons-arrow-right-24: Get Started](/apps/build/request-permissions/)
 
 </div>

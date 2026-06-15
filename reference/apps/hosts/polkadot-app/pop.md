@@ -23,7 +23,7 @@ A Ring-VRF alias is a context-specific pseudonym derived from the user's PoP-anc
 - **Scoped to a context**: The default context is the requesting Product's `.dot` domain. The same user produces a consistent alias each time they return to your Product, but a different alias for any other Product.
 - **Unlinkable across domains**: Two Products cannot correlate that they share a user unless the user explicitly grants a cross-domain alias.
 
-The App is the side of the system that holds the alias-producing material. A Product's call to `app.wallet.getAnonymousAlias()` resolves to the App on the user's phone, which signs the alias request. For the Product-developer pattern, see [Use Personhood in Your App](/apps/build/use-personhood-in-your-app/).
+The App is the side of the system that holds the alias-producing material. A Product's call to `app.wallet.getAnonymousAlias()` resolves to the App on the user's phone, which signs the alias request.
 
 ## PoP Tiers: Full vs. Lite
 
@@ -41,19 +41,9 @@ A Product running inside Polkadot Desktop can reach the App's PoP surface in two
 - **Alias-gated features**: Call `getAnonymousAlias()` for the user's per-Product alias, then `createProof(challenge)` to prove control of that alias against a challenge. Gate features on the proof rather than on the user's account address.
 - **On-chain personhood gates**: Dispatch calls under the `under_alias` runtime origin against PoP pallets (e.g. `pallet-people`). The runtime verifies the underlying Ring-VRF proof and the called pallet's view of the caller is the alias, not the underlying account.
 
-Both patterns are documented in [Use Personhood in Your App](/apps/build/use-personhood-in-your-app/); this reference page documents where the proving happens (the App) and what it produces (Ring-VRF aliases on the People Chain), not the Product-side API.
-
 ## Where to Go Next
 
 <div class="grid cards" markdown>
-
-- <span class="badge guide">Guide</span> **Use Personhood in Your App**
-
-    ---
-
-    The Product-side how-to: request an alias, build alias-gated off-chain checks, and dispatch on-chain calls under `under_alias`.
-
-    [:octicons-arrow-right-24: Get Started](/apps/build/use-personhood-in-your-app/)
 
 - <span class="badge guide">Guide</span> **Verify Your Identity**
 

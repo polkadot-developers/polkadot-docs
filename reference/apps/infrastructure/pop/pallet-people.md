@@ -61,11 +61,4 @@ Every other pallet in the PoP set ultimately reads `pallet-people`'s ring root o
 
     [:octicons-arrow-right-24: Reference](/reference/apps/infrastructure/pop/ring-vrf-and-aliases/)
 
-- <span class="badge guide">Guide</span> **Use Personhood in Your App**
-
-    ---
-
-    The Product-side how-to including the `under_alias` dispatch pattern.
-
-    [:octicons-arrow-right-24: Get Started](/apps/build/use-personhood-in-your-app/)
 </div>

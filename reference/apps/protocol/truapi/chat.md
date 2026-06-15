@@ -37,12 +37,4 @@ Messages a Product submits before bot registration completes are queued automati
 
     [:octicons-arrow-right-24: Reference](/reference/apps/hosts/polkadot-app/chat/)
 
-- <span class="badge guide">Guide</span> **Add Chat**
-
-    ---
-
-    The Product-side how-to: registering a bot, publishing typed messages, and handling custom rendering.
-
-    [:octicons-arrow-right-24: Get Started](/apps/build/add-chat/){target=\_blank}
-
 </div>

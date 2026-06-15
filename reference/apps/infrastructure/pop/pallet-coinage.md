@@ -77,11 +77,4 @@ The transfer, split, load, and unload extrinsics, the coin storage, and the recy
 
     [:octicons-arrow-right-24: Reference](/reference/apps/hosts/polkadot-app/coinage/)
 
-- <span class="badge guide">Guide</span> **Accept a Payment**
-
-    ---
-
-    The standard `Balances.transfer_keep_alive` flow for merchant-style payments — the alternative when Coinage's privacy properties are not the right fit.
-
-    [:octicons-arrow-right-24: Get Started](/apps/build/accept-a-payment/)
 </div>

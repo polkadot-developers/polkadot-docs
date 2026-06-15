@@ -26,18 +26,18 @@ From the recipient's perspective:
 
 The distinguishing property of Pocket relative to a plain `Balances.transfer_keep_alive` is the accept step. A standard transfer settles unilaterally, so the recipient cannot reject it. Pocket's two-sided flow gives the recipient a chance to refuse, which matters when the transfer is contextually meaningful (an in-band payment between users who know each other) rather than a balance change.
 
-The Product-developer surface that bridges to Pocket is part of the open question above, including whether a Product can initiate a Pocket transfer programmatically, or only the Desktop UI can. Once resolved, the integration pattern will be documented here and cross-linked from the [Accept a Payment](/apps/build/accept-a-payment/){target=\_blank} guide.
+The Product-developer surface that bridges to Pocket is part of the open question above, including whether a Product can initiate a Pocket transfer programmatically, or only the Desktop UI can. Once resolved, the integration pattern will be documented here.
 
 ## Where to Go Next
 
 <div class="grid cards" markdown>
 
-- <span class="badge guide">Guide</span> **Accept a Payment**
+- <span class="badge reference">Reference</span> **Payment Method Group**
 
     ---
 
-    The Product-side payment flow: `Balances.transfer_keep_alive` on the Polkadot Hub via the Product SDK. Pocket-aware patterns will be added here when resolved.
+    The TrUAPI method group covering `Balances.transfer_keep_alive` and the Pocket peer-to-peer payment flow available to Products.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/accept-a-payment/){target=\_blank}
+    [:octicons-arrow-right-24: View Reference](/reference/apps/protocol/truapi/payment/){target=\_blank}
 
 </div>

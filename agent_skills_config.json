@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:430535789a84752223558929e12135fa96037fb5b8473065130e4a6736f3ad8f",
-  "generated": "2026-06-16T16:30:00Z",
+  "content_hash": "sha256:ac857de6f8cd61131a7ffb8f281555b24821a3ddebfb9f9c69d8d0c9d72ecfdb",
+  "generated": "2026-06-16T17:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -10235,6 +10235,1094 @@
       },
       "title": "Deploy Uniswap V3 Periphery on Polkadot Hub (EVM)",
       "version": "1.2.2",
+      "workflow_pattern": "sequential"
+    },
+    {
+      "chain_role": "isolated",
+      "description": "Builds a full-stack collaborative todo board using all four Polkadot Product SDK layers: wallet signing, device-local persistence via LocalKvStore, real-time pub/sub via the Statement Store, and durable snapshots on the Bulletin Chain. Use when you need an end-to-end working example of the Product SDK or want to scaffold a Next.js 15 app that integrates with Polkadot Desktop. Trigger phrases: 'build shared todo app', 'Polkadot Product SDK tutorial', 'product SDK full example', 'collaborative todo board Polkadot'. Produces a running Next.js app at localhost:3000 paired with Polkadot Desktop.",
+      "env_vars": [],
+      "error_patterns": [
+        {
+          "cause": "LocalKvStore and other SDK features require a Polkadot Desktop host container; they do not work in a standalone browser.",
+          "pattern": "Host storage unavailable",
+          "resolution": "Open the app URL inside Polkadot Desktop's built-in browser rather than Chrome/Firefox. Run `npm run dev` first, then navigate to http://localhost:3000 from within Desktop."
+        },
+        {
+          "cause": "The account has no remaining Statement Store allowance for publishing board updates.",
+          "pattern": "Statement Store allowance exceeded",
+          "resolution": "Provision more Statement Store allowance for the account through the product management interface, or wait for existing statements to expire (30-second TTL)."
+        },
+        {
+          "cause": "The account has not been granted Bulletin Chain authorization, which requires Root origin approval.",
+          "pattern": "Bulletin Chain not authorized / account not authorized",
+          "resolution": "Request authorization at https://paritytech.github.io/polkadot-bulletin-chain/authorizations. Authorization cannot be self-granted."
+        },
+        {
+          "cause": "SDK packages were not installed or package install failed.",
+          "pattern": "Module not found: @parity/product-sdk-statement-store",
+          "resolution": "Re-run the install command from Step 2 inside the shared-todo-board directory."
+        }
+      ],
+      "examples": [
+        {
+          "actions": [
+            "Scaffold Next.js app with create-next-app",
+            "Install @parity/product-sdk and related packages",
+            "Create providers.tsx, layout.tsx, types.ts, signer.ts, board.ts, sync.ts, snapshot.ts, page.tsx from reference files",
+            "Run npm run dev and open in Polkadot Desktop"
+          ],
+          "result": "Running Next.js todo board app at localhost:3000 using all four Product SDK layers",
+          "scenario": "Common scenario: build the tutorial app from scratch",
+          "user_says": "Build the Polkadot shared todo app tutorial"
+        },
+        {
+          "actions": [
+            "Verify Statement Store allowance is provisioned for the account",
+            "Check that both devices have the Polkadot app paired to the same account",
+            "Confirm sync.ts was fetched correctly and not overwritten by the default create-next-app files"
+          ],
+          "result": "Real-time sync restored; board updates propagate between devices within 30 seconds",
+          "scenario": "Edge case: app connects but board doesn't sync across devices",
+          "user_says": "The todo board works locally but changes don't appear on my other device"
+        }
+      ],
+      "id": "build-shared-todo-app",
+      "invocation": "user",
+      "license": "CC-BY-4.0",
+      "prerequisites": {
+        "other": [
+          "Polkadot Desktop installed and the Polkadot app paired on your phone (see Install Desktop and Pair)",
+          "Statement Store allowance provisioned for your account",
+          "Bulletin Chain authorization granted for your account"
+        ],
+        "runtime": [
+          "Node.js 20+",
+          "npm"
+        ],
+        "tokens": [
+          "PAS testnet tokens from https://faucet.polkadot.io/"
+        ]
+      },
+      "primary_page": "apps/tutorials/shared-todo-app.md",
+      "project_structure": "shared-todo-board/\n├── app/\n│   ├── layout.tsx\n│   └── page.tsx\n├── board.ts\n├── providers.tsx\n├── signer.ts\n├── snapshot.ts\n├── sync.ts\n├── types.ts\n├── package.json\n└── tailwind.config.ts",
+      "reference_code": {
+        "base_path": ".snippets/code/apps/tutorials/shared-todo-app",
+        "branch": "master",
+        "files": [
+          {
+            "description": "Wraps the app with ProductSDKProvider, StatementStoreProvider, and other required context providers",
+            "path": "providers.tsx"
+          },
+          {
+            "description": "Root Next.js layout that mounts the providers wrapper",
+            "path": "layout.tsx"
+          },
+          {
+            "description": "TypeScript interfaces for TodoItem and Board",
+            "path": "types.ts"
+          },
+          {
+            "description": "Wallet signer configuration connecting to Polkadot Desktop for on-phone transaction approval",
+            "path": "signer.ts"
+          },
+          {
+            "description": "Board state manager using LocalKvStore for device-local persistence",
+            "path": "board.ts"
+          },
+          {
+            "description": "Statement Store pub/sub layer for real-time board updates across devices (30s TTL)",
+            "path": "sync.ts"
+          },
+          {
+            "description": "Bulletin Chain snapshot layer for durable on-chain board backups (~2 week retention)",
+            "path": "snapshot.ts"
+          },
+          {
+            "description": "Main app page component that assembles the todo board UI and wires together all four SDK layers",
+            "path": "page.tsx"
+          }
+        ],
+        "repo": "polkadot-developers/polkadot-docs"
+      },
+      "source_pages": [
+        "apps/tutorials/shared-todo-app.md"
+      ],
+      "steps": [
+        {
+          "action": "Scaffold the Next.js project",
+          "commands": [
+            "npx create-next-app@latest shared-todo-board --typescript --tailwind --eslint --app --no-src-dir"
+          ],
+          "description": "Create the Next.js 15 app using the exact flags shown. Do NOT pipe anything to stdin — create-next-app 15+ requires all options as CLI flags, not interactive prompts.",
+          "order": 1,
+          "working_directory": "."
+        },
+        {
+          "action": "Install the Polkadot Product SDK",
+          "commands": [
+            "npm install @parity/product-sdk @parity/product-sdk-statement-store @parity/product-sdk-cloud-storage @polkadot-api/json-rpc-provider"
+          ],
+          "description": "Install the umbrella SDK plus the Statement Store and cloud storage packages used by the sync and snapshot layers.",
+          "order": 2,
+          "working_directory": "shared-todo-board"
+        },
+        {
+          "action": "Create the SDK providers wrapper",
+          "description": "Fetch the reference file and save it as providers.tsx in the project root. This file wraps the app with ProductSDKProvider, StatementStoreProvider, and other required context providers.",
+          "order": 3,
+          "reference_file": "providers.tsx",
+          "working_directory": "shared-todo-board"
+        },
+        {
+          "action": "Create the root layout",
+          "description": "Fetch the reference file and save it as app/layout.tsx, replacing the default Next.js layout. It imports and mounts the providers wrapper from Step 3.",
+          "order": 4,
+          "reference_file": "layout.tsx",
+          "working_directory": "shared-todo-board/app"
+        },
+        {
+          "action": "Create TypeScript interfaces",
+          "description": "Fetch the reference file and save it as types.ts. This defines the TodoItem and Board interfaces used throughout the application.",
+          "order": 5,
+          "reference_file": "types.ts",
+          "working_directory": "shared-todo-board"
+        },
+        {
+          "action": "Create the signer configuration",
+          "description": "Fetch the reference file and save it as signer.ts. This configures the wallet signer that connects to Polkadot Desktop for transaction approval on the user's phone.",
+          "order": 6,
+          "reference_file": "signer.ts",
+          "working_directory": "shared-todo-board"
+        },
+        {
+          "action": "Create the board state manager",
+          "description": "Fetch the reference file and save it as board.ts. This manages the todo board state using LocalKvStore for device-local persistence.",
+          "order": 7,
+          "reference_file": "board.ts",
+          "working_directory": "shared-todo-board"
+        },
+        {
+          "action": "Create the real-time sync layer",
+          "description": "Fetch the reference file and save it as sync.ts. This layer uses the Statement Store for ephemeral pub/sub messaging (30-second TTL) to propagate board updates between devices in real time.",
+          "order": 8,
+          "reference_file": "sync.ts",
+          "working_directory": "shared-todo-board"
+        },
+        {
+          "action": "Create the on-chain snapshot layer",
+          "description": "Fetch the reference file and save it as snapshot.ts. This stores and retrieves board snapshots on the Bulletin Chain, providing durable backups with ~2-week retention.",
+          "order": 9,
+          "reference_file": "snapshot.ts",
+          "working_directory": "shared-todo-board"
+        },
+        {
+          "action": "Create the main page component",
+          "description": "Fetch the reference file and save it as app/page.tsx, replacing the default Next.js home page. This assembles the board UI, wires together all four SDK layers, and renders the todo board.",
+          "order": 10,
+          "reference_file": "page.tsx",
+          "working_directory": "shared-todo-board/app"
+        },
+        {
+          "action": "Run the development server",
+          "commands": [
+            "npm run dev"
+          ],
+          "description": "Start the app. Open http://localhost:3000 in Polkadot Desktop's browser (not a standalone browser) so the Host API is available. The app prompts for a Polkadot Desktop connection on first load.",
+          "expected_output": "Local: http://localhost:3000",
+          "order": 11,
+          "working_directory": "shared-todo-board"
+        }
+      ],
+      "supplementary_context": {
+        "description": "Load these pages for deeper context on each SDK layer used in this tutorial.",
+        "pages": [
+          {
+            "relevance": "Details on Bulletin Chain storage, CID computation, authorization, and data renewal used by the snapshot layer.",
+            "slug": "apps-build-store-data-on-chain",
+            "title": "Store Data on Chain",
+            "url": "https://docs.polkadot.com/apps/build/store-data-on-chain.md"
+          },
+          {
+            "relevance": "Full reference for LocalKvStore API, prefixes, and React hooks used by the board state manager.",
+            "slug": "apps-build-persist-data-locally",
+            "title": "Persist Data Locally",
+            "url": "https://docs.polkadot.com/apps/build/persist-data-locally.md"
+          },
+          {
+            "relevance": "Statement Store API, allowance provisioning, and pub/sub patterns used by the sync layer.",
+            "slug": "apps-build-pub-sub-off-chain-data",
+            "title": "Publish and Subscribe to Off-Chain Data",
+            "url": "https://docs.polkadot.com/apps/build/pub-sub-off-chain-data.md"
+          },
+          {
+            "relevance": "How to deploy the finished app to a .dot domain using the playground CLI.",
+            "slug": "apps-deploy-your-app",
+            "title": "Deploy Your App",
+            "url": "https://docs.polkadot.com/apps/deploy-your-app.md"
+          }
+        ]
+      },
+      "title": "Build a Shared Todo App with the Polkadot Product SDK",
+      "version": "1.0.0",
+      "workflow_pattern": "sequential"
+    },
+    {
+      "chain_role": "isolated",
+      "description": "Stores and retrieves content-addressed data on Polkadot's Bulletin Chain using the @parity/product-sdk inside a Polkadot Product. Covers hello-world storage, CID retrieval, chunked large file uploads, data renewal, and cross-chain submission via People Chain. Use when your Product needs durable on-chain storage with approximately 2-week retention. Trigger phrases: 'store data on chain', 'Bulletin Chain storage', 'upload to Bulletin Chain', 'save file on Polkadot', 'content-addressed storage Product SDK'. Produces a CID pointing to the stored content.",
+      "env_vars": [],
+      "error_patterns": [
+        {
+          "cause": "The account has not been granted Bulletin Chain write authorization. Authorization requires Root origin and cannot be self-granted.",
+          "pattern": "Account not authorized / authorization required",
+          "resolution": "Request authorization at https://paritytech.github.io/polkadot-bulletin-chain/authorizations. Wait for approval, then retry."
+        },
+        {
+          "cause": "The account lacks sufficient PAS tokens to pay for Bulletin Chain storage fees.",
+          "pattern": "Insufficient funds / balance too low",
+          "resolution": "Fund the account with PAS testnet tokens from https://faucet.polkadot.io/ and verify the balance before retrying."
+        },
+        {
+          "cause": "Product SDK features require a Polkadot Desktop host container.",
+          "pattern": "Host storage unavailable",
+          "resolution": "Run the Product inside Polkadot Desktop. The SDK does not fall back to browser storage when outside a host container."
+        },
+        {
+          "cause": "Bulletin Chain data has approximately 2-week default retention and was not renewed before expiry.",
+          "pattern": "Data expired / CID not found",
+          "resolution": "Re-upload the content to obtain a new CID, then use renew-data.ts to schedule future renewals before the next expiry."
+        }
+      ],
+      "examples": [
+        {
+          "actions": [
+            "Install @parity/product-sdk",
+            "Set up app instance with setup-app.ts",
+            "Upload content using hello-bulletin.ts (or adapted version)",
+            "Record the returned CID for retrieval"
+          ],
+          "result": "Content stored on the Bulletin Chain; CID printed to console for retrieval or sharing",
+          "scenario": "Common scenario: store a small file on the Bulletin Chain",
+          "user_says": "Store a JSON metadata file on the Bulletin Chain and get back its CID"
+        },
+        {
+          "actions": [
+            "Run check-authorization.ts with the account address to confirm authorization status",
+            "If unauthorized, direct user to https://paritytech.github.io/polkadot-bulletin-chain/authorizations to request access",
+            "Retry the storage operation after authorization is confirmed"
+          ],
+          "result": "Authorization status confirmed; storage proceeds once access is granted",
+          "scenario": "Edge case: authorization check fails before upload",
+          "user_says": "I keep getting 'not authorized' when trying to store data"
+        }
+      ],
+      "id": "store-data-bulletin-chain",
+      "invocation": "user",
+      "license": "CC-BY-4.0",
+      "prerequisites": {
+        "other": [
+          "Existing Polkadot Product project (see Set Up Your Project)",
+          "Polkadot Desktop installed and paired with your phone",
+          "Bulletin Chain authorization granted for your account — Root origin required; request at https://paritytech.github.io/polkadot-bulletin-chain/authorizations"
+        ],
+        "runtime": [
+          "Node.js 20+",
+          "npm"
+        ],
+        "tokens": [
+          "PAS testnet tokens from https://faucet.polkadot.io/"
+        ]
+      },
+      "primary_page": "apps/build/store-data-on-chain.md",
+      "reference_code": {
+        "base_path": ".snippets/code/apps/build/store-data-on-chain",
+        "branch": "master",
+        "files": [
+          {
+            "description": "Initializes the Product app instance needed for Bulletin Chain operations",
+            "path": "setup-app.ts"
+          },
+          {
+            "description": "Stores 'Hello World!' on the Bulletin Chain and prints the resulting CID",
+            "path": "hello-bulletin.ts"
+          },
+          {
+            "description": "Retrieves previously stored data from the Bulletin Chain by its CID",
+            "path": "retrieve-data.ts"
+          },
+          {
+            "description": "Creates a multi-chain client for Paseo Asset Hub and Bulletin Chain (used in the People Chain cross-chain path)",
+            "path": "setup-client.ts"
+          },
+          {
+            "description": "Splits a local file into chunks and stores each chunk in a separate Bulletin Chain transaction",
+            "path": "store-large-file.ts"
+          },
+          {
+            "description": "Checks whether a given account has Bulletin Chain authorization to write data",
+            "path": "check-authorization.ts"
+          },
+          {
+            "description": "Renews existing Bulletin Chain data before its retention window expires",
+            "path": "renew-data.ts"
+          },
+          {
+            "description": "Submits large content to the Bulletin Chain via a preimage transaction routed through People Chain",
+            "path": "submit-preimage.ts"
+          }
+        ],
+        "repo": "polkadot-developers/polkadot-docs"
+      },
+      "source_pages": [
+        "apps/build/store-data-on-chain.md"
+      ],
+      "steps": [
+        {
+          "action": "Install the Product SDK",
+          "commands": [
+            "npm install @parity/product-sdk"
+          ],
+          "description": "Install the umbrella SDK. All Bulletin Chain storage APIs are available through this package.",
+          "order": 1,
+          "working_directory": "."
+        },
+        {
+          "action": "Set up the Product app instance",
+          "description": "Fetch the reference file and save it as setup-app.ts. This initializes the Product app connection needed by subsequent storage operations. Run with `npx tsx setup-app.ts` to verify the connection.",
+          "order": 2,
+          "reference_file": "setup-app.ts",
+          "working_directory": "."
+        },
+        {
+          "action": "Store a hello-world value and retrieve its CID",
+          "description": "Fetch the reference file and save it as hello-bulletin.ts. This stores the string 'Hello World!' on the Bulletin Chain and prints the resulting CID. Run with `npx tsx hello-bulletin.ts`.",
+          "order": 3,
+          "reference_file": "hello-bulletin.ts",
+          "working_directory": "."
+        },
+        {
+          "action": "Retrieve stored data by CID",
+          "description": "Fetch the reference file and save it as retrieve-data.ts. Replace INSERT_CID with the CID returned from Step 3. Run with `npx tsx retrieve-data.ts` to confirm the data round-trips correctly.",
+          "order": 4,
+          "reference_file": "retrieve-data.ts",
+          "working_directory": "."
+        },
+        {
+          "action": "Set up the multi-chain client (for People Chain path)",
+          "description": "Fetch the reference file and save it as setup-client.ts. This creates a multi-chain client connected to both Paseo Asset Hub and Paseo Bulletin Chain — required for the preimage submission path via People Chain.",
+          "order": 5,
+          "reference_file": "setup-client.ts",
+          "working_directory": "."
+        },
+        {
+          "action": "Store a large file with chunked upload",
+          "description": "Fetch the reference file and save it as store-large-file.ts. Replace INSERT_FILE_PATH with the path to your file. The SDK automatically splits the file into chunks and stores each in a separate transaction.",
+          "order": 6,
+          "reference_file": "store-large-file.ts",
+          "working_directory": "."
+        },
+        {
+          "action": "Check Bulletin Chain authorization status",
+          "description": "Fetch the reference file and save it as check-authorization.ts. Replace INSERT_ADDRESS with your account's SS58 address. Run to verify whether the account is authorized to write to the Bulletin Chain before attempting storage.",
+          "order": 7,
+          "reference_file": "check-authorization.ts",
+          "working_directory": "."
+        },
+        {
+          "action": "Renew stored data before expiry",
+          "description": "Fetch the reference file and save it as renew-data.ts. Replace INSERT_CID with the CID of the data you want to renew. Bulletin Chain data has approximately 2-week retention; renew before it expires to keep it available.",
+          "order": 8,
+          "reference_file": "renew-data.ts",
+          "working_directory": "."
+        },
+        {
+          "action": "Submit large content via People Chain preimage",
+          "description": "Fetch the reference file and save it as submit-preimage.ts. This stores content larger than the direct Bulletin Chain size limit by submitting it as a preimage via the People Chain cross-chain path.",
+          "order": 9,
+          "reference_file": "submit-preimage.ts",
+          "working_directory": "."
+        }
+      ],
+      "supplementary_context": {
+        "description": "Load these pages for context on prerequisites and related SDK capabilities.",
+        "pages": [
+          {
+            "relevance": "End-to-end tutorial showing Bulletin Chain storage integrated with LocalKvStore and Statement Store in a real application.",
+            "slug": "apps-tutorials-shared-todo-app",
+            "title": "Build a Shared Todo App",
+            "url": "https://docs.polkadot.com/apps/tutorials/shared-todo-app.md"
+          },
+          {
+            "relevance": "For device-local storage that does not need on-chain durability — a lighter alternative to Bulletin Chain for preferences and drafts.",
+            "slug": "apps-build-persist-data-locally",
+            "title": "Persist Data Locally",
+            "url": "https://docs.polkadot.com/apps/build/persist-data-locally.md"
+          }
+        ]
+      },
+      "title": "Store and Retrieve Data on the Bulletin Chain",
+      "version": "1.0.0",
+      "workflow_pattern": "sequential"
+    },
+    {
+      "chain_role": "isolated",
+      "description": "Deploys a built Polkadot Product to a .dot domain name on the Bulletin Chain using the playground (or pg) CLI. Use when you have a working Product project and want to publish it at a publicly accessible .dot address. Trigger phrases: 'deploy my Polkadot Product', 'publish to .dot domain', 'playground deploy', 'pg deploy', 'deploy Product to Bulletin Chain'. Guides through 8 interactive prompts including domain name, signer, and environment. For automated or CI use, pass --signer dev --domain <name> to skip prompts.",
+      "env_vars": [],
+      "error_patterns": [
+        {
+          "cause": "Polkadot Desktop is not running or the account is not paired.",
+          "pattern": "Signer not available / Desktop not connected",
+          "resolution": "Ensure Polkadot Desktop is open and the account is paired on your phone. Alternatively use `--signer dev` for development deployments that do not require Desktop pairing."
+        },
+        {
+          "cause": "The .dot domain name is already registered on the Bulletin Chain by another account.",
+          "pattern": "Domain already taken",
+          "resolution": "Choose a different domain name when prompted, or use a unique prefix."
+        },
+        {
+          "cause": "`playground deploy` was run before `playground build` completed, or the build output directory is missing.",
+          "pattern": "Build artifacts not found",
+          "resolution": "Run `playground build` first and confirm it succeeds before running `playground deploy`."
+        }
+      ],
+      "examples": [
+        {
+          "actions": [
+            "Run playground build to compile the Product",
+            "Run playground deploy and follow the 8 interactive prompts",
+            "Enter domain name, signer type, and other deployment parameters"
+          ],
+          "result": "Product deployed and accessible at the chosen .dot domain name on the Bulletin Chain",
+          "scenario": "Common scenario: interactive deployment to a custom .dot name",
+          "user_says": "Deploy my Polkadot Product to a .dot domain"
+        },
+        {
+          "actions": [
+            "Run playground build",
+            "Run playground deploy --signer dev --domain my-app"
+          ],
+          "result": "Product deployed using development signer with no interactive prompts required",
+          "scenario": "Edge case: non-interactive deployment for automation",
+          "user_says": "Deploy without interactive prompts for CI"
+        }
+      ],
+      "id": "deploy-product-dotns",
+      "invocation": "user",
+      "license": "CC-BY-4.0",
+      "prerequisites": {
+        "other": [
+          "Existing Polkadot Product project with a completed build step",
+          "Polkadot Desktop installed and paired with your phone",
+          "Bulletin Chain authorization granted for your account"
+        ],
+        "runtime": [
+          "playground CLI (pg) installed — see Quick Start with the CLI"
+        ],
+        "tokens": [
+          "PAS testnet tokens from https://faucet.polkadot.io/"
+        ]
+      },
+      "primary_page": "apps/deploy-your-app.md",
+      "reference_code": {
+        "base_path": "",
+        "branch": "",
+        "files": [],
+        "repo": "none"
+      },
+      "source_pages": [
+        "apps/deploy-your-app.md"
+      ],
+      "steps": [
+        {
+          "action": "Build the Product",
+          "commands": [
+            "playground build"
+          ],
+          "description": "Compile and bundle the Product for deployment. This must complete without errors before running deploy. Alternatively use `pg build`.",
+          "order": 1,
+          "working_directory": "."
+        },
+        {
+          "action": "Deploy to a .dot name",
+          "commands": [
+            "playground deploy"
+          ],
+          "description": "Start the interactive deployment. The CLI prompts for 8 values: domain name, signer type, environment, and deployment parameters. For non-interactive deployment (CI or dev mode), use `playground deploy --signer dev --domain my-app` to skip all prompts and deploy with a development signer.",
+          "expected_output": "Deployment complete. Your Product is live at my-app.dot",
+          "order": 2,
+          "working_directory": "."
+        }
+      ],
+      "supplementary_context": {
+        "description": "Load these pages for CLI setup context and for understanding the full quick-start flow.",
+        "pages": [
+          {
+            "relevance": "How to install the pg/playground CLI and use pg init, pg build, and pg deploy — prerequisite for this skill.",
+            "slug": "apps-quick-start-cli",
+            "title": "Quick Start with the CLI",
+            "url": "https://docs.polkadot.com/apps/quick-start-cli.md"
+          },
+          {
+            "relevance": "A complete Product build that demonstrates the full lifecycle ending in a deployable app.",
+            "slug": "apps-tutorials-shared-todo-app",
+            "title": "Build a Shared Todo App",
+            "url": "https://docs.polkadot.com/apps/tutorials/shared-todo-app.md"
+          }
+        ]
+      },
+      "title": "Deploy a Polkadot Product to a .dot Name",
+      "version": "1.0.0",
+      "workflow_pattern": "sequential"
+    },
+    {
+      "chain_role": "isolated",
+      "description": "Installs the Polkadot playground CLI (pg) and walks through the full Product development lifecycle: initializing a new project, building, and deploying to a .dot domain. Use when setting up a new machine for Polkadot Product development or starting a Product project from scratch. Trigger phrases: 'install playground CLI', 'install pg CLI', 'set up Polkadot Product development', 'pg init', 'initialize Product project'. Produces an initialized Product project deployed to the Paseo Next testnet.",
+      "env_vars": [],
+      "error_patterns": [
+        {
+          "cause": "The installer completed but the install directory is not in PATH.",
+          "pattern": "pg: command not found",
+          "resolution": "Open a new terminal session, or manually add the install directory to your PATH. Run `pg --version` again to verify."
+        },
+        {
+          "cause": "curl is not installed on the system.",
+          "pattern": "curl: command not found",
+          "resolution": "Install curl via the system package manager (e.g., `brew install curl` on macOS, `apt install curl` on Ubuntu), then re-run the install command."
+        },
+        {
+          "cause": "The chosen .dot domain name is already registered.",
+          "pattern": "pg deploy: Domain already taken",
+          "resolution": "Choose a different domain name and run pg deploy again."
+        }
+      ],
+      "examples": [
+        {
+          "actions": [
+            "Run the curl installer to install pg",
+            "Verify with pg --version",
+            "Run pg init to scaffold a new Product",
+            "Run pg build",
+            "Run pg deploy --signer dev --domain my-app"
+          ],
+          "result": "playground CLI installed; new Product scaffolded, built, and deployed to the testnet",
+          "scenario": "Common scenario: set up CLI on a new machine and deploy",
+          "user_says": "Install the playground CLI and deploy a Polkadot Product"
+        },
+        {
+          "actions": [
+            "Open a new terminal session",
+            "Run pg --version again",
+            "If still not found, check installer output for the PATH it installed to and add it manually"
+          ],
+          "result": "pg command available after PATH is updated or new session opened",
+          "scenario": "Edge case: pg command not found after install",
+          "user_says": "I ran the installer but pg command is not found"
+        }
+      ],
+      "id": "install-deploy-product-cli",
+      "invocation": "user",
+      "license": "CC-BY-4.0",
+      "prerequisites": {
+        "other": [
+          "Polkadot app installed on your phone (for account pairing and transaction signing)",
+          "PAS testnet tokens for deployment (see Get TestNet Tokens)"
+        ],
+        "runtime": [
+          "Terminal with bash or zsh",
+          "curl"
+        ]
+      },
+      "primary_page": "apps/quick-start-cli.md",
+      "reference_code": {
+        "base_path": "",
+        "branch": "",
+        "files": [],
+        "repo": "none"
+      },
+      "source_pages": [
+        "apps/quick-start-cli.md"
+      ],
+      "steps": [
+        {
+          "action": "Install the playground CLI",
+          "commands": [
+            "curl -fsSL https://raw.githubusercontent.com/paritytech/playground-cli/main/install.sh | bash"
+          ],
+          "description": "Run the official installer script. This downloads and installs the pg binary. After installation, open a new terminal session or source your shell profile to make pg available in PATH.",
+          "order": 1,
+          "working_directory": "."
+        },
+        {
+          "action": "Verify the installation",
+          "commands": [
+            "pg --version"
+          ],
+          "description": "Confirm pg is installed and on PATH. If the command is not found, ensure the install directory is in your PATH.",
+          "expected_output": "playground-cli 0.27.1",
+          "order": 2,
+          "working_directory": "."
+        },
+        {
+          "action": "Initialize a new Product project",
+          "commands": [
+            "pg init"
+          ],
+          "description": "Run the interactive project scaffolding wizard. pg init creates the Product directory structure with the required configuration files.",
+          "order": 3,
+          "working_directory": "."
+        },
+        {
+          "action": "Build the Product",
+          "commands": [
+            "pg build"
+          ],
+          "description": "Compile and bundle the Product for deployment. Address any build errors before proceeding to deploy.",
+          "order": 4,
+          "working_directory": "."
+        },
+        {
+          "action": "Deploy the Product to a .dot name",
+          "commands": [
+            "pg deploy"
+          ],
+          "description": "Deploy the built Product. For automated or development use, pass `pg deploy --signer dev --domain my-app` to skip interactive prompts and deploy with a development signer.",
+          "expected_output": "Deployment complete. Your Product is live at my-app.dot",
+          "order": 5,
+          "working_directory": "."
+        }
+      ],
+      "supplementary_context": {
+        "description": "Load these pages for the full deployment flow and for Product SDK context.",
+        "pages": [
+          {
+            "relevance": "Detailed walkthrough of the 8 interactive prompts in playground deploy, including signer and environment options.",
+            "slug": "apps-deploy-your-app",
+            "title": "Deploy Your App",
+            "url": "https://docs.polkadot.com/apps/deploy-your-app.md"
+          },
+          {
+            "relevance": "A complete Product application that demonstrates what pg init scaffolds and what pg build/deploy targets.",
+            "slug": "apps-tutorials-shared-todo-app",
+            "title": "Build a Shared Todo App",
+            "url": "https://docs.polkadot.com/apps/tutorials/shared-todo-app.md"
+          }
+        ]
+      },
+      "title": "Install the Playground CLI and Deploy a Polkadot Product",
+      "version": "1.0.0",
+      "workflow_pattern": "sequential"
+    },
+    {
+      "chain_role": "isolated",
+      "description": "Registers and installs the paritytech/product-skills Claude Code skill marketplace, giving the agent context about Polkadot Product SDK patterns, architecture rules, design system, and testing helpers. Use when starting Polkadot Product development with Claude Code and you want the agent to produce correct, idiomatic Product code rather than generic boilerplate. Trigger phrases: 'install Polkadot product skills', 'add product-skills', 'set up Claude Code for Polkadot Products', 'install polkadot-triangle skill', 'product-skills marketplace'. Provides skills for the Triangle architecture, Bulletin Chain storage, design system, E2E testing, Statement Store, and more.",
+      "env_vars": [],
+      "error_patterns": [
+        {
+          "cause": "Skills auto-trigger by context but may need an explicit invocation on first use.",
+          "pattern": "Skill does not trigger / agent ignores product-skills context",
+          "resolution": "Invoke the skill directly using its trigger name, e.g., `/polkadot-triangle` before asking about Host API or wallet connection."
+        },
+        {
+          "cause": "Installed skills have not been updated since the last Product SDK release.",
+          "pattern": "Stale API patterns after a Product SDK release",
+          "resolution": "Run `/plugin marketplace update product-skills` in Claude Code to pull the latest skill versions."
+        }
+      ],
+      "examples": [
+        {
+          "actions": [
+            "Run /plugin marketplace add paritytech/product-skills in Claude Code",
+            "Run /plugin install polkadot-skills@product-skills to install all skills"
+          ],
+          "result": "All product-skills installed; Claude Code now has context for Triangle architecture, Bulletin Chain, design system, E2E testing, and Statement Store",
+          "scenario": "Common scenario: set up Claude Code for a new Polkadot Product project",
+          "user_says": "Install the Polkadot product skills for Claude Code"
+        },
+        {
+          "actions": [
+            "Run /plugin marketplace add paritytech/product-skills",
+            "Select Browse and install plugins → product-skills",
+            "Choose bulletin-storage (or bulletin-sdk) → Install now"
+          ],
+          "result": "Only the selected skill installed; agent has Bulletin Chain context without loading the full skill set",
+          "scenario": "Edge case: install only the bulletin chain skill",
+          "user_says": "I only want the Bulletin Chain skill, not all of them"
+        }
+      ],
+      "id": "install-polkadot-product-skills",
+      "invocation": "user",
+      "license": "CC-BY-4.0",
+      "prerequisites": {
+        "other": [
+          "Claude Code installed and active in your Polkadot Product project directory"
+        ]
+      },
+      "primary_page": "reference/apps/skills.md",
+      "reference_code": {
+        "base_path": "",
+        "branch": "",
+        "files": [],
+        "repo": "none"
+      },
+      "source_pages": [
+        "reference/apps/skills.md"
+      ],
+      "steps": [
+        {
+          "action": "Register the product-skills marketplace",
+          "description": "In Claude Code, run the following slash command to register the paritytech/product-skills repository as a skill source: `/plugin marketplace add paritytech/product-skills`",
+          "order": 1,
+          "working_directory": "."
+        },
+        {
+          "action": "Install all skills at once",
+          "description": "To install the full skill set in one command, run: `/plugin install polkadot-skills@product-skills`. This installs all available skills: polkadot-triangle, bulletin-storage, bulletin-sdk, polkadot-design-system, polkadot-product-engineering, host-api-test-sdk, statement-store-and-allowance, and product-readme. Skills auto-trigger based on context; you can also invoke any skill explicitly with `/<skill-name>`.",
+          "order": 2,
+          "working_directory": "."
+        },
+        {
+          "action": "(Optional) Install individual skills",
+          "description": "To install only specific skills: run `/plugin marketplace add paritytech/product-skills`, then select **Browse and install plugins** → **product-skills** → choose the skills you want → **Install now**. Useful when bundle size or context window budget is a concern.",
+          "order": 3,
+          "working_directory": "."
+        },
+        {
+          "action": "Keep skills up to date",
+          "description": "Polkadot Product surfaces change frequently. Refresh the marketplace periodically with: `/plugin marketplace update product-skills`. Enable auto-update in Claude Code settings to refresh automatically at startup.",
+          "order": 4,
+          "working_directory": "."
+        }
+      ],
+      "supplementary_context": {
+        "description": "Load these pages for context on what the installed skills cover and how to use them effectively.",
+        "pages": [
+          {
+            "relevance": "The tutorial where the installed skills (polkadot-triangle, bulletin-storage, statement-store-and-allowance) are most directly applicable.",
+            "slug": "apps-tutorials-shared-todo-app",
+            "title": "Build a Shared Todo App",
+            "url": "https://docs.polkadot.com/apps/tutorials/shared-todo-app.md"
+          },
+          {
+            "relevance": "Reference for the bulletin-storage and bulletin-sdk skills installed by this skill set.",
+            "slug": "apps-build-store-data-on-chain",
+            "title": "Store Data on Chain",
+            "url": "https://docs.polkadot.com/apps/build/store-data-on-chain.md"
+          }
+        ]
+      },
+      "title": "Install Polkadot Product Skills for Claude Code",
+      "version": "1.0.0",
+      "workflow_pattern": "sequential"
+    },
+    {
+      "chain_role": "isolated",
+      "description": "Adds device-local key-value storage to a Polkadot Product using the @parity/product-sdk-local-storage package. Covers creating a LocalKvStore, reading and writing strings and JSON values, removing entries, namespacing with prefixes, and integrating React hooks for component-level storage. Use when your Product needs to persist data between sessions on a single device (preferences, drafts, cached values) without syncing across devices. Trigger phrases: 'persist data locally in Product', 'LocalKvStore', 'local storage Product SDK', 'save preferences in Polkadot Product', 'useLocalStorage hook Product'. Output: a configured local store wired into the Product.",
+      "env_vars": [],
+      "error_patterns": [
+        {
+          "cause": "LocalKvStore requires a Polkadot Desktop host container and has no localStorage fallback for standalone browsers.",
+          "pattern": "Host storage unavailable",
+          "resolution": "Run the Product inside Polkadot Desktop. Open the app URL from within Desktop's built-in browser, not from Chrome or Firefox."
+        },
+        {
+          "cause": "The project is CommonJS or the package was not installed correctly. @parity/product-sdk-local-storage is ESM-only.",
+          "pattern": "createLocalKvStore is not a function / cannot find module",
+          "resolution": "Add `\"type\": \"module\"` to package.json to enable ESM, then reinstall dependencies with `npm install @parity/product-sdk`."
+        },
+        {
+          "cause": "React hooks are not exported by the standalone @parity/product-sdk-local-storage package.",
+          "pattern": "useLocalStorage / useLocalStorageString is not a function",
+          "resolution": "Install the umbrella package instead: `npm install @parity/product-sdk`. Hooks are only available through the umbrella package."
+        }
+      ],
+      "examples": [
+        {
+          "actions": [
+            "Install @parity/product-sdk",
+            "Initialize store with createLocalKvStore()",
+            "Use store.setJSON('theme', { mode: 'dark' }) to write",
+            "Use store.getJSON<ThemePrefs>('theme') to read on next session"
+          ],
+          "result": "User preferences persisted on the device and retrieved on next app load",
+          "scenario": "Common scenario: save user preferences between sessions",
+          "user_says": "Save the user's theme preference between sessions in my Polkadot Product"
+        },
+        {
+          "actions": [
+            "Check the loading field in the hook tuple — value is null while the store initializes",
+            "Render a loading state until loading is false before using the value",
+            "Confirm ProductSDKProvider wraps the component tree (providers.tsx in place)"
+          ],
+          "result": "Loading state handled correctly; value available once Host storage backend connects",
+          "scenario": "Edge case: React hook returns null on first render",
+          "user_says": "useLocalStorageString returns null even though I stored a value"
+        }
+      ],
+      "id": "use-local-kv-store-product-sdk",
+      "invocation": "user",
+      "license": "CC-BY-4.0",
+      "prerequisites": {
+        "other": [
+          "Existing Polkadot Product project (see Set Up Your Project)",
+          "Polkadot Desktop — LocalKvStore requires a host container and does not fall back to browser localStorage"
+        ],
+        "runtime": [
+          "Node.js 20+",
+          "npm"
+        ]
+      },
+      "primary_page": "apps/build/persist-data-locally.md",
+      "reference_code": {
+        "base_path": ".snippets/code/apps/build/persist-data-locally",
+        "branch": "master",
+        "files": [
+          {
+            "description": "Awaits createLocalKvStore() to establish the Host storage backend connection",
+            "path": "initialize.ts"
+          },
+          {
+            "description": "Demonstrates store.set / store.get for plain string key-value pairs",
+            "path": "set-get-string.ts"
+          },
+          {
+            "description": "Demonstrates store.setJSON / store.getJSON<T> for type-safe JSON storage",
+            "path": "set-get-json.ts"
+          },
+          {
+            "description": "Demonstrates store.remove(key) — safely a no-op if the key does not exist",
+            "path": "remove.ts"
+          },
+          {
+            "description": "Creates a namespaced store instance with { prefix: 'feature' } to avoid key collisions",
+            "path": "prefixed-store.ts"
+          },
+          {
+            "description": "Wraps the app with ProductSDKProvider — required before using any React SDK hooks",
+            "path": "providers.tsx"
+          },
+          {
+            "description": "React components using useLocalStorageString and useLocalStorage<T> hooks",
+            "path": "local-storage-hooks.tsx"
+          },
+          {
+            "description": "Accesses app.localStorage via useProductSDK() to remove individual keys or clear all Product storage",
+            "path": "remove-and-clear.tsx"
+          }
+        ],
+        "repo": "polkadot-developers/polkadot-docs"
+      },
+      "source_pages": [
+        "apps/build/persist-data-locally.md"
+      ],
+      "steps": [
+        {
+          "action": "Install the SDK",
+          "commands": [
+            "npm install @parity/product-sdk"
+          ],
+          "description": "Install the umbrella package. For a smaller bundle, use `npm install @parity/product-sdk-local-storage` instead — all import paths shown in this skill work with either option. Note: React hooks (useLocalStorage, useLocalStorageString) are only available through the umbrella @parity/product-sdk package.",
+          "order": 1,
+          "working_directory": "."
+        },
+        {
+          "action": "Initialize the store",
+          "description": "Fetch the reference file and save it as initialize.ts. This shows how to call `createLocalKvStore()` — an async factory that must be awaited before any read or write because it connects to the Host storage backend. Run with `npx tsx initialize.ts` to verify the connection.",
+          "order": 2,
+          "reference_file": "initialize.ts",
+          "working_directory": "."
+        },
+        {
+          "action": "Store and retrieve string values",
+          "description": "Fetch the reference file and save it as set-get-string.ts. Demonstrates `store.set(key, value)` for writes and `store.get(key)` for reads. `get` returns null if the key has not been set.",
+          "order": 3,
+          "reference_file": "set-get-string.ts",
+          "working_directory": "."
+        },
+        {
+          "action": "Store and retrieve JSON values",
+          "description": "Fetch the reference file and save it as set-get-json.ts. Demonstrates `store.setJSON(key, value)` and `store.getJSON<T>(key)`. The generic type parameter T enables type-safe retrieval.",
+          "order": 4,
+          "reference_file": "set-get-json.ts",
+          "working_directory": "."
+        },
+        {
+          "action": "Remove stored values",
+          "description": "Fetch the reference file and save it as remove.ts. Demonstrates `store.remove(key)`. Does not throw if the key does not exist.",
+          "order": 5,
+          "reference_file": "remove.ts",
+          "working_directory": "."
+        },
+        {
+          "action": "Namespace keys with prefixes",
+          "description": "Fetch the reference file and save it as prefixed-store.ts. Shows how to pass `{ prefix: 'feature' }` to `createLocalKvStore()` to partition the namespace and avoid key collisions between different features sharing the same store.",
+          "order": 6,
+          "reference_file": "prefixed-store.ts",
+          "working_directory": "."
+        },
+        {
+          "action": "Set up the React provider",
+          "description": "Fetch the reference file and save it as providers.tsx. Wraps the application in ProductSDKProvider once at the root. Required before using any React hooks from the SDK.",
+          "order": 7,
+          "reference_file": "providers.tsx",
+          "working_directory": "."
+        },
+        {
+          "action": "Use React storage hooks in components",
+          "description": "Fetch the reference file and save it as local-storage-hooks.tsx. Demonstrates `useLocalStorageString` for plain string values and `useLocalStorage<T>` for JSON-typed values. Both return `[currentValue, setValue, { loading, error }]`.",
+          "order": 8,
+          "reference_file": "local-storage-hooks.tsx",
+          "working_directory": "."
+        },
+        {
+          "action": "Remove keys or clear all storage from React",
+          "description": "Fetch the reference file and save it as remove-and-clear.tsx. Shows how to access `app.localStorage` via `useProductSDK()` to call `remove()` on individual keys or `clear()` to remove all keys scoped to your Product.",
+          "order": 9,
+          "reference_file": "remove-and-clear.tsx",
+          "working_directory": "."
+        }
+      ],
+      "supplementary_context": {
+        "description": "Load these pages for context on on-chain alternatives and full Product SDK setup.",
+        "pages": [
+          {
+            "relevance": "When data must outlive the device or be visible to other users, use Bulletin Chain storage instead of LocalKvStore.",
+            "slug": "apps-build-store-data-on-chain",
+            "title": "Store Data on Chain",
+            "url": "https://docs.polkadot.com/apps/build/store-data-on-chain.md"
+          },
+          {
+            "relevance": "Shows LocalKvStore used alongside Statement Store and Bulletin Chain in a real application (board.ts).",
+            "slug": "apps-tutorials-shared-todo-app",
+            "title": "Build a Shared Todo App",
+            "url": "https://docs.polkadot.com/apps/tutorials/shared-todo-app.md"
+          }
+        ]
+      },
+      "title": "Persist Data Locally with the Product SDK LocalKvStore",
+      "version": "1.0.0",
+      "workflow_pattern": "sequential"
+    },
+    {
+      "chain_role": "isolated",
+      "description": "Connects a Polkadot Product to one or more chains and reads storage items, constants, and account state using @parity/product-sdk-chain-client. Supports a zero-config Preset path (getChainAPI) for paseo and summit environments and a BYOD path (createChainClient) with custom descriptors for explicit chain control. Use when your Product needs to query on-chain data such as account balances, block numbers, or storage items without submitting transactions. Trigger phrases: 'read chain state Product', 'getChainAPI', 'createChainClient Product SDK', 'query Polkadot chain from Product', 'product-sdk chain client'. Output: typed chain client exposing .query, .constants, and raw PAPI surface per connected chain.",
+      "env_vars": [],
+      "error_patterns": [
+        {
+          "cause": "Only paseo and summit are wired up; other Environment values (polkadot, kusama, westend, local) throw at runtime.",
+          "pattern": "getChainAPI throws at runtime for environment value",
+          "resolution": "Use `getChainAPI('paseo')` or `getChainAPI('summit')`. For other chains, use the BYOD path with createChainClient and the appropriate descriptor from @parity/product-sdk-descriptors."
+        },
+        {
+          "cause": "Bundler does not honor package.json subpath exports for @parity/product-sdk-descriptors.",
+          "pattern": "Cannot find module @parity/product-sdk-descriptors/paseo-bulletin",
+          "resolution": "Ensure your build tool supports package exports (Node.js 16+, Vite, esbuild with mainFields). Do not import from the package root — always use the subpath form."
+        },
+        {
+          "cause": "Chain client routes connections through the Polkadot Desktop host at runtime. It fails when run outside a host container.",
+          "pattern": "Host-routed reads fail / connection error outside host container",
+          "resolution": "Run the Product inside Polkadot Desktop. For development builds outside a Host, a direct WebSocket fallback is available — check the Product SDK documentation for the development endpoint option."
+        }
+      ],
+      "examples": [
+        {
+          "actions": [
+            "Install @parity/product-sdk-chain-client",
+            "Call getChainAPI('paseo') to get a preconfigured client",
+            "Call client.assetHub.query.System.Account.getValue(address) to read the account record",
+            "Extract free/reserved/frozen from the result's data field"
+          ],
+          "result": "Typed account balance returned from Paseo Asset Hub inside the Product",
+          "scenario": "Common scenario: read account balance from a Polkadot Product",
+          "user_says": "Read the account balance from my Polkadot Product using the chain client"
+        },
+        {
+          "actions": [
+            "Install @parity/product-sdk-descriptors",
+            "Import the target chain's descriptor from the appropriate subpath",
+            "Use createChainClient({ chains: { myChain: descriptor } }) instead of getChainAPI",
+            "Access chain state via client.myChain.query.*"
+          ],
+          "result": "Custom chain connected via BYOD path; fully typed query surface available",
+          "scenario": "Edge case: need to connect to a chain not in the preset",
+          "user_says": "I need to connect to a chain that is not available in getChainAPI"
+        }
+      ],
+      "id": "read-chain-state-product-sdk",
+      "invocation": "user",
+      "license": "CC-BY-4.0",
+      "prerequisites": {
+        "other": [
+          "Existing Polkadot Product project (see Set Up Your Project)",
+          "Polkadot Desktop — host-routed chain reads require a host container"
+        ],
+        "runtime": [
+          "Node.js 20+",
+          "npm"
+        ]
+      },
+      "primary_page": "apps/build/read-chain-state.md",
+      "reference_code": {
+        "base_path": "",
+        "branch": "",
+        "files": [],
+        "repo": "none"
+      },
+      "source_pages": [
+        "apps/build/read-chain-state.md"
+      ],
+      "steps": [
+        {
+          "action": "Install the chain client package",
+          "commands": [
+            "npm install @parity/product-sdk"
+          ],
+          "description": "Install the umbrella package. For a smaller bundle, use `npm install @parity/product-sdk-chain-client` instead. If you plan to use the BYOD path with custom descriptors, also install `npm install @parity/product-sdk-descriptors`.",
+          "order": 1,
+          "working_directory": "."
+        },
+        {
+          "action": "Connect using a preset (getChainAPI)",
+          "description": "Use `getChainAPI('paseo')` to get a preconfigured client for the paseo environment. The returned client exposes one property per chain (assetHub, bulletin, individuality), each typed by its PAPI descriptor. Example:\n\n```typescript\nimport { getChainAPI } from '@parity/product-sdk-chain-client';\nconst client = await getChainAPI('paseo');\nconst fee = await client.bulletin.query.TransactionStorage.ByteFee.getValue();\nclient.destroy();\n```\n\nOnly paseo and summit are wired up currently; other Environment values throw at runtime.",
+          "order": 2,
+          "working_directory": "."
+        },
+        {
+          "action": "Connect using custom descriptors (BYOD)",
+          "description": "Use `createChainClient` when you need explicit descriptor control. Import chain descriptor objects from `@parity/product-sdk-descriptors/<chain>` subpath and pass them under custom keys. Example:\n\n```typescript\nimport { createChainClient } from '@parity/product-sdk-chain-client';\nimport { paseo_asset_hub } from '@parity/product-sdk-descriptors/paseo-asset-hub';\nimport { paseo_bulletin } from '@parity/product-sdk-descriptors/paseo-bulletin';\nconst client = await createChainClient({ chains: { assetHub: paseo_asset_hub, bulletin: paseo_bulletin } });\n```\n\nThe keys you choose in `chains` become the typed property names on the returned client.",
+          "order": 3,
+          "working_directory": "."
+        },
+        {
+          "action": "Read storage items and constants",
+          "description": "Use the typed PAPI surface: `client.<chainName>.query.<Pallet>.<Item>.getValue(...args)`. Common reads:\n\n- Byte fee: `client.bulletin.query.TransactionStorage.ByteFee.getValue()`\n- Block number: `client.assetHub.query.System.Number.getValue()`\n- Account state: `client.assetHub.query.System.Account.getValue(address)` — returns nonce and balance buckets (free, reserved, frozen)\n\nFor parallel reads across chains, use `Promise.all([...])` since each chain has an independent connection.",
+          "order": 4,
+          "working_directory": "."
+        },
+        {
+          "action": "Tear down connections",
+          "description": "Call `client.destroy()` when the Product no longer needs chain connections (view unmount, process shutdown). For full-process teardown, use `destroyAll()` from `@parity/product-sdk-chain-client` to close all open connections globally.",
+          "order": 5,
+          "working_directory": "."
+        }
+      ],
+      "supplementary_context": {
+        "description": "Load these pages for context on building on top of chain reads and for the broader Product SDK surface.",
+        "pages": [
+          {
+            "relevance": "How to submit transactions once you have read chain state and want to act on it.",
+            "slug": "apps-build-sign-and-submit",
+            "title": "Sign and Submit Transactions",
+            "url": "https://docs.polkadot.com/apps/build/sign-and-submit.md"
+          },
+          {
+            "relevance": "End-to-end example of a Product that combines chain reads with Bulletin Chain writes and Statement Store pub/sub.",
+            "slug": "apps-tutorials-shared-todo-app",
+            "title": "Build a Shared Todo App",
+            "url": "https://docs.polkadot.com/apps/tutorials/shared-todo-app.md"
+          }
+        ]
+      },
+      "title": "Read On-Chain Data with the Product SDK Chain Client",
+      "version": "1.0.0",
       "workflow_pattern": "sequential"
     }
   ]

@@ -2868,6 +2868,7 @@
       "title": "Deploy Uniswap V3 Periphery with EVM on Polkadot Hub"
     },
     {
+      "built_at": "2026-06-16T17:00:00Z",
       "category": "guide",
       "notes": "Covers the full LocalKvStore API (string, JSON, remove, prefix, React hooks). K1=0: prereq references 'Set Up Your Project' on a separate page. No reference repo; code snippets are in-repo via --8<-- includes. Ambiguous with reference due to dense API surface (procedural=10, reference=9).",
       "priority": "medium",
@@ -2900,7 +2901,7 @@
       "source_pages": [
         "apps/build/persist-data-locally.md"
       ],
-      "status": "pending",
+      "status": "built",
       "title": "Persist Data Locally with the Product SDK"
     },
     {
@@ -2935,6 +2936,7 @@
       "title": "Publish and Subscribe to Off-Chain Data via the Statement Store"
     },
     {
+      "built_at": "2026-06-16T17:00:00Z",
       "category": "guide",
       "notes": "Covers getChainAPI (preset) and createChainClient (BYOD) paths, storage/constants reads, parallel multi-chain reads, raw PAPI access, and connection cleanup. K1=0: prereq references 'Set Up Your Project'. Reads are permissionless and deterministic. Only paseo and summit presets are live at time of triage; other environments throw at runtime.",
       "priority": "medium",
@@ -2963,7 +2965,7 @@
       "source_pages": [
         "apps/build/read-chain-state.md"
       ],
-      "status": "pending",
+      "status": "built",
       "title": "Read On-Chain Data with the Product SDK"
     },
     {
@@ -2998,6 +3000,7 @@
       "title": "Sign and Submit Transactions with the Product SDK"
     },
     {
+      "built_at": "2026-06-16T17:00:00Z",
       "category": "tutorial",
       "notes": "K1=0: requires Install Desktop+Pair and Get TestNet Tokens as prerequisites, plus an existing Product project. Five SDK flows covered (hello world, larger file, renewal, cross-chain XCM, preimage) via --8<-- includes from docs repo code/ directory. Bulletin Chain authorization requires Root origin and cannot be obtained programmatically; developer must request via external authorization page before running store extrinsics.",
       "priority": "medium",
@@ -3028,10 +3031,11 @@
       "source_pages": [
         "apps/build/store-data-on-chain.md"
       ],
-      "status": "pending",
+      "status": "built",
       "title": "Store Data on the Bulletin Chain"
     },
     {
+      "built_at": "2026-06-16T17:00:00Z",
       "category": "tutorial",
       "notes": "K1=0: requires Install Desktop+Pair, Get TestNet Tokens, and a pre-existing Product project. Interactive playground CLI flow with 8 numbered deploy prompts (build, contracts, signer, build dir, domain, publish). No source code files created (P3=0); procedural score is exactly at tutorial threshold (15). Domain availability table distinguishes PoP-required vs open names.",
       "priority": "medium",
@@ -3059,7 +3063,7 @@
       "source_pages": [
         "apps/deploy-your-app.md"
       ],
-      "status": "pending",
+      "status": "built",
       "title": "Deploy a Polkadot Product to a .dot Name"
     },
     {
@@ -3092,6 +3096,7 @@
       "title": "Get TestNet Tokens for Polkadot Development"
     },
     {
+      "built_at": "2026-06-16T17:00:00Z",
       "category": "tutorial",
       "notes": "K1=0: requires a pre-existing Polkadot Product project on disk with a build command. End-to-end from CLI install (curl) through pg init, pg build, pg deploy. No source code files created (P3=0); procedural score at tutorial threshold (15). Dev signer (--signer dev) flag makes the workflow fully automatable without phone interaction.",
       "priority": "medium",
@@ -3119,7 +3124,7 @@
       "source_pages": [
         "apps/quick-start-cli.md"
       ],
-      "status": "pending",
+      "status": "built",
       "title": "Install and Deploy a Product with playground-cli"
     },
     {
@@ -3152,6 +3157,7 @@
       "title": "Create and Deploy a Polkadot Product with RevX App Builder"
     },
     {
+      "built_at": "2026-06-16T17:00:00Z",
       "category": "tutorial",
       "notes": "K1=0: prerequisites reference separate Install Desktop and Pair and Get TestNet Tokens pages. Core workflow code is fully contained in this page via --8<-- includes (confirmed working with product-sdk v0.11.0). Standalone rather than composite because the companion prereq pages handle environmental setup, not workflow steps.",
       "priority": "high",
@@ -3182,10 +3188,11 @@
       "source_pages": [
         "apps/tutorials/shared-todo-app.md"
       ],
-      "status": "pending",
+      "status": "built",
       "title": "Build a Shared Todo App"
     },
     {
+      "built_at": "2026-06-16T17:00:00Z",
       "category": "guide",
       "notes": "Procedural guide for installing Claude Code product-skills via /plugin CLI commands. No formal prerequisites section (K3=0); primary install path is CLI-based so S1 fires. Page is meta in that it documents the Claude Code skills marketplace for Polkadot Products developers.",
       "priority": "medium",
@@ -3211,7 +3218,7 @@
       "source_pages": [
         "reference/apps/skills.md"
       ],
-      "status": "pending",
+      "status": "built",
       "title": "Install Polkadot Product Skills for Claude Code"
     }
   ],

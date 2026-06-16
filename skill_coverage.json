@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-16T16:30:00Z",
+  "generated": "2026-06-16T17:00:00Z",
   "pages": {
     "AGENTS.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -9,39 +9,51 @@
     },
     "apps/build/persist-data-locally.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": null,
-      "skills": [],
-      "status": "uncovered"
+      "last_scanned": "2026-06-16T17:00:00Z",
+      "skills": [
+        "use-local-kv-store-product-sdk"
+      ],
+      "status": "up_to_date"
     },
     "apps/build/pub-sub-off-chain-data.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": null,
-      "skills": [],
-      "status": "uncovered"
+      "last_scanned": "2026-06-16T17:00:00Z",
+      "skills": [
+        "build-shared-todo-app"
+      ],
+      "status": "supplementary"
     },
     "apps/build/read-chain-state.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": null,
-      "skills": [],
-      "status": "uncovered"
+      "last_scanned": "2026-06-16T17:00:00Z",
+      "skills": [
+        "read-chain-state-product-sdk"
+      ],
+      "status": "up_to_date"
     },
     "apps/build/sign-and-submit.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": null,
-      "skills": [],
-      "status": "uncovered"
+      "last_scanned": "2026-06-16T17:00:00Z",
+      "skills": [
+        "read-chain-state-product-sdk"
+      ],
+      "status": "supplementary"
     },
     "apps/build/store-data-on-chain.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": null,
-      "skills": [],
-      "status": "uncovered"
+      "last_scanned": "2026-06-16T17:00:00Z",
+      "skills": [
+        "store-data-bulletin-chain"
+      ],
+      "status": "up_to_date"
     },
     "apps/deploy-your-app.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": null,
-      "skills": [],
-      "status": "uncovered"
+      "last_scanned": "2026-06-16T17:00:00Z",
+      "skills": [
+        "deploy-product-dotns"
+      ],
+      "status": "up_to_date"
     },
     "apps/get-started/get-testnet-tokens.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -51,9 +63,11 @@
     },
     "apps/quick-start-cli.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": null,
-      "skills": [],
-      "status": "uncovered"
+      "last_scanned": "2026-06-16T17:00:00Z",
+      "skills": [
+        "install-deploy-product-cli"
+      ],
+      "status": "up_to_date"
     },
     "apps/quick-start.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -63,9 +77,11 @@
     },
     "apps/tutorials/shared-todo-app.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": null,
-      "skills": [],
-      "status": "uncovered"
+      "last_scanned": "2026-06-16T17:00:00Z",
+      "skills": [
+        "build-shared-todo-app"
+      ],
+      "status": "up_to_date"
     },
     "chain-interactions/accounts/create-account.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -803,9 +819,11 @@
     },
     "reference/apps/skills.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": null,
-      "skills": [],
-      "status": "uncovered"
+      "last_scanned": "2026-06-16T17:00:00Z",
+      "skills": [
+        "install-polkadot-product-skills"
+      ],
+      "status": "up_to_date"
     },
     "reference/glossary.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",

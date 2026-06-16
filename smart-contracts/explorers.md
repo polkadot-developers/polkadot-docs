@@ -1,6 +1,6 @@
 ---
 title: Block Explorers
-description: Access block explorers like Subscan, BlockScout, and Routescan to track transactions, analyze contracts, and view on-chain data from smart contracts.
+description: Access block explorers like Subscan and BlockScout to track transactions, analyze contracts, and view on-chain data from smart contracts.
 categories: Smart Contracts, Tooling
 ---
 

@@ -23,6 +23,11 @@
     "docs_dir": ".",
     "base_context_categories": ["basics", "reference"],
     "categories_info": {
+      "apps": {
+        "id": "apps",
+        "name": "Apps",
+        "description": "Building and shipping Products on the Polkadot platform, from identity setup and local development through to deployment and discovery."
+      },
       "basics": {
         "id": "basics",
         "name": "Basics",

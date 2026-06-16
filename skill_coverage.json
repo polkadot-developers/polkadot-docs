@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-16T15:30:00Z",
+  "generated": "2026-06-16T16:30:00Z",
   "pages": {
     "AGENTS.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -85,11 +85,11 @@
     },
     "chain-interactions/query-data/query-rest.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-16T15:30:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "query-chain-data-sidecar-rest"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/query-data/query-sdks.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -109,27 +109,27 @@
     },
     "chain-interactions/send-transactions/calculate-transaction-fees.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-16T15:30:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "calculate-transaction-fees-papi"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/send-transactions/interoperability/debug-and-preview-xcms.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-16T15:30:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "replay-dry-run-xcm-chopsticks"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/send-transactions/interoperability/estimate-xcm-fees.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T16:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "estimate-xcm-fees-teleport"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -285,11 +285,11 @@
     },
     "node-infrastructure/run-a-validator/requirements.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T16:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "onboard-polkadot-validator"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "node-infrastructure/run-a-validator/staking-mechanics/offenses-and-slashes.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -305,19 +305,19 @@
     },
     "parachains/customize-runtime/add-existing-pallets.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T17:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "add-existing-pallet-to-runtime"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/add-pallet-instances.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T17:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "configure-multiple-pallet-instances"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/add-smart-contract-functionality.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -327,19 +327,19 @@
     },
     "parachains/customize-runtime/pallet-development/benchmark-pallet.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T17:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "benchmark-frame-pallet"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/pallet-development/create-a-pallet.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T17:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "create-frame-pallet"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/pallet-development/mock-runtime.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -409,11 +409,11 @@
     },
     "parachains/launch-a-parachain/deploy-to-polkadot.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T17:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "deploy-parachain-to-polkadot-testnet"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/launch-a-parachain/obtain-coretime.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -423,11 +423,11 @@
     },
     "parachains/launch-a-parachain/set-up-the-parachain-template.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T17:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "set-up-parachain-template"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/runtime-maintenance/coretime-renewal.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -845,11 +845,11 @@
     },
     "reference/parachains/chain-data.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T18:30:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "retrieve-runtime-metadata"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/parachains/consensus/async-backing.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -983,19 +983,19 @@
     },
     "reference/tools/moonwall.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T16:30:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "set-up-e2e-testing-moonwall"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/omninode.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T18:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "run-parachain-node-omni-node"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/papi.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -1017,11 +1017,11 @@
     },
     "reference/tools/polkadot-js-api.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T18:30:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "use-polkadot-js-api"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/pop-cli.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -1031,11 +1031,11 @@
     },
     "reference/tools/py-substrate-interface.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T18:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "interact-polkadot-node-py-substrate"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/sidecar.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -1045,11 +1045,11 @@
     },
     "reference/tools/subxt.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T18:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "interact-polkadot-node-subxt"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/xcm-tools.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -1067,19 +1067,19 @@
     },
     "smart-contracts/connect.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T16:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "connect-polkadot-hub-testnet"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/dapps/zero-to-hero.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T16:30:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "build-dapp-viem-nextjs"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/eth-dapps/uniswap-v2/core-v2-pvm.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -1099,27 +1099,27 @@
     },
     "smart-contracts/cookbook/eth-dapps/uniswap-v2/periphery-v2.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T16:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "deploy-uniswap-v2-periphery-evm"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/eth-dapps/uniswap-v3/core-v3.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T18:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "deploy-uniswap-v3-core-evm"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/eth-dapps/uniswap-v3/periphery-v3.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T16:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "deploy-uniswap-v3-periphery-evm"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -1131,83 +1131,83 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T20:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "deploy-basic-contract-remix"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T16:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "deploy-erc20-token-hardhat"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T16:30:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "deploy-erc20-token-remix"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T20:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "deploy-erc721-nft-hardhat"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T20:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "deploy-erc721-nft-remix"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/dev-environments/foundry.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T20:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "set-up-foundry-polkadot-hub"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/dev-environments/hardhat-polkadot.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T16:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "set-up-hardhat-pvm"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/dev-environments/hardhat.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T16:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "set-up-hardhat-evm"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/dev-environments/local-dev-node.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T16:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "set-up-local-dev-node"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/dev-environments/remix.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T20:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "connect-remix-polkadot"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/explorers.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -1271,35 +1271,35 @@
     },
     "smart-contracts/integrations/wallets.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T18:30:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "connect-wallet-polkadot-hub"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/libraries/ethers-js.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T16:30:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "deploy-contracts-ethers-js"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/libraries/viem.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T16:30:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "deploy-contracts-viem"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/libraries/wagmi.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T18:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "use-wagmi-polkadot-hub"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/libraries/web3-js.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -1311,11 +1311,11 @@
     },
     "smart-contracts/libraries/web3-py.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T18:30:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "deploy-interact-contracts-web3py"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/overview.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -1325,11 +1325,11 @@
     },
     "smart-contracts/precompiles/erc20.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T18:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "interact-erc20-precompile-polkadot-hub"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/precompiles/eth-native.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -1339,37 +1339,37 @@
     },
     "smart-contracts/precompiles/storage.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T18:30:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "interact-storage-precompile-remix"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/precompiles/system.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T18:30:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "interact-system-precompile-remix"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/precompiles/xcm.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T20:00:00Z",
+      "last_scanned": "2026-06-16T16:30:00Z",
       "skills": [
         "interact-xcm-precompile-remix"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     }
   },
   "schema_version": "1",
   "summary": {
     "blocked": 23,
     "not_applicable": 13,
-    "stale": 55,
+    "stale": 0,
     "supplementary": 84,
     "total_candidates": 206,
     "uncovered": 24,
-    "up_to_date": 7
+    "up_to_date": 62
   }
 }

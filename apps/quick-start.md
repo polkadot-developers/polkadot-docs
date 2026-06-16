@@ -25,9 +25,6 @@ Deploy a Polkadot Product in under 15 minutes and see it live under a `.dot` nam
 
     You need an API key for an AI provider supported by App Builder (for example, OpenAI or Anthropic).
 
-    !!! warning "Provisional"
-        The `Publish to .dot` step signs with your Polkadot App. Whether the `.dot` registration also needs TestNet funds or a verified identity is still being confirmed; if the publish step asks for either, complete the matching steps in [Get Started](/apps/get-started/){target=\_blank} first.
-
     **Open RevX**
 
     Open [RevX](https://revx.dev/){target=\_blank} in your browser. RevX is a browser-based IDE; you'll use the App Builder track to scaffold a Polkadot Product end to end.
@@ -104,9 +101,6 @@ Deploy a Polkadot Product in under 15 minutes and see it live under a `.dot` nam
     ![RevX App Builder showing the transaction signing prompt](/images/apps/revx/revx-11.webp)
 
     After signing the transaction, you will see the deployment progress in the terminal. Your Product is now live under its `.dot` name — open it in Polkadot Desktop, or on Polkadot Web at `https://<name>.dot.li` in any browser.
-
-    !!! warning "Provisional"
-        The deployed-Product-in-the-browser step is blocked on a signer issue, so the final screenshot is pending. Until then, the signing prompt above is the last visible state for this route.
 
 === "From the CLI"
 

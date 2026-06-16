@@ -15,6 +15,7 @@
       - [Adding Images](#adding-images)
       - [Using Code Snippets](#using-code-snippets)
       - [Adding Callout Boxes](#adding-callout-boxes)
+- [Frontmatter Reference](#frontmatter-reference)
 
 ## Quick Start
 
@@ -112,7 +113,7 @@ To add a page to an existing section:
 
 1. Create your markdown file following [naming conventions](https://github.com/papermoonio/documentation-style-guide/blob/main/style-guide.md#naming-conventions).
 
-2. Include required frontmatter:
+2. Include required frontmatter (see [Frontmatter Reference](#frontmatter-reference) for all available fields):
 
    ```markdown
    ---
@@ -134,7 +135,7 @@ To add a page to an existing section:
 
    **Categories**
 
-   Available categories for pages are found in [scripts/llms_config.json](./scripts/llms_config.json).
+   Available categories for pages are listed in the `categories_info` section of `llms_config.json` in the `polkadot-mkdocs` repository.
 
    **Search Engine Optimization (SEO)**
 
@@ -166,24 +167,17 @@ To create an entirely new section of documentation:
    ```yaml
    title: Section Display Name
    nav: 
-     - index.md
+     - 'Overview': index.md
      - 'Page Display Name': 'file-name.md'
      - subdirectory-name
    ```
    
    - **`title`**: Displayed in left navigation
-   - **`index.md`**: Always first in nav list
+   - **`index.md`**: Always first in nav list (if exists)
    - **Files**: `'Display Name': 'file-name.md'`
    - **Subdirectories**: Listed by directory name
 
 3. Create the `index.md` landing page with frontmatter and content introducing the section.
-   
-   - In the `index.md` add the following snippet to display what content is available in the section:
-   ```markdown
-   ## In This Section
-
-   :::INSERT_IN_THIS_SECTION:::
-   ```
 
 ## Write a Tutorial
 
@@ -191,56 +185,49 @@ This section covers tutorial-specific requirements and formatting.
 
 **Requirement**: Follow the [PaperMoon Documentation Style Guide](https://github.com/papermoonio/documentation-style-guide).
 
-### Choose Your Tutorial Section
-```
-tutorials/
-├── dapps/              # Application development guides
-├── interoperability/   # XCM, cross-chain operations
-├── onchain-governance/ # Governance operations
-├── polkadot-sdk/       # SDK-based development
-└── smart-contracts/    # Smart contract development
-```
-
-### Set Up Directory Structure
+Place your tutorial under the most relevant existing section of the docs. Set up file and asset paths to match the surrounding structure:
 
 ```
-tutorials/<section>/<subsection>/<tutorial-name>.md
-images/tutorials/<section>/<subsection>/<tutorial-name>/
-.snippets/code/tutorials/<section>/<subsection>/<tutorial-name>/
+<section>/<subsection>/<tutorial-name>.md
+images/<section>/<subsection>/<tutorial-name>/
+.snippets/code/<section>/<subsection>/<tutorial-name>/
 ```
 
-### Use the Tutorial Template
+### Tutorial Template
 
 ```markdown
 ---
 title: Tutorial Title (max 60 chars)
 description: Description 120-160 chars.
-tutorial_badge: Beginner | Intermediate | Advanced
 categories: Category1, Category2
+page_badges:
+  tutorial_badge: Beginner | Intermediate | Advanced
 ---
 
 # Tutorial Title
 
 ## Introduction
 
-Brief explanation of what users will learn/build
+Brief explanation of what users will learn/build.
 
 ## Prerequisites
 
-Required knowledge/tools
+Required knowledge/tools.
 
 ## [Action-Oriented Section Title]
 
-Instructions with commands
+Instructions with commands.
 
 ## Verification
 
-How to confirm it worked
+How to confirm it worked.
 
 ## Where to Go Next
 
-Related tutorials
+Related tutorials.
 ```
+
+See [Frontmatter Reference](#frontmatter-reference) for a full list of available frontmatter fields.
 
 ### Tutorial Requirements
 
@@ -264,7 +251,7 @@ Related tutorials
 **How to use**:
 
 ```markdown
-![Alt text description](/docs/images/<subdirectory>/<image-file-name>.webp)
+![Alt text description](/images/<subdirectory>/<image-file-name>.webp)
 ```
 
 **Adding annotations**:
@@ -295,13 +282,13 @@ Learn more about [snippets syntax](https://facelessuser.github.io/pymdown-extens
 Use these to highlight important information:
 
 ```markdown
-!!!tip
+!!! tip
     Helpful tips and shortcuts.
 
-!!!note
+!!! note
     Important information to remember.
 
-!!!warning
+!!! warning
     Potential issues or caveats.
 ```
 
@@ -320,4 +307,65 @@ Use these to highlight important information:
     <span data-ty>Output line 1</span>
     <span data-ty>Output line 2</span>
 </div>
+```
+
+## Frontmatter Reference
+
+Every page begins with a YAML frontmatter block between `---` delimiters. The fields below are all supported options.
+
+### Required fields
+
+| Field | Description |
+|---|---|
+| `title` | Page title. Keep to 60 characters or fewer for good SEO. |
+| `description` | Meta description shown in search results. Aim for 120–160 characters. |
+| `categories` | Comma-separated list of content categories used to group AI artifacts. Valid values are defined in `llms_config.json`. |
+
+### Optional fields
+
+| Field | Type | Description |
+|---|---|---|
+| `short_description` | string | A shorter description used in auto-generated index tables (falls back to `description` if absent). |
+| `tools` | string or list | Tools used on the page, shown in index tables. Accepts a comma-separated string or a YAML list. |
+| `hide` | list | Hides page elements. Accepted values: `navigation` (hides left nav), `toc` (hides table of contents). |
+| `template` | string | Overrides the page template. Only used on the homepage (`home.html`). |
+| `footer_nav` | bool or int | Adds the page to the footer navigation. Use `true` to include in discovery order, or an integer for explicit ordering (lower numbers appear first). |
+| `extra_javascript` | list | Additional JavaScript files to load on this page only. Used to activate interactive widgets. |
+| `extra_css` | list | Additional CSS files to load on this page only. Used alongside `extra_javascript` for interactive widgets. |
+| `page_badges` | object | Displays difficulty and CI status badges in the page header. See [`page_badges`](#page_badges) below. |
+| `page_tests` | object | Links a test file to the page, shown as a "View tests" link. See [`page_tests`](#page_tests) below. |
+| `toggle` | object | Groups pages into a switchable variant toggle (e.g. EVM vs PVM). See [`toggle`](#toggle) below. |
+
+### `page_badges`
+
+Displays badge labels in the page header.
+
+```yaml
+page_badges:
+  tutorial_badge: Beginner   # or Intermediate, Advanced
+  test_workflow: workflow-name  # filename of the GitHub Actions workflow (without .yml)
+```
+
+- `tutorial_badge` — renders a difficulty badge: `Beginner`, `Intermediate`, `Advanced`. Also used by index tables for the Difficulty column.
+- `test_workflow` — links to a GitHub Actions status badge for the named workflow. Workflows must exist in the [`polkadot-developers/polkadot-cookbook`](https://github.com/polkadot-developers/polkadot-cookbook) repository under `.github/workflows/`.
+
+### `page_tests`
+
+Links a test file to the page, displayed as a "View tests" link in the page header. The `path` is relative to the root of the [`polkadot-developers/polkadot-cookbook`](https://github.com/polkadot-developers/polkadot-cookbook) repository.
+
+```yaml
+page_tests:
+  path: polkadot-docs/path/to/tests/docs.test.ts
+```
+
+### `toggle`
+
+Powers the page toggle feature, which groups related pages and lets readers switch between variants (e.g. EVM vs PVM) without leaving the section. All pages in a group must share the same `group` value.
+
+```yaml
+toggle:
+  group: my-group-name     # shared identifier across all pages in the toggle
+  variant: evm             # this page's variant identifier
+  label: EVM               # label shown on the toggle button
+  canonical: true          # mark one page as canonical (the default shown in nav)
 ```

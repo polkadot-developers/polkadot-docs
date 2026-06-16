@@ -1,7 +1,7 @@
 {
   "candidates": [
     {
-      "built_at": "2026-06-16T15:30:00Z",
+      "built_at": "2026-06-16T16:00:00Z",
       "category": "tutorial",
       "notes": "Complete, multi-language tutorial (TypeScript, Python, Rust) covering account key generation. Fully self-contained with cookbook-tested code. All three language variants could become one skill or three; one skill covering the PAPI/TypeScript path is recommended.",
       "priority": "high",
@@ -35,7 +35,7 @@
       "title": "Create a Polkadot Account Programmatically"
     },
     {
-      "built_at": "2026-06-16T15:30:00Z",
+      "built_at": "2026-06-16T16:00:00Z",
       "category": "tutorial",
       "notes": "Multi-SDK tutorial covering PAPI, Polkadot.js, Dedot, Python Substrate Interface, and Subxt. Each SDK variant is self-contained. Cookbook-backed with CI badges. Recommend one skill targeting the PAPI variant as the primary path.",
       "priority": "high",
@@ -103,7 +103,7 @@
       "title": "Query On-Chain State with Sidecar REST API"
     },
     {
-      "built_at": "2026-06-16T15:30:00Z",
+      "built_at": "2026-06-16T16:00:00Z",
       "category": "tutorial",
       "notes": "Multi-SDK tutorial (PAPI, Polkadot.js, Dedot, Python Substrate Interface, Subxt) for querying account balance and asset info. Cookbook-backed. Recommend primary skill targeting PAPI TypeScript path.",
       "priority": "high",
@@ -137,7 +137,7 @@
       "title": "Query On-Chain State with SDKs"
     },
     {
-      "built_at": "2026-06-16T15:30:00Z",
+      "built_at": "2026-06-16T16:00:00Z",
       "category": "tutorial",
       "notes": "Multi-SDK tutorial demonstrating AccountNonceApi and Metadata runtime API calls. Reference API table at the bottom is supplementary. Cookbook-backed with CI badge.",
       "priority": "high",
@@ -1948,7 +1948,7 @@
       "title": "Deploy Uniswap V2 on Polkadot Hub"
     },
     {
-      "built_at": "2026-06-05T19:00:00Z",
+      "built_at": "2026-06-16T16:00:00Z",
       "category": "tutorial",
       "notes": "Concise end-to-end tutorial: scaffold Hardhat project, configure polkadotTestnet network, create Storage.sol, compile, deploy via Ignition to TestNet. All code uses --8<-- snippet includes from polkadot-cookbook (K4 = 3; CI badge confirms tested). K2 = 4 (includes expand to complete code in the published site). All steps are CLI-driven with no GUI interactions (S1 = 4). Explicit prerequisites section covers Node.js version, test tokens, and wallet (K3 = 3). Verified outcome shown via terminal output snippet.",
       "priority": "high",
@@ -2693,7 +2693,7 @@
       "title": "Store and Retrieve Data on the Bulletin Chain"
     },
     {
-      "built_at": "2026-06-04T19:30:00Z",
+      "built_at": "2026-06-16T16:00:00Z",
       "category": "tutorial",
       "notes": "PVM variant using polkavm-hardhat-examples repo. K1 awarded for the deploy-to-TestNet workflow, which is standalone; the local-node testing step references the Local Dev Node guide but the deployment outcome is achievable without it. K4 awarded — polkavm-hardhat-examples is listed in context.md.",
       "priority": "high",
@@ -2728,7 +2728,7 @@
       "title": "Deploy Uniswap V2 Core on Polkadot Hub (PVM)"
     },
     {
-      "built_at": "2026-06-04T19:30:00Z",
+      "built_at": "2026-06-16T16:00:00Z",
       "category": "tutorial",
       "notes": "EVM variant using revm-hardhat-examples repo and standard Hardhat + TypeScript; no PVM compiler plugin. P3 not awarded — key management is via `npx hardhat vars set` CLI, no file to write. K4 awarded — revm-hardhat-examples is listed in context.md. Testing step references Local Dev Node guide but TestNet deployment is self-contained.",
       "priority": "high",

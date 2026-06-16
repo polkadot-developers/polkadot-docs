@@ -25,7 +25,7 @@ In this guide, you'll learn how bulk coretime enables continuous core access wit
 
 ## Bulk Coretime
 
-Bulk coretime is a fixed duration of continuous coretime represented by an NFT that can be purchased through coretime sales in DOT and can be split, shared, or resold. Currently, the duration of bulk coretime is set to 28 days. Coretime purchased in bulk and assigned to a single parachain is eligible for a price-capped renewal, providing a form of rent-controlled access, which is important for predicting the running costs in the near future. Suppose the bulk coretime is [interlaced](#coretime-interlacing) or [split](#coretime-splitting) or is kept idle without assigning it to a parachain. In that case, it will be ineligible for the price-capped renewal.
+Bulk coretime is a fixed duration of continuous coretime represented by an NFT that can be purchased through [coretime sales](https://wiki.polkadot.com/learn/learn-agile-coretime/#coretime-sales){target=_blank} in DOT and can be split, shared, or resold. Currently, the duration of bulk coretime is set to 28 days. Coretime purchased in bulk and assigned to a single parachain is eligible for a price-capped renewal, providing a form of rent-controlled access, which is important for predicting the running costs in the near future. Suppose the bulk coretime is [interlaced](#coretime-interlacing) or [split](#coretime-splitting) or is kept idle without assigning it to a parachain. In that case, it will be ineligible for the price-capped renewal.
 
 ### Coretime Interlacing
 

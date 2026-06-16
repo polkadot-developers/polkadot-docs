@@ -29,7 +29,7 @@ Before getting started, ensure you have:
 
 ## Install Polkadot Desktop
 
-1. Download the development build of Polkadot Desktop (official distribution link pending).
+1. Download the development build of [Polkadot Desktop](TODO: add polkadot desktop download link here).
 
 2. Install the application using your platform's standard installer.
 

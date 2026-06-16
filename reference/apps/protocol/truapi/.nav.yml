@@ -1,0 +1,17 @@
+nav:
+ - 'Overview': index.md
+ - 'Sandbox and Sub-Accounts': sandbox.md
+ - 'Versioning': versioning.md
+ - 'Packages': packages.md
+ - 'Method Groups':
+    - 'TrUAPI Calls': calls.md
+    - 'Permissions': permissions.md
+    - 'Local Storage': local-storage.md
+    - 'Account Management': account-management.md
+    - 'Signing': signing.md
+    - 'Chat': chat.md
+    - 'Statement Store': statement-store.md
+    - 'Preimage': preimage.md
+    - 'Chain Interaction': chain-interaction.md
+    - 'Payment': payment.md
+    - 'Entropy': entropy.md

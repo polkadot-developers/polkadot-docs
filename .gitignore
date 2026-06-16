@@ -10,6 +10,8 @@ scripts/__pycache__/*
 .github/instructions/kluster-code-verify.instructions.md
 .kluster
 
+.claude/scheduled_tasks.lock
+
 # Vale rules and vocab synced from papermoonio/documentation-style-guide
 # by .github/scripts/sync-styleguide-vale.sh (CI runs the script before linting).
 # The canonical repo is the single source of truth — never commit copies.

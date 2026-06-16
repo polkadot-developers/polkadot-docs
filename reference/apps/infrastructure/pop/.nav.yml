@@ -1,0 +1,9 @@
+nav:
+ - 'Overview': index.md
+ - 'Ring-VRF and Aliases': ring-vrf-and-aliases.md
+ - 'pallet-people': pallet-people.md
+ - 'pallet-game': pallet-game.md
+ - 'pallet-score': pallet-score.md
+ - 'pallet-identity': pallet-identity.md
+ - 'pallet-ubc': pallet-ubc.md
+ - 'pallet-coinage': pallet-coinage.md

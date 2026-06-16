@@ -1,0 +1,7 @@
+nav:
+ - 'Overview': index.md
+ - 'Chat': chat.md
+ - 'Proof of Personhood': pop.md
+ - 'Coinage': coinage.md
+ - 'Sign In with Polkadot': sign-in.md
+ - 'Pocket': pocket.md

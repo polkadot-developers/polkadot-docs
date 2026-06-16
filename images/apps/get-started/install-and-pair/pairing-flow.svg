@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="660" height="300" viewBox="0 0 660 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pairing flow: Polkadot Desktop shows a QR code that the Polkadot App scans, the App returns a session public key, and from then on Desktop sends signing requests that the App signs and returns.">
+  <defs>
+    <style>
+      .device-label { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", sans-serif; font-size: 14px; font-weight: 700; letter-spacing: -0.01em; }
+      .conn-label   { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", sans-serif; font-size: 12px; font-weight: 500; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 9 3 L 0 6 Z" fill="#E6007A"/>
+    </marker>
+  </defs>
+
+  <!-- Polkadot Desktop (laptop) -->
+  <g>
+    <!-- Screen frame -->
+    <rect x="40" y="45" width="220" height="140" rx="10" fill="none" stroke="#E6007A" stroke-width="2"/>
+    <!-- Display area -->
+    <rect x="50" y="55" width="200" height="120" rx="4" fill="#E6007A" fill-opacity="0.06"/>
+    <!-- QR code suggestion: 3 finder squares + a few inner dots -->
+    <g transform="translate(115,75)" fill="#E6007A">
+      <rect x="0" y="0" width="18" height="18"/>
+      <rect x="4" y="4" width="10" height="10" fill="#FFFFFF"/>
+      <rect x="7" y="7" width="4" height="4" fill="#E6007A"/>
+      <rect x="52" y="0" width="18" height="18"/>
+      <rect x="56" y="4" width="10" height="10" fill="#FFFFFF"/>
+      <rect x="59" y="7" width="4" height="4" fill="#E6007A"/>
+      <rect x="0" y="52" width="18" height="18"/>
+      <rect x="4" y="56" width="10" height="10" fill="#FFFFFF"/>
+      <rect x="7" y="59" width="4" height="4" fill="#E6007A"/>
+      <rect x="26" y="6"  width="4" height="4"/>
+      <rect x="34" y="14" width="4" height="4"/>
+      <rect x="42" y="6"  width="4" height="4"/>
+      <rect x="26" y="26" width="4" height="4"/>
+      <rect x="36" y="32" width="4" height="4"/>
+      <rect x="48" y="28" width="4" height="4"/>
+      <rect x="60" y="38" width="4" height="4"/>
+      <rect x="28" y="44" width="4" height="4"/>
+      <rect x="42" y="48" width="4" height="4"/>
+      <rect x="56" y="56" width="4" height="4"/>
+    </g>
+    <!-- Laptop base -->
+    <path d="M 20 190 L 280 190 L 268 206 L 32 206 Z" fill="#E6007A" fill-opacity="0.12" stroke="#E6007A" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- Label -->
+    <text x="150" y="245" text-anchor="middle" class="device-label" fill="#E6007A">Polkadot Desktop</text>
+  </g>
+
+  <!-- Polkadot App (phone) -->
+  <g>
+    <!-- Phone body -->
+    <rect x="505" y="35" width="110" height="210" rx="18" fill="none" stroke="#E6007A" stroke-width="2"/>
+    <!-- Speaker -->
+    <rect x="540" y="46" width="40" height="3" rx="1.5" fill="#E6007A"/>
+    <!-- Screen area -->
+    <rect x="515" y="58" width="90" height="170" rx="4" fill="#E6007A" fill-opacity="0.06"/>
+    <!-- Scan-frame corners (camera viewfinder) -->
+    <g transform="translate(530,108)" stroke="#E6007A" stroke-width="2" fill="none" stroke-linecap="round">
+      <path d="M 0 10 L 0 0 L 10 0"/>
+      <path d="M 50 0 L 60 0 L 60 10"/>
+      <path d="M 0 50 L 0 60 L 10 60"/>
+      <path d="M 50 60 L 60 60 L 60 50"/>
+    </g>
+    <!-- Label -->
+    <text x="560" y="270" text-anchor="middle" class="device-label" fill="#E6007A">Polkadot App</text>
+  </g>
+
+  <!-- Connection: Desktop → App (top) -->
+  <g>
+    <line x1="290" y1="105" x2="495" y2="105" stroke="#E6007A" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <text x="392" y="96" text-anchor="middle" class="conn-label" fill="#E6007A">QR code · signing request</text>
+  </g>
+
+  <!-- Connection: App → Desktop (bottom) -->
+  <g>
+    <line x1="495" y1="145" x2="290" y2="145" stroke="#E6007A" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <text x="392" y="163" text-anchor="middle" class="conn-label" fill="#E6007A">session public key · signature</text>
+  </g>
+</svg>

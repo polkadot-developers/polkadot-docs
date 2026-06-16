@@ -3150,9 +3150,43 @@
         },
         "priority_score": 7
       }
+    },
+    {
+      "skill_id": "build-shared-todo-app",
+      "title": "Build a Shared Todo App",
+      "source_pages": [
+        "apps/tutorials/shared-todo-app.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "pending",
+      "notes": "K1=0: prerequisites reference separate Install Desktop and Pair and Get TestNet Tokens pages. Core workflow code is fully contained in this page via --8<-- includes (confirmed working with product-sdk v0.11.0). Standalone rather than composite because the companion prereq pages handle environmental setup, not workflow steps.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "C1",
+          "C2",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 8,
+          "not_applicable": 0
+        },
+        "priority_score": 20
+      }
     }
   ],
-  "generated": "2026-06-16T14:30:59Z",
+  "generated": "2026-06-16T14:36:24Z",
   "not_applicable": [
     {
       "category": "not_applicable",
@@ -4566,6 +4600,80 @@
           "C1",
           "C3"
         ]
+      }
+    },
+    {
+      "page": "reference/apps/hosts/polkadot-app/chat.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "build-shared-todo-app"
+      ],
+      "notes": "Canonical reference for the Statement Store + Bulletin Chain composition pattern — the same split used in the shared todo app (gossip for mutations, Bulletin for snapshots). No procedural steps; marked Provisional.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/hosts/polkadot-app/coinage.md",
+      "category": "conceptual",
+      "relevant_to": [],
+      "notes": "Conceptual model for the Coinage peer-to-peer payment feature. Marked Provisional; no procedural content or developer integration pattern yet defined.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/hosts/polkadot-app/pocket.md",
+      "category": "conceptual",
+      "relevant_to": [],
+      "notes": "Conceptual model for the App-side Pocket recipient flow. Marked Provisional; recipient-side flow and Product-developer integration surface are still being defined.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/hosts/polkadot-app/pop.md",
+      "category": "conceptual",
+      "relevant_to": [],
+      "notes": "Architecture reference for Proof of Personhood, Ring-VRF aliases, and Full vs Lite PoP tiers. No procedural steps; marked Provisional for the biometric flow details. Relevant to future skills gating features on personhood.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
       }
     }
   ]

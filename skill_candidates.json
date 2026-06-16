@@ -3186,7 +3186,7 @@
       }
     }
   ],
-  "generated": "2026-06-16T15:10:00Z",
+  "generated": "2026-06-16T15:14:13Z",
   "not_applicable": [
     {
       "category": "not_applicable",
@@ -5468,6 +5468,130 @@
           "conceptual": 7,
           "not_applicable": 0
         }
+      }
+    },
+    {
+      "page": "reference/apps/protocol/truapi/calls.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "build-polkadot-product-sdk-app"
+      ],
+      "notes": "Conceptual contract for the TrUAPI lifecycle handshake — no method signatures yet (marked provisional). Useful context for any skill that involves initializing a Product with createApp().",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/protocol/truapi/chain-interaction.md",
+      "category": "reference",
+      "relevant_to": [
+        "read-chain-state-polkadot-app"
+      ],
+      "notes": "Reference contract for the chain-interaction method group. Names getChainAPI, createChainClient, watchValue, and .raw; high conceptual overlap (scores reference=8, conceptual=7) because design rationale accompanies each method description. Rule 4 wins on reference score.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 8,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "reference/apps/protocol/truapi/chat.md",
+      "category": "reference",
+      "relevant_to": [
+        "add-chat-bot-polkadot-app"
+      ],
+      "notes": "Reference contract for the Chat method group. Documents method names (host_chat_create_simple_group, product_chat_custom_message_render_subscribe) and typed message fields (Text, RichText, Actions, File, Reaction, Custom). Clear reference winner with gap of 5 over conceptual.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R2",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 12,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/protocol/truapi/entropy.md",
+      "category": "reference",
+      "relevant_to": [
+        "derive-product-entropy-polkadot-app"
+      ],
+      "notes": "Reference contract for host_derive_entropy. Explains BIP-39 / BLAKE2b-256 derivation scheme and the not-randomness constraint. Ambiguous with conceptual (reference=8, conceptual=7); Rule 4 selects reference. Explicit danger callout distinguishing key-derivation from randomness is important supplementary context.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 8,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "reference/apps/protocol/truapi/local-storage.md",
+      "category": "reference",
+      "relevant_to": [
+        "persist-data-locally-polkadot-app"
+      ],
+      "notes": "Reference contract for the Local Storage method group. Documents get(key), set(key, value), remove(key), getJSON, setJSON signatures plus per-Product namespacing design. Ambiguous with conceptual (reference=8, conceptual=7); Rule 4 selects reference.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 8,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
       }
     }
   ]

@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:ac857de6f8cd61131a7ffb8f281555b24821a3ddebfb9f9c69d8d0c9d72ecfdb",
-  "generated": "2026-06-16T17:00:00Z",
+  "content_hash": "sha256:29919fadbc720e5f0bb78b6dca0ac257e4b6518d4b96f71cd5f7f8723ae4eb10",
+  "generated": "2026-06-16T17:30:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -11322,6 +11322,568 @@
         ]
       },
       "title": "Read On-Chain Data with the Product SDK Chain Client",
+      "version": "1.0.0",
+      "workflow_pattern": "sequential"
+    },
+    {
+      "chain_role": "isolated",
+      "description": "Sets up, subscribes to, and publishes typed statements via the Polkadot Product SDK Statement Store. Use when your Product needs real-time peer-to-peer pub/sub messaging (chat, presence indicators, typing indicators, multiplayer state) without on-chain storage. Trigger phrases: 'subscribe to statements', 'publish statement', 'Statement Store', 'off-chain pub/sub', 'real-time messaging in Product'. Covers StatementStoreClient connection, topic-filtered subscriptions, typed publish, and ChannelStore last-write-wins state. Requires a Statement Store allowance (provisionally undocumented on TestNet). Subscribe/read is permissionless; publish requires allowance.",
+      "env_vars": [],
+      "error_patterns": [
+        {
+          "cause": "StatementStoreClient.connect() was not called or has not resolved before publish/subscribe.",
+          "pattern": "StatementConnectionError",
+          "resolution": "Call `client.connect({ mode: 'host', accountId })` and await its resolution before calling `client.publish()` or `client.subscribe()`."
+        },
+        {
+          "cause": "The JSON-encoded payload exceeds the 512-byte per-statement size limit.",
+          "pattern": "StatementDataTooLargeError",
+          "resolution": "Reduce payload size. For large content, store it on the Bulletin Chain and publish the resulting CID as the statement payload (see https://docs.polkadot.com/apps/build/store-data-on-chain.md)."
+        },
+        {
+          "cause": "Account does not have a Statement Store allowance on the People Chain.",
+          "pattern": "Statement rejected — client.publish() returns false",
+          "resolution": "Obtain a Statement Store allowance for your account. The process on TestNet is currently provisional and undocumented. Contact the developer community for current access paths."
+        },
+        {
+          "cause": "No accounts available when app.wallet.connect() resolves.",
+          "pattern": "Error: No accounts available — pair Polkadot Desktop with a signer.",
+          "resolution": "Open Polkadot Desktop, ensure it is running and paired with your Polkadot App on your phone. See https://docs.polkadot.com/apps/get-started/ for pairing instructions."
+        }
+      ],
+      "examples": [
+        {
+          "actions": [
+            "Install @parity/product-sdk and @parity/product-sdk-statement-store",
+            "Fetch setup-statement-store.ts and save into the Product; run with npx tsx to verify connection",
+            "Fetch subscribe-statements.ts; customize topic2 and callback; run to listen for incoming statements",
+            "Fetch publish-statement.ts; run to publish a chat message and verify it is accepted (returns true)"
+          ],
+          "result": "StatementStoreClient connected and a typed chat message published to the gossip layer; subscribed listener receives the statement",
+          "scenario": "Common scenario: add real-time chat to a Polkadot Product",
+          "user_says": "Add pub/sub messaging to my Polkadot Product using the Statement Store"
+        },
+        {
+          "actions": [
+            "Install dependencies and set up StatementStoreClient",
+            "Fetch channel-presence.ts; customize the ChannelStore key scheme and status values",
+            "Call channels.write('presence/me', { status: 'online' }) on connection and channels.write with 'offline' on disconnect",
+            "Subscribe with channels.onChange to receive presence updates from other users"
+          ],
+          "result": "Presence state tracked per-user; subsequent writes on the same channel name replace the previous statement in the network pool",
+          "scenario": "Edge case: last-write-wins presence indicator with ChannelStore",
+          "user_says": "Track online/offline presence for users in my Product using channels"
+        }
+      ],
+      "id": "publish-subscribe-statement-store",
+      "invocation": "user",
+      "license": "CC-BY-4.0",
+      "prerequisites": {
+        "other": [
+          "Existing Polkadot Product project (see Set Up Your Project at https://docs.polkadot.com/apps/build/)",
+          "Polkadot Desktop installed and paired with your phone",
+          "Statement Store allowance for your account (currently provisional on TestNet — contact developer community for access paths)"
+        ],
+        "runtime": [
+          "Node.js 20+",
+          "npm"
+        ]
+      },
+      "primary_page": "apps/build/pub-sub-off-chain-data.md",
+      "project_structure": "my-product/\n├── setup-statement-store.ts\n├── subscribe-statements.ts\n├── publish-statement.ts\n├── channel-presence.ts\n└── package.json  (existing)",
+      "reference_code": {
+        "base_path": ".snippets/code/apps/build/pub-sub-off-chain-data",
+        "branch": "master",
+        "files": [
+          {
+            "description": "Creates a StatementStoreClient, connects to the People Chain via the host transport using accounts[0], and exports the client for use in other modules",
+            "path": "setup-statement-store.ts"
+          },
+          {
+            "description": "Subscribes to incoming ChatMessage statements filtered by topic2 'room-42' and prints signer and message text to the console",
+            "path": "subscribe-statements.ts"
+          },
+          {
+            "description": "Publishes a typed ChatMessage to the gossip layer with topic2 'room-42' and a 60-second TTL; logs whether the network accepted the statement",
+            "path": "publish-statement.ts"
+          },
+          {
+            "description": "Demonstrates ChannelStore last-write-wins semantics by writing and replacing a Presence value under key 'presence/alice', and listening for changes via onChange",
+            "path": "channel-presence.ts"
+          }
+        ],
+        "repo": "polkadot-developers/polkadot-docs"
+      },
+      "source_pages": [
+        "apps/build/pub-sub-off-chain-data.md"
+      ],
+      "steps": [
+        {
+          "action": "Install the SDK",
+          "commands": [
+            "npm install @parity/product-sdk@0.8.0 @parity/product-sdk-statement-store@0.4.0"
+          ],
+          "description": "Install the umbrella SDK and the Statement Store package at the pinned versions the reference code was tested against. The umbrella package provides `createApp` and re-exports the rest of the SDK; switch to individual packages later as a bundle-size optimization.",
+          "order": 1,
+          "working_directory": "."
+        },
+        {
+          "action": "Set up the StatementStoreClient",
+          "description": "Fetch the reference file and save it as `setup-statement-store.ts`. No substitutions needed — the appName `'my-product'` is used as the primary topic key. The file: (1) calls `createApp({ name: 'my-product' })` to initialize the Product; (2) calls `app.wallet.connect()` to get signed-in accounts, throwing if empty; (3) constructs `new StatementStoreClient({ appName: 'my-product' })`; (4) calls `client.connect({ mode: 'host', accountId: [accounts[0].address, 42] })` where 42 is the generic SS58 prefix. Run with `npx tsx setup-statement-store.ts` to verify the connection.",
+          "order": 2,
+          "reference_file": "setup-statement-store.ts",
+          "working_directory": "."
+        },
+        {
+          "action": "Subscribe to incoming statements",
+          "description": "Fetch the reference file and save it as `subscribe-statements.ts`. The file imports the shared `client` from `setup-statement-store.ts` and calls `client.subscribe<ChatMessage>(callback, { topic2: 'room-42' })`. The subscription filters incoming statements to those matching the primary appName topic and the secondary `room-42` topic; each matching statement is decoded into `ChatMessage` and passed to the callback. To scope to a different room or document, replace `'room-42'` with your key. The returned `Unsubscribable` exposes `subscription.unsubscribe()` to tear down the JSON-RPC subscription when no longer needed.",
+          "order": 3,
+          "reference_file": "subscribe-statements.ts",
+          "working_directory": "."
+        },
+        {
+          "action": "Publish a typed statement",
+          "description": "Fetch the reference file and save it as `publish-statement.ts`. The file calls `client.publish<ChatMessage>({ text, from, ts }, { topic2: 'room-42', ttlSeconds: 60 })` and logs whether the network accepted the statement. `publish()` returns `Promise<boolean>`: `true` means the node accepted the statement into its pool; `false` means the node rejected it (check that your account has a Statement Store allowance). The statement TTL is 60 seconds here; adjust via `ttlSeconds` up to the pallet's maximum retention window. Keep the total JSON-encoded payload under 512 bytes — larger payloads throw `StatementDataTooLargeError`.",
+          "order": 4,
+          "reference_file": "publish-statement.ts",
+          "working_directory": "."
+        },
+        {
+          "action": "Use ChannelStore for last-write-wins state",
+          "description": "Fetch the reference file and save it as `channel-presence.ts`. The file constructs `new ChannelStore<Presence>(client, { topic2: 'room-42' })` and calls `channels.write('presence/alice', { status: 'online', timestamp: ... })` twice — the second write replaces the first in the network pool. `channels.onChange(callback)` fires on every state transition; `channels.readAll()` returns the current map of all channel values. Use ChannelStore for soft state where only the latest version matters (presence, cursors, 'now playing'); use `client.publish()` directly for append-only events such as chat messages.",
+          "order": 5,
+          "reference_file": "channel-presence.ts",
+          "working_directory": "."
+        }
+      ],
+      "supplementary_context": {
+        "description": "Load these pages for context on related storage layers and a complete Product example using the Statement Store.",
+        "pages": [
+          {
+            "relevance": "For payloads larger than 512 bytes or content that must outlive the Statement Store TTL — store on the Bulletin Chain and publish the CID as a statement.",
+            "slug": "apps-build-store-data-on-chain",
+            "title": "Store Data on Chain",
+            "url": "https://docs.polkadot.com/apps/build/store-data-on-chain.md"
+          },
+          {
+            "relevance": "End-to-end example of a Product that uses the Statement Store, Bulletin Chain, and Local KvStore together.",
+            "slug": "apps-tutorials-shared-todo-app",
+            "title": "Build a Shared Todo App",
+            "url": "https://docs.polkadot.com/apps/tutorials/shared-todo-app.md"
+          },
+          {
+            "relevance": "How to get TestNet tokens and a Statement Store allowance for your development account.",
+            "slug": "apps-get-started-get-testnet-tokens",
+            "title": "Get TestNet Tokens",
+            "url": "https://docs.polkadot.com/apps/get-started/get-testnet-tokens.md"
+          }
+        ]
+      },
+      "title": "Publish and Subscribe to Off-Chain Data via the Statement Store",
+      "version": "1.0.0",
+      "workflow_pattern": "sequential"
+    },
+    {
+      "chain_role": "isolated",
+      "description": "Sets up the Product SDK SignerManager, derives product-scoped accounts, and signs transactions or raw bytes via the Polkadot Desktop host. Use when your Product needs to sign payloads, submit on-chain transactions, or derive deterministic per-Product accounts without holding user keys. Trigger phrases: 'sign a transaction from my Product', 'submit extrinsic', 'SignerManager', 'product account', 'sign and submit', 'product-sdk-signer'. Covers umbrella and individual package install, host connection with Result error handling, product account derivation via getProductAccount, signRaw, sign-and-submit via PAPI, HostRejectedError and TimeoutError handling, and dev-mode testing with Alice/Bob accounts without Polkadot Desktop.",
+      "env_vars": [],
+      "error_patterns": [
+        {
+          "cause": "connect() was called outside a Polkadot Desktop host container.",
+          "pattern": "HostUnavailableError from manager.connect()",
+          "resolution": "Use `manager.connect('dev')` for local testing without Desktop. In dev mode, Alice/Bob and other standard Substrate dev accounts are available. Note: getProductAccount, getProductAccountAlias, and createRingVRFProof are host-only and return HostUnavailableError in dev mode."
+        },
+        {
+          "cause": "The user dismissed the signing prompt on the Polkadot App.",
+          "pattern": "HostRejectedError thrown by signAndSubmit or signRaw",
+          "resolution": "Catch HostRejectedError and return the user to a stable state. Let them retry the operation. Do not block — rejection is a normal user flow."
+        },
+        {
+          "cause": "The signing session expired before the user responded on their phone.",
+          "pattern": "TimeoutError thrown by signAndSubmit or signRaw",
+          "resolution": "Treat the same as HostRejectedError: catch, reset to stable state, and allow retry. Show a non-blocking pending state while waiting for the Polkadot App response."
+        },
+        {
+          "cause": "SignerManager.destroy() was called; all subsequent method calls return this error.",
+          "pattern": "DestroyedError",
+          "resolution": "Use `disconnect()` for a reversible reset. Reserve `destroy()` for full Product teardown. After `destroy()`, create a new SignerManager instance if signing is needed again."
+        },
+        {
+          "cause": "The package is ESM only and the build pipeline does not support ESM imports.",
+          "pattern": "SyntaxError: Cannot use import statement in a module",
+          "resolution": "Set `\"type\": \"module\"` in package.json and ensure your TypeScript config uses Node16 or NodeNext module resolution. @parity/product-sdk-signer is ESM only."
+        }
+      ],
+      "examples": [
+        {
+          "actions": [
+            "Install @parity/product-sdk",
+            "Create SignerManager with ss58Prefix: 0, dappName, and onConnect requesting AutoSigning",
+            "Call manager.connect() and check result.ok; selectAccount on the first available account",
+            "Call manager.getProductAccount('my-product.dot', 0) to get the product-scoped address",
+            "Call manager.getSigner(), construct a PAPI transfer tx, and call tx.signAndSubmit(signer)"
+          ],
+          "result": "On-chain balance transfer signed by the product-scoped account and submitted to the Polkadot relay chain",
+          "scenario": "Common scenario: sign and submit a balance transfer from a product account",
+          "user_says": "Sign and submit a transaction from my Polkadot Product"
+        },
+        {
+          "actions": [
+            "Install @parity/product-sdk",
+            "Create SignerManager with ss58Prefix: 0 and dappName",
+            "Call manager.connect('dev') to load Substrate dev accounts without Desktop",
+            "Call manager.selectAccount(result.value[0].address) to select Alice",
+            "Call manager.signRaw(new TextEncoder().encode('hello polkadot')) and log result.value"
+          ],
+          "result": "Raw signature returned as Uint8Array without requiring Polkadot Desktop or phone pairing",
+          "scenario": "Edge case: sign arbitrary bytes in dev mode (no Desktop required)",
+          "user_says": "Test signing in my Product without Polkadot Desktop"
+        }
+      ],
+      "id": "sign-submit-transactions-product-sdk",
+      "invocation": "user",
+      "license": "CC-BY-4.0",
+      "prerequisites": {
+        "other": [
+          "Existing Polkadot Product project (see Set Up Your Project at https://docs.polkadot.com/apps/build/)",
+          "Polkadot Desktop installed and paired with your phone (required for host mode; dev mode works without Desktop)"
+        ],
+        "runtime": [
+          "Node.js 20+",
+          "npm (ESM project)"
+        ]
+      },
+      "primary_page": "apps/build/sign-and-submit.md",
+      "reference_code": {
+        "base_path": "",
+        "branch": "",
+        "files": [],
+        "repo": "none"
+      },
+      "source_pages": [
+        "apps/build/sign-and-submit.md"
+      ],
+      "steps": [
+        {
+          "action": "Install the SDK",
+          "commands": [
+            "npm install @parity/product-sdk"
+          ],
+          "description": "Install the umbrella SDK. For a smaller bundle, use `npm install @parity/product-sdk-signer` instead; all import paths in this guide work with both options. The package is ESM only — ensure `\"type\": \"module\"` is in package.json.",
+          "order": 1,
+          "working_directory": "."
+        },
+        {
+          "action": "Set up SignerManager",
+          "description": "Construct a `SignerManager` once and hold it for the lifetime of your Product:\n\n```typescript\nimport { SignerManager } from '@parity/product-sdk-signer';\n\nconst manager = new SignerManager({\n  ss58Prefix: 0,\n  dappName: 'my-product',\n  onConnect: async (_account, { requestResourceAllocation }) => {\n    await requestResourceAllocation([{ tag: 'AutoSigning', value: undefined }]);\n  },\n});\n```\n\n`ss58Prefix: 0` targets the Polkadot relay chain. `dappName` appears in the Desktop UI. `onConnect` fires once per connection and is the right place to request `AutoSigning` permission before any signing call.",
+          "order": 2,
+          "working_directory": "."
+        },
+        {
+          "action": "Connect to the host",
+          "description": "Call `manager.connect()` to establish a session with the host and discover available accounts. All methods return a `Result`; always check `.ok` before accessing `.value`:\n\n```typescript\nconst connectResult = await manager.connect();\nif (!connectResult.ok) {\n  console.error(connectResult.error.message);\n  return;\n}\nconst accounts = connectResult.value;\nif (accounts.length > 0 && !manager.getState().selectedAccount) {\n  const selectResult = manager.selectAccount(accounts[0].address);\n  if (!selectResult.ok) {\n    console.error(selectResult.error.message);\n    return;\n  }\n}\n```\n\nOutside a host container, `connect()` returns `HostUnavailableError`. Use `connect('dev')` for local testing — see Step 7.",
+          "order": 3,
+          "working_directory": "."
+        },
+        {
+          "action": "Get a product-scoped account",
+          "description": "Call `getProductAccount` to request the deterministic product-scoped account from the host:\n\n```typescript\nconst accountResult = await manager.getProductAccount('my-product.dot', 0);\nif (!accountResult.ok) {\n  console.error(accountResult.error.message);\n  return;\n}\nconst { address, publicKey } = accountResult.value;\n```\n\nReplace `'my-product.dot'` with your Product's dotNS identifier. Index `0` is the conventional default; higher indices give additional sub-accounts. The same `(dotNsIdentifier, derivationIndex)` pair always yields the same public key. This API is host-only and returns `HostUnavailableError` in dev mode.",
+          "order": 4,
+          "working_directory": "."
+        },
+        {
+          "action": "Sign arbitrary bytes",
+          "description": "Use `signRaw` to sign a byte payload with the selected account. Returns `Result<Uint8Array, SignerError>` — never throws:\n\n```typescript\nconst selectResult = manager.selectAccount(accountResult.value.address);\nif (!selectResult.ok) return;\n\nconst payload = new TextEncoder().encode('hello polkadot');\nconst result = await manager.signRaw(payload);\nif (result.ok) {\n  console.log(result.value); // Uint8Array — the raw signature\n} else {\n  console.error(result.error.message);\n}\n```",
+          "order": 5,
+          "working_directory": "."
+        },
+        {
+          "action": "Sign and submit a transaction",
+          "description": "Get a `PolkadotSigner` from SignerManager and pass it to PAPI's `signAndSubmit`. Set up a PAPI client first:\n\n```typescript\nimport { createClient } from 'polkadot-api';\nimport { getWsProvider } from 'polkadot-api/ws-provider/web';\nimport { dot } from '@polkadot-api/descriptors';\n\nconst client = createClient(getWsProvider('wss://rpc.polkadot.io'));\nconst api = client.getTypedApi(dot);\n```\n\nRun `npx papi add dot` to pull the `dot` descriptor. Then sign and submit:\n\n```typescript\nconst signer = manager.getSigner(); // null if no account selected\nif (!signer) return;\n\nconst recipient = 'INSERT_RECIPIENT_ADDRESS'; // Replace with the recipient SS58 address\nconst tx = api.tx.Balances.transfer_keep_alive({ dest: recipient, value: 1_000_000_000_000n });\ntry {\n  await tx.signAndSubmit(signer);\n} catch (error) {\n  if (error instanceof HostRejectedError) return; // user dismissed prompt\n  if (error instanceof TimeoutError) return; // session expired\n  throw error;\n}\n```\n\nReplace `INSERT_RECIPIENT_ADDRESS` with the recipient's SS58-encoded address.",
+          "order": 6,
+          "working_directory": "."
+        },
+        {
+          "action": "Test without a host (dev mode)",
+          "description": "Use `connect('dev')` during development to load standard Substrate dev accounts (Alice, Bob, Charlie, Dave, Eve, Ferdie) without Polkadot Desktop. The signing API is identical:\n\n```typescript\nconst result = await manager.connect('dev');\nif (!result.ok) return;\nconst selectResult = manager.selectAccount(result.value[0].address);\nif (!selectResult.ok) return;\nconst signResult = await manager.signRaw(new TextEncoder().encode('test'));\nif (signResult.ok) {\n  console.log(signResult.value); // Uint8Array\n}\n```\n\n`getProductAccount`, `getProductAccountAlias`, and `createRingVRFProof` are host-only APIs and return `HostUnavailableError` in dev mode.",
+          "order": 7,
+          "working_directory": "."
+        }
+      ],
+      "supplementary_context": {
+        "description": "Load these pages for context on building on top of transaction signing.",
+        "pages": [
+          {
+            "relevance": "How to read on-chain state using the Product SDK chain client before or after signing.",
+            "slug": "apps-build-read-chain-state",
+            "title": "Read On-Chain Data",
+            "url": "https://docs.polkadot.com/apps/build/read-chain-state.md"
+          },
+          {
+            "relevance": "How to store data on the Bulletin Chain by signing storage extrinsics from your Product.",
+            "slug": "apps-build-store-data-on-chain",
+            "title": "Store Data on Chain",
+            "url": "https://docs.polkadot.com/apps/build/store-data-on-chain.md"
+          }
+        ]
+      },
+      "title": "Sign and Submit Transactions with the Product SDK",
+      "version": "1.0.0",
+      "workflow_pattern": "sequential"
+    },
+    {
+      "chain_role": "isolated",
+      "description": "Claims PAS testnet tokens from the Polkadot Faucet and explains per-service allowances for Bulletin Chain, Statement Store, and dotNS. Use when setting up a Polkadot Product development environment and your account needs tokens or service access. Trigger phrases: 'get testnet tokens', 'claim PAS tokens', 'faucet', 'Bulletin Chain authorization', 'Statement Store allowance', 'dotNS deposit'. Requires Polkadot Desktop paired with a signer. Token claim is browser-based via the Polkadot Faucet UI. Service allowances are independent of token balance — a missing allowance blocks service access even with sufficient PAS.",
+      "env_vars": [],
+      "error_patterns": [
+        {
+          "cause": "The TestNet chain mapping in the Polkadot Faucet is provisional and may not match Paseo Next v2 chains.",
+          "pattern": "Funds do not appear in Polkadot Desktop after a few minutes",
+          "resolution": "Contact the developer community for the current correct chain selection in the faucet. This is a known provisional issue as the Paseo Next v2 chain mapping is being confirmed."
+        },
+        {
+          "cause": "Account does not have Bulletin Chain storage authorization.",
+          "pattern": "Storage extrinsics rejected by the Bulletin Chain",
+          "resolution": "Request authorization at https://paritytech.github.io/polkadot-bulletin-chain/authorizations. Authorization grants a quota of transactions and bytes; it is required before any store extrinsic succeeds."
+        },
+        {
+          "cause": "Account does not have a Statement Store allowance.",
+          "pattern": "Statement Store publish returns false or is rejected",
+          "resolution": "The process for obtaining a Statement Store allowance on TestNet is currently undocumented. Contact the developer community for current access paths."
+        },
+        {
+          "cause": "Attempting to register a dotNS name that requires PoP status, or insufficient PAS deposit.",
+          "pattern": "dotNS registration fails",
+          "resolution": "Open names require a PAS deposit. Names reserved for PoP accounts require Proof of Personhood eligibility. See https://docs.polkadot.com/reference/apps/infrastructure/dotns/poprules-pricing/ for pricing details."
+        }
+      ],
+      "examples": [
+        {
+          "actions": [
+            "Open https://faucet.polkadot.io/ in a browser",
+            "Select the target network from the Network drop-down",
+            "Paste the SS58 address paired with Polkadot Desktop into the address field",
+            "Complete the reCAPTCHA and click Get Some PASs",
+            "Wait for tokens to appear in Polkadot Desktop"
+          ],
+          "result": "PAS testnet tokens arrive in the account, ready to pay transaction fees",
+          "scenario": "Common scenario: claim PAS tokens for a new development account",
+          "user_says": "Get me testnet tokens for Polkadot development"
+        },
+        {
+          "actions": [
+            "Navigate to https://paritytech.github.io/polkadot-bulletin-chain/authorizations in a browser",
+            "Submit an authorization request for the development account",
+            "After confirmation, optionally verify the allocation by querying the Authorizations storage map of the transaction-storage pallet"
+          ],
+          "result": "Bulletin Chain storage authorization granted; account can now submit store extrinsics",
+          "scenario": "Edge case: request Bulletin Chain storage authorization after tokens are obtained",
+          "user_says": "My Bulletin Chain storage extrinsics are being rejected — how do I get authorization?"
+        }
+      ],
+      "id": "get-testnet-tokens-paseo",
+      "invocation": "user",
+      "license": "CC-BY-4.0",
+      "prerequisites": {
+        "other": [
+          "Polkadot Desktop installed and paired with a signer (see https://docs.polkadot.com/apps/get-started/)"
+        ]
+      },
+      "primary_page": "apps/get-started/get-testnet-tokens.md",
+      "reference_code": {
+        "base_path": "",
+        "branch": "",
+        "files": [],
+        "repo": "none"
+      },
+      "source_pages": [
+        "apps/get-started/get-testnet-tokens.md"
+      ],
+      "steps": [
+        {
+          "action": "Open the Polkadot Faucet",
+          "description": "Open https://faucet.polkadot.io/ in a browser. This is a browser-based GUI step — delegate it to the user. Ask the user to:\n\n1. Select the target network from the **Network** drop-down.\n2. Paste the SS58 address of the account paired with Polkadot Desktop into the address field.\n3. Complete the reCAPTCHA check.\n4. Click **Get Some PASs**.\n\nTokens arrive within a few minutes. Note: the faucet's mapping to Paseo Next v2 chains is provisional — if funds do not appear, contact the developer community for the current chain selection.",
+          "interactive": true,
+          "order": 1,
+          "working_directory": "."
+        },
+        {
+          "action": "Request Bulletin Chain storage authorization (if storing on-chain)",
+          "description": "The Bulletin Chain uses an allowance model separate from your PAS balance. If your Product stores data on-chain, you must request authorization before submitting any store extrinsic. Delegate this browser-based GUI step to the user:\n\n1. Open https://paritytech.github.io/polkadot-bulletin-chain/authorizations in a browser.\n2. Submit an authorization request for the development account.\n3. After confirmation, optionally verify the allocation by querying the `Authorizations` storage map of the `transaction-storage` pallet.\n\nSkip this step if your Product does not use Bulletin Chain storage.",
+          "interactive": true,
+          "order": 2,
+          "working_directory": "."
+        },
+        {
+          "action": "Obtain a Statement Store allowance (if using pub/sub)",
+          "description": "The Statement Store requires an on-chain `StatementAllowance` record specifying `max_count` and `max_size`. If your Product publishes statements, this allowance must be granted. The process on TestNet is currently provisional and undocumented — contact the developer community for current access paths. Reading/subscribing is permissionless; only publishing requires an allowance.\n\nSkip this step if your Product only reads or subscribes from the Statement Store.",
+          "interactive": true,
+          "order": 3,
+          "working_directory": "."
+        },
+        {
+          "action": "Prepare for dotNS name registration (if deploying to a .dot name)",
+          "description": "dotNS uses a hybrid access model: open names require a PAS deposit; names reserved for PoP Full or Lite accounts are free for eligible accounts. Ensure your account has sufficient PAS before attempting registration. See https://docs.polkadot.com/reference/apps/infrastructure/dotns/poprules-pricing/ for full pricing and tier details.\n\nSkip this step if you are not deploying to a .dot name.",
+          "order": 4,
+          "working_directory": "."
+        }
+      ],
+      "supplementary_context": {
+        "description": "Load these pages for context on how testnet tokens are used by Polkadot Product infrastructure services.",
+        "pages": [
+          {
+            "relevance": "How to store content on the Bulletin Chain — requires authorization from Step 2 of this skill.",
+            "slug": "apps-build-store-data-on-chain",
+            "title": "Store Data on Chain",
+            "url": "https://docs.polkadot.com/apps/build/store-data-on-chain.md"
+          },
+          {
+            "relevance": "How to use the Statement Store for pub/sub messaging — requires allowance from Step 3 of this skill.",
+            "slug": "apps-build-pub-sub-off-chain-data",
+            "title": "Publish and Subscribe to Off-Chain Data",
+            "url": "https://docs.polkadot.com/apps/build/pub-sub-off-chain-data.md"
+          }
+        ]
+      },
+      "title": "Get TestNet Tokens for Polkadot Development",
+      "version": "1.0.0",
+      "workflow_pattern": "sequential"
+    },
+    {
+      "chain_role": "isolated",
+      "description": "Generates and publishes a Polkadot Product from the browser using the RevX App Builder IDE. Use when you want to scaffold a Product from a natural-language prompt without a local development environment. Trigger phrases: 'create Product with RevX', 'build Polkadot app in browser', 'RevX', 'App Builder', 'generate Product from prompt', 'publish to .dot with RevX'. Covers opening the RevX IDE, configuring an AI provider and API key, generating app structure from a prompt, reviewing and refining generated code, and publishing to a .dot name by signing with the Polkadot App on your phone. Requires a Polkadot App on your phone and an AI provider API key (OpenAI or Anthropic).",
+      "env_vars": [],
+      "error_patterns": [
+        {
+          "cause": "Dependencies take time to install when the IDE first initializes after Create App.",
+          "pattern": "RevX IDE shows loading screen for extended time",
+          "resolution": "Wait for the environment to finish initializing before configuring the builder or entering a prompt. Initial setup installs project dependencies automatically and cannot be skipped."
+        },
+        {
+          "cause": "AI provider API key is incorrect, expired, or lacks credits.",
+          "pattern": "Code generation fails or returns an error in the App Builder chat interface",
+          "resolution": "Open the App Builder Settings panel and verify your API key. Ensure the key is valid and has available credits. Try switching to a different provider or model if the issue persists."
+        },
+        {
+          "cause": "Polkadot App is not installed or no account has been created.",
+          "pattern": "Publish to .dot signing prompt does not appear",
+          "resolution": "Install the Polkadot App on your phone and create an account before starting the publish step. The app is required to sign the deployment transaction."
+        },
+        {
+          "cause": "Generated code contains errors that cause the build step to fail before deployment.",
+          "pattern": "Deploy fails after clicking Publish to .dot",
+          "resolution": "Review the terminal output in RevX for build errors. Fix the issue in the editor (directly or via chat), then retry the Publish to .dot action."
+        }
+      ],
+      "examples": [
+        {
+          "actions": [
+            "Open https://revx.dev/ in a browser",
+            "Select App Builder from the sidebar",
+            "Click Create App and wait for environment initialization",
+            "Open Settings and enter the AI provider API key and model",
+            "Enter a specific prompt such as 'Show the balance of Alice (a standard Substrate dev account)'",
+            "Review the generated code in the editor",
+            "Click Publish to .dot and sign the deployment transaction on the Polkadot App"
+          ],
+          "result": "Polkadot Product scaffolded from the prompt and published to a .dot name, accessible in Polkadot Desktop or at https://name.dot.li",
+          "scenario": "Common scenario: scaffold and publish a Product from a prompt",
+          "user_says": "Create a Polkadot Product with RevX without a local dev environment"
+        },
+        {
+          "actions": [
+            "Open https://revx.dev/ and create a new app",
+            "Enter a narrow, specific initial prompt for a focused code structure",
+            "After generation, open files in the editor and iterate via the chat interface",
+            "Continue refining with follow-up prompts before clicking Publish to .dot"
+          ],
+          "result": "Iteratively refined Product published to .dot after multiple rounds of prompt-driven editing",
+          "scenario": "Edge case: iterative refinement of a generated Product before publishing",
+          "user_says": "My generated Product needs adjustments — how do I refine it in RevX?"
+        }
+      ],
+      "id": "create-deploy-product-revx",
+      "invocation": "user",
+      "license": "CC-BY-4.0",
+      "prerequisites": {
+        "other": [
+          "Polkadot App installed on your phone with an account created",
+          "API key for an AI provider supported by RevX (OpenAI or Anthropic)"
+        ]
+      },
+      "primary_page": "apps/quick-start.md",
+      "reference_code": {
+        "base_path": "",
+        "branch": "",
+        "files": [],
+        "repo": "none"
+      },
+      "source_pages": [
+        "apps/quick-start.md"
+      ],
+      "steps": [
+        {
+          "action": "Open RevX in a browser",
+          "description": "Open https://revx.dev/ in a browser. RevX is a browser-based IDE — no local installation required. This is an entirely GUI-based workflow; all steps in this skill require browser interaction and must be delegated to the user.",
+          "interactive": true,
+          "order": 1,
+          "working_directory": "."
+        },
+        {
+          "action": "Open App Builder",
+          "description": "From the RevX sidebar, select **App Builder**. App Builder is RevX's track for generating Polkadot Products using AI-assisted workflows.",
+          "interactive": true,
+          "order": 2,
+          "working_directory": "."
+        },
+        {
+          "action": "Create a new app",
+          "description": "Click **Create App** to start a new project. RevX automatically installs required dependencies and initializes the project environment. Wait for the loading screen to complete before proceeding — the environment must finish initializing before you configure the builder.",
+          "interactive": true,
+          "order": 3,
+          "working_directory": "."
+        },
+        {
+          "action": "Configure the AI provider",
+          "description": "Click the **Settings** icon in App Builder and configure:\n\n- **AI provider**: The backend service powering code generation (e.g., OpenAI, Anthropic)\n- **API key**: Your credential for the selected provider\n- **Model**: The specific model to use (e.g., gpt-4o, claude-3-5-sonnet)\n\nThese settings can be changed at any time to switch providers or models.",
+          "interactive": true,
+          "order": 4,
+          "working_directory": "."
+        },
+        {
+          "action": "Generate an app from a prompt",
+          "description": "Use the App Builder chat interface to describe the app you want to build. Keep prompts concrete and scoped — short, specific prompts produce app structures that are easier to review and iterate on. Example: `Build a Product that shows the balance of Alice (a standard Substrate dev account)`. The IDE generates project files automatically.",
+          "interactive": true,
+          "order": 5,
+          "working_directory": "."
+        },
+        {
+          "action": "Inspect and refine the generated code",
+          "description": "After generation, open the generated files in the RevX editor to review the output. Continue iterating by refining the prompt in the chat interface, editing code directly in the editor, or layering additional changes through follow-up prompts.",
+          "interactive": true,
+          "order": 6,
+          "working_directory": "."
+        },
+        {
+          "action": "Publish to .dot",
+          "description": "Click **Publish to .dot** in App Builder to deploy the Product under a .dot name. Click **Start Deploy** when prompted, then sign the deployment transaction on the Polkadot App on your phone. After signing, the Product is live. Access it in Polkadot Desktop or at `https://<name>.dot.li` in any browser.",
+          "interactive": true,
+          "order": 7,
+          "working_directory": "."
+        }
+      ],
+      "supplementary_context": {
+        "description": "Load these pages for local development options and deeper Product SDK capabilities after RevX scaffolding.",
+        "pages": [
+          {
+            "relevance": "Deploy a Product locally using the playground CLI — the terminal-based alternative to RevX deployment.",
+            "slug": "apps-quick-start-cli",
+            "title": "Quick Start with the CLI",
+            "url": "https://docs.polkadot.com/apps/quick-start-cli.md"
+          }
+        ]
+      },
+      "title": "Create and Deploy a Polkadot Product with RevX App Builder",
       "version": "1.0.0",
       "workflow_pattern": "sequential"
     }

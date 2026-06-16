@@ -2905,6 +2905,7 @@
       "title": "Persist Data Locally with the Product SDK"
     },
     {
+      "built_at": "2026-06-16T17:30:00Z",
       "category": "guide",
       "notes": "Covers StatementStoreClient setup, subscribe, publish, and ChannelStore patterns. K1=0: prereqs include 'Install Desktop and Pair' and obtaining a Statement Store allowance (obtaining that allowance is currently undocumented, which limits agent feasibility for the publish path; subscribe/read is permissionless). S2=0: outcome depends on gossip network state and the undocumented allowance. Code snippets via --8<-- includes.",
       "priority": "medium",
@@ -2932,7 +2933,7 @@
       "source_pages": [
         "apps/build/pub-sub-off-chain-data.md"
       ],
-      "status": "pending",
+      "status": "built",
       "title": "Publish and Subscribe to Off-Chain Data via the Statement Store"
     },
     {
@@ -2969,6 +2970,7 @@
       "title": "Read On-Chain Data with the Product SDK"
     },
     {
+      "built_at": "2026-06-16T17:30:00Z",
       "category": "guide",
       "notes": "Covers SignerManager setup, host connection, product account derivation, signRaw, sign-and-submit via PAPI, error handling, and dev-mode testing. K1=0: prereq references 'Set Up Your Project'. K2=0: transaction snippet contains INSERT_RECIPIENT_ADDRESS placeholder. Full signing flow requires paired mobile Polkadot App (not automatable); dev mode (connect('dev')) is feasible for agents.",
       "priority": "medium",
@@ -2996,7 +2998,7 @@
       "source_pages": [
         "apps/build/sign-and-submit.md"
       ],
-      "status": "pending",
+      "status": "built",
       "title": "Sign and Submit Transactions with the Product SDK"
     },
     {
@@ -3067,6 +3069,7 @@
       "title": "Deploy a Polkadot Product to a .dot Name"
     },
     {
+      "built_at": "2026-06-16T17:30:00Z",
       "category": "guide",
       "notes": "K1=0: requires Install Desktop and Pair as prerequisite. Primary faucet action is browser-based GUI (S1=0) — no CLI path. Also covers service allowance types (Bulletin Chain, Statement Store, dotNS) as supplementary context. Functions as a shared prerequisite step for most other Polkadot Product skills.",
       "priority": "medium",
@@ -3092,7 +3095,7 @@
       "source_pages": [
         "apps/get-started/get-testnet-tokens.md"
       ],
-      "status": "pending",
+      "status": "built",
       "title": "Get TestNet Tokens for Polkadot Development"
     },
     {
@@ -3128,6 +3131,7 @@
       "title": "Install and Deploy a Product with playground-cli"
     },
     {
+      "built_at": "2026-06-16T17:30:00Z",
       "category": "guide",
       "notes": "Entirely browser/GUI-based (S1=0): all steps are clicks in the RevX browser IDE and phone signing. AI-generated code is non-deterministic (S2=0) — output depends on prompt and model. Requires external AI API key (OpenAI/Anthropic). Low skill-fit priority (7) reflects poor agent-executability.",
       "priority": "low",
@@ -3153,7 +3157,7 @@
       "source_pages": [
         "apps/quick-start.md"
       ],
-      "status": "pending",
+      "status": "built",
       "title": "Create and Deploy a Polkadot Product with RevX App Builder"
     },
     {

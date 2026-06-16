@@ -17,11 +17,12 @@
     },
     "apps/build/pub-sub-off-chain-data.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-16T17:00:00Z",
+      "last_scanned": "2026-06-16T17:30:00Z",
       "skills": [
-        "build-shared-todo-app"
+        "build-shared-todo-app",
+        "publish-subscribe-statement-store"
       ],
-      "status": "supplementary"
+      "status": "up_to_date"
     },
     "apps/build/read-chain-state.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -33,11 +34,12 @@
     },
     "apps/build/sign-and-submit.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-16T17:00:00Z",
+      "last_scanned": "2026-06-16T17:30:00Z",
       "skills": [
-        "read-chain-state-product-sdk"
+        "read-chain-state-product-sdk",
+        "sign-submit-transactions-product-sdk"
       ],
-      "status": "supplementary"
+      "status": "up_to_date"
     },
     "apps/build/store-data-on-chain.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -57,9 +59,11 @@
     },
     "apps/get-started/get-testnet-tokens.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": null,
-      "skills": [],
-      "status": "uncovered"
+      "last_scanned": "2026-06-16T17:30:00Z",
+      "skills": [
+        "get-testnet-tokens-paseo"
+      ],
+      "status": "up_to_date"
     },
     "apps/quick-start-cli.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -71,9 +75,11 @@
     },
     "apps/quick-start.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": null,
-      "skills": [],
-      "status": "uncovered"
+      "last_scanned": "2026-06-16T17:30:00Z",
+      "skills": [
+        "create-deploy-product-revx"
+      ],
+      "status": "up_to_date"
     },
     "apps/tutorials/shared-todo-app.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",

@@ -2866,9 +2866,139 @@
       ],
       "status": "built",
       "title": "Deploy Uniswap V3 Periphery with EVM on Polkadot Hub"
+    },
+    {
+      "skill_id": "use-local-kv-store-product-sdk",
+      "title": "Persist Data Locally with the Product SDK",
+      "source_pages": [
+        "apps/build/persist-data-locally.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "status": "pending",
+      "notes": "Covers the full LocalKvStore API (string, JSON, remove, prefix, React hooks). K1=0: prereq references 'Set Up Your Project' on a separate page. No reference repo; code snippets are in-repo via --8<-- includes. Ambiguous with reference due to dense API surface (procedural=10, reference=9).",
+      "scoring": {
+        "signals": [
+          "P2",
+          "P3",
+          "R1",
+          "R2",
+          "C1",
+          "K2",
+          "K3",
+          "S1",
+          "S2"
+        ],
+        "category_scores": {
+          "procedural": 10,
+          "reference": 9,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 14,
+        "category_ambiguous": true,
+        "contending_categories": [
+          "guide",
+          "reference"
+        ]
+      }
+    },
+    {
+      "skill_id": "publish-subscribe-statement-store",
+      "title": "Publish and Subscribe to Off-Chain Data via the Statement Store",
+      "source_pages": [
+        "apps/build/pub-sub-off-chain-data.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "status": "pending",
+      "notes": "Covers StatementStoreClient setup, subscribe, publish, and ChannelStore patterns. K1=0: prereqs include 'Install Desktop and Pair' and obtaining a Statement Store allowance (obtaining that allowance is currently undocumented, which limits agent feasibility for the publish path; subscribe/read is permissionless). S2=0: outcome depends on gossip network state and the undocumented allowance. Code snippets via --8<-- includes.",
+      "scoring": {
+        "signals": [
+          "P2",
+          "P3",
+          "P4",
+          "R1",
+          "R2",
+          "C1",
+          "K2",
+          "K3",
+          "S1"
+        ],
+        "category_scores": {
+          "procedural": 14,
+          "reference": 9,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 11
+      }
+    },
+    {
+      "skill_id": "read-chain-state-product-sdk",
+      "title": "Read On-Chain Data with the Product SDK",
+      "source_pages": [
+        "apps/build/read-chain-state.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "status": "pending",
+      "notes": "Covers getChainAPI (preset) and createChainClient (BYOD) paths, storage/constants reads, parallel multi-chain reads, raw PAPI access, and connection cleanup. K1=0: prereq references 'Set Up Your Project'. Reads are permissionless and deterministic. Only paseo and summit presets are live at time of triage; other environments throw at runtime.",
+      "scoring": {
+        "signals": [
+          "P2",
+          "P3",
+          "P4",
+          "R1",
+          "R2",
+          "C1",
+          "K2",
+          "K3",
+          "S1",
+          "S2"
+        ],
+        "category_scores": {
+          "procedural": 14,
+          "reference": 9,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 14
+      }
+    },
+    {
+      "skill_id": "sign-submit-transactions-product-sdk",
+      "title": "Sign and Submit Transactions with the Product SDK",
+      "source_pages": [
+        "apps/build/sign-and-submit.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "status": "pending",
+      "notes": "Covers SignerManager setup, host connection, product account derivation, signRaw, sign-and-submit via PAPI, error handling, and dev-mode testing. K1=0: prereq references 'Set Up Your Project'. K2=0: transaction snippet contains INSERT_RECIPIENT_ADDRESS placeholder. Full signing flow requires paired mobile Polkadot App (not automatable); dev mode (connect('dev')) is feasible for agents.",
+      "scoring": {
+        "signals": [
+          "P2",
+          "P3",
+          "P4",
+          "R1",
+          "R2",
+          "C1",
+          "K3",
+          "S1",
+          "S2"
+        ],
+        "category_scores": {
+          "procedural": 14,
+          "reference": 9,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 10
+      }
     }
   ],
-  "generated": "2026-05-19T22:00:00Z",
+  "generated": "2026-06-16T14:24:00Z",
   "not_applicable": [
     {
       "category": "not_applicable",
@@ -3094,6 +3224,28 @@
           "C1",
           "C3",
           "N1"
+        ]
+      }
+    },
+    {
+      "page": "AGENTS.md",
+      "category": "conceptual",
+      "reason": "Meta-configuration file for AI doc-authoring agents. Explains style guide references, linting setup, and doc-writing precedence rules. Not a developer tutorial or SDK reference — has no relevance to Polkadot product developer skills.",
+      "scoring": {
+        "signals": [
+          "P2",
+          "C1"
+        ],
+        "category_scores": {
+          "procedural": 5,
+          "reference": 0,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "conceptual",
+          "guide"
         ]
       }
     }

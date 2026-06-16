@@ -3186,7 +3186,7 @@
       }
     }
   ],
-  "generated": "2026-06-16T14:49:10Z",
+  "generated": "2026-06-16T14:54:26Z",
   "not_applicable": [
     {
       "category": "not_applicable",
@@ -5012,6 +5012,130 @@
         "category_scores": {
           "procedural": 0,
           "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/dotns/cli.md",
+      "category": "reference",
+      "relevant_to": [
+        "register-dotns-name",
+        "transfer-dotns-name",
+        "update-dotns-contenthash"
+      ],
+      "notes": "CLI command-surface reference for dotns-cli 0.6.2. Per-flag details are marked Pending, so the page is lookup material rather than a runnable workflow. Supplementary for any dotNS skill that involves CLI operations.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R2",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 12,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/dotns/name-mechanism.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "register-dotns-name",
+        "update-dotns-contenthash"
+      ],
+      "notes": "Four-layer architecture explanation (registry, namehash, contenthash, delivery). Ambiguous with guide because of the numbered end-to-end resolution sequence, but those steps describe Host behavior, not reader actions — clearly conceptual. Useful background for any dotNS skill involving contenthash updates or resolution troubleshooting.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 6,
+          "reference": 3,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "conceptual",
+          "guide"
+        ]
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/dotns/poprules-pricing.md",
+      "category": "reference",
+      "relevant_to": [
+        "register-dotns-name"
+      ],
+      "notes": "Pricing ladder for .dot name registration — the lookup table is the primary artifact. Ambiguous with conceptual because the 'Two patterns explain' section is explicit design rationale and conceptual scores (10) exceed reference (8); rule 4 fires first since reference >= 7. Core supplementary context for any registration skill where the agent needs to know deposit amounts or eligibility.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R3",
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 8,
+          "conceptual": 10,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/dotns/testnet-contracts.md",
+      "category": "reference",
+      "relevant_to": [
+        "register-dotns-name",
+        "transfer-dotns-name"
+      ],
+      "notes": "Contract address table for the dotNS Paseo TestNet deployment. All addresses are TBD; page is a placeholder reference. Useful supplementary context for any skill that interacts with dotNS contracts directly rather than via the CLI.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R3",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 8,
+          "conceptual": 2,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/dotns/transfer.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "transfer-dotns-name"
+      ],
+      "notes": "Conceptual model of .dot name ownership transfer. Operational details (dispatch path, parameter shape) are still provisional. Explains what changes vs stays the same on transfer and why reservations are non-transferable. Supplementary context for a transfer skill once the operational reference is finalized.",
+      "scoring": {
+        "signals": [
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 3,
           "conceptual": 7,
           "not_applicable": 0
         }

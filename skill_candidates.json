@@ -3186,7 +3186,7 @@
       }
     }
   ],
-  "generated": "2026-06-16T14:59:31Z",
+  "generated": "2026-06-16T15:04:52Z",
   "not_applicable": [
     {
       "category": "not_applicable",
@@ -5221,6 +5221,112 @@
       "category": "conceptual",
       "relevant_to": [],
       "notes": "Conceptual overview of pallet-game. Dispatch surface explicitly provisional and pending; no API table exists yet. Explains the three guarantees the pallet enforces (one entry per alias, verifiable randomness, account unlinkability). Supplementary context for future skills covering personhood-gated games, randomized airdrops, or pallet-airdrop integration.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/pop/pallet-identity.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "integrate-pop-alias-product",
+        "gate-action-on-personhood"
+      ],
+      "notes": "Conceptual reference for pallet-identity; explains identity vs. alias distinction and when Products should read the direct identity record (public username, verified display fields). Useful background for any PoP skill that touches the direct-identity path. Dispatch surface is marked Provisional — per-extrinsic details TBD.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 10,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/pop/pallet-people.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "integrate-pop-alias-product",
+        "gate-action-on-personhood"
+      ],
+      "notes": "Conceptual reference for pallet-people; covers ring membership (full + lite), alias issuance, and under_alias dispatch logic. Foundational context for any skill gating Product actions on personhood or using alias-based identity. Dispatch surface marked Provisional.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/pop/pallet-score.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "integrate-pop-alias-product",
+        "gate-action-on-personhood"
+      ],
+      "notes": "Conceptual reference for pallet-score; explains alias-scoped reputation storage, adjustment and read paths, and threshold-gating use cases. Relevant context for skills that gate Product features on sybil-resistant reputation. Dispatch surface marked Provisional.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/pop/pallet-ubc.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "implement-ubc-onboarding"
+      ],
+      "notes": "Conceptual reference for pallet-ubc; explains per-period fee-free capacity allotment and the first-interaction onboarding pattern. The 'When a Product Reaches for UBC' numbered list is a scenario description, not developer steps (no CLI commands, no code, no P4 outcome). Dispatch surface and quota amounts marked Provisional.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/pop/ring-vrf-and-aliases.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "integrate-pop-alias-product",
+        "gate-action-on-personhood",
+        "implement-ubc-onboarding"
+      ],
+      "notes": "Conceptual deep dive on Ring-VRF and alias mechanics; explains the privacy model (alias unlinkability across Products), under_alias origin, and cross-product alias consent flow. Essential background for any PoP skill that relies on alias identity or personhood gating.",
       "scoring": {
         "signals": [
           "C1",

@@ -16,7 +16,7 @@ This page is the reference for what happens between the user typing a `.dot` nam
 
 From the user's perspective:
 
-1. The user navigates to `dot.li/<name>` (or otherwise enters a `.dot` name in the Web Host's UI).
+1. The user navigates to `https://<name>.dot.li` (or otherwise enters a `.dot` name in the Web Host's UI).
 2. Web resolves the `.dot` name through DotNS, retrieving the content reference (CID) for the published Product bundle.
 3. Web fetches the bundle from the Bulletin Chain (or its delivery layer) by CID.
 4. Web prepares the sandboxed container the Product will run inside and loads the bundle.

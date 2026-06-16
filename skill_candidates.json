@@ -3186,7 +3186,7 @@
       }
     }
   ],
-  "generated": "2026-06-16T15:04:52Z",
+  "generated": "2026-06-16T15:10:00Z",
   "not_applicable": [
     {
       "category": "not_applicable",
@@ -5335,6 +5335,136 @@
         "category_scores": {
           "procedural": 0,
           "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/statement-store/allowance.md",
+      "category": "reference",
+      "relevant_to": [
+        "publish-subscribe-off-chain-data"
+      ],
+      "notes": "Explains the StatementAllowance quota fields (max_count, max_size) and the spam-resistance design rationale. Tied reference/conceptual scores — rule 4 wins because reference_score >= 7 fires before the conceptual rule.",
+      "scoring": {
+        "signals": [
+          "R2",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 7,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/statement-store/channels.md",
+      "category": "reference",
+      "relevant_to": [
+        "publish-subscribe-off-chain-data"
+      ],
+      "notes": "Documents the ChannelStore<T> API (write, read, readAll, onChange) and the last-write-wins replacement semantic. No procedural workflow — readers understand when and why to use channels, not how to execute a skill-shaped task.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 8,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/statement-store/lifecycle.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "publish-subscribe-off-chain-data"
+      ],
+      "notes": "Numbered 1-5 stages fire P1, but the steps describe what the pallet/network does automatically, not user-executed actions. No CLI commands, no source files, no verifiable outcome. Primarily design-rationale prose about validation, gossip, and TTL expiry. Guide ambiguity noted because P1 fired.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 6,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "conceptual",
+          "guide"
+        ]
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/statement-store/subscriptions.md",
+      "category": "reference",
+      "relevant_to": [
+        "publish-subscribe-off-chain-data"
+      ],
+      "notes": "Describes the subscribe/unsubscribe API surface (client.subscribe<T>, statement_subscribeStatement, Unsubscribable), topic filter mechanics, callback dedup behavior, and backfill semantics. No runnable code — reference for SDK method signatures and behavioral guarantees.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 8,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "reference/apps/protocol/truapi/account-management.md",
+      "category": "reference",
+      "relevant_to": [
+        "sign-submit-transaction"
+      ],
+      "notes": "Documents the TrUAPI Account Management method group: getProductAccount signature with dotNsIdentifier and derivationIndex params, SignerAccount fields (address, public key, display name), and the account-selection flow. Reference=12 vs Conceptual=7 — no ambiguity.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R2",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 12,
           "conceptual": 7,
           "not_applicable": 0
         }

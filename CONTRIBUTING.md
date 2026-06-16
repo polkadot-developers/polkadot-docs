@@ -315,26 +315,26 @@ Every page begins with a YAML frontmatter block between `---` delimiters. The fi
 
 ### Required fields
 
-| Field | Description |
-|---|---|
-| `title` | Page title. Keep to 60 characters or fewer for good SEO. |
-| `description` | Meta description shown in search results. Aim for 120–160 characters. |
-| `categories` | Comma-separated list of content categories used to group AI artifacts. Valid values are defined in `llms_config.json`. |
+| Field         | Description                                                                                                            |
+|---------------|------------------------------------------------------------------------------------------------------------------------|
+| `title`       | Page title. Keep to 60 characters or fewer for good SEO.                                                               |
+| `description` | Meta description shown in search results. Aim for 120–160 characters.                                                  |
+| `categories`  | Comma-separated list of content categories used to group AI artifacts. Valid values are defined in `llms_config.json`. |
 
 ### Optional fields
 
-| Field | Type | Description |
-|---|---|---|
-| `short_description` | string | A shorter description used in auto-generated index tables (falls back to `description` if absent). |
-| `tools` | string or list | Tools used on the page, shown in index tables. Accepts a comma-separated string or a YAML list. |
-| `hide` | list | Hides page elements. Accepted values: `navigation` (hides left nav), `toc` (hides table of contents). |
-| `template` | string | Overrides the page template. Only used on the homepage (`home.html`). |
-| `footer_nav` | bool or int | Adds the page to the footer navigation. Use `true` to include in discovery order, or an integer for explicit ordering (lower numbers appear first). |
-| `extra_javascript` | list | Additional JavaScript files to load on this page only. Used to activate interactive widgets. |
-| `extra_css` | list | Additional CSS files to load on this page only. Used alongside `extra_javascript` for interactive widgets. |
-| `page_badges` | object | Displays difficulty and CI status badges in the page header. See [`page_badges`](#page_badges) below. |
-| `page_tests` | object | Links a test file to the page, shown as a "View tests" link. See [`page_tests`](#page_tests) below. |
-| `toggle` | object | Groups pages into a switchable variant toggle (e.g. EVM vs PVM). See [`toggle`](#toggle) below. |
+| Field               | Type           | Description                                                                                                                                         |
+|---------------------|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| `short_description` | string         | A shorter description used in auto-generated index tables (falls back to `description` if absent).                                                  |
+| `tools`             | string or list | Tools used on the page, shown in index tables. Accepts a comma-separated string or a YAML list.                                                     |
+| `hide`              | list           | Hides page elements. Accepted values: `navigation` (hides left nav), `toc` (hides table of contents).                                               |
+| `template`          | string         | Overrides the page template. Only used on the homepage (`home.html`).                                                                               |
+| `footer_nav`        | bool or int    | Adds the page to the footer navigation. Use `true` to include in discovery order, or an integer for explicit ordering (lower numbers appear first). |
+| `extra_javascript`  | list           | Additional JavaScript files to load on this page only. Used to activate interactive widgets.                                                        |
+| `extra_css`         | list           | Additional CSS files to load on this page only. Used alongside `extra_javascript` for interactive widgets.                                          |
+| `page_badges`       | object         | Displays difficulty and CI status badges in the page header. See [`page_badges`](#page_badges) below.                                               |
+| `page_tests`        | object         | Links a test file to the page, shown as a "View tests" link. See [`page_tests`](#page_tests) below.                                                 |
+| `toggle`            | object         | Groups pages into a switchable variant toggle (e.g. EVM vs PVM). See [`toggle`](#toggle) below.                                                     |
 
 ### `page_badges`
 

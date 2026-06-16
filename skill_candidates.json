@@ -3186,7 +3186,7 @@
       }
     }
   ],
-  "generated": "2026-06-16T14:41:13Z",
+  "generated": "2026-06-16T14:44:46Z",
   "not_applicable": [
     {
       "category": "not_applicable",
@@ -4787,6 +4787,117 @@
           "conceptual": 10,
           "not_applicable": 0
         }
+      }
+    },
+    {
+      "page": "reference/apps/hosts/polkadot-desktop/statement-store.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "publish-off-chain-data-statement-store",
+        "store-data-bulletin-chain"
+      ],
+      "notes": "Architecture reference explaining what Polkadot Desktop adds when mediating Statement Store access (proof routing, account context, topic scope). No procedural content; relevant context for any Statement Store or Bulletin Chain skill.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/hosts/polkadot-web/host-api.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "build-product-polkadot-web",
+        "persist-data-locally-kvstore"
+      ],
+      "notes": "Explains the three categories where Polkadot Web Host API behavior diverges from Desktop (local storage, ExternalRequest/CORS, media permissions). Purely conceptual; no steps, CLI, or code. Relevant context for any Product development skill targeting Polkadot Web.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/hosts/polkadot-web/onchain-polkadot-com.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "register-publish-product",
+        "read-chain-state-product"
+      ],
+      "notes": "Explains why polkadot.com is published as an on-chain Product and what that means for Product developers (submission flow, composability model). Architecture rationale only; no steps or code.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/hosts/polkadot-web/shield-states.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "build-product-polkadot-web",
+        "register-publish-product"
+      ],
+      "notes": "Conceptual model for the shield-state trust indicator in Polkadot Web (bundle integrity + Host posture). Explicitly marked provisional. No steps, CLI, or code; relevant context for Product developers building for Polkadot Web.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/hosts/polkadot-web/visiting.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "register-publish-product",
+        "build-product-polkadot-web"
+      ],
+      "notes": "Describes the visiting flow (DotNS resolution → bundle fetch → sandbox load). Numbered list (P1 fires) describes system-internal steps, not reader actions — the page is reference documentation, not a how-to. Scores within 3 points (conceptual 7 vs procedural 6); tiebreaker: reader is not the actor in the numbered steps.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 6,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "conceptual",
+          "guide"
+        ]
       }
     }
   ]

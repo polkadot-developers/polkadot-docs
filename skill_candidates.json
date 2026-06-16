@@ -3186,7 +3186,7 @@
       }
     }
   ],
-  "generated": "2026-06-16T15:14:13Z",
+  "generated": "2026-06-16T15:18:34Z",
   "not_applicable": [
     {
       "category": "not_applicable",
@@ -5592,6 +5592,131 @@
           "reference",
           "conceptual"
         ]
+      }
+    },
+    {
+      "page": "reference/apps/protocol/truapi/packages.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "sign-and-submit-transactions",
+        "persist-data-locally",
+        "pub-sub-off-chain-data",
+        "read-chain-state"
+      ],
+      "notes": "Package map table (R1) plus architecture explanation of Product vs Host package boundary (C1). Tiebreaker: primary purpose is the lookup table, but the explanatory section is conceptual; rule 5 fires because reference=5 < 7. Useful as context for any skill using @parity/product-sdk.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 5,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "conceptual",
+          "reference"
+        ]
+      }
+    },
+    {
+      "page": "reference/apps/protocol/truapi/payment.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "sign-and-submit-transactions"
+      ],
+      "notes": "Conceptual contract for the Payment method group. References method names like Balances.transfer_keep_alive and the signAndSubmit round trip (R1), but no structured method table or procedural steps. Tiebreaker: content is design rationale and flow description, not a lookup reference; rule 5 fires (reference=5 < 7). Pocket flow section is provisional and still being finalized.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 5,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "conceptual",
+          "reference"
+        ]
+      }
+    },
+    {
+      "page": "reference/apps/protocol/truapi/permissions.md",
+      "category": "reference",
+      "relevant_to": [
+        "sign-and-submit-transactions",
+        "persist-data-locally",
+        "pub-sub-off-chain-data"
+      ],
+      "notes": "Describes the permission query surface with a concrete method signature isGranted(\"ChainSubmit\") (R1) and parameter description for RemotePermission::Remote(Vec<String>) (R3), plus architectural conceptual contract (C1). Rule 4 fires (reference=8 >= 7, procedural=0 < 10). Highly ambiguous with conceptual (diff=1) — tiebreaker: explicit method signatures and parameter descriptions tip it to reference over pure conceptual. Permission taxonomy and exact method surface are still provisional.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 8,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "reference/apps/protocol/truapi/preimage.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "store-data-on-chain"
+      ],
+      "notes": "Conceptual contract for the Preimage method group — explains what preimages are, how they differ from statements, and the lifecycle model. No structured API tables, no procedural steps, no code blocks. Rule 5 fires cleanly (conceptual=7, reference=0). Exact method set and size limits still provisional.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/protocol/truapi/sandbox.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "sign-and-submit-transactions",
+        "persist-data-locally"
+      ],
+      "notes": "Deep architectural explanation of the Product sandbox model — why derived sub-accounts exist, why the Host API is the only egress, and how permissions relax isolation. Entirely conceptual design rationale; no structured method tables, no procedural steps, no runnable code. Rule 5 fires cleanly (conceptual=7, reference=0).",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
       }
     }
   ]

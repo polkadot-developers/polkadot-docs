@@ -3186,7 +3186,7 @@
       }
     }
   ],
-  "generated": "2026-06-16T14:36:24Z",
+  "generated": "2026-06-16T14:41:13Z",
   "not_applicable": [
     {
       "category": "not_applicable",
@@ -4672,6 +4672,119 @@
           "procedural": 0,
           "reference": 0,
           "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/hosts/polkadot-app/sign-in.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "authenticate-with-polkadot-desktop",
+        "pair-polkadot-app-desktop"
+      ],
+      "notes": "Explains the App-side authentication handshake used by Desktop/Web hosts. No developer steps — describes the protocol flow and how Sign In differs from per-transaction signing. Useful context for any skill covering session setup or App pairing.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/hosts/polkadot-desktop/permissions.md",
+      "category": "reference",
+      "relevant_to": [
+        "declare-product-permissions",
+        "build-polkadot-product"
+      ],
+      "notes": "Documents the three permission capability types (Microphone, ExternalRequest, ChainSubmit) a Product declares in its manifest, plus denial UX contract. Scores tie at reference=7 and conceptual=7; rule 4 resolves to reference. Useful context for any Product-building skill that requires permissions.",
+      "scoring": {
+        "signals": [
+          "R2",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 7,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "reference/apps/hosts/polkadot-desktop/pocket.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "send-pocket-transfer"
+      ],
+      "notes": "Conceptual overview of Pocket's personhood-aware, two-sided send flow. The numbered 'What the User Sees' list describes the user UX, not developer action steps. No code, no CLI commands. Supplementary context for any skill covering Pocket transfers.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/hosts/polkadot-desktop/preimage.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "submit-preimage-governance",
+        "store-data-on-chain"
+      ],
+      "notes": "Explains the preimage surface conceptually and includes a Statement vs Preimage comparison table. No runnable steps or code. Useful background for governance or on-chain storage skills.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 10,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/hosts/polkadot-desktop/signing.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "sign-submit-transaction-product-sdk"
+      ],
+      "notes": "Reference for the three-actor signing model (Product → Desktop → App). Includes a mermaid sequence diagram and describes ChainSubmit semantics, HostRejectedError, and TimeoutError. No executable steps. Useful context for any skill covering transaction signing via the Product SDK.",
+      "scoring": {
+        "signals": [
+          "R3",
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 3,
+          "conceptual": 10,
           "not_applicable": 0
         }
       }

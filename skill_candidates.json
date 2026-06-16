@@ -3186,7 +3186,7 @@
       }
     }
   ],
-  "generated": "2026-06-16T14:44:46Z",
+  "generated": "2026-06-16T14:49:10Z",
   "not_applicable": [
     {
       "category": "not_applicable",
@@ -4898,6 +4898,123 @@
           "conceptual",
           "guide"
         ]
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/bulletin-chain/authorization.md",
+      "category": "reference",
+      "relevant_to": [
+        "store-data-on-bulletin-chain"
+      ],
+      "notes": "Defines the per-account quota model (transactions, bytes, expiration block). Ambiguous reference vs conceptual: both score 7 — rule 4 breaks the tie (ref≥7 fires before rule 5).",
+      "scoring": {
+        "signals": [
+          "R2",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 7,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/bulletin-chain/chunked-upload.md",
+      "category": "reference",
+      "relevant_to": [
+        "store-data-on-bulletin-chain"
+      ],
+      "notes": "Documents the SDK chunking pipeline and function signatures (app.bulletin.upload/fetch). P1 fires for the internal pipeline steps but those are system-flow description, not reader actions — confirms reference over guide. Ambiguous reference vs conceptual (8 vs 7).",
+      "scoring": {
+        "signals": [
+          "P1",
+          "R1",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 6,
+          "reference": 8,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/bulletin-chain/cross-chain.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "store-data-on-bulletin-chain"
+      ],
+      "notes": "Provisional conceptual overview of XCM-routed Bulletin writes from People Chain. Protocol details not yet finalized; no procedures or code for a reader to execute.",
+      "scoring": {
+        "signals": [
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 3,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/bulletin-chain/renewal.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "store-data-on-bulletin-chain"
+      ],
+      "notes": "Explains the retention lifecycle, what renewal does, and quota costs. No numbered steps or commands — lifecycle design rationale only.",
+      "scoring": {
+        "signals": [
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 3,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/dotns/architecture.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "register-dotns-name"
+      ],
+      "notes": "Architecture overview of the cooperating dotNS contracts on Asset Hub. Provisional — contract map not yet finalized. Pure conceptual; no procedures or API tables.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
       }
     }
   ]

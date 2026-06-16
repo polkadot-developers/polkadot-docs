@@ -1,0 +1,1 @@
+await store.remove('network');

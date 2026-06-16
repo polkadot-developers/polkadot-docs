@@ -1,0 +1,8 @@
+nav:
+ - 'Overview': index.md
+ - 'Name Mechanism': name-mechanism.md
+ - 'Architecture': architecture.md
+ - 'PopRules and Pricing': poprules-pricing.md
+ - 'Name Transfers': transfer.md
+ - 'CLI': cli.md
+ - 'Testnet Contracts': testnet-contracts.md

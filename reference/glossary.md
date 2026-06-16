@@ -13,20 +13,36 @@ Additional glossaries from around the ecosystem you might find helpful:
 - [Polkadot Wiki Glossary](https://wiki.polkadot.com/general/glossary){target=\_blank}
 - [Polkadot SDK Glossary](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/glossary/index.html){target=\_blank}
 
+## Alias
+
+A context-specific pseudonym derived from a user's [PoP](#proof-of-personhood-pop) identity via [Ring-VRF](#ring-vrf). Unlinkable across `.dot` domains by default. The same user produces a consistent alias every time they return to the same [Product](#product), but a different alias for any other Product.
+
+## Allowance
+
+An on-chain access-control grant. The chain-level permission that gates publishing or storing data. `pallet-statement-store` records per-account `StatementAllowance` entries (a `max_count` cap on live statements and a `max_size` cap on total bytes). [Bulletin Chain](#bulletin-chain) consumes per-account quotas of transactions and bytes for storage. [Coinage](#coinage) issues periodic free-token allowances to persons. Spam resistance comes from the allowance ceiling rather than from per-transaction fees.
+
+## Asset Hub
+
+[Polkadot](#polkadot)'s system chain for assets, swaps, smart contracts, and EVM-compatible contracts. Hosts the [dotNS](#dotns) contracts, where [`.dot`](#dot-address) names actually live.
+
 ## Authority
 
 The role in a blockchain that can participate in consensus mechanisms. 
 
-- **[GRANDPA](#grandpa)**: The authorities vote on chains they consider final.
+- **[GRANDPA](#ghost-based-recursive-ancestor-deriving-prefix-agreement-grandpa)**: The authorities vote on chains they consider final.
 - **[Blind Assignment of Blockchain Extension](#blind-assignment-of-blockchain-extension-babe) (BABE)**: The authorities are also [block authors](#block-author).
 
 Authority sets can be used as a basis for consensus mechanisms such as the [Nominated Proof of Stake (NPoS)](#nominated-proof-of-stake-npos) protocol.
 
 ## Authority Round (Aura)
 
-A deterministic [consensus](#consensus) protocol where block production is limited to a rotating list of [authorities](#authority) that take turns creating blocks. In authority round (Aura) consensus, most online authorities are assumed to be honest. It is often used in combination with [GRANDPA](#grandpa) as a [hybrid consensus](#hybrid-consensus) protocol.
+A deterministic [consensus](#consensus) protocol where block production is limited to a rotating list of [authorities](#authority) that take turns creating blocks. In authority round (Aura) consensus, most online authorities are assumed to be honest. It is often used in combination with [GRANDPA](#ghost-based-recursive-ancestor-deriving-prefix-agreement-grandpa) as a [hybrid consensus](#hybrid-consensus) protocol.
 
 Learn more by reading the official [Aura consensus algorithm](https://openethereum.github.io/Aura){target=\_blank} wiki article.
+
+## Blake2b-256
+
+The cryptographic hash function used pervasively in [Polkadot](#polkadot), for [CIDs](#content-identifier-cid), [statement](#statement)-topic derivation, and content addressing.
 
 ## Blind Assignment of Blockchain Extension (BABE)
 
@@ -37,6 +53,14 @@ Learn more by reading the Polkadot Wiki page on [BABE](https://wiki.polkadot.com
 ## Block Author
 
 The node responsible for the creation of a block, also called _block producers_. In a Proof of Work (PoW) blockchain, these nodes are called _miners_.
+
+## Browse
+
+The Polkadot-native channel through which users find published [Products](#product). A curated catalogue surfaced inside the [Hosts](#host) (App and Desktop dashboards), and the destination a developer publishes a Product to once it's ready for end users.
+
+## Bulletin Chain
+
+[Polkadot](#polkadot)'s content-addressed storage [parachain](#parachain). Writes are gated by an explicit on-chain authorization (no token balance for storage). Content is retained ~2 weeks by default and renewable. Powers [Product](#product) bundles, encrypted [chat](#chat) content, profile media, and app assets.
 
 ## Byzantine Fault Tolerance (BFT)
 
@@ -52,10 +76,6 @@ An early approach to Byzantine fault tolerance (BFT), practical Byzantine fault 
 
 The communication overhead for such systems is `O(n²)`, where `n` is the number of nodes (participants) in the system.
 
-### Preimage
-
-A preimage is the data that is input into a hash function to calculate a hash. Since a hash function is a [one-way function](https://en.wikipedia.org/wiki/One-way_function){target=\_blank}, the output, the hash, cannot be used to reveal the input, the preimage.
-
 ## Call
 
 In the context of pallets containing functions to be dispatched to the runtime, `Call` is an enumeration data type that describes the functions that can be dispatched with one variant per pallet. A `Call` represents a [dispatch](#dispatchable) data structure object.
@@ -67,6 +87,18 @@ A chain specification file defines the properties required to run a node in an a
 ## Chain State
 
 Chain state (also referred to as on-chain state) is the complete set of data stored in a Polkadot SDK-based blockchain's key-value database at any given point in time. It represents everything the runtime currently knows and manages about the network.
+
+## Chat
+
+The [Polkadot App](#polkadot-app)'s in-App messaging surface. Composes the [Statement Store](#statement-store) (signaling, who's online, message arrival) with the [Bulletin Chain](#bulletin-chain) (encrypted message content). Supports DMs, group chats, file attachments, voice calls, and video calls.
+
+## Coin (in Coinage)
+
+A discrete bearer token object with a power-of-two USD value (denominations from $0.01 to $163.84) and an age counter that increments on every transfer or split. Not a balance. One public key holds at most one coin. Backed 1:1 by an underlying stablecoin.
+
+## Coinage
+
+[Polkadot](#polkadot)'s privacy-preserving payment layer (`pallet-coinage`). Replaces public balances with an anonymous coin system denominated in USD. When Alice sends funds to Bob, the only information revealed is that Alice had enough to cover the transfer. [Products](#product) interact with Coinage only through the abstract Payment API.
 
 ## Collator
 
@@ -87,7 +119,7 @@ See also [hybrid consensus](#hybrid-consensus).
 
 ## Consensus Algorithm
 
-Ensures a set of [actors](#authority)—who don't necessarily trust each other—can reach an agreement about the state as the result of some computation. Most consensus algorithms assume that up to one-third of the actors or nodes can be [Byzantine fault tolerant](#byzantine-fault-tolerance-bft).
+Ensures a set of [actors](#authority), who don't necessarily trust each other, can reach an agreement about the state as the result of some computation. Most consensus algorithms assume that up to one-third of the actors or nodes can be [Byzantine fault tolerant](#byzantine-fault-tolerance-bft).
 
 Consensus algorithms are generally concerned with ensuring two properties:
 
@@ -102,6 +134,10 @@ For detailed information about the consensus strategies of the [Polkadot](#polka
 
 See also [hybrid consensus](#hybrid-consensus).
 
+## Content Identifier (CID)
+
+An IPFS-compatible identifier derived from the content (multihash + codec). [Bulletin Chain](#bulletin-chain) defaults to Blake2b-256 with the Raw codec. Two identical payloads produce the same CID.
+
 ## Coretime
 
 The time allocated for utilizing a core, measured in relay chain blocks. There are two types of coretime: *on-demand* and *bulk*.
@@ -109,6 +145,18 @@ The time allocated for utilizing a core, measured in relay chain blocks. There a
 On-demand coretime refers to coretime acquired through bidding in near real-time for the validation of a single parachain block on one of the cores reserved specifically for on-demand orders. They are available as an on-demand coretime pool. Set of cores that are available on-demand. Cores reserved through bulk coretime could also be made available in the on-demand coretime pool, in parts or in entirety.
 
 Bulk coretime is a fixed duration of continuous coretime represented by an NFT that can be split, shared, or resold. It is managed by the [Broker pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank}.
+
+## Cross-Consensus Messaging (XCM)
+
+[Polkadot](#polkadot)'s standard for moving messages and assets between chains. Used for cross-chain [Bulletin Chain](#bulletin-chain) writes initiated from [People Chain](#people-chain), and by the members ring system to distribute ring roots to subscribing [parachains](#parachain).
+
+## DAG-PB
+
+A manifest format used to stitch together the chunks of a large file uploaded to the [Bulletin Chain](#bulletin-chain). When a file is bigger than Bulletin's single-transaction size limit, the SDK splits it into chunks and uploads each one separately, then publishes a DAG-PB manifest that records the order and [CIDs](#content-identifier-cid) of every chunk. Readers fetch the manifest first, then pull the chunks in parallel and reassemble the file locally.
+
+## Derived Sub-Account
+
+A per-[Product](#product) account deterministically derived from the user's identity and the Product's [`.dot`](#dot-address) domain. Each Product sees its own sub-account for the same user, so activity in `app-a.dot` is unlinkable to activity in `app-b.dot` without an explicit cross-domain permission grant. Derivation is computed locally by the [Host](#host), so no round trip to the paired [App](#polkadot-app) is needed to obtain the account.
 
 ## Development Phrase
 
@@ -130,15 +178,39 @@ An extensible field of the [block header](#header) that encodes information need
 - Consensus engines for block verification.
 - The runtime itself, in the case of pre-runtime digests.
 
+## Dimension of Individuality Measurement (DIM)
+
+A way of demonstrating that you're a real, unique person. Each DIM is a separate mechanism a user can complete to build up their personhood score. The PoP Game is the primary DIM in use today. Tattoo verification and in-person meetups have been discussed as future additions.
+
 ## Dispatchable
 
 Function objects that act as the entry points in FRAME [pallets](#pallet). Internal or external entities can call them to interact with the blockchain’s state. They are a core aspect of the runtime logic, handling [transactions](#transaction) and other state-changing operations.
+
+## DOT
+
+[Polkadot](#polkadot)'s native mainnet token. Used for [transaction](#transaction) fees, staking, and governance deposits.
+
+## dot Address
+
+A human-readable name in the [dotNS](#dotns) registry on [Asset Hub](#asset-hub), of the form `something.dot`. Resolves to a content reference ([CID](#content-identifier-cid)) pointing at a published [Product](#product) bundle on [Bulletin Chain](#bulletin-chain) (or via an [IPFS](#interplanetary-file-system-ipfs) gateway), plus a wallet address for users.
+
+## DotNS
+
+[Polkadot](#polkadot)'s name service. A suite of smart contracts on [Asset Hub](#asset-hub) that map `.dot` names to on-chain resources, including wallet addresses for users and [CIDs](#content-identifier-cid) for [Products](#product). Architecturally derived from ENS (Ethereum Name Service) and uses the same name-hashing scheme.
+
+## Entropy
+
+Verifiable randomness sourced from chain state, such as block hashes, VRF outputs, or randomness beacons. Useful when fairness has to be checkable by an external party after the fact (lotteries, fair-shuffle games, randomized airdrops), and stronger than a [Product](#product)'s local CSPRNG for that purpose.
+
+## Ephemeral
+
+Short-lived data that exists outside chain blocks and decays after a defined window. [Statements](#statement) ([Statement Store](#statement-store)), [HOP](#handoff-protocol-hop) entries, and [chat](#chat) messages are all ephemeral. They propagate peer-to-peer, expire after a TTL, and never durably commit to the chain itself.
 
 ## Events
 
 A means of recording that some particular [chain state](#chain-state) transition happened.
 
-In the context of [FRAME](#frame-framework-for-runtime-aggregation-of-modularized-entities), events are composable data types that each [pallet](#pallet) can individually define. Events in FRAME are implemented as a set of transient storage items inspected immediately after a block has been executed and reset during block initialization.
+In the context of [FRAME](#framework-for-runtime-aggregation-of-modularized-entities-frame), events are composable data types that each [pallet](#pallet) can individually define. Events in FRAME are implemented as a set of transient storage items inspected immediately after a block has been executed and reset during block initialization.
 
 ## Executor
 
@@ -167,7 +239,7 @@ It is a SCALE-encoded array typically consisting of a version number, signature,
 
 A fork choice rule or strategy helps determine which chain is valid when reconciling several network forks. A common fork choice rule is the [longest chain](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/struct.LongestChain.html){target=\_blank}, in which the chain with the most blocks is selected.
 
-## FRAME (Framework for Runtime Aggregation of Modularized Entities)
+## Framework for Runtime Aggregation of Modularized Entities (FRAME)
 
 Enables developers to create blockchain [runtime](#runtime) environments from a modular set of components called [pallets](#pallet). It utilizes a set of procedural macros to construct runtimes.
 
@@ -181,27 +253,47 @@ A node that prunes historical states, keeping only recently finalized block stat
 
 A mechanism for specifying the initial state of a blockchain. By convention, this initial state or first block is commonly referred to as the genesis state or genesis block. The genesis configuration for Polkadot SDK-based chains is accomplished by way of a [chain specification](#chain-specification) file.
 
-## GRANDPA
+## GHOST-based Recursive Ancestor Deriving Prefix Agreement (GRANDPA)
 
 A deterministic finality mechanism for blockchains that is implemented in the [Rust](https://rust-lang.org/){target=\_blank} programming language.
 
 The [formal specification](https://github.com/w3f/consensus/blob/master/pdf/grandpa-old.pdf){target=\_blank} is maintained by the [Web3 Foundation](https://web3.foundation/){target=\_blank}.
 
+## Handoff Protocol (HOP)
+
+A [Substrate](#substrate) node service for [ephemeral](#ephemeral), addressed, peer-to-peer data delivery between users. Like a dead-drop with an expiry timer. A sender deposits data for named recipients, recipients collect, and the data self-destructs after collection or ~24 hours.
+
 ## Header
 
 A structure that aggregates the information used to summarize a block. Primarily, it consists of cryptographic information used by [light clients](#light-client) to get minimally secure but very efficient chain synchronization.
+
+## HOLLAR
+
+The placeholder stablecoin currently backing [Coinage](#coinage). Will be replaced by [pUSD](#pusd) once pUSD is available.
+
+## Host
+
+One of the three Polkadot applications ([App](#polkadot-app), [Desktop](#polkadot-desktop), [Web](#polkadot-web)) that load Polkadot [Products](#product) in a [sandboxed](#sandbox) container and mediate every capability the Product uses, including chain calls, storage, signing, and outbound requests.
+
+## Host API
+
+The set of methods a [Host](#host) exposes to the [Products](#product) running inside it. Often used interchangeably with [TrUAPI](#triangle-user-agent-programming-interface-truapi). "Host API" emphasizes the consumer side, "TrUAPI" emphasizes the protocol specification.
 
 ## Hybrid Consensus
 
 A blockchain consensus protocol that consists of independent or loosely coupled mechanisms for [block production](#block-author) and finality.
 
-Hybrid consensus allows the chain to grow as fast as probabilistic consensus protocols, such as [Aura](#authority-round-aura), while maintaining the same level of security as deterministic finality consensus protocols, such as [GRANDPA](#grandpa).
+Hybrid consensus allows the chain to grow as fast as probabilistic consensus protocols, such as [Aura](#authority-round-aura), while maintaining the same level of security as deterministic finality consensus protocols, such as [GRANDPA](#ghost-based-recursive-ancestor-deriving-prefix-agreement-grandpa).
 
 ## Inherent Transactions
 
 A special type of unsigned transaction, referred to as _inherents_, that enables a block authoring node to insert information that doesn't require validation directly into a block.
 
 Only the block-authoring node that calls the inherent transaction function can insert data into its block. In general, validators assume the data inserted using an inherent transaction is valid and reasonable even if it can't be deterministically verified.
+
+## InterPlanetary File System (IPFS)
+
+The content-addressed delivery layer [Polkadot Web](#polkadot-web)'s host shell can use to fetch a [Product](#product) bundle by [CID](#content-identifier-cid), as an alternative to direct [Bulletin Chain](#bulletin-chain) peer-to-peer fetch.
 
 ## JSON-RPC
 
@@ -233,6 +325,10 @@ A type of blockchain node that doesn't store the [chain state](#chain-state) or 
 
 A light client can verify cryptographic primitives and provides a [remote procedure call (RPC)](https://en.wikipedia.org/wiki/Remote_procedure_call){target=\_blank} server, enabling blockchain users to interact with the network.
 
+## Manifest
+
+A JSON file packaged with a [Product](#product)'s bundle that declares the permissions it needs and (for [Polkadot Web](#polkadot-web) Products) the routes and [CIDs](#content-identifier-cid) the [Host](#host) loads. Permissions are declared in the manifest, not requested ad-hoc at runtime.
+
 ## Metadata
 
 Data that provides information about one or more aspects of a system.
@@ -248,41 +344,113 @@ An entity that connects a blockchain to a non-blockchain data source. Oracles en
 
 ## Origin
 
-A [FRAME](#frame-framework-for-runtime-aggregation-of-modularized-entities) primitive that identifies the source of a [dispatched](#dispatchable) function call into the [runtime](#runtime). The FRAME System pallet defines three built-in [origins](#origin). As a [pallet](#pallet) developer, you can also define custom origins, such as those defined by the [Collective pallet](https://paritytech.github.io/substrate/master/pallet_collective/enum.RawOrigin.html){target=\_blank}.
+A [FRAME](#framework-for-runtime-aggregation-of-modularized-entities-frame) primitive that identifies the source of a [dispatched](#dispatchable) function call into the [runtime](#runtime). The FRAME System pallet defines three built-in [origins](#origin). As a [pallet](#pallet) developer, you can also define custom origins, such as those defined by the [Collective pallet](https://paritytech.github.io/substrate/master/pallet_collective/enum.RawOrigin.html){target=\_blank}.
+
+## Pairing
+
+The one-time cryptographic handshake between [Polkadot Desktop](#polkadot-desktop) and the user's mobile [App](#polkadot-app). Desktop displays a QR code, the App scans it and returns a derived [session public key](#session-public-key) that Desktop stores. The private key never leaves the phone.
 
 ## Pallet
 
-A module that can be used to extend the capabilities of a [FRAME](#frame-framework-for-runtime-aggregation-of-modularized-entities)-based [runtime](#runtime).
+A module that can be used to extend the capabilities of a [FRAME](#framework-for-runtime-aggregation-of-modularized-entities-frame)-based [runtime](#runtime).
 Pallets bundle domain-specific logic with runtime primitives like [events](#events) and [storage items](#storage-item).
+
+## PAPI
+
+`polkadot-api`. The standard typed TypeScript library for interacting with [Polkadot](#polkadot) chains. The [Product](#product) SDK's chain-client wraps PAPI, so Products use familiar PAPI patterns under the hood.
 
 ## Parachain
 
 A parachain is a blockchain that derives shared infrastructure and security from a _[relay chain](#relay-chain)_.
 You can learn more about parachains on the [Polkadot Wiki](https://wiki.polkadot.com/learn/learn-parachains/){target=\_blank}.
 
-## Paseo
+## PAS
 
-Paseo TestNet provisions testing on Polkadot's "production" runtime, which means less chance of feature or code mismatch when developing parachain apps. Specifically, after the [Polkadot Technical fellowship](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank} proposes a runtime upgrade for Polkadot, this TestNet is updated, giving a period where the TestNet will be ahead of Polkadot to allow for testing.
+The native token of the [Paseo TestNet](#paseo-testnet). The test-network counterpart to [DOT](#dot). Distributed via the Polkadot Faucet for development.
+
+## Paseo TestNet
+
+The [Polkadot](#polkadot) ecosystem test network. Provisions testing on Polkadot's "production" runtime, which means less chance of feature or code mismatch when developing [parachain](#parachain) apps. After the [Polkadot Technical fellowship](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank} proposes a runtime upgrade for Polkadot, this TestNet is updated, giving a period where the TestNet is ahead of Polkadot to allow for testing. The network that lives behind the [Polkadot Desktop](#polkadot-desktop) environment called `paseo-next`. Accounts, balances, and identities on Paseo TestNet are isolated from mainnet.
+
+## People Chain
+
+[Polkadot](#polkadot)'s system [parachain](#parachain) for identity, usernames, and [Proof of Personhood](#proof-of-personhood-pop). Hosts the PoP pallet set (`pallet-people`, `pallet-game`, `pallet-score`, `pallet-identity`, `pallet-ubc`, `pallet-airdrop`, `pallet-members`), the [Statement Store](#statement-store) [allowance](#allowance) records, and [Coinage](#coinage).
+
+## Pocket
+
+[Polkadot Desktop](#polkadot-desktop)'s peer-to-peer send flow. Two distinguishing properties. First, [personhood](#proof-of-personhood-pop)-aware addressing (the sender can address a recipient by their personhood, not just an account address). Second, two-sided confirmation (the recipient explicitly accepts or declines on their [App](#polkadot-app)).
 
 ## Polkadot
 
 The [Polkadot network](https://polkadot.com/){target=\_blank} is a blockchain that serves as the central hub of a heterogeneous blockchain network. It serves the role of the [relay chain](#relay-chain) and provides shared infrastructure and security to support [parachains](#parachain).
 
+## Polkadot App
+
+The mobile [Host](#host) in the [Triangle](#triangle). Runs on the user's phone, holds the user's private key, performs [Proof of Personhood](#proof-of-personhood-pop) verification, and signs every [transaction](#transaction) a [Product](#product) submits anywhere in the Triangle.
+
 ## Polkadot Cloud
 
 Polkadot Cloud is a platform for deploying resilient, customizable and scalable Web3 applications through Polkadot's functionality. It encompasses the wider Polkadot network infrastructure and security layer where parachains operate. The platform enables users to launch Ethereum-compatible chains, build specialized blockchains, and flexibly manage computing resources through on-demand or bulk coretime purchases. Initially launched with basic parachain functionality, Polkadot Cloud has evolved to offer enhanced flexibility with features like coretime, elastic scaling, and async backing for improved performance.
+
+## Polkadot Desktop
+
+The desktop [Host](#host) in the [Triangle](#triangle). A specialized browser that loads Polkadot [Products](#product) by their `.dot` names inside a [sandbox](#sandbox). Never holds private keys. Routes every signing request to the paired mobile [App](#polkadot-app).
 
 ## Polkadot Hub
 
 Polkadot Hub is a Layer 1 platform that serves as the primary entry point to the Polkadot ecosystem, providing essential functionality without requiring parachain deployment. It offers core services including smart contracts, identity management, staking, governance, and interoperability with other ecosystems, making it simple and fast for both builders and users to get started in Web3.
 
-## PVM
+## Polkadot SDK
 
-The Polkadot Virtual Machine (PVM) is a custom virtual machine optimized for performance, leveraging a RISC-V-based architecture to support Solidity and any language that compiles to RISC-V. It is specifically designed for the Polkadot ecosystem, enabling smart contract deployment and execution.
+The umbrella project that contains [Substrate](#substrate) (the blockchain framework), Cumulus (the [parachain](#parachain) integration layer that lets a Substrate chain plug into [Polkadot](#polkadot)'s [relay chain](#relay-chain) as a parachain), and the Polkadot node implementation itself, all in one monorepo. Most teams building on Polkadot depend on the Polkadot SDK rather than on Substrate alone, because Cumulus is what makes a Substrate chain a parachain of Polkadot.
+
+## Polkadot Virtual Machine (PVM)
+
+A custom virtual machine optimized for performance, leveraging a RISC-V-based architecture to support Solidity and any language that compiles to RISC-V. Specifically designed for the Polkadot ecosystem, enabling smart contract deployment and execution.
+
+## Polkadot Web
+
+The browser-based [Host](#host) in the [Triangle](#triangle), served at `dot.li`. Loads Polkadot [Products](#product) by their `.dot` names inside a [sandboxed](#sandbox) iframe. Pairs with the user's mobile [App](#polkadot-app) for signing. No installation required.
+
+## PoP Full
+
+The destination [personhood](#proof-of-personhood-pop) tier. Cryptographically proven via the biometric verification flow in the official [Polkadot App](#polkadot-app). PoP Full holders join the active membership ring on the [People Chain](#people-chain) and can generate full [Ring-VRF](#ring-vrf) proofs.
+
+## PoP Lite
+
+The on-ramp [personhood](#proof-of-personhood-pop) tier. Third-party attestation registered in a separate lite-people ring. Supply is governance-bounded for spam resistance. Lite holders can produce lite-ring [Ring-VRF](#ring-vrf) proofs but do not yet hold membership in the full personhood ring.
+
+## PoP Tier
+
+A user's level of [Proof of Personhood](#proof-of-personhood-pop). Currently one of three options: Full (cryptographically proven via biometric verification), Lite (third-party attested, governance-bounded supply), or none. The tier determines which features unlock, including short `.dot` names, UBI eligibility, and free unload tokens. Checked through [Ring-VRF](#ring-vrf) proofs against the corresponding members ring.
+
+## Preimage
+
+A preimage is the data that is input into a hash function to calculate a hash. Since a hash function is a [one-way function](https://en.wikipedia.org/wiki/One-way_function){target=\_blank}, the output (the hash) cannot be used to reveal the input (the preimage). Another way to define it is as off-chain content addressed by hash that an on-chain operation will dereference, for example the bytes of a governance proposal that a referendum points at. This differs from a [Statement](#statement). A preimage is durable (it lives until the referencing operation completes), where a Statement is short-lived gossip.
+
+## Product
+
+A third-party single-page application that runs inside a [Host](#host), addressed by a `.dot` domain, reachable from the outside world only through the [Host API](#host-api). Products cannot hold keys, make arbitrary network requests, or talk to chains directly.
+
+## Proof of Personhood (PoP)
+
+[Polkadot](#polkadot)'s privacy-preserving "real human" check on the [People Chain](#people-chain). Verified once via an in-App video interaction (the PoP Game). The result is registered in `pallet-people`'s membership ring and unlocks personhood-gated features such as TestNet funds, short `.dot` names, and [alias](#alias)-gated checks.
+
+## pUSD
+
+[Polkadot](#polkadot)'s planned native stablecoin on [Asset Hub](#asset-hub). Will eventually back [Coinage](#coinage). Until pUSD is live on TestNet, [HOLLAR](#hollar) is the placeholder backing.
+
+## Recycler
+
+A mixing pool built on [Ring-VRF](#ring-vrf) that breaks the on-chain link between a [coin](#coin-in-coinage)'s deposit and withdrawal. Users load a coin into the recycler, wait for other users to load too (a larger set makes deposits harder to link to withdrawals), then unload anonymously into a fresh coin.
 
 ## Relay Chain
 
 Relay chains are blockchains that provide shared infrastructure and security to the [parachains](#parachain) in the network. In addition to providing [consensus](#consensus) capabilities, relay chains allow parachains to communicate and exchange digital assets without needing to trust one another.
+
+## Ring-VRF
+
+The cryptographic primitive at the heart of [PoP](#proof-of-personhood-pop). Lets a verified person prove "I'm one of the recognized persons in this set" without revealing which one. The privacy foundation under [aliases](#alias), [Coinage](#coinage), and airdrops.
 
 ## Rococo
 
@@ -292,15 +460,47 @@ A [parachain](#parachain) test network for the Polkadot network. The [Rococo](#r
 
 The runtime represents the [state transition function](#state-transition-function-stf) for a blockchain. In Polkadot SDK, the runtime is stored as a [Wasm](#webassembly-wasm) binary in the chain state. The Runtime is stored under a unique state key and can be modified during the execution of the state transition function.
 
+## Sandbox
+
+The [Host](#host)-governed environment a [Product](#product) runs in. Products see [derived sub-accounts](#derived-sub-account) (not the user's root identity), reach the outside world only through the [Host API](#host-api), and are isolated from one another by default. Declared permissions selectively relax this isolation.
+
+## Session Public Key
+
+The derived public key [Desktop](#polkadot-desktop) receives from the mobile [App](#polkadot-app) during [pairing](#pairing). Lets Desktop identify the user and construct per-[Product](#product) sub-accounts, but is never enough to sign on its own. A dev-pairing artifact, unrelated to [validator](#validator) session keys used for block production.
+
+## Shield States
+
+The security-indicator UI in [Polkadot Web](#polkadot-web). Yellow while verifying. Green when confirmed. Orange when content was served via a gateway fallback rather than peer-to-peer. Red when the on-chain record has changed since the cached version was loaded.
+
+## Sign In with Polkadot
+
+The [Host](#host)-level authentication handshake between [Polkadot Desktop](#polkadot-desktop) (or [Web](#polkadot-web)) and the paired [Polkadot App](#polkadot-app). Establishes session identity so the Host can construct per-[Product](#product) sub-accounts. Distinct from per-[transaction](#transaction) signing. Sign In runs once at the start of a session, and signing runs per-transaction.
+
+## Signing Model
+
+Mobile is the signer. [Desktop](#polkadot-desktop) is the mediator. Every [transaction](#transaction) routes from the [Product](#product) through Desktop's signing modal to the paired [App](#polkadot-app), where the user explicitly approves on their phone. The Chain Submit permission gates the ability to request a signing prompt. It never authorizes auto-signing.
+
+## Simple Concatenated Aggregate Little-Endian (SCALE)
+
+The compact binary codec used by [Polkadot SDK](#polkadot-sdk) for on-chain data, RPC messages, and inter-chain payloads. [TrUAPI](#triangle-user-agent-programming-interface-truapi) messages are SCALE-encoded.
+
 ## Slot
 
 A fixed, equal interval of time used by consensus engines such as [Aura](#authority-round-aura) and [BABE](#blind-assignment-of-blockchain-extension-babe). In each slot, a subset of [authorities](#authority) is permitted, or obliged, to [author](#block-author) a block.
+
+## Smoldot
+
+The [Polkadot](#polkadot) [light client](#light-client). Used by [Polkadot Web](#polkadot-web)'s host shell to verify chain state in-browser without running a [full node](#full-node). Planned for direct [Statement Store](#statement-store) participation by end-user apps.
 
 ## Sovereign Account
 
 The unique account identifier for each chain in the relay chain ecosystem. It is often used in cross-consensus (XCM) interactions to sign XCM messages sent to the relay chain or other chains in the ecosystem.
 
 The sovereign account for each chain is a root-level account that can only be accessed using the Sudo pallet or through governance. The account identifier is calculated by concatenating the Blake2 hash of a specific text string and the registered parachain identifier.
+
+## Sr25519
+
+The default cryptographic signature scheme used across [Polkadot](#polkadot). Schnorr signatures over Ristretto. Used for [transactions](#transaction), [statements](#statement), and [PoP](#proof-of-personhood-pop) proofs.
 
 ## SS58 Address Format
 
@@ -312,14 +512,22 @@ The [canonical `ss58-registry`](https://github.com/paritytech/ss58-registry){tar
 
 The logic of a blockchain that determines how the state changes when a block is processed. In Polkadot SDK, the state transition function is effectively equivalent to the [runtime](#runtime).
 
+## Statement
+
+An [ephemeral](#ephemeral), signed data blob in the [Statement Store](#statement-store). Lives in the node's local pool, not in chain blocks. Carries a payload (up to ~1 MB), one or more topics, an optional channel for last-write-wins replacement, and an authentication proof.
+
+## Statement Store
+
+A network-layer pub/sub primitive on the [People Chain](#people-chain), not a chain in its own right. [Statements](#statement) are signed, [allowance](#allowance)-gated, propagated peer-to-peer through gossip, and decay after a short TTL.
+
 ## Storage Item
 
-[FRAME](#frame-framework-for-runtime-aggregation-of-modularized-entities) primitives that provide type-safe data persistence capabilities to the [runtime](#runtime).
+[FRAME](#framework-for-runtime-aggregation-of-modularized-entities-frame) primitives that provide type-safe data persistence capabilities to the [runtime](#runtime).
 Learn more in the [storage items](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/index.html){target=\_blank} reference document in the Polkadot SDK.
 
 ## Substrate
 
-A flexible framework for building modular, efficient, and upgradeable blockchains. Substrate is written in the [Rust](https://rust-lang.org/){target=\_blank} programming language and is maintained by [Parity Technologies](https://www.parity.io/){target=\_blank}.
+The modular [Rust](https://rust-lang.org/){target=\_blank} blockchain framework Polkadot is built on, and now one component of the Polkadot SDK. A Substrate runtime is composed of pallets (reusable modules implementing chain logic — balances, staking, governance, etc.) and uses the SCALE codec for encoding. Substrate is the framework; Polkadot is one chain built with it. Substrate is maintained by [Parity Technologies](https://www.parity.io/){target=\_blank}.
 
 ## Transaction
 
@@ -329,6 +537,14 @@ An [extrinsic](#extrinsic) that includes a signature that can be used to verify 
 
 A definable period expressed as a range of block numbers during which a transaction can be included in a block.
 Transaction eras are used to protect against transaction replay attacks if an account is reaped and its replay-protecting nonce is reset to zero.
+
+## Triangle
+
+Three Polkadot [Hosts](#host) (the [Polkadot App](#polkadot-app) on mobile, [Polkadot Desktop](#polkadot-desktop), and [Polkadot Web](#polkadot-web)) together with the [Products](#product) that run inside them and the [TrUAPI](#triangle-user-agent-programming-interface-truapi) protocol that connects them. The mobile App is always the key custodian. Desktop and Web never hold private keys.
+
+## Triangle User-Agent Programming Interface (TrUAPI)
+
+The protocol that mediates all communication between [Hosts](#host) and [Products](#product). Always capitalized this way. Eleven method groups cover signing, chain interaction, storage, [chat](#chat), payments, and more.
 
 ## Trie (Patricia Merkle Tree)
 

@@ -2,6 +2,8 @@
 title: Quick Start
 description: Deploy a Polkadot Product in under 15 minutes, in the browser with RevX or from the terminal with the CLI. No local environment required.
 categories: Apps
+page_badges:
+  tutorial_badge: Beginner
 ---
 
 # Quick Start

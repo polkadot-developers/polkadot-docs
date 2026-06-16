@@ -2,6 +2,8 @@
 title: Install Polkadot Desktop and Pair
 description: Install Polkadot Desktop, pair it with the Polkadot App on your phone with a QR scan, and set up the foundation for local Polkadot Product development.
 categories: Apps
+page_badges:
+  tutorial_badge: Beginner
 ---
 
 # Install Polkadot Desktop and Pair

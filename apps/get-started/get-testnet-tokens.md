@@ -2,6 +2,8 @@
 title: Get TestNet Tokens
 description: Claim TestNet tokens from the Polkadot Faucet and unlock per-service allowances for Bulletin Chain, Statement Store, and dotNS.
 categories: Apps
+page_badges:
+  tutorial_badge: Beginner
 ---
 
 # Get TestNet Tokens

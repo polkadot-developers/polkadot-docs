@@ -2,6 +2,8 @@
 title: Build a Shared Todo App
 description: Build a complete Polkadot Product end to end with a shared todo board that combines signing, local persistence, real-time pub/sub, and on-chain storage.
 categories: Apps
+page_badges:
+  tutorial_badge: Advanced
 ---
 
 # Build a Shared Todo App

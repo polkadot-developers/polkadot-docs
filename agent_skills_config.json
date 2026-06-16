@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:a659d8115036afaed788a624a78003e30ad4e87f6fa821f85e03aed8d7c23586",
-  "generated": "2026-06-08T20:00:00Z",
+  "content_hash": "sha256:690472b7f0efbab6e9eb1f64248bfde738d4eea8aed918138f4426c8525ff88a",
+  "generated": "2026-06-16T00:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -134,7 +134,7 @@
         ]
       },
       "title": "Create a Polkadot Account Programmatically",
-      "version": "1.0.10",
+      "version": "1.0.11",
       "workflow_pattern": "sequential"
     },
     {
@@ -276,7 +276,7 @@
         ]
       },
       "title": "Query Account Information with SDKs",
-      "version": "1.0.10",
+      "version": "1.0.11",
       "workflow_pattern": "sequential"
     },
     {
@@ -430,7 +430,7 @@
         ]
       },
       "title": "Query On-Chain State with SDKs",
-      "version": "1.0.10",
+      "version": "1.0.11",
       "workflow_pattern": "sequential"
     },
     {
@@ -572,7 +572,7 @@
         ]
       },
       "title": "Call Runtime APIs with SDKs",
-      "version": "1.0.10",
+      "version": "1.0.11",
       "workflow_pattern": "sequential"
     },
     {
@@ -1780,7 +1780,7 @@
           "commands": [
             "curl -s \"https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/pallets/assets/storage/Metadata?keys[]=1984\" | jq ."
           ],
-          "description": "Query metadata for asset ID 1984 (USDT). The `name` and `symbol` fields are returned as hex-encoded strings: `0x5465746865722055534454` decodes to 'Tether USD', `0x55534474` decodes to 'USDt'. Replace `1984` with any asset ID. For asset details (owner, supply, isSufficient), use `https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/pallets/assets/storage/Asset?keys[]=1984`.",
+          "description": "Query metadata for asset ID 1984 (USDT). The `name` and `symbol` fields are returned as hex-encoded strings: `0x54657468657220555344` decodes to 'Tether USD', `0x55534474` decodes to 'USDt'. Replace `1984` with any asset ID. For asset details (owner, supply, isSufficient), use `https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/pallets/assets/storage/Asset?keys[]=1984`.",
           "expected_output": "{\"at\":{...},\"pallet\":\"assets\",\"storageItem\":\"Metadata\",\"keys\":[\"1984\"],\"value\":{\"deposit\":\"...\",\"name\":\"0x5465746865722055534454\",\"symbol\":\"0x55534474\",\"decimals\":\"6\",\"isFrozen\":false}}",
           "order": 4,
           "working_directory": "."
@@ -1841,7 +1841,7 @@
         ]
       },
       "title": "Query On-Chain Data with Sidecar REST API",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -1987,7 +1987,7 @@
         ]
       },
       "title": "Estimate Transaction Fees with PAPI",
-      "version": "1.1.5",
+      "version": "1.1.6",
       "workflow_pattern": "sequential"
     },
     {
@@ -2694,7 +2694,7 @@
         ]
       },
       "title": "Replay and Dry-Run XCMs Using Chopsticks",
-      "version": "1.1.5",
+      "version": "1.1.6",
       "workflow_pattern": "sequential"
     },
     {

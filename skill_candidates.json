@@ -1,7 +1,7 @@
 {
   "candidates": [
     {
-      "built_at": "2026-06-05T19:00:00Z",
+      "built_at": "2026-06-16T15:30:00Z",
       "category": "tutorial",
       "notes": "Complete, multi-language tutorial (TypeScript, Python, Rust) covering account key generation. Fully self-contained with cookbook-tested code. All three language variants could become one skill or three; one skill covering the PAPI/TypeScript path is recommended.",
       "priority": "high",
@@ -35,7 +35,7 @@
       "title": "Create a Polkadot Account Programmatically"
     },
     {
-      "built_at": "2026-06-05T19:00:00Z",
+      "built_at": "2026-06-16T15:30:00Z",
       "category": "tutorial",
       "notes": "Multi-SDK tutorial covering PAPI, Polkadot.js, Dedot, Python Substrate Interface, and Subxt. Each SDK variant is self-contained. Cookbook-backed with CI badges. Recommend one skill targeting the PAPI variant as the primary path.",
       "priority": "high",
@@ -69,7 +69,7 @@
       "title": "Query Account Information with SDKs"
     },
     {
-      "built_at": "2026-04-21T18:30:00Z",
+      "built_at": "2026-06-16T15:30:00Z",
       "category": "tutorial",
       "notes": "Covers querying account balances, asset metadata, and block info via curl against the Sidecar REST API. P3 absent (no files to create, only curl commands). Reference tables for response fields contribute to reference score but procedural score still meets tutorial threshold. Has cookbook CI badge (K4).",
       "priority": "high",
@@ -103,7 +103,7 @@
       "title": "Query On-Chain State with Sidecar REST API"
     },
     {
-      "built_at": "2026-06-05T19:00:00Z",
+      "built_at": "2026-06-16T15:30:00Z",
       "category": "tutorial",
       "notes": "Multi-SDK tutorial (PAPI, Polkadot.js, Dedot, Python Substrate Interface, Subxt) for querying account balance and asset info. Cookbook-backed. Recommend primary skill targeting PAPI TypeScript path.",
       "priority": "high",
@@ -137,7 +137,7 @@
       "title": "Query On-Chain State with SDKs"
     },
     {
-      "built_at": "2026-06-05T19:00:00Z",
+      "built_at": "2026-06-16T15:30:00Z",
       "category": "tutorial",
       "notes": "Multi-SDK tutorial demonstrating AccountNonceApi and Metadata runtime API calls. Reference API table at the bottom is supplementary. Cookbook-backed with CI badge.",
       "priority": "high",
@@ -172,7 +172,7 @@
       "title": "Call Runtime APIs with SDKs"
     },
     {
-      "built_at": "2026-04-21T18:30:00Z",
+      "built_at": "2026-06-16T15:30:00Z",
       "category": "tutorial",
       "notes": "Covers fee estimation using PAPI and Polkadot.js SDK. Includes a GUI section via Polkadot.js Apps (S2 notes this adds non-deterministic path) but the primary SDK workflow is fully programmatic. No cookbook badge (K4 absent).",
       "priority": "high",
@@ -205,7 +205,7 @@
       "title": "Calculate Transaction Fees Programmatically"
     },
     {
-      "built_at": "2026-04-21T19:00:00Z",
+      "built_at": "2026-06-16T15:30:00Z",
       "category": "tutorial",
       "notes": "Advanced tutorial covering XCM replay and dry-run via Chopsticks local fork. Requires building a Wasm binary and using Subscan to locate call data (partial manual step reduces S2). No cookbook badge. Specialized debugging skill for XCM developers.",
       "priority": "high",
@@ -2868,16 +2868,22 @@
       "title": "Deploy Uniswap V3 Periphery with EVM on Polkadot Hub"
     },
     {
-      "skill_id": "use-local-kv-store-product-sdk",
-      "title": "Persist Data Locally with the Product SDK",
-      "source_pages": [
-        "apps/build/persist-data-locally.md"
-      ],
       "category": "guide",
-      "priority": "medium",
-      "status": "pending",
       "notes": "Covers the full LocalKvStore API (string, JSON, remove, prefix, React hooks). K1=0: prereq references 'Set Up Your Project' on a separate page. No reference repo; code snippets are in-repo via --8<-- includes. Ambiguous with reference due to dense API surface (procedural=10, reference=9).",
+      "priority": "medium",
       "scoring": {
+        "category_ambiguous": true,
+        "category_scores": {
+          "conceptual": 5,
+          "not_applicable": 0,
+          "procedural": 10,
+          "reference": 9
+        },
+        "contending_categories": [
+          "guide",
+          "reference"
+        ],
+        "priority_score": 14,
         "signals": [
           "P2",
           "P3",
@@ -2888,32 +2894,27 @@
           "K3",
           "S1",
           "S2"
-        ],
-        "category_scores": {
-          "procedural": 10,
-          "reference": 9,
-          "conceptual": 5,
-          "not_applicable": 0
-        },
-        "priority_score": 14,
-        "category_ambiguous": true,
-        "contending_categories": [
-          "guide",
-          "reference"
         ]
-      }
+      },
+      "skill_id": "use-local-kv-store-product-sdk",
+      "source_pages": [
+        "apps/build/persist-data-locally.md"
+      ],
+      "status": "pending",
+      "title": "Persist Data Locally with the Product SDK"
     },
     {
-      "skill_id": "publish-subscribe-statement-store",
-      "title": "Publish and Subscribe to Off-Chain Data via the Statement Store",
-      "source_pages": [
-        "apps/build/pub-sub-off-chain-data.md"
-      ],
       "category": "guide",
-      "priority": "medium",
-      "status": "pending",
       "notes": "Covers StatementStoreClient setup, subscribe, publish, and ChannelStore patterns. K1=0: prereqs include 'Install Desktop and Pair' and obtaining a Statement Store allowance (obtaining that allowance is currently undocumented, which limits agent feasibility for the publish path; subscribe/read is permissionless). S2=0: outcome depends on gossip network state and the undocumented allowance. Code snippets via --8<-- includes.",
+      "priority": "medium",
       "scoring": {
+        "category_scores": {
+          "conceptual": 5,
+          "not_applicable": 0,
+          "procedural": 14,
+          "reference": 9
+        },
+        "priority_score": 11,
         "signals": [
           "P2",
           "P3",
@@ -2924,27 +2925,27 @@
           "K2",
           "K3",
           "S1"
-        ],
-        "category_scores": {
-          "procedural": 14,
-          "reference": 9,
-          "conceptual": 5,
-          "not_applicable": 0
-        },
-        "priority_score": 11
-      }
+        ]
+      },
+      "skill_id": "publish-subscribe-statement-store",
+      "source_pages": [
+        "apps/build/pub-sub-off-chain-data.md"
+      ],
+      "status": "pending",
+      "title": "Publish and Subscribe to Off-Chain Data via the Statement Store"
     },
     {
-      "skill_id": "read-chain-state-product-sdk",
-      "title": "Read On-Chain Data with the Product SDK",
-      "source_pages": [
-        "apps/build/read-chain-state.md"
-      ],
       "category": "guide",
-      "priority": "medium",
-      "status": "pending",
       "notes": "Covers getChainAPI (preset) and createChainClient (BYOD) paths, storage/constants reads, parallel multi-chain reads, raw PAPI access, and connection cleanup. K1=0: prereq references 'Set Up Your Project'. Reads are permissionless and deterministic. Only paseo and summit presets are live at time of triage; other environments throw at runtime.",
+      "priority": "medium",
       "scoring": {
+        "category_scores": {
+          "conceptual": 5,
+          "not_applicable": 0,
+          "procedural": 14,
+          "reference": 9
+        },
+        "priority_score": 14,
         "signals": [
           "P2",
           "P3",
@@ -2956,27 +2957,27 @@
           "K3",
           "S1",
           "S2"
-        ],
-        "category_scores": {
-          "procedural": 14,
-          "reference": 9,
-          "conceptual": 5,
-          "not_applicable": 0
-        },
-        "priority_score": 14
-      }
+        ]
+      },
+      "skill_id": "read-chain-state-product-sdk",
+      "source_pages": [
+        "apps/build/read-chain-state.md"
+      ],
+      "status": "pending",
+      "title": "Read On-Chain Data with the Product SDK"
     },
     {
-      "skill_id": "sign-submit-transactions-product-sdk",
-      "title": "Sign and Submit Transactions with the Product SDK",
-      "source_pages": [
-        "apps/build/sign-and-submit.md"
-      ],
       "category": "guide",
-      "priority": "medium",
-      "status": "pending",
       "notes": "Covers SignerManager setup, host connection, product account derivation, signRaw, sign-and-submit via PAPI, error handling, and dev-mode testing. K1=0: prereq references 'Set Up Your Project'. K2=0: transaction snippet contains INSERT_RECIPIENT_ADDRESS placeholder. Full signing flow requires paired mobile Polkadot App (not automatable); dev mode (connect('dev')) is feasible for agents.",
+      "priority": "medium",
       "scoring": {
+        "category_scores": {
+          "conceptual": 5,
+          "not_applicable": 0,
+          "procedural": 14,
+          "reference": 9
+        },
+        "priority_score": 10,
         "signals": [
           "P2",
           "P3",
@@ -2987,27 +2988,27 @@
           "K3",
           "S1",
           "S2"
-        ],
-        "category_scores": {
-          "procedural": 14,
-          "reference": 9,
-          "conceptual": 5,
-          "not_applicable": 0
-        },
-        "priority_score": 10
-      }
+        ]
+      },
+      "skill_id": "sign-submit-transactions-product-sdk",
+      "source_pages": [
+        "apps/build/sign-and-submit.md"
+      ],
+      "status": "pending",
+      "title": "Sign and Submit Transactions with the Product SDK"
     },
     {
-      "skill_id": "store-data-bulletin-chain",
-      "title": "Store Data on the Bulletin Chain",
-      "source_pages": [
-        "apps/build/store-data-on-chain.md"
-      ],
       "category": "tutorial",
-      "priority": "medium",
-      "status": "pending",
       "notes": "K1=0: requires Install Desktop+Pair and Get TestNet Tokens as prerequisites, plus an existing Product project. Five SDK flows covered (hello world, larger file, renewal, cross-chain XCM, preimage) via --8<-- includes from docs repo code/ directory. Bulletin Chain authorization requires Root origin and cannot be obtained programmatically; developer must request via external authorization page before running store extrinsics.",
+      "priority": "medium",
       "scoring": {
+        "category_scores": {
+          "conceptual": 3,
+          "not_applicable": 0,
+          "procedural": 20,
+          "reference": 8
+        },
+        "priority_score": 17,
         "signals": [
           "P1",
           "P2",
@@ -3021,27 +3022,27 @@
           "S1",
           "S2",
           "S3"
-        ],
-        "category_scores": {
-          "procedural": 20,
-          "reference": 8,
-          "conceptual": 3,
-          "not_applicable": 0
-        },
-        "priority_score": 17
-      }
+        ]
+      },
+      "skill_id": "store-data-bulletin-chain",
+      "source_pages": [
+        "apps/build/store-data-on-chain.md"
+      ],
+      "status": "pending",
+      "title": "Store Data on the Bulletin Chain"
     },
     {
-      "skill_id": "deploy-product-dotns",
-      "title": "Deploy a Polkadot Product to a .dot Name",
-      "source_pages": [
-        "apps/deploy-your-app.md"
-      ],
       "category": "tutorial",
-      "priority": "medium",
-      "status": "pending",
       "notes": "K1=0: requires Install Desktop+Pair, Get TestNet Tokens, and a pre-existing Product project. Interactive playground CLI flow with 8 numbered deploy prompts (build, contracts, signer, build dir, domain, publish). No source code files created (P3=0); procedural score is exactly at tutorial threshold (15). Domain availability table distinguishes PoP-required vs open names.",
+      "priority": "medium",
       "scoring": {
+        "category_scores": {
+          "conceptual": 0,
+          "not_applicable": 0,
+          "procedural": 15,
+          "reference": 4
+        },
+        "priority_score": 17,
         "signals": [
           "P1",
           "P2",
@@ -3052,27 +3053,27 @@
           "S1",
           "S2",
           "S3"
-        ],
-        "category_scores": {
-          "procedural": 15,
-          "reference": 4,
-          "conceptual": 0,
-          "not_applicable": 0
-        },
-        "priority_score": 17
-      }
+        ]
+      },
+      "skill_id": "deploy-product-dotns",
+      "source_pages": [
+        "apps/deploy-your-app.md"
+      ],
+      "status": "pending",
+      "title": "Deploy a Polkadot Product to a .dot Name"
     },
     {
-      "skill_id": "get-testnet-tokens-paseo",
-      "title": "Get TestNet Tokens for Polkadot Development",
-      "source_pages": [
-        "apps/get-started/get-testnet-tokens.md"
-      ],
       "category": "guide",
-      "priority": "medium",
-      "status": "pending",
       "notes": "K1=0: requires Install Desktop and Pair as prerequisite. Primary faucet action is browser-based GUI (S1=0) — no CLI path. Also covers service allowance types (Bulletin Chain, Statement Store, dotNS) as supplementary context. Functions as a shared prerequisite step for most other Polkadot Product skills.",
+      "priority": "medium",
       "scoring": {
+        "category_scores": {
+          "conceptual": 0,
+          "not_applicable": 0,
+          "procedural": 10,
+          "reference": 3
+        },
+        "priority_score": 13,
         "signals": [
           "P1",
           "P4",
@@ -3081,27 +3082,27 @@
           "K3",
           "S2",
           "S3"
-        ],
-        "category_scores": {
-          "procedural": 10,
-          "reference": 3,
-          "conceptual": 0,
-          "not_applicable": 0
-        },
-        "priority_score": 13
-      }
+        ]
+      },
+      "skill_id": "get-testnet-tokens-paseo",
+      "source_pages": [
+        "apps/get-started/get-testnet-tokens.md"
+      ],
+      "status": "pending",
+      "title": "Get TestNet Tokens for Polkadot Development"
     },
     {
-      "skill_id": "install-deploy-product-cli",
-      "title": "Install and Deploy a Product with playground-cli",
-      "source_pages": [
-        "apps/quick-start-cli.md"
-      ],
       "category": "tutorial",
-      "priority": "medium",
-      "status": "pending",
       "notes": "K1=0: requires a pre-existing Polkadot Product project on disk with a build command. End-to-end from CLI install (curl) through pg init, pg build, pg deploy. No source code files created (P3=0); procedural score at tutorial threshold (15). Dev signer (--signer dev) flag makes the workflow fully automatable without phone interaction.",
+      "priority": "medium",
       "scoring": {
+        "category_scores": {
+          "conceptual": 0,
+          "not_applicable": 0,
+          "procedural": 15,
+          "reference": 4
+        },
+        "priority_score": 17,
         "signals": [
           "P1",
           "P2",
@@ -3112,27 +3113,27 @@
           "S1",
           "S2",
           "S3"
-        ],
-        "category_scores": {
-          "procedural": 15,
-          "reference": 4,
-          "conceptual": 0,
-          "not_applicable": 0
-        },
-        "priority_score": 17
-      }
+        ]
+      },
+      "skill_id": "install-deploy-product-cli",
+      "source_pages": [
+        "apps/quick-start-cli.md"
+      ],
+      "status": "pending",
+      "title": "Install and Deploy a Product with playground-cli"
     },
     {
-      "skill_id": "create-deploy-product-revx",
-      "title": "Create and Deploy a Polkadot Product with RevX App Builder",
-      "source_pages": [
-        "apps/quick-start.md"
-      ],
       "category": "guide",
-      "priority": "low",
-      "status": "pending",
       "notes": "Entirely browser/GUI-based (S1=0): all steps are clicks in the RevX browser IDE and phone signing. AI-generated code is non-deterministic (S2=0) — output depends on prompt and model. Requires external AI API key (OpenAI/Anthropic). Low skill-fit priority (7) reflects poor agent-executability.",
+      "priority": "low",
       "scoring": {
+        "category_scores": {
+          "conceptual": 5,
+          "not_applicable": 0,
+          "procedural": 10,
+          "reference": 4
+        },
+        "priority_score": 7,
         "signals": [
           "P1",
           "P4",
@@ -3141,27 +3142,27 @@
           "C3",
           "K2",
           "K3"
-        ],
-        "category_scores": {
-          "procedural": 10,
-          "reference": 4,
-          "conceptual": 5,
-          "not_applicable": 0
-        },
-        "priority_score": 7
-      }
+        ]
+      },
+      "skill_id": "create-deploy-product-revx",
+      "source_pages": [
+        "apps/quick-start.md"
+      ],
+      "status": "pending",
+      "title": "Create and Deploy a Polkadot Product with RevX App Builder"
     },
     {
-      "skill_id": "build-shared-todo-app",
-      "title": "Build a Shared Todo App",
-      "source_pages": [
-        "apps/tutorials/shared-todo-app.md"
-      ],
       "category": "tutorial",
-      "priority": "high",
-      "status": "pending",
       "notes": "K1=0: prerequisites reference separate Install Desktop and Pair and Get TestNet Tokens pages. Core workflow code is fully contained in this page via --8<-- includes (confirmed working with product-sdk v0.11.0). Standalone rather than composite because the companion prereq pages handle environmental setup, not workflow steps.",
+      "priority": "high",
       "scoring": {
+        "category_scores": {
+          "conceptual": 8,
+          "not_applicable": 0,
+          "procedural": 20,
+          "reference": 0
+        },
+        "priority_score": 20,
         "signals": [
           "P1",
           "P2",
@@ -3175,27 +3176,27 @@
           "S1",
           "S2",
           "S3"
-        ],
-        "category_scores": {
-          "procedural": 20,
-          "reference": 0,
-          "conceptual": 8,
-          "not_applicable": 0
-        },
-        "priority_score": 20
-      }
+        ]
+      },
+      "skill_id": "build-shared-todo-app",
+      "source_pages": [
+        "apps/tutorials/shared-todo-app.md"
+      ],
+      "status": "pending",
+      "title": "Build a Shared Todo App"
     },
     {
-      "skill_id": "install-polkadot-product-skills",
-      "title": "Install Polkadot Product Skills for Claude Code",
-      "source_pages": [
-        "reference/apps/skills.md"
-      ],
       "category": "guide",
-      "priority": "medium",
-      "status": "pending",
       "notes": "Procedural guide for installing Claude Code product-skills via /plugin CLI commands. No formal prerequisites section (K3=0); primary install path is CLI-based so S1 fires. Page is meta in that it documents the Claude Code skills marketplace for Polkadot Products developers.",
+      "priority": "medium",
       "scoring": {
+        "category_scores": {
+          "conceptual": 5,
+          "not_applicable": 0,
+          "procedural": 11,
+          "reference": 0
+        },
+        "priority_score": 16,
         "signals": [
           "P1",
           "P2",
@@ -3204,15 +3205,14 @@
           "K2",
           "S1",
           "S2"
-        ],
-        "category_scores": {
-          "procedural": 11,
-          "reference": 0,
-          "conceptual": 5,
-          "not_applicable": 0
-        },
-        "priority_score": 16
-      }
+        ]
+      },
+      "skill_id": "install-polkadot-product-skills",
+      "source_pages": [
+        "reference/apps/skills.md"
+      ],
+      "status": "pending",
+      "title": "Install Polkadot Product Skills for Claude Code"
     }
   ],
   "generated": "2026-06-16T15:23:49Z",
@@ -3445,24 +3445,24 @@
       }
     },
     {
-      "page": "AGENTS.md",
       "category": "conceptual",
+      "page": "AGENTS.md",
       "reason": "Meta-configuration file for AI doc-authoring agents. Explains style guide references, linting setup, and doc-writing precedence rules. Not a developer tutorial or SDK reference — has no relevance to Polkadot product developer skills.",
       "scoring": {
-        "signals": [
-          "P2",
-          "C1"
-        ],
-        "category_scores": {
-          "procedural": 5,
-          "reference": 0,
-          "conceptual": 5,
-          "not_applicable": 0
-        },
         "category_ambiguous": true,
+        "category_scores": {
+          "conceptual": 5,
+          "not_applicable": 0,
+          "procedural": 5,
+          "reference": 0
+        },
         "contending_categories": [
           "conceptual",
           "guide"
+        ],
+        "signals": [
+          "P2",
+          "C1"
         ]
       }
     }
@@ -4632,1188 +4632,1188 @@
       }
     },
     {
-      "page": "reference/apps/hosts/polkadot-app/chat.md",
       "category": "conceptual",
+      "notes": "Canonical reference for the Statement Store + Bulletin Chain composition pattern — the same split used in the shared todo app (gossip for mutations, Bulletin for snapshots). No procedural steps; marked Provisional.",
+      "page": "reference/apps/hosts/polkadot-app/chat.md",
       "relevant_to": [
         "build-shared-todo-app"
       ],
-      "notes": "Canonical reference for the Statement Store + Bulletin Chain composition pattern — the same split used in the shared todo app (gossip for mutations, Bulletin for snapshots). No procedural steps; marked Provisional.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/hosts/polkadot-app/coinage.md",
       "category": "conceptual",
-      "relevant_to": [],
       "notes": "Conceptual model for the Coinage peer-to-peer payment feature. Marked Provisional; no procedural content or developer integration pattern yet defined.",
+      "page": "reference/apps/hosts/polkadot-app/coinage.md",
+      "relevant_to": [],
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/hosts/polkadot-app/pocket.md",
       "category": "conceptual",
-      "relevant_to": [],
       "notes": "Conceptual model for the App-side Pocket recipient flow. Marked Provisional; recipient-side flow and Product-developer integration surface are still being defined.",
-      "scoring": {
-        "signals": [
-          "C1",
-          "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
-      }
-    },
-    {
-      "page": "reference/apps/hosts/polkadot-app/pop.md",
-      "category": "conceptual",
+      "page": "reference/apps/hosts/polkadot-app/pocket.md",
       "relevant_to": [],
-      "notes": "Architecture reference for Proof of Personhood, Ring-VRF aliases, and Full vs Lite PoP tiers. No procedural steps; marked Provisional for the biometric flow details. Relevant to future skills gating features on personhood.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/hosts/polkadot-app/sign-in.md",
       "category": "conceptual",
+      "notes": "Architecture reference for Proof of Personhood, Ring-VRF aliases, and Full vs Lite PoP tiers. No procedural steps; marked Provisional for the biometric flow details. Relevant to future skills gating features on personhood.",
+      "page": "reference/apps/hosts/polkadot-app/pop.md",
+      "relevant_to": [],
+      "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
+        "signals": [
+          "C1",
+          "C3"
+        ]
+      }
+    },
+    {
+      "category": "conceptual",
+      "notes": "Explains the App-side authentication handshake used by Desktop/Web hosts. No developer steps — describes the protocol flow and how Sign In differs from per-transaction signing. Useful context for any skill covering session setup or App pairing.",
+      "page": "reference/apps/hosts/polkadot-app/sign-in.md",
       "relevant_to": [
         "authenticate-with-polkadot-desktop",
         "pair-polkadot-app-desktop"
       ],
-      "notes": "Explains the App-side authentication handshake used by Desktop/Web hosts. No developer steps — describes the protocol flow and how Sign In differs from per-transaction signing. Useful context for any skill covering session setup or App pairing.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/hosts/polkadot-desktop/permissions.md",
       "category": "reference",
+      "notes": "Documents the three permission capability types (Microphone, ExternalRequest, ChainSubmit) a Product declares in its manifest, plus denial UX contract. Scores tie at reference=7 and conceptual=7; rule 4 resolves to reference. Useful context for any Product-building skill that requires permissions.",
+      "page": "reference/apps/hosts/polkadot-desktop/permissions.md",
       "relevant_to": [
         "declare-product-permissions",
         "build-polkadot-product"
       ],
-      "notes": "Documents the three permission capability types (Microphone, ExternalRequest, ChainSubmit) a Product declares in its manifest, plus denial UX contract. Scores tie at reference=7 and conceptual=7; rule 4 resolves to reference. Useful context for any Product-building skill that requires permissions.",
       "scoring": {
+        "category_ambiguous": true,
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 7
+        },
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ],
         "signals": [
           "R2",
           "R3",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 7,
-          "conceptual": 7,
-          "not_applicable": 0
-        },
-        "category_ambiguous": true,
-        "contending_categories": [
-          "reference",
-          "conceptual"
         ]
       }
     },
     {
-      "page": "reference/apps/hosts/polkadot-desktop/pocket.md",
       "category": "conceptual",
+      "notes": "Conceptual overview of Pocket's personhood-aware, two-sided send flow. The numbered 'What the User Sees' list describes the user UX, not developer action steps. No code, no CLI commands. Supplementary context for any skill covering Pocket transfers.",
+      "page": "reference/apps/hosts/polkadot-desktop/pocket.md",
       "relevant_to": [
         "send-pocket-transfer"
       ],
-      "notes": "Conceptual overview of Pocket's personhood-aware, two-sided send flow. The numbered 'What the User Sees' list describes the user UX, not developer action steps. No code, no CLI commands. Supplementary context for any skill covering Pocket transfers.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/hosts/polkadot-desktop/preimage.md",
       "category": "conceptual",
+      "notes": "Explains the preimage surface conceptually and includes a Statement vs Preimage comparison table. No runnable steps or code. Useful background for governance or on-chain storage skills.",
+      "page": "reference/apps/hosts/polkadot-desktop/preimage.md",
       "relevant_to": [
         "submit-preimage-governance",
         "store-data-on-chain"
       ],
-      "notes": "Explains the preimage surface conceptually and includes a Statement vs Preimage comparison table. No runnable steps or code. Useful background for governance or on-chain storage skills.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 10,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C2",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 10,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/hosts/polkadot-desktop/signing.md",
       "category": "conceptual",
+      "notes": "Reference for the three-actor signing model (Product → Desktop → App). Includes a mermaid sequence diagram and describes ChainSubmit semantics, HostRejectedError, and TimeoutError. No executable steps. Useful context for any skill covering transaction signing via the Product SDK.",
+      "page": "reference/apps/hosts/polkadot-desktop/signing.md",
       "relevant_to": [
         "sign-submit-transaction-product-sdk"
       ],
-      "notes": "Reference for the three-actor signing model (Product → Desktop → App). Includes a mermaid sequence diagram and describes ChainSubmit semantics, HostRejectedError, and TimeoutError. No executable steps. Useful context for any skill covering transaction signing via the Product SDK.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 10,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 3
+        },
         "signals": [
           "R3",
           "C1",
           "C2",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 3,
-          "conceptual": 10,
-          "not_applicable": 0
-        }
-      }
-    },
-    {
-      "page": "reference/apps/hosts/polkadot-desktop/statement-store.md",
-      "category": "conceptual",
-      "relevant_to": [
-        "publish-off-chain-data-statement-store",
-        "store-data-bulletin-chain"
-      ],
-      "notes": "Architecture reference explaining what Polkadot Desktop adds when mediating Statement Store access (proof routing, account context, topic scope). No procedural content; relevant context for any Statement Store or Bulletin Chain skill.",
-      "scoring": {
-        "signals": [
-          "C1",
-          "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
-      }
-    },
-    {
-      "page": "reference/apps/hosts/polkadot-web/host-api.md",
-      "category": "conceptual",
-      "relevant_to": [
-        "build-product-polkadot-web",
-        "persist-data-locally-kvstore"
-      ],
-      "notes": "Explains the three categories where Polkadot Web Host API behavior diverges from Desktop (local storage, ExternalRequest/CORS, media permissions). Purely conceptual; no steps, CLI, or code. Relevant context for any Product development skill targeting Polkadot Web.",
-      "scoring": {
-        "signals": [
-          "C1",
-          "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
-      }
-    },
-    {
-      "page": "reference/apps/hosts/polkadot-web/onchain-polkadot-com.md",
-      "category": "conceptual",
-      "relevant_to": [
-        "register-publish-product",
-        "read-chain-state-product"
-      ],
-      "notes": "Explains why polkadot.com is published as an on-chain Product and what that means for Product developers (submission flow, composability model). Architecture rationale only; no steps or code.",
-      "scoring": {
-        "signals": [
-          "C1",
-          "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
-      }
-    },
-    {
-      "page": "reference/apps/hosts/polkadot-web/shield-states.md",
-      "category": "conceptual",
-      "relevant_to": [
-        "build-product-polkadot-web",
-        "register-publish-product"
-      ],
-      "notes": "Conceptual model for the shield-state trust indicator in Polkadot Web (bundle integrity + Host posture). Explicitly marked provisional. No steps, CLI, or code; relevant context for Product developers building for Polkadot Web.",
-      "scoring": {
-        "signals": [
-          "C1",
-          "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
-      }
-    },
-    {
-      "page": "reference/apps/hosts/polkadot-web/visiting.md",
-      "category": "conceptual",
-      "relevant_to": [
-        "register-publish-product",
-        "build-product-polkadot-web"
-      ],
-      "notes": "Describes the visiting flow (DotNS resolution → bundle fetch → sandbox load). Numbered list (P1 fires) describes system-internal steps, not reader actions — the page is reference documentation, not a how-to. Scores within 3 points (conceptual 7 vs procedural 6); tiebreaker: reader is not the actor in the numbered steps.",
-      "scoring": {
-        "signals": [
-          "P1",
-          "C1",
-          "C3"
-        ],
-        "category_scores": {
-          "procedural": 6,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        },
-        "category_ambiguous": true,
-        "contending_categories": [
-          "conceptual",
-          "guide"
         ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/bulletin-chain/authorization.md",
+      "category": "conceptual",
+      "notes": "Architecture reference explaining what Polkadot Desktop adds when mediating Statement Store access (proof routing, account context, topic scope). No procedural content; relevant context for any Statement Store or Bulletin Chain skill.",
+      "page": "reference/apps/hosts/polkadot-desktop/statement-store.md",
+      "relevant_to": [
+        "publish-off-chain-data-statement-store",
+        "store-data-bulletin-chain"
+      ],
+      "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
+        "signals": [
+          "C1",
+          "C3"
+        ]
+      }
+    },
+    {
+      "category": "conceptual",
+      "notes": "Explains the three categories where Polkadot Web Host API behavior diverges from Desktop (local storage, ExternalRequest/CORS, media permissions). Purely conceptual; no steps, CLI, or code. Relevant context for any Product development skill targeting Polkadot Web.",
+      "page": "reference/apps/hosts/polkadot-web/host-api.md",
+      "relevant_to": [
+        "build-product-polkadot-web",
+        "persist-data-locally-kvstore"
+      ],
+      "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
+        "signals": [
+          "C1",
+          "C3"
+        ]
+      }
+    },
+    {
+      "category": "conceptual",
+      "notes": "Explains why polkadot.com is published as an on-chain Product and what that means for Product developers (submission flow, composability model). Architecture rationale only; no steps or code.",
+      "page": "reference/apps/hosts/polkadot-web/onchain-polkadot-com.md",
+      "relevant_to": [
+        "register-publish-product",
+        "read-chain-state-product"
+      ],
+      "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
+        "signals": [
+          "C1",
+          "C3"
+        ]
+      }
+    },
+    {
+      "category": "conceptual",
+      "notes": "Conceptual model for the shield-state trust indicator in Polkadot Web (bundle integrity + Host posture). Explicitly marked provisional. No steps, CLI, or code; relevant context for Product developers building for Polkadot Web.",
+      "page": "reference/apps/hosts/polkadot-web/shield-states.md",
+      "relevant_to": [
+        "build-product-polkadot-web",
+        "register-publish-product"
+      ],
+      "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
+        "signals": [
+          "C1",
+          "C3"
+        ]
+      }
+    },
+    {
+      "category": "conceptual",
+      "notes": "Describes the visiting flow (DotNS resolution → bundle fetch → sandbox load). Numbered list (P1 fires) describes system-internal steps, not reader actions — the page is reference documentation, not a how-to. Scores within 3 points (conceptual 7 vs procedural 6); tiebreaker: reader is not the actor in the numbered steps.",
+      "page": "reference/apps/hosts/polkadot-web/visiting.md",
+      "relevant_to": [
+        "register-publish-product",
+        "build-product-polkadot-web"
+      ],
+      "scoring": {
+        "category_ambiguous": true,
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 6,
+          "reference": 0
+        },
+        "contending_categories": [
+          "conceptual",
+          "guide"
+        ],
+        "signals": [
+          "P1",
+          "C1",
+          "C3"
+        ]
+      }
+    },
+    {
       "category": "reference",
+      "notes": "Defines the per-account quota model (transactions, bytes, expiration block). Ambiguous reference vs conceptual: both score 7 — rule 4 breaks the tie (ref≥7 fires before rule 5).",
+      "page": "reference/apps/infrastructure/bulletin-chain/authorization.md",
       "relevant_to": [
         "store-data-on-bulletin-chain"
       ],
-      "notes": "Defines the per-account quota model (transactions, bytes, expiration block). Ambiguous reference vs conceptual: both score 7 — rule 4 breaks the tie (ref≥7 fires before rule 5).",
       "scoring": {
+        "category_ambiguous": true,
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 7
+        },
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ],
         "signals": [
           "R2",
           "R3",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 7,
-          "conceptual": 7,
-          "not_applicable": 0
-        },
-        "category_ambiguous": true,
-        "contending_categories": [
-          "reference",
-          "conceptual"
         ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/bulletin-chain/chunked-upload.md",
       "category": "reference",
+      "notes": "Documents the SDK chunking pipeline and function signatures (app.bulletin.upload/fetch). P1 fires for the internal pipeline steps but those are system-flow description, not reader actions — confirms reference over guide. Ambiguous reference vs conceptual (8 vs 7).",
+      "page": "reference/apps/infrastructure/bulletin-chain/chunked-upload.md",
       "relevant_to": [
         "store-data-on-bulletin-chain"
       ],
-      "notes": "Documents the SDK chunking pipeline and function signatures (app.bulletin.upload/fetch). P1 fires for the internal pipeline steps but those are system-flow description, not reader actions — confirms reference over guide. Ambiguous reference vs conceptual (8 vs 7).",
       "scoring": {
+        "category_ambiguous": true,
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 6,
+          "reference": 8
+        },
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ],
         "signals": [
           "P1",
           "R1",
           "R3",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 6,
-          "reference": 8,
-          "conceptual": 7,
-          "not_applicable": 0
-        },
-        "category_ambiguous": true,
-        "contending_categories": [
-          "reference",
-          "conceptual"
         ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/bulletin-chain/cross-chain.md",
       "category": "conceptual",
-      "relevant_to": [
-        "store-data-on-bulletin-chain"
-      ],
       "notes": "Provisional conceptual overview of XCM-routed Bulletin writes from People Chain. Protocol details not yet finalized; no procedures or code for a reader to execute.",
-      "scoring": {
-        "signals": [
-          "R3",
-          "C1",
-          "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 3,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
-      }
-    },
-    {
-      "page": "reference/apps/infrastructure/bulletin-chain/renewal.md",
-      "category": "conceptual",
+      "page": "reference/apps/infrastructure/bulletin-chain/cross-chain.md",
       "relevant_to": [
         "store-data-on-bulletin-chain"
       ],
-      "notes": "Explains the retention lifecycle, what renewal does, and quota costs. No numbered steps or commands — lifecycle design rationale only.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 3
+        },
         "signals": [
           "R3",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 3,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/dotns/architecture.md",
       "category": "conceptual",
+      "notes": "Explains the retention lifecycle, what renewal does, and quota costs. No numbered steps or commands — lifecycle design rationale only.",
+      "page": "reference/apps/infrastructure/bulletin-chain/renewal.md",
+      "relevant_to": [
+        "store-data-on-bulletin-chain"
+      ],
+      "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 3
+        },
+        "signals": [
+          "R3",
+          "C1",
+          "C3"
+        ]
+      }
+    },
+    {
+      "category": "conceptual",
+      "notes": "Architecture overview of the cooperating dotNS contracts on Asset Hub. Provisional — contract map not yet finalized. Pure conceptual; no procedures or API tables.",
+      "page": "reference/apps/infrastructure/dotns/architecture.md",
       "relevant_to": [
         "register-dotns-name"
       ],
-      "notes": "Architecture overview of the cooperating dotNS contracts on Asset Hub. Provisional — contract map not yet finalized. Pure conceptual; no procedures or API tables.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/dotns/cli.md",
       "category": "reference",
+      "notes": "CLI command-surface reference for dotns-cli 0.6.2. Per-flag details are marked Pending, so the page is lookup material rather than a runnable workflow. Supplementary for any dotNS skill that involves CLI operations.",
+      "page": "reference/apps/infrastructure/dotns/cli.md",
       "relevant_to": [
         "register-dotns-name",
         "transfer-dotns-name",
         "update-dotns-contenthash"
       ],
-      "notes": "CLI command-surface reference for dotns-cli 0.6.2. Per-flag details are marked Pending, so the page is lookup material rather than a runnable workflow. Supplementary for any dotNS skill that involves CLI operations.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 12
+        },
         "signals": [
           "R1",
           "R2",
           "R3",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 12,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/dotns/name-mechanism.md",
       "category": "conceptual",
+      "notes": "Four-layer architecture explanation (registry, namehash, contenthash, delivery). Ambiguous with guide because of the numbered end-to-end resolution sequence, but those steps describe Host behavior, not reader actions — clearly conceptual. Useful background for any dotNS skill involving contenthash updates or resolution troubleshooting.",
+      "page": "reference/apps/infrastructure/dotns/name-mechanism.md",
       "relevant_to": [
         "register-dotns-name",
         "update-dotns-contenthash"
       ],
-      "notes": "Four-layer architecture explanation (registry, namehash, contenthash, delivery). Ambiguous with guide because of the numbered end-to-end resolution sequence, but those steps describe Host behavior, not reader actions — clearly conceptual. Useful background for any dotNS skill involving contenthash updates or resolution troubleshooting.",
       "scoring": {
+        "category_ambiguous": true,
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 6,
+          "reference": 3
+        },
+        "contending_categories": [
+          "conceptual",
+          "guide"
+        ],
         "signals": [
           "P1",
           "R3",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 6,
-          "reference": 3,
-          "conceptual": 7,
-          "not_applicable": 0
-        },
-        "category_ambiguous": true,
-        "contending_categories": [
-          "conceptual",
-          "guide"
         ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/dotns/poprules-pricing.md",
       "category": "reference",
+      "notes": "Pricing ladder for .dot name registration — the lookup table is the primary artifact. Ambiguous with conceptual because the 'Two patterns explain' section is explicit design rationale and conceptual scores (10) exceed reference (8); rule 4 fires first since reference >= 7. Core supplementary context for any registration skill where the agent needs to know deposit amounts or eligibility.",
+      "page": "reference/apps/infrastructure/dotns/poprules-pricing.md",
       "relevant_to": [
         "register-dotns-name"
       ],
-      "notes": "Pricing ladder for .dot name registration — the lookup table is the primary artifact. Ambiguous with conceptual because the 'Two patterns explain' section is explicit design rationale and conceptual scores (10) exceed reference (8); rule 4 fires first since reference >= 7. Core supplementary context for any registration skill where the agent needs to know deposit amounts or eligibility.",
       "scoring": {
+        "category_ambiguous": true,
+        "category_scores": {
+          "conceptual": 10,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 8
+        },
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ],
         "signals": [
           "R1",
           "R3",
           "C1",
           "C2",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 8,
-          "conceptual": 10,
-          "not_applicable": 0
-        },
-        "category_ambiguous": true,
-        "contending_categories": [
-          "reference",
-          "conceptual"
         ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/dotns/testnet-contracts.md",
       "category": "reference",
+      "notes": "Contract address table for the dotNS Paseo TestNet deployment. All addresses are TBD; page is a placeholder reference. Useful supplementary context for any skill that interacts with dotNS contracts directly rather than via the CLI.",
+      "page": "reference/apps/infrastructure/dotns/testnet-contracts.md",
       "relevant_to": [
         "register-dotns-name",
         "transfer-dotns-name"
       ],
-      "notes": "Contract address table for the dotNS Paseo TestNet deployment. All addresses are TBD; page is a placeholder reference. Useful supplementary context for any skill that interacts with dotNS contracts directly rather than via the CLI.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 2,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 8
+        },
         "signals": [
           "R1",
           "R3",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 8,
-          "conceptual": 2,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/dotns/transfer.md",
       "category": "conceptual",
+      "notes": "Conceptual model of .dot name ownership transfer. Operational details (dispatch path, parameter shape) are still provisional. Explains what changes vs stays the same on transfer and why reservations are non-transferable. Supplementary context for a transfer skill once the operational reference is finalized.",
+      "page": "reference/apps/infrastructure/dotns/transfer.md",
       "relevant_to": [
         "transfer-dotns-name"
       ],
-      "notes": "Conceptual model of .dot name ownership transfer. Operational details (dispatch path, parameter shape) are still provisional. Explains what changes vs stays the same on transfer and why reservations are non-transferable. Supplementary context for a transfer skill once the operational reference is finalized.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 3
+        },
         "signals": [
           "R3",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 3,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/hop/how-it-works.md",
       "category": "conceptual",
-      "relevant_to": [],
       "notes": "Conceptual model for the HOP protocol — single hops, multi-hop routing, and the verifier model. Explicitly provisional (wire format and runtime extrinsics still being finalized). No procedural content, no CLI commands, no code. Supplementary context for any future skill covering HOP cross-chain transfers.",
+      "page": "reference/apps/infrastructure/hop/how-it-works.md",
+      "relevant_to": [],
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/hop/recipient.md",
       "category": "conceptual",
-      "relevant_to": [],
       "notes": "Conceptual recipient journey for HOP transfers. Numbered 'Flow at a Glance' describes what the chain does (not reader actions). Explicitly provisional; recipient-side event surface still being finalized. Supplementary context for future HOP transfer skills.",
+      "page": "reference/apps/infrastructure/hop/recipient.md",
+      "relevant_to": [],
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/hop/sender.md",
       "category": "conceptual",
-      "relevant_to": [],
       "notes": "Conceptual sender journey for HOP transfers. 'Flow at a Glance' describes the sender's conceptual flow but the page explicitly states it documents the conceptual flow only; actual dispatch extrinsics and tracking surface are pending. No CLI commands or code. Supplementary context for future HOP transfer skills.",
+      "page": "reference/apps/infrastructure/hop/sender.md",
+      "relevant_to": [],
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/pop/pallet-coinage.md",
       "category": "reference",
-      "relevant_to": [],
       "notes": "Reference table for pallet-coinage extrinsics, storage maps, and constants (R1, R2, R3 all fire). Partially provisional (parameter shapes pending Parity confirmation) but the symbol table is substantive. Conceptual intro explains personhood-aware addressing and privacy-preserving transfer model. Supplementary context for any future skill covering Coinage payment flows or pallet-coinage integration.",
+      "page": "reference/apps/infrastructure/pop/pallet-coinage.md",
+      "relevant_to": [],
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 12
+        },
         "signals": [
           "R1",
           "R2",
           "R3",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 12,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/pop/pallet-game.md",
       "category": "conceptual",
-      "relevant_to": [],
       "notes": "Conceptual overview of pallet-game. Dispatch surface explicitly provisional and pending; no API table exists yet. Explains the three guarantees the pallet enforces (one entry per alias, verifiable randomness, account unlinkability). Supplementary context for future skills covering personhood-gated games, randomized airdrops, or pallet-airdrop integration.",
+      "page": "reference/apps/infrastructure/pop/pallet-game.md",
+      "relevant_to": [],
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/pop/pallet-identity.md",
       "category": "conceptual",
+      "notes": "Conceptual reference for pallet-identity; explains identity vs. alias distinction and when Products should read the direct identity record (public username, verified display fields). Useful background for any PoP skill that touches the direct-identity path. Dispatch surface is marked Provisional — per-extrinsic details TBD.",
+      "page": "reference/apps/infrastructure/pop/pallet-identity.md",
       "relevant_to": [
         "integrate-pop-alias-product",
         "gate-action-on-personhood"
       ],
-      "notes": "Conceptual reference for pallet-identity; explains identity vs. alias distinction and when Products should read the direct identity record (public username, verified display fields). Useful background for any PoP skill that touches the direct-identity path. Dispatch surface is marked Provisional — per-extrinsic details TBD.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 10,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C2",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 10,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/pop/pallet-people.md",
       "category": "conceptual",
-      "relevant_to": [
-        "integrate-pop-alias-product",
-        "gate-action-on-personhood"
-      ],
       "notes": "Conceptual reference for pallet-people; covers ring membership (full + lite), alias issuance, and under_alias dispatch logic. Foundational context for any skill gating Product actions on personhood or using alias-based identity. Dispatch surface marked Provisional.",
-      "scoring": {
-        "signals": [
-          "C1",
-          "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
-      }
-    },
-    {
-      "page": "reference/apps/infrastructure/pop/pallet-score.md",
-      "category": "conceptual",
+      "page": "reference/apps/infrastructure/pop/pallet-people.md",
       "relevant_to": [
         "integrate-pop-alias-product",
         "gate-action-on-personhood"
       ],
-      "notes": "Conceptual reference for pallet-score; explains alias-scoped reputation storage, adjustment and read paths, and threshold-gating use cases. Relevant context for skills that gate Product features on sybil-resistant reputation. Dispatch surface marked Provisional.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/pop/pallet-ubc.md",
       "category": "conceptual",
+      "notes": "Conceptual reference for pallet-score; explains alias-scoped reputation storage, adjustment and read paths, and threshold-gating use cases. Relevant context for skills that gate Product features on sybil-resistant reputation. Dispatch surface marked Provisional.",
+      "page": "reference/apps/infrastructure/pop/pallet-score.md",
+      "relevant_to": [
+        "integrate-pop-alias-product",
+        "gate-action-on-personhood"
+      ],
+      "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
+        "signals": [
+          "C1",
+          "C3"
+        ]
+      }
+    },
+    {
+      "category": "conceptual",
+      "notes": "Conceptual reference for pallet-ubc; explains per-period fee-free capacity allotment and the first-interaction onboarding pattern. The 'When a Product Reaches for UBC' numbered list is a scenario description, not developer steps (no CLI commands, no code, no P4 outcome). Dispatch surface and quota amounts marked Provisional.",
+      "page": "reference/apps/infrastructure/pop/pallet-ubc.md",
       "relevant_to": [
         "implement-ubc-onboarding"
       ],
-      "notes": "Conceptual reference for pallet-ubc; explains per-period fee-free capacity allotment and the first-interaction onboarding pattern. The 'When a Product Reaches for UBC' numbered list is a scenario description, not developer steps (no CLI commands, no code, no P4 outcome). Dispatch surface and quota amounts marked Provisional.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/pop/ring-vrf-and-aliases.md",
       "category": "conceptual",
+      "notes": "Conceptual deep dive on Ring-VRF and alias mechanics; explains the privacy model (alias unlinkability across Products), under_alias origin, and cross-product alias consent flow. Essential background for any PoP skill that relies on alias identity or personhood gating.",
+      "page": "reference/apps/infrastructure/pop/ring-vrf-and-aliases.md",
       "relevant_to": [
         "integrate-pop-alias-product",
         "gate-action-on-personhood",
         "implement-ubc-onboarding"
       ],
-      "notes": "Conceptual deep dive on Ring-VRF and alias mechanics; explains the privacy model (alias unlinkability across Products), under_alias origin, and cross-product alias consent flow. Essential background for any PoP skill that relies on alias identity or personhood gating.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/statement-store/allowance.md",
       "category": "reference",
+      "notes": "Explains the StatementAllowance quota fields (max_count, max_size) and the spam-resistance design rationale. Tied reference/conceptual scores — rule 4 wins because reference_score >= 7 fires before the conceptual rule.",
+      "page": "reference/apps/infrastructure/statement-store/allowance.md",
       "relevant_to": [
         "publish-subscribe-off-chain-data"
       ],
-      "notes": "Explains the StatementAllowance quota fields (max_count, max_size) and the spam-resistance design rationale. Tied reference/conceptual scores — rule 4 wins because reference_score >= 7 fires before the conceptual rule.",
       "scoring": {
+        "category_ambiguous": true,
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 7
+        },
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ],
         "signals": [
           "R2",
           "R3",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 7,
-          "conceptual": 7,
-          "not_applicable": 0
-        },
-        "category_ambiguous": true,
-        "contending_categories": [
-          "reference",
-          "conceptual"
         ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/statement-store/channels.md",
       "category": "reference",
+      "notes": "Documents the ChannelStore<T> API (write, read, readAll, onChange) and the last-write-wins replacement semantic. No procedural workflow — readers understand when and why to use channels, not how to execute a skill-shaped task.",
+      "page": "reference/apps/infrastructure/statement-store/channels.md",
       "relevant_to": [
         "publish-subscribe-off-chain-data"
       ],
-      "notes": "Documents the ChannelStore<T> API (write, read, readAll, onChange) and the last-write-wins replacement semantic. No procedural workflow — readers understand when and why to use channels, not how to execute a skill-shaped task.",
       "scoring": {
+        "category_ambiguous": true,
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 8
+        },
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ],
         "signals": [
           "R1",
           "R3",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 8,
-          "conceptual": 7,
-          "not_applicable": 0
-        },
-        "category_ambiguous": true,
-        "contending_categories": [
-          "reference",
-          "conceptual"
         ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/statement-store/lifecycle.md",
       "category": "conceptual",
+      "notes": "Numbered 1-5 stages fire P1, but the steps describe what the pallet/network does automatically, not user-executed actions. No CLI commands, no source files, no verifiable outcome. Primarily design-rationale prose about validation, gossip, and TTL expiry. Guide ambiguity noted because P1 fired.",
+      "page": "reference/apps/infrastructure/statement-store/lifecycle.md",
       "relevant_to": [
         "publish-subscribe-off-chain-data"
       ],
-      "notes": "Numbered 1-5 stages fire P1, but the steps describe what the pallet/network does automatically, not user-executed actions. No CLI commands, no source files, no verifiable outcome. Primarily design-rationale prose about validation, gossip, and TTL expiry. Guide ambiguity noted because P1 fired.",
       "scoring": {
+        "category_ambiguous": true,
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 6,
+          "reference": 0
+        },
+        "contending_categories": [
+          "conceptual",
+          "guide"
+        ],
         "signals": [
           "P1",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 6,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        },
-        "category_ambiguous": true,
-        "contending_categories": [
-          "conceptual",
-          "guide"
         ]
       }
     },
     {
-      "page": "reference/apps/infrastructure/statement-store/subscriptions.md",
       "category": "reference",
+      "notes": "Describes the subscribe/unsubscribe API surface (client.subscribe<T>, statement_subscribeStatement, Unsubscribable), topic filter mechanics, callback dedup behavior, and backfill semantics. No runnable code — reference for SDK method signatures and behavioral guarantees.",
+      "page": "reference/apps/infrastructure/statement-store/subscriptions.md",
       "relevant_to": [
         "publish-subscribe-off-chain-data"
       ],
-      "notes": "Describes the subscribe/unsubscribe API surface (client.subscribe<T>, statement_subscribeStatement, Unsubscribable), topic filter mechanics, callback dedup behavior, and backfill semantics. No runnable code — reference for SDK method signatures and behavioral guarantees.",
       "scoring": {
+        "category_ambiguous": true,
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 8
+        },
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ],
         "signals": [
           "R1",
           "R3",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 8,
-          "conceptual": 7,
-          "not_applicable": 0
-        },
-        "category_ambiguous": true,
-        "contending_categories": [
-          "reference",
-          "conceptual"
         ]
       }
     },
     {
-      "page": "reference/apps/protocol/truapi/account-management.md",
       "category": "reference",
+      "notes": "Documents the TrUAPI Account Management method group: getProductAccount signature with dotNsIdentifier and derivationIndex params, SignerAccount fields (address, public key, display name), and the account-selection flow. Reference=12 vs Conceptual=7 — no ambiguity.",
+      "page": "reference/apps/protocol/truapi/account-management.md",
       "relevant_to": [
         "sign-submit-transaction"
       ],
-      "notes": "Documents the TrUAPI Account Management method group: getProductAccount signature with dotNsIdentifier and derivationIndex params, SignerAccount fields (address, public key, display name), and the account-selection flow. Reference=12 vs Conceptual=7 — no ambiguity.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 12
+        },
         "signals": [
           "R1",
           "R2",
           "R3",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 12,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/protocol/truapi/calls.md",
       "category": "conceptual",
+      "notes": "Conceptual contract for the TrUAPI lifecycle handshake — no method signatures yet (marked provisional). Useful context for any skill that involves initializing a Product with createApp().",
+      "page": "reference/apps/protocol/truapi/calls.md",
       "relevant_to": [
         "build-polkadot-product-sdk-app"
       ],
-      "notes": "Conceptual contract for the TrUAPI lifecycle handshake — no method signatures yet (marked provisional). Useful context for any skill that involves initializing a Product with createApp().",
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/protocol/truapi/chain-interaction.md",
       "category": "reference",
+      "notes": "Reference contract for the chain-interaction method group. Names getChainAPI, createChainClient, watchValue, and .raw; high conceptual overlap (scores reference=8, conceptual=7) because design rationale accompanies each method description. Rule 4 wins on reference score.",
+      "page": "reference/apps/protocol/truapi/chain-interaction.md",
       "relevant_to": [
         "read-chain-state-polkadot-app"
       ],
-      "notes": "Reference contract for the chain-interaction method group. Names getChainAPI, createChainClient, watchValue, and .raw; high conceptual overlap (scores reference=8, conceptual=7) because design rationale accompanies each method description. Rule 4 wins on reference score.",
       "scoring": {
+        "category_ambiguous": true,
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 8
+        },
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ],
         "signals": [
           "R1",
           "R3",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 8,
-          "conceptual": 7,
-          "not_applicable": 0
-        },
-        "category_ambiguous": true,
-        "contending_categories": [
-          "reference",
-          "conceptual"
         ]
       }
     },
     {
-      "page": "reference/apps/protocol/truapi/chat.md",
       "category": "reference",
+      "notes": "Reference contract for the Chat method group. Documents method names (host_chat_create_simple_group, product_chat_custom_message_render_subscribe) and typed message fields (Text, RichText, Actions, File, Reaction, Custom). Clear reference winner with gap of 5 over conceptual.",
+      "page": "reference/apps/protocol/truapi/chat.md",
       "relevant_to": [
         "add-chat-bot-polkadot-app"
       ],
-      "notes": "Reference contract for the Chat method group. Documents method names (host_chat_create_simple_group, product_chat_custom_message_render_subscribe) and typed message fields (Text, RichText, Actions, File, Reaction, Custom). Clear reference winner with gap of 5 over conceptual.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 12
+        },
         "signals": [
           "R1",
           "R2",
           "R3",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 12,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/protocol/truapi/entropy.md",
       "category": "reference",
+      "notes": "Reference contract for host_derive_entropy. Explains BIP-39 / BLAKE2b-256 derivation scheme and the not-randomness constraint. Ambiguous with conceptual (reference=8, conceptual=7); Rule 4 selects reference. Explicit danger callout distinguishing key-derivation from randomness is important supplementary context.",
+      "page": "reference/apps/protocol/truapi/entropy.md",
       "relevant_to": [
         "derive-product-entropy-polkadot-app"
       ],
-      "notes": "Reference contract for host_derive_entropy. Explains BIP-39 / BLAKE2b-256 derivation scheme and the not-randomness constraint. Ambiguous with conceptual (reference=8, conceptual=7); Rule 4 selects reference. Explicit danger callout distinguishing key-derivation from randomness is important supplementary context.",
       "scoring": {
+        "category_ambiguous": true,
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 8
+        },
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ],
         "signals": [
           "R1",
           "R3",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 8,
-          "conceptual": 7,
-          "not_applicable": 0
-        },
-        "category_ambiguous": true,
-        "contending_categories": [
-          "reference",
-          "conceptual"
         ]
       }
     },
     {
-      "page": "reference/apps/protocol/truapi/local-storage.md",
       "category": "reference",
+      "notes": "Reference contract for the Local Storage method group. Documents get(key), set(key, value), remove(key), getJSON, setJSON signatures plus per-Product namespacing design. Ambiguous with conceptual (reference=8, conceptual=7); Rule 4 selects reference.",
+      "page": "reference/apps/protocol/truapi/local-storage.md",
       "relevant_to": [
         "persist-data-locally-polkadot-app"
       ],
-      "notes": "Reference contract for the Local Storage method group. Documents get(key), set(key, value), remove(key), getJSON, setJSON signatures plus per-Product namespacing design. Ambiguous with conceptual (reference=8, conceptual=7); Rule 4 selects reference.",
       "scoring": {
+        "category_ambiguous": true,
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 8
+        },
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ],
         "signals": [
           "R1",
           "R3",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 8,
-          "conceptual": 7,
-          "not_applicable": 0
-        },
-        "category_ambiguous": true,
-        "contending_categories": [
-          "reference",
-          "conceptual"
         ]
       }
     },
     {
-      "page": "reference/apps/protocol/truapi/packages.md",
       "category": "conceptual",
+      "notes": "Package map table (R1) plus architecture explanation of Product vs Host package boundary (C1). Tiebreaker: primary purpose is the lookup table, but the explanatory section is conceptual; rule 5 fires because reference=5 < 7. Useful as context for any skill using @parity/product-sdk.",
+      "page": "reference/apps/protocol/truapi/packages.md",
       "relevant_to": [
         "sign-and-submit-transactions",
         "persist-data-locally",
         "pub-sub-off-chain-data",
         "read-chain-state"
       ],
-      "notes": "Package map table (R1) plus architecture explanation of Product vs Host package boundary (C1). Tiebreaker: primary purpose is the lookup table, but the explanatory section is conceptual; rule 5 fires because reference=5 < 7. Useful as context for any skill using @parity/product-sdk.",
       "scoring": {
+        "category_ambiguous": true,
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 5
+        },
+        "contending_categories": [
+          "conceptual",
+          "reference"
+        ],
         "signals": [
           "R1",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 5,
-          "conceptual": 7,
-          "not_applicable": 0
-        },
-        "category_ambiguous": true,
-        "contending_categories": [
-          "conceptual",
-          "reference"
         ]
       }
     },
     {
-      "page": "reference/apps/protocol/truapi/payment.md",
       "category": "conceptual",
+      "notes": "Conceptual contract for the Payment method group. References method names like Balances.transfer_keep_alive and the signAndSubmit round trip (R1), but no structured method table or procedural steps. Tiebreaker: content is design rationale and flow description, not a lookup reference; rule 5 fires (reference=5 < 7). Pocket flow section is provisional and still being finalized.",
+      "page": "reference/apps/protocol/truapi/payment.md",
       "relevant_to": [
         "sign-and-submit-transactions"
       ],
-      "notes": "Conceptual contract for the Payment method group. References method names like Balances.transfer_keep_alive and the signAndSubmit round trip (R1), but no structured method table or procedural steps. Tiebreaker: content is design rationale and flow description, not a lookup reference; rule 5 fires (reference=5 < 7). Pocket flow section is provisional and still being finalized.",
       "scoring": {
+        "category_ambiguous": true,
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 5
+        },
+        "contending_categories": [
+          "conceptual",
+          "reference"
+        ],
         "signals": [
           "R1",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 5,
-          "conceptual": 7,
-          "not_applicable": 0
-        },
-        "category_ambiguous": true,
-        "contending_categories": [
-          "conceptual",
-          "reference"
         ]
       }
     },
     {
-      "page": "reference/apps/protocol/truapi/permissions.md",
       "category": "reference",
+      "notes": "Describes the permission query surface with a concrete method signature isGranted(\"ChainSubmit\") (R1) and parameter description for RemotePermission::Remote(Vec<String>) (R3), plus architectural conceptual contract (C1). Rule 4 fires (reference=8 >= 7, procedural=0 < 10). Highly ambiguous with conceptual (diff=1) — tiebreaker: explicit method signatures and parameter descriptions tip it to reference over pure conceptual. Permission taxonomy and exact method surface are still provisional.",
+      "page": "reference/apps/protocol/truapi/permissions.md",
       "relevant_to": [
         "sign-and-submit-transactions",
         "persist-data-locally",
         "pub-sub-off-chain-data"
       ],
-      "notes": "Describes the permission query surface with a concrete method signature isGranted(\"ChainSubmit\") (R1) and parameter description for RemotePermission::Remote(Vec<String>) (R3), plus architectural conceptual contract (C1). Rule 4 fires (reference=8 >= 7, procedural=0 < 10). Highly ambiguous with conceptual (diff=1) — tiebreaker: explicit method signatures and parameter descriptions tip it to reference over pure conceptual. Permission taxonomy and exact method surface are still provisional.",
       "scoring": {
+        "category_ambiguous": true,
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 8
+        },
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ],
         "signals": [
           "R1",
           "R3",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 8,
-          "conceptual": 7,
-          "not_applicable": 0
-        },
-        "category_ambiguous": true,
-        "contending_categories": [
-          "reference",
-          "conceptual"
         ]
       }
     },
     {
-      "page": "reference/apps/protocol/truapi/preimage.md",
       "category": "conceptual",
+      "notes": "Conceptual contract for the Preimage method group — explains what preimages are, how they differ from statements, and the lifecycle model. No structured API tables, no procedural steps, no code blocks. Rule 5 fires cleanly (conceptual=7, reference=0). Exact method set and size limits still provisional.",
+      "page": "reference/apps/protocol/truapi/preimage.md",
       "relevant_to": [
         "store-data-on-chain"
       ],
-      "notes": "Conceptual contract for the Preimage method group — explains what preimages are, how they differ from statements, and the lifecycle model. No structured API tables, no procedural steps, no code blocks. Rule 5 fires cleanly (conceptual=7, reference=0). Exact method set and size limits still provisional.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/protocol/truapi/sandbox.md",
       "category": "conceptual",
+      "notes": "Deep architectural explanation of the Product sandbox model — why derived sub-accounts exist, why the Host API is the only egress, and how permissions relax isolation. Entirely conceptual design rationale; no structured method tables, no procedural steps, no runnable code. Rule 5 fires cleanly (conceptual=7, reference=0).",
+      "page": "reference/apps/protocol/truapi/sandbox.md",
       "relevant_to": [
         "sign-and-submit-transactions",
         "persist-data-locally"
       ],
-      "notes": "Deep architectural explanation of the Product sandbox model — why derived sub-accounts exist, why the Host API is the only egress, and how permissions relax isolation. Entirely conceptual design rationale; no structured method tables, no procedural steps, no runnable code. Rule 5 fires cleanly (conceptual=7, reference=0).",
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/protocol/truapi/signing.md",
       "category": "conceptual",
+      "notes": "Conceptual overview of the TrUAPI Signing method group: three-actor mediated-signing model, per-request approval contract, and Auto-Signing capability. Useful background for any skill that submits signed transactions from a Polkadot Product.",
+      "page": "reference/apps/protocol/truapi/signing.md",
       "relevant_to": [
         "sign-and-submit-transaction-truapi"
       ],
-      "notes": "Conceptual overview of the TrUAPI Signing method group: three-actor mediated-signing model, per-request approval contract, and Auto-Signing capability. Useful background for any skill that submits signed transactions from a Polkadot Product.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     },
     {
-      "page": "reference/apps/protocol/truapi/statement-store.md",
       "category": "reference",
+      "notes": "Describes the TrUAPI Statement Store method group: JSON-RPC methods (statement_submit, statement_subscribeStatement), ChannelStore<T> abstraction, TTL/topic/channel parameters. Rule 4 breaks the tie with conceptual (reference=8, conceptual=7).",
+      "page": "reference/apps/protocol/truapi/statement-store.md",
       "relevant_to": [
         "publish-ephemeral-statement-store",
         "subscribe-statement-store-topic"
       ],
-      "notes": "Describes the TrUAPI Statement Store method group: JSON-RPC methods (statement_submit, statement_subscribeStatement), ChannelStore<T> abstraction, TTL/topic/channel parameters. Rule 4 breaks the tie with conceptual (reference=8, conceptual=7).",
       "scoring": {
+        "category_ambiguous": true,
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 8
+        },
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ],
         "signals": [
           "R1",
           "R3",
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 8,
-          "conceptual": 7,
-          "not_applicable": 0
-        },
-        "category_ambiguous": true,
-        "contending_categories": [
-          "reference",
-          "conceptual"
         ]
       }
     },
     {
-      "page": "reference/apps/protocol/truapi/versioning.md",
       "category": "conceptual",
+      "notes": "Explains the TrUAPI versioning model: additive, behavioral, and breaking change types; how Products declare version ranges; SDK-to-protocol lockstep versioning (roadmap, not yet shipped). Background context for any skill that targets a specific TrUAPI version.",
+      "page": "reference/apps/protocol/truapi/versioning.md",
       "relevant_to": [
         "configure-truapi-product-manifest"
       ],
-      "notes": "Explains the TrUAPI versioning model: additive, behavioral, and breaking change types; how Products declare version ranges; SDK-to-protocol lockstep versioning (roadmap, not yet shipped). Background context for any skill that targets a specific TrUAPI version.",
       "scoring": {
+        "category_scores": {
+          "conceptual": 7,
+          "not_applicable": 0,
+          "procedural": 0,
+          "reference": 0
+        },
         "signals": [
           "C1",
           "C3"
-        ],
-        "category_scores": {
-          "procedural": 0,
-          "reference": 0,
-          "conceptual": 7,
-          "not_applicable": 0
-        }
+        ]
       }
     }
   ]

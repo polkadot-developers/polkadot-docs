@@ -35,16 +35,6 @@ BlockScout is an open-source explorer platform hosted by Parity under the `polka
 
 ![](/images/smart-contracts/explorers/explorers-01.webp)
 
-### Routescan
-
-Routescan delivers multi-chain explorer capabilities with an Etherscan-compatible interface and API. It provides contract verification using an API key and supports both Polkadot Hub mainnet and TestNet.
-
-- [Polkadot Hub Routescan](https://polkadot.routescan.io/){target=\_blank}
-- [Polkadot Hub TestNet Routescan](https://polkadot.testnet.routescan.io/){target=\_blank}
-- [Kusama Hub Routescan](https://kusama.routescan.io/){target=\_blank}
-
-![](/images/smart-contracts/explorers/explorers-02.webp)
-
 ### Subscan
 
 Subscan is the flagship Polkadot ecosystem block explorer. It is Substrate-native and provides comprehensive support for both Substrate-level data (pallets, extrinsics, events) and EVM transactions and smart contracts, making it well-suited for inspecting both layers simultaneously.

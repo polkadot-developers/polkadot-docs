@@ -8,7 +8,7 @@ categories: Parachains, Tooling
 
 ## Introduction
 
-[Pop CLI](https://onpop.io/cli/){target=\_blank} is a powerful command-line tool designed explicitly for rapid parachain development within the Polkadot ecosystem. It addresses essential developer needs by providing streamlined commands to set up development environments, scaffold parachain templates, and manage local blockchain networks.
+[Pop CLI](https://www.onpop.io/cli/){target=\_blank} is a powerful command-line tool designed explicitly for rapid parachain development within the Polkadot ecosystem. It addresses essential developer needs by providing streamlined commands to set up development environments, scaffold parachain templates, and manage local blockchain networks.
 
 Pop CLI simplifies parachain development with features like:
 
@@ -78,7 +78,7 @@ You can also interact with your local network using Pop CLI's `pop call chain` c
 
 ## Where to Go Next
 
-For a comprehensive guide to all Pop CLI features and advanced usage, see the official [Pop CLI](https://learn.onpop.io/appchains){target=\_blank} documentation.
+For a comprehensive guide to all Pop CLI features and advanced usage, see the official [Pop CLI](https://learn.onpop.io/chains){target=\_blank} documentation.
 
 !!! tip
     Pop CLI also offers powerful solutions for smart contract developers. If you're interested in that path, check out the [Pop CLI Smart Contracts](https://learn.onpop.io/contracts){target=\_blank} documentation.

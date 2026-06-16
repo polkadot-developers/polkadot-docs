@@ -37,7 +37,7 @@ The contract set covers nine slices of the registry's job, grouped into three fa
     - A renewal contract (or sub-mechanism) handling annual or per-period renewals where applicable.
     - An admin/governance contract for operations that need to be governance-routed (reserved-name allocations, dispute resolution, contract upgrades).
 
-A Product developer rarely interacts with the contracts directly — the [CLI](/reference/apps/infrastructure/dotns/cli/) and the higher-level [Register and Publish](/apps/deploy-and-publish/register-and-publish/) flow wrap the registration interactions. A Product reading name resolution data does so through the standard chain-client surface, calling into the resolver contract via the typed PAPI descriptor for Asset Hub.
+A Product developer rarely interacts with the contracts directly — the [CLI](/reference/apps/infrastructure/dotns/cli/) and the higher-level [Register and Publish](/apps/deploy-your-app/) flow wrap the registration interactions. A Product reading name resolution data does so through the standard chain-client surface, calling into the resolver contract via the typed PAPI descriptor for Asset Hub.
 
 ## Where to Go Next
 

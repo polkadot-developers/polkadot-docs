@@ -25,7 +25,7 @@ Putting discovery on-chain as a Polkadot Product itself has two properties an of
 
 If you are building a Product, two things matter about on-chain `polkadot.com`:
 
-- **Publishing target**: The flow for getting your Product listed on the canonical discovery surface goes through whatever submission and curation process on-chain `polkadot.com` defines. The Product-side how-to for the underlying publishing steps is [Register and Publish](/apps/deploy-and-publish/register-and-publish/).
+- **Publishing target**: The flow for getting your Product listed on the canonical discovery surface goes through whatever submission and curation process on-chain `polkadot.com` defines. The Product-side how-to for the underlying publishing steps is [Register and Publish](/apps/deploy-your-app/).
 - **Model to copy**: Any Product that wants to be a discovery surface for a specific category, such as a games directory, a wallet directory, or an asset explorer, can follow the same pattern: publish a Product whose state is the directory, read it from chain, and let the Host render it the same way.
 
 ## Where to Go Next
@@ -38,7 +38,7 @@ If you are building a Product, two things matter about on-chain `polkadot.com`:
 
     The Product-side how-to for bundling and publishing your Product, including the artifact-addressing steps that any directory-listed Product goes through.
 
-    [:octicons-arrow-right-24: Get Started](/apps/deploy-and-publish/publish-your-app-bundle/)
+    [:octicons-arrow-right-24: Get Started](/apps/deploy-your-app/)
 
 - <span class="badge guide">Guide</span> **Read Chain State**
 

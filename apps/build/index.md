@@ -34,7 +34,7 @@ Every guide assumes a Product project running locally in [Polkadot Desktop](/app
     npm run dev
     ```
 
-4. Open Polkadot Desktop and click **"Skip (Dev only)"**.
+4. Open Polkadot Desktop and click **Skip (Dev only)**.
 
     ![Polkadot Desktop showing the "Skip (Dev only)" button](/images/apps/build/start-a-local-dev-loop/start-a-local-dev-loop-01.webp)
 

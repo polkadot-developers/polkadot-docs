@@ -64,5 +64,5 @@ The reservation is automatic. A PoP Lite holder registering `alice01.dot` reserv
 
     The Product-side how-to that consumes the PopRules check — registering a `.dot` name and seeing the deposit or free-tier outcome.
 
-    [:octicons-arrow-right-24: Get Started](/apps/deploy-and-publish/register-and-publish/)
+    [:octicons-arrow-right-24: Get Started](/apps/deploy-your-app/)
 </div>

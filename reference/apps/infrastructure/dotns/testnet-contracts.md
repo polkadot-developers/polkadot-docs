@@ -11,7 +11,7 @@ categories: Apps, Reference
 This page tracks the current TestNet contract addresses for the dotNS deployment on Paseo. A Product or tool that wants to interact with the registry directly on TestNet needs these addresses; the higher-level CLI and Polkadot Product SDK surfaces resolve them internally, but anyone integrating below those layers can look up what to call here.
 
 !!! warning "Provisional"
-    The current TestNet contract addresses are still being finalized as the dotNS deployment stabilizes. Addresses can change across redeployments during this window. The table below will be populated and kept in sync as the deployment is confirmed; until then, the [CLI](/reference/apps/infrastructure/dotns/cli/) and the [Register and Publish](/apps/deploy-and-publish/register-and-publish/) flow target the current deployment automatically, and most developers should rely on those rather than calling contracts directly.
+    The current TestNet contract addresses are still being finalized as the dotNS deployment stabilizes. Addresses can change across redeployments during this window. The table below will be populated and kept in sync as the deployment is confirmed; until then, the [CLI](/reference/apps/infrastructure/dotns/cli/) and the [Register and Publish](/apps/deploy-your-app/) flow target the current deployment automatically, and most developers should rely on those rather than calling contracts directly.
 
 ## Contract Address Table
 

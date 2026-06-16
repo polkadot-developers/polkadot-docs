@@ -19,7 +19,7 @@ Four properties shape how a Product developer interacts with dotNS:
 - **Pricing is personhood-gated by PopRules**: Short names are free for personhood holders; longer or numerically-suffixed names are open to anyone but require a deposit. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
 - **The architecture is a small set of cooperating contracts**: Not a single registrar — a set of contracts each handling a slice of the model. See [Architecture](/reference/apps/infrastructure/dotns/architecture/).
 
-For the Product-side how-to (registering a name, publishing your bundle), see [Register and Publish](/apps/deploy-and-publish/register-and-publish/).
+For the Product-side how-to (registering a name, publishing your bundle), see [Register and Publish](/apps/deploy-your-app/).
 
 !!! warning "Known gaps"
     Two operational caveats apply to the current dotNS surface:
@@ -61,5 +61,5 @@ For the Product-side how-to (registering a name, publishing your bundle), see [R
 
     The Product-side how-to: registering a `.dot` name, attaching your published Product bundle, and going live.
 
-    [:octicons-arrow-right-24: Get Started](/apps/deploy-and-publish/register-and-publish/)
+    [:octicons-arrow-right-24: Get Started](/apps/deploy-your-app/)
 </div>

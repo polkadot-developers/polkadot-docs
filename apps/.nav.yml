@@ -3,5 +3,5 @@ nav:
  - 'Quick Start': quick-start.md
  - 'Get Started': get-started
  - 'Build': build
- - 'Deploy and Publish': deploy-and-publish
+ - 'Deploy Your App': deploy-your-app.md
  - 'Tutorials': tutorials

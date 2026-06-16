@@ -86,5 +86,5 @@ A failure at any layer surfaces as a specific shield-state transition in the Hos
 
     The Product-side how-to for creating a name record and attaching a `contenthash`.
 
-    [:octicons-arrow-right-24: Get Started](/apps/deploy-and-publish/register-and-publish/)
+    [:octicons-arrow-right-24: Get Started](/apps/deploy-your-app/)
 </div>

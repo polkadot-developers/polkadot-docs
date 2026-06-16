@@ -39,7 +39,7 @@ To set up the structure, follow these steps:
     cd polkadot-mkdocs
     git clone https://github.com/polkadot-developers/polkadot-docs.git
     ```
-    > **📋 Contributing?** If you plan to [contribute](./CONTRIBUTING.md) to the documentation, fork the `polkadot-docs` repository first and clone your fork instead:
+    > **📋 Contributing?** If you plan to [contribute](CONTRIBUTING.md) to the documentation, fork the `polkadot-docs` repository first and clone your fork instead:
     > ```bash
     > git clone https://github.com/YOUR_USERNAME/polkadot-docs.git
     > ```
@@ -91,7 +91,7 @@ To work on the docs again:
 
 ## Contributing
 
-See [.CONTRIBUTING.md](./CONTRIBUTING.md) for how to contribute to this repository.
+See [.CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute to this repository.
 
 We're excited to have you contribute to the Polkadot docs and help improve our ecosystem! 🚀 Every contribution, whether it's fixing a typo, improving documentation, or adding new content, helps make Polkadot more accessible to developers worldwide. Thank you for being part of our community! 🙏✨
 

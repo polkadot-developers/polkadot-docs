@@ -3186,7 +3186,7 @@
       }
     }
   ],
-  "generated": "2026-06-16T14:54:26Z",
+  "generated": "2026-06-16T14:59:31Z",
   "not_applicable": [
     {
       "category": "not_applicable",
@@ -5136,6 +5136,99 @@
         "category_scores": {
           "procedural": 0,
           "reference": 3,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/hop/how-it-works.md",
+      "category": "conceptual",
+      "relevant_to": [],
+      "notes": "Conceptual model for the HOP protocol — single hops, multi-hop routing, and the verifier model. Explicitly provisional (wire format and runtime extrinsics still being finalized). No procedural content, no CLI commands, no code. Supplementary context for any future skill covering HOP cross-chain transfers.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/hop/recipient.md",
+      "category": "conceptual",
+      "relevant_to": [],
+      "notes": "Conceptual recipient journey for HOP transfers. Numbered 'Flow at a Glance' describes what the chain does (not reader actions). Explicitly provisional; recipient-side event surface still being finalized. Supplementary context for future HOP transfer skills.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/hop/sender.md",
+      "category": "conceptual",
+      "relevant_to": [],
+      "notes": "Conceptual sender journey for HOP transfers. 'Flow at a Glance' describes the sender's conceptual flow but the page explicitly states it documents the conceptual flow only; actual dispatch extrinsics and tracking surface are pending. No CLI commands or code. Supplementary context for future HOP transfer skills.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/pop/pallet-coinage.md",
+      "category": "reference",
+      "relevant_to": [],
+      "notes": "Reference table for pallet-coinage extrinsics, storage maps, and constants (R1, R2, R3 all fire). Partially provisional (parameter shapes pending Parity confirmation) but the symbol table is substantive. Conceptual intro explains personhood-aware addressing and privacy-preserving transfer model. Supplementary context for any future skill covering Coinage payment flows or pallet-coinage integration.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R2",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 12,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/infrastructure/pop/pallet-game.md",
+      "category": "conceptual",
+      "relevant_to": [],
+      "notes": "Conceptual overview of pallet-game. Dispatch surface explicitly provisional and pending; no API table exists yet. Explains the three guarantees the pallet enforces (one entry per alias, verifiable randomness, account unlinkability). Supplementary context for future skills covering personhood-gated games, randomized airdrops, or pallet-airdrop integration.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
           "conceptual": 7,
           "not_applicable": 0
         }

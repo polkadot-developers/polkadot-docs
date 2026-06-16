@@ -2996,9 +2996,163 @@
         },
         "priority_score": 10
       }
+    },
+    {
+      "skill_id": "store-data-bulletin-chain",
+      "title": "Store Data on the Bulletin Chain",
+      "source_pages": [
+        "apps/build/store-data-on-chain.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "status": "pending",
+      "notes": "K1=0: requires Install Desktop+Pair and Get TestNet Tokens as prerequisites, plus an existing Product project. Five SDK flows covered (hello world, larger file, renewal, cross-chain XCM, preimage) via --8<-- includes from docs repo code/ directory. Bulletin Chain authorization requires Root origin and cannot be obtained programmatically; developer must request via external authorization page before running store extrinsics.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "R1",
+          "R3",
+          "C2",
+          "K2",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 8,
+          "conceptual": 3,
+          "not_applicable": 0
+        },
+        "priority_score": 17
+      }
+    },
+    {
+      "skill_id": "deploy-product-dotns",
+      "title": "Deploy a Polkadot Product to a .dot Name",
+      "source_pages": [
+        "apps/deploy-your-app.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "status": "pending",
+      "notes": "K1=0: requires Install Desktop+Pair, Get TestNet Tokens, and a pre-existing Product project. Interactive playground CLI flow with 8 numbered deploy prompts (build, contracts, signer, build dir, domain, publish). No source code files created (P3=0); procedural score is exactly at tutorial threshold (15). Domain availability table distinguishes PoP-required vs open names.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P4",
+          "R2",
+          "K2",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 4,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 17
+      }
+    },
+    {
+      "skill_id": "get-testnet-tokens-paseo",
+      "title": "Get TestNet Tokens for Polkadot Development",
+      "source_pages": [
+        "apps/get-started/get-testnet-tokens.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "status": "pending",
+      "notes": "K1=0: requires Install Desktop and Pair as prerequisite. Primary faucet action is browser-based GUI (S1=0) — no CLI path. Also covers service allowance types (Bulletin Chain, Statement Store, dotNS) as supplementary context. Functions as a shared prerequisite step for most other Polkadot Product skills.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P4",
+          "R3",
+          "K2",
+          "K3",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 10,
+          "reference": 3,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 13
+      }
+    },
+    {
+      "skill_id": "install-deploy-product-cli",
+      "title": "Install and Deploy a Product with playground-cli",
+      "source_pages": [
+        "apps/quick-start-cli.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "status": "pending",
+      "notes": "K1=0: requires a pre-existing Polkadot Product project on disk with a build command. End-to-end from CLI install (curl) through pg init, pg build, pg deploy. No source code files created (P3=0); procedural score at tutorial threshold (15). Dev signer (--signer dev) flag makes the workflow fully automatable without phone interaction.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P4",
+          "R2",
+          "K2",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 4,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 17
+      }
+    },
+    {
+      "skill_id": "create-deploy-product-revx",
+      "title": "Create and Deploy a Polkadot Product with RevX App Builder",
+      "source_pages": [
+        "apps/quick-start.md"
+      ],
+      "category": "guide",
+      "priority": "low",
+      "status": "pending",
+      "notes": "Entirely browser/GUI-based (S1=0): all steps are clicks in the RevX browser IDE and phone signing. AI-generated code is non-deterministic (S2=0) — output depends on prompt and model. Requires external AI API key (OpenAI/Anthropic). Low skill-fit priority (7) reflects poor agent-executability.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P4",
+          "R2",
+          "C2",
+          "C3",
+          "K2",
+          "K3"
+        ],
+        "category_scores": {
+          "procedural": 10,
+          "reference": 4,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 7
+      }
     }
   ],
-  "generated": "2026-06-16T14:24:00Z",
+  "generated": "2026-06-16T14:30:59Z",
   "not_applicable": [
     {
       "category": "not_applicable",

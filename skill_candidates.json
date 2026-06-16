@@ -3184,9 +3184,38 @@
         },
         "priority_score": 20
       }
+    },
+    {
+      "skill_id": "install-polkadot-product-skills",
+      "title": "Install Polkadot Product Skills for Claude Code",
+      "source_pages": [
+        "reference/apps/skills.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "status": "pending",
+      "notes": "Procedural guide for installing Claude Code product-skills via /plugin CLI commands. No formal prerequisites section (K3=0); primary install path is CLI-based so S1 fires. Page is meta in that it documents the Claude Code skills marketplace for Polkadot Products developers.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "C1",
+          "K1",
+          "K2",
+          "S1",
+          "S2"
+        ],
+        "category_scores": {
+          "procedural": 11,
+          "reference": 0,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 16
+      }
     }
   ],
-  "generated": "2026-06-16T15:18:34Z",
+  "generated": "2026-06-16T15:23:49Z",
   "not_applicable": [
     {
       "category": "not_applicable",
@@ -5706,6 +5735,74 @@
         "persist-data-locally"
       ],
       "notes": "Deep architectural explanation of the Product sandbox model — why derived sub-accounts exist, why the Host API is the only egress, and how permissions relax isolation. Entirely conceptual design rationale; no structured method tables, no procedural steps, no runnable code. Rule 5 fires cleanly (conceptual=7, reference=0).",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/protocol/truapi/signing.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "sign-and-submit-transaction-truapi"
+      ],
+      "notes": "Conceptual overview of the TrUAPI Signing method group: three-actor mediated-signing model, per-request approval contract, and Auto-Signing capability. Useful background for any skill that submits signed transactions from a Polkadot Product.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/apps/protocol/truapi/statement-store.md",
+      "category": "reference",
+      "relevant_to": [
+        "publish-ephemeral-statement-store",
+        "subscribe-statement-store-topic"
+      ],
+      "notes": "Describes the TrUAPI Statement Store method group: JSON-RPC methods (statement_submit, statement_subscribeStatement), ChannelStore<T> abstraction, TTL/topic/channel parameters. Rule 4 breaks the tie with conceptual (reference=8, conceptual=7).",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 8,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "reference/apps/protocol/truapi/versioning.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "configure-truapi-product-manifest"
+      ],
+      "notes": "Explains the TrUAPI versioning model: additive, behavioral, and breaking change types; how Products declare version ranges; SDK-to-protocol lockstep versioning (roadmap, not yet shipped). Background context for any skill that targets a specific TrUAPI version.",
       "scoring": {
         "signals": [
           "C1",

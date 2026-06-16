@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-16T15:11:40Z",
+  "generated": "2026-06-16T15:30:00Z",
   "pages": {
     "AGENTS.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -155,11 +155,11 @@
     },
     "chain-interactions/send-transactions/with-sdks.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T16:00:00Z",
+      "last_scanned": "2026-06-16T15:30:00Z",
       "skills": [
         "send-transactions-sdks"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/store-data/bulletin-chain.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -241,11 +241,11 @@
     },
     "node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T16:30:00Z",
+      "last_scanned": "2026-06-16T15:30:00Z",
       "skills": [
         "set-up-polkadot-validator-node"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -343,19 +343,19 @@
     },
     "parachains/customize-runtime/pallet-development/mock-runtime.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T16:30:00Z",
+      "last_scanned": "2026-06-16T15:30:00Z",
       "skills": [
         "set-up-pallet-mock-runtime"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/pallet-development/pallet-testing.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T17:00:00Z",
+      "last_scanned": "2026-06-16T15:30:00Z",
       "skills": [
         "unit-test-frame-pallet"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/get-started.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -365,11 +365,11 @@
     },
     "parachains/install-polkadot-sdk.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T16:00:00Z",
+      "last_scanned": "2026-06-16T15:30:00Z",
       "skills": [
         "install-polkadot-sdk"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/integrations/indexers.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -1059,11 +1059,11 @@
     },
     "reference/tools/zombienet.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T18:00:00Z",
+      "last_scanned": "2026-06-16T15:30:00Z",
       "skills": [
         "spawn-test-network-zombienet"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/connect.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -1303,11 +1303,11 @@
     },
     "smart-contracts/libraries/web3-js.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
-      "last_scanned": "2026-06-08T18:30:00Z",
+      "last_scanned": "2026-06-16T15:30:00Z",
       "skills": [
         "deploy-interact-contracts-web3js"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/libraries/web3-py.md": {
       "last_edited": "2026-06-16T15:10:00+00:00",
@@ -1366,10 +1366,10 @@
   "summary": {
     "blocked": 23,
     "not_applicable": 13,
-    "stale": 62,
+    "stale": 55,
     "supplementary": 84,
     "total_candidates": 206,
     "uncovered": 24,
-    "up_to_date": 0
+    "up_to_date": 7
   }
 }

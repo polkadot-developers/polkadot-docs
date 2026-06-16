@@ -365,7 +365,7 @@
       "title": "Pay Transaction Fees with an Alternative Token"
     },
     {
-      "built_at": "2026-06-05T19:00:00Z",
+      "built_at": "2026-06-16T15:30:00Z",
       "category": "tutorial",
       "notes": "Multi-SDK tutorial for constructing, signing, and submitting balance transfers (PAPI, Polkadot.js, Dedot, Python Substrate Interface, Subxt). Cookbook-backed. Fundamental SDK skill and likely prerequisite for other chain-interaction skills.",
       "priority": "high",
@@ -489,7 +489,7 @@
       "title": "Register a Local Asset on Polkadot Hub"
     },
     {
-      "built_at": "2026-06-05T19:00:00Z",
+      "built_at": "2026-06-16T15:30:00Z",
       "category": "tutorial",
       "notes": "Multi-OS installation guide (macOS, Linux, Windows WSL) for the Polkadot SDK. Numbered steps throughout, multiple CLI commands (brew, apt, rustup, cargo build), and verification steps with expected output. Cookbook CI badge present (K4). Self-contained from scratch — covers all dependency installation and SDK build. Optional kitchensink explore step uses Polkadot.js Apps GUI but does not affect the primary installation workflow (S1 still fires). Serves as prerequisite for most parachain development skills (create-frame-pallet, set-up-the-parachain-template, etc.).",
       "priority": "high",
@@ -777,7 +777,7 @@
       "title": "Manage Validator Session Keys and Node Key"
     },
     {
-      "built_at": "2026-04-21T19:30:00Z",
+      "built_at": "2026-06-16T15:30:00Z",
       "category": "tutorial",
       "notes": "Complete binary installation guide covering NTP setup, Landlock verification, and installing polkadot/polkadot-prepare-worker/polkadot-execute-worker via four methods (curl+GPG, APT, Docker, build from source). P1+P2+P4 present; P3 absent (no source files). K1=5 — the installation workflow itself is self-contained; listed prerequisites are knowledge reading, not procedural dependencies. No cookbook badge (K4 absent). First step in the broader validator onboarding flow; see composite onboard-polkadot-validator.",
       "priority": "high",
@@ -1041,7 +1041,7 @@
       "title": "Create a Custom FRAME Pallet"
     },
     {
-      "built_at": "2026-05-19T21:30:00Z",
+      "built_at": "2026-06-16T15:30:00Z",
       "category": "tutorial",
       "notes": "Tutorial for creating a minimal mock runtime (mock.rs) using construct_runtime! and #[derive_impl] for isolated pallet testing: create mock module, configure frame_system and pallet Config traits, set up genesis storage helpers. K1=0 — requires completed create-frame-pallet (counter pallet in pallets/pallet-custom). Code uses MkDocs snippet includes but complete reference available in collapsible (K2=4). All CLI steps are programmatic (S1=4). Cookbook CI badge present. Part of pallet development series alongside create-frame-pallet, unit-test-frame-pallet, and benchmark-frame-pallet.",
       "priority": "high",
@@ -1075,7 +1075,7 @@
       "title": "Set Up a Mock Runtime for Pallet Unit Testing"
     },
     {
-      "built_at": "2026-05-19T21:30:00Z",
+      "built_at": "2026-06-16T15:30:00Z",
       "category": "tutorial",
       "notes": "Tutorial for writing comprehensive pallet unit tests using FRAME macros (assert_ok!, assert_noop!, System::assert_last_event!): create tests.rs, test basic operations, error conditions, access control, event emission, and genesis configuration. Inline Rust test code is fully shown (no snippet includes; K2=4). K1=0 — requires create-frame-pallet and set-up-pallet-mock-runtime. All steps are CLI/programmatic (S1=4). Cookbook CI badge present. Final step before benchmarking in the pallet development series.",
       "priority": "high",
@@ -1810,7 +1810,7 @@
       "title": "Interact with a Polkadot Node Using Subxt (Rust)"
     },
     {
-      "built_at": "2026-04-21T21:30:00Z",
+      "built_at": "2026-06-16T15:30:00Z",
       "category": "tutorial",
       "notes": "Covers the full Zombienet lifecycle: install (executable/Nix/Docker), write TOML or JSON network config files, spawn a relay chain with validators and parachain collators, author .zndsl test files with DSL assertions, and run the test suite. Explicit numbered outcome steps ('Zombienet will: 1. Download binaries ... 5. Display endpoints') and 'test runner will report pass/fail' confirm P4. Extensive Settings/RelayChain/Parachain/Collator config reference tables are present alongside the procedural flow. K2 not awarded due to INSERT_* placeholders and --8<-- snippet includes.",
       "priority": "high",
@@ -2457,7 +2457,7 @@
       "title": "Use Wagmi to Interact with Smart Contracts on Polkadot Hub"
     },
     {
-      "built_at": "2026-06-02T12:00:00Z",
+      "built_at": "2026-06-16T15:30:00Z",
       "category": "tutorial",
       "notes": "Complete end-to-end tutorial: project init, provider setup, Solidity compilation, contract deployment, and interaction — all via CLI Node.js scripts. Explicit prerequisites section (K3) and fully CLI-driven workflow (S1). Priority score hits the high threshold at 18. Note: the page carries a sunset warning for Web3.js and recommends Ethers.js or Viem instead; a skill built from this page should include that deprecation notice.",
       "priority": "high",

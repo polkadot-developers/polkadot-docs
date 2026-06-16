@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:690472b7f0efbab6e9eb1f64248bfde738d4eea8aed918138f4426c8525ff88a",
-  "generated": "2026-06-16T00:00:00Z",
+  "content_hash": "sha256:cabdf994df60ccc4c734282ab2e9d4168aac37e6c5a0084563cc034b53eb4db6",
+  "generated": "2026-06-16T15:30:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -764,7 +764,7 @@
         ]
       },
       "title": "Send Transactions with SDKs",
-      "version": "1.0.9",
+      "version": "1.0.10",
       "workflow_pattern": "sequential"
     },
     {
@@ -932,7 +932,7 @@
         ]
       },
       "title": "Install the Polkadot SDK",
-      "version": "1.0.7",
+      "version": "1.0.8",
       "workflow_pattern": "sequential"
     },
     {
@@ -3384,7 +3384,7 @@
         ]
       },
       "title": "Set Up a Polkadot Validator Node",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "workflow_pattern": "sequential"
     },
     {
@@ -4759,7 +4759,7 @@
         ]
       },
       "title": "Set Up a Mock Runtime for Pallet Unit Testing",
-      "version": "1.0.6",
+      "version": "1.0.7",
       "workflow_pattern": "sequential"
     },
     {
@@ -4917,7 +4917,7 @@
         ]
       },
       "title": "Write Unit Tests for a FRAME Pallet",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "workflow_pattern": "sequential"
     },
     {
@@ -6525,7 +6525,7 @@
         ]
       },
       "title": "Spawn and Test a Parachain Network with Zombienet",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "workflow_pattern": "sequential"
     },
     {
@@ -6729,7 +6729,7 @@
         ]
       },
       "title": "Deploy and Interact with Smart Contracts Using Web3.js",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {

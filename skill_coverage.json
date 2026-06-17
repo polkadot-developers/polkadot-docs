@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-17T10:00:00Z",
+  "generated": "2026-06-17T12:00:00Z",
   "pages": {
     "AGENTS.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
@@ -99,11 +99,11 @@
     },
     "chain-interactions/accounts/query-accounts.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
-      "last_scanned": "2026-06-16T16:00:00Z",
+      "last_scanned": "2026-06-17T12:00:00Z",
       "skills": [
         "query-account-info-sdks"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/query-data/query-rest.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
@@ -115,19 +115,19 @@
     },
     "chain-interactions/query-data/query-sdks.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
-      "last_scanned": "2026-06-16T16:00:00Z",
+      "last_scanned": "2026-06-17T12:00:00Z",
       "skills": [
         "query-chain-state-sdks"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/query-data/runtime-api-calls.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
-      "last_scanned": "2026-06-16T16:00:00Z",
+      "last_scanned": "2026-06-17T12:00:00Z",
       "skills": [
         "call-runtime-apis-sdks"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/send-transactions/calculate-transaction-fees.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
@@ -177,11 +177,11 @@
     },
     "chain-interactions/send-transactions/with-sdks.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
-      "last_scanned": "2026-06-16T15:30:00Z",
+      "last_scanned": "2026-06-17T12:00:00Z",
       "skills": [
         "send-transactions-sdks"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/store-data/bulletin-chain.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
@@ -387,11 +387,11 @@
     },
     "parachains/install-polkadot-sdk.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
-      "last_scanned": "2026-06-16T15:30:00Z",
+      "last_scanned": "2026-06-17T12:00:00Z",
       "skills": [
         "install-polkadot-sdk"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/integrations/indexers.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
@@ -1147,11 +1147,11 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
-      "last_scanned": "2026-06-16T16:00:00Z",
+      "last_scanned": "2026-06-17T12:00:00Z",
       "skills": [
         "deploy-basic-contract-hardhat"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
@@ -1163,11 +1163,11 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
-      "last_scanned": "2026-06-16T16:30:00Z",
+      "last_scanned": "2026-06-17T12:00:00Z",
       "skills": [
         "deploy-erc20-token-hardhat"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
@@ -1390,10 +1390,10 @@
   "summary": {
     "blocked": 23,
     "not_applicable": 13,
-    "stale": 55,
+    "stale": 48,
     "supplementary": 97,
     "total_candidates": 206,
     "uncovered": 0,
-    "up_to_date": 18
+    "up_to_date": 25
   }
 }

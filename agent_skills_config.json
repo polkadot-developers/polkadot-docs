@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:29919fadbc720e5f0bb78b6dca0ac257e4b6518d4b96f71cd5f7f8723ae4eb10",
-  "generated": "2026-06-16T17:30:00Z",
+  "content_hash": "sha256:83f740966a7467724bbd3b06ec13a2ac5368ccef8816daba6bcc74c2d4b656dd",
+  "generated": "2026-06-17T08:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -134,7 +134,7 @@
         ]
       },
       "title": "Create a Polkadot Account Programmatically",
-      "version": "1.0.12",
+      "version": "1.0.13",
       "workflow_pattern": "sequential"
     },
     {
@@ -10304,7 +10304,7 @@
         ]
       },
       "primary_page": "apps/tutorials/shared-todo-app.md",
-      "project_structure": "shared-todo-board/\n├── app/\n│   ├── layout.tsx\n│   └── page.tsx\n├── board.ts\n├── providers.tsx\n├── signer.ts\n├── snapshot.ts\n├── sync.ts\n├── types.ts\n├── package.json\n└── tailwind.config.ts",
+      "project_structure": "shared-todo-board/\n├── app/\n│   ├── layout.tsx\n│   ├── page.tsx\n│   └── providers.tsx\n├── lib/\n│   ├── board.ts\n│   ├── signer.ts\n│   ├── snapshot.ts\n│   ├── sync.ts\n│   └── types.ts\n├── package.json\n└── tailwind.config.ts",
       "reference_code": {
         "base_path": ".snippets/code/apps/tutorials/shared-todo-app",
         "branch": "master",
@@ -10368,7 +10368,7 @@
         },
         {
           "action": "Create the SDK providers wrapper",
-          "description": "Fetch the reference file and save it as providers.tsx in the project root. This file wraps the app with ProductSDKProvider, StatementStoreProvider, and other required context providers.",
+          "description": "Fetch the reference file and save it as app/providers.tsx. This file wraps the app in ProductSDKProvider (only) — there is no StatementStoreProvider at the root. The provider initialises the SDK with the app name 'shared-todo-board' and shows a loading fallback while the SDK connects to the Host.",
           "order": 3,
           "reference_file": "providers.tsx",
           "working_directory": "shared-todo-board"
@@ -10382,35 +10382,38 @@
         },
         {
           "action": "Create TypeScript interfaces",
-          "description": "Fetch the reference file and save it as types.ts. This defines the TodoItem and Board interfaces used throughout the application.",
+          "commands": [
+            "mkdir -p lib"
+          ],
+          "description": "Create the lib/ directory, then fetch the reference file and save it as lib/types.ts. This defines the Todo interface (with author, content, updatedAt, and done fields) and the Board interface used throughout the application. The updatedAt timestamp is the key conflict-resolution field for last-write-wins merging across all layers.",
           "order": 5,
           "reference_file": "types.ts",
           "working_directory": "shared-todo-board"
         },
         {
           "action": "Create the signer configuration",
-          "description": "Fetch the reference file and save it as signer.ts. This configures the wallet signer that connects to Polkadot Desktop for transaction approval on the user's phone.",
+          "description": "Fetch the reference file and save it as lib/signer.ts. This configures the wallet signer that connects to Polkadot Desktop for transaction approval on the phone. `connectIdentity()` connects to the Host, selects the first available account, and prefers the product-scoped account when the Host provides one. Outside a host container, connect() fails; this is intentional because every capability in the app needs the Host.",
           "order": 6,
           "reference_file": "signer.ts",
           "working_directory": "shared-todo-board"
         },
         {
           "action": "Create the board state manager",
-          "description": "Fetch the reference file and save it as board.ts. This manages the todo board state using LocalKvStore for device-local persistence.",
+          "description": "Fetch the reference file and save it as lib/board.ts. This manages the todo board state using LocalKvStore for device-local persistence — the board renders instantly from the device's last known state. getJSON/setJSON helpers handle serialization; the SDK namespaces keys per Product automatically. Mutation logic (add/toggle/delete) is NOT here — it is handled as events in sync.ts so local and remote changes flow through identical code.",
           "order": 7,
           "reference_file": "board.ts",
           "working_directory": "shared-todo-board"
         },
         {
           "action": "Create the real-time sync layer",
-          "description": "Fetch the reference file and save it as sync.ts. This layer uses the Statement Store for ephemeral pub/sub messaging (30-second TTL) to propagate board updates between devices in real time.",
+          "description": "Fetch the reference file and save it as lib/sync.ts. This layer uses the Statement Store for ephemeral pub/sub messaging (30-second TTL) to propagate board mutations in real time. Each statement carries one mutation (an upsert or deletion) because the whole board does not fit inside the 512-byte statement cap. applyEvent() implements per-todo last-write-wins by updatedAt and is idempotent. Statements that arrive replayed (including your own echoed back) are harmless no-ops.",
           "order": 8,
           "reference_file": "sync.ts",
           "working_directory": "shared-todo-board"
         },
         {
           "action": "Create the on-chain snapshot layer",
-          "description": "Fetch the reference file and save it as snapshot.ts. This stores and retrieves board snapshots on the Bulletin Chain, providing durable backups with ~2-week retention.",
+          "description": "Fetch the reference file and save it as lib/snapshot.ts. This stores and retrieves board snapshots on the Bulletin Chain with approximately 2-week retention. Snapshots are announced via a Statement Store channel with a 1-hour TTL (not the default 30s) so late joiners can discover the latest snapshot CID. ensureAuthorized() checks the Bulletin Chain quota before uploading to surface missing authorization as an actionable error.",
           "order": 9,
           "reference_file": "snapshot.ts",
           "working_directory": "shared-todo-board"
@@ -10463,7 +10466,7 @@
         ]
       },
       "title": "Build a Shared Todo App with the Polkadot Product SDK",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -10660,7 +10663,7 @@
         ]
       },
       "title": "Store and Retrieve Data on the Bulletin Chain",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -10746,7 +10749,7 @@
           "commands": [
             "playground deploy"
           ],
-          "description": "Start the interactive deployment. The CLI prompts for 8 values: domain name, signer type, environment, and deployment parameters. For non-interactive deployment (CI or dev mode), use `playground deploy --signer dev --domain my-app` to skip all prompts and deploy with a development signer.",
+          "description": "Start the interactive deployment with `playground deploy`. The CLI walks through 8 prompts in order:\n1. **Review README**: Your README.md becomes the app detail page on the playground.\n2. **Redeploy contracts if changed**: Choose 'no' for website-only changes.\n3. **Rebuild before deploy**: Choose 'yes' to recompile, or 'no' to reuse the existing build.\n4. **Choose signer**: 'dev signer' (fast, no phone) or 'your phone signer' (uses your own account).\n5. **Build directory**: Default is `dist`; use `.next` for Next.js.\n6. **Domain name**: Pick a `.dot` name. 9+ character base names are open to everyone; 6-8 characters require Proof of Personhood; 5 or fewer are reserved.\n7. **Publish to playground**: 'yes' to list it publicly; 'no' to deploy to your `.dot` address only.\n8. **Confirmation summary**: Review all choices, press Enter to deploy (Esc to cancel).\n\nFor non-interactive deployment, use `playground deploy --signer dev --domain my-app` to skip all prompts.",
           "expected_output": "Deployment complete. Your Product is live at my-app.dot",
           "order": 2,
           "working_directory": "."
@@ -10770,12 +10773,12 @@
         ]
       },
       "title": "Deploy a Polkadot Product to a .dot Name",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "workflow_pattern": "sequential"
     },
     {
       "chain_role": "isolated",
-      "description": "Installs the Polkadot playground CLI (pg) and walks through the full Product development lifecycle: initializing a new project, building, and deploying to a .dot domain. Use when setting up a new machine for Polkadot Product development or starting a Product project from scratch. Trigger phrases: 'install playground CLI', 'install pg CLI', 'set up Polkadot Product development', 'pg init', 'initialize Product project'. Produces an initialized Product project deployed to the Paseo Next testnet.",
+      "description": "Installs the Polkadot playground CLI (pg) and walks through the full Product deployment workflow: installing the CLI, pairing with your Polkadot App, building, and deploying to a .dot domain. Use when setting up a new machine for Polkadot Product development or making a first deployment. Trigger phrases: 'install playground CLI', 'install pg CLI', 'set up Polkadot Product development', 'pg init', 'pair playground CLI'. Also covers additional commands: pg mod (clone a moddable app), pg logout (clear session), pg update (upgrade CLI). Targets playground-cli 0.27.1.",
       "env_vars": [],
       "error_patterns": [
         {
@@ -10862,11 +10865,11 @@
           "working_directory": "."
         },
         {
-          "action": "Initialize a new Product project",
+          "action": "Initialize toolchain and pair the CLI",
           "commands": [
             "pg init"
           ],
-          "description": "Run the interactive project scaffolding wizard. pg init creates the Product directory structure with the required configuration files.",
+          "description": "Run `pg init` to install toolchain dependencies and pair the CLI with your signer. It is safe to re-run — existing installs and sessions are detected and skipped. The command opens an interactive flow: toolchain install runs in parallel with a login step that shows a QR code for pairing with the Polkadot App on your phone. Scan the QR code while dependencies download. Note: `pg init` does NOT scaffold a new project — it prepares your development environment and authenticates your session.",
           "order": 3,
           "working_directory": "."
         },
@@ -10908,7 +10911,7 @@
         ]
       },
       "title": "Install the Playground CLI and Deploy a Polkadot Product",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -11106,6 +11109,10 @@
           {
             "description": "Accesses app.localStorage via useProductSDK() to remove individual keys or clear all Product storage",
             "path": "remove-and-clear.tsx"
+          },
+          {
+            "description": "try/catch pattern showing how to handle Host storage errors from store operations",
+            "path": "error-handling.ts"
           }
         ],
         "repo": "polkadot-developers/polkadot-docs"
@@ -11178,6 +11185,13 @@
           "order": 9,
           "reference_file": "remove-and-clear.tsx",
           "working_directory": "."
+        },
+        {
+          "action": "Handle storage errors",
+          "description": "Fetch the reference file and save it as error-handling.ts. This shows the recommended try/catch pattern for wrapping store.set() and other store operations that can fail when the Host storage backend is unavailable.",
+          "order": 10,
+          "reference_file": "error-handling.ts",
+          "working_directory": "."
         }
       ],
       "supplementary_context": {
@@ -11198,12 +11212,12 @@
         ]
       },
       "title": "Persist Data Locally with the Product SDK LocalKvStore",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
       "chain_role": "isolated",
-      "description": "Connects a Polkadot Product to one or more chains and reads storage items, constants, and account state using @parity/product-sdk-chain-client. Supports a zero-config Preset path (getChainAPI) for paseo and summit environments and a BYOD path (createChainClient) with custom descriptors for explicit chain control. Use when your Product needs to query on-chain data such as account balances, block numbers, or storage items without submitting transactions. Trigger phrases: 'read chain state Product', 'getChainAPI', 'createChainClient Product SDK', 'query Polkadot chain from Product', 'product-sdk chain client'. Output: typed chain client exposing .query, .constants, and raw PAPI surface per connected chain.",
+      "description": "Connects a Polkadot Product to one or more chains and reads storage items, constants, and account state using @parity/product-sdk-chain-client. Supports a zero-config Preset path (getChainAPI) for paseo and summit environments and a BYOD path (createChainClient) with custom descriptors for explicit chain control. Use when your Product needs to query on-chain data such as account balances, block numbers, or storage items without submitting transactions. Trigger phrases: 'read chain state Product', 'getChainAPI', 'createChainClient Product SDK', 'query Polkadot chain from Product', 'product-sdk chain client'. Output: typed chain client exposing .query, .constants, and raw PAPI surface per connected chain Also exposes the raw PolkadotClient per chain for subscriptions and advanced low-level operations, and helper functions (isInsideContainer/isInsideContainerSync) to detect whether the Product is running inside a Polkadot Desktop host container.",
       "env_vars": [],
       "error_patterns": [
         {
@@ -11302,6 +11316,18 @@
           "description": "Call `client.destroy()` when the Product no longer needs chain connections (view unmount, process shutdown). For full-process teardown, use `destroyAll()` from `@parity/product-sdk-chain-client` to close all open connections globally.",
           "order": 5,
           "working_directory": "."
+        },
+        {
+          "action": "Access the raw PAPI client",
+          "description": "When you need to step outside the typed query/constants surface (e.g. raw storage subscriptions, block tracking, or building a ContractRuntime for pallet-revive), access the underlying PolkadotClient via `.raw`. Example:\n\n```typescript\n// Subscribe to every new finalized block on the Bulletin chain\nconst subscription = client.raw.bulletin.finalizedBlock$.subscribe((block) => {\n  console.log(`Finalized block #${block.number}: ${block.hash}`);\n});\n// Unsubscribe when done\nsubscription.unsubscribe();\n```\n\nUse the raw client only when the typed surface is insufficient. For most reads, use client.<chain>.query.*.",
+          "order": 6,
+          "working_directory": "."
+        },
+        {
+          "action": "Detect whether running inside a host container",
+          "description": "Use `isInsideContainer()` (async, canonical) or `isInsideContainerSync()` (sync, for top-level guards) from `@parity/product-sdk-chain-client` to branch on host-vs-standalone behavior. Example:\n\n```typescript\nimport {\n  isInsideContainer,\n  isInsideContainerSync,\n} from '@parity/product-sdk-chain-client';\n\nconst inContainer = await isInsideContainer(); // async, canonical\nconst inContainerSync = isInsideContainerSync(); // sync, for top-level guards\n```\n\nYou generally do not need to branch on this; detection is for cases where your Product wants to adapt its UI or telemetry based on whether it's running inside Polkadot Desktop.",
+          "order": 7,
+          "working_directory": "."
         }
       ],
       "supplementary_context": {
@@ -11322,7 +11348,7 @@
         ]
       },
       "title": "Read On-Chain Data with the Product SDK Chain Client",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {

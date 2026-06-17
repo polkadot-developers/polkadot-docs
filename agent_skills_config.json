@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:83f740966a7467724bbd3b06ec13a2ac5368ccef8816daba6bcc74c2d4b656dd",
-  "generated": "2026-06-17T08:00:00Z",
+  "content_hash": "sha256:7adbded55e20ef0639907eb112b9ee948d1ca62913bcdd369df0f4ca2f2ac3f3",
+  "generated": "2026-06-17T10:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -1841,7 +1841,7 @@
         ]
       },
       "title": "Query On-Chain Data with Sidecar REST API",
-      "version": "1.2.3",
+      "version": "1.2.4",
       "workflow_pattern": "sequential"
     },
     {
@@ -3495,7 +3495,7 @@
         ]
       },
       "title": "Validate Polkadot Validator Requirements",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "workflow_pattern": "domain-intelligence"
     },
     {
@@ -7657,7 +7657,7 @@
         ]
       },
       "title": "Deploy a Basic Smart Contract with Remix IDE",
-      "version": "1.4.1",
+      "version": "1.4.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -7771,7 +7771,7 @@
         ]
       },
       "title": "Use the Remix IDE on Polkadot Hub",
-      "version": "1.4.1",
+      "version": "1.4.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -7893,7 +7893,7 @@
         ]
       },
       "title": "Connect a Wallet to Polkadot Hub",
-      "version": "1.2.4",
+      "version": "1.2.5",
       "workflow_pattern": "sequential"
     },
     {
@@ -8410,7 +8410,7 @@
         ]
       },
       "title": "Interact with the ERC-20 Precompile on Polkadot Hub via Remix",
-      "version": "1.1.4",
+      "version": "1.1.5",
       "workflow_pattern": "sequential"
     },
     {
@@ -8561,7 +8561,7 @@
         ]
       },
       "title": "Interact with the Storage Precompile on Polkadot Hub via Remix",
-      "version": "1.1.4",
+      "version": "1.1.5",
       "workflow_pattern": "sequential"
     },
     {

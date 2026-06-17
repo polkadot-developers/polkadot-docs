@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-17T08:00:00Z",
+  "generated": "2026-06-17T10:00:00Z",
   "pages": {
     "AGENTS.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
@@ -107,11 +107,11 @@
     },
     "chain-interactions/query-data/query-rest.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
-      "last_scanned": "2026-06-16T16:30:00Z",
+      "last_scanned": "2026-06-17T10:00:00Z",
       "skills": [
         "query-chain-data-sidecar-rest"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/query-data/query-sdks.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
@@ -307,11 +307,11 @@
     },
     "node-infrastructure/run-a-validator/requirements.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
-      "last_scanned": "2026-06-16T16:30:00Z",
+      "last_scanned": "2026-06-17T10:00:00Z",
       "skills": [
         "onboard-polkadot-validator"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "node-infrastructure/run-a-validator/staking-mechanics/offenses-and-slashes.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
@@ -1155,11 +1155,11 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
-      "last_scanned": "2026-06-16T16:30:00Z",
+      "last_scanned": "2026-06-17T10:00:00Z",
       "skills": [
         "deploy-basic-contract-remix"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
@@ -1227,11 +1227,11 @@
     },
     "smart-contracts/dev-environments/remix.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
-      "last_scanned": "2026-06-16T16:30:00Z",
+      "last_scanned": "2026-06-17T10:00:00Z",
       "skills": [
         "connect-remix-polkadot"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/explorers.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
@@ -1295,11 +1295,11 @@
     },
     "smart-contracts/integrations/wallets.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
-      "last_scanned": "2026-06-16T16:30:00Z",
+      "last_scanned": "2026-06-17T10:00:00Z",
       "skills": [
         "connect-wallet-polkadot-hub"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/libraries/ethers-js.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
@@ -1349,11 +1349,11 @@
     },
     "smart-contracts/precompiles/erc20.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
-      "last_scanned": "2026-06-16T16:30:00Z",
+      "last_scanned": "2026-06-17T10:00:00Z",
       "skills": [
         "interact-erc20-precompile-polkadot-hub"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/precompiles/eth-native.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
@@ -1363,11 +1363,11 @@
     },
     "smart-contracts/precompiles/storage.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
-      "last_scanned": "2026-06-16T16:30:00Z",
+      "last_scanned": "2026-06-17T10:00:00Z",
       "skills": [
         "interact-storage-precompile-remix"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/precompiles/system.md": {
       "last_edited": "2026-06-16T17:10:21+00:00",
@@ -1390,10 +1390,10 @@
   "summary": {
     "blocked": 23,
     "not_applicable": 13,
-    "stale": 62,
+    "stale": 55,
     "supplementary": 97,
     "total_candidates": 206,
     "uncovered": 0,
-    "up_to_date": 11
+    "up_to_date": 18
   }
 }

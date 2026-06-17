@@ -69,7 +69,7 @@
       "title": "Query Account Information with SDKs"
     },
     {
-      "built_at": "2026-06-16T15:30:00Z",
+      "built_at": "2026-06-17T10:00:00Z",
       "category": "tutorial",
       "notes": "Covers querying account balances, asset metadata, and block info via curl against the Sidecar REST API. P3 absent (no files to create, only curl commands). Reference tables for response fields contribute to reference score but procedural score still meets tutorial threshold. Has cookbook CI badge (K4).",
       "priority": "high",
@@ -1982,7 +1982,7 @@
       "title": "Deploy a Basic Smart Contract with Hardhat"
     },
     {
-      "built_at": "2026-04-21T22:30:00Z",
+      "built_at": "2026-06-17T10:00:00Z",
       "category": "guide",
       "notes": "GUI-only guide for deploying the default Remix Storage.sol contract via Remix IDE browser interface. No CLI commands (P2 = 0) and no source files to create (P3 = 0) — uses Remix's built-in sample contract. All steps are click-based (S1 = 0). Procedural score (10) qualifies as guide via rule 3. Priority is medium (14) due to K1 = 5 (self-contained given MetaMask prerequisite), K3 = 3 (explicit prerequisites listed), S2 = 3, and S3 = 3 (deploy-contract-remix is a known skill shape in this vertical). K4 = 0 (no reference repo for Remix path); K2 = 0 (no code examples to assess).",
       "priority": "medium",
@@ -2239,7 +2239,7 @@
       "title": "Set Up Hardhat for Polkadot Hub (EVM)"
     },
     {
-      "built_at": "2026-04-21T22:30:00Z",
+      "built_at": "2026-06-17T10:00:00Z",
       "category": "guide",
       "notes": "Ambiguous: procedural=10 vs conceptual=7 (difference=3, within ambiguity threshold). Resolved as guide because numbered connection steps (1-4) and a verifiable outcome ('Remix will display your MetaMask account address') are present. However, all steps are GUI-only clicks/dropdowns (S1=0), reducing agent executability. K1=0: requires MetaMask already configured for Polkadot (references Wallet Integrations guide). No reference repo. Useful as a prerequisite context page before Remix-based deploy tutorials.",
       "priority": "medium",
@@ -2334,7 +2334,7 @@
       "title": "Set Up a Local Development Node"
     },
     {
-      "built_at": "2026-04-21T22:30:00Z",
+      "built_at": "2026-06-17T10:00:00Z",
       "category": "guide",
       "notes": "Numbered GUI steps for connecting MetaMask and Talisman to Polkadot Hub TestNet. K1=0: step 4 for MetaMask defers to smart-contracts/connect/ for RPC parameters. S1=0: all steps are browser-extension UI clicks with no CLI equivalent. Medium priority reflects GUI-only workflow limiting automation fitness.",
       "priority": "medium",
@@ -2520,7 +2520,7 @@
       "title": "Deploy and Interact with Smart Contracts on Polkadot Hub Using Web3.py"
     },
     {
-      "built_at": "2026-04-21T23:00:00Z",
+      "built_at": "2026-06-17T10:00:00Z",
       "category": "guide",
       "notes": "Predominantly a reference page (function signatures, parameter tables, address format specs, asset ID table) with a numbered procedural section for using the precompile via Remix IDE. Scores are close: procedural=10 vs reference=12 (within 3-point ambiguity threshold). Rule 3 fires first (procedural ≥ 10) assigning guide, but the reference character is strong. The interaction steps are GUI-only in Remix (S1=0), which limits skill-fit. Code examples are complete Solidity snippets with real precompile addresses (K2=4).",
       "priority": "medium",
@@ -2559,7 +2559,7 @@
       "title": "Interact with the ERC20 Precompile on Polkadot Hub"
     },
     {
-      "built_at": "2026-04-21T23:00:00Z",
+      "built_at": "2026-06-17T10:00:00Z",
       "category": "tutorial",
       "notes": "Complete walkthrough of connecting to and using the Storage precompile via Remix IDE. Reference API documentation (R1, R3) dominates the bulk of the page but a discrete 6-step interaction workflow with verifiable outcome qualifies it as a tutorial by Rule 2 (procedural=15, P4 present). GUI-only Remix steps prevent S1 from firing, capping priority at medium.",
       "priority": "medium",

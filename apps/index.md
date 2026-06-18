@@ -11,11 +11,8 @@ categories: Apps
 The Polkadot App is your wallet, identity, and signer: the center of everything you build. Install it first; every path below connects through it.
 
 <div class="button-wrapper" markdown>
-[:material-apple: App Store](#){ .md-button }   [:material-google-play: Google Play](#){ .md-button }
+[:material-apple: App Store — Coming soon](){ .md-button .disabled-button }   [:material-google-play: Google Play](https://play.google.com/store/apps/details?id=io.pcf.polkadotapp){ .md-button }
 </div>
-
-!!! warning "Provisional"
-    Store links are pending the public release of the Polkadot App. Open the App and follow the on-screen instructions to create your account, which becomes your developer identity for Polkadot Products.
 
 ## Then Pick Your Path
 

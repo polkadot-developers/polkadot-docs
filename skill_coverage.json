@@ -1,15 +1,5 @@
 {
-  "schema_version": "1",
   "generated": "2026-06-18T10:12:31Z",
-  "summary": {
-    "total_candidates": 206,
-    "up_to_date": 14,
-    "stale": 59,
-    "uncovered": 0,
-    "blocked": 23,
-    "not_applicable": 13,
-    "supplementary": 97
-  },
   "pages": {
     "AGENTS.md": {
       "last_edited": "2026-06-17T08:44:41+00:00",
@@ -1395,5 +1385,15 @@
       ],
       "status": "stale"
     }
+  },
+  "schema_version": "1",
+  "summary": {
+    "blocked": 23,
+    "not_applicable": 13,
+    "stale": 59,
+    "supplementary": 97,
+    "total_candidates": 206,
+    "uncovered": 0,
+    "up_to_date": 14
   }
 }

@@ -23,7 +23,6 @@ if "%1"=="install" goto install
 if "%1"=="reinstall" goto reinstall
 if "%1"=="serve" goto serve
 if "%1"=="build" goto build
-if "%1"=="gen-cookbook" goto gen-cookbook
 if "%1"=="help" goto help
 echo Unknown target: %1
 goto help
@@ -87,23 +86,6 @@ if errorlevel 1 (
 )
 goto :eof
 
-:gen-cookbook
-if "%TARGET%"=="" (
-    echo Error: TARGET is required.
-    echo   Usage: set TARGET=smart-contracts/cookbook ^& Makefile.bat gen-cookbook
-    exit /b 1
-)
-if not exist %VENV%\.installed call :install
-if errorlevel 1 exit /b 1
-%PYTHON% %SCRIPTS_DIR%\generate-cookbook-indexes.py %TARGET%
-if errorlevel 1 (
-    echo.
-    echo Error: Failed to generate cookbook index for "%TARGET%".
-    echo   Ensure the path exists under polkadot-docs/ and contains a .nav.yml file.
-    exit /b 1
-)
-goto :eof
-
 :help
 echo Please use "Makefile.bat [target]" where [target] is one of:
 echo   install       to create a virtual environment and install all doc dependencies
@@ -112,5 +94,4 @@ echo   serve         to watch, rebuild, and serve the docs locally with live rel
 echo                   pass extra flags as a second arg: Makefile.bat serve "--watch-theme"
 echo   build         to build the static site and validate it compiles cleanly (mirrors CI)
 echo                   pass extra flags as a second arg: Makefile.bat build "-d site"
-echo   gen-cookbook  to regenerate the cookbook index table (set TARGET=path/to/section)
 goto :eof

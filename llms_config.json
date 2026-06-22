@@ -76,10 +76,8 @@
     },
     "exclusions": {
       "skip_basenames": [
-        "README.md",
         "pull-request-template.md",
         "cookie-policy.md",
-        "LICENSE.md",
         "ai-chatbot-policy.md",
         "terms-of-use.md",
         "privacy-policy.md",

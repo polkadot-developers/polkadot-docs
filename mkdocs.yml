@@ -1,3 +1,4 @@
+# Basic site configurations
 site_name: Polkadot Developer Docs
 site_url: https://docs.polkadot.com/
 home_url: https://polkadot.com/
@@ -17,6 +18,7 @@ extra_javascript:
   - js/error-modal.js
   - js/ai-file-actions.js
   - js/toggle-pages.js
+
 # Extra CSS files
 extra_css:
   - assets/stylesheets/terminal.css
@@ -29,10 +31,13 @@ validation:
   absolute_links: ignore
   unrecognized_links: ignore
   omitted_files: ignore
+
+# Do not build the following pages
 exclude_docs: |
+   AGENTS.md
+   CONTRIBUTING.md
    README.md
    LICENSE.md
-   AGENTS.md
 
 # Theme related settings
 theme:
@@ -74,6 +79,8 @@ theme:
       toggle:
         icon: octicons/sun-16
         name: Switch to light mode
+
+# Extensions
 markdown_extensions:
   - abbr
   - admonition

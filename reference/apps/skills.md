@@ -1,6 +1,6 @@
 ---
 title: Polkadot Product Skills
-description: Reference for the Claude Code product-skills repo, modular skills that teach the agent how to work effectively across the Polkadot Products stack.
+description: Reference for the product-sdk skills — modular instructions that teach an AI agent how to work effectively across the Polkadot Products stack.
 categories: Apps, Reference
 ---
 
@@ -8,85 +8,54 @@ categories: Apps, Reference
 
 ## Introduction
 
-Product Skills is a repository of [Claude Code](https://www.anthropic.com/claude-code) skills, small, modular instructions and code references that teach the Claude Code agent how to work effectively across specific parts of the Polkadot Products stack. A skill bundles together what the agent needs to know about one slice of the surface (the Triangle architecture, the Bulletin Chain SDK, the design system, the test SDK, and so on) so that when you ask Claude Code for help in that area, it has the right context loaded.
+Product Skills are small, modular instruction sets that teach an AI coding agent how to work effectively across specific parts of the Polkadot Products stack. A skill bundles together what the agent needs to know about one slice of the surface (chain connections, bulletin storage, contract interactions, and so on) so that when you ask it for help in that area, it has the right context loaded.
 
-If you are working on a Polkadot Product with Claude Code, installing the relevant skills tilts the agent toward correct, idiomatic answers instead of generic boilerplate. If you are not using Claude Code, this page is informational; the skills documented here are not standalone tools.
+If you are working on a Polkadot Product with an AI coding agent, installing the relevant skills tilts the agent toward correct, idiomatic answers instead of generic boilerplate.
 
-The repository lives at [`paritytech/product-skills`](https://github.com/paritytech/product-skills).
+The skills live inside the [`paritytech/product-sdk`](https://github.com/paritytech/product-sdk){target=\_blank} monorepo under `product-sdk/skills/`.
 
 ## Skills List
 
-| Skill                                                                                                                                   | What It Covers                                                                                                                                                                                                      |
-|:---------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-| [`polkadot-triangle`](https://github.com/paritytech/product-skills/tree/main/polkadot-triangle)                         | Host API, PAPI chain interactions, wallet connection, signing, CID deployment, DotNS. Foundational context for any Polkadot Product work.                                                                           |
-| [`bulletin-storage`](https://github.com/paritytech/product-skills/tree/main/bulletin-storage)                           | Content-addressed storage, CID computation, chunked storage, authorization, data renewal. Useful when the agent is writing or reviewing code that interacts with the Bulletin Chain storage layer.                  |
-| [`bulletin-sdk`](https://github.com/paritytech/product-skills/tree/main/bulletin-sdk)                                   | `@parity/bulletin-sdk` (JS) and `bulletin-sdk-rust` provide the preferred SDK for Bulletin Chain storage in Products. Lower-level than `bulletin-storage`; reach for it when the agent needs the API-level details. |
-| [`polkadot-design-system`](https://github.com/paritytech/product-skills/tree/main/polkadot-design-system)               | UI tokens, typography, interaction patterns, copy quality, light/dark themes. Useful when the agent is writing UI code that should look like a Polkadot Product.                                                    |
-| [`polkadot-product-engineering`](https://github.com/paritytech/product-skills/tree/main/polkadot-product-engineering)   | Web3 architecture compliance, four-layer classification, forbidden dependency detection. The "how a Polkadot Product project is shaped" skill.                                                                      |
-| [`host-api-test-sdk`](https://github.com/paritytech/product-skills/tree/main/host-api-test-sdk)                         | Playwright E2E tests for Polkadot dApps, test host fixtures, dev accounts, chain connections. Useful when the agent is writing tests against a Product's TrUAPI consumption.                                        |
-| [`statement-store-and-allowance`](https://github.com/paritytech/product-skills/tree/main/statement-store-and-allowance) | Statement Store ephemeral messaging, allowance provisioning, SDK usage patterns. Useful when the agent is writing pub/sub code or budgeting against the allowance limits.                                           |
-| [`product-readme`](https://github.com/paritytech/product-skills/tree/main/product-readme)                               | Generating polished, product-quality README files for open source projects. Useful for generating or reviewing Product READMEs.                                                                                     |
+| Skill | What It Covers |
+|:-----:|:---------------|
+| [`product-sdk-app-builder`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-app-builder){target=\_blank} | End-to-end scaffolding and implementation of Polkadot apps using `@parity/product-sdk` packages. Foundational orchestrator skill — reach for this when starting a new project or scaffolding chain interactions. |
+| [`product-sdk-bulletin`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-bulletin){target=\_blank} | Upload and retrieve data on the Polkadot Bulletin Chain. Covers CID-based content-addressed storage, IPFS gateway access, the `BulletinClient` SDK, batch uploads, and CID computation. |
+| [`product-sdk-chain-connection`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-chain-connection){target=\_blank} | Typed access to Polkadot chains via `@parity/product-sdk-chain-client` and `@parity/product-sdk-descriptors`. Covers preset and BYOD (bring-your-own-descriptors) paths, state queries, and storage subscriptions. |
+| [`product-sdk-contracts`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-contracts){target=\_blank} | Smart contract interaction (PolkaVM / Solidity) on Asset Hub. Covers `ContractManager` with `cdm.json` manifests, ad-hoc `createContract`, `ContractRuntime`, and contract type codegen. |
+| [`product-sdk-statement-store`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-statement-store){target=\_blank} | Publish and subscribe to ephemeral messages on the Polkadot Statement Store. Covers `StatementStoreClient` lifecycle, host and local connection modes, channels with last-write-wins semantics, and the 512-byte size limit. |
+| [`product-sdk-transactions`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-transactions){target=\_blank} | Submit transactions, manage signers, and derive keys. Covers `@parity/product-sdk-tx`, `@parity/product-sdk-signer`, and `@parity/product-sdk-keys` — multi-provider wallet accounts, Host API signing (Desktop/Mobile), and dev signers for testnet. |
+| [`product-sdk-utilities`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-utilities){target=\_blank} | Foundational utilities — SS58/H160 address encoding, AES/ChaCha/NaCl crypto, HKDF key derivation, byte encoding, token (planck) formatting, key-value storage, and structured logging. |
 
 ## How to Install
 
-Pick the path that matches your setup.
+Clone the `paritytech/product-sdk` repo:
 
-### Claude Code Users
+```bash
+git clone https://github.com/paritytech/product-sdk.git
+```
 
-Run these slash commands inside Claude Code.
+Skills live under `product-sdk/skills/<skill-name>/` in the cloned directory. Register whichever skills are relevant with your agent — Claude Code, Cursor, Codex, or a custom harness — using that agent's skill or context-loading mechanism.
 
-1. Register the repo as a skill marketplace:
-
-    ```text
-    /plugin marketplace add paritytech/product-skills
-    ```
-
-2. Install all skills at once:
-
-    ```text
-    /plugin install polkadot-skills@product-skills
-    ```
-
-To pick individual skills instead, run `/plugin marketplace add paritytech/product-skills`, select **Browse and install plugins**, select **product-skills**, choose the skills you want, and select **Install now**.
-
-Skills auto-trigger based on context. You can also invoke any skill directly with `/<skill-name>`. For example, before asking the agent for help chunking a large upload to the Bulletin Chain, load the relevant SDK context up front:
+Skills trigger based on context. You can also invoke a skill directly by name before asking a question. For example, before asking the agent for help chunking a large upload to the Bulletin Chain, load the relevant context up front:
 
 ```text
-/bulletin-sdk how do I chunk a 50 MB file across multiple transactions?
+/product-sdk-bulletin how do I chunk a 50 MB file across multiple transactions?
 ```
 
 The agent now has the SDK's API patterns and best practices loaded before it answers, instead of falling back on generic JavaScript knowledge.
 
-### Other Agents (Cursor, Codex, Custom Harnesses)
-
-If your agent loads skills from disk, install with [`npx skills`](https://www.npmjs.com/package/skills) from a local clone:
-
-```bash
-git clone https://github.com/paritytech/product-skills.git
-npx skills add product-skills
-```
-
-This registers the skills locally so any compatible agent can discover them.
-
 ## Updating
 
 !!! tip "Keep skills current"
-    Polkadot Products surfaces are in active development. A skill that has not been refreshed for a while will teach the agent stale API patterns, which is worse than no skill at all. Refresh after major releases, or enable auto-update in Claude Code so it happens at startup.
+    Polkadot Products surfaces are in active development. A skill that has not been refreshed for a while will teach the agent stale API patterns, which is worse than no skill at all. Refresh after major releases.
 
-**Claude Code:** refresh the marketplace.
-
-```text
-/plugin marketplace update product-skills
-```
-
-If you have auto-update enabled, skills update automatically at startup.
-
-**Other agents:** pull the latest from your clone and re-register.
+Pull the latest changes from your clone:
 
 ```bash
 git pull
-npx skills add product-skills
 ```
+
+Then re-register any updated skills with your agent as needed.
 
 ## Where to Go Next
 
@@ -100,12 +69,12 @@ npx skills add product-skills
 
     [:octicons-arrow-right-24: Get Started](/apps/get-started/)
 
-- <span class="badge external">External</span> **product-skills repo**
+- <span class="badge external">External</span> **product-sdk repo**
 
     ---
 
-    The source of truth for the skills documented above, including install commands, per-skill README files, and updates.
+    The source of truth for the skills documented above, including per-skill README files and updates.
 
-    [:octicons-arrow-right-24: Visit Repo](https://github.com/paritytech/product-skills)
+    [:octicons-arrow-right-24: Visit Repo](https://github.com/paritytech/product-sdk){target=\_blank}
 
 </div>

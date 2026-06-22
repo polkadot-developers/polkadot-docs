@@ -12,19 +12,19 @@ Product Skills are small, modular instruction sets that teach an AI coding agent
 
 If you are working on a Polkadot Product with an AI coding agent, installing the relevant skills tilts the agent toward correct, idiomatic answers instead of generic boilerplate.
 
-The skills live inside the [`paritytech/product-sdk`](https://github.com/paritytech/product-sdk){target=\_blank} monorepo under `product-sdk/skills/`.
+The skills live inside the [`paritytech/product-sdk`](https://github.com/paritytech/product-sdk) monorepo under `product-sdk/skills/`.
 
 ## Skills List
 
-| Skill | What It Covers |
-|:-----:|:---------------|
-| [`product-sdk-app-builder`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-app-builder){target=\_blank} | End-to-end scaffolding and implementation of Polkadot apps using `@parity/product-sdk` packages. Foundational orchestrator skill — reach for this when starting a new project or scaffolding chain interactions. |
-| [`product-sdk-bulletin`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-bulletin){target=\_blank} | Upload and retrieve data on the Polkadot Bulletin Chain. Covers CID-based content-addressed storage, IPFS gateway access, the `BulletinClient` SDK, batch uploads, and CID computation. |
-| [`product-sdk-chain-connection`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-chain-connection){target=\_blank} | Typed access to Polkadot chains via `@parity/product-sdk-chain-client` and `@parity/product-sdk-descriptors`. Covers preset and BYOD (bring-your-own-descriptors) paths, state queries, and storage subscriptions. |
-| [`product-sdk-contracts`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-contracts){target=\_blank} | Smart contract interaction (PolkaVM / Solidity) on Asset Hub. Covers `ContractManager` with `cdm.json` manifests, ad-hoc `createContract`, `ContractRuntime`, and contract type codegen. |
-| [`product-sdk-statement-store`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-statement-store){target=\_blank} | Publish and subscribe to ephemeral messages on the Polkadot Statement Store. Covers `StatementStoreClient` lifecycle, host and local connection modes, channels with last-write-wins semantics, and the 512-byte size limit. |
-| [`product-sdk-transactions`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-transactions){target=\_blank} | Submit transactions, manage signers, and derive keys. Covers `@parity/product-sdk-tx`, `@parity/product-sdk-signer`, and `@parity/product-sdk-keys` — multi-provider wallet accounts, Host API signing (Desktop/Mobile), and dev signers for testnet. |
-| [`product-sdk-utilities`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-utilities){target=\_blank} | Foundational utilities — SS58/H160 address encoding, AES/ChaCha/NaCl crypto, HKDF key derivation, byte encoding, token (planck) formatting, key-value storage, and structured logging. |
+| Skill                                                                                                                       | What It Covers                                                                                                                                                                                                          |
+|:---------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| [`product-sdk-app-builder`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-app-builder) | End-to-end scaffolding and implementation of Polkadot apps using `@parity/product-sdk` packages. Foundational orchestrator skill — reach for this when starting a new project or scaffolding chain interactions.        |
+| [`product-sdk-bulletin`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-bulletin)             | Upload and retrieve data on the Polkadot Bulletin Chain. Covers CID-based content-addressed storage, IPFS gateway access, the `BulletinClient` SDK, batch uploads, and CID computation.                                 |
+| [`product-sdk-chain-connection`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-chain-connection) | Typed access to Polkadot chains via `@parity/product-sdk-chain-client` and `@parity/product-sdk-descriptors`. Covers preset and BYOD (bring-your-own-descriptors) paths, state queries, and storage subscriptions. |
+| [`product-sdk-contracts`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-contracts)           | Smart contract interaction (PolkaVM / Solidity) on Asset Hub. Covers `ContractManager` with `cdm.json` manifests, ad-hoc `createContract`, `ContractRuntime`, and contract type codegen.                                |
+| [`product-sdk-statement-store`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-statement-store) | Publish and subscribe to ephemeral messages on the Polkadot Statement Store. Covers `StatementStoreClient` lifecycle, host and local connection modes, channels with last-write-wins semantics, and the 512-byte size limit. |
+| [`product-sdk-transactions`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-transactions)     | Submit transactions, manage signers, and derive keys. Covers `@parity/product-sdk-tx`, `@parity/product-sdk-signer`, and `@parity/product-sdk-keys` — multi-provider wallet accounts, Host API signing (Desktop/Mobile), and dev signers for testnet. |
+| [`product-sdk-utilities`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-utilities)           | Foundational utilities — SS58/H160 address encoding, AES/ChaCha/NaCl crypto, HKDF key derivation, byte encoding, token (planck) formatting, key-value storage, and structured logging.                                  |
 
 ## How to Install
 
@@ -75,6 +75,6 @@ Then re-register any updated skills with your agent as needed.
 
     The source of truth for the skills documented above, including per-skill README files and updates.
 
-    [:octicons-arrow-right-24: Visit Repo](https://github.com/paritytech/product-sdk){target=\_blank}
+    [:octicons-arrow-right-24: Visit Repo](https://github.com/paritytech/product-sdk)
 
 </div>

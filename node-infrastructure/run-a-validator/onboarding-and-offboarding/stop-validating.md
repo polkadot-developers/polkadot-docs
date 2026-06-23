@@ -30,6 +30,9 @@ Use the `staking.chill` extrinsic to initiate this. For more guidance on chillin
 
 Purging validator session keys is a critical step in removing the association between your validator account and its session keys, which ensures that your account is fully disassociated from validator activities. The `session.purgeKeys` extrinsic removes the reference to your session keys from the stash or staking proxy account that originally set them.
 
+!!! warning "Removal planned"
+    Purging session keys via the relay chain (`session.purgeKeys`) will be **removed** in a future runtime upgrade ([polkadot-fellows/runtimes#1212](https://github.com/polkadot-fellows/runtimes/pull/1212){target=\_blank}). Use `stakingRcClient.purgeKeys` on Polkadot Hub instead — this is also required to release the ~60 DOT deposit locked when session keys were set. See the [Set Session Keys section](/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/#submit-transaction-to-set-keys) for details on the Polkadot Hub path.
+
 Here are a couple of important things to know about purging keys:
 
 - **Account used to purge keys**: Always use the same account to purge keys you originally used to set them, usually your stash or staking proxy account. Using a different account may leave an unremovable reference to the session keys on the original account, preventing its reaping.

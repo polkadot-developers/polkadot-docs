@@ -55,35 +55,23 @@ For more complex contributions, which involve rendering (e.g., adding a `.nav.ym
 
 ### Initial Setup
 
-Before making contributions, you need to set up the proper directory structure for local development:
+Before making contributions, set up the monorepo locally:
 
-1. Clone the MkDocs repository:
+1. Fork the [`polkadot-docs`](https://github.com/polkadot-developers/polkadot-docs) repository on GitHub.
 
-   > **polkadot-mkdocs**: Contains the "engine" (MkDocs configuration, theme, styling)
-
-   ```bash
-   git clone https://github.com/papermoonio/polkadot-mkdocs.git
-   cd polkadot-mkdocs
-   ```
-
-2. Fork and clone the docs repository inside polkadot-mkdocs:
-
-   > **polkadot-docs**: Contains the "content" (documentation pages, tutorials, images)
+2. Clone your fork:
 
    ```bash
-   # Fork polkadot-docs on GitHub first, then:
    git clone https://github.com/YOUR_USERNAME/polkadot-docs.git
    cd polkadot-docs
+   ```
+
+3. Create a branch for your changes:
+
+   ```bash
    git checkout -b YOUR_FEATURE_BRANCH
    ```
 
-   Your directory structure should now look like:
-   ```
-   polkadot-mkdocs/
-   ├── polkadot-docs/          # Your forked repository
-   ├── material-overrides/
-   └── mkdocs.yml
-   ```
 
 ### Making Changes
 
@@ -103,7 +91,7 @@ Making changes to existing pages is the simplest contribution:
 
 1. **Edit the content**: Make your improvements directly to the existing markdown file.
 2. **Follow style guide**: Ensure your changes maintain proper formatting according to the [PaperMoon Documentation Style Guide](https://github.com/papermoonio/documentation-style-guide).
-3. **Test locally**: Verify your changes render correctly by running the Polkadot docs locally. Instructions can be found in the [README](./README.md#run-polkadot-docs-locally)
+3. **Test locally**: Verify your changes render correctly by running the Polkadot docs locally. Instructions can be found in the [README](../README.md#run-polkadot-docs-locally).
 
 ## Add a New Page
 
@@ -135,7 +123,7 @@ To add a page to an existing section:
 
    **Categories**
 
-   Available categories for pages are listed in the `categories_info` section of `llms_config.json` in the `polkadot-mkdocs` repository.
+   Available categories for pages are listed in the `categories_info` section of `llms_config.json` at the repository root.
 
    **Search Engine Optimization (SEO)**
 

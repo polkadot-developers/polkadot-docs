@@ -1,0 +1,42 @@
+{#-
+  Exports the render_badges macro for use in content.html.
+
+  render_badges(badges, variant=None)
+    Renders a single .page-header-row div containing tutorial difficulty and
+    CI test-workflow badges sourced from page frontmatter. AI dropdowns are also
+    injected into this div by the ai_docs plugin.
+
+      badges  — a page_badges dict from frontmatter (may be None/empty)
+      variant — optional data-variant string; when set, scopes the row with
+                data-variant so the ai_docs plugin can inject the per-page AI
+                widget into the correct slot on toggle pages.
+-#}
+
+{# Signal-cellular icons for tutorial difficulty level #}
+{% set _ico_cell1 %}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="page-header-item-icon" aria-hidden="true"><path d="M19.5 5.5v13h-2v-13zm-7 5v8h-2v-8zM21 4h-5v16h5zm-7 5H9v11h5zm-7 5H2v6h5z"/></svg>{% endset %}
+{% set _ico_cell2 %}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="page-header-item-icon" aria-hidden="true"><path d="M19.5 5.5v13h-2v-13zM21 4h-5v16h5zm-7 5H9v11h5zm-7 5H2v6h5z"/></svg>{% endset %}
+{% set _ico_cell3 %}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="page-header-item-icon" aria-hidden="true"><path d="M21 4h-5v16h5zm-7 5H9v11h5zm-7 5H2v6h5z"/></svg>{% endset %}
+
+{% macro render_badges(badges, variant=None) %}
+<div class="page-header-row"{% if variant %} data-variant="{{ variant | e }}"{% endif %}>
+  {%- if badges -%}
+    {%- if badges.test_workflow -%}
+      {%- set _wf = badges.test_workflow | e -%}
+      {%- set _gh = 'https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/' -%}
+      <a class="page-header-item page-header-test-badge" href="{{ _gh }}{{ _wf }}.yml" target="_blank" rel="noopener">
+        <img src="{{ _gh }}{{ _wf }}.yml/badge.svg?event=push" alt="Test status">
+      </a>
+    {%- endif -%}
+    {%- if badges.tutorial_badge -%}
+      {%- set _level = badges.tutorial_badge | lower -%}
+      <span class="page-header-item">
+        {%- if _level == 'beginner' -%}{{ _ico_cell1 }}
+        {%- elif _level == 'intermediate' -%}{{ _ico_cell2 }}
+        {%- elif _level == 'advanced' -%}{{ _ico_cell3 }}
+        {%- endif -%}
+        {{ badges.tutorial_badge }}
+      </span>
+    {%- endif -%}
+  {%- endif -%}
+</div>
+{% endmacro %}

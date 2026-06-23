@@ -1,0 +1,201 @@
+# -----------------------------------------------------------------------------
+# Configuration
+# -----------------------------------------------------------------------------
+definitions:
+  # Background image
+  - &background_image >-
+    {{ layout.background_image | x }}
+
+  # Background color (default: indigo)
+  - &background_color >-
+    {%- if layout.background_color -%}
+      {{ layout.background_color }}
+    {%- else -%}
+      {%- set palette = config.theme.palette or {} -%}
+      {%- if not palette is mapping -%}
+        {%- set list = palette | selectattr("primary") | list + palette -%}
+        {%- set palette = list | first -%}
+      {%- endif -%}
+      {%- set primary = palette.get("primary", "indigo") -%}
+      {%- set primary = primary.replace(" ", "-") -%}
+      {{ {
+        "red":         "#ef5552",
+        "pink":        "#e92063",
+        "purple":      "#ab47bd",
+        "deep-purple": "#7e56c2",
+        "indigo":      "#4051b5",
+        "blue":        "#2094f3",
+        "light-blue":  "#02a6f2",
+        "cyan":        "#00bdd6",
+        "teal":        "#009485",
+        "green":       "#4cae4f",
+        "light-green": "#8bc34b",
+        "lime":        "#cbdc38",
+        "yellow":      "#ffec3d",
+        "amber":       "#ffc105",
+        "orange":      "#ffa724",
+        "deep-orange": "#ff6e42",
+        "brown":       "#795649",
+        "grey":        "#757575",
+        "blue-grey":   "#546d78",
+        "black":       "#000000",
+        "white":       "#ffffff"
+      }[primary] or "#4051b5" }}
+    {%- endif -%}
+
+  # Text color (default: white)
+  - &color >-
+    {%- if layout.color -%}
+      {{ layout.color }}
+    {%- else -%}
+      {%- set palette = config.theme.palette or {} -%}
+      {%- if not palette is mapping -%}
+        {%- set list = palette | selectattr("primary") | list + palette -%}
+        {%- set palette = list | first -%}
+      {%- endif -%}
+      {%- set primary = palette.get("primary", "indigo") -%}
+      {%- set primary = primary.replace(" ", "-") -%}
+      {{ {
+        "red":         "#ffffff",
+        "pink":        "#ffffff",
+        "purple":      "#ffffff",
+        "deep-purple": "#ffffff",
+        "indigo":      "#ffffff",
+        "blue":        "#ffffff",
+        "light-blue":  "#ffffff",
+        "cyan":        "#ffffff",
+        "teal":        "#ffffff",
+        "green":       "#ffffff",
+        "light-green": "#ffffff",
+        "lime":        "#000000",
+        "yellow":      "#000000",
+        "amber":       "#000000",
+        "orange":      "#000000",
+        "deep-orange": "#ffffff",
+        "brown":       "#ffffff",
+        "grey":        "#ffffff",
+        "blue-grey":   "#ffffff",
+        "black":       "#ffffff",
+        "white":       "#000000"
+      }[primary] or "#ffffff" }}
+    {%- endif -%}
+
+
+  # Font variant
+  - &font_variant >-
+    {%- if layout.font_variant -%}
+      {{ layout.font_variant }}
+    {%- endif -%}
+
+  # Site name
+  - &site_name >-
+    {{ config.site_name }}
+
+  # Card title
+  - &card_title >-
+    {%- if layout.title -%}
+      {{ layout.title }}
+    {%- else -%}
+      {{ page.meta.get("title", page.title) }}
+    {%- endif -%}
+
+  # Page title
+  - &page_title >-
+    {{ page.meta.get("title", page.title) }}
+
+  # Page title with site name
+  - &page_title_with_site_name >-
+    {%- if not page.is_homepage -%}
+      {{ page.meta.get("title", page.title) }} - {{ config.site_name }}
+    {%- else -%}
+      {{ config.site_name }}
+    {%- endif -%}
+
+  # Page description
+  - &page_description >-
+    {%- if page.is_homepage and page.meta.get("social_description") -%}
+      {{ page.meta.get("social_description") | x }}
+    {%- elif layout.description -%}
+      {{ layout.description }}
+    {%- else -%}
+      {{ page.meta.get("title", page.title) | x }}
+    {%- endif -%}
+
+  # Logo
+  - &logo >-
+    {%- if layout.logo is defined -%}
+      {%- if layout.logo -%}
+        {{ config.docs_dir }}/{{ layout.logo | x }}
+      {%- endif -%}
+    {%- elif config.theme.logo -%}
+      {{ config.docs_dir }}/{{ config.theme.logo | x }}
+    {%- endif -%}
+
+  # Logo (icon)
+  - &logo_icon >-
+    {%- if layout.logo is not defined and config.theme.icon -%}
+      {{ config.theme.icon.logo | x }}
+    {%- endif -%}
+
+# Meta tags
+tags:
+
+  # Open Graph
+  og:type: website
+  og:title: *page_title_with_site_name
+  og:description: *page_description
+  og:image: "{{ image.url }}"
+  og:image:type: "{{ image.type }}"
+  og:image:width: "{{ image.width }}"
+  og:image:height: "{{ image.height }}"
+  og:url: "{{ page.canonical_url }}"
+
+  # Twitter
+  twitter:card: summary_large_image
+  twitter:title: *page_title_with_site_name
+  twitter:description: *page_description
+  twitter:image: "{{ image.url }}"
+
+# -----------------------------------------------------------------------------
+# Specification
+# -----------------------------------------------------------------------------
+
+# Card size and layers
+size: { width: 1200, height: 630 }
+layers:
+
+
+  # Background
+  - background:
+      image: *background_image
+      color: *background_color
+
+  # Page title
+  - size: { width: 1100, height: 160 }
+    offset: { x: 50, y: 220 }
+    typography:
+      content: *card_title
+      overflow: shrink
+      align: center
+      color: "#ffffff"
+      line:
+        amount: 1
+        height: 1.10
+      font:
+        family: DM Serif Text
+        style: Regular
+
+  # Page description
+  - size: { width: 700, height: 110 }
+    offset: { x: 250, y: 310 }
+    typography:
+      content: *page_description
+      overflow: shrink
+      align: center
+      color: "#b3b3b3"
+      line:
+        amount: 4
+        height: 1.0
+      font:
+        family: DM Sans
+        style: Regular

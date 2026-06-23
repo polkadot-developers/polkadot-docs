@@ -1,0 +1,231 @@
+# Basic site configurations
+site_name: Polkadot Developer Docs
+site_url: https://docs.polkadot.com/
+home_url: https://polkadot.com/
+home_name: Polkadot
+edit_uri: https://github.com/polkadot-developers/polkadot-docs/edit/master/
+site_dir: /var/www/polkadot-docs-static
+docs_dir: polkadot-docs
+copyright: © 2026 Polkadot.
+
+# Extra JavaScript files
+extra_javascript:
+  - js/header-scroll.js
+  - js/search-bar-results.js
+  - js/root-level-sections.js
+  - js/fix-created-date.js
+  - js/connect-to-metamask.js
+  - js/error-modal.js
+  - js/ai-file-actions.js
+  - js/toggle-pages.js
+
+# Extra CSS files
+extra_css:
+  - assets/stylesheets/terminal.css
+  - assets/stylesheets/timeline-neoteroi.css
+  - assets/stylesheets/toggle-pages.css
+  - assets/stylesheets/ai-file-actions.css
+
+# Diagnostic messages when validating links to documents
+validation:
+  absolute_links: ignore
+  unrecognized_links: ignore
+  omitted_files: ignore
+
+# Do not build the following pages
+exclude_docs: |
+   AGENTS.md
+   CONTRIBUTING.md
+   README.md
+   LICENSE.md
+
+# Theme related settings
+theme:
+  name: material
+  custom_dir: material-overrides
+  favicon: assets/images/polkadot.png
+  logo: assets/images/polkadot.png
+  icon:
+    admonition:
+      code: material/code-tags
+    edit: material/github
+    close: octicons/x-16
+    menu: octicons/three-bars-24
+    previous: octicons/arrow-left-16
+    report: octicons/report-24
+    search: octicons/search-16
+  font:
+    text: DM Sans
+    code: JetBrains Mono
+  features:
+    - announce.dismiss # Dismiss the announcement bar
+    - content.action.edit # Edit this page button
+    - content.action.report # Show report an issue button
+    - content.code.annotate # Adds annotations to code blocks
+    - content.code.copy # Adds copy to clipboard button to code snippets
+    - content.tooltips # Adds tooltips
+    - navigation.tabs # Top-level sections are rendered below the header (can be modified to in-line with CSS)
+    - navigation.tabs.sticky # When scrolling, the tabs remain at the top of the page
+    - navigation.top # Show the back to top button since we don't keep top nav sticky
+    - navigation.path # Add breadcrumbs path to the top of the page
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: custom-light
+      toggle:
+        icon: octicons/moon-16
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: custom-dark
+      toggle:
+        icon: octicons/sun-16
+        name: Switch to light mode
+
+# Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - codehilite
+  - md_in_html
+  - meta
+  - neoteroi.timeline
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      options:
+        custom_icons:
+          - material-overrides/.icons
+  - pymdownx.highlight:
+      anchor_linenums: True
+      line_spans: __span
+      pygments_lang_class: True
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.snippets:
+      base_path: polkadot-docs/.snippets
+      url_download: True
+      dedent_subsections: True
+  - pymdownx.tabbed:
+      alternate_style: True
+  - toc:
+      title: 'On this page'
+      permalink: True
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+# Hooks
+hooks:
+  - hooks/auto_index_table.py
+  - hooks/footer_nav.py
+  - hooks/glossary_abbreviations.py
+  - hooks/synthesize_ancestors.py
+
+# Plugins
+plugins:
+  - search
+  - ai_docs:
+      llms_config: llms_config.json
+      enabled: !ENV [ENABLED_LLMS_PLUGINS, True]
+      ai_page_actions_anchor: page-header-row
+      ai_page_actions_style: dropdown
+  - awesome-nav
+  - git-revision-date-localized:
+      type: date
+      enable_creation_date: true
+      exclude:
+        - node_modules/*
+      enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
+  - glightbox
+  - link_processor
+  - macros:
+      include_yaml:
+        - polkadot-docs/variables.yml
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      cache_safe: true
+      js_files:
+        - js/header-scroll.js
+        - js/search-bar-results.js
+        - js/root-level-sections.js
+        - js/fix-created-date.js
+        - js/connect-to-metamask.js
+        - js/error-modal.js
+        - js/ai-file-actions.js
+        - js/toggle-pages.js
+      css_files:
+        - assets/stylesheets/terminal.css
+        - assets/stylesheets/timeline-neoteroi.css
+        - assets/stylesheets/toggle-pages.css
+        - assets/stylesheets/ai-file-actions.css
+      scoped_css_templates:
+        home.html:
+          - assets/stylesheets/home.css
+        main.html:
+          - assets/stylesheets/polkadot.css   
+  - page_toggle
+  - social:
+      enabled: !ENV [SOCIAL_CARDS, True]
+      cards_layout_dir: layouts
+      cards_layout: polkadot
+      cards_layout_options:
+        background_image: layouts/og-bg.webp
+        background_color: transparent
+        logo: null
+        title: Polkadot Developer Docs
+
+# Extra configuration
+extra:
+  glossary_tooltips:
+    exclude_terms:
+      - Polkadot
+  consent:
+    title: Cookie Consent
+    description: >-
+      We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation.
+      By consenting to the use of cookies, you help us improve the site. Review the <a href="https://docs.polkadot.com/policies/cookie-policy/" target="_blank" rel="noopener">cookie policy</a> for more information.
+    actions:
+      - accept
+      - manage
+  generator: False
+  social:
+    - icon: fontawesome/brands/discord
+      link: https://polkadot-discord.w3f.tools
+      name: Discord
+    - icon: fontawesome/brands/telegram
+      link: https://t.me/substratedevs
+      name: Telegram  
+    - icon: simple/element
+      link: https://matrix.to/#/#substratedevs:matrix.org
+      name: Matrix  
+    - icon: fontawesome/brands/github
+      link: https://github.com/paritytech/polkadot-sdk
+      name: GitHub
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/channel/UCB7PbjuZLEba_znc7mEGNgw
+      name: YouTube
+    - icon: fontawesome/brands/x-twitter
+      link: https://x.com/Polkadot
+      name: X (formerly Twitter)
+  analytics:
+    provider: google
+    property: G-CBTDT1LJ0C
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: octicons/thumbsup-24
+          name: This page was helpful
+          data: 1
+          note: >-
+            Thanks for your feedback!
+        - icon: octicons/thumbsdown-24
+          name: This page could be improved
+          data: 0
+          note: >-
+            Thanks for your feedback! Help us improve this page by submitting
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdZR0p70uR78JVemft66VuL39-k6Mge9rufGZyYBeEhezF3iw/viewform?usp=pp_url&entry.1469237372=[Feedback]+{title}+-+{url}" target="_blank" rel="noopener">additional feedback</a>.

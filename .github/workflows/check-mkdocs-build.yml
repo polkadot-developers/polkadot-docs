@@ -8,8 +8,23 @@ permissions:
 
 jobs:
   build-docs:
-    uses: papermoonio/workflows/.github/workflows/core-pr-mkdocs-build.yml@main
-    with:
-      mkdocs_repo: papermoonio/polkadot-mkdocs
-      docs_repo: polkadot-developers/polkadot-docs
-      docs_checkout: polkadot-docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-dev build-essential
+      - name: Install pip requirements
+        run: |
+          python -m pip install --upgrade pip setuptools 'cython<3.0.0' wheel
+          python -m pip install -r requirements.txt
+      - name: Build docs
+        env:
+          ENABLED_GIT_REVISION_DATE: "true"
+        run: mkdocs build --strict

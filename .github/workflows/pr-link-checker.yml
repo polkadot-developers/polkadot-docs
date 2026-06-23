@@ -3,13 +3,40 @@ name: PR Docs Link Check
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   check-docs-links:
-    uses: papermoonio/workflows/.github/workflows/core-pr-link-checker.yml@main
-    with:
-      mkdocs_repo: papermoonio/polkadot-mkdocs
-      docs_repo: polkadot-developers/polkadot-docs
-      docs_checkout: polkadot-docs
-      url: https://docs.polkadot.com
-    secrets:
-      GH_TOKEN: ${{ secrets.GH_PR_404_CHECKER }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-dev build-essential
+      - name: Install pip requirements
+        run: |
+          python -m pip install --upgrade pip setuptools 'cython<3.0.0' wheel
+          python -m pip install -r requirements.txt
+      - name: Build docs
+        env:
+          ENABLED_GIT_REVISION_DATE: "false"
+          SOCIAL_CARDS: "false"
+        run: mkdocs build
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >
+            --base https://docs.polkadot.com
+            --exclude-path .urlignore
+            --no-progress
+            site/
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PR_404_CHECKER }}

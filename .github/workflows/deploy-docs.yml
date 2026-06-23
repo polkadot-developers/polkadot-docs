@@ -9,21 +9,19 @@ on:
 
 permissions:
   contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch }}
+          fetch-depth: 0
       - name: Configure Git Credentials
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-      - name: Pull docs repository
-        uses: actions/checkout@v4
-        with:
-          repository: polkadot-developers/polkadot-docs
-          path: polkadot-docs
-          ref: ${{ inputs.branch }}
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
@@ -40,13 +38,7 @@ jobs:
           sudo apt-get install -y python3-dev build-essential
       - name: Install pip requirements
         run: |
-          # upgrade pip
           python -m pip install --upgrade pip setuptools 'cython<3.0.0' wheel
-          # install dependencies quietly
           python -m pip install -r requirements.txt
-      - name: Update image paths in Markdown files
-        run: |
-          # Replace old image paths with new paths in Markdown files
-          find polkadot-docs -type f -name "*.md" -exec sed -i -e 's|](/|](/polkadot-mkdocs/|g' -e 's|href="/|href="/polkadot-mkdocs/|g' {} \;
       - name: Deploy Docs
         run: mkdocs gh-deploy --force --clean --site-dir ./site

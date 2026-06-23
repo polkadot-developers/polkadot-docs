@@ -3,9 +3,9 @@ site_name: Polkadot Developer Docs
 site_url: https://docs.polkadot.com/
 home_url: https://polkadot.com/
 home_name: Polkadot
-edit_uri: https://github.com/polkadot-developers/polkadot-docs/edit/master/
+edit_uri: https://github.com/polkadot-developers/polkadot-docs/edit/master/docs/
 site_dir: /var/www/polkadot-docs-static
-docs_dir: polkadot-docs
+docs_dir: docs
 copyright: © 2026 Polkadot.
 
 # Extra JavaScript files
@@ -103,7 +103,7 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.keys
   - pymdownx.snippets:
-      base_path: polkadot-docs/.snippets
+      base_path: docs/.snippets
       url_download: True
       dedent_subsections: True
   - pymdownx.tabbed:
@@ -143,7 +143,7 @@ plugins:
   - link_processor
   - macros:
       include_yaml:
-        - polkadot-docs/variables.yml
+        - docs/variables.yml
   - minify:
       minify_html: true
       minify_js: true

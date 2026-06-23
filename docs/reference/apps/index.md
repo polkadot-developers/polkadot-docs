@@ -44,7 +44,7 @@ Per-component reference for the on-chain infrastructure Products consume:
 
 ## Skills
 
-The [product-skills](/reference/apps/skills/) repo reference documents what skills exist, what each one does, and how to use them inside your Product workflow.
+The [product-sdk](/reference/apps/skills/) skills reference documents what skills exist, what each one does, and how to use them inside your Product workflow.
 
 ## Where to Go Next
 

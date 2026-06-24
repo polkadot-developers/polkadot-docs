@@ -212,20 +212,3 @@ extra:
     - icon: fontawesome/brands/x-twitter
       link: https://x.com/Polkadot
       name: X (formerly Twitter)
-  analytics:
-    provider: google
-    property: G-CBTDT1LJ0C
-    feedback:
-      title: Was this page helpful?
-      ratings:
-        - icon: octicons/thumbsup-24
-          name: This page was helpful
-          data: 1
-          note: >-
-            Thanks for your feedback!
-        - icon: octicons/thumbsdown-24
-          name: This page could be improved
-          data: 0
-          note: >-
-            Thanks for your feedback! Help us improve this page by submitting
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdZR0p70uR78JVemft66VuL39-k6Mge9rufGZyYBeEhezF3iw/viewform?usp=pp_url&entry.1469237372=[Feedback]+{title}+-+{url}" target="_blank" rel="noopener">additional feedback</a>.

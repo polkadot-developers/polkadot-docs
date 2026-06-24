@@ -139,7 +139,7 @@ After generating your session keys (and proof, if using runtime 2.2.0+), you mus
         1. Go to [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} and connect to Polkadot Hub.
         2. Navigate to **Developer > Extrinsics**.
         3. Select the account that controls your validator (your stash or proxy account).
-        4. Choose the **stakingRcClient** pallet and the **set_keys** extrinsic.
+        4. Choose the **stakingRcClient** pallet and the **setKeys** extrinsic.
         5. Paste the hex-encoded session key string returned by `author_rotateKeys` into the **keys** field.
         6. Set the **proof** field to `0x` (empty proof).
         7. Submit the transaction.
@@ -149,7 +149,7 @@ After generating your session keys (and proof, if using runtime 2.2.0+), you mus
 
 === "Relay Chain (Legacy)"
 
-    You can also submit session keys directly on the relay chain using `session.setKeys`. This path will be deprecated in a future release.
+    You can also submit session keys directly on the relay chain using `session.setKeys`. **This path will be removed in a future runtime upgrade** (see [polkadot-fellows/runtimes#1212](https://github.com/polkadot-fellows/runtimes/pull/1212){target=\_blank}). Migrate to the Polkadot Hub path above.
 
     === "Runtime 2.2.0+"
 
@@ -168,8 +168,8 @@ After generating your session keys (and proof, if using runtime 2.2.0+), you mus
         2. Select **Set Session Key** on the bonding account you generated earlier.
         3. Paste the hex-encoded session key string returned by `author_rotateKeys` (from the Polkadot.js Apps UI, curl, or Subkey) into the input field and submit the transaction.
 
-    !!! warning
-        The relay chain `session.setKeys` path is legacy and will be deprecated. Use the Polkadot Hub path for new setups.
+    !!! warning "Removal planned"
+        Both `session.setKeys` and `session.purgeKeys` on the relay chain will be **removed** in a future runtime upgrade ([polkadot-fellows/runtimes#1212](https://github.com/polkadot-fellows/runtimes/pull/1212){target=\_blank}). Migrate to the Polkadot Hub path: use `stakingRcClient.setKeys` to set keys and `stakingRcClient.purgeKeys` to purge them.
 
 Once the transaction is signed and submitted, your session keys will be registered on-chain.
 

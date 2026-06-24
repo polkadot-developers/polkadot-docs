@@ -161,6 +161,14 @@
   --md-code-bg-color: var(--color-surface);
   --md-code-fg-color: var(--color-text-primary);
 
+  --policy-popover-trigger-color: var(--md-footer-fg-color);
+  --policy-popover-trigger-hover-color: var(--color-text-hover);
+  --policy-popover-panel-bg: var(--color-surface);
+  --policy-popover-panel-color: var(--color-text-secondary);
+  --policy-popover-panel-border: var(--color-border-strong);
+  --policy-popover-link-color: var(--color-text-primary);
+  --policy-popover-fineprint-color: var(--color-text-tertiary);
+
   --code-admo-border-color: #5ee20c;
   --code-admo-title-bg: #64dd171a;
 }
@@ -218,6 +226,13 @@
 
   --md-code-bg-color: var(--color-surface);
   --md-code-fg-color: var(--color-text-primary);
+  --policy-popover-trigger-color: var(--md-footer-fg-color);
+  --policy-popover-trigger-hover-color: var(--color-text-hover);
+  --policy-popover-panel-bg: var(--color-surface);
+  --policy-popover-panel-color: var(--color-text-secondary);
+  --policy-popover-panel-border: var(--color-border-strong);
+  --policy-popover-link-color: var(--color-text-primary);
+  --policy-popover-fineprint-color: var(--color-text-tertiary);
   --md-code-hl-keyword-color: #c586c0;
   --md-code-hl-function-color: #dcdcaa;
   --md-code-hl-variable-color: #9cdcfe;
@@ -798,7 +813,160 @@ html .md-footer-meta.md-typeset a:hover {
 }
 
 .policy-links a {
+  color: var(--md-footer-fg-color);
   text-decoration: none;
+}
+
+.policy-popover {
+  margin: 0;
+  position: relative;
+  border: 0;
+  box-shadow: none;
+}
+
+.md-footer details.policy-popover,
+.md-footer-meta details.policy-popover,
+.md-typeset details.policy-popover {
+  display: inline-block !important;
+  position: relative !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: inherit !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+}
+
+.md-footer details.policy-popover:focus,
+.md-footer details.policy-popover:focus-visible,
+.md-footer details.policy-popover:focus-within,
+.md-footer-meta details.policy-popover:focus,
+.md-footer-meta details.policy-popover:focus-visible,
+.md-footer-meta details.policy-popover:focus-within,
+.md-typeset details.policy-popover:focus,
+.md-typeset details.policy-popover:focus-visible,
+.md-typeset details.policy-popover:focus-within {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+}
+
+.md-footer:has(.policy-popover[open]) {
+  z-index: 102;
+}
+
+.md-footer .policy-popover > summary.policy-popover__trigger,
+.md-footer-meta .policy-popover > summary.policy-popover__trigger,
+.md-typeset .policy-popover > summary.policy-popover__trigger {
+  all: unset !important;
+  display: inline !important;
+  box-sizing: border-box !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font: inherit !important;
+  font-size: var(--text-xs) !important;
+  line-height: inherit !important;
+  color: var(--policy-popover-trigger-color) !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  vertical-align: baseline !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.md-footer .policy-popover > summary.policy-popover__trigger::marker,
+.md-footer-meta .policy-popover > summary.policy-popover__trigger::marker,
+.md-typeset .policy-popover > summary.policy-popover__trigger::marker {
+  content: "" !important;
+}
+
+.md-footer .policy-popover > summary.policy-popover__trigger::-webkit-details-marker,
+.md-footer-meta .policy-popover > summary.policy-popover__trigger::-webkit-details-marker,
+.md-typeset .policy-popover > summary.policy-popover__trigger::-webkit-details-marker {
+  display: none !important;
+}
+
+.md-footer .policy-popover > summary.policy-popover__trigger::before,
+.md-footer .policy-popover > summary.policy-popover__trigger::after,
+.md-footer-meta .policy-popover > summary.policy-popover__trigger::before,
+.md-footer-meta .policy-popover > summary.policy-popover__trigger::after,
+.md-typeset .policy-popover > summary.policy-popover__trigger::before,
+.md-typeset .policy-popover > summary.policy-popover__trigger::after {
+  display: none !important;
+}
+
+.md-footer .policy-popover > summary.policy-popover__trigger:focus,
+.md-footer .policy-popover > summary.policy-popover__trigger:focus-visible,
+.md-footer .policy-popover > summary.policy-popover__trigger:hover,
+.md-footer .policy-popover[open] > summary.policy-popover__trigger,
+.md-footer-meta .policy-popover > summary.policy-popover__trigger:focus,
+.md-footer-meta .policy-popover > summary.policy-popover__trigger:focus-visible,
+.md-footer-meta .policy-popover > summary.policy-popover__trigger:hover,
+.md-footer-meta .policy-popover[open] > summary.policy-popover__trigger,
+.md-typeset .policy-popover > summary.policy-popover__trigger:focus,
+.md-typeset .policy-popover > summary.policy-popover__trigger:focus-visible,
+.md-typeset .policy-popover > summary.policy-popover__trigger:hover,
+.md-typeset .policy-popover[open] > summary.policy-popover__trigger {
+  color: var(--policy-popover-trigger-hover-color) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+}
+
+.policy-popover__panel {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + var(--py-5));
+  z-index: 103;
+  width: min(34rem, calc(100vw - 2rem));
+  max-height: min(70vh, 34rem);
+  overflow: auto;
+  padding: var(--py-6);
+  color: var(--policy-popover-panel-color);
+  text-align: left;
+  background-color: var(--policy-popover-panel-bg);
+  border: 1px solid var(--policy-popover-panel-border);
+  border-radius: var(--rounded-xl);
+}
+
+.policy-popover__panel p {
+  margin: 0 0 var(--py-5);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-body-base);
+}
+
+.policy-popover__panel p:last-child {
+  margin-bottom: 0;
+}
+
+.policy-popover__panel a {
+  color: var(--policy-popover-link-color);
+}
+
+.policy-popover__fineprint {
+  color: var(--policy-popover-fineprint-color);
 }
 
 .md-typeset a.footer-nav-link {
@@ -901,6 +1069,14 @@ html .md-footer-meta.md-typeset a:hover {
     justify-content: center;
   }
 
+  .policy-popover__panel {
+    right: 50%;
+    bottom: calc(100% + var(--py-16) + var(--py-16));
+    max-height: min(50vh, 26rem);
+    padding: var(--py-5);
+    transform: translateX(50%);
+  }
+
   .footer-nav {
     gap: 4px;
     margin-top: var(--py-1);
@@ -916,13 +1092,13 @@ html .md-footer-meta.md-typeset a:hover {
 
 /* --- Admonitions --- */
 .md-typeset .admonition,
-.md-typeset details {
+.md-typeset details:not(.policy-popover) {
   background-color: var(--transparent);
   color: var(--color-text-secondary);
   border-radius: var(--rounded);
 }
 
-.md-typeset details:not([open]) > summary {
+.md-typeset details:not([open]):not(.policy-popover) > summary {
   border-radius: var(--rounded);
 }
 

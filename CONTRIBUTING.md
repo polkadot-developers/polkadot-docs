@@ -72,15 +72,12 @@ Before making contributions, set up the monorepo locally:
    git checkout -b YOUR_FEATURE_BRANCH
    ```
 
-
-### Making Changes
-
-1. Make your changes:
+4. Make your changes:
 
    - Follow the [PaperMoon Style Guide](https://github.com/papermoonio/documentation-style-guide).
    - Test your changes locally (see [Run Polkadot Docs Locally](../README.md#run-polkadot-docs-locally)).
 
-2. Create pull request:
+5. Create pull request:
 
    - Push your branch and create a pull request.
    - Use the PR template to indicate your review preference.

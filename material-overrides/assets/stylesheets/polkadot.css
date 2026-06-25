@@ -858,10 +858,6 @@ html .md-footer-meta.md-typeset a:hover {
   outline: 0 !important;
 }
 
-.md-footer:has(.policy-popover[open]) {
-  z-index: 102;
-}
-
 .md-footer .policy-popover > summary.policy-popover__trigger,
 .md-footer-meta .policy-popover > summary.policy-popover__trigger,
 .md-typeset .policy-popover > summary.policy-popover__trigger {
@@ -1011,12 +1007,28 @@ html .md-footer-meta.md-typeset a:hover {
     margin: 0 0.8rem;
   }
 
+  .policy-popover__panel {
+    position: fixed;
+    right: auto;
+    bottom: calc(var(--py-16) + var(--py-16));
+    left: 50%;
+    width: min(30rem, calc(100vw - 2rem));
+    max-height: min(58vh, 30rem);
+    transform: translateX(-50%);
+  }
+
   .md-social {
     padding: 0;
   }
 
   .md-copyright {
     margin-left: 0.6rem;
+  }
+}
+
+@media screen and (min-width: 850px) and (max-width: 1148px) {
+  .policy-popover__panel {
+    bottom: calc(var(--py-16) + var(--py-8));
   }
 }
 
@@ -1062,6 +1074,13 @@ html .md-footer-meta.md-typeset a:hover {
   }
 }
 
+@media screen and (max-width: 786px) {
+  .md-footer:has(.policy-popover[open]),
+  .policy-popover__panel {
+    z-index: 999;
+  }
+}
+
 @media screen and (max-width: 640px) {
   .policy-links {
     gap: var(--py-2);
@@ -1070,11 +1089,9 @@ html .md-footer-meta.md-typeset a:hover {
   }
 
   .policy-popover__panel {
-    right: 50%;
-    bottom: calc(100% + var(--py-16) + var(--py-16));
+    width: calc(100vw - 2rem);
     max-height: min(50vh, 26rem);
     padding: var(--py-5);
-    transform: translateX(50%);
   }
 
   .footer-nav {

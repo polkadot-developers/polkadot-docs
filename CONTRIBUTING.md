@@ -27,7 +27,6 @@ There are two main ways to contribute:
 - **[Fork and Edit Locally](#fork-and-edit-locally)** 
    - Recommended for more complex contributions that require local testing or previewing changes.
 
-
 ## Edit Online with GitHub (Simple Changes)
 
 For simple contributions like fixing typos or making small text changes, you can use GitHub's online editor.
@@ -88,7 +87,7 @@ Making changes to existing pages is the simplest contribution:
 
 1. **Edit the content**: Make your improvements directly to the existing markdown file.
 2. **Follow style guide**: Ensure your changes maintain proper formatting according to the [PaperMoon Documentation Style Guide](https://github.com/papermoonio/documentation-style-guide).
-3. **Test locally**: Verify your changes render correctly by running the Polkadot docs locally. Instructions can be found in the [README](../README.md#run-polkadot-docs-locally).
+3. **Test locally**: Verify your changes render correctly by running the Polkadot docs locally. Instructions can be found in the [README](README.md#run-polkadot-docs-locally).
 
 ## Add a New Page
 
@@ -173,9 +172,9 @@ This section covers tutorial-specific requirements and formatting.
 Place your tutorial under the most relevant existing section of the docs. Set up file and asset paths to match the surrounding structure:
 
 ```
-<section>/<subsection>/<tutorial-name>.md
-images/<section>/<subsection>/<tutorial-name>/
-.snippets/code/<section>/<subsection>/<tutorial-name>/
+docs/<section>/<subsection>/<tutorial-name>.md
+docs/images/<section>/<subsection>/<tutorial-name>/
+docs/.snippets/code/<section>/<subsection>/<tutorial-name>/
 ```
 
 ### Tutorial Template
@@ -225,7 +224,7 @@ See [Frontmatter Reference](#frontmatter-reference) for a full list of available
 
 ### Adding Images
 
-**Where to store**: `images/<path-matching-doc-structure>/`
+**Where to store**: `docs/images/<path-matching-doc-structure>/`
 
 **Requirements**:
 
@@ -249,7 +248,7 @@ Use assets from the [.assets/annotations](.assets/annotations/) directory:
 
 **Purpose**: For any code used on the page or for reuse of text across multiple pages while maintaining it in one place.
 
-**Where to store**: `.snippets/code/<path-matching-doc-structure>/<snippet-name>`
+**Where to store**: `docs/.snippets/code/<path-matching-doc-structure>/<snippet-name>`
 
 **How to use**:
 ```javascript

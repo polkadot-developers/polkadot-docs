@@ -8,9 +8,7 @@
   <div class="md-grid">
     <ul class="md-tabs__list">
       {% for nav_item in nav.items %}
-        {% if nav_item.url != "" and 
-           not (nav_item.meta and nav_item.meta.footer_nav) and
-           nav_item.title != "Policies" %}
+        {% if nav_item.url != "" and not (nav_item.meta and nav_item.meta.footer_nav) %}
           {{ item.render(nav_item) }}
         {% endif %}
       {% endfor %}

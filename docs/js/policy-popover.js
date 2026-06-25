@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (popover.open) {
       window.requestAnimationFrame(() => trigger.blur());
+    } else {
+      trigger.blur();
     }
   });
 

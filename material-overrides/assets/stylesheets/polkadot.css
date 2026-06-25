@@ -161,14 +161,6 @@
   --md-code-bg-color: var(--color-surface);
   --md-code-fg-color: var(--color-text-primary);
 
-  --policy-popover-trigger-color: var(--md-footer-fg-color);
-  --policy-popover-trigger-hover-color: var(--color-text-hover);
-  --policy-popover-panel-bg: var(--color-surface);
-  --policy-popover-panel-color: var(--color-text-secondary);
-  --policy-popover-panel-border: var(--color-border-strong);
-  --policy-popover-link-color: var(--color-text-primary);
-  --policy-popover-fineprint-color: var(--color-text-tertiary);
-
   --code-admo-border-color: #5ee20c;
   --code-admo-title-bg: #64dd171a;
 }
@@ -226,13 +218,6 @@
 
   --md-code-bg-color: var(--color-surface);
   --md-code-fg-color: var(--color-text-primary);
-  --policy-popover-trigger-color: var(--md-footer-fg-color);
-  --policy-popover-trigger-hover-color: var(--color-text-hover);
-  --policy-popover-panel-bg: var(--color-surface);
-  --policy-popover-panel-color: var(--color-text-secondary);
-  --policy-popover-panel-border: var(--color-border-strong);
-  --policy-popover-link-color: var(--color-text-primary);
-  --policy-popover-fineprint-color: var(--color-text-tertiary);
   --md-code-hl-keyword-color: #c586c0;
   --md-code-hl-function-color: #dcdcaa;
   --md-code-hl-variable-color: #9cdcfe;
@@ -834,7 +819,7 @@ html .md-footer-meta.md-typeset a:hover {
   font: inherit;
   font-size: var(--text-xs);
   line-height: inherit;
-  color: var(--policy-popover-trigger-color);
+  color: var(--md-footer-fg-color);
   cursor: pointer;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
@@ -852,7 +837,7 @@ html .md-footer-meta.md-typeset a:hover {
 .md-footer .policy-popover > .policy-popover__trigger:focus-visible,
 .md-footer .policy-popover > .policy-popover__trigger:hover,
 .md-footer .policy-popover[open] > .policy-popover__trigger {
-  color: var(--policy-popover-trigger-hover-color);
+  color: var(--color-text-hover);
   background: transparent;
   border: 0;
   box-shadow: none;
@@ -868,10 +853,10 @@ html .md-footer-meta.md-typeset a:hover {
   max-height: min(70vh, 34rem);
   overflow: auto;
   padding: var(--py-6);
-  color: var(--policy-popover-panel-color);
+  color: var(--color-text-secondary);
   text-align: left;
-  background-color: var(--policy-popover-panel-bg);
-  border: 1px solid var(--policy-popover-panel-border);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
   border-radius: var(--rounded-xl);
 }
 
@@ -886,11 +871,11 @@ html .md-footer-meta.md-typeset a:hover {
 }
 
 .policy-popover__panel a {
-  color: var(--policy-popover-link-color);
+  color: var(--color-text-primary);
 }
 
 .policy-popover__fineprint {
-  color: var(--policy-popover-fineprint-color);
+  color: var(--color-text-tertiary);
 }
 
 .md-typeset a.footer-nav-link {

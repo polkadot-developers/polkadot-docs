@@ -1337,26 +1337,8 @@ a.tests-button {
   border-top-right-radius: var(--rounded);
 }
 
-/* --- Cookie consent --- */
-.md-typeset .md-consent__controls .md-button {
-  width: fit-content;
-}
-
 .md-typeset .task-list-indicator:before {
   background-color: var(--color-border-strong);
-}
-
-.md-typeset.md-consent__form h4 {
-  font-size: 0.9rem;
-}
-
-/* Show cookie consent on top of Kapa widget */
-.md-consent__overlay {
-  z-index: 200;
-}
-
-.md-consent__inner {
-  z-index: 201;
 }
 
 /* --- Toast / dialog --- */

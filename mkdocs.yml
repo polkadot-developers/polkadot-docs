@@ -134,12 +134,12 @@ plugins:
       ai_page_actions_anchor: page-header-row
       ai_page_actions_style: dropdown
   - awesome-nav
-#  - git-revision-date-localized:
-#      type: date
-#      enable_creation_date: true
-#      exclude:
-#        - node_modules/*
-#      enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
+  - git-revision-date-localized:
+      type: date
+      enable_creation_date: true
+      exclude:
+        - node_modules/*
+      enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
   - glightbox
   - link_processor
   - macros:

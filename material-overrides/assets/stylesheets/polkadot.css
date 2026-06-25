@@ -817,118 +817,46 @@ html .md-footer-meta.md-typeset a:hover {
   text-decoration: none;
 }
 
-.policy-popover {
-  margin: 0;
+.md-footer details.policy-popover {
+  display: inline-block;
   position: relative;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  background: transparent;
   border: 0;
   box-shadow: none;
 }
 
-.md-footer details.policy-popover,
-.md-footer-meta details.policy-popover,
-.md-typeset details.policy-popover {
-  display: inline-block !important;
-  position: relative !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  color: inherit !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  outline: 0 !important;
+.md-footer .policy-popover > .policy-popover__trigger {
+  all: unset;
+  display: inline;
+  font: inherit;
+  font-size: var(--text-xs);
+  line-height: inherit;
+  color: var(--policy-popover-trigger-color);
+  cursor: pointer;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.md-footer details.policy-popover:focus,
-.md-footer details.policy-popover:focus-visible,
-.md-footer details.policy-popover:focus-within,
-.md-footer-meta details.policy-popover:focus,
-.md-footer-meta details.policy-popover:focus-visible,
-.md-footer-meta details.policy-popover:focus-within,
-.md-typeset details.policy-popover:focus,
-.md-typeset details.policy-popover:focus-visible,
-.md-typeset details.policy-popover:focus-within {
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  outline: 0 !important;
+.md-footer .policy-popover > .policy-popover__trigger::marker,
+.md-footer .policy-popover > .policy-popover__trigger::-webkit-details-marker,
+.md-footer .policy-popover > .policy-popover__trigger::before,
+.md-footer .policy-popover > .policy-popover__trigger::after {
+  display: none;
+  content: "";
 }
 
-.md-footer .policy-popover > summary.policy-popover__trigger,
-.md-footer-meta .policy-popover > summary.policy-popover__trigger,
-.md-typeset .policy-popover > summary.policy-popover__trigger {
-  all: unset !important;
-  display: inline !important;
-  box-sizing: border-box !important;
-  min-width: 0 !important;
-  min-height: 0 !important;
-  width: auto !important;
-  height: auto !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  font: inherit !important;
-  font-size: var(--text-xs) !important;
-  line-height: inherit !important;
-  color: var(--policy-popover-trigger-color) !important;
-  cursor: pointer !important;
-  text-decoration: none !important;
-  vertical-align: baseline !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  outline: 0 !important;
-  -webkit-appearance: none !important;
-  appearance: none !important;
-  -webkit-tap-highlight-color: transparent !important;
-}
-
-.md-footer .policy-popover > summary.policy-popover__trigger::marker,
-.md-footer-meta .policy-popover > summary.policy-popover__trigger::marker,
-.md-typeset .policy-popover > summary.policy-popover__trigger::marker {
-  content: "" !important;
-}
-
-.md-footer .policy-popover > summary.policy-popover__trigger::-webkit-details-marker,
-.md-footer-meta .policy-popover > summary.policy-popover__trigger::-webkit-details-marker,
-.md-typeset .policy-popover > summary.policy-popover__trigger::-webkit-details-marker {
-  display: none !important;
-}
-
-.md-footer .policy-popover > summary.policy-popover__trigger::before,
-.md-footer .policy-popover > summary.policy-popover__trigger::after,
-.md-footer-meta .policy-popover > summary.policy-popover__trigger::before,
-.md-footer-meta .policy-popover > summary.policy-popover__trigger::after,
-.md-typeset .policy-popover > summary.policy-popover__trigger::before,
-.md-typeset .policy-popover > summary.policy-popover__trigger::after {
-  display: none !important;
-}
-
-.md-footer .policy-popover > summary.policy-popover__trigger:focus,
-.md-footer .policy-popover > summary.policy-popover__trigger:focus-visible,
-.md-footer .policy-popover > summary.policy-popover__trigger:hover,
-.md-footer .policy-popover[open] > summary.policy-popover__trigger,
-.md-footer-meta .policy-popover > summary.policy-popover__trigger:focus,
-.md-footer-meta .policy-popover > summary.policy-popover__trigger:focus-visible,
-.md-footer-meta .policy-popover > summary.policy-popover__trigger:hover,
-.md-footer-meta .policy-popover[open] > summary.policy-popover__trigger,
-.md-typeset .policy-popover > summary.policy-popover__trigger:focus,
-.md-typeset .policy-popover > summary.policy-popover__trigger:focus-visible,
-.md-typeset .policy-popover > summary.policy-popover__trigger:hover,
-.md-typeset .policy-popover[open] > summary.policy-popover__trigger {
-  color: var(--policy-popover-trigger-hover-color) !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  outline: 0 !important;
+.md-footer .policy-popover > .policy-popover__trigger:focus,
+.md-footer .policy-popover > .policy-popover__trigger:focus-visible,
+.md-footer .policy-popover > .policy-popover__trigger:hover,
+.md-footer .policy-popover[open] > .policy-popover__trigger {
+  color: var(--policy-popover-trigger-hover-color);
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  outline: 0;
 }
 
 .policy-popover__panel {

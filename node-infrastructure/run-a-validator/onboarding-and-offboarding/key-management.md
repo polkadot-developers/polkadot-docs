@@ -52,7 +52,7 @@ Setting up your validator's session keys is essential to associate your node wit
 
 === "Pre-2.2.0 (Legacy)"
 
-    Polkadot and Kusama are well past runtime 2.2.0, so this legacy flow is no longer applicable on those networks. Use it only if you are operating on a network still running a pre-2.2.0 runtime. On such a network, there are multiple ways to create the session keys: interacting with the [Polkadot.js Apps UI](https://polkadot.js.org/apps/#/explorer){target=\_blank}, using the curl command, or using [Subkey](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html){target=\_blank}.
+    Polkadot and Kusama are beyond runtime 2.2.0, so this legacy flow is no longer applicable on those networks. Use it only if you are operating on a network still running a pre-2.2.0 runtime. On such a network, there are multiple ways to create the session keys: interacting with the [Polkadot.js Apps UI](https://polkadot.js.org/apps/#/explorer){target=\_blank}, using the curl command, or using [Subkey](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html){target=\_blank}.
 
     === "Polkadot.js Apps UI"
 

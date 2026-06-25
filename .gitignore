@@ -19,6 +19,4 @@ styles/PaperMoon/
 styles/config/vocabularies/PaperMoon/
 
 # Claude
-.github/instructions/kluster-code-verify.instructions.md
-.kluster
 .claude/scheduled_tasks.lock

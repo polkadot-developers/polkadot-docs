@@ -36,7 +36,7 @@ git clone https://github.com/polkadot-developers/polkadot-docs.git
 cd polkadot-docs
 ```
 
-> **Contributing?** If you plan to [contribute](docs/CONTRIBUTING.md), fork this repository first and clone your fork instead.
+> **Contributing?** If you plan to [contribute](CONTRIBUTING.md), fork this repository first and clone your fork instead.
 
 ### Set Up the Environment
 
@@ -72,6 +72,23 @@ Makefile.bat serve
 
 After a successful build, the site is available at http://127.0.0.1:8000 with live reload on file changes.
 
+To pass extra flags to `mkdocs serve`, use the `ARGS` variable:
+
+```bash
+make serve ARGS="--watch-theme"
+```
+
+On Windows, pass them as a second argument:
+
+```bat
+Makefile.bat serve "--watch-theme"
+```
+
+> **_NOTE:_** To improve build times, you can:
+>
+> - Disable the git revision plugin: `export ENABLED_GIT_REVISION_DATE=false`
+> - Disable the LLM file plugins: `export ENABLED_LLMS_PLUGINS=false`
+
 ### Build and Validate
 
 To do a full build and check for errors (mirrors CI):
@@ -85,12 +102,11 @@ make build
 To resume work after closing your terminal:
 
 1. Navigate to the repo root.
-2. Activate the environment: `source venv/bin/activate` (Windows: `venv\Scripts\activate`).
-3. Run `mkdocs serve`.
+2. Run `make serve`.
 
 ## Contributing
 
-See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for how to contribute to this repository.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute to this repository.
 
 We're excited to have you contribute to the Polkadot docs and help improve our ecosystem! Every contribution, whether it's fixing a typo, improving documentation, or adding new content, helps make Polkadot more accessible to developers worldwide. Thank you for being part of our community!
 
@@ -102,7 +118,7 @@ The developer documentation provided herein has been collaboratively created and
 
 ### Documentation License
 
-The content of these documents is [licensed](docs/LICENSE.md) under the Creative Commons Attribution 4.0 International License ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)). You are free to share, copy, redistribute, and adapt the material for any purpose, even commercially, provided that appropriate credit is given to the Organizations, a link to the license is provided, and any changes made are indicated.
+The content of these documents is [licensed](LICENSE.md) under the Creative Commons Attribution 4.0 International License ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)). You are free to share, copy, redistribute, and adapt the material for any purpose, even commercially, provided that appropriate credit is given to the Organizations, a link to the license is provided, and any changes made are indicated.
 
 ### Code License
 

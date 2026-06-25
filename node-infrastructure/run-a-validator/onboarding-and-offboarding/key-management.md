@@ -15,9 +15,9 @@ After setting up your node environment as shown in the [Setup](/node-infrastruct
 Setting up your validator's session keys is essential to associate your node with your stash account on the Polkadot network. Validators use session keys to participate in the consensus process. Your validator can only perform its role in the network by properly setting session keys which consist of several key pairs for different parts of the protocol (e.g., GRANDPA, BABE). These keys must be registered on-chain and associated with your validator node to ensure it can participate in validating blocks.
 
 !!! warning "Breaking change in runtime 2.2.0"
-    Starting with runtime 2.2.0, session key generation uses the new `author_rotateKeysWithOwner` RPC, which requires your stash account as a parameter and returns both the session keys and a cryptographic proof of ownership. This proof must be included when submitting `set_keys`. The previous `author_rotateKeys` RPC and the Subkey approach are no longer supported for new key generation. If your validator already has session keys set on-chain and you are not rotating them, no action is required. These changes can already be tested on Westend and are expected to go live on Kusama and Polkadot in a future upgrade.
+    Runtime 2.2.0 (now live on Polkadot and Kusama) introduced a new session key generation flow using the `author_rotateKeysWithOwner` RPC, which requires your stash account as a parameter and returns both the session keys and a cryptographic proof of ownership. This proof must be included when submitting `setKeys`. The previous `author_rotateKeys` RPC and the Subkey approach are no longer supported for new key generation. If your validator already has session keys set on-chain and you are not rotating them, no action is required.
 
-    **Until runtime 2.2.0 is live on your target network**, use the legacy `author_rotateKeys` RPC and pass `0x00` as the proof when submitting `setKeys`. See the **Pre-2.2.0 (Legacy)** tab below.
+    The **Pre-2.2.0 (Legacy)** tab below is kept for reference and applies only on networks that have not yet upgraded to runtime 2.2.0.
 
 ### Generate Session Keys
 
@@ -52,7 +52,7 @@ Setting up your validator's session keys is essential to associate your node wit
 
 === "Pre-2.2.0 (Legacy)"
 
-    If runtime 2.2.0 is **not yet live** on your target network (Kusama or Polkadot), there are multiple ways to create the session keys. It can be done by interacting with the [Polkadot.js Apps UI](https://polkadot.js.org/apps/#/explorer){target=\_blank}, using the curl command, or by using [Subkey](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html){target=\_blank}.
+    Runtime 2.2.0 is already live on Polkadot and Kusama, so this legacy flow is no longer the standard path on those networks. Use it only if you are operating on a network that has not yet upgraded to runtime 2.2.0. On such a network, there are multiple ways to create the session keys: interacting with the [Polkadot.js Apps UI](https://polkadot.js.org/apps/#/explorer){target=\_blank}, using the curl command, or using [Subkey](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html){target=\_blank}.
 
     === "Polkadot.js Apps UI"
 

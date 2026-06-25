@@ -17,7 +17,7 @@ Setting up your validator's session keys is essential to associate your node wit
 !!! warning "Breaking change introduced in runtime 2.2.0"
     Runtime 2.2.0 introduced a new session key generation flow using the `author_rotateKeysWithOwner` RPC, which requires your stash account as a parameter and returns both the session keys and a cryptographic proof of ownership. This proof must be included when submitting `setKeys`. The previous `author_rotateKeys` RPC and the Subkey approach are no longer supported for new key generation. If your validator already has session keys set on-chain and you are not rotating them, no action is required.
 
-    Polkadot and Kusama are well past runtime 2.2.0, so the new flow is the only supported path on both networks. The **Pre-2.2.0 (Legacy)** tab below is kept for reference and applies only to networks still running a pre-2.2.0 runtime.
+    Polkadot and Kusama are beyond runtime 2.2.0, so the new flow is the only supported path on both networks. The **Pre-2.2.0 (Legacy)** tab below is kept for reference and applies only to networks still running a pre-2.2.0 runtime.
 
 ### Generate Session Keys
 

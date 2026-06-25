@@ -186,14 +186,6 @@ extra:
   glossary_tooltips:
     exclude_terms:
       - Polkadot
-  consent:
-    title: Cookie Consent
-    description: >-
-      We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation.
-      By consenting to the use of cookies, you help us improve the site. Review the <a href="https://docs.polkadot.com/policies/cookie-policy/" target="_blank" rel="noopener">cookie policy</a> for more information.
-    actions:
-      - accept
-      - manage
   generator: False
   social:
     - icon: fontawesome/brands/discord

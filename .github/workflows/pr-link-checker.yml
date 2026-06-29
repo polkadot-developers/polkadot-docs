@@ -1,3 +1,6 @@
+# This CI workflow was adapted from (and inspired by) [PaperMoon](https://papermoon.io/)’s MkDocs workflows previously used for Polkadot Docs. 
+# Original reference implementation: https://github.com/papermoonio/workflows/blob/main/.github/workflows/core-pr-link-checker.yml
+
 name: PR Docs Link Check
 
 on: pull_request

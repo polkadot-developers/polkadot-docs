@@ -1,0 +1,105 @@
+{#-
+  This file was automatically generated - do not edit
+-#}
+
+{% from "partials/macros.html" import render_title_with_icon %}
+
+{# Allowed external domains for page-specific resources #}
+{% set allowed_domains = ['cdn.jsdelivr.net'] %}
+
+{# Macro to validate resource URLs: allows relative paths and allowlisted domains #}
+{% macro is_safe_url(url) %}
+  {%- set url_lower = url | lower | trim -%}
+  {%- if url_lower.startswith('javascript:') or url_lower.startswith('data:') or url_lower.startswith('vbscript:') -%}
+    false
+  {%- elif '://' not in url and not url.startswith('//') -%}
+    true
+  {%- else -%}
+    {%- set match_found = [] -%}
+    {%- for domain in allowed_domains -%}
+      {%- if 'https://' ~ domain ~ '/' in url or '//' ~ domain ~ '/' in url -%}
+        {%- if match_found.append(1) -%}{%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {{ 'true' if match_found else 'false' }}
+  {%- endif -%}
+{% endmacro %}
+
+{# Inject page-specific CSS if defined in frontmatter #}
+{% if page.meta.extra_css %}
+  {% for css in page.meta.extra_css %}
+    {% if css is string and is_safe_url(css) | trim == 'true' %}
+      <link rel="stylesheet" href="{{ css | e }}">
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{# Inject page-specific JavaScript if defined in frontmatter #}
+{% if page.meta.extra_javascript %}
+  {% for script in page.meta.extra_javascript %}
+    {% if script is string and is_safe_url(script) | trim == 'true' %}
+      <script src="{{ script | e }}"></script>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if "material/tags" in config.plugins and tags %}
+  {% include "partials/tags.html" %}
+{% endif %}
+
+{% from "partials/page-badges.html" import render_badges %}
+{% from "partials/page-tests.html" import render_test_block %}
+
+{# ------------------------------------------------------------------ #}
+{# Content rendering                                                    #}
+{# ------------------------------------------------------------------ #}
+
+{% if page.meta.toggle_variant_metas %}
+  {# Toggle page: replace the plugin-inserted placeholder with per-variant badge blocks #}
+  {% set badge_blocks %}
+    {%- for variant, badges in page.meta.toggle_variant_metas -%}
+      {{- render_badges(badges, variant) -}}
+    {%- endfor -%}
+  {% endset %}
+  {% set rendered_content = page.content | replace('<!-- toggle-badges -->', badge_blocks, 1) %}
+  {# Replace per-variant test placeholders injected by the plugin before "Where to Go Next".
+     A namespace is required because Jinja2 for-loop scope does not propagate variable
+     assignments back to the enclosing scope. #}
+  {% if page.meta.toggle_variant_test_metas %}
+    {% set _ns = namespace(content=rendered_content) %}
+    {% for variant, tests, wf in page.meta.toggle_variant_test_metas %}
+      {%- if tests and tests.path -%}
+        {%- set _test_block = render_test_block(wf, tests.path, '') -%}
+      {%- else -%}
+        {%- set _test_block = '' -%}
+      {%- endif -%}
+      {%- set _ns.content = _ns.content | replace('<!-- toggle-tests-' ~ variant ~ ' -->', _test_block, 1) -%}
+    {% endfor %}
+    {% set rendered_content = _ns.content %}
+  {% endif %}
+{% elif "\x3ch1" in page.content %}
+  {% set rendered_content = page.content | replace('</h1>', '</h1>' ~ render_badges(page.meta.page_badges), 1) %}
+{% else %}
+  {% set rendered_content = '<h1>' ~ (page.title | d(config.site_name, true)) ~ '</h1>' ~ render_badges(page.meta.page_badges) ~ page.content %}
+{% endif %}
+
+{# ------------------------------------------------------------------ #}
+{# Page tests block — injected before "Where to Go Next" or at end    #}
+{# Driven by page_tests.path in frontmatter; uses page_badges         #}
+{# .test_workflow (if set) for the CI badge image.                    #}
+{# ------------------------------------------------------------------ #}
+{% if page.meta.page_tests and page.meta.page_tests.path and not page.meta.toggle_variant_metas %}
+  {%- set _wf = page.meta.page_badges.test_workflow if page.meta.page_badges and page.meta.page_badges.test_workflow else None -%}
+  {%- set _test_block = render_test_block(_wf, page.meta.page_tests.path, page.title) -%}
+  {%- set _wtgn_marker = '<h2 id="where-to-go-next"' -%}
+  {%- if _wtgn_marker in rendered_content -%}
+    {%- set rendered_content = rendered_content | replace(_wtgn_marker, _test_block ~ _wtgn_marker, 1) -%}
+  {%- else -%}
+    {%- set rendered_content = rendered_content ~ _test_block -%}
+  {%- endif -%}
+{% endif %}
+
+{{ rendered_content | safe }}
+
+{% include "partials/source-file.html" %}
+{% include "partials/comments.html" %}

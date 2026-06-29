@@ -1,0 +1,79 @@
+{#-
+  This file was automatically generated - do not edit
+-#}
+<footer class="md-footer">
+  {% if "navigation.footer" in features %}
+    {% if page.previous_page or page.next_page %}
+      {% if page.meta and page.meta.hide %}
+        {% set hidden = "hidden" if "footer" in page.meta.hide %}
+      {% endif %}
+      <nav class="md-footer__inner md-grid" aria-label="{{ lang.t('footer') }}" {{ hidden }}>
+        {% if page.previous_page %}
+          {% set direction = lang.t("footer.previous") %}
+          <a href="{{ page.previous_page.url | url }}" class="md-footer__link md-footer__link--prev" aria-label="{{ direction }}: {{ page.previous_page.title | e }}">
+            <div class="md-footer__button md-icon">
+              {% set icon = config.theme.icon.previous or "material/arrow-left" %}
+              {% include ".icons/" ~ icon ~ ".svg" %}
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                {{ direction }}
+              </span>
+              <div class="md-ellipsis">
+                {{ page.previous_page.title }}
+              </div>
+            </div>
+          </a>
+        {% endif %}
+        {% if page.next_page %}
+          {% set direction = lang.t("footer.next") %}
+          <a href="{{ page.next_page.url | url }}" class="md-footer__link md-footer__link--next" aria-label="{{ direction }}: {{ page.next_page.title | e }}">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                {{ direction }}
+              </span>
+              <div class="md-ellipsis">
+                {{ page.next_page.title }}
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              {% set icon = config.theme.icon.next or "material/arrow-right" %}
+              {% include ".icons/" ~ icon ~ ".svg" %}
+            </div>
+          </a>
+        {% endif %}
+      </nav>
+    {% endif %}
+  {% endif %}
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      {% if config.extra.footer_nav %}
+        <div class="footer-nav">
+          {% for item in config.extra.footer_nav %}
+            <a href="{{ item.url | url }}" class="footer-nav-link">{{ item.title }}</a>
+          {% endfor %}
+        </div>
+      {% endif %}
+      <div class="row">
+        {% include "partials/copyright.html" %}
+        <div class="policy-links">
+          <details class="policy-popover">
+            <summary class="policy-popover__trigger">Policies</summary>
+            <div class="policy-popover__panel" role="note" aria-label="Policies">
+              <p>This website provides static, informational content about the Polkadot network, and is provided "as is" and "as available" without warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+              <p>We do not use cookies, collect personal data, or provide financial or legal advice. Certain technical data may be automatically collected by your internet service provider or web browser. This is beyond our control.</p>
+              <p>Links to third-party sites are for reference only, do not imply endorsement, we have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party websites.</p>
+              <p>This website is hosted via GitHub Pages that logs visitor IP addresses when a Pages site is visited. IPs are stored for security purposes, regardless of whether the visitor is signed in.</p>
+              <p>These terms are governed by the laws of England and Wales. By using this website, you agree to these terms.</p>
+              <p>For inquiries, contact: <a href="mailto:info@parity.io">info@parity.io</a></p>
+              <p class="policy-popover__fineprint">&copy; 2026 Parity Technologies Limited, registered in England and Wales (no 09760015) with its registered office at 1 Sans Walk, London, EC1R 0LT.</p>
+            </div>
+          </details>
+        </div>
+        {% if config.extra.social %}
+          {% include "partials/social.html" %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,346 @@
+{% extends "main.html" %}
+
+{% block htmltitle %}
+  <title>Polkadot Developer Docs</title>
+{% endblock %}
+
+{% block styles %}
+	{{ super() }}
+  <link rel="stylesheet" href="{{ 'assets/stylesheets/home.css' | url }}">
+{% endblock %}
+
+{%- block container -%} 
+  {% block content %}
+    <div class="home-container md-typeset">
+
+      <section class="hero-section">
+        <canvas id="grain-canvas" class="grain-canvas"></canvas>
+        <div class="hero-content">
+          <h1>Polkadot Documentation</h1>
+          <p class="tagline">Everything you need to start building on Polkadot.</p>
+          <div class="button-wrapper">
+            <a href="apps/">
+              <button class="md-button">Install the Polkadot App
+                <span class="twemoji">
+                  {% include ".icons/material/arrow-right.svg" %}
+                </span>
+              </button>
+            </a>
+            <a href="apps/quick-start/">
+              <button class="md-button secondary">Start Building
+                <span class="twemoji">
+                  {% include ".icons/material/arrow-right.svg" %}
+                </span>
+              </button>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <div class="md-grid column">
+        <div class="feature-section">
+          <div class="featured-content row">
+            <div class="card column">
+              <h3>Apps</h3>
+              <a href="/apps/quick-start/">
+                Create a Product quick start
+                <span class="twemoji">
+                  {% include ".icons/material/arrow-right.svg" %} 
+                </span>
+              </a>
+              <a href="/apps/get-started/">
+                Set up your app dev environment
+                <span class="twemoji">
+                  {% include ".icons/material/arrow-right.svg" %} 
+                </span>
+              </a>
+              <a href="/apps/build/">
+                Build an app locally
+                <span class="twemoji">
+                  {% include ".icons/material/arrow-right.svg" %} 
+                </span>
+              </a>
+              <a href="/apps/deploy-your-app/">
+                Deploy and publish an app
+                <span class="twemoji">
+                  {% include ".icons/material/arrow-right.svg" %} 
+                </span>
+              </a>
+            </div>
+            <div class="card column">
+              <h3>Smart Contracts</h3>
+              <a href="/smart-contracts/connect/">
+                Connect to Polkadot
+                <span class="twemoji">
+                  {% include ".icons/material/arrow-right.svg" %} 
+                </span>
+              </a>
+              <a href="/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix/">
+                Deploy a contract
+                <span class="twemoji">
+                  {% include ".icons/material/arrow-right.svg" %} 
+                </span>
+              </a>
+              <a href="/smart-contracts/precompiles/">
+                Leverage precompiled contracts
+                <span class="twemoji">
+                  {% include ".icons/material/arrow-right.svg" %} 
+                </span>
+              </a>
+            </div>
+            <div class="card column">
+              <h3>Blockchains</h3>
+              <a href="/parachains/install-polkadot-sdk/">
+                Install the Polkadot SDK
+                <span class="twemoji">
+                  {% include ".icons/material/arrow-right.svg" %} 
+                </span>
+              </a>
+              <a href="/parachains/launch-a-parachain/set-up-the-parachain-template/">
+                Launch a simple blockchain
+                <span class="twemoji">
+                  {% include ".icons/material/arrow-right.svg" %} 
+                </span>
+              </a>
+              <a href="/parachains/customize-runtime/">
+                Customize your chain
+                <span class="twemoji">
+                  {% include ".icons/material/arrow-right.svg" %} 
+                </span>
+              </a>
+              <a href="/parachains/runtime-maintenance/runtime-upgrades/">
+                Upgrade your chain
+                <span class="twemoji">
+                  {% include ".icons/material/arrow-right.svg" %} 
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  {% endblock %}
+{%- endblock -%} 
+
+
+{% block scripts %}
+  {{ super() }}
+  <script>
+    (() => {
+    const canvas = document.querySelector('.grain-canvas');
+    const hero = document.querySelector('.hero-section');
+    const ctx = canvas?.getContext('2d', { desynchronized: true });
+
+    if (!canvas || !ctx || !hero) {
+      return;
+    }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const maxDpr = 1;
+    const resizeSettleMs = 160;
+    const normalGrainIntervalMs = 150;
+    const resizingGrainIntervalMs = 260;
+
+    function resizeCanvas(force = false) {
+      const rect = hero.getBoundingClientRect();
+      const nextCssWidth = Math.max(1, Math.floor(rect.width));
+      const nextCssHeight = Math.max(1, Math.floor(rect.height));
+      const nextDpr = Math.min(maxDpr, Math.max(1, window.devicePixelRatio || 1));
+      const nextWidth = Math.max(1, Math.floor(nextCssWidth * nextDpr));
+      const nextHeight = Math.max(1, Math.floor(nextCssHeight * nextDpr));
+
+      if (!force && nextWidth === width && nextHeight === height && nextDpr === dpr) {
+        return false;
+      }
+
+      const prevWidth = width;
+      const prevHeight = height;
+
+      dpr = nextDpr;
+      width = nextWidth;
+      height = nextHeight;
+      canvas.width = width;
+      canvas.height = height;
+
+      if (prevWidth > 0 && prevHeight > 0) {
+        smoothX = (smoothX / prevWidth) * width;
+        smoothY = (smoothY / prevHeight) * height;
+      }
+
+      if (!Number.isFinite(smoothX) || !Number.isFinite(smoothY)) {
+        smoothX = width * 0.5;
+        smoothY = height * 0.38;
+      }
+
+      return true;
+    }
+
+    let dpr = 1;
+    let width = 1;
+    let height = 1;
+
+    // Generate grain frame
+    function generateGrain() {
+      const imgData = ctx.createImageData(width, height);
+      const alpha = 28;
+
+      for (let i = 0; i < imgData.data.length; i += 4) {
+        const v = Math.random() * 255;
+        imgData.data[i] = v;         // R
+        imgData.data[i + 1] = v;     // G
+        imgData.data[i + 2] = v;     // B
+        imgData.data[i + 3] = alpha; // A
+      }
+
+      return imgData;
+    }
+
+    let grain = null;
+    let rafId = null;
+    let lastGrainTs = 0;
+    let pendingResize = false;
+    let isResizing = false;
+    let lastResizeTs = 0;
+
+    let smoothX = width * 0.5;
+    let smoothY = height * 0.38;
+    const baseEase = 0.03;
+    const minEase = 0.007;
+    const rampDurationMs = 2200;
+    let startTs = null;
+    let seeded = false;
+
+    resizeCanvas(true);
+    smoothX = width * 0.5;
+    smoothY = height * 0.38;
+    grain = generateGrain();
+    lastGrainTs = performance.now();
+
+    function drawStaticGradient() {
+      const x = width * 0.5;
+      const y = height * 0.35;
+      const radius = Math.max(width, height) * 0.9;
+      const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
+      gradient.addColorStop(0, 'rgba(255,255,255,0.12)');
+      gradient.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+    }
+
+    function draw(t) {
+      rafId = null;
+
+      if (pendingResize) {
+        const resized = resizeCanvas();
+        pendingResize = false;
+
+        if (resized) {
+          grain = generateGrain();
+          lastGrainTs = t;
+        }
+      }
+
+      if (isResizing && t - lastResizeTs > resizeSettleMs) {
+        isResizing = false;
+      }
+
+      if (!grain || grain.width !== width || grain.height !== height) {
+        grain = generateGrain();
+        lastGrainTs = t;
+      }
+
+      const grainIntervalMs = isResizing ? resizingGrainIntervalMs : normalGrainIntervalMs;
+      if (!lastGrainTs || t - lastGrainTs > grainIntervalMs) {
+        grain = generateGrain();
+        lastGrainTs = t;
+      }
+
+      ctx.putImageData(grain, 0, 0);
+
+      if (prefersReducedMotion.matches) {
+        drawStaticGradient();
+
+        if (pendingResize || isResizing) {
+          rafId = requestAnimationFrame(draw);
+        }
+        return;
+      }
+
+      if (startTs === null) startTs = t;
+
+      if (!seeded) {
+        const time0 = t * 0.00025;
+        smoothX = width * (0.5 + 0.28 * Math.cos(time0));
+        smoothY = height * (0.42 + 0.20 * Math.sin(time0 * 1.15));
+        seeded = true;
+      }
+
+      const time = t * 0.00025; // speed
+      const targetX = width * (0.5 + 0.28 * Math.cos(time));
+      const targetY = height * (0.42 + 0.20 * Math.sin(time * 1.15));
+
+      const elapsed = t - startTs;
+      const ramp = Math.min(1, elapsed / rampDurationMs);
+      const ease = minEase + (baseEase - minEase) * ramp;
+      smoothX += (targetX - smoothX) * ease;
+      smoothY += (targetY - smoothY) * ease;
+
+      const x = smoothX;
+      const y = smoothY;
+
+      const gradientRadius = Math.min(900, Math.max(width, height) * 0.9);
+      const gradient = ctx.createRadialGradient(x, y, 0, x, y, gradientRadius);
+      gradient.addColorStop(0, 'rgba(255,255,255,0.18)');
+      gradient.addColorStop(0.35, 'rgba(255,255,255,0.08)');
+      gradient.addColorStop(1, 'rgba(255,255,255,0)');
+
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+
+      rafId = requestAnimationFrame(draw);
+    }
+
+    function start() {
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(draw);
+    }
+
+    function handleReducedMotionChange() {
+      pendingResize = true;
+      grain = null;
+      if (!prefersReducedMotion.matches) {
+        startTs = null;
+        seeded = false;
+      }
+      start();
+    }
+    prefersReducedMotion.addEventListener('change', handleReducedMotionChange);
+
+    const ro = new ResizeObserver(() => {
+      pendingResize = true;
+      isResizing = true;
+      lastResizeTs = performance.now();
+      start();
+    });
+    ro.observe(hero);
+
+    function teardown() {
+      ro.disconnect();
+      prefersReducedMotion.removeEventListener('change', handleReducedMotionChange);
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    }
+    window.addEventListener('pagehide', function (event) {
+      if (event.persisted) {
+        return;
+      }
+      teardown();
+    }, { once: true });
+
+    start();
+    })();
+  </script>
+{% endblock %}

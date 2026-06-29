@@ -1,0 +1,266 @@
+/** 
+* AI File Actions Styles 
+* Styling for the AI file actions component, including the split button and dropdown menu.
+*/
+
+/* --- Container for the split button --- */
+.ai-file-actions-container {
+  display: inline-flex;
+  margin-left: auto;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--rounded);
+  overflow: visible;
+  position: relative;
+  white-space: nowrap;
+}
+
+/* --- Common Button Styles --- */
+.ai-file-actions-btn {
+  padding: 0.6em 0.9em;
+  background-color: var(--color-surface-secondary);
+  color: var(--color-text-primary);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 16px;
+}
+
+/* --- Hover effects on buttons --- */
+.ai-file-actions-btn:hover {
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+}
+
+/* --- Single Action Button --- */
+a.ai-file-actions-btn.single-action-btn {
+  text-decoration: none;
+  color: var(--md-default-fg-color);
+  border-radius: var(--rounded);
+  border: 1px solid var(--color-border-strong);
+}
+
+/* --- Left Button (Copy) --- */
+.ai-file-actions-copy {
+  border-right: 1px solid var(--color-border-strong);
+  gap: 0.5em;
+  border-top-left-radius: var(--rounded);
+  border-bottom-left-radius: var(--rounded);
+}
+
+.ai-file-actions-container:hover .ai-file-actions-copy {
+  /* Keep separator stable on hover */
+  border-right-color: var(--color-border-strong);
+}
+
+/* --- Right Button (Trigger) --- */
+.ai-file-actions-trigger {
+  border-top-right-radius: var(--rounded);
+  border-bottom-right-radius: var(--rounded);
+  padding: 0.6em 0.7em;
+}
+
+.ai-file-actions-trigger.active {
+  background-color: var(--color-surface);
+}
+
+/* --- Icons --- */
+.ai-file-actions-icon {
+  width: 1.1em;
+  height: 1.1em;
+  min-width: 1.1em;
+  fill: currentColor;
+  display: block;
+}
+
+/* Specific adjustment for spinner placement */
+.ai-file-actions-icon.loading-spinner {
+  margin: 0;
+}
+
+/* Size and color for the chevron icon */
+.ai-file-actions-chevron {
+  background-size: 1em 1em;
+  transition: transform 0.2s;
+  fill: var(--color-text-primary);
+}
+
+/* Rotate chevron when active */
+.ai-file-actions-trigger.active .ai-file-actions-chevron {
+  transform: rotate(180deg);
+}
+
+/* --- Dropdown Menu --- */
+.ai-file-actions-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  background-color: var(--color-surface-secondary);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--rounded);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  z-index: 3;
+  min-width: 140px;
+  overflow: hidden;
+  flex-direction: column;
+  padding: 5px;
+}
+
+/* Reset specific overrides if they exist for the active custom schemes */
+[data-md-color-scheme="custom-light"] .ai-file-actions-container,
+[data-md-color-scheme="custom-dark"] .ai-file-actions-container {
+  border-color: var(--color-border-strong);
+}
+
+.ai-file-actions-menu.show {
+  display: flex;
+}
+
+/* Hover effect for code blocks within table */
+tr:has(pre > code):hover pre > code {
+  background: var(--color-surface-secondary);
+}
+
+/* --- Dropdown Items --- */
+.md-typeset a.ai-file-actions-item,
+.md-typeset button.ai-file-actions-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.475rem 0.625rem;
+  background: none;
+  color: var(--color-text-primary);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.1s;
+  line-height: 1;
+}
+
+.ai-file-actions-item .ai-file-actions-external {
+  margin-left: auto;
+}
+
+.md-typeset a.ai-file-actions-item:hover,
+.md-typeset button.ai-file-actions-item:hover {
+  background-color: var(--color-surface);
+}
+
+/* --- Table-scoped overrides --- */
+.md-typeset table .ai-file-actions-btn,
+.md-typeset table .ai-file-actions-item {
+  font-size: 0.64rem;
+}
+
+/* Remove the scroll wrapper's overflow constraint on any table that contains
+   the file actions widget, so the absolutely-positioned dropdown can extend
+   beyond the table bounds without being clipped. */
+.md-typeset__scrollwrap:has(.ai-file-actions-container) {
+  overflow: visible;
+}
+
+/* Switching to inline-table prevents the table row from expanding to
+   accommodate the absolutely-positioned dropdown. As a block-level element,
+   display:table can stretch its rows to contain overflowing children;
+   inline-table does not exhibit this behaviour. */
+.md-typeset table:not([class]):has(.ai-file-actions-container) {
+  display: inline-table;
+}
+
+.md-typeset__table:has(.ai-file-actions-container) {
+  width: 100%;
+}
+
+/* --- H1 + per-page AI actions wrapper --- */
+.h1-ai-actions-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.h1-ai-actions-wrapper h1 {
+  flex: 1;
+  margin: 0;
+}
+
+/* Mobile responsive */
+@media screen and (max-width: 768px) {
+  .h1-ai-actions-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .h1-ai-actions-wrapper h1 {
+    width: 100%;
+  }
+
+  .h1-ai-actions-wrapper .ai-file-actions-container {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+
+  .h1-ai-actions-wrapper .ai-file-actions-menu {
+    left: 0;
+    right: auto;
+    min-width: 200px;
+  }
+}
+
+/* --- Page header row: ai-file-actions overrides --- */
+.page-header-row .ai-file-actions-container {
+  margin-left: 0;
+  border: none;
+  font-size: 0.8em;
+}
+
+.page-header-row .ai-file-actions-btn {
+  background: transparent;
+}
+
+.page-header-row .ai-file-actions-trigger {
+  border: none;
+  border-radius: var(--rounded);
+  background: transparent;
+  padding: 0.2em 0.2em 0.2em 0.4em;
+  gap: 0.35em;
+  font-size: inherit;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+.page-header-row .ai-file-actions-trigger:hover {
+  background: var(--color-surface-secondary);
+  color: var(--color-text-primary);
+}
+
+/* --- Loading Spinner --- */
+.ai-file-actions-container .loading-spinner {
+  animation: spinner-rotate 2s linear infinite;
+}
+.ai-file-actions-container .loading-spinner circle {
+  animation: spinner-dash 1.5s ease-in-out infinite;
+}
+
+@keyframes spinner-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spinner-dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}

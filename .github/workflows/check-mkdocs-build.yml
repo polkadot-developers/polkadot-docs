@@ -1,15 +1,36 @@
+# This CI workflow was adapted from (and inspired by) [PaperMoon](https://papermoon.io/)’s MkDocs workflows previously used for Polkadot Docs. 
+# Original reference implementation: https://github.com/papermoonio/workflows/blob/main/.github/workflows/core-pr-mkdocs-build.yml
+
 name: PR Docs Build
 
-on:
-  pull_request:
+on: pull_request
 
 permissions:
   contents: read
 
 jobs:
   build-docs:
-    uses: papermoonio/workflows/.github/workflows/core-pr-mkdocs-build.yml@main
-    with:
-      mkdocs_repo: papermoonio/polkadot-mkdocs
-      docs_repo: polkadot-developers/polkadot-docs
-      docs_checkout: polkadot-docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install pip requirements
+        run: |
+          python -V
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build MkDocs site
+        run: mkdocs build -d site

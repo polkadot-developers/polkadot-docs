@@ -1,0 +1,24 @@
+# Ignore localhost
+localhost
+127.0.0.1
+
+# Polkadot main site (404s - non-browser clients)
+https://polkadot.com/
+
+# Ignore Google Fonts service
+https://fonts.gstatic.com/
+https://fonts.googleapis.com/
+
+# Ignore known working URLs
+https://metamask.io/
+https://ethereum.org/
+https://certbot.eff.org/
+https://www.npmjs.com/
+https://wiki.polkadot.com/
+https://www.ovhcloud.com/
+https://paritytech.github.io/polkadot-bulletin-chain/
+
+# Ignore sites that block scrapers (403s or 400s)
+https://x.com/
+https://twitter.com/
+https://instagram.com/

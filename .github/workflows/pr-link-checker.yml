@@ -1,15 +1,99 @@
+# This CI workflow was adapted from (and inspired by) [PaperMoon](https://papermoon.io/)’s MkDocs workflows previously used for Polkadot Docs. 
+# Original reference implementation: https://github.com/papermoonio/workflows/blob/main/.github/workflows/core-pr-link-checker.yml
+
 name: PR Docs Link Check
 
-on:
-  pull_request:
+on: pull_request
 
 jobs:
-  check-docs-links:
-    uses: papermoonio/workflows/.github/workflows/core-pr-link-checker.yml@main
-    with:
-      mkdocs_repo: papermoonio/polkadot-mkdocs
-      docs_repo: polkadot-developers/polkadot-docs
-      docs_checkout: polkadot-docs
-      url: https://docs.polkadot.com
-    secrets:
-      GH_TOKEN: ${{ secrets.GH_PR_404_CHECKER }}
+  check-links:
+    name: PR Link Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR Documentation Content
+        uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ github.event.pull_request.number }}/merge
+
+      - name: Setup Python Environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10.12'
+          cache: 'pip'
+          cache-dependency-path: requirements.txt
+
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install mkdocs-material mkdocs
+
+      - name: Build Static Site
+        run: mkdocs build -d site
+
+      - name: Initialize Local Web Server
+        id: serve
+        shell: bash
+        run: |
+          ABS_SITE_ROOT="$(pwd)/site"
+          python3 -m http.server 8000 --directory "$ABS_SITE_ROOT" > /tmp/mkdocs_http.log 2>&1 &
+          echo "pid=$!" >> "$GITHUB_OUTPUT"
+
+          echo "Waiting for local server..."
+          for i in {1..15}; do
+            if curl -s http://localhost:8000 > /dev/null; then
+              echo "✅ Server ready."
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "❌ Server failed to start." && exit 1
+
+      - name: Configure Lychee Engine
+        id: lychee_cfg
+        shell: bash
+        run: |
+          cat > /tmp/lychee.ci.toml <<'TOML'
+          exclude_all_private = false
+          exclude_loopback = false
+          exclude_private = false
+          exclude_link_local = false
+          include = [
+            '^http://localhost:8000',
+            '^http://127\.0\.0\.1:8000'
+          ]
+          TOML
+          echo "cfg=/tmp/lychee.ci.toml" >> "$GITHUB_OUTPUT"
+
+      - name: Generate Link Checker Arguments
+        id: lychee_args
+        shell: bash
+        run: |
+          ABS_SITE_PATH="$(pwd)/site"
+          LOCAL_SERVER="http://localhost:8000"
+          
+          # Consolidated configuration:
+          # --accept 429,403: Ignore rate limits/forbidden immediately
+          # --max-retries 3: Lychee handles retries for actual errors (404, 500, etc.)
+          # --retry-wait-time 10: Wait period for exponential backoff
+          ARGS="--config ${{ steps.lychee_cfg.outputs.cfg }} --root-dir $ABS_SITE_PATH --verbose --no-progress --accept 429,403 --max-retries 3 --retry-wait-time 10"
+
+          BASE_URL="$(echo "https://docs.polkadot.com" | sed 's/\/$//')"
+          ARGS="$ARGS --remap \"$BASE_URL/ $LOCAL_SERVER/\" --remap \"$BASE_URL $LOCAL_SERVER\""
+
+          URLIGNORE_PATH="$(pwd)/.urlignore"
+          if [[ -f "$URLIGNORE_PATH" ]]; then
+            ARGS="$ARGS --exclude-file $URLIGNORE_PATH"
+          fi
+
+          echo "args=$ARGS" >> $GITHUB_OUTPUT
+
+      - name: Link Check
+        id: lychee
+        uses: lycheeverse/lychee-action@v2.4.1
+        with:
+          args: ${{ steps.lychee_args.outputs.args }} './site/**/*.html'
+
+      - name: Cleanup Local Server
+        if: always()
+        run: kill ${{ steps.serve.outputs.pid }} || true

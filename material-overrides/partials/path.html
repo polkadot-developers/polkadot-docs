@@ -1,0 +1,20 @@
+{% import "partials/path-item.html" as item with context %}
+{% set hidden = "" %}
+{% if page.meta and page.meta.hide %}
+  {% set hidden = "hidden" if "path" in page.meta.hide %}
+{% endif %}
+{% set depth = page.ancestors | length %}
+{% if page.file and page.file.src_path != "index.md" %}
+  <nav class="md-path" aria-label="{{ lang.t('nav') }}" {{ hidden }}>
+    <ol class="md-path__list">
+      <li class="md-path__item">
+        <a href="{{ site_url | url }}" class="md-path__link">
+          Home
+        </a>
+      </li>
+      {% for nav_item in page.ancestors | reverse %}
+        {{ item.render(nav_item) }}
+      {% endfor %}
+    </ol>
+  </nav>
+{% endif %}

@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.2",
+
+  "project": {
+    "id": "polkadot",
+    "name": "Polkadot",
+    "project_url": "https://polkadot.network/",
+    "docs_base_url": "https://docs.polkadot.com/",
+    "mcp_name": "polkadot-docs",
+    "mcp_url": "https://docs-mcp.polkadot.com"
+  },
+
+  "repository": {
+    "host": "github",
+    "org": "polkadot-developers",
+    "repo": "polkadot-docs",
+    "default_branch": "master",
+    "docs_path": ".",
+    "ai_artifacts_path": "ai/pages"
+  },
+
+  "content": {
+    "docs_dir": ".",
+    "base_context_categories": ["basics", "reference"],
+    "categories_info": {
+      "apps": {
+        "id": "apps",
+        "name": "Apps",
+        "description": "Building and shipping Products on the Polkadot platform, from identity setup and local development through to deployment and discovery."
+      },
+      "basics": {
+        "id": "basics",
+        "name": "Basics",
+        "description": "Polkadot overview, core concepts, and getting started guides for new developers."
+      },
+      "smart_contracts": {
+        "id": "smart_contracts",
+        "name": "Smart Contracts",
+        "description": "Developing and deploying smart contracts on Polkadot Hub using Solidity, EVM, PolkaVM, and tools like Hardhat and Foundry."
+      },
+      "parachains": {
+        "id": "parachains",
+        "name": "Parachains",
+        "description": "Building and deploying parachains with the Polkadot SDK, including runtime development, pallets, and coretime."
+      },
+      "chain_interactions": {
+        "id": "chain_interactions",
+        "name": "Chain Interactions",
+        "description": "How to query on-chain data, send transactions, communicate across chains, and manage tokens and accounts on Polkadot-based chains."
+      },
+      "interoperability": {
+        "id": "interoperability",
+        "name": "Interoperability",
+        "description": "Cross-chain communication via XCM, asset transfers, HRMP channels, and bridging to external networks."
+      },
+      "infrastructure": {
+        "id": "infrastructure",
+        "name": "Infrastructure",
+        "description": "Running validators, collators, and RPC nodes, plus staking mechanics and key management."
+      },
+      "polkadot_protocol": {
+        "id": "polkadot_protocol",
+        "name": "Polkadot Protocol",
+        "description": "Protocol internals covering consensus, coretime, block production, cryptography, and chain architecture."
+      },
+      "tooling": {
+        "id": "tooling",
+        "name": "Tooling",
+        "description": "Developer SDKs and tools including PAPI, Polkadot.js, subxt, light clients, and testing frameworks."
+      },
+      "reference": {
+        "id": "reference",
+        "name": "Reference",
+        "description": "Glossary, governance structures, origin tracks, and technical specifications."
+      }
+    },
+    "exclusions": {
+      "skip_basenames": [
+        "pull-request-template.md",
+        "cookie-policy.md",
+        "ai-chatbot-policy.md",
+        "terms-of-use.md",
+        "privacy-policy.md",
+        "ai-resources.md"
+      ],
+      "skip_paths": ["venv"]
+    }
+  },
+
+  "outputs": {
+    "public_root": "/ai/",
+    "files": {
+      "llms_full": "llms-full.jsonl",
+      "pages_dir": "pages"
+    }
+  }
+}

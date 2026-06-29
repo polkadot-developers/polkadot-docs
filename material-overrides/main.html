@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block styles %}
+	{{ super() }}
+  <link rel="stylesheet" href="{{ 'assets/stylesheets/polkadot.css' | url }}">
+{% endblock %}
+
+{% block fonts %}
+  {#-
+    Add Google Fonts here
+  -#}
+  {{ super() }}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+{% endblock%}
+
+{% block site_meta %}
+  {{ super() }}
+  {% if page and page.meta and page.meta.keywords %}
+    <meta name="keywords" content="{{ page.meta.keywords }}">
+  {% endif %}
+{% endblock %}
+
+{%- block htmltitle -%} 
+  {%- if page.is_homepage -%} 
+    <title>Draft Docs for Polkadot Ecosystem</title> 
+  {%- elif page and page.meta and page.meta.title -%} 
+    <title>{{ page.meta.title }} | {{ config.site_name }}</title> 
+  {%- elif page and page.title and not page.is_homepage -%} 
+    <title>{{ page.title }} | {{ config.site_name }}</title> 
+  {%- else -%}
+    <title>{{ config.site_name }}</title> 
+  {%- endif -%} 
+{%- endblock -%}
+
+{% block announce %}
+  <strong>Web3 Summit 2026</strong> | A Festival for Digital Freedom | Funkhaus Berlin June 18-19th | <a href="https://web3summit.com/" target="_blank">https://web3summit.com/</a>
+{% endblock %}
+
+{% block libs %}
+  {{ super() }}
+  <link rel="preconnect" href="https://widget.kapa.ai/">
+  <style data-emotion="mantine" data-s=""></style>
+  <script defer
+    src="https://widget.kapa.ai/kapa-widget.bundle.js"
+    data-website-id="3fbec0cf-5f4b-4f78-9cff-4ebf071c3bd3"
+    data-user-analytics-cookie-enabled="false"
+    data-project-name="Polkadot"
+    data-modal-title="Polkadot AI Chatbot"
+    data-project-color="#1E1E1E"
+    data-button-text-color="var(--color-text-primary)"
+    data-button-text-font-size="14px"
+    data-button-position-bottom="10vh"
+    data-button-padding="0"
+    data-button-bg-color="var(--md-default-bg-color)"
+    data-button-border="1px solid var(--color-border-strong)"
+    data-button-box-shadow="none"
+    data-button-animation-enabled="false"
+    data-button-height="100px"
+    data-button-width="80px"
+    data-font-size-xs="12px"
+    data-font-size-sm="14px"
+    data-font-size-md="16px"
+    data-font-size-lg="18px"
+    data-font-size-xl="22px"
+    data-modal-title-font-size="22px"
+    data-query-input-font-size="16px"
+    data-modal-header-bg-color="var(--color-surface)"
+    data-modal-image-height="24px"
+    data-modal-image-width="24px"
+    data-project-logo="/assets/images/polkadot.png"
+    data-modal-title-color="var(--color-text-primary)"
+    data-modal-disclaimer="This is an AI chatbot trained to answer questions about Polkadot. As such, the answers it provides might not always be accurate or up-to-date. Please use your best judgement when evaluating its responses. Also, **please refrain from sharing any personal or private information with the bot**. By submitting a query, you agree that you have read and understood [these conditions](https://polkadot.com/legal-disclosures/).
+      **If you need further assistance, you can reach out to [Polkadot Support](https://support.polkadot.network/support/tickets/new?ticket_form=i_have_a_support_request).**"
+    data-modal-disclaimer-font-size="12px"
+    data-search-mode-enabled="false"
+    data-search-mode-default="false"
+    data-search-result-primary-title-font-size="16px"
+  ></script>
+{% endblock %}
+
+{% block site_nav %} 
+{#- Navigation (left menu) -#} 
+  {% if nav %}
+    {% if page.meta and page.meta.hide %} 
+      {% set hidden = "hidden" if "navigation" in page.meta.hide %} 
+    {% endif %}
+    <div
+      class="md-sidebar md-sidebar--primary"
+      data-md-component="sidebar"
+      data-md-type="navigation"
+      {{ hidden }}
+    >
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner">
+          {% include "partials/nav.html" %}
+        </div>
+      </div>
+    </div>
+  {% endif %} 
+  
+  {#- Table of contents (TOC) -#} 
+  {% if "toc.integrate" not in features %} 
+    {% if page.meta and page.meta.hide %} 
+      {% set hidden = "hidden" if "toc" in page.meta.hide %} 
+    {% endif %}
+    <div
+      class="md-sidebar md-sidebar--secondary"
+      data-md-component="sidebar"
+      data-md-type="toc"
+      {{ hidden }}
+    >
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner">
+          {#- TOC -#} 
+          {% include "partials/toc.html" %}
+        </div>
+
+        {#- Feedback and Edit this page container -#}
+        <div class="feedback-actions-container">
+          {#- Feedback Section -#}
+          {% include "partials/feedback.html" %}
+
+          {#- Edit this Page Section -#}
+          <div class="edit-section">
+            {% include "partials/actions.html" %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %} 
+{% endblock %}
+
+{%- block container -%}
+<div class="md-content" data-md-component="content">
+  {% if "navigation.path" in features %}
+    {% include "partials/path.html" %}
+  {% endif %}
+  {% set class = "index-page" if not page.content %}
+  <article class="md-content__inner md-typeset {{ class }}">
+    {% block content %} 
+      {% include "partials/content.html" %} 
+    {% endblock %}
+  </article>
+</div>
+{%- endblock -%} 
+
+{% block scripts %} 
+  {{ super() }}
+  <script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tryPatchStyles = () => {
+        const widgetHost = document.querySelector('#kapa-widget-container');
+        const kapaWidget = widgetHost?.shadowRoot;
+        if (!kapaWidget) return false;
+
+        const kapaStyles = kapaWidget.querySelector('style[data-mantine-styles="true"]');
+        if (!kapaStyles) return false;
+
+        kapaStyles.textContent += `
+          #kapa-button:hover {
+            background-color: var(--color-surface);
+          }
+          
+          :host-context([data-md-color-scheme="custom-light"])
+          .mantine-Image-root {
+            filter: invert(1);
+          }
+          
+          .mantine-Text-root {
+            padding-top: 0.5em;
+          }
+        `;
+        return true;
+      };
+
+      if (!tryPatchStyles()) {
+        const observer = new MutationObserver(() => {
+          if (tryPatchStyles()) observer.disconnect();
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+      }
+    });
+  </script>
+{% endblock %}

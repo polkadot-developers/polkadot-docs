@@ -1,0 +1,52 @@
+# All bots: allow everything by default
+
+User-agent: *
+Disallow:
+
+# Algolia-Crawler-Verif: 72603F6F9AD5378A
+
+# Search engines: block /ai/ to prevent duplicate content
+# and raw markdown from appearing in search results
+
+User-agent: Googlebot
+Disallow: /ai/
+Disallow: /*.md$
+
+User-agent: Bingbot
+Disallow: /ai/
+Disallow: /*.md$
+
+User-agent: Yandex
+Disallow: /ai/
+Disallow: /*.md$
+
+# Training-specific crawlers: block entire site
+# These crawl for model training, NOT for user-initiated requests
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+# Older Anthropic crawler, mostly deprecated
+
+User-agent: anthropic-ai
+Disallow: /
+
+Sitemap: https://docs.polkadot.com/sitemap.xml
+
+# User-facing LLM agents (ChatGPT-User, ClaudeBot, etc.)
+# are NOT blocked — they use the default "allow all" rule.
+# Blocking these would prevent users from pasting a docs URL
+# into ChatGPT/Claude and asking questions about it.
+

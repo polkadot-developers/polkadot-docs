@@ -1,0 +1,28 @@
+{#-
+  Exports the render_test_block macro for use in content.html.
+
+  render_test_block(workflow, test_path, page_title='')
+    Renders a .status-badge div containing a CI workflow badge and a
+    "View tests" link, injected at the bottom of a page (before the
+    "Where to Go Next" section if present, otherwise at the very end).
+
+      workflow   — GitHub Actions workflow name (from page_badges.test_workflow),
+                   or None/falsy to omit the CI badge image
+      test_path  — path to the test file relative to the cookbook repo root
+                   (sourced from page_tests.path in page frontmatter)
+      page_title — used as alt text on the CI badge image
+-#}
+
+{% macro render_test_block(workflow, test_path, page_title='') %}
+{%- set _gh = 'https://github.com/polkadot-developers/polkadot-cookbook' -%}
+<div class="status-badge">
+  {%- if workflow -%}
+  <a href="{{ _gh }}/actions/workflows/{{ workflow | e }}.yml" target="_blank" rel="noopener">
+    <img src="{{ _gh }}/actions/workflows/{{ workflow | e }}.yml/badge.svg?event=push" alt="{{ page_title | e }}">
+  </a>
+  {%- endif -%}
+  <a href="{{ _gh }}/blob/master/{{ test_path | e }}" class="tests-button" target="_blank" rel="noopener">
+    <span class="twemoji">{% include ".icons/material/code-tags.svg" %}</span> View tests
+  </a>
+</div>
+{% endmacro %}

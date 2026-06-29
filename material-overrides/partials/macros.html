@@ -1,0 +1,46 @@
+{#-
+  Shared macros for Polkadot documentation
+-#}
+
+{% macro render_title_with_icon(title, wrapper_class="") %}
+  {% set parts = title.split(':') %}
+  {% if parts|length > 2 %}
+    {% if parts[0] == '' %}
+      {# Icon is at the start #}
+      {% set icon_name = parts[1] %}
+      {% set text = parts[2] %}
+      {% if wrapper_class %}
+        <span class="{{ wrapper_class }}">
+          <span aria-hidden="true">
+            {% include ".icons/" ~ icon_name.replace('-', '/') ~ ".svg" %}
+          </span>
+          {{ text }}
+        </span>
+      {% else %}
+        <span aria-hidden="true">
+          {% include ".icons/" ~ icon_name.replace('-', '/') ~ ".svg" %}
+        </span>
+        {{ text }}
+      {% endif %}
+    {% else %}
+      {# Icon is at the end #}
+      {% set text = parts[0] %}
+      {% set icon_name = parts[1] %}
+      {% if wrapper_class %}
+        <span class="{{ wrapper_class }}">
+          {{ text }}
+          <span aria-hidden="true">
+            {% include ".icons/" ~ icon_name.replace('-', '/') ~ ".svg" %}
+          </span>
+        </span>
+      {% else %}
+        {{ text }}
+        <span aria-hidden="true">
+          {% include ".icons/" ~ icon_name.replace('-', '/') ~ ".svg" %}
+        </span>
+      {% endif %}
+    {% endif %}
+  {% else %}
+    {{ title }}
+  {% endif %}
+{% endmacro %}

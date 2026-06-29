@@ -776,6 +776,7 @@ label.md-nav__link--active,
   color: var(--color-text-hover);
 }
 
+/* --- Footer --- */
 .md-footer-meta__inner .row {
   gap: var(--py-8);
 }
@@ -785,97 +786,14 @@ html .md-footer-meta.md-typeset a:hover {
   color: var(--color-text-hover);
 }
 
-.md-copyright__highlight,
-.policy-links a {
+.md-copyright__highlight {
   font-size: var(--text-xs);
 }
 
-.policy-links,
 .footer-nav {
   display: flex;
   gap: var(--py-8);
   align-items: center;
-}
-
-.policy-links a {
-  color: var(--md-footer-fg-color);
-  text-decoration: none;
-}
-
-.md-footer details.policy-popover {
-  display: inline-block;
-  position: relative;
-  padding: 0;
-  margin: 0;
-  color: inherit;
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-}
-
-.md-footer .policy-popover > .policy-popover__trigger {
-  all: unset;
-  display: inline;
-  font: inherit;
-  font-size: var(--text-xs);
-  line-height: inherit;
-  color: var(--md-footer-fg-color);
-  cursor: pointer;
-  text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.md-footer .policy-popover > .policy-popover__trigger::marker,
-.md-footer .policy-popover > .policy-popover__trigger::-webkit-details-marker,
-.md-footer .policy-popover > .policy-popover__trigger::before,
-.md-footer .policy-popover > .policy-popover__trigger::after {
-  display: none;
-  content: "";
-}
-
-.md-footer .policy-popover > .policy-popover__trigger:focus,
-.md-footer .policy-popover > .policy-popover__trigger:focus-visible,
-.md-footer .policy-popover > .policy-popover__trigger:hover,
-.md-footer .policy-popover[open] > .policy-popover__trigger {
-  color: var(--color-text-hover);
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-  outline: 0;
-}
-
-.policy-popover__panel {
-  position: absolute;
-  right: 0;
-  bottom: calc(100% + var(--py-5));
-  z-index: 103;
-  width: min(34rem, calc(100vw - 2rem));
-  max-height: min(70vh, 34rem);
-  overflow: auto;
-  padding: var(--py-6);
-  color: var(--color-text-secondary);
-  text-align: left;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border-strong);
-  border-radius: var(--rounded-xl);
-}
-
-.policy-popover__panel p {
-  margin: 0 0 var(--py-5);
-  font-size: var(--text-sm);
-  line-height: var(--line-height-body-base);
-}
-
-.policy-popover__panel p:last-child {
-  margin-bottom: 0;
-}
-
-.policy-popover__panel a {
-  color: var(--color-text-primary);
-}
-
-.policy-popover__fineprint {
-  color: var(--color-text-tertiary);
 }
 
 .md-typeset a.footer-nav-link {
@@ -920,28 +838,12 @@ html .md-footer-meta.md-typeset a:hover {
     margin: 0 0.8rem;
   }
 
-  .policy-popover__panel {
-    position: fixed;
-    right: auto;
-    bottom: calc(var(--py-16) + var(--py-16));
-    left: 50%;
-    width: min(30rem, calc(100vw - 2rem));
-    max-height: min(58vh, 30rem);
-    transform: translateX(-50%);
-  }
-
   .md-social {
     padding: 0;
   }
 
   .md-copyright {
     margin-left: 0.6rem;
-  }
-}
-
-@media screen and (min-width: 850px) and (max-width: 1148px) {
-  .policy-popover__panel {
-    bottom: calc(var(--py-16) + var(--py-8));
   }
 }
 
@@ -987,26 +889,7 @@ html .md-footer-meta.md-typeset a:hover {
   }
 }
 
-@media screen and (max-width: 786px) {
-  .md-footer:has(.policy-popover[open]),
-  .policy-popover__panel {
-    z-index: 999;
-  }
-}
-
 @media screen and (max-width: 640px) {
-  .policy-links {
-    gap: var(--py-2);
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .policy-popover__panel {
-    width: calc(100vw - 2rem);
-    max-height: min(50vh, 26rem);
-    padding: var(--py-5);
-  }
-
   .footer-nav {
     gap: 4px;
     margin-top: var(--py-1);
@@ -1022,13 +905,13 @@ html .md-footer-meta.md-typeset a:hover {
 
 /* --- Admonitions --- */
 .md-typeset .admonition,
-.md-typeset details:not(.policy-popover) {
+.md-typeset details {
   background-color: var(--transparent);
   color: var(--color-text-secondary);
   border-radius: var(--rounded);
 }
 
-.md-typeset details:not([open]):not(.policy-popover) > summary {
+.md-typeset details:not([open]) > summary {
   border-radius: var(--rounded);
 }
 

@@ -18,7 +18,6 @@ extra_javascript:
   - js/error-modal.js
   - js/ai-file-actions.js
   - js/toggle-pages.js
-  - js/policy-popover.js
 
 # Extra CSS files
 extra_css:
@@ -159,7 +158,6 @@ plugins:
         - js/error-modal.js
         - js/ai-file-actions.js
         - js/toggle-pages.js
-        - js/policy-popover.js
       css_files:
         - assets/stylesheets/terminal.css
         - assets/stylesheets/timeline-neoteroi.css

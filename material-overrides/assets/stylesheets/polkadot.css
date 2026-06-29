@@ -905,7 +905,7 @@ html .md-footer-meta.md-typeset a:hover {
 
 /* --- Admonitions --- */
 .md-typeset .admonition,
-.md-typeset details:not(.policy-popover) {
+.md-typeset details {
   background-color: var(--transparent);
   color: var(--color-text-secondary);
   border-radius: var(--rounded);

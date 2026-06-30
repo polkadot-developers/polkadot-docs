@@ -25,21 +25,6 @@
     }
   }
 
-  // ---------- Analytics ----------
-
-  function sendAnalytics(actionId) {
-    if (typeof window.gtag === 'function') {
-      try {
-        window.gtag('event', 'ai_file_action', {
-          event_category: 'engagement',
-          event_label: actionId,
-        });
-      } catch (e) {
-        /* silently fail */
-      }
-    }
-  }
-
   // ---------- Clipboard / Download Logic ----------
 
   async function copyToClipboard(text) {
@@ -164,7 +149,6 @@
     const copyBtn = event.target.closest('.ai-file-actions-copy');
     if (copyBtn) {
       event.preventDefault();
-      sendAnalytics(copyBtn.dataset.action || 'copy-markdown');
       handleCopy(copyBtn);
       return;
     }
@@ -174,8 +158,6 @@
     if (item) {
       // Close the dropdown
       closeDropdown(item.closest('.ai-file-actions-menu'));
-
-      sendAnalytics(item.dataset.actionId || '');
 
       // Download links: intercept to force download via fetch+blob
       // On re-entry from handleDownload's .click(), the flag is set

@@ -1,0 +1,10 @@
+extends: existence
+message: "Use descriptive link text. Avoid generic words like '%s' inside link text."
+level: error
+scope: text
+tokens:
+  - '\[here\]\('
+  - '\[click here\]\('
+  - '\[this\]\('
+  - '\[read more\]\('
+  - '\[learn more\]\('

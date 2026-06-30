@@ -14,9 +14,9 @@ scripts/__pycache__/*
 # MkDocs social cards
 .cache/
 
-# Vale rules and vocab synced from papermoonio/documentation-style-guide
-styles/PaperMoon/
-styles/config/vocabularies/PaperMoon/
+# Vale rules and the PaperMoon vocab are VENDORED (committed) into
+# styles/PaperMoon/ and styles/config/vocabularies/PaperMoon/ so linting is
+# self-contained. Refresh from upstream with sync-styleguide-vale.sh.
 
 # Claude
 .claude/scheduled_tasks.lock

@@ -1,0 +1,9 @@
+extends: existence
+message: "Avoid first-person plural ('%s'). Address the reader as 'you'."
+level: warning
+ignorecase: true
+tokens:
+  - "\\bwe\\b"
+  - "\\bour\\b"
+  - "\\bus\\b"
+  - "\\blet's\\b"

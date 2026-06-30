@@ -22,8 +22,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Sync canonical Vale rules from the PaperMoon styleguide
-        run: ./.github/scripts/sync-styleguide-vale.sh
+      # Vale rules are vendored in styles/PaperMoon/ (committed) — no sync needed.
 
       - name: List changed markdown files
         id: changed

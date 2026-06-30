@@ -34,9 +34,10 @@
   {%- endif -%} 
 {%- endblock -%}
 
-<!-- {% block announce %}
-  <strong>Web3 Summit 2026</strong> | A Festival for Digital Freedom | Funkhaus Berlin June 18-19th | <a href="https://web3summit.com/" target="_blank">https://web3summit.com/</a>
-{% endblock %} -->
+{# Announcement banner. Add content inside the block to show it; leave it
+   empty for no banner. (Wrapping the block in an HTML comment does NOT hide
+   it — Jinja still processes the block tag.) #}
+{% block announce %}{% endblock %}
 
 {% block libs %}
   {{ super() }}

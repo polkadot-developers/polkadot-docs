@@ -6,8 +6,8 @@
     "name": "Polkadot",
     "project_url": "https://polkadot.network/",
     "docs_base_url": "https://docs.polkadot.com/",
-    "mcp_name": "polkadot-docs",
-    "mcp_url": "https://docs-mcp.polkadot.com"
+    "_mcp_name": "polkadot-docs",
+    "_mcp_url": "https://docs-mcp.polkadot.com"
   },
 
   "repository": {

@@ -1,0 +1,6 @@
+extends: existence
+message: "Avoid exclamation marks in formal writing."
+level: warning
+nonword: true
+tokens:
+  - '\w+!(?!\[)'

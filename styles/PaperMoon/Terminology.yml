@@ -1,0 +1,15 @@
+extends: substitution
+message: "Use '%s' instead of '%s'."
+level: error
+ignorecase: false
+swap:
+  '\betc\.': "and more"
+  '\bdapp\b': dApp
+  '\bDApp\b': dApp
+  '\btestnet\b': TestNet
+  '\btest net\b': TestNet
+  '\bmainnet\b': MainNet
+  '\bmain net\b': MainNet
+  '\bERC(\d+)\b': "ERC-$1"
+  '\bJSON RPC\b': JSON-RPC
+  '\bJSONRPC\b': JSON-RPC

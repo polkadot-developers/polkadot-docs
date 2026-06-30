@@ -1,10 +1,7 @@
 # Basic site configurations
 site_name: Polkadot Developer Docs
 site_url: https://docs.polkadot.com/
-home_url: https://polkadot.com/
-home_name: Polkadot
 edit_uri: https://github.com/polkadot-developers/polkadot-docs/edit/master/docs/
-site_dir: /var/www/polkadot-docs-static
 docs_dir: docs
 copyright: © 2026 Polkadot.
 
@@ -21,6 +18,7 @@ extra_javascript:
 
 # Extra CSS files
 extra_css:
+  - assets/stylesheets/fonts.css
   - assets/stylesheets/terminal.css
   - assets/stylesheets/timeline-neoteroi.css
   - assets/stylesheets/toggle-pages.css
@@ -54,9 +52,9 @@ theme:
     previous: octicons/arrow-left-16
     report: octicons/report-24
     search: octicons/search-16
-  font:
-    text: DM Sans
-    code: JetBrains Mono
+  # Fonts are self-hosted (see assets/stylesheets/fonts.css) instead of loaded
+  # from Google Fonts. `font: false` disables Material's Google Fonts CDN fetch.
+  font: false
   features:
     - announce.dismiss # Dismiss the announcement bar
     - content.action.edit # Edit this page button
@@ -159,6 +157,7 @@ plugins:
         - js/ai-file-actions.js
         - js/toggle-pages.js
       css_files:
+        - assets/stylesheets/fonts.css
         - assets/stylesheets/terminal.css
         - assets/stylesheets/timeline-neoteroi.css
         - assets/stylesheets/toggle-pages.css

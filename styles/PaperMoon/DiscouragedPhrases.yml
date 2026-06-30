@@ -1,0 +1,19 @@
+extends: existence
+message: "Consider rewriting without '%s' — often filler or LLM cliché."
+level: warning
+ignorecase: true
+tokens:
+  - "\\bleverage\\b"
+  - "\\butilize\\b"
+  - "\\bseamless\\b"
+  - "\\bseamlessly\\b"
+  - "\\brobust\\b"
+  - "\\bpowerful\\b"
+  - "\\bcutting-edge\\b"
+  - "\\bstate-of-the-art\\b"
+  - "\\bunder the hood\\b"
+  - "\\bcurrently\\b"
+  - "\\bsimply\\b"
+  - "\\bjust\\b"
+  - "\\beasily\\b"
+  - "\\bobviously\\b"

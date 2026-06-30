@@ -5,16 +5,6 @@
   <link rel="stylesheet" href="{{ 'assets/stylesheets/polkadot.css' | url }}">
 {% endblock %}
 
-{% block fonts %}
-  {#-
-    Add Google Fonts here
-  -#}
-  {{ super() }}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-{% endblock%}
-
 {% block site_meta %}
   {{ super() }}
   {% if page and page.meta and page.meta.keywords %}

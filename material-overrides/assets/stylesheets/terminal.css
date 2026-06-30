@@ -61,7 +61,7 @@
 [data-ty="input"]:before,
 [data-ty-prompt]:before {
   color: var(--pink);
-  content: "papermoon@ubuntu-jammy:";
+  content: "polkadot@ubuntu:";
   size: 12px;
 }
 

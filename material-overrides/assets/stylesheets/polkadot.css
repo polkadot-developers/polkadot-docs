@@ -1390,13 +1390,7 @@ pre:hover > .md-code__nav > .md-code__button {
   }
 }
 
-/* --- Feedback / Edit this page / Report an issue --- */
-/* Feedback */
-.md-feedback {
-  margin-top: var(--py-8);
-}
-
-.md-feedback__title,
+/* --- Page actions / Edit this page / Report an issue --- */
 .page-actions-title {
   font-weight: 600;
   font-size: 0.7rem;
@@ -1404,42 +1398,6 @@ pre:hover > .md-code__nav > .md-code__button {
   margin: 0;
   margin-bottom: var(--py-3);
   text-align: left;
-}
-
-.md-feedback__list {
-  gap: 1em;
-  justify-content: start;
-}
-
-:disabled .md-feedback__list {
-  display: none;
-}
-
-.md-feedback__icon {
-  color: var(--color-text-secondary);
-}
-
-.md-feedback__icon,
-.md-feedback__list:hover .md-icon:not(:disabled) {
-  color: var(--color-text-secondary);
-}
-
-.md-feedback__icon:not(:disabled).md-icon:hover {
-  opacity: 0.8;
-}
-
-.md-feedback__note {
-  font-size: 12px;
-  text-align: left;
-}
-
-.md-feedback__note a {
-  text-decoration: underline;
-}
-
-.md-feedback__note a:hover,
-.md-feedback__note a:focus {
-  opacity: 0.8;
 }
 
 .feedback-actions-container {

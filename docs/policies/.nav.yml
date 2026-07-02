@@ -1,3 +1,5 @@
+# Show the Policies section in the footer (via footer_nav hook), not the top nav.
+footer_nav: true
 nav:
   - 'Terms of Use': terms-of-use.md
   - 'AI Chatbot Policy': ai-chatbot-policy.md

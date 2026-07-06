@@ -1,7 +1,8 @@
 name: Sync from upstream
 
 # Keeps the deployment branch (parity-deploy) up to date with the upstream
-# content repo (polkadot-developers/polkadot-docs).
+# content repo. The upstream is configured per-repo via the UPSTREAM_REPO
+# repository variable, so this workflow file is identical across repos.
 #
 # - Clean merge  -> push parity-deploy and deploy automatically (no review).
 # - Conflict     -> open a PR so the clash with the deploy-specific changes
@@ -26,8 +27,15 @@ jobs:
       result: ${{ steps.merge.outputs.result }}
     env:
       GH_TOKEN: ${{ github.token }}
-      UPSTREAM: https://github.com/polkadot-developers/polkadot-docs.git
+      UPSTREAM: ${{ vars.UPSTREAM_REPO }}
     steps:
+      - name: Verify upstream configured
+        run: |
+          if [ -z "$UPSTREAM" ]; then
+            echo "::error::Set the UPSTREAM_REPO repository variable (Settings → Secrets and variables → Actions → Variables), e.g. https://github.com/polkadot-developers/<repo>.git"
+            exit 1
+          fi
+
       - name: Checkout deploy branch
         uses: actions/checkout@v4
         with:

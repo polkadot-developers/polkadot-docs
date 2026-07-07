@@ -1,0 +1,6 @@
+registry: europe-docker.pkg.dev/parity-mgmt/polkadot-docs-mcp
+
+images:
+  polkadot-docs-mcp:
+    dockerfile: dockerfile-mcp.yaml
+    context: .

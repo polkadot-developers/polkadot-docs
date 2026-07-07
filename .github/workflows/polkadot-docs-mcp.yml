@@ -1,0 +1,28 @@
+name: polkadot-docs-mcp
+
+on:
+  push:
+    branches:
+      - master
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# to use reusable workflow
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  APP: "polkadot-docs-mcp"
+
+jobs:
+  build_push_image:
+    uses: paritytech/ci-actions/.github/workflows/build-manifest.yaml@main
+    with:
+      runs-on: parity-int-ubuntu
+      environment: docker-publish
+    secrets:
+      GCP_SA_GITHUB: ${{ secrets.GCP_SA_GITHUB }}
+      GCP_WIP_GITHUB: ${{ secrets.GCP_WIP_GITHUB }}

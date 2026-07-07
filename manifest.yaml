@@ -4,3 +4,6 @@ images:
   polkadot-docs-mcp:
     dockerfile: dockerfile-mcp.yaml
     context: .
+    http:
+      host: docs-mcp.polkadot.com
+      path: /

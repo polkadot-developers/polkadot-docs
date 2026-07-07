@@ -3,7 +3,7 @@ name: polkadot-docs-mcp
 on:
   push:
     branches:
-      - parity-build
+      - parity-deploy
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

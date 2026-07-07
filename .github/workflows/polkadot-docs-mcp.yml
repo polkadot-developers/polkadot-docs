@@ -21,7 +21,7 @@ jobs:
   build_push_image:
     uses: paritytech/ci-actions/.github/workflows/build-manifest.yaml@main
     with:
-      runs-on: parity-int-ubuntu
+      runs-on: ubuntu-latest
       environment: docker-publish
     secrets:
       GCP_SA_GITHUB: ${{ secrets.GCP_SA_GITHUB }}

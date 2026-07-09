@@ -24,6 +24,20 @@
   {%- endif -%} 
 {%- endblock -%}
 
+{# --- BLOCK TO INJECT JSON-LD --- #}
+{% block extrahead %}
+  {{ super() }} {# Preserve any existing content in the extrahead block #}
+  
+  {# Check if a JSON-LD object exists in the page's front matter #}
+  {% if page and page.meta and page.meta.jsonld %}
+    {# Assume page.meta.jsonld contains a valid JSON-LD object (e.g., a dict) #}
+    <script type="application/ld+json">
+      {{ page.meta.jsonld | tojson }}
+    </script>
+  {% endif %}
+{% endblock %}
+{# --------------------------------------- #}
+
 {# Announcement banner. Add content inside the block to show it; leave it
    empty for no banner. (Wrapping the block in an HTML comment does NOT hide
    it — Jinja still processes the block tag.) #}

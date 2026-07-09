@@ -61,16 +61,21 @@
       "@type": jsonld_type,
       "headline": page_title | default(config.site_name, true),
       "name": page_title | default(config.site_name, true),
-      "url": canonical_url,
       "description": page_description | default('', true),
       "inLanguage": "en-US",
       "isPartOf": {
         "@type": "WebSite",
-        "name": config.site_name | default('Documentation', true),
-        "url": config.site_url | default('', true)
+        "name": config.site_name | default('Documentation', true)
       }
     } %}
-    
+
+    {% if canonical_url %}
+      {% set _ = jsonld_data.update({"url": canonical_url}) %}
+    {% endif %}
+    {% if config.site_url %}
+      {% set _ = jsonld_data["isPartOf"].update({"url": config.site_url}) %}
+    {% endif %}
+
     {# Add publication date if available #}
     {% if page.meta and page.meta.date %}
       {% set _ = jsonld_data.update({"datePublished": page.meta.date}) %}

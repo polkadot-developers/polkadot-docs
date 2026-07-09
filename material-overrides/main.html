@@ -98,7 +98,7 @@
     {% if page.meta and page.meta.jsonld_override %}
       {# Merge override - the entire object can be replaced or extended #}
       {% if page.meta.jsonld_override is mapping %}
-        {% set jsonld_data = jsonld_data | combine(page.meta.jsonld_override, recursive=True) %}
+        {% set _ = jsonld_data.update(page.meta.jsonld_override) %}
       {% endif %}
     {% endif %}
     

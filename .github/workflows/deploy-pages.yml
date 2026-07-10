@@ -50,6 +50,9 @@ jobs:
           python -m pip install -r requirements.txt
 
       - name: Build site
+        env:
+          # chat widget endpoint; unset => widget hidden
+          DOCS_ASSISTANT_API_URL: ${{ vars.DOCS_ASSISTANT_API_URL }}
         run: mkdocs build --strict -d site
 
       - name: Generate client-side redirect stubs (GH Pages has no server-side 301s)

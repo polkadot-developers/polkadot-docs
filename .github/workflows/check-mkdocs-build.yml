@@ -34,3 +34,28 @@ jobs:
 
       - name: Build MkDocs site
         run: mkdocs build -d site
+
+      - name: Check the AI corpus feed
+        # Validates the real deploy artifact — the feed hooks/ai_feed.py just wrote via
+        # the build above — so this gate can't diverge from what actually ships (same
+        # page set, resolved snippets, and macros env as production).
+        run: |
+          python - <<'EOF'
+          import json, re
+          path = 'site/ai/llms-full.jsonl'
+          raw = open(path, encoding='utf-8').read()
+          rows = [json.loads(l) for l in raw.splitlines() if l.strip()]
+          pages = {r['page_id'] for r in rows}
+          assert len(rows) > 1500, f"chunk count collapsed: {len(rows)}"
+          assert len(pages) > 180, f"page count collapsed: {len(pages)}"
+          required = {"source", "page_id", "url", "anchor", "page_version_hash",
+                      "page_title", "title", "text"}
+          missing = required - set(rows[0])
+          assert not missing, f"schema regression, missing: {missing}"
+          assert '--8<--' not in raw, "unresolved --8<-- snippet directives in feed"
+          # leaked mkdocs template filters (e.g. {{ x | fix_url }}); targets the pipe so
+          # legit literals like {{ $labels.instance }} don't false-positive.
+          leaked = re.findall(r'\{\{[^}\n]*\|[^}\n]*\}\}', raw)
+          assert not leaked, f"unresolved template filters leaked into feed: {leaked[:3]}"
+          print(f"feed OK: {len(rows)} chunks / {len(pages)} pages, schema intact, no raw snippets or template leaks")
+          EOF

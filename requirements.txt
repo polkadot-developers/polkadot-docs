@@ -8,6 +8,8 @@ mkdocs-git-revision-date-localized-plugin==1.4.5
 mkdocs-glightbox==0.4.0
 mkdocs-macros-plugin==1.3.7
 neoteroi-mkdocs==1.1.0
+# NOTE: only still needed for link_processor, minify, and page_toggle. The ai_docs
+# plugin it provided is replaced by hooks/ai_feed.py + generator/generate_feed.py.
 papermoon-mkdocs-plugins==0.1.0a18
 
 # Markdown extensions

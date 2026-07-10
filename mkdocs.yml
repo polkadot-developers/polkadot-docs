@@ -117,6 +117,7 @@ markdown_extensions:
 
 # Hooks
 hooks:
+  - hooks/ai_feed.py # In-house AI artifacts: llms-full.jsonl, per-page .md, page-action dropdowns (replaces the papermoon ai_docs plugin)
   - hooks/auto_index_table.py
   - hooks/footer_nav.py
   - hooks/glossary_abbreviations.py
@@ -125,11 +126,6 @@ hooks:
 # Plugins
 plugins:
   - search
-  - ai_docs:
-      llms_config: llms_config.json
-      enabled: !ENV [ENABLED_LLMS_PLUGINS, True]
-      ai_page_actions_anchor: page-header-row
-      ai_page_actions_style: dropdown
   - awesome-nav
   - git-revision-date-localized:
       type: date
@@ -180,6 +176,8 @@ plugins:
 
 # Extra configuration
 extra:
+  # Docs Assistant chat API endpoint. Empty = widget disabled (ships dark).
+  docs_assistant_api_url: !ENV [DOCS_ASSISTANT_API_URL, '']
   glossary_tooltips:
     exclude_terms:
       - Polkadot

@@ -3,13 +3,14 @@
 
   render_badges(badges, variant=None)
     Renders a single .page-header-row div containing tutorial difficulty and
-    CI test-workflow badges sourced from page frontmatter. AI dropdowns are also
-    injected into this div by the ai_docs plugin.
+    CI test-workflow badges sourced from page frontmatter. The "Markdown for LLMs"
+    dropdown is injected into this div at build time by hooks/ai_feed.py, matched
+    on the .page-header-row class.
 
       badges  — a page_badges dict from frontmatter (may be None/empty)
       variant — optional data-variant string; when set, scopes the row with
-                data-variant so the ai_docs plugin can inject the per-page AI
-                widget into the correct slot on toggle pages.
+                data-variant so toggle-pages.js/css can target the right row on
+                toggle pages.
 -#}
 
 {# Signal-cellular icons for tutorial difficulty level #}

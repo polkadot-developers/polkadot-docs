@@ -1,0 +1,4 @@
+# generated artifacts — never commit
+*.new.jsonl
+llms-full.jsonl
+corpus_emb.npy

@@ -5,6 +5,7 @@ target
 Cargo.lock
 .DS_Store
 .scratch/
+site
 
 # Python
 venv

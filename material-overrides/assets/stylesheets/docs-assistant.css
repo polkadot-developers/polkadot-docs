@@ -210,8 +210,9 @@ a.da-chip:hover {
 @media (prefers-reduced-motion: reduce) {
   .da-thinking-icon,
   .da-dots span {
-    animation-duration: 0.01ms;
-    animation-iteration-count: 1;
+    animation: none;
+    transform: none;
+    opacity: 1;
   }
 }
 

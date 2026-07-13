@@ -219,6 +219,8 @@
       })
       .catch(function () {
         thinking.classList.remove('da-thinking');
+        thinking.removeAttribute('aria-label'); // drop the stale "Searching…" label
+        thinking.setAttribute('role', 'alert');  // announce the error, not the old status
         thinking.textContent = 'The assistant is temporarily unavailable. Please try again in a moment, or browse the docs directly.';
       })
       .then(function () {

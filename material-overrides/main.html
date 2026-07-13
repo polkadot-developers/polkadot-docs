@@ -115,45 +115,15 @@
    it — Jinja still processes the block tag.) #}
 {% block announce %}{% endblock %}
 
+{# Docs Assistant — self-hosted chat over the docs corpus. The API endpoint comes
+   from extra.docs_assistant_api_url (env DOCS_ASSISTANT_API_URL); when unset, the
+   widget renders nothing. #}
 {% block libs %}
   {{ super() }}
-  <link rel="preconnect" href="https://widget.kapa.ai/">
-  <style data-emotion="mantine" data-s=""></style>
+  <link rel="stylesheet" href="{{ 'assets/stylesheets/docs-assistant.css' | url }}">
   <script defer
-    src="https://widget.kapa.ai/kapa-widget.bundle.js"
-    data-website-id="3fbec0cf-5f4b-4f78-9cff-4ebf071c3bd3"
-    data-user-analytics-cookie-enabled="false"
-    data-project-name="Polkadot"
-    data-modal-title="Polkadot AI Chatbot"
-    data-project-color="#1E1E1E"
-    data-button-text-color="var(--color-text-primary)"
-    data-button-text-font-size="14px"
-    data-button-position-bottom="10vh"
-    data-button-padding="0"
-    data-button-bg-color="var(--md-default-bg-color)"
-    data-button-border="1px solid var(--color-border-strong)"
-    data-button-box-shadow="none"
-    data-button-animation-enabled="false"
-    data-button-height="100px"
-    data-button-width="80px"
-    data-font-size-xs="12px"
-    data-font-size-sm="14px"
-    data-font-size-md="16px"
-    data-font-size-lg="18px"
-    data-font-size-xl="22px"
-    data-modal-title-font-size="22px"
-    data-query-input-font-size="16px"
-    data-modal-header-bg-color="var(--color-surface)"
-    data-modal-image-height="24px"
-    data-modal-image-width="24px"
-    data-project-logo="/assets/images/polkadot.png"
-    data-modal-title-color="var(--color-text-primary)"
-    data-modal-disclaimer="This is an AI chatbot trained to answer questions about Polkadot. As such, the answers it provides might not always be accurate or up-to-date. Please use your best judgement when evaluating its responses. Also, **please refrain from sharing any personal or private information with the bot**. By submitting a query, you agree that you have read and understood [these conditions](https://polkadot.com/legal-disclosures/).
-      **If you need further assistance, you can reach out to [Polkadot Support](https://support.polkadot.network/support/tickets/new?ticket_form=i_have_a_support_request).**"
-    data-modal-disclaimer-font-size="12px"
-    data-search-mode-enabled="false"
-    data-search-mode-default="false"
-    data-search-result-primary-title-font-size="16px"
+    src="{{ 'js/docs-assistant.js' | url }}"
+    data-api-url="{{ config.extra.docs_assistant_api_url | default('') }}"
   ></script>
 {% endblock %}
 
@@ -223,41 +193,3 @@
 </div>
 {%- endblock -%} 
 
-{% block scripts %} 
-  {{ super() }}
-  <script defer>
-    document.addEventListener('DOMContentLoaded', () => {
-      const tryPatchStyles = () => {
-        const widgetHost = document.querySelector('#kapa-widget-container');
-        const kapaWidget = widgetHost?.shadowRoot;
-        if (!kapaWidget) return false;
-
-        const kapaStyles = kapaWidget.querySelector('style[data-mantine-styles="true"]');
-        if (!kapaStyles) return false;
-
-        kapaStyles.textContent += `
-          #kapa-button:hover {
-            background-color: var(--color-surface);
-          }
-          
-          :host-context([data-md-color-scheme="custom-light"])
-          .mantine-Image-root {
-            filter: invert(1);
-          }
-          
-          .mantine-Text-root {
-            padding-top: 0.5em;
-          }
-        `;
-        return true;
-      };
-
-      if (!tryPatchStyles()) {
-        const observer = new MutationObserver(() => {
-          if (tryPatchStyles()) observer.disconnect();
-        });
-        observer.observe(document.body, { childList: true, subtree: true });
-      }
-    });
-  </script>
-{% endblock %}

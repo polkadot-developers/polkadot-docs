@@ -61,7 +61,6 @@
       "@type": jsonld_type,
       "headline": page_title | default(config.site_name, true),
       "name": page_title | default(config.site_name, true),
-      "description": page_description | default('', true),
       "inLanguage": "en-US",
       "isPartOf": {
         "@type": "WebSite",
@@ -71,6 +70,9 @@
 
     {% if canonical_url %}
       {% set _ = jsonld_data.update({"url": canonical_url}) %}
+    {% endif %}
+    {% if page_description %}
+      {% set _ = jsonld_data.update({"description": page_description}) %}
     {% endif %}
     {% if config.site_url %}
       {% set _ = jsonld_data["isPartOf"].update({"url": config.site_url}) %}

@@ -90,6 +90,15 @@
     catch (e) { return null; }
   }
 
+  // true if href points at the page the reader is already on (ignoring hash/trailing slash)
+  function samePage(href) {
+    try {
+      const u = new URL(href, location.href);
+      const strip = function (p) { return p.replace(/\/+$/, ''); };
+      return u.origin === location.origin && strip(u.pathname) === strip(location.pathname);
+    } catch (e) { return false; }
+  }
+
   const btn = el('button', 'da-launcher');
   btn.type = 'button';
   btn.setAttribute('aria-label', 'Open the docs assistant');
@@ -148,13 +157,25 @@
         const pid = (s.ref || '').split('#')[0];
         if (seen[pid]) return;
         seen[pid] = true;
-        const href = s.url && httpUrl(s.url);
+        const anchor = (s.ref || '').split('#')[1] || '';
+        const href = s.url && httpUrl(s.url); // s.url already includes the #section anchor
         let chip;
         if (href) {
           chip = el('a', 'da-chip', s.page_title || s.title || pid);
           chip.href = href;
-          chip.target = '_blank';
           chip.rel = 'noopener';
+          if (samePage(href)) {
+            // already on this page: smooth-scroll to the heading in place, keep the chat open
+            chip.addEventListener('click', function (e) {
+              const target = anchor && document.getElementById(anchor);
+              if (!target) return; // slug not on the page -> let the browser handle the #hash
+              e.preventDefault();
+              if (history.replaceState) history.replaceState(null, '', '#' + anchor);
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+          } else {
+            chip.target = '_blank'; // other page: open the exact section in a new tab (keeps the chat)
+          }
         } else {
           chip = el('span', 'da-chip', s.page_title || s.title || pid);
         }

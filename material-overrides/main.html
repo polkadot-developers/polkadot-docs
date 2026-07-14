@@ -83,8 +83,10 @@
       {% set _ = jsonld_data.update({"datePublished": page.meta.date}) %}
     {% endif %}
     
-    {# Add modified date from page metadata #}
-    {% if page.meta and page.meta.updated %}
+    {# Add modified date, preferring the git revision date the build already computes #}
+    {% if page.meta and page.meta.git_revision_date_localized_raw_iso_datetime %}
+      {% set _ = jsonld_data.update({"dateModified": page.meta.git_revision_date_localized_raw_iso_datetime}) %}
+    {% elif page.meta and page.meta.updated %}
       {% set _ = jsonld_data.update({"dateModified": page.meta.updated}) %}
     {% endif %}
     
@@ -194,4 +196,3 @@
   </article>
 </div>
 {%- endblock -%} 
-

@@ -59,7 +59,6 @@
     {% set jsonld_data = {
       "@context": "https://schema.org",
       "@type": jsonld_type,
-      "headline": page_title | default(config.site_name, true),
       "name": page_title | default(config.site_name, true),
       "inLanguage": "en-US",
       "isPartOf": {
@@ -76,6 +75,11 @@
     {% endif %}
     {% if config.site_url %}
       {% set _ = jsonld_data["isPartOf"].update({"url": config.site_url}) %}
+    {% endif %}
+
+    {# Add headline only for Article-type schemas, where it is meaningful #}
+    {% if 'Article' in jsonld_type %}
+      {% set _ = jsonld_data.update({"headline": page_title | default(config.site_name, true)}) %}
     {% endif %}
 
     {# Add publication date if available #}

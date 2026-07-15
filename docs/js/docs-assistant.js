@@ -192,7 +192,14 @@
     input.value = '';
     sendBtn.disabled = true;
     addUser(q);
-    const thinking = el('div', 'da-msg da-bot da-thinking', '…');
+    const thinking = el('div', 'da-msg da-bot da-thinking');
+    thinking.setAttribute('role', 'status');
+    thinking.setAttribute('aria-label', 'Searching the docs and writing an answer');
+    thinking.innerHTML =
+      '<span class="da-thinking-icon" aria-hidden="true">' +
+      '  <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 2l1.6 4.9a4 4 0 0 0 2.5 2.5L21 11l-4.9 1.6a4 4 0 0 0-2.5 2.5L12 22l-1.6-4.9a4 4 0 0 0-2.5-2.5L3 13l4.9-1.6a4 4 0 0 0 2.5-2.5L12 2z"/></svg>' +
+      '</span>' +
+      '<span class="da-dots" aria-hidden="true"><span></span><span></span><span></span></span>';
     msgs.appendChild(thinking);
     msgs.scrollTop = msgs.scrollHeight;
 
@@ -212,6 +219,8 @@
       })
       .catch(function () {
         thinking.classList.remove('da-thinking');
+        thinking.removeAttribute('aria-label'); // drop the stale "Searching…" label
+        thinking.setAttribute('role', 'alert');  // announce the error, not the old status
         thinking.textContent = 'The assistant is temporarily unavailable. Please try again in a moment, or browse the docs directly.';
       })
       .then(function () {

@@ -24,6 +24,100 @@
   {%- endif -%} 
 {%- endblock -%}
 
+{# --- JSON-LD EXTRAHEAD IMPLEMENTATION --- #}
+{% block extrahead %}
+  {{ super() }}
+  
+  {# Generate JSON-LD from context with per-page overrides #}
+  {% if page %}
+    {# Set default values from context #}
+    {% set page_title = page.meta.title if page.meta and page.meta.title else page.title %}
+    {% set page_description = page.meta.description if page.meta and page.meta.description else config.site_description %}
+    
+    {# Construct canonical URL #}
+    {% if page.canonical_url %}
+      {% set canonical_url = page.canonical_url %}
+    {% else %}
+      {# Build canonical URL from config and page path #}
+      {% set base_url = config.site_url | default('', true) %}
+      {% if base_url %}
+        {% set page_path = page.url | default('', true) %}
+        {% set canonical_url = base_url.rstrip('/') + '/' + page_path.lstrip('/') %}
+      {% else %}
+        {% set canonical_url = '' %}
+      {% endif %}
+    {% endif %}
+    
+    {# Determine JSON-LD type - allow override via frontmatter #}
+    {% if page.meta and page.meta.jsonld_type %}
+      {% set jsonld_type = page.meta.jsonld_type %}
+    {% else %}
+      {% set jsonld_type = "TechArticle" %} {# Default site-wide type #}
+    {% endif %}
+    
+    {# Build base JSON-LD object #}
+    {% set jsonld_data = {
+      "@context": "https://schema.org",
+      "@type": jsonld_type,
+      "name": page_title | default(config.site_name, true),
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": config.site_name | default('Documentation', true)
+      }
+    } %}
+
+    {% if canonical_url %}
+      {% set _ = jsonld_data.update({"url": canonical_url}) %}
+    {% endif %}
+    {% if page_description %}
+      {% set _ = jsonld_data.update({"description": page_description}) %}
+    {% endif %}
+    {% if config.site_url %}
+      {% set _ = jsonld_data["isPartOf"].update({"url": config.site_url}) %}
+    {% endif %}
+
+    {# Add headline only for Article-type schemas, where it is meaningful #}
+    {% if 'Article' in jsonld_type %}
+      {% set _ = jsonld_data.update({"headline": page_title | default(config.site_name, true)}) %}
+    {% endif %}
+
+    {# Add publication date if available #}
+    {% if page.meta and page.meta.date %}
+      {% set _ = jsonld_data.update({"datePublished": page.meta.date}) %}
+    {% endif %}
+    
+    {# Add modified date, preferring the git revision date the build already computes #}
+    {% if page.meta and page.meta.git_revision_date_localized_raw_iso_datetime %}
+      {% set _ = jsonld_data.update({"dateModified": page.meta.git_revision_date_localized_raw_iso_datetime}) %}
+    {% elif page.meta and page.meta.updated %}
+      {% set _ = jsonld_data.update({"dateModified": page.meta.updated}) %}
+    {% endif %}
+    
+    {# Add author if available #}
+    {% if page.meta and page.meta.author %}
+      {% set _ = jsonld_data.update({"author": {
+        "@type": "Person",
+        "name": page.meta.author
+      }}) %}
+    {% endif %}
+    
+    {# Allow full JSON-LD override via frontmatter #}
+    {% if page.meta and page.meta.jsonld_override %}
+      {# Merge override - the entire object can be replaced or extended #}
+      {% if page.meta.jsonld_override is mapping %}
+        {% set _ = jsonld_data.update(page.meta.jsonld_override) %}
+      {% endif %}
+    {% endif %}
+    
+    {# Output the JSON-LD script #}
+    <script type="application/ld+json">
+      {{ jsonld_data | tojson }}
+    </script>
+  {% endif %}
+{% endblock %}
+{# --------------------------------------- #}
+
 {# Announcement banner. Add content inside the block to show it; leave it
    empty for no banner. (Wrapping the block in an HTML comment does NOT hide
    it — Jinja still processes the block tag.) #}
@@ -106,4 +200,3 @@
   </article>
 </div>
 {%- endblock -%} 
-

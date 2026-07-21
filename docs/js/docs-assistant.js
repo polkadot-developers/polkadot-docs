@@ -112,8 +112,7 @@
     '</div>' +
     '<div class="da-note">AI-generated from the documentation — verify against the linked sources and use your best judgement. ' +
     'Please don’t share personal or private information. ' +
-    'By submitting a query you agree to <a href="https://polkadot.com/legal-disclosures/" target="_blank" rel="noopener">these conditions</a>. ' +
-    'Need more help? <a href="https://support.polkadot.network/" target="_blank" rel="noopener">Polkadot Support</a>.</div>';
+    'By submitting a query you agree to <a href="/policies/terms-of-use/" target="_blank" rel="noopener">these conditions</a>.</div>';
 
   const msgs = panel.querySelector('.da-msgs');
   const input = panel.querySelector('input');

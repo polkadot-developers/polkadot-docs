@@ -85,7 +85,7 @@ The native token for Kusama is KSM. For more information about KSM, visit the [N
 
 ### Polkadot Products Devnet
 
-The Polkadot Products Devnet (commonly referred to as `devnet`) is a long-lived, community-run development network operated by the Polkadot Community Foundation. Rather than being a standalone chain, it is a curated grouping of public Paseo TestNet system chains that gives product and dApp developers a single, stable environment for building and testing multi-chain workflows against Polkadot's system parachains.
+The Polkadot Products Devnet (commonly referred to as `devnet`) is a long-lived, community-run development network operated by the Polkadot Community Foundation. Rather than being a standalone chain, it is a curated grouping of public Paseo TestNet system parachains that gives product and dApp developers a single, stable environment for building and testing multi-chain workflows.
 
 The Devnet brings together three Paseo system chains:
 

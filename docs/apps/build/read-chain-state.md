@@ -71,7 +71,7 @@ client.destroy();
 The returned client exposes one property per chain in the preset (`assetHub`, `bulletin`, `individuality`), each typed by the underlying [polkadot-api](https://papi.how) (PAPI) descriptor.
 
 !!! warning "Not every environment is live"
-    `getChainAPI` accepts the `Environment` values `polkadot`, `kusama`, `paseo`, `summit`, `local`, and `westend`. Only `paseo` and `summit` are wired up at the moment; calling an environment that is not yet live throws at runtime.
+    `getChainAPI` accepts the `Environment` values `polkadot`, `kusama`, `paseo`, `devnet`, `local`, and `westend`. Only `paseo` and `devnet` are wired up at the moment; calling an environment that is not yet live throws at runtime.
 
 ### Connect Using Custom Descriptors (BYOD)
 
@@ -203,7 +203,7 @@ Use `client.destroy()` for normal cleanup and reserve `destroyAll()` for full-pr
 
 ## Limitations
 
-- The `paseo` and `summit` environments are the only presets wired up today. Other `Environment` values throw at runtime.
+- The `paseo` and `devnet` environments are the only presets wired up today. Other `Environment` values throw at runtime.
 - The package is ESM only; your Product's build pipeline must support ESM imports.
 - Descriptors are imported by subpath (`@parity/product-sdk-descriptors/paseo-bulletin`), not from the package root. Bundlers that do not honor `exports` subpaths will fail to resolve them.
 - Host-routed reads require a host container. Development builds outside a Host can use the direct WebSocket fallback.

@@ -90,8 +90,8 @@ The Polkadot Products Devnet (commonly referred to as `devnet`) is a long-lived,
 The Devnet brings together three Paseo system chains:
 
 - **Asset Hub**: asset issuance, management, and transfers
-- **People/Individuality**: identity and individuality-related functionality
-- **Bulletin**: the chain backing cloud-storage workflows
+- **People Chain**: identity and individuality-related functionality
+- **Bulletin Chain**: the chain backing cloud-storage workflows
 
 Key characteristics of the Devnet:
 

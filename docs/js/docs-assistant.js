@@ -39,9 +39,59 @@
         return /&quot;|&#39;/.test(url) ? m : '<a href="' + url + '" target="_blank" rel="noopener">' + text + '</a>';
       });
   }
+  const TOKEN_RE = /\[[a-z0-9\-]+#[a-z0-9\-]+\]/gi;
+  // a line that is ONLY a citation-list label ("Sources:", "### Sources", "- **Source:**", …)
+  const LABEL_RE = /^\s*(?:#{1,6}\s+|[-*]\s+|\d+\.\s+)?(?:\*\*)?\s*(?:sources?|references?)\s*(?:\*\*|[:.\s])*$/i;
+
+  // tidy ONE line a token was just stripped from: fix the punctuation/space
+  // holes the token left, but never touch the list marker that precedes it
+  function cleanStrippedLine(ln) {
+    const m = ln.match(/^(\s*(?:[-*]|\d+\.)\s+)([\s\S]*)$/);
+    const prefix = m ? m[1] : '';
+    const body = (m ? m[2] : ln)
+      .replace(/\(\s*\)/g, '')            // "([ref])" -> "()" -> gone
+      .replace(/ {2,}/g, ' ')
+      .replace(/\s+([.,;:!?)])/g, '$1')   // "logic ." / "(see )" -> "logic." / "(see)"
+      .replace(/\(\s+/g, '(')
+      .replace(/,(?=[.,;!?])/g, '')       // "[a], [b]." -> ",." -> "."
+      .replace(/^[.,;:!?\s]+/, '')        // leading orphan punctuation
+      .replace(/\s+$/, '');
+    return prefix + body;
+  }
+
+  // Citation tokens become source chips; removing them from the text must not
+  // cause collateral damage. Line-based and fence-aware: code blocks are never
+  // touched, cleanup applies only to lines that actually contained a token, a
+  // line reduced to a bare bullet/label is dropped, and a "Sources:" label line
+  // is dropped only when the token lines it introduced vanished with it.
+  function stripCitations(src) {
+    const entries = [];
+    let inFence = false;
+    (src || '').split('\n').forEach(function (ln) {
+      if (/^\s*```/.test(ln)) { inFence = !inFence; entries.push({ text: ln }); return; }
+      TOKEN_RE.lastIndex = 0;
+      if (inFence || !TOKEN_RE.test(ln)) { entries.push({ text: ln }); return; }
+      TOKEN_RE.lastIndex = 0;
+      const t = cleanStrippedLine(ln.replace(TOKEN_RE, ''));
+      const junk = /^\s*(?:[-*]|\d+\.)?\s*$/.test(t) || LABEL_RE.test(t);
+      entries.push({ text: t, removed: junk });
+    });
+    const out = [];
+    for (let i = 0; i < entries.length; i++) {
+      const e = entries[i];
+      if (e.removed) continue;
+      if (LABEL_RE.test(e.text)) {
+        let k = i + 1;   // skip blanks to what the label introduces
+        while (k < entries.length && !entries[k].removed && entries[k].text.trim() === '') k++;
+        if (k >= entries.length || entries[k].removed) continue;
+      }
+      out.push(e.text);
+    }
+    return out.join('\n');
+  }
+
   function md(src) {
-    let s = escapeHtml(src || '');
-    s = s.replace(/\[[a-z0-9\-]+#[a-z0-9\-]+\]/gi, ''); // citation tokens become source chips
+    let s = stripCitations(escapeHtml(src || ''));
     const lines = s.split(/\n/);
     let out = '';
     let i = 0;
@@ -88,6 +138,17 @@
   function httpUrl(u) {
     try { return /^https?:$/i.test(new URL(u, location.href).protocol) ? u : null; }
     catch (e) { return null; }
+  }
+
+  // "polkadot-sdk/substrate/frame/balances/src/lib.rs" + "impl … :: fn transfer_allow_death"
+  // -> "</> balances/src/lib.rs · fn transfer_allow_death"
+  function codeChipLabel(s) {
+    const path = (s.page_title || '').split('/').filter(Boolean).slice(-3).join('/');
+    const t = s.title || '';
+    const item = t.indexOf(' :: ') >= 0 ? t.slice(t.lastIndexOf(' :: ') + 4) : t;
+    const core = [path, item && item !== 'module docs' ? item : '']
+      .filter(Boolean).join(' · ') || s.ref || '';
+    return core ? '‹/› ' + core : 'source';
   }
 
   const btn = el('button', 'da-launcher');
@@ -144,20 +205,25 @@
       const chips = el('div', 'da-cites');
       const seen = {};
       data.sources.forEach(function (s) {
-        const pid = (s.ref || '').split('#')[0];
-        if (seen[pid]) return;
-        seen[pid] = true;
+        // docs chips collapse to one per page; SDK-code chips stay one per cited
+        // item — two functions in the same file need their own line-permalinks
+        const isCode = s.source === 'polkadot-sdk';
+        const key = isCode ? (s.ref || '') : (s.ref || '').split('#')[0];
+        if (seen[key]) return;
+        seen[key] = true;
         const href = s.url && httpUrl(s.url);
+        const label = isCode ? codeChipLabel(s) : (s.page_title || s.title || key);
         let chip;
         if (href) {
-          chip = el('a', 'da-chip', s.page_title || s.title || pid);
+          chip = el('a', 'da-chip', label);
           chip.href = href;
           chip.target = '_blank';
           chip.rel = 'noopener';
         } else {
-          chip = el('span', 'da-chip', s.page_title || s.title || pid);
+          chip = el('span', 'da-chip', label);
         }
-        chip.title = s.ref;
+        if (isCode) chip.classList.add('da-chip-code');
+        chip.title = isCode ? (s.page_title || s.ref) : s.ref;
         chips.appendChild(chip);
       });
       wrap.appendChild(chips);
@@ -169,8 +235,15 @@
       b.type = 'button';
       b.setAttribute('aria-label', rating === 'up' ? 'Good answer' : 'Bad answer');
       b.addEventListener('click', function () {
-        Array.prototype.forEach.call(fb.children, function (c) { c.classList.remove('da-on'); });
+        Array.prototype.forEach.call(fb.querySelectorAll('.da-fb-btn'), function (c) { c.classList.remove('da-on'); });
         b.classList.add('da-on');
+        if (!fb.querySelector('.da-fb-ack')) {
+          const ack = el('span', 'da-fb-ack');
+          ack.setAttribute('role', 'status');
+          fb.appendChild(ack);
+          // live regions announce content *changes*: attach empty, fill after
+          setTimeout(function () { ack.textContent = 'Thanks for the feedback!'; }, 50);
+        }
         fetch(API_BASE + '/feedback', {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
@@ -228,8 +301,16 @@
       });
   }
   sendBtn.addEventListener('click', send);
-  input.addEventListener('keydown', function (e) { if (e.key === 'Enter') send(); });
+  input.addEventListener('keydown', function (e) {
+    // keyCode 229 / isComposing: an IME (CJK) is committing a composition —
+    // that Enter confirms the conversion, it must not send the message
+    if (e.isComposing || e.keyCode === 229) return;
+    if (e.key === 'Enter') send();
+  });
 
   document.body.appendChild(btn);
   document.body.appendChild(panel);
+
+  // hook for automated QA: lets a fixture page unit-test rendering offline
+  window.__daInternals = { md: md, stripCitations: stripCitations, codeChipLabel: codeChipLabel };
 })();

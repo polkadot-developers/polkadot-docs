@@ -69,6 +69,12 @@
   color: var(--color-text-secondary);
   font-size: 0.8rem;
   cursor: pointer;
+  /* comfortable touch target (was ~12x21px on mobile) */
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .da-msgs {
@@ -90,8 +96,9 @@
 
 .da-user {
   align-self: flex-end;
-  background: var(--accent-default);
-  color: var(--white);
+  /* fixed brand pink: 4.52:1 with white (AA) — the theme accent is 3.65:1 */
+  background: #e6007a;
+  color: #fff;
   border-bottom-right-radius: 0.15rem;
 }
 
@@ -147,6 +154,21 @@ a.da-chip:hover {
   color: var(--accent-default);
 }
 
+/* light scheme: the accent is 3.65:1 on white — use a darker pink (5.5:1) */
+[data-md-color-scheme="custom-light"] a.da-chip:hover {
+  border-color: #c81e5b;
+  color: #c81e5b;
+}
+
+/* SDK source-code chips: monospace label, path can be long — keep it on one line */
+.da-chip-code {
+  font-family: var(--md-code-font-family, monospace);
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .da-fb {
   display: flex;
   gap: 0.25rem;
@@ -160,6 +182,9 @@ a.da-chip:hover {
   padding: 0.05rem 0.35rem;
   cursor: pointer;
   font-size: 0.65rem;
+  /* comfortable touch target, same bar as .da-close */
+  min-width: 2.2rem;
+  min-height: 2.2rem;
 }
 
 .da-fb-btn.da-on {
@@ -236,8 +261,9 @@ a.da-chip:hover {
 
 .da-send {
   padding: 0 0.7rem;
-  background: var(--accent-default);
-  color: var(--white);
+  /* fixed brand pink: 4.52:1 with white (AA) — the theme accent is 3.65:1 */
+  background: #e6007a;
+  color: #fff;
   border: none;
   border-radius: 0.5rem;
   font-weight: 600;
@@ -251,10 +277,16 @@ a.da-chip:hover {
 
 .da-note {
   padding: 0 0.7rem 0.55rem;
-  font-size: 0.5rem;
+  font-size: 0.6rem;
   line-height: 1.4;
   color: var(--color-text-secondary);
   text-align: center;
+}
+
+.da-fb-ack {
+  font-size: 0.6rem;
+  color: var(--color-text-secondary);
+  align-self: center;
 }
 
 .da-note a {

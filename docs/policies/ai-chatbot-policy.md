@@ -15,13 +15,13 @@ The Docs Assistant answers questions using the content published on this website
 
 ## Information you submit
 
-When you submit a question, it is sent to our systems and to third-party AI service providers in order to generate a response. We may log the questions you submit, along with basic technical request data, to operate, secure, and improve the service, and retain them for as long as reasonably necessary for those purposes.
+When you submit a question, it is sent to our systems and on to a third-party AI service provider in order to generate a response. We store the questions you submit in order to operate and improve the service, but we do not collect associated personal data.
 
 Please do not submit personal data, confidential information, or account credentials. In particular, never share mnemonic phrases or private keys — the assistant will never ask for them and does not need them.
 
 ## Third parties
 
-Generating a response relies on third-party AI service providers. Their handling of the data sent to them is governed by their own terms and privacy policies, over which we have no control.
+Generating a response relies on a third-party AI service provider, OpenRouter. OpenRouter is an aggregator that does not host the models itself but routes each request to one of a number of underlying providers based on factors such as availability and capacity, so the provider handling a given request may change and cannot be identified in advance. Their handling of any data sent to them is governed by their own terms and privacy policies, over which we have no control; please review OpenRouter's privacy policy and terms of service at [https://openrouter.ai/](https://openrouter.ai/){target=\_blank}.
 
 ## Disclaimer and liability
 

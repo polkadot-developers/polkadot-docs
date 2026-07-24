@@ -191,8 +191,13 @@
       b.type = 'button';
       b.setAttribute('aria-label', rating === 'up' ? 'Good answer' : 'Bad answer');
       b.addEventListener('click', function () {
-        Array.prototype.forEach.call(fb.children, function (c) { c.classList.remove('da-on'); });
+        Array.prototype.forEach.call(fb.querySelectorAll('.da-fb-btn'), function (c) { c.classList.remove('da-on'); });
         b.classList.add('da-on');
+        if (!fb.querySelector('.da-fb-ack')) {
+          const ack = el('span', 'da-fb-ack', 'Thanks for the feedback!');
+          ack.setAttribute('role', 'status');
+          fb.appendChild(ack);
+        }
         fetch(API_BASE + '/feedback', {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
@@ -250,7 +255,7 @@
       });
   }
   sendBtn.addEventListener('click', send);
-  input.addEventListener('keydown', function (e) { if (e.key === 'Enter') send(); });
+  input.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey) send(); });
 
   document.body.appendChild(btn);
   document.body.appendChild(panel);

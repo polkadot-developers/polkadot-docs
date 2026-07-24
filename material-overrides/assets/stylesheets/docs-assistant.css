@@ -154,6 +154,12 @@ a.da-chip:hover {
   color: var(--accent-default);
 }
 
+/* light scheme: the accent is 3.65:1 on white — use a darker pink (5.5:1) */
+[data-md-color-scheme="custom-light"] a.da-chip:hover {
+  border-color: #c81e5b;
+  color: #c81e5b;
+}
+
 /* SDK source-code chips: monospace label, path can be long — keep it on one line */
 .da-chip-code {
   font-family: var(--md-code-font-family, monospace);
@@ -176,6 +182,9 @@ a.da-chip:hover {
   padding: 0.05rem 0.35rem;
   cursor: pointer;
   font-size: 0.65rem;
+  /* comfortable touch target, same bar as .da-close */
+  min-width: 2.2rem;
+  min-height: 2.2rem;
 }
 
 .da-fb-btn.da-on {
@@ -252,8 +261,9 @@ a.da-chip:hover {
 
 .da-send {
   padding: 0 0.7rem;
-  background: var(--accent-default);
-  color: var(--white);
+  /* fixed brand pink: 4.52:1 with white (AA) — the theme accent is 3.65:1 */
+  background: #e6007a;
+  color: #fff;
   border: none;
   border-radius: 0.5rem;
   font-weight: 600;

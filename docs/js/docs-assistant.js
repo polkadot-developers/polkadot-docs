@@ -39,17 +39,59 @@
         return /&quot;|&#39;/.test(url) ? m : '<a href="' + url + '" target="_blank" rel="noopener">' + text + '</a>';
       });
   }
+  const TOKEN_RE = /\[[a-z0-9\-]+#[a-z0-9\-]+\]/gi;
+  // a line that is ONLY a citation-list label ("Sources:", "### Sources", "- **Source:**", …)
+  const LABEL_RE = /^\s*(?:#{1,6}\s+|[-*]\s+|\d+\.\s+)?(?:\*\*)?\s*(?:sources?|references?)\s*(?:\*\*|[:.\s])*$/i;
+
+  // tidy ONE line a token was just stripped from: fix the punctuation/space
+  // holes the token left, but never touch the list marker that precedes it
+  function cleanStrippedLine(ln) {
+    const m = ln.match(/^(\s*(?:[-*]|\d+\.)\s+)([\s\S]*)$/);
+    const prefix = m ? m[1] : '';
+    const body = (m ? m[2] : ln)
+      .replace(/\(\s*\)/g, '')            // "([ref])" -> "()" -> gone
+      .replace(/ {2,}/g, ' ')
+      .replace(/\s+([.,;:!?)])/g, '$1')   // "logic ." / "(see )" -> "logic." / "(see)"
+      .replace(/\(\s+/g, '(')
+      .replace(/,(?=[.,;!?])/g, '')       // "[a], [b]." -> ",." -> "."
+      .replace(/^[.,;:!?\s]+/, '')        // leading orphan punctuation
+      .replace(/\s+$/, '');
+    return prefix + body;
+  }
+
+  // Citation tokens become source chips; removing them from the text must not
+  // cause collateral damage. Line-based and fence-aware: code blocks are never
+  // touched, cleanup applies only to lines that actually contained a token, a
+  // line reduced to a bare bullet/label is dropped, and a "Sources:" label line
+  // is dropped only when the token lines it introduced vanished with it.
+  function stripCitations(src) {
+    const entries = [];
+    let inFence = false;
+    (src || '').split('\n').forEach(function (ln) {
+      if (/^\s*```/.test(ln)) { inFence = !inFence; entries.push({ text: ln }); return; }
+      TOKEN_RE.lastIndex = 0;
+      if (inFence || !TOKEN_RE.test(ln)) { entries.push({ text: ln }); return; }
+      TOKEN_RE.lastIndex = 0;
+      const t = cleanStrippedLine(ln.replace(TOKEN_RE, ''));
+      const junk = /^\s*(?:[-*]|\d+\.)?\s*$/.test(t) || LABEL_RE.test(t);
+      entries.push({ text: t, removed: junk });
+    });
+    const out = [];
+    for (let i = 0; i < entries.length; i++) {
+      const e = entries[i];
+      if (e.removed) continue;
+      if (LABEL_RE.test(e.text)) {
+        let k = i + 1;   // skip blanks to what the label introduces
+        while (k < entries.length && !entries[k].removed && entries[k].text.trim() === '') k++;
+        if (k >= entries.length || entries[k].removed) continue;
+      }
+      out.push(e.text);
+    }
+    return out.join('\n');
+  }
+
   function md(src) {
-    let s = escapeHtml(src || '');
-    // citation tokens become source chips; when one sits before punctuation,
-    // also eat the space so "logic [ref]." doesn't render as "logic ."
-    s = s.replace(/\s*\[[a-z0-9\-]+#[a-z0-9\-]+\](?=\s*[.,;:!?])/gi, '')
-         .replace(/\[[a-z0-9\-]+#[a-z0-9\-]+\]/gi, '');
-    // stripping the tokens can orphan a "Source:" label the model wrote before
-    // them — drop lines that are now only that label (bulleted/bolded or not)
-    s = s.split('\n').filter(function (ln) {
-      return !/^\s*(?:[-*]\s+)?(?:\*\*)?\s*sources?\s*:?\s*(?:\*\*)?\s*:?\s*$/i.test(ln);
-    }).join('\n');
+    let s = stripCitations(escapeHtml(src || ''));
     const lines = s.split(/\n/);
     let out = '';
     let i = 0;
@@ -101,10 +143,12 @@
   // "polkadot-sdk/substrate/frame/balances/src/lib.rs" + "impl … :: fn transfer_allow_death"
   // -> "</> balances/src/lib.rs · fn transfer_allow_death"
   function codeChipLabel(s) {
-    const path = (s.page_title || '').split('/').slice(-3).join('/');
+    const path = (s.page_title || '').split('/').filter(Boolean).slice(-3).join('/');
     const t = s.title || '';
     const item = t.indexOf(' :: ') >= 0 ? t.slice(t.lastIndexOf(' :: ') + 4) : t;
-    return '‹/› ' + path + (item && item !== 'module docs' ? ' · ' + item : '');
+    const core = [path, item && item !== 'module docs' ? item : '']
+      .filter(Boolean).join(' · ') || s.ref || '';
+    return core ? '‹/› ' + core : 'source';
   }
 
   const btn = el('button', 'da-launcher');
@@ -194,9 +238,11 @@
         Array.prototype.forEach.call(fb.querySelectorAll('.da-fb-btn'), function (c) { c.classList.remove('da-on'); });
         b.classList.add('da-on');
         if (!fb.querySelector('.da-fb-ack')) {
-          const ack = el('span', 'da-fb-ack', 'Thanks for the feedback!');
+          const ack = el('span', 'da-fb-ack');
           ack.setAttribute('role', 'status');
           fb.appendChild(ack);
+          // live regions announce content *changes*: attach empty, fill after
+          setTimeout(function () { ack.textContent = 'Thanks for the feedback!'; }, 50);
         }
         fetch(API_BASE + '/feedback', {
           method: 'POST',
@@ -255,8 +301,16 @@
       });
   }
   sendBtn.addEventListener('click', send);
-  input.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey) send(); });
+  input.addEventListener('keydown', function (e) {
+    // keyCode 229 / isComposing: an IME (CJK) is committing a composition —
+    // that Enter confirms the conversion, it must not send the message
+    if (e.isComposing || e.keyCode === 229) return;
+    if (e.key === 'Enter') send();
+  });
 
   document.body.appendChild(btn);
   document.body.appendChild(panel);
+
+  // hook for automated QA: lets a fixture page unit-test rendering offline
+  window.__daInternals = { md: md, stripCitations: stripCitations, codeChipLabel: codeChipLabel };
 })();

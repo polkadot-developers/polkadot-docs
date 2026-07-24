@@ -67,6 +67,56 @@ The native token for Paseo is PAS. TestNet tokens are available from the [Polkad
 
 For more details about Paseo's role as the official Polkadot TestNet, see the [forum announcement](https://forum.polkadot.network/t/testnets-paseo-officially-becomes-the-polkadot-testnet-temporary-passet-hub-chain-for-smart-contracts-testing/13209){target=\_blank}.
 
+## Polkadot Products Devnet
+
+The Polkadot Products Devnet, commonly referred to as `devnet`, is a stable environment for building and testing applications that use multiple Polkadot system chains.
+
+It gives product and dApp developers one shared place to integrate capabilities such as assets, identity, and decentralized storage without configuring separate networks or relying on temporary test environments. Developers can use it to build complete user journeys, test how features work across chains, and validate integrations before moving to a live network.
+
+The Devnet brings together three Paseo system parachains:
+
+- **A shared development environment:** Build and test features spanning multiple Polkadot system chains.
+- **Persistent infrastructure:** Continue developing against the same environment beyond individual events, demos, or testing sessions.
+- **Public system-chain access:** Integrate directly with the Paseo versions of the Polkadot system chains most relevant to application development.
+- **Community-operated infrastructure:** Use an environment maintained by the Polkadot Community Foundation rather than infrastructure controlled by a single development team.
+- **Product-level testing:** Validate complete application workflows rather than testing each chain or capability in isolation.
+
+The Products Devnet is not a standalone blockchain. It is a curated grouping of these Paseo system parachains, maintained as a single product-development environment by the [Polkadot Community Foundation](https://docs.polkadotcommunity.foundation/).
+
+!!!note
+    The Polkadot Products Devnet is intended for product and dApp development using the community-run Paseo TestNet system parachains. It is distinct from other Paseo-based environments and is not designed for low-level protocol or runtime testing.
+
+A mental model for building on the Polkadot Products Devnet:
+
+```mermaid
+flowchart LR
+    A["Build web app<br>@parity/product-sdk"] --> B["Produce static dist/"]
+    B --> C["Register a .dot domain<br>@polkadot-community-foundation/dotns-cli"]
+    C --> D["Publish bundle to Bulletin<br>+ bind name<br>pad"]
+    D --> E["Live at name.dot in the app<br>and https://name.dev-dot.li"]
+    A -. optional .-> F["Deploy contracts<br>cdm"]
+    F --> A
+```
+
+| Layer             | What it is                                                   |
+| ----------------- | ------------------------------------------------------------ |
+| Polkadot apps     | Mobile, desktop, and web browser                             |
+| Your dApp         | A web app published with a .dot domain                       |
+| SDK + CLIs        | Tools to build, publish, name, and deploy smart contracts    |
+| Platform services | DotNS naming, CDM contract registry, identity                |
+
+Key characteristics of the Devnet:
+
+- **Community-operated**: maintained by the Polkadot Community Foundation, independent of any single team's infrastructure
+- **Long-lived and stable**: intended as a persistent environment, not a temporary or event-specific network
+- **System parachain focused**: exposes the Paseo TestNet system parachains developers most commonly integrate against
+- **Product-oriented**: designed for building and testing end-to-end product features that span multiple chains
+
+Because the Devnet uses Paseo TestNet system parachains, transactions use Paseo's native test token, PAS. Test tokens are available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}.
+
+!!!tip
+    If you're ready to build, check [this quickstart guide](https://docs.polkadotcommunity.foundation/getting-started/developers/) that takes you through it end to end — build a static frontend, give it a `.dot` domain, publish the bundle, and add contracts only when you need custom on-chain logic.
+
 ## Other Networks
 
 While Paseo serves as the default TestNet for most development workflows, the Polkadot ecosystem includes additional networks for specialized use cases.
@@ -82,28 +132,6 @@ Kusama is ideal for:
 - Experiments and innovations that may eventually move to Polkadot
 
 The native token for Kusama is KSM. For more information about KSM, visit the [Native Assets](https://wiki.polkadot.com/kusama/kusama-getting-started/){target=\_blank} page.
-
-### Polkadot Products Devnet
-
-The Polkadot Products Devnet (commonly referred to as `devnet`) is a long-lived, community-run development network operated by the Polkadot Community Foundation. Rather than being a standalone chain, it is a curated grouping of public Paseo TestNet system parachains that gives product and dApp developers a single, stable environment for building and testing multi-chain workflows.
-
-The Devnet brings together three Paseo system parachains:
-
-- **Asset Hub**: asset issuance, management, and transfers
-- **People Chain**: identity and individuality-related functionality
-- **Bulletin Chain**: the chain backing cloud-storage workflows
-
-Key characteristics of the Devnet:
-
-- **Community-operated**: maintained by the Polkadot Community Foundation, independent of any single team's infrastructure
-- **Long-lived and stable**: intended as a persistent environment, not a temporary or event-specific network
-- **System parachain focused**: exposes the Paseo TestNet system parachains developers most commonly integrate against
-- **Product-oriented**: designed for building and testing end-to-end product features that span multiple chains
-
-Because the Devnet runs on Paseo TestNet system parachains, it shares Paseo's native token, PAS. TestNet tokens are available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}.
-
-!!!note
-    The Polkadot Products Devnet targets the community-run Paseo TestNet system parachains and is distinct from other Paseo-based environments. It is intended for product and dApp development against Polkadot's system parachains, not for low-level protocol testing.
 
 ### Westend
 

@@ -41,7 +41,15 @@
   }
   function md(src) {
     let s = escapeHtml(src || '');
-    s = s.replace(/\[[a-z0-9\-]+#[a-z0-9\-]+\]/gi, ''); // citation tokens become source chips
+    // citation tokens become source chips; when one sits before punctuation,
+    // also eat the space so "logic [ref]." doesn't render as "logic ."
+    s = s.replace(/\s*\[[a-z0-9\-]+#[a-z0-9\-]+\](?=\s*[.,;:!?])/gi, '')
+         .replace(/\[[a-z0-9\-]+#[a-z0-9\-]+\]/gi, '');
+    // stripping the tokens can orphan a "Source:" label the model wrote before
+    // them — drop lines that are now only that label (bulleted/bolded or not)
+    s = s.split('\n').filter(function (ln) {
+      return !/^\s*(?:[-*]\s+)?(?:\*\*)?\s*sources?\s*:?\s*(?:\*\*)?\s*:?\s*$/i.test(ln);
+    }).join('\n');
     const lines = s.split(/\n/);
     let out = '';
     let i = 0;
@@ -88,6 +96,15 @@
   function httpUrl(u) {
     try { return /^https?:$/i.test(new URL(u, location.href).protocol) ? u : null; }
     catch (e) { return null; }
+  }
+
+  // "polkadot-sdk/substrate/frame/balances/src/lib.rs" + "impl … :: fn transfer_allow_death"
+  // -> "</> balances/src/lib.rs · fn transfer_allow_death"
+  function codeChipLabel(s) {
+    const path = (s.page_title || '').split('/').slice(-3).join('/');
+    const t = s.title || '';
+    const item = t.indexOf(' :: ') >= 0 ? t.slice(t.lastIndexOf(' :: ') + 4) : t;
+    return '‹/› ' + path + (item && item !== 'module docs' ? ' · ' + item : '');
   }
 
   const btn = el('button', 'da-launcher');
@@ -144,20 +161,25 @@
       const chips = el('div', 'da-cites');
       const seen = {};
       data.sources.forEach(function (s) {
-        const pid = (s.ref || '').split('#')[0];
-        if (seen[pid]) return;
-        seen[pid] = true;
+        // docs chips collapse to one per page; SDK-code chips stay one per cited
+        // item — two functions in the same file need their own line-permalinks
+        const isCode = s.source === 'polkadot-sdk';
+        const key = isCode ? (s.ref || '') : (s.ref || '').split('#')[0];
+        if (seen[key]) return;
+        seen[key] = true;
         const href = s.url && httpUrl(s.url);
+        const label = isCode ? codeChipLabel(s) : (s.page_title || s.title || key);
         let chip;
         if (href) {
-          chip = el('a', 'da-chip', s.page_title || s.title || pid);
+          chip = el('a', 'da-chip', label);
           chip.href = href;
           chip.target = '_blank';
           chip.rel = 'noopener';
         } else {
-          chip = el('span', 'da-chip', s.page_title || s.title || pid);
+          chip = el('span', 'da-chip', label);
         }
-        chip.title = s.ref;
+        if (isCode) chip.classList.add('da-chip-code');
+        chip.title = isCode ? (s.page_title || s.ref) : s.ref;
         chips.appendChild(chip);
       });
       wrap.appendChild(chips);

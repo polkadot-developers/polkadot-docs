@@ -147,6 +147,15 @@ a.da-chip:hover {
   color: var(--accent-default);
 }
 
+/* SDK source-code chips: monospace label, path can be long — keep it on one line */
+.da-chip-code {
+  font-family: var(--md-code-font-family, monospace);
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .da-fb {
   display: flex;
   gap: 0.25rem;

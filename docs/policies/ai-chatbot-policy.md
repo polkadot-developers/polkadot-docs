@@ -21,7 +21,7 @@ Please do not submit personal data, confidential information, or account credent
 
 ## Third parties
 
-Generating a response relies on a third-party AI service provider, OpenRouter. OpenRouter is an aggregator that does not host the models itself but routes each request to one of a number of underlying providers based on factors such as availability and capacity, so the provider handling a given request may change and cannot be identified in advance. Their handling of any data sent to them is governed by their own terms and privacy policies, over which we have no control; please review OpenRouter's privacy policy and terms of service at [https://openrouter.ai/](https://openrouter.ai/){target=\_blank}.
+Generating a response relies on a third-party AI service provider, OpenRouter. OpenRouter is an aggregator that does not host the models itself but routes each request to one of a number of underlying providers based on factors such as availability and capacity, so the provider handling a given request may change and cannot be identified in advance. Their handling of any data sent to them is governed by their own terms and privacy policies, over which we have no control; please review OpenRouter's [privacy policy and terms of service](https://openrouter.ai/){target=\_blank}.
 
 ## Disclaimer and liability
 

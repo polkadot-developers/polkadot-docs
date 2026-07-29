@@ -1,0 +1,44 @@
+# Dockerfile for running the papermoon-mkdocs-mcp server against these docs.
+#
+# Unlike the upstream example (which `git clone`s the repo), this image copies
+# the docs sources straight from the build context, so it always serves the
+# working tree you build from — no clone, no network needed for the content.
+#
+# Build:  docker build -f dockerfile-mcp.yaml -t polkadot-docs-mcp .
+# Run:    docker run --rm -p 8000:8000 polkadot-docs-mcp
+#
+# The MCP server reads the markdown directly from disk and parses mkdocs.yml;
+# no `mkdocs build` step is required.
+
+FROM python:3.12-slim
+
+# curl is only needed for the HEALTHCHECK below.
+RUN apt-get update && apt-get install -y --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Install the MCP server. Add the [vector] extra here if you want vector search:
+#   pip install --no-cache-dir "papermoon-mkdocs-mcp[vector]"
+RUN pip install --no-cache-dir papermoon-mkdocs-mcp
+
+# Copy only what the server needs to parse mkdocs.yml and read the docs sources.
+COPY mkdocs.yml ./mkdocs.yml
+COPY llms_config.json ./llms_config.json
+COPY docs ./docs
+COPY hooks ./hooks
+
+EXPOSE 8000
+
+HEALTHCHECK --start-period=30s --interval=30s --timeout=10s --retries=3 \
+  CMD curl -sf -X POST http://127.0.0.1:8000/mcp \
+      -H "Content-Type: application/json" \
+      -H "Accept: application/json, text/event-stream" \
+      -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"hc","version":"0.1"}}}' \
+      || exit 1
+
+CMD ["papermoon-mkdocs-mcp", \
+     "--config", "/app/mkdocs.yml", \
+     "--transport", "streamable-http", \
+     "--host", "0.0.0.0", \
+     "--port", "8000"]

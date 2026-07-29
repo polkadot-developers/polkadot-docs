@@ -4,25 +4,54 @@ on:
   push:
     branches:
       - parity-deploy
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-# to use reusable workflow
+# id-token is required for GCP Workload Identity Federation
 permissions:
   id-token: write
   contents: read
 
 env:
-  APP: "polkadot-docs-mcp"
+  REGISTRY: "europe-docker.pkg.dev/parity-mgmt/polkadot-docs-mcp"
+  IMAGE: "polkadot-docs-mcp"
 
 jobs:
   build_push_image:
-    uses: paritytech/ci-actions/.github/workflows/build-manifest.yaml@main
-    with:
-      runs-on: ubuntu-latest
-      environment: docker-publish
-    secrets:
-      GCP_SA_GITHUB: ${{ secrets.GCP_SA_GITHUB }}
-      GCP_WIP_GITHUB: ${{ secrets.GCP_WIP_GITHUB }}
+    runs-on: ubuntu-latest
+    environment: docker-publish
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
+        with:
+          service_account: ${{ secrets.GCP_SA_GITHUB }}
+          workload_identity_provider: ${{ secrets.GCP_WIP_GITHUB }}
+
+      - name: Install gcloud cli
+        uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3.0.1
+
+      - name: Authenticate Docker to Artifact Registry
+        run: gcloud auth configure-docker europe-docker.pkg.dev
+
+      - name: Generate tag
+        id: vars
+        run: echo "TAG=$(date -u +'%Y%m%d-%H%M%S')-${GITHUB_SHA::8}" >> "$GITHUB_OUTPUT"
+
+      - name: Build and push image
+        uses: docker/build-push-action@ca052bb54ab0790a636c9b5f226502c73d547a25 # v5.4.0
+        with:
+          context: .
+          file: dockerfile-mcp.yaml
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ steps.vars.outputs.TAG }}
+
+      - name: Write summary
+        run: |
+          echo '`${{ env.IMAGE }}` tags:' >> $GITHUB_STEP_SUMMARY
+          echo "- ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ steps.vars.outputs.TAG }}" >> $GITHUB_STEP_SUMMARY

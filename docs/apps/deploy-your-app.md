@@ -10,7 +10,16 @@ page_badges:
 
 ## Introduction
 
-This page covers how to build and deploy a Polkadot Product using the `playground` CLI. By the end, your app bundle will be uploaded to the Bulletin Chain, registered under a `.dot` name, and discoverable in the Polkadot playground.
+This page covers how to take a finished Polkadot Product live with the `playground` CLI. By the end, your app bundle will be uploaded to the Bulletin Chain, registered under a `.dot` name, and, if you choose, discoverable in the Polkadot playground.
+
+A deploy is really four stages, and `playground deploy` walks you through all of them in one flow:
+
+- **Build**: Compile your Product into a static bundle of files (HTML, JS, CSS, assets) with `playground build`.
+- **Register**: Reserve a `.dot` name for your Product through DotNS, the on-chain name service. This is the address people use to reach it.
+- **Publish**: Optionally list your Product in the public playground directory so others can discover it. Deploying without publishing keeps it reachable at its `.dot` address but unlisted.
+- **Deploy**: Upload the bundle to the Bulletin Chain and bind it to your `.dot` name, so any Host can fetch and verify it directly.
+
+If your Product includes a [smart contract](/apps/build/deploy-a-smart-contract/), the deploy flow can redeploy that too, covered in the contract prompt below.
 
 ## Prerequisites
 
@@ -44,7 +53,7 @@ The CLI presents the following prompts in order:
 
 1. **Review app detail page**: A reminder that your `README.md` becomes your app's detail page on the playground. Make sure it's up to date, then press ++enter++ to continue (or ++esc++ to exit and edit it first).
 
-2. **Redeploy contracts if changed**: Smart contracts hold your app's on-chain logic and data, and deploy separately from your website. Choose **no** if you only changed the website. Choose **yes** if you changed contract code in this project. The CLI then redeploys and reinstalls the contracts and rebuilds the site to match.
+2. **Redeploy contracts if changed**: Smart contracts hold your app's on-chain logic and data, and deploy separately from your website. Choose **no** if you only changed the website. Choose **yes** if you changed contract code in this project. The CLI then redeploys and reinstalls the contracts and rebuilds the site to match. See [Deploy and Integrate a Smart Contract](/apps/build/deploy-a-smart-contract/) for the contract workflow in depth.
 
     <div class="termynal" data-termynal>
     <span data-ty><pre>  did you change your smart contracts?
@@ -134,7 +143,7 @@ Once the deploy completes, the CLI prints the URLs for your app. Regardless of w
 https://myproject57.dot.li
 ```
 
-You can also navigate directly by entering your `.dot` name in the Polkadot Desktop browser address bar:
+You can also navigate directly by entering your `.dot` name in the [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/) browser address bar:
 
 ```
 myproject57.dot

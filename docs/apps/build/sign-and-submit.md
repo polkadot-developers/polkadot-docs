@@ -10,7 +10,7 @@ page_badges:
 
 ## Introduction
 
-This guide covers the `@parity/product-sdk-signer` package, which gives your Product a typed, host-aware signing interface for deriving accounts and signing payloads (raw bytes or full transactions) from inside a Polkadot host container. The SDK exposes a single orchestrator, `SignerManager`, that wraps both the production host path (Polkadot Desktop) and a deterministic dev path behind the same `Result`-typed API.
+This guide covers the `@parity/product-sdk-signer` package, which gives your Product a typed, host-aware signing interface for deriving accounts and signing payloads (raw bytes or full transactions) from inside a Polkadot host container. The SDK exposes a single orchestrator, `SignerManager`, that wraps both the production host path ([Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/)) and a deterministic dev path behind the same `Result`-typed API.
 
 ## Prerequisites
 
@@ -146,7 +146,7 @@ if (result.ok) {
 
 ## Sign and Submit a Transaction
 
-To sign a transaction, get a `PolkadotSigner` from `SignerManager` and pass it to the `signAndSubmit` method from `polkadot-api` (PAPI). The SDK handles routing the signing request to Desktop, which renders a signing modal and forwards to the Polkadot App.
+To sign a transaction, get a `PolkadotSigner` from `SignerManager` and pass it to the `signAndSubmit` method from `polkadot-api` (PAPI). The SDK handles routing the signing request to Desktop, which renders a signing modal and forwards to the [Polkadot App](/reference/apps/hosts/polkadot-app/).
 
 `@parity/product-sdk-signer` provides only the signer interface; chain connectivity uses `polkadot-api` directly. Set up your PAPI client separately:
 

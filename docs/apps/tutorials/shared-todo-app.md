@@ -23,9 +23,9 @@ What you will build, and which package carries each part:
 
 ![The Shared Todo Board running inside Polkadot Desktop, with the connected account in the header, a synced todo list, and the latest snapshot CID in the footer](/images/apps/tutorials/shared-todo-app/shared-todo-app-01.webp)
 
-The guides cover the individual calls. This tutorial focuses on how the layers compose. Statements are capped at 512 bytes and expire after 30 seconds, so they carry individual mutations, not the whole board. The Bulletin Chain holds full snapshots, and a last-write-wins channel announces the latest snapshot's CID. This is the same split Polkadot App's Chat uses: gossip for signaling, Bulletin for content.
+The guides cover the individual calls. This tutorial focuses on how the layers compose. Statements are capped at 512 bytes and expire after 30 seconds, so they carry individual mutations, not the whole board. The Bulletin Chain holds full snapshots, and a last-write-wins channel announces the latest snapshot's CID. This is the same split [Polkadot App](/reference/apps/hosts/polkadot-app/)'s Chat uses: gossip for signaling, Bulletin for content.
 
-The code in this tutorial is confirmed working with Polkadot Desktop, `@parity/product-sdk` v0.11.0, and `@parity/product-sdk-statement-store` v0.4.4.
+The code in this tutorial is confirmed working with [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/), `@parity/product-sdk` v0.11.0, and `@parity/product-sdk-statement-store` v0.4.4.
 
 ## Prerequisites
 
@@ -156,7 +156,7 @@ Then walk the same checks this tutorial's reference app was verified with:
 
 ## Ship It
 
-The board runs from `localhost` inside your host container. The remaining step is making it a real, discoverable Product. [Deploy Your App](/apps/deploy-your-app/) walks through bundling, publishing, and registering a `.dot` name for it. Once it is live, the same bundle opens in Polkadot Desktop and on Polkadot Web at `https://<name>.dot.li` in any browser.
+The board runs from `localhost` inside your host container. The remaining step is making it a real, discoverable Product. [Deploy Your App](/apps/deploy-your-app/) walks through bundling, publishing, and registering a `.dot` name for it. Once it is live, the same bundle opens in Polkadot Desktop and on [Polkadot Web](/reference/apps/hosts/polkadot-web/) at `https://<name>.dot.li` in any browser.
 
 ## Where to Go Next
 

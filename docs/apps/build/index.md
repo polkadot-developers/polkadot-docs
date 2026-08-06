@@ -6,14 +6,14 @@ categories: Apps
 
 # Build
 
-The Build section is a cookbook of focused recipes, one per [`product-sdk`](https://github.com/paritytech/product-sdk){target=\_blank} package; each recipe takes a single capability and walks you from an empty project to working Product code. They apply no matter how you started: a [Quick Start](/apps/quick-start/) deploy (RevX or CLI) or a project you [set up yourself](#set-up-your-project). Pick the capability your Product needs, in any order; the recipes are ordered by how little they ask of you, and the first one requires no account and no tokens.
+The Build section is a cookbook of focused recipes, one per [`product-sdk`](/apps/product-sdk/) package; each recipe takes a single capability and walks you from an empty project to working Product code. They apply no matter how you started: a [Quick Start](/apps/quick-start/) CLI deploy or a project you [set up yourself](#set-up-your-project). Pick the capability your Product needs, in any order; the recipes are ordered by how little they ask of you, and the first one requires no account and no tokens.
 
-!!! tip "Full API reference"
-    Each recipe walks one path through a package. For the complete `product-sdk` surface (every package, class, and method), see the [Product SDK API reference](https://paritytech.github.io/product-sdk/){target=\_blank}.
+!!! tip "Go deeper on any package"
+    Each recipe walks one path through a package. For the concepts behind a package — what it is, when to use it, and its core types — see its overview in the [Product SDK](/apps/product-sdk/) section. For the complete surface (every class and method), see the [Product SDK API reference](https://paritytech.github.io/product-sdk/){target=\_blank}.
 
 ## Set Up Your Project
 
-Every guide assumes a Product project running locally in [Polkadot Desktop](/apps/get-started/). The steps below apply no matter how you bootstrapped your Product: a [Quick Start](/apps/quick-start/) deploy (RevX or CLI) or a project created from scratch.
+Every guide assumes a Product project running locally in [Polkadot Desktop](/apps/get-started/). The steps below apply no matter how you bootstrapped your Product: a [Quick Start](/apps/quick-start/) CLI deploy or a project created from scratch.
 
 1. Scaffold a project. Any framework that serves on `localhost` works; this example uses Next.js:
 
@@ -90,6 +90,14 @@ Your Product is now running inside the Polkadot Desktop sandbox, served from you
 
     [:octicons-arrow-right-24: Persist Data Locally](/apps/build/persist-data-locally/)
 
+-   <span class="badge advanced">Advanced</span> **Deploy and Integrate a Smart Contract**
+
+    ---
+
+    Your Product needs enforced, shared on-chain logic: a leaderboard, a registry, an escrow. Deploy a PolkaVM contract to Asset Hub and call it by name from your frontend.
+
+    [:octicons-arrow-right-24: Deploy and Integrate a Smart Contract](/apps/build/deploy-a-smart-contract/)
+
 </div>
 
 ## The product-sdk Packages
@@ -98,19 +106,20 @@ Each guide is built around one _primary_ package and weaves in _utility_ package
 
 |      Package      |                                                                                                                    What it does                                                                                                                     |                                     Guide                                      |
 |:-----------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------:|
-|  `chain-client`   |                                                A typed, host-routed client for reading on-chain storage, constants, and account state across one or more chains, with no RPC infrastructure to run.                                                 |              [Read On-Chain Data](/apps/build/read-chain-state/)               |
-|     `signer`      |                                             Derives product-scoped accounts and requests signatures, routing every approval to the user's Polkadot App. Your Product signs without ever handling keys.                                              |          [Sign and Submit Transactions](/apps/build/sign-and-submit/)          |
-|  `cloud-storage`  | A high-level client for the [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/){target=\_blank}, Polkadot's content-addressed storage. Uploads and retrieves data by CID, with chunking, manifests, and authorization handled for you. |            [Store Data on Chain](/apps/build/store-data-on-chain/)             |
-| `statement-store` | A pub/sub client for the [Statement Store](/reference/apps/infrastructure/statement-store/){target=\_blank}: publish and subscribe to signed, short-lived statements gossiped peer-to-peer off-chain. Ideal for real-time signaling between users.  | [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/) |
-|  `local-storage`  |                                                       A per-Product, per-device key-value store backed by the Host, for preferences, drafts, and cached values that persist across sessions.                                                        |           [Persist Data Locally](/apps/build/persist-data-locally/)            |
+|  [`chain-client`](/apps/product-sdk/chain-client/)   |                                                A typed, host-routed client for reading on-chain storage, constants, and account state across one or more chains, with no RPC infrastructure to run.                                                 |              [Read On-Chain Data](/apps/build/read-chain-state/)               |
+|     [`signer`](/apps/product-sdk/signer/)      |                                             Derives product-scoped accounts and requests signatures, routing every approval to the user's [Polkadot App](/reference/apps/hosts/polkadot-app/). Your Product signs without ever handling keys.                                              |          [Sign and Submit Transactions](/apps/build/sign-and-submit/)          |
+|  [`cloud-storage`](/apps/product-sdk/cloud-storage/)  | A high-level client for the [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/){target=\_blank}, Polkadot's content-addressed storage. Uploads and retrieves data by CID, with chunking, manifests, and authorization handled for you. |            [Store Data on Chain](/apps/build/store-data-on-chain/)             |
+| [`statement-store`](/apps/product-sdk/statement-store/) | A pub/sub client for the [Statement Store](/reference/apps/infrastructure/statement-store/){target=\_blank}: publish and subscribe to signed, short-lived statements gossiped peer-to-peer off-chain. Ideal for real-time signaling between users.  | [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/) |
+|  [`local-storage`](/apps/product-sdk/local-storage/)  |                                                       A per-Product, per-device key-value store backed by the Host, for preferences, drafts, and cached values that persist across sessions.                                                        |           [Persist Data Locally](/apps/build/persist-data-locally/)            |
+|    [`contracts`](/apps/product-sdk/contracts/)    |                             Typed calls to `pallet-revive` (PolkaVM) smart contracts on Asset Hub, resolved by name from a `cdm.json` manifest, for enforced shared on-chain logic and state.                              |    [Deploy and Integrate a Smart Contract](/apps/build/deploy-a-smart-contract/)    |
 
-These five anchor the current recipes because their surfaces are stable. Other packages in the SDK (`contracts`, `keys`, `crypto`, `host`) will get recipes of their own as their surfaces stabilize.
+These packages anchor the current recipes because their surfaces are stable. Other packages in the SDK ([`keys`](/apps/product-sdk/keys/), `crypto`, [`host`](/apps/product-sdk/host/)) will get recipes of their own as their surfaces stabilize.
 
 The guides also use these utility packages where relevant:
 
-- **`tx`**: Builds, signs, and tracks the lifecycle of transactions (used alongside `signer`).
+- **[`tx`](/apps/product-sdk/tx/)**: Builds, signs, and tracks the lifecycle of transactions (used alongside [`signer`](/apps/product-sdk/signer/)).
 - **`address`**: Encodes, decodes, and validates SS58 addresses.
-- **`descriptors`**: Provides typed chain metadata for the `chain-client` Bring Your Own Descriptors path.
+- **`descriptors`**: Provides typed chain metadata for the [`chain-client`](/apps/product-sdk/chain-client/) Bring Your Own Descriptors path.
 - **`host`**: Provides low-level access to the Host API (for example, the preimage manager used for sponsored uploads).
 
 ## Umbrella or Individual Packages
@@ -121,3 +130,5 @@ Every guide works with either install style; choose based on your needs:
 - **Individual packages**: `npm install @parity/product-sdk-cloud-storage` (and so on). Install only what you use to keep your bundle smaller and your dependencies explicit.
 
 Import paths are identical either way, so you can start with the umbrella package and switch to individual packages later as a bundle-size optimization.
+
+For the full tour of the SDK — `createApp`, the package family, React bindings, and testing without a Host — see the [Product SDK overview](/apps/product-sdk/).

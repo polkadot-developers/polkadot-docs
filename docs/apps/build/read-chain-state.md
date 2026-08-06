@@ -18,7 +18,7 @@ Before starting, ensure you have:
 
 - A Polkadot Product project running locally (see [Set Up Your Project](/apps/build/#set-up-your-project)) with a TypeScript toolchain
 - Node.js 20 or later with ESM support (`@parity/product-sdk-chain-client` is ESM only)
-- Polkadot Desktop to run your Product inside a host container (see [Install Desktop and Pair](/apps/get-started/))
+- [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/) to run your Product inside a host container (see [Install Desktop and Pair](/apps/get-started/))
 
 !!! note
     You do not need funded accounts to read chain state. Reads are unsigned and require only a running host container.

@@ -20,7 +20,7 @@ This guide covers the [Bulletin Chain](/reference/apps/infrastructure/bulletin-c
     - **Statement Store**: Gossip-distributed, short-lived (default 30s TTL), allowance-gated. Real-time signaling between users: chat messages, presence, typing indicators. See [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/).
 
 !!! note "Network"
-    The flows on this page target Paseo Next, the default environment in Polkadot Desktop development builds. If you switched environments during setup, select the matching network from the environment selector in Polkadot Desktop.
+    The flows on this page target Paseo Next, the default environment in [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/) development builds. If you switched environments during setup, select the matching network from the environment selector in Polkadot Desktop.
 
 ## Prerequisites
 

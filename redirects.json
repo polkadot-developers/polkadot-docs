@@ -1,6 +1,10 @@
 {
   "data": [
     {
+      "key": "/apps/quick-start-cli/",
+      "value": "/apps/quick-start/"
+    },
+    {
       "key": "/chain-interactions/accounts/",
       "value": "/chain-interactions/accounts/create-account/"
     },

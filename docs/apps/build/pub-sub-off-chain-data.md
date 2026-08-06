@@ -19,13 +19,13 @@ This guide covers the [Statement Store](/reference/apps/infrastructure/statement
     - **Bulletin Chain**: Content-addressed, on-chain, retained ~2 weeks by default and renewable. Content readers fetch later by hash: profile photos, published articles, app bundles. See [Store Data on Chain](/apps/build/store-data-on-chain/).
     - **Statement Store** (this page): Gossip-distributed, short-lived (default 30s TTL), allowance-gated. Real-time signaling between users: chat messages, presence, typing indicators, multiplayer state.
 
-The Statement Store and Bulletin Chain compose well: Polkadot App's Chat uses the Statement Store for signaling (who's online, session handshakes) and the Bulletin Chain for the encrypted message content. Many Products follow the same split: Statement Store for ephemeral state, Bulletin Chain for content that needs to survive longer than a session.
+The Statement Store and Bulletin Chain compose well: [Polkadot App](/reference/apps/hosts/polkadot-app/)'s Chat uses the Statement Store for signaling (who's online, session handshakes) and the Bulletin Chain for the encrypted message content. Many Products follow the same split: Statement Store for ephemeral state, Bulletin Chain for content that needs to survive longer than a session.
 
 ## Prerequisites
 
 Before starting, ensure you have:
 
-- Completed [Install Desktop and Pair](/apps/get-started/) so you have a paired Polkadot Desktop and a signer for product-scoped accounts
+- Completed [Install Desktop and Pair](/apps/get-started/) so you have a paired [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/) and a signer for product-scoped accounts
 - A Statement Store allowance for your account; the People Chain's `pallet-statement-store` gates submissions on a per-account allowance (`max_count` live statements and `max_size` total bytes)
 - A Polkadot Product project running locally (see [Set Up Your Project](/apps/build/#set-up-your-project) if you don't have one yet)
 

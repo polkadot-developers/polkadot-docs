@@ -1,114 +1,137 @@
 ---
-title: Quick Start with RevX
-description: Generate and publish a Polkadot Product from the browser with RevX App Builder, then sign the final .dot deployment with the Polkadot App.
+title: Quick Start
+description: Install playground-cli, pair it with the Polkadot App, build your Product, and deploy it to a live .dot name from the terminal.
 categories: Apps
-toggle:
-  group: apps-quick-start
-  canonical: true
-  variant: revx
-  label: Web IDE
 ---
 
-# Quick Start with RevX
+# Quick Start
 
-Generate and publish a Polkadot Product in the browser with RevX App Builder. RevX gives you a browser-based IDE, scaffolds a Product from a natural-language prompt, and publishes it to a `.dot` name after you sign the final step with the Polkadot App.
+Deploy a Polkadot Product from your terminal with playground-cli. The `pg` command pairs with your [Polkadot App](/reference/apps/hosts/polkadot-app/), builds your Product, uploads the bundle, and publishes it to a `.dot` name. No local host setup is required to reach a live deployment.
 
-This route does not require a local development environment. By the end, you will have configured an AI provider in App Builder, generated a Polkadot Product from a prompt, inspected the generated code, and published it to `.dot`.
+The CLI is the command-line counterpart to [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/): Desktop runs published Products by their `.dot` names; `pg` takes a project on disk and turns it into one. By the end of this guide, you will have a Product live at its own `.dot` address, reachable in any browser through the `.dot.li` gateway.
 
 ## Prerequisites
 
 Before starting, make sure you have:
 
-- The [Polkadot App](/apps/) installed on your phone with an account created; it signs the final publish step.
-- An API key for an AI provider supported by App Builder, such as OpenAI or Anthropic.
+- The [Polkadot App](/apps/) installed on your phone with an account created; it pairs with `pg` and signs the publish step.
+- A terminal with `curl` available and permission to install CLI tools in your user shell environment.
+- A Polkadot Product project on disk with a package-manager build command.
 
-## Open RevX
+!!! note "CLI version"
+    The CLI is in active development, and breaking changes between versions are expected. If a command below no longer matches, check this page's last update against the latest [playground-cli release](https://github.com/paritytech/playground-cli/releases).
 
-Open [RevX](https://revx.dev/){target=\_blank} in your browser. RevX is a browser-based IDE; you will use the App Builder track to scaffold a Polkadot Product end to end.
+## Install the CLI
 
-![RevX IDE landing view showing the main workspace](/images/apps/quick-start/revx/revx-01.webp)
+1. Run the installer:
 
-## Open App Builder
+    ```bash
+    curl -fsSL https://raw.githubusercontent.com/paritytech/playground-cli/main/install.sh | bash
+    ```
 
-From the sidebar, select **App Builder**. App Builder is RevX's track for generating Polkadot Products using AI-assisted workflows.
+2. Open a new shell, or `source` your RC file, and verify the install:
 
-![RevX sidebar with the App Builder option highlighted](/images/apps/quick-start/revx/revx-02.webp)
+    ```bash
+    pg --version
+    ```
 
-## Create a New App
+!!! note "Command aliases"
+    The installer registers two interchangeable commands: `playground` (canonical) and `pg` (short alias). This guide uses `pg` throughout.
 
-Click **Create App** to start a new project. RevX automatically installs the required dependencies and initializes the project environment so you can move straight into configuration and prompting.
+## Initialize
 
-![RevX App Builder showing the Create App action and the initialized project environment](/images/apps/quick-start/revx/revx-03.webp)
+`pg init` installs toolchain dependencies and pairs the CLI with your signer. It is safe to re-run; existing installs and sessions are detected and skipped.
 
-After clicking **Create App**, you will see a loading screen while the IDE initializes the project environment.
+```bash
+pg init
+```
 
-![RevX App Builder showing the loading screen while the IDE initializes the project environment](/images/apps/quick-start/revx/revx-04.webp)
-
-!!! note
-    Initial setup may take a moment while dependencies install. Wait for the environment to finish initializing before configuring the builder.
-
-Once the environment is initialized, you will see a minimal app scaffolded in the editor and running in the terminal.
-
-![RevX App Builder showing the minimal app scaffolded in the editor and running in the terminal](/images/apps/quick-start/revx/revx-05.webp)
-
-## Configure the Builder
-
-From the App Builder view, click the **Settings** icon to open the AI configuration panel.
-
-![RevX App Builder settings icon](/images/apps/quick-start/revx/revx-06.webp)
-
-Configure the following:
-
-- **AI provider**: The backend service that powers code generation.
-- **API key**: The credential for your AI provider.
-- **Model**: The specific model to use from the selected provider.
-
-![RevX App Builder configuration panel showing API key, AI provider, and model fields](/images/apps/quick-start/revx/revx-07.webp)
-
-These settings let the IDE generate applications using the selected AI backend. You can change them at any time if you want to switch providers or models.
-
-## Generate an App
-
-Use the chat interface to describe the app you want to build. RevX generates the application structure and code automatically based on your prompt.
-
-!!! example "Example prompt"
-    Build a Product that shows the balance of Alice (a standard Substrate dev account)
-
-After you submit the prompt, the IDE produces the project files and scaffolds the app for you to review.
-
-![RevX chat interface with a prompt entered and the generated app structure on the right](/images/apps/quick-start/revx/revx-08.webp)
+--8<-- 'code/apps/quick-start/cli/termynal-init.html'
 
 !!! tip
-    Keep prompts concrete and scoped. Short, specific prompts tend to produce app structures that are easier to review and iterate on.
+    Toolchain install runs in parallel with the login step, so you can scan the QR code while dependencies download.
 
-## Inspect the Generated Code
+!!! note "Signer modes"
+    - **Mobile signer** (`--signer phone`, default): Pairs with the Polkadot App via QR code. Required for `pg init` and recommended for any deploy you intend to keep.
+    - **Dev-only signer** (`--signer dev`): No phone needed; uses shared development keys (for example, `--suri //Alice`). The deployed `.dot` Product will be owned by the shared dev account, not by you.
 
-Once generation completes, open the generated files in the editor to review what was produced. You can continue iterating on the application from within RevX: refine the prompt, edit code directly, or layer additional changes through the chat interface.
+## Build
 
-![RevX editor showing the generated app source files open for inspection](/images/apps/quick-start/revx/revx-09.webp)
+`pg build` auto-detects and runs your project build.
 
-## Publish to `.dot`
+```bash
+pg build
+```
 
-When your app is ready, click **Publish to .dot** to deploy the application to the Polkadot ecosystem. The publish action takes the app you generated in RevX and makes it available under a `.dot` name.
+--8<-- 'code/apps/quick-start/cli/termynal-build.html'
 
-![RevX App Builder showing the Publish to .dot action](/images/apps/quick-start/revx/revx-10.webp)
+## Deploy
 
-After clicking **Start Deploy**, you will be asked to sign the transaction with your Polkadot App.
+`pg deploy` runs the full pipeline: build the frontend, upload artifacts to the Polkadot Bulletin Chain, and register a `.dot` domain via DotNS. Before building, it always runs your package manager's install step to keep dependencies in sync.
 
-![RevX App Builder showing the transaction signing prompt](/images/apps/quick-start/revx/revx-11.webp)
+```bash
+# Interactive - pg prompts for signer, domain, and build directory
+pg deploy
 
-After signing the transaction, you will see the deployment progress in the terminal. Your Product is now live under its `.dot` name. Open it in Polkadot Desktop, or on Polkadot Web at `https://<name>.dot.li` in any browser.
+# Dev signer - no phone needed (the deployed Product is owned by the shared dev account)
+pg deploy --signer dev --domain my-app
+```
+
+--8<-- 'code/apps/quick-start/cli/termynal-deploy.html'
+
+!!! note
+    `pg deploy` includes a memory watchdog that aborts the deploy if the process exceeds 4 GB RSS. If you hit this limit, set `DOT_MEMORY_TRACE=1` alongside `DOT_DEPLOY_VERBOSE=1` to capture per-second RSS and heap samples.
+
+For the full interactive deploy walkthrough, including the domain-name rules, contract redeploys, and the confirmation summary, see [Deploy Your App](/apps/deploy-your-app/).
+
+??? note "More CLI commands"
+
+    - **`pg mod`**: Clones a moddable app from the Playground registry so you can customize and redeploy it as your own Product. Only apps that opted into `--moddable` at deploy time are listed. Pass a domain label, such as `my-app` or `my-app.dot`, to clone directly, or omit it to open an interactive picker showing every moddable app.
+
+        ```bash
+        pg mod [domain]
+        ```
+
+    - **`pg logout`**: Signs out of the paired account and clears session files under `~/.polkadot-apps/`. A no-op if you are not signed in.
+
+        ```bash
+        pg logout
+        ```
+
+    - **`pg update`**: Updates `pg` to the latest version from the GitHub releases page.
+
+        ```bash
+        pg update
+        ```
+
+You have deployed a Polkadot Product. To keep building it with your own editor and toolchain, head to the Build guides; they open with [project setup](/apps/build/#set-up-your-project) so Polkadot Desktop can load your Product from `localhost` while you iterate with live reload.
 
 ## Where to Go Next
 
 <div class="grid cards" markdown>
 
+-   <span class="badge learn">Learn</span> **Product SDK**
+
+    ---
+
+    Understand the SDK that powers your Product: what each package does and how the pieces fit together.
+
+    [:octicons-arrow-right-24: Product SDK](/apps/product-sdk/)
+
 -   <span class="badge guide">Guide</span> **Build Guides**
 
     ---
 
-    Set up the local dev loop, then add capabilities to your Product: signing, on-chain reads, decentralized storage, off-chain pub/sub, and local persistence.
+    Set up the local dev loop, then add capabilities to your Product: signing, on-chain reads, decentralized storage, off-chain pub/sub, local persistence, and smart contracts.
 
     [:octicons-arrow-right-24: Open Build Guides](/apps/build/)
+
+-   <span class="badge guide">Guide</span> **Deploy Your App**
+
+    ---
+
+    The full deploy flow in depth: build the bundle, register a `.dot` name, publish to the playground, and go live on the Bulletin Chain.
+
+    [:octicons-arrow-right-24: Deploy Your App](/apps/deploy-your-app/)
 
 </div>

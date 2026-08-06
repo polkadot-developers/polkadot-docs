@@ -14,7 +14,7 @@ To build and test, your account needs two things on TestNet: a balance of [PAS](
 
 Before getting started, ensure you have:
 
-- Completed the [Install Polkadot Desktop and Pair](/apps/get-started/) guide so Polkadot Desktop is paired with your signer
+- Completed the [Install Polkadot Desktop and Pair](/apps/get-started/) guide so [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/) is paired with your signer
 
 ## Get Tokens
 

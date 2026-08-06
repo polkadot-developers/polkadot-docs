@@ -18,11 +18,11 @@ The Polkadot App is your wallet, identity, and signer: the center of everything 
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> **Deploy a Product in Under 15 Minutes**
+-   <span class="badge guide">Guide</span> **Deploy a Product from the Terminal**
 
     ---
 
-    Go from nothing to a live `.dot` Product: in your browser with RevX, or from the terminal with the CLI. No local environment to set up.
+    Go from nothing to a live `.dot` Product with the `playground` CLI: pair with your phone, build, and deploy. No local host setup to reach a live deployment.
 
     [:octicons-arrow-right-24: Quick Start](/apps/quick-start/)
 
@@ -62,11 +62,12 @@ Polkadot Apps is a complete environment for building Web3 decentralized applicat
 
 **Decentralized hosting**: Your bundle lives on a decentralized cloud storage provider. Your `.dot` name lives in a decentralized name service. There is no centralized hosting provider, no DNS service, no platform in the middle. Users fetch your Product directly and verify it themselves.
 
-**Product SDK**: The Product SDK covers what you would otherwise integrate yourself:
+**Product SDK**: The [Product SDK](/apps/product-sdk/) covers what you would otherwise integrate yourself:
 
 - **Chain access**: Query state and submit transactions through the Host. No RPC servers to operate; signing prompts open on the user's phone.
 - **Decentralized storage**: Upload files, get a permanent content-addressed URL.
 - **Real-time signed messaging**: Pub/sub between users of your Product via the [Statement Store](/reference/apps/infrastructure/statement-store/), every message verifiable.
+- **Smart contracts**: Deploy and call `pallet-revive` contracts on Asset Hub, resolved by name and typed from a manifest.
 - **Privacy-preserving payments**: Request, top up, track status. Built on [Coinage](/reference/apps/infrastructure/pop/pallet-coinage/).
 - **Chat**: Rooms, bots, interactive action buttons.
 - **Identity**: Derived per-Product accounts, plus optional [Proof of Personhood](/reference/apps/infrastructure/pop/) gating.

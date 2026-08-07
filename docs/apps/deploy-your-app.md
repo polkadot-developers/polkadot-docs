@@ -15,8 +15,8 @@ This page covers how to take a finished Polkadot Product live with the `playgrou
 A deploy is really four stages, and `playground deploy` walks you through all of them in one flow:
 
 - **Build**: Compile your Product into a static bundle of files (HTML, JS, CSS, assets) with `playground build`.
-- **Register**: Reserve a `.dot` name for your Product through DotNS, the on-chain name service. This is the address people use to reach it.
-- **Publish**: Optionally list your Product in the public playground directory so others can discover it. Deploying without publishing keeps it reachable at its `.dot` address but unlisted.
+- **Register**: Reserve a `.dot` name for your Product through DotNS, the on-chain name service. This is the address people use to reach it. See [Register a `.dot` Domain](/apps/register-dot-domain/).
+- **Publish**: Optionally list your Product in the public playground directory so others can discover it. Deploying without publishing keeps it reachable at its `.dot` address but unlisted. See [List Your App](/apps/list-your-app/).
 - **Deploy**: Upload the bundle to the Bulletin Chain and bind it to your `.dot` name, so any Host can fetch and verify it directly.
 
 If your Product includes a [smart contract](/apps/build/deploy-a-smart-contract/), the deploy flow can redeploy that too, covered in the contract prompt below.

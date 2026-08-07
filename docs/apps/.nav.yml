@@ -4,5 +4,7 @@ nav:
  - 'Get Started': get-started
  - 'Build': build
  - 'Deploy Your App': deploy-your-app.md
+ - 'Register a .dot Domain': register-dot-domain.md
+ - 'List Your App': list-your-app.md
  - 'Product SDK': product-sdk
  - 'Tutorials': tutorials

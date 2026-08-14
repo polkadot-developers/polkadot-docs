@@ -2,9 +2,11 @@ nav:
  - 'Overview': index.md
  - 'Quick Start': quick-start.md
  - 'Get Started': get-started
+ - 'Concepts': concepts
  - 'Build': build
  - 'Deploy Your App': deploy-your-app.md
  - 'Register a .dot Domain': register-dot-domain.md
  - 'List Your App': list-your-app.md
  - 'Product SDK': product-sdk
+ - 'Troubleshooting': troubleshooting.md
  - 'Tutorials': tutorials

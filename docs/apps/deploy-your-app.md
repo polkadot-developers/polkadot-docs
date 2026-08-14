@@ -77,6 +77,9 @@ The CLI presents the following prompts in order:
         your phone signer  ·  signs with your own account</pre></span>
     </div>
 
+    !!! note "Your phone will prompt — check it"
+        With the phone signer, each step waits for you to approve it in the Polkadot App, and there is no push notification announcing that a prompt is waiting. If the deploy appears to stall, open the app and look for a pending approval. See [Accounts and Signing](/apps/concepts/accounts/) for which account the phone signer uses.
+
 5. **Choose a default build directory**:  The folder holding your built site (the files that get uploaded). The default `dist` fits most projects. This example uses `.next` for a Next.js app.
 
     <div class="termynal" data-termynal>
@@ -156,4 +159,43 @@ Either way, the app loads directly from the Bulletin Chain — no central server
 If you chose **yes** at the `publish to the playground?` prompt, your app is also listed in the public playground directory. Open `playground.dot` in Polkadot Desktop browser and your app appears under your `.dot` name, so others can find and open it. If you chose **no** (`DotNS only`, as in this example), the app is still fully deployed and reachable at the URLs above — it just won't be listed in the directory.
 
 !!! tip
-    If your app does not appear immediately, wait a few seconds and refresh. On-chain state propagation can take a short time after the deploy transaction finalizes.
+    If your app does not appear immediately, wait a few seconds and refresh. On-chain state propagation can take a short time after the deploy transaction finalizes, and the web gateway resolves your `.dot` name through an in-browser light client. A `curl` or script against the `.dot.li` URL returns a generic gateway shell rather than your app — open it in a real browser. If it still does not resolve, see [Troubleshooting](/apps/troubleshooting/#the-app-does-not-appear-right-after-deploy).
+
+## Keep Your App Available
+
+Data published to the Bulletin Chain, including your app bundle, is retained for about two weeks by default and must be renewed to persist beyond that. The exact retention window is still being finalized, so treat "about two weeks" as provisional. Renewal is a separate transaction that pushes the expiration forward without moving the data or changing its CID.
+
+Renewal needs a bookkeeping handle from the original write: the `(block, index)` pair from the `Stored` event. That pair is captured at write time and cannot be cheaply recovered afterward, so record it when you publish.
+
+!!! warning "The CLI deploy does not surface the renewal handle yet"
+    `playground deploy` prints only the `app cid` and `ipfs cid`, not the block number and index that renewal needs, so a bundle deployed through the CLI has no captured renewal handle today. If your app must outlive the retention window, publish its data through the programmatic `CloudStorageClient.store(...).send()` path, which returns the `(block, index)` pair, and track it. See [Store Data on Chain](/apps/build/store-data-on-chain/) for the store receipt and renewal flow, and the [Bulletin Chain renewal reference](/reference/apps/infrastructure/bulletin-chain/renewal/) for the mechanics.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> **Register a `.dot` Domain**
+
+    ---
+
+    The naming step in depth: availability rules, the commit-reveal flow, and managing your name.
+
+    [:octicons-arrow-right-24: Register a `.dot` Domain](/apps/register-dot-domain/)
+
+-   <span class="badge guide">Guide</span> **List Your App**
+
+    ---
+
+    Make your Product discoverable in the Playground and Browse directories.
+
+    [:octicons-arrow-right-24: List Your App](/apps/list-your-app/)
+
+-   <span class="badge guide">Guide</span> **Store Data on Chain**
+
+    ---
+
+    The store receipt, chunking, authorization, and the renewal handle in full.
+
+    [:octicons-arrow-right-24: Store Data on Chain](/apps/build/store-data-on-chain/)
+
+</div>

@@ -10,13 +10,21 @@ Deploy a Polkadot Product from your terminal with playground-cli. The `pg` comma
 
 The CLI is the command-line counterpart to [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/): Desktop runs published Products by their `.dot` names; `pg` takes a project on disk and turns it into one. By the end of this guide, you will have a Product live at its own `.dot` address, reachable in any browser through the `.dot.li` gateway.
 
-## Prerequisites
+## Before You Start
 
-Before starting, make sure you have:
+Get these in order before your first deploy. The last two are easy to skip and fail silently later, so do not leave them out:
 
-- The [Polkadot App](/apps/) installed on your phone with an account created; it pairs with `pg` and signs the publish step.
-- A terminal with `curl` available and permission to install CLI tools in your user shell environment.
-- A Polkadot Product project on disk with a package-manager build command.
+1. **Install the [Polkadot App](/apps/)** on your phone and create an account. It pairs with `pg` and signs your deploy.
+2. **Have a terminal** with `curl` available and permission to install CLI tools in your user shell.
+3. **Have a Product project** on disk with a package-manager build command.
+4. **Fund your account with PAS** from the [faucet](/apps/get-started/get-testnet-tokens/). PAS pays transaction fees and the `.dot` name deposit.
+5. **Get a Bulletin Chain storage authorization** for the account that will sign. Without it, uploads are rejected at deploy time even when your balance is fine — a prerequisite that surfaces only as a failed publish. See [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/).
+
+!!! warning "Fund the account that actually signs"
+    The PAS balance and the storage authorization are both per account, and the account that signs your deploy may not be the one you expect. If a deploy fails with `no allowance set for account`, see [Accounts and Signing](/apps/concepts/accounts/) and the [troubleshooting entry](/apps/troubleshooting/#no-allowance-set-for-account). Account mapping to an EVM address is handled for you for the product account you deploy with; a smart contract needs its signing account mapped explicitly, covered in [Deploy and Integrate a Smart Contract](/apps/build/deploy-a-smart-contract/).
+
+!!! note "What a first deploy costs"
+    In one test run, taking an app live cost about 10.4 PAS: roughly 10 PAS for the `.dot` name and about 0.4 PAS for a 2.6 KB upload, with each on-chain step taking around a minute. Name cost depends on length and tier, so treat these as a ballpark. On TestNet, funding is rarely the constraint.
 
 !!! note "CLI version"
     The CLI is in active development, and breaking changes between versions are expected. If a command below no longer matches, check this page's last update against the latest [playground-cli release](https://github.com/paritytech/playground-cli/releases).
@@ -78,6 +86,9 @@ pg deploy --signer dev --domain my-app
 ```
 
 --8<-- 'code/apps/quick-start/cli/termynal-deploy.html'
+
+!!! note "Your phone will prompt — check it"
+    With the phone signer, each on-chain step waits for you to approve it in the Polkadot App, and no push notification announces the prompt. If the deploy seems to pause (including a deliberate ~60-second wait while your `.dot` name is registered), open the app and approve the pending request. See [Troubleshooting](/apps/troubleshooting/#the-app-seems-frozen-after-an-action).
 
 !!! note
     `pg deploy` includes a memory watchdog that aborts the deploy if the process exceeds 4 GB RSS. If you hit this limit, set `DOT_MEMORY_TRACE=1` alongside `DOT_DEPLOY_VERBOSE=1` to capture per-second RSS and heap samples.

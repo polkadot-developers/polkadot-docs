@@ -10,7 +10,7 @@ categories: Apps
 
 Some capabilities let your Product act on chain on the user's behalf, so the user has to grant them first. Your Product requests these grants — _allowances_, or resource allocations — from the Host, and the user approves them. A prompt such as "sign and submit on-chain transactions on your behalf" is one of these grants.
 
-Allowances are granted **per account**. This is why they are closely tied to [Accounts and Signing](/apps/concepts/accounts/): granting an allowance to one account does nothing for a different one.
+Allowances are granted **per account**. This is why they are closely tied to [Accounts and Signing](/apps/concepts/accounts/): granting an allowance to one account does nothing for a different one, and a misdirected grant surfaces as [`no allowance set for account`](/apps/troubleshooting/#no-allowance-set-for-account).
 
 ## What Your Product Can Request
 

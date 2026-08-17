@@ -103,7 +103,7 @@ Chunked uploads are not atomic. Each chunk is a separate transaction, and the ma
 
 ## Get Authorization
 
-The Bulletin Chain has no token balance for storage; every account needs an explicit authorization. You should already have one from [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/); if not, request your storage quota directly from the [Bulletin Chain authorization page](https://paritytech.github.io/polkadot-bulletin-chain/authorizations).
+The Bulletin Chain has no token balance for storage; every account needs an explicit authorization. You should already have one from [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/); if not, request your storage quota directly from the [Bulletin Chain authorization page](https://paritytech.github.io/polkadot-bulletin-chain/authorizations). If a store is rejected, confirm the authorization is on the account that signs: see [uploads are rejected](/apps/troubleshooting/#uploads-are-rejected-or-host-storage-unavailable) in troubleshooting.
 
 !!! note
     The `authorize_account` extrinsic requires Root origin. You cannot self-authorize programmatically; on Polkadot TestNet, use the [Bulletin Chain authorization page](https://paritytech.github.io/polkadot-bulletin-chain/authorizations) before submitting any `store` extrinsic from your Product.

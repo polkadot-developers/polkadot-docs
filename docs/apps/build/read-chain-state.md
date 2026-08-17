@@ -206,7 +206,7 @@ Use `client.destroy()` for normal cleanup and reserve `destroyAll()` for full-pr
 - The `paseo` and `devnet` environments are the only presets wired up today. Other `Environment` values throw at runtime.
 - The package is ESM only; your Product's build pipeline must support ESM imports.
 - Descriptors are imported by subpath (`@parity/product-sdk-descriptors/paseo-bulletin`), not from the package root. Bundlers that do not honor `exports` subpaths will fail to resolve them.
-- Host-routed reads require a host container. Development builds outside a Host can use the direct WebSocket fallback.
+- Host-routed reads require a host container. Development builds outside a Host can use the direct WebSocket fallback; otherwise the client [throws outside a Host](/apps/troubleshooting/#connecting-to-a-chain-throws-outside-a-host).
 - Reactive subscriptions (watching a storage item over time) are not covered on this page. A dedicated page on subscriptions will follow.
 
 ## Where to Go Next

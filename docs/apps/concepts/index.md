@@ -6,7 +6,7 @@ categories: Apps
 
 # Concepts
 
-The [Build guides](/apps/build/) and [Deploy Your App](/apps/deploy-your-app/) walk you through tasks. This section explains the ideas underneath them — the ones worth understanding before you spend an afternoon debugging the wrong thing.
+The [Build guides](/apps/build/) and [Deploy Your App](/apps/deploy-your-app/) walk you through tasks. This section explains the ideas underneath them.
 
 <div class="grid cards" markdown>
 

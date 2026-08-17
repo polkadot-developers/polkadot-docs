@@ -57,7 +57,7 @@ From there, the CLI registers the name on chain. If you deploy with the phone si
 !!! note "The ~60-second pause is expected"
     Between reserve and finalize, the deploy pauses for about 60 seconds. This is DotNS's commit-reveal window: the commitment is submitted first, then the name is claimed a short time later, so a watcher cannot see your desired name and race to register it ahead of you. The deploy is not stuck.
 
-Names are first come, first served. If the CLI reports that a name is already registered, choose another. With the dev signer, these steps run without phone prompts; the deployed name is owned by the shared dev account rather than by you.
+Names are first come, first served. If the CLI reports that a name is [already registered](/apps/troubleshooting/#the-name-is-already-registered), choose another; if it reports the name [requires Proof of Personhood](/apps/troubleshooting/#the-name-requires-proof-of-personhood), pick a longer base name. With the dev signer, these steps run without phone prompts; the deployed name is owned by the shared dev account rather than by you.
 
 ## Update the Bundle a Name Points At
 

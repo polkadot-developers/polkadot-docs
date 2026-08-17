@@ -32,7 +32,7 @@ The Polkadot Faucet distributes free PAS tokens to developers.
 
 ## Service Allowances
 
-Some Polkadot infrastructure services use a separate allowance-based access model. These allowances are independent of your token balance; even with enough PAS to cover fees, a missing allowance will cause the service to reject your request.
+Some Polkadot infrastructure services use a separate allowance-based access model. These allowances are independent of your token balance; even with enough PAS to cover fees, a missing allowance will cause the service to reject your request. Allowances are granted per account, so a missing or misdirected one surfaces as [`no allowance set for account`](/apps/troubleshooting/#no-allowance-set-for-account) or [rejected uploads](/apps/troubleshooting/#uploads-are-rejected-or-host-storage-unavailable); see [Accounts and Signing](/apps/concepts/accounts/) for granting them to the account that actually signs.
 
 ??? note "Service Allowances: Bulletin Chain Storage"
 

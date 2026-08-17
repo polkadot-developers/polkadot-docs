@@ -123,7 +123,7 @@ To remove a key or clear all storage for your Product, access `app.localStorage`
 - Storage is not synced across devices. Values written on one Host instance are not visible on another.
 - `app.localStorage.clear()` and `store.remove()` are scoped to your Product. You cannot read or modify another Product's keys.
 - React hooks (`useLocalStorage`, `useLocalStorageString`) are only available via the umbrella package `@parity/product-sdk`. The standalone `@parity/product-sdk-local-storage` package exposes no React hooks.
-- `createLocalKvStore()` requires a Host backend. Running outside a host container, it throws `Host storage unavailable`; there is no browser `localStorage` fallback. Run your Product inside [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/) to use local storage.
+- `createLocalKvStore()` requires a Host backend. Running outside a host container, it throws `Host storage unavailable`; there is no browser `localStorage` fallback. Run your Product inside [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/) to use local storage. See [`Host storage unavailable`](/apps/troubleshooting/#uploads-are-rejected-or-host-storage-unavailable) in troubleshooting.
 
 ## Where to Go Next
 

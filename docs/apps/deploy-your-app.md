@@ -78,7 +78,7 @@ The CLI presents the following prompts in order:
     </div>
 
     !!! note "Your phone will prompt — check it"
-        With the phone signer, each step waits for you to approve it in the Polkadot App, and there is no push notification announcing that a prompt is waiting. If the deploy appears to stall, open the app and look for a pending approval. See [Accounts and Signing](/apps/concepts/accounts/) for which account the phone signer uses.
+        With the phone signer, each step waits for you to approve it in the Polkadot App, and there is no push notification announcing that a prompt is waiting. If the deploy appears to stall — including a deliberate pause while your `.dot` name is registered — open the app and look for a pending approval. See the troubleshooting entries for [an unanswered phone prompt](/apps/troubleshooting/#the-app-seems-frozen-after-an-action) and [the registration pause](/apps/troubleshooting/#the-deploy-pauses-for-about-a-minute), and [Accounts and Signing](/apps/concepts/accounts/) for which account the phone signer uses.
 
 5. **Choose a default build directory**:  The folder holding your built site (the files that get uploaded). The default `dist` fits most projects. This example uses `.next` for a Next.js app.
 
@@ -99,6 +99,8 @@ The CLI presents the following prompts in order:
     <span data-ty><pre>  domain
       › myproject57█</pre></span>
     </div>
+
+    If registration is rejected, the name may already be [taken](/apps/troubleshooting/#the-name-is-already-registered) or [reserved for accounts with Proof of Personhood](/apps/troubleshooting/#the-name-requires-proof-of-personhood). See [Register a `.dot` Domain](/apps/register-dot-domain/) for the full name rules.
 
 7. **Publish to the playground**: Choose **yes** to list your app in the public Polkadot Playground so others can find and open it. Choose **no** to still deploy it to your `.dot` address, but keep it unlisted.
 
@@ -169,6 +171,15 @@ Renewal needs a bookkeeping handle from the original write: the `(block, index)`
 
 !!! warning "The CLI deploy does not surface the renewal handle yet"
     `playground deploy` prints only the `app cid` and `ipfs cid`, not the block number and index that renewal needs, so a bundle deployed through the CLI has no captured renewal handle today. If your app must outlive the retention window, publish its data through the programmatic `CloudStorageClient.store(...).send()` path, which returns the `(block, index)` pair, and track it. See [Store Data on Chain](/apps/build/store-data-on-chain/) for the store receipt and renewal flow, and the [Bulletin Chain renewal reference](/reference/apps/infrastructure/bulletin-chain/renewal/) for the mechanics.
+
+## If a Deploy Fails
+
+Deploy-time issues have named fixes in [Troubleshooting](/apps/troubleshooting/):
+
+- [The deploy pauses for about a minute](/apps/troubleshooting/#the-deploy-pauses-for-about-a-minute): the DotNS commit-reveal window, not a hang.
+- [The name is already registered](/apps/troubleshooting/#the-name-is-already-registered) or [requires Proof of Personhood](/apps/troubleshooting/#the-name-requires-proof-of-personhood): choose a different or longer name.
+- [`no allowance set for account`](/apps/troubleshooting/#no-allowance-set-for-account) or [uploads are rejected](/apps/troubleshooting/#uploads-are-rejected-or-host-storage-unavailable): the signing account is missing PAS or a storage authorization.
+- [The app does not appear right after deploy](/apps/troubleshooting/#the-app-does-not-appear-right-after-deploy): on-chain propagation and gateway resolution take a moment.
 
 ## Where to Go Next
 

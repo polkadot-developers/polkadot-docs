@@ -11,7 +11,7 @@ categories: Apps
 Two TestNet environments are available while you build Polkadot Products, and they are separate networks, not two names for one. The [Product SDK](/apps/product-sdk/) exposes both as presets:
 
 - **`paseo` (Paseo Next v2)**: The environment Polkadot Desktop development builds default to. It is a preview network and the successor to Paseo Next v1.
-- **`devnet`**: A public Paseo TestNet, run by the Polkadot Community Foundation.
+- **`devnet`**: A third-party public Paseo TestNet, run by the [Polkadot Community Foundation](https://docs.polkadotcommunity.foundation/).
 
 Both expose the same core chains a Product uses — Asset Hub, the Bulletin Chain, and Individuality — so most Product code runs on either without changes. The production `polkadot` and `kusama` presets are not live yet; requesting them throws.
 

@@ -210,7 +210,7 @@ try {
 - **`TimeoutError`**: The signing session expired. Treat this the same as a rejection.
 
 !!! tip "Design for async latency"
-    Signing is asynchronous because the Polkadot App runs on a separate device. Show a non-blocking pending state rather than freezing the interface, and make sure your retry path is idempotent in case the user attempts the same action twice.
+    Signing is asynchronous because the Polkadot App runs on a separate device. Show a non-blocking pending state rather than freezing the interface, and make sure your retry path is idempotent in case the user attempts the same action twice. There is no push notification when the phone is waiting, so a stalled-looking action is often an [unanswered prompt](/apps/troubleshooting/#the-app-seems-frozen-after-an-action).
 
 ## Test Without a Host
 

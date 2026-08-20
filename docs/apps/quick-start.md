@@ -1,10 +1,15 @@
 ---
-title: Quick Start
+title: Quick Start with the CLI
 description: Install playground-cli, pair it with the Polkadot App, build your Product, and deploy it to a live .dot name from the terminal.
 categories: Apps
+toggle:
+  group: apps-quick-start
+  canonical: true
+  variant: cli
+  label: CLI
 ---
 
-# Quick Start
+# Quick Start with the CLI
 
 Deploy a Polkadot Product from your terminal with playground-cli. The `pg` command pairs with your [Polkadot App](/reference/apps/hosts/polkadot-app/), builds your Product, uploads the bundle, and publishes it to a `.dot` name. No local host setup is required to reach a live deployment.
 

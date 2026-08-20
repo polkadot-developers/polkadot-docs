@@ -6,14 +6,14 @@ categories: Apps
 
 # Build
 
-The Build section is a cookbook of focused recipes, one per [`product-sdk`](/apps/product-sdk/) package; each recipe takes a single capability and walks you from an empty project to working Product code. They apply no matter how you started: a [Quick Start](/apps/quick-start/) CLI deploy or a project you [set up yourself](#set-up-your-project). Pick the capability your Product needs, in any order; the recipes are ordered by how little they ask of you, and the first one requires no account and no tokens.
+The Build section is a cookbook of focused recipes, one per [`product-sdk`](/apps/product-sdk/) package; each recipe takes a single capability and walks you from an empty project to working Product code. They apply no matter how you started: a [Quick Start](/apps/quick-start/) deploy (RevX or CLI) or a project you [set up yourself](#set-up-your-project). Pick the capability your Product needs, in any order; the recipes are ordered by how little they ask of you, and the first one requires no account and no tokens.
 
 !!! tip "Go deeper on any package"
     Each recipe walks one path through a package. For the concepts behind a package — what it is, when to use it, and its core types — see its overview in the [Product SDK](/apps/product-sdk/) section. For the complete surface (every class and method), see the [Product SDK API reference](https://paritytech.github.io/product-sdk/){target=\_blank}.
 
 ## Set Up Your Project
 
-Every guide assumes a Product project running locally in [Polkadot Desktop](/apps/get-started/). The steps below apply no matter how you bootstrapped your Product: a [Quick Start](/apps/quick-start/) CLI deploy or a project created from scratch.
+Every guide assumes a Product project running locally in [Polkadot Desktop](/apps/get-started/). The steps below apply no matter how you bootstrapped your Product: a [Quick Start](/apps/quick-start/) deploy (RevX or CLI) or a project created from scratch.
 
 1. Scaffold a project. Any framework that serves on `localhost` works; this example uses Next.js:
 

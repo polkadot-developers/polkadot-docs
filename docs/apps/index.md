@@ -18,11 +18,11 @@ The Polkadot App is your wallet, identity, and signer: the center of everything 
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> **Deploy a Product from the Terminal**
+-   <span class="badge guide">Guide</span> **Deploy Your First Product**
 
     ---
 
-    Go from nothing to a live `.dot` Product with the `playground` CLI: pair with your phone, build, and deploy. No local host setup to reach a live deployment.
+    Go from nothing to a live `.dot` Product: generate one in the browser with RevX, or deploy from the terminal with the CLI. No local host setup to reach a live deployment.
 
     [:octicons-arrow-right-24: Quick Start](/apps/quick-start/)
 

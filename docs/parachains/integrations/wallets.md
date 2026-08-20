@@ -45,6 +45,14 @@ Wallet types fall into two categories based on their connection to the internet:
 
     [:octicons-arrow-right-24: Reference](https://www.subwallet.app/){target=\_blank}
 
+-   __Vultisig__
+
+    ---
+
+    A seedless, self-custodial, multi-chain wallet secured by MPC/TSS threshold signatures — no seed phrase and no single point of failure. Supports 36 chains, including DOT send and receive, with a Fast Vault (2-of-2) for everyday use and a Secure Vault (2-of-3) for stronger security. Available on iOS, Android, Chrome extension, desktop (Windows, macOS, Linux), and web. Open source.
+
+    [:octicons-arrow-right-24: Reference](https://vultisig.com/){target=\_blank}
+
 </div>
 
 ## Cold Wallets

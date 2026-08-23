@@ -28,7 +28,7 @@ joblib==1.4.2
 livereload==2.7.1
 lunr==0.8.0
 MarkupSafe==3.0.2
-nltk==3.9.1
+nltk==3.10.3
 Pillow==11.3.0
 polib==1.2.0
 python-dateutil==2.9.0.post0

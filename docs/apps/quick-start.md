@@ -15,6 +15,9 @@ Deploy a Polkadot Product from your terminal with playground-cli. The `pg` comma
 
 The CLI is the command-line counterpart to [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/): Desktop runs published Products by their `.dot` names; `pg` takes a project on disk and turns it into one. By the end of this guide, you will have a Product live at its own `.dot` address, reachable in any browser through the `.dot.li` gateway.
 
+!!! tip "Building with an AI agent?"
+    Point your coding agent at the right skills, repos, and docs first, so it writes idiomatic Product code instead of generic boilerplate. See [Set Up Your AI Agent](/apps/get-started/set-up-your-ai-agent/) for a paste-ready setup prompt.
+
 ## Before You Start
 
 Get these in order before your first deploy. The last two are easy to skip and fail silently later, so do not leave them out:

@@ -1,6 +1,6 @@
 ---
 title: Networks
-description: The two TestNet environments a Polkadot Product can target — Paseo Next v2 and the devnet — how they relate, and the behavioral differences that affect your app.
+description: The two TestNet environments a Polkadot Product can target — Paseo Next v2 and the devnet — how they relate and the differences that affect your app.
 categories: Apps
 ---
 
@@ -13,7 +13,7 @@ Two TestNet environments are available while you build Polkadot Products, and th
 - **`paseo` (Paseo Next v2)**: The environment Polkadot Desktop development builds default to. It is a preview network and the successor to Paseo Next v1.
 - **`devnet`**: A third-party public Paseo TestNet, run by the [Polkadot Community Foundation](https://docs.polkadotcommunity.foundation/).
 
-Both expose the same core chains a Product uses — Asset Hub, the Bulletin Chain, and Individuality — so most Product code runs on either without changes. The production `polkadot` and `kusama` presets are not live yet; requesting them throws.
+Both expose the same core chains a Product uses — Asset Hub, the Bulletin Chain, and Individuality (the chain that carries identity, personhood, and the Statement Store, which the reference docs also call the People Chain) — so most Product code runs on either without changes. The production `polkadot` and `kusama` presets are not live yet; requesting them throws.
 
 ## What Differs
 

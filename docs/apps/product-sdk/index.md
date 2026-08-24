@@ -16,12 +16,12 @@ Fallible operations return a typed `Result` instead of throwing, so you check `.
 
 ## Two Ways to Use the SDK
 
-The SDK ships as one umbrella package that re-exports everything, plus individual per-capability packages you can install on their own:
+The SDK ships as one umbrella package that re-exports most capabilities, plus individual per-capability packages you can install on their own:
 
-- **Umbrella package**: `npm install @parity/product-sdk`. One dependency that re-exports every capability and provides the `createApp` entry point. Convenient when your Product uses several capabilities and bundle size is not a concern.
+- **Umbrella package**: `npm install @parity/product-sdk`. One dependency that provides the `createApp` entry point and re-exports most capabilities through subpaths such as `@parity/product-sdk/cloud-storage`. Convenient when your Product uses several capabilities and bundle size is not a concern. A few packages, notably `statement-store`, are not re-exported and are always installed on their own.
 - **Individual packages**: `npm install @parity/product-sdk-chain-client @parity/product-sdk-signer` (and so on). Install only what you use to keep your bundle smaller and your dependencies explicit.
 
-Import paths are identical either way, so you can start with the umbrella package and switch to individual packages later as a bundle-size optimization.
+The import specifiers differ between the two: the umbrella exposes subpaths like `@parity/product-sdk/cloud-storage`, while the standalone package is `@parity/product-sdk-cloud-storage`. Switching styles means updating your imports.
 
 ## A Minimal Product
 

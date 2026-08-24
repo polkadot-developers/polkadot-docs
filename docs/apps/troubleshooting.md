@@ -1,6 +1,6 @@
 ---
 title: Troubleshooting
-description: Named fixes for the errors and dead ends developers hit while building and deploying Polkadot Products — allowances, unannounced phone prompts, deploy pauses, and more.
+description: Named fixes for the errors developers hit building and deploying Polkadot Products — allowances, unannounced phone prompts, deploy pauses, and more.
 categories: Apps
 ---
 
@@ -56,6 +56,6 @@ Named entries for the failures developers hit most while building and deploying 
 
 ## Connecting to a Chain Throws Outside a Host
 
-**Cause**: The [`chain-client`](/apps/product-sdk/chain-client/) routes connections through the Host and has no standalone WebSocket fallback in production, so it throws when no Host provider is present.
+**Cause**: The [`chain-client`](/apps/product-sdk/chain-client/) routes every connection through the Host and has no direct-WebSocket fallback, so it throws when no Host provider is present.
 
-**Resolution**: Run your Product inside a Host, or use the documented development fallback for out-of-Host builds. See [Read On-Chain Data](/apps/build/read-chain-state/).
+**Resolution**: Run your Product inside a Host. For out-of-Host development and tests, use the SDK's testing fakes rather than a live connection. See [Read On-Chain Data](/apps/build/read-chain-state/).

@@ -132,6 +132,6 @@ Two limits worth designing around:
 
     The full `product-sdk` surface beyond this recipe: every package, class, and method.
 
-    [:octicons-arrow-right-24: Visit Site](https://paritytech.github.io/product-sdk/){target=\_blank}
+    [:octicons-arrow-right-24: Visit Site](https://paritytech.github.io/product-sdk/)
 
 </div>

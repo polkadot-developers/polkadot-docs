@@ -1,6 +1,6 @@
 ---
 title: Accounts and Signing
-description: Which component holds which account when you build and deploy a Polkadot Product — the phone, the Host, and the CLI — and why an allowance can land on the wrong account.
+description: Which component holds which account when you build a Polkadot Product — phone, Host, and CLI — and why an allowance can land on the wrong one.
 categories: Apps
 ---
 

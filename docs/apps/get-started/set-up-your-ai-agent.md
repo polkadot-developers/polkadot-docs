@@ -26,9 +26,10 @@ Web) and is addressed by a .dot name.
 Toolchain:
 - Build app code with @parity/product-sdk (TypeScript). Install its skills first.
 - Deploy with the playground CLI (`pg` / `playground`).
-- For smart contracts, use the Contract Dependency Manager (`cdm`); contracts are
-  Rust compiled to PolkaVM on pallet-revive (Asset Hub). Never target EVM/Solidity
-  toolchains or legacy ink!/Wasm.
+- For smart contracts, use the Contract Dependency Manager (`cdm`); contracts compile
+  to PolkaVM on pallet-revive (Asset Hub). Author them in Rust or Solidity (Solidity
+  via resolc, Foundry, or Hardhat). Do not target mainnet-EVM/Ethereum tooling or
+  legacy ink!/Wasm.
 
 Docs (read before answering; append `.md` to any page URL for raw markdown):
 - Guides: https://docs.polkadot.com/apps/
@@ -47,7 +48,9 @@ Rules to follow:
 - Sign with a product account: getProductAccount(...).getSigner(). Approvals happen
   on the user's phone. On Paseo Next v2, do not use Polkadot.js-style signing (the
   AsPgas signed extension breaks it) — use the product-account signer.
-- Fallible SDK calls return a Result; check `.ok` before reading `.value`.
+- Most fallible SDK calls return a Result; check `.ok` before reading `.value`. The
+  exception is a contract read: `contract.method.query()` returns `{ success, value }`,
+  so check `.success`, not `.ok`.
 - Storage: put files/blobs on the Bulletin Chain (content-addressed by CID, retained
   ~2 weeks, renewable). Keep bulk data OUT of contracts; store only small enforced
   state on-chain. Service allowances are granted per account.
@@ -75,12 +78,12 @@ For other agents (Cursor, Codex, Cline, Windsurf, or a custom harness), clone `p
 
 ## Start From a Template
 
-If you scaffold a Product from a Playground template — for example by cloning a moddable app with `pg mod` — the project already ships agent-instruction files, so your agent picks up the conventions automatically:
+The official Playground starter template ships agent-instruction files, so an agent picks up the conventions automatically:
 
 - `CLAUDE.md` for Claude Code, `AGENTS.md` for Codex and other `AGENTS.md`-aware tools.
 - `.clinerules`, `.windsurfrules`, and `.github/copilot-instructions.md` for Cline, Windsurf, and GitHub Copilot.
 
-Run the project's setup script (`./setup.sh`) once to install dependencies and fetch the latest skills into the project.
+Coverage varies by app: a moddable app you clone with `pg mod` may ship all of these, only `CLAUDE.md`, or none, so check the project. If it includes a `setup.sh`, `pg mod` runs it for you to install dependencies and fetch the latest skills; many apps do not ship one.
 
 ## Give Your Agent the Docs
 

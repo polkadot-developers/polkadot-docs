@@ -1,6 +1,6 @@
 ---
 title: Register a .dot Domain
-description: Register a .dot domain with DotNS through the playground CLI so your published Polkadot Product has a name, covering name rules, the commit-reveal flow, and managing your name.
+description: Register a .dot domain with DotNS through the playground CLI, covering name rules, the commit-reveal flow, and managing your name.
 categories: Apps
 page_badges:
   tutorial_badge: Intermediate

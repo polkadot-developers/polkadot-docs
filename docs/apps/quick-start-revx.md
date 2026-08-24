@@ -23,7 +23,7 @@ Before starting, make sure you have:
 
 ## Open RevX
 
-Open [RevX](https://revx.dev/){target=\_blank} in your browser. RevX is a browser-based IDE; you will use the App Builder track to scaffold a Polkadot Product end to end.
+Open [RevX](https://revx.dev/) in your browser. RevX is a browser-based IDE; you will use the App Builder track to scaffold a Polkadot Product end to end.
 
 ![RevX IDE landing view showing the main workspace](/images/apps/quick-start/revx/revx-01.webp)
 

@@ -1,6 +1,6 @@
 ---
 title: Statement Store
-description: Overview of the Product SDK statement-store package — publish and subscribe to signed, short-lived statements gossiped off-chain for real-time state between users.
+description: Overview of the Product SDK statement-store package — publish and subscribe to signed, short-lived statements gossiped off-chain for real-time state.
 categories: Apps
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Deploy and Integrate a Smart Contract
-description: Add a PolkaVM smart contract to your Polkadot Product with the Contract Dependency Manager, deploy it to Asset Hub, and call it from your frontend with product-sdk.
+description: Add a PolkaVM smart contract to your Polkadot Product — deploy it to Asset Hub with the Contract Dependency Manager and call it from your frontend.
 categories: Apps
 page_badges:
   tutorial_badge: Advanced
@@ -12,7 +12,7 @@ page_badges:
 
 Some Products need on-chain logic and shared state that no single user owns: a leaderboard, a registry, an escrow, a game whose rules must be enforced for everyone. That is what a smart contract gives you. This guide adds a [PolkaVM](/reference/glossary/#polkadot-virtual-machine-pvm) contract to a Product, deploys it to Asset Hub, and calls it from your frontend with the [`@parity/product-sdk-contracts`](https://paritytech.github.io/product-sdk/) package.
 
-Contracts on Polkadot run as PolkaVM bytecode through the `pallet-revive` runtime on Asset Hub. You author them in Rust, and the [Contract Dependency Manager](https://github.com/paritytech/contract-dependency-manager) (`cdm`) builds, deploys, and registers them, the same tool the `playground` CLI runs for you when it deploys a Product that has contracts. `cdm` fills the role npm fills for libraries, but for on-chain contracts: it publishes each contract under a global name (`@scope/name`) in an on-chain registry, so your frontend resolves it by name instead of hardcoding an address.
+Contracts on Polkadot run as PolkaVM bytecode through the `pallet-revive` runtime on Asset Hub. You author them in Rust or Solidity, and the [Contract Dependency Manager](https://github.com/paritytech/contract-dependency-manager) (`cdm`) builds, deploys, and registers them, the same tool the `playground` CLI runs for you when it deploys a Product that has contracts. `cdm` fills the role npm fills for libraries, but for on-chain contracts: it publishes each contract under a global name (`@scope/name`) in an on-chain registry, so your frontend resolves it by name instead of hardcoding an address.
 
 !!! note "Contracts are optional"
     Many Products never need a contract. If all you need is durable content or real-time state between users, [Store Data on Chain](/apps/build/store-data-on-chain/) and [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/) cover those without any contract at all. Reach for a contract when you need enforced, shared on-chain logic.
@@ -22,15 +22,15 @@ Contracts on Polkadot run as PolkaVM bytecode through the `pallet-revive` runtim
 Before starting, ensure you have:
 
 - A Polkadot Product project running locally. See [Set Up Your Project](/apps/build/#set-up-your-project).
-- The [Polkadot App](/apps/) installed and paired, so you can sign the deploy on your phone. See [Install Desktop and Pair](/apps/get-started/).
-- PAS funds, an Asset Hub account mapping, and a Bulletin Chain authorization for your account. See [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/). Deploying a contract writes to Asset Hub (fees) and publishes metadata to the Bulletin Chain (authorization).
-- A Rust toolchain on your workstation. Contract builds compile Rust to PolkaVM, so unlike the frontend capabilities, this step needs a local toolchain rather than a browser alone.
+- An account for `cdm` to sign with. `cdm` signs contract deploys from the CLI, not through the Polkadot App; run `cdm init` to generate a keypair for the network, or pass your own with `--suri`.
+- PAS funds, an Asset Hub account mapping, and a Bulletin Chain authorization for that account. See [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/). Deploying a contract writes to Asset Hub (fees) and publishes metadata to the Bulletin Chain (authorization).
+- A local toolchain for your contract language. Contracts compile to PolkaVM, so unlike the frontend capabilities, this step needs a workstation rather than a browser alone.
 
 ## How Contracts Fit Together
 
 Four things happen when you publish a contract, and `cdm` handles all of them in one flow:
 
-- **Build**: Your Rust contract compiles to PolkaVM bytecode targeting `pallet-revive`.
+- **Build**: Your Rust or Solidity contract compiles to PolkaVM bytecode targeting `pallet-revive` (Solidity via `resolc`).
 - **Deploy**: The bytecode is instantiated on Asset Hub at a deterministic address.
 - **Publish metadata**: The contract's ABI and docs are uploaded to the Bulletin Chain, addressed by CID.
 - **Register**: The contract's global name (`@scope/name`) is recorded in the on-chain `ContractRegistry`, mapping the name to its address and metadata CID.
@@ -71,6 +71,9 @@ mod counter {
 
 Rename the package from `@example/counter` to a scope you control (for example, `@my-app/counter`) before deploying. The scaffolded name is a placeholder, and because registration is first-writer-owns, you want your own scope.
 
+!!! tip "Prefer Solidity?"
+    `cdm` also ships Solidity templates (`foundry-counter` and `hardhat-counter`) that compile to PolkaVM via `resolc`. Scaffold one the same way, for example `cdm template foundry-counter`. The deploy and frontend steps below are identical regardless of the contract language.
+
 ## Install the Toolchain
 
 `cdm setup` installs the exact Rust nightly and the `cargo-pvm-contract` build tool the contract compiler needs. Run it once per workstation:
@@ -82,32 +85,34 @@ cdm setup
 !!! tip
     Pass `cdm setup --check` to verify the toolchain without installing anything.
 
-## Set the Target Network
-
-Open `cdm.json` and confirm the `registry` field points at the `ContractRegistry` for your target network. This address is network-specific; using the wrong one publishes your contract to the wrong registry. The manifest starts out with only your dependencies declared:
-
-```json title="cdm.json (before deploy)"
-{
-  "registry": "0xf62c2ece29cd8df2e10040ecfa5a894a5c5d9cb0",
-  "dependencies": {
-    "@my-app/counter": "latest"
-  }
-}
-```
-
 ## Build and Deploy
 
-Deploy the contract with `cdm deploy`, selecting your target network with `-n`. This builds the bytecode, deploys it to Asset Hub, uploads the ABI to the Bulletin Chain, and registers the name, all in one signed flow:
+Deploy with `cdm deploy`, selecting the target network with `-n`. This builds the bytecode, deploys it to Asset Hub, uploads the ABI to the Bulletin Chain, and registers the name, all in one flow:
 
 ```bash
-cdm deploy -n paseo
+cdm deploy -n paseo --suri "INSERT_ACCOUNT_SECRET_URI"
 ```
 
-Sign the deploy with your phone when prompted. When it completes, `cdm` writes the real deployment details back into `cdm.json`, so the manifest now carries the address, ABI, and metadata CID your frontend needs:
+`cdm` signs from the CLI with the account you pass as `--suri`, or with the keypair `cdm init` generated for the network. It does not sign through the Polkadot App or a phone. The `-n` preset also selects the registry for the network, so you do not set a registry address by hand.
 
-```json title="cdm.json (after deploy)"
+!!! warning "Always pass a signer you control"
+    With no `--suri` and no `cdm init` account, `cdm` falls back to the shared `//Alice` development key. Because registration is first-writer-owns, deploying that way parks your contract name on a public key anyone can use. Pass `--suri` (or run `cdm init` first) so the name and contract belong to you.
+
+!!! note "Deploying alongside your Product"
+    When you deploy the whole Product with [`playground deploy`](/apps/deploy-your-app/), the CLI runs this contract step for you. At the `did you change your smart contracts?` prompt, choose `yes` and the CLI redeploys the contracts and rebuilds the site to match. Use `cdm deploy` directly when you want to iterate on the contract on its own, without redeploying the frontend.
+
+## Add the Contract to Your Manifest
+
+Your frontend resolves contracts from `cdm.json`, and `cdm deploy` does not write that file — `cdm install` does. After deploying, install your contract to write its address and ABI into the manifest. Installing works the same for a contract someone else published, so pass whichever `@scope/name` you need:
+
+```bash
+cdm install @my-app/counter -n paseo
+```
+
+`cdm install` resolves the name against the on-chain registry, fetches the ABI from the Bulletin Chain, and writes the entry into `cdm.json`:
+
+```json title="cdm.json"
 {
-  "registry": "0xf62c2ece29cd8df2e10040ecfa5a894a5c5d9cb0",
   "dependencies": {
     "@my-app/counter": "latest"
   },
@@ -122,18 +127,7 @@ Sign the deploy with your phone when prompted. When it completes, `cdm` writes t
 }
 ```
 
-!!! note "Deploying alongside your Product"
-    When you deploy the whole Product with [`playground deploy`](/apps/deploy-your-app/), the CLI runs this contract step for you. At the `did you change your smart contracts?` prompt, choose `yes` and the CLI redeploys the contracts and rebuilds the site to match. Use `cdm deploy` directly when you want to iterate on the contract on its own, without redeploying the frontend.
-
-## Consume a Published Contract
-
-To depend on a contract someone else already published, add it to `cdm.json` and install it. `cdm install` resolves the name against the on-chain registry, fetches the ABI from the Bulletin Chain, and writes the address and ABI into your manifest:
-
-```bash
-cdm install @some-scope/their-contract -n paseo
-```
-
-This is the same manifest your own deploy produces, so the frontend integration below works identically whether you deployed the contract or installed it.
+The `shared-counter` template ships its `cdm.json` already populated for the example contracts, so you only run `cdm install` when you deploy your own contract or add someone else's.
 
 ## Call the Contract From Your Frontend
 
@@ -143,12 +137,15 @@ Install the contracts package (or use the umbrella `@parity/product-sdk`):
 npm install @parity/product-sdk-contracts @parity/product-sdk-chain-client @parity/product-sdk-descriptors
 ```
 
-Build a `ContractManager` from the manifest and the host-routed chain client, then get a typed handle to your contract by name. Reads use `query` (a dry run that costs nothing and does not sign), and state changes use `tx` (which signs through the Host):
+Build a `ContractManager` from the manifest and the host-routed chain client, map your signing account once (every contract write fails with `AccountNotMapped` until you do), then get a typed handle by name. Reads use `query` (a dry run — check `.success`), and writes use `tx` (which signs through the Host — check `.ok`):
 
 ```typescript
 import { createChainClient } from '@parity/product-sdk-chain-client';
 import { paseo_asset_hub } from '@parity/product-sdk-descriptors/paseo-asset-hub';
-import { ContractManager } from '@parity/product-sdk-contracts';
+import {
+  ContractManager,
+  ensureContractAccountMapped,
+} from '@parity/product-sdk-contracts';
 import cdmJson from './cdm.json';
 
 const client = await createChainClient({ chains: { assetHub: paseo_asset_hub } });
@@ -160,26 +157,32 @@ const manager = ContractManager.fromClient(
   { signerManager },
 );
 
+// pallet-revive requires each signing account to be mapped once.
+await ensureContractAccountMapped(manager.getRuntime(), account.address, signer);
+
 const counter = manager.getContract('@my-app/counter');
 
-// Read: a dry run against the best block. No signature, no fee.
-const { value } = await counter.getCount.query();
+// Read: a dry run. Check .success before reading .value.
+const count = await counter.getCount.query();
+if (count.success) {
+  console.log(count.value);
+}
 
-// Write: signs through the Host and submits. Returns a Result — check .ok.
-const result = await counter.increment.tx();
+// Write: signs through the Host. Returns a Result — check .ok.
+const result = await counter.increment.tx({ signer });
 if (!result.ok) {
   console.error(result.error.message);
 }
 ```
 
-The `signerManager` is the same [`SignerManager`](/apps/build/sign-and-submit/) you set up for signing. Contract transactions are signed by your Product-scoped account, so the write above routes to the user's phone for approval exactly like any other transaction your Product submits.
+The `signerManager` is the same [`SignerManager`](/apps/build/sign-and-submit/) you set up for signing, and `account` and `signer` come from it. Contract writes are signed by your Product-scoped account, so they route to the user's phone for approval like any other transaction. For the full frontend surface, see [Contracts](/apps/product-sdk/contracts/).
 
-!!! note "Reads never throw, writes return a Result"
-    `query` defaults to the best block and does not throw on a revert, so it is safe to call on render. `tx` returns a `Result` rather than throwing; always check `.ok` before assuming the state change landed.
+!!! note "query returns a status, tx returns a Result"
+    `query` is a dry run that does not throw on a revert; branch on `.success`, because on failure `.value` holds the dispatch-error payload, not your data. `tx` returns a `Result`; check `.ok` before assuming the write landed.
 
 ## Redeploy After a Contract Change
 
-Contracts are immutable once deployed. Changing contract code means deploying a new version: run `cdm deploy -n paseo` again (or choose `yes` at the contract prompt in `playground deploy`). The registry appends a new version under the same name and updates the address in `cdm.json`, so your frontend picks up the new deployment on its next build.
+Contracts are immutable once deployed. Changing contract code means deploying a new version: run `cdm deploy -n paseo --suri ...` again (or choose `yes` at the contract prompt in `playground deploy`). The registry appends a new version under the same name; run `cdm install @my-app/counter -n paseo` afterward to refresh the address and ABI in `cdm.json` so your frontend picks up the new deployment.
 
 Because a redeploy gives your contract a new on-chain address, existing users pointed at the old address keep using the old contract until they load the new bundle. For a contract with live users and stored state, plan the migration deliberately rather than redeploying in place.
 

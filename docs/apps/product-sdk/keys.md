@@ -1,6 +1,6 @@
 ---
 title: Keys
-description: Overview of the Product SDK keys package — derive application-scoped keys, session signers, and product-account addresses without touching the user's seed phrase.
+description: Overview of the Product SDK keys package — derive app-scoped keys, session signers, and product-account addresses without touching the seed phrase.
 categories: Apps
 ---
 

@@ -19,7 +19,7 @@ The skills live inside the [`paritytech/product-sdk`](https://github.com/parityt
 | Skill                                                                                                                       | What It Covers                                                                                                                                                                                                          |
 |:---------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | [`product-sdk-app-builder`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-app-builder) | End-to-end scaffolding and implementation of Polkadot apps using `@parity/product-sdk` packages. Foundational orchestrator skill — reach for this when starting a new project or scaffolding chain interactions.        |
-| [`product-sdk-bulletin`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-bulletin)             | Upload and retrieve data on the Polkadot Bulletin Chain. Covers CID-based content-addressed storage, IPFS gateway access, the `BulletinClient` SDK, batch uploads, and CID computation.                                 |
+| [`product-sdk-cloud-storage`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-cloud-storage)             | Upload and retrieve data on the Polkadot Bulletin Chain. Covers CID-based content-addressed storage, IPFS gateway access, the `CloudStorageClient` SDK, batch uploads, and CID computation.                                 |
 | [`product-sdk-chain-connection`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-chain-connection) | Typed access to Polkadot chains via `@parity/product-sdk-chain-client` and `@parity/product-sdk-descriptors`. Covers preset and BYOD (bring-your-own-descriptors) paths, state queries, and storage subscriptions. |
 | [`product-sdk-contracts`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-contracts)           | Smart contract interaction (PolkaVM / Solidity) on Asset Hub. Covers `ContractManager` with `cdm.json` manifests, ad-hoc `createContract`, `ContractRuntime`, and contract type codegen.                                |
 | [`product-sdk-statement-store`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-statement-store) | Publish and subscribe to ephemeral messages on the Polkadot Statement Store. Covers `StatementStoreClient` lifecycle, host and local connection modes, channels with last-write-wins semantics, and the 512-byte size limit. |
@@ -39,7 +39,7 @@ Skills live under `product-sdk/skills/<skill-name>/` in the cloned directory. Re
 Skills trigger based on context. You can also invoke a skill directly by name before asking a question. For example, before asking the agent for help chunking a large upload to the Bulletin Chain, load the relevant context up front:
 
 ```text
-/product-sdk-bulletin how do I chunk a 50 MB file across multiple transactions?
+/product-sdk-cloud-storage how do I chunk a 50 MB file across multiple transactions?
 ```
 
 The agent now has the SDK's API patterns and best practices loaded before it answers, instead of falling back on generic JavaScript knowledge.

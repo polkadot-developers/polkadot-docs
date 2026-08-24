@@ -67,7 +67,7 @@ Polkadot Apps is a complete environment for building Web3 decentralized applicat
 - **Chain access**: Query state and submit transactions through the Host. No RPC servers to operate; signing prompts open on the user's phone.
 - **Decentralized storage**: Upload files, get a permanent content-addressed URL.
 - **Real-time signed messaging**: Pub/sub between users of your Product via the [Statement Store](/reference/apps/infrastructure/statement-store/), every message verifiable.
-- **Smart contracts**: Deploy and call `pallet-revive` contracts on Asset Hub, resolved by name and typed from a manifest.
+- **Smart contracts**: Call `pallet-revive` contracts on Asset Hub, resolved by name and typed from a manifest (deployed with the Contract Dependency Manager).
 - **Privacy-preserving payments**: Request, top up, track status. Built on [Coinage](/reference/apps/infrastructure/pop/pallet-coinage/).
 - **Chat**: Rooms, bots, interactive action buttons.
 - **Identity**: Derived per-Product accounts, plus optional [Proof of Personhood](/reference/apps/infrastructure/pop/) gating.

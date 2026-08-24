@@ -1,6 +1,6 @@
 ---
 title: Where to Store Data
-description: A decision guide for Polkadot Products — when to use contract storage, decentralized cloud storage, the statement store, or local storage, with the tradeoffs of each.
+description: A decision guide for Polkadot Products — when to use contract storage, cloud storage, the statement store, or local storage, with the tradeoffs.
 categories: Apps
 ---
 

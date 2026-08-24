@@ -1,6 +1,6 @@
 ---
 title: List Your App
-description: Make your published Polkadot Product discoverable by listing it in the Playground directory with the playground CLI, and understand how the Browse catalogue works.
+description: List your published Polkadot Product in the Playground directory with the playground CLI, and understand how the Browse catalogue works.
 categories: Apps
 page_badges:
   tutorial_badge: Intermediate
@@ -36,17 +36,17 @@ Listing is a choice you make during `playground deploy`. At the `publish to the 
 Choosing **no** still deploys your Product to its `.dot` address; it stays unlisted. To skip the prompt, pass the `--playground` flag:
 
 ```bash
-playground deploy --domain my-app --playground
+playground deploy --domain my-product --playground
 ```
 
 With the phone signer, publishing adds one more approval in the Polkadot App, for writing the listing to the Playground registry.
 
 ### Categorize the Listing
 
-Pass `--tag` to file your Product under a category in the directory. The value is one of `social`, `chat`, `defi`, `utility`, `gaming`, `marketplace`, or `irl`. Omit the flag and the CLI prompts you to pick one:
+Pass `--tag` to file your Product under a category in the directory, such as `social`, `gaming`, or `marketplace`. Omit the flag and the CLI prompts you with the categories it currently accepts:
 
 ```bash
-playground deploy --domain my-app --playground --tag gaming
+playground deploy --domain my-product --playground --tag gaming
 ```
 
 ### Let Others Fork Your Product
@@ -54,13 +54,13 @@ playground deploy --domain my-app --playground --tag gaming
 Pass `--moddable` (alongside `--playground`) to mark your Product as one others can clone, customize, and redeploy as their own. A moddable listing records your public repository as its source:
 
 ```bash
-playground deploy --domain my-app --playground --moddable
+playground deploy --domain my-product --playground --moddable
 ```
 
 Anyone can then clone a moddable Product with `pg mod`:
 
 ```bash
-pg mod my-app
+pg mod my-product
 ```
 
 `pg mod` copies a moddable Product from the Playground registry into a local project you can edit and redeploy under your own `.dot` name. Omit the domain to open a picker showing every moddable Product. See the [Quick Start](/apps/quick-start/) for the full `pg mod` reference.

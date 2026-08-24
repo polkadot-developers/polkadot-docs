@@ -1,6 +1,6 @@
 ---
 title: Identity
-description: How identity works for Polkadot Products — the .dot name, the per-app derived account, and Proof of Personhood as three separate identities, and why they stay separate.
+description: The .dot name, the per-app derived account, and Proof of Personhood as three separate identities for a Polkadot Product, and why they stay separate.
 categories: Apps
 ---
 

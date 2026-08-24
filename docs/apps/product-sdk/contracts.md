@@ -1,6 +1,6 @@
 ---
 title: Contracts
-description: Overview of the Product SDK contracts package — typed query, transaction, and batch calls to pallet-revive contracts on Asset Hub, resolved from a cdm.json manifest.
+description: Overview of the Product SDK contracts package — typed query, transaction, and batch calls to pallet-revive contracts on Asset Hub via a cdm.json manifest.
 categories: Apps
 ---
 

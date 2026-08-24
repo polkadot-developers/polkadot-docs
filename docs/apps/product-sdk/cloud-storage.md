@@ -23,7 +23,7 @@ Reach for it when your Product needs content that outlives a session and is addr
 
 - **`CloudStorageClient`**: The main class. Create it with `CloudStorageClient.create({ environment, signer })`, then call `store`, `fetchBytes`, and `fetchJson`.
 - **Content addressing**: Uploads are identified by a CID (CIDv1) derived from their content, not by a path or key. The same bytes always produce the same CID.
-- **`store(data)` builder**: A fluent builder ending in `.send()`, which resolves with the CID, block number, and size. Large payloads are chunked automatically.
+- **`store(data)` builder**: A fluent builder ending in `.send()`, which resolves with a `StoreResult`. Only `size` is always present; `cid`, `blockNumber`, and `extrinsicIndex` are optional. Large payloads are chunked automatically.
 - **Read helpers return a `Result`**: `fetchBytes` and `fetchJson` return a `Result` (check `.ok`); DAG-PB chunked content is reassembled for you unless you opt out.
 - **Authorization pre-flight**: `checkAuthorization` returns an `AuthorizationStatus` with the remaining transactions, bytes, and expiration, and never throws. Uploading requires an [authorization](/apps/get-started/get-testnet-tokens/) on the account.
 - **`createLazySigner(getSigner)`**: A signer wrapper that resolves the underlying signer on each call, so you can build the client before an account is selected.
@@ -75,6 +75,7 @@ if (!status.ok) {
 - Uploading requires a signer and an on-chain storage authorization for the account.
 - `authorizeAccount` is additive and is deliberately not retried; verify the result with `checkAuthorization` before retrying yourself.
 - `verifyStored` needs a known block; it does not scan the whole chain.
+- A chunked upload (large files) returns no `blockNumber` or `extrinsicIndex` — the `(block, index)` pair [renewal](/apps/deploy-your-app/#keep-your-app-available) needs. Capture that pair from a single, unchunked store, or track renewal for large data another way.
 
 ## Where to Go Next
 

@@ -22,8 +22,8 @@ It closes the loop that [Signer](/apps/product-sdk/signer/) and [Chain Client](/
 ## Core Concepts
 
 - **`submitAndWatch(tx, signer, options)`**: Signs, broadcasts, and watches through `signing`, `broadcasting`, `in-block`, and `finalized`. It returns a `Result`, resolving expected failures on the error channel rather than throwing.
-- **`TxResult` and `TxStatus`**: `TxResult` carries the `txHash`, an `ok` flag for on-chain dispatch success, the `block`, and the emitted `events`. `TxStatus` drives the `onStatus` callback for progress UI.
-- **Two success checks**: `result.ok` means the transaction was included; `result.value.ok` means the on-chain dispatch itself succeeded. A transaction can land in a block and still fail at dispatch.
+- **`TxResult` and `TxStatus`**: `TxResult` carries the `txHash`, the `block`, and the emitted `events`. `TxStatus` drives the `onStatus` callback for progress UI.
+- **One `Result` to check**: `result.ok` means the transaction was included and its dispatch succeeded. A dispatch that fails on chain is reported on `result.error` as a `TxDispatchError`, not as a successful result — so you branch on `result.ok`, not on a flag inside the value.
 - **Typed error hierarchy**: `TxError` is the base, with `TxTimeoutError`, `TxDispatchError` (dispatch failed on chain), `TxValidityError` (rejected before inclusion), `TxSigningRejectedError` (the user declined), `TxBatchError`, and `TxDryRunError`.
 - **`batchSubmitAndWatch(calls, api, signer, options)`**: Wraps calls in `Utility.batch_all` by default (or `batch` / `force_batch`) and submits them as one transaction. All calls must target the same chain as the passed API.
 
@@ -68,7 +68,7 @@ const result = await batchSubmitAndWatch(calls, chain.assetHub, signer, {
 ## Limitations
 
 - Expected failures (dispatch error, timeout, signing rejection, validity error) arrive on the `Result` error channel, not as thrown exceptions.
-- Distinguish `result.ok` (the transaction was included) from `result.value.ok` (the dispatch succeeded).
+- A dispatch that fails on chain comes back on `result.error` as `TxDispatchError`; a `result.ok` transaction has both landed in a block and dispatched successfully.
 - The default `waitFor` is `'best-block'`; the default timeout is 300 seconds.
 - Every call in a batch must target the same chain as the passed API; an empty call list returns a `TxBatchError`.
 

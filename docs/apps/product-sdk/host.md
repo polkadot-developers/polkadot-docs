@@ -1,6 +1,6 @@
 ---
 title: Host
-description: Overview of the Product SDK host package — detect the Polkadot Host container and reach its lower-level API surface for accounts, storage, payments, chat, and more.
+description: Overview of the Product SDK host package — detect the Polkadot Host container and reach its lower-level API for accounts, storage, payments, chat, and more.
 categories: Apps
 ---
 

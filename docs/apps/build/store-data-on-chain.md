@@ -127,7 +127,7 @@ The returned `AuthorizationStatus`:
 
 Stored data is retained for roughly two weeks. If your Product needs the data to outlive that window, renew the storage record before it expires.
 
-Renewal needs the `(block, index)` pair from the `Stored` event of the original write. That is where `app.cloudStorage.upload()` runs out of road. `upload()` returns only the CID string. To get the bookkeeping pair, use `CloudStorageClient.store(...).send()` instead, which returns a full `StoreResult` (`cid`, `blockNumber`, `extrinsicIndex`, `size`). Persist `(blockNumber, extrinsicIndex)` for each record you intend to renew.
+Renewal needs the `(block, index)` pair from the `Stored` event of the original write. That is where `app.cloudStorage.upload()` runs out of road. `upload()` resolves with a `Result` whose value is only the CID string — no block or index. To get the bookkeeping pair, use `CloudStorageClient.store(...).send()` instead, which returns a full `StoreResult` (`cid`, `blockNumber`, `extrinsicIndex`, `size`, all but `size` optional). Persist `(blockNumber, extrinsicIndex)` for each record you intend to renew.
 
 As you approach the expiry block (current block + retention period), submit a renewal:
 
@@ -228,6 +228,6 @@ For deeper comparison and the full pallet reference, see [Data Storage Reference
 
     The full `product-sdk` surface beyond this recipe: every package, class, and method.
 
-    [:octicons-arrow-right-24: Visit Site](https://paritytech.github.io/product-sdk/){target=\_blank}
+    [:octicons-arrow-right-24: Visit Site](https://paritytech.github.io/product-sdk/)
 
 </div>

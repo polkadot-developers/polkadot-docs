@@ -257,7 +257,7 @@ if (signResult.ok) {
 
     Reference for the typed PAPI signer interface that `@parity/product-sdk-signer` exposes.
 
-    [:octicons-arrow-right-24: Visit Site](https://papi.how){target=\_blank}
+    [:octicons-arrow-right-24: Visit Site](https://papi.how)
 
 -   <span class="badge external">External</span> **Product SDK API Reference**
 
@@ -265,6 +265,6 @@ if (signResult.ok) {
 
     The full `product-sdk` surface beyond this recipe: every package, class, and method.
 
-    [:octicons-arrow-right-24: Visit Site](https://paritytech.github.io/product-sdk/){target=\_blank}
+    [:octicons-arrow-right-24: Visit Site](https://paritytech.github.io/product-sdk/)
 
 </div>

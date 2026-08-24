@@ -90,7 +90,7 @@ pg build
 pg deploy
 
 # Dev signer - no phone needed (the deployed Product is owned by the shared dev account)
-pg deploy --signer dev --domain my-app
+pg deploy --signer dev --domain my-product
 ```
 
 --8<-- 'code/apps/quick-start/cli/termynal-deploy.html'
@@ -105,7 +105,7 @@ For the full interactive deploy walkthrough, including the domain-name rules, co
 
 ??? note "More CLI commands"
 
-    - **`pg mod`**: Clones a moddable app from the Playground registry so you can customize and redeploy it as your own Product. Only apps that opted into `--moddable` at deploy time are listed. Pass a domain label, such as `my-app` or `my-app.dot`, to clone directly, or omit it to open an interactive picker showing every moddable app.
+    - **`pg mod`**: Clones a moddable app from the Playground registry so you can customize and redeploy it as your own Product. Only apps that opted into `--moddable` at deploy time are listed. Pass a domain label, such as `my-product` or `my-product.dot`, to clone directly, or omit it to open an interactive picker showing every moddable app.
 
         ```bash
         pg mod [domain]

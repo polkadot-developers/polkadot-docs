@@ -1,6 +1,6 @@
 ---
 title: Allowances and Permissions
-description: What the allowances a Polkadot Product requests actually authorize — Statement Store, Bulletin storage, contracts, and auto-signing — their scope, lifetime, and how re-approval works.
+description: What a Polkadot Product's allowances authorize (Statement Store, Bulletin storage, contracts, auto-signing), plus their scope, lifetime, and re-approval.
 categories: Apps
 ---
 

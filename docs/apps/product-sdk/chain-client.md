@@ -1,6 +1,6 @@
 ---
 title: Chain Client
-description: Overview of the Product SDK chain-client package — a typed, host-routed Polkadot API client for reading chain state and building extrinsics across multiple chains.
+description: Overview of the Product SDK chain-client package — a typed, host-routed Polkadot API client for reading chain state and building extrinsics.
 categories: Apps
 ---
 

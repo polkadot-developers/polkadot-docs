@@ -12,12 +12,7 @@ page_badges:
 
 This guide covers the [Statement Store](/reference/apps/infrastructure/statement-store/), a pub/sub primitive on Polkadot's People Chain for real-time signaling between users of your Product. Statements are small, signed payloads that propagate peer-to-peer via the node's gossip layer without entering chain storage, making them the right tool for chat messages, presence indicators, multiplayer cursors, and typing indicators. Submissions are allowance-gated (no fees); reading is permissionless. The guide covers four steps: setting up the client, subscribing to incoming statements, publishing a typed statement, and using a channel for last-write-wins state.
 
-!!! info "Storage options for your Product"
-    The Statement Store is the right layer for short-lived signaling between users. When your data must outlive a session or stay on-device, reach for a different layer instead:
-
-    - **Local KvStore**: Per-Product, per-device key-value. User preferences, drafts, cached values. Not synced across devices. See [Persist Data Locally](/apps/build/persist-data-locally/).
-    - **Bulletin Chain**: Content-addressed, on-chain, retained ~2 weeks by default and renewable. Content readers fetch later by hash: profile photos, published articles, app bundles. See [Store Data on Chain](/apps/build/store-data-on-chain/).
-    - **Statement Store** (this page): Gossip-distributed, short-lived (default 30s TTL), allowance-gated. Real-time signaling between users: chat messages, presence, typing indicators, multiplayer state.
+--8<-- 'text/apps/storage-options.md'
 
 The Statement Store and Bulletin Chain compose well: [Polkadot App](/reference/apps/hosts/polkadot-app/)'s Chat uses the Statement Store for signaling (who's online, session handshakes) and the Bulletin Chain for the encrypted message content. Many Products follow the same split: Statement Store for ephemeral state, Bulletin Chain for content that needs to survive longer than a session.
 

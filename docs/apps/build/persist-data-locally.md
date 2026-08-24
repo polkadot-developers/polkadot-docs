@@ -12,12 +12,7 @@ page_badges:
 
 This guide covers the `@parity/product-sdk-local-storage` package, which provides a `LocalKvStore` for storing and retrieving key-value data between sessions. Use it for device-local data like saved preferences, unsubmitted drafts, or cached responses. Data is scoped to your Product and device; it does not sync across devices or leak between Products on the same Host.
 
-!!! info "Storage options for your Product"
-    `LocalKvStore` is the right tool for device-local, per-Product key-value data. When your data needs to outlive the device or be visible to other users, reach for an on-chain layer instead:
-
-    - **Local KvStore** (this page): Per-Product, per-device key-value. User preferences, drafts, cached values. Not synced across devices.
-    - **Bulletin Chain**: Content-addressed, on-chain, retained ~2 weeks by default and renewable. Content readers fetch later by hash: profile photos, published articles, app bundles. See [Store Data on Chain](/apps/build/store-data-on-chain/).
-    - **Statement Store**: Gossip-distributed, short-lived (default 30s TTL), allowance-gated. Real-time signaling between users: chat messages, presence, typing indicators. See [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/).
+--8<-- 'text/apps/storage-options.md'
 
 ## Prerequisites
 

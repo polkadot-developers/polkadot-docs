@@ -10,7 +10,7 @@ page_badges:
 
 ## Introduction
 
-This page covers how to take a finished Polkadot Product live with the `playground` CLI. By the end, your app bundle will be uploaded to the Bulletin Chain, registered under a `.dot` name, and, if you choose, discoverable in the Polkadot playground.
+This page covers how to take a finished Polkadot Product live with the `playground` CLI. By the end, your app bundle will be uploaded to the Bulletin Chain, registered under a `.dot` name, and, if you choose, discoverable in the Polkadot Playground.
 
 A deploy is really four stages, and `playground deploy` walks you through all of them in one flow:
 

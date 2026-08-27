@@ -8,4 +8,7 @@ nav:
  - 'Local Storage': local-storage.md
  - 'Contracts': contracts.md
  - 'Keys': keys.md
+ - 'Individuality': individuality.md
  - 'Host': host.md
+ - 'Terminal': terminal.md
+ - 'Auth': auth.md

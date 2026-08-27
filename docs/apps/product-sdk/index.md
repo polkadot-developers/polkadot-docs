@@ -25,7 +25,7 @@ The import specifiers differ between the two: the umbrella exposes subpaths like
 
 The umbrella's subpaths are a fixed set: `address`, `chain`, `cloud-storage`, `contracts`, `core`, `crypto`, `host`, `identity`, `individuality`, `local-storage`, `react`, `testing`, and `wallet`. Two of those names do not match their leaf package — `@parity/product-sdk/chain` re-exports `chain-client`, and `@parity/product-sdk/wallet` re-exports `signer`, kept under the older name for compatibility.
 
-Note what is *not* there: `tx`, `keys`, `statement-store`, and `terminal` have no umbrella subpath and are not re-exported from the root, so install those from their own packages even when you are otherwise on the umbrella. The root entry point does re-export the most common handful directly — `createApp`, `SignerManager`, `createChainClient`, `createLocalKvStore`, `CloudStorageClient`, `isInsideContainer`, and the `Result` trio (`ok`, `err`, `isErrorOf`).
+Note what is *not* there: `tx`, `keys`, `statement-store`, `terminal`, and `auth` have no umbrella subpath and are not re-exported from the root, so install those from their own packages even when you are otherwise on the umbrella. The root entry point does re-export the most common handful directly — `createApp`, `SignerManager`, `createChainClient`, `createLocalKvStore`, `CloudStorageClient`, `isInsideContainer`, and the `Result` trio (`ok`, `err`, `isErrorOf`).
 
 ## A Minimal Product
 
@@ -68,15 +68,17 @@ Each capability is its own package. The umbrella re-exports most of them; a few 
 |   [Local Storage](/apps/product-sdk/local-storage/) (`local-storage`)   |             Per-Product, per-device key-value store backed by the Host                            |   [API](https://paritytech.github.io/product-sdk/api/local-storage/)    |
 |      [Contracts](/apps/product-sdk/contracts/) (`contracts`)      |   Typed calls to `pallet-revive` (PolkaVM) contracts on Asset Hub, resolved from a `cdm.json`      |    [API](https://paritytech.github.io/product-sdk/api/contracts/)     |
 |          [Keys](/apps/product-sdk/keys/) (`keys`)         |                Derives application and session keys from the user's accounts                        |       [API](https://paritytech.github.io/product-sdk/api/keys/)       |
+|  [Individuality](/apps/product-sdk/individuality/) (`individuality`) |     Reads personhood standing and usernames on the Individuality chain, and dispatches under a person origin    | [Source](https://github.com/paritytech/product-sdk/tree/main/product-sdk/packages/individuality) |
 |          [Host](/apps/product-sdk/host/) (`host`)         |         Detects the Host container and exposes its lower-level API surface directly                 |       [API](https://paritytech.github.io/product-sdk/api/host/)       |
 
-### Packages Without a Page Yet
+### Command-Line Packages
 
-These ship in the SDK and are usable today, but do not have an overview page in this section. Read their API reference or package README until one lands:
+Two packages are for tools you run *next to* a Product — a deploy script, a migration job, a CI step — rather than inside one. A Product runs in a Host that already owns pairing and signing, so it uses [Signer](/apps/product-sdk/signer/) instead. Both require Node 21 or later.
 
-- **[`individuality`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/packages/individuality)**: Reads a person's personhood standing on the Individuality chain, from either a `.dot` username or an account, and reads which usernames an account holds. It has no generated API page yet, so read the package source. Also provides `withAsPerson`, which wraps a signer so a call dispatches under a person origin instead of an account origin. This is the package to reach for when gating a feature on verified-human status; see [Identity](/apps/concepts/identity/) for the concepts.
-- **[`terminal`](https://paritytech.github.io/product-sdk/api/terminal/)**: QR-code login, attestation, and transaction signing for command-line tools, so a Node CLI can pair with the Polkadot App the way the `playground` CLI does. Requires Node 21 or later. Not for Products, which run inside a Host and use `signer` instead.
-- **[`auth`](https://paritytech.github.io/product-sdk/api/auth/)**: The runtime-agnostic core beneath `terminal` — QR/mobile sign-in and session signing, with terminal rendering split into an `/ui` subpath so headless consumers do not pull it in.
+|                Package                 |                                What it does                                |                  API reference                   |
+|:--------------------------------------:|:--------------------------------------------------------------------------:|:------------------------------------------------:|
+|  [Terminal](/apps/product-sdk/terminal/) (`terminal`)  | QR-code pairing, session signing, and allowance signers for a Node CLI     | [API](https://paritytech.github.io/product-sdk/api/terminal/) |
+|      [Auth](/apps/product-sdk/auth/) (`auth`)      | The runtime-agnostic login, logout, and allocation flow built on `terminal` |   [API](https://paritytech.github.io/product-sdk/api/auth/)   |
 
 ### Supporting Packages
 

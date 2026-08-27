@@ -21,6 +21,7 @@ import os
 import re
 import subprocess
 import sys
+import unicodedata
 from datetime import datetime, timezone
 
 import yaml
@@ -40,6 +41,9 @@ HTML_COMMENT_RE = re.compile(r"<!--.*?-->", re.DOTALL)
 # pymdownx attr_list blocks: {#id}, {.class}, {: ...}, {key=val}, {target=_blank}, ...
 _ATTR = r'(?:[#.][\w:-]+|[\w-]+=(?:"[^"\n]*"|\'[^\'\n]*\'|[^\s}]+))'
 ATTR_BLOCK_RE = re.compile(r'\{:?\s*' + _ATTR + r'(?:\s+' + _ATTR + r')*\s*\}')
+# A trailing attr_list block on a heading line, and the explicit `#id` inside it.
+TRAILING_ATTR_RE = re.compile(r'\{:?\s*([^}\n]*)\}\s*$')
+ATTR_ID_RE = re.compile(r'(?:^|\s)#([\w:.-]+)')
 
 # ----------------------------------------------------------------- preprocessing
 
@@ -102,38 +106,81 @@ def resolve_vars(text, variables, env):
         return text  # forgiving; parity report will flag any drift
 
 
+def strip_attr_blocks(body):
+    """Strip pymdownx attr_list blocks line by line, keeping the explicit heading
+    ids they carry.
+
+    mkdocs' toc honors an explicit `{: #my-id }` on a heading instead of
+    slugifying its text, so those ids have to survive the strip or the feed's
+    anchors will not match the ids that ship in the HTML. Returns the cleaned
+    body plus `{line_index: explicit_id}`. Stripping is line-wise so the indices
+    stay valid against the returned body (attr_list is line-level syntax).
+    """
+    ids, out = {}, []
+    for i, line in enumerate(body.split("\n")):
+        hm = HEADING_RE.match(line)
+        if hm:
+            am = TRAILING_ATTR_RE.search(hm.group(2))
+            if am:
+                im = ATTR_ID_RE.search(am.group(1))
+                if im:
+                    ids[i] = im.group(1)
+        out.append(ATTR_BLOCK_RE.sub("", line))
+    return "\n".join(out), ids
+
+
 def clean_body(raw, variables, env, snippet_base):
-    """FM split -> snippets -> {{vars}} -> strip HTML comments -> strip {..} attr blocks."""
+    """FM split -> snippets -> {{vars}} -> strip HTML comments -> strip {..} attr
+    blocks. Returns `(front_matter, body, explicit_heading_ids)`."""
     fm, body = split_front_matter(raw)
     body = resolve_snippets(body, snippet_base)
     body = resolve_vars(body, variables, env)
     body = HTML_COMMENT_RE.sub("", body)
-    body = ATTR_BLOCK_RE.sub("", body)
-    return fm, body
+    body, heading_ids = strip_attr_blocks(body)
+    return fm, body, heading_ids
 
 # ----------------------------------------------------------------- chunking
 
-def slugify_anchor(text, seen):
-    v = text.strip().lower()
-    v = re.sub(r"`+", "", v)
-    v = re.sub(r"[^\w\s\-]", "", v, flags=re.UNICODE)
-    v = re.sub(r"\s+", "-", v)
-    v = re.sub(r"-{2,}", "-", v).strip("-")
-    if not v:
-        v = "section"
-    if v in seen:
-        seen[v] += 1
-        v = f"{v}-{seen[v]}"
-    else:
-        seen[v] = 1
-    return v
+IDCOUNT_RE = re.compile(r"^(.*)_([0-9]+)$")
+
+
+def slugify_anchor(text):
+    """A heading's slug, reproducing `markdown.extensions.toc.slugify` with the
+    default `-` separator: fold Extended Latin to ASCII, drop everything that is
+    not a word char / whitespace / dash, then collapse dash-and-space runs.
+
+    Deliberately not our own scheme — these anchors have to resolve against the
+    ids mkdocs actually renders, so the algorithm is copied, not approximated.
+    """
+    value = unicodedata.normalize("NFKD", text.replace("`", ""))
+    value = value.encode("ascii", "ignore").decode("ascii")
+    value = re.sub(r"[^\w\s-]", "", value).strip().lower()
+    return re.sub(r"[-\s]+", "-", value)
+
+
+def unique_anchor(value, seen):
+    """Reproduce `markdown.extensions.toc.unique`: the first use of a slug wins,
+    and later collisions get `_1`, `_2`, ... (an underscore, not a dash — and a
+    slug already ending in `_<n>` has that number incremented instead)."""
+    while value in seen or not value:
+        m = IDCOUNT_RE.match(value)
+        value = f"{m.group(1)}_{int(m.group(2)) + 1}" if m else f"{value}_1"
+    seen.add(value)
+    return value
 
 
 def estimate_tokens(text):
     return len(re.findall(r"\w+|[^\s\w]", text, flags=re.UNICODE))
 
 
-def extract_sections(body, max_depth=MAX_DEPTH):
+def extract_sections(body, max_depth=MAX_DEPTH, explicit_ids=None):
+    """Split a cleaned body into heading-anchored sections.
+
+    `explicit_ids` maps a line index to the id an attr_list block put on that
+    heading (see `strip_attr_blocks`). Those ids win over the slugified text,
+    exactly as mkdocs' toc treats a pre-existing `id`.
+    """
+    explicit_ids = explicit_ids or {}
     lines = body.splitlines(keepends=True)
     starts = [0]
     for ln in lines[:-1]:
@@ -153,13 +200,19 @@ def extract_sections(body, max_depth=MAX_DEPTH):
         hm = HEADING_RE.match(ln)
         if hm and 2 <= len(hm.group(1)) <= max_depth:
             heads.append((i, len(hm.group(1)), hm.group(2).strip()))
-    sections, seen = [], {}
+    # toc seeds its used-id set from every id already in the document before it
+    # assigns any, so an explicit id further down the page still pushes an
+    # earlier auto-slug to `_1`. Seed the same way, including ids on headings
+    # deeper than `max_depth` that we do not emit sections for.
+    seen = set(explicit_ids.values())
+    sections = []
     for idx, (li, depth, title) in enumerate(heads):
         start = starts[li]
         end = starts[heads[idx + 1][0]] if idx + 1 < len(heads) else len(body)
+        anchor = explicit_ids.get(li) or unique_anchor(slugify_anchor(title), seen)
         sections.append({
             "index": idx, "depth": depth, "title": title,
-            "anchor": slugify_anchor(title, seen),
+            "anchor": anchor,
             "start_char": start, "end_char": end,
             "text": body[start:end].strip(),
         })
@@ -247,11 +300,98 @@ def chunk_row(source, page_id, page_url, page_title, version_hash, last_updated,
     }
 
 
+def toggle_variant(fm):
+    """(group, is_canonical) for a page in a `page_toggle` group, else (None, False)."""
+    t = fm.get("toggle")
+    if not isinstance(t, dict):
+        return None, False
+    if not t.get("group") or not t.get("variant"):
+        return None, False  # page_toggle ignores an incomplete declaration; so do we
+    return t.get("group"), bool(t.get("canonical"))
+
+
+def merge_toggle_variants(pages, source):
+    """Fold non-canonical `page_toggle` variants into their group's canonical page.
+
+    The `page_toggle` plugin renders every variant of a group into the canonical
+    page's HTML and then deletes the variant's own output file, so a variant
+    route 404s. Emitting a per-variant `.md` artifact, llms.txt entry, and feed
+    rows would advertise those dead URLs; dropping the variants instead would
+    lose content a reader can plainly see on the canonical page. So re-attribute
+    each variant's body and chunks to the canonical page, which is where that
+    content is actually served.
+
+    Anchors are taken from a per-variant split rather than from the concatenated
+    body: each variant's HTML is rendered from its own file, so its heading ids
+    are slugified (and deduped) within that variant alone.
+
+    `pages` is a list of process_page() dicts. Returns a new list with the
+    variants removed and their canonical page rewritten in place, order
+    preserved.
+    """
+    canonical = {}
+    for p in pages:
+        group, is_canonical = toggle_variant(p["fm"])
+        if group and is_canonical:
+            canonical[group] = p
+
+    folded, absorbed = {}, set()
+    for p in pages:
+        group, is_canonical = toggle_variant(p["fm"])
+        if not group or is_canonical:
+            continue
+        target = canonical.get(group)
+        if target is None or target is p:
+            continue  # a variant whose group has no canonical page still stands alone
+        folded.setdefault(id(target), []).append(p)
+        absorbed.add(id(p))
+
+    for p in pages:
+        variants = folded.get(id(p))
+        if not variants:
+            continue
+        members = [p, *variants]
+        # Anchors come from a per-variant split, not the merged body: each variant's
+        # HTML is rendered from its own file, so toc dedupes heading ids within that
+        # variant alone. Two variants that share a heading therefore share an anchor.
+        anchors = [sec["anchor"] for m in members
+                   for sec in extract_sections(m["body"], explicit_ids=m.get("heading_ids"))]
+        kept = [m for m in members if m["body"].strip()]
+        # Re-key each member's explicit heading ids onto the merged body: drop the
+        # leading lines `.strip()` removes, then shift past the members already
+        # placed (+1 each for the blank line `"\n\n".join` inserts between them).
+        merged_ids, offset = {}, 0
+        for m in kept:
+            stripped = m["body"].strip()
+            lead = m["body"][: len(m["body"]) - len(m["body"].lstrip())].count("\n")
+            for li, anchor_id in (m.get("heading_ids") or {}).items():
+                merged_ids[li - lead + offset] = anchor_id
+            offset += stripped.count("\n") + 2
+        p["body"] = "\n\n".join(m["body"].strip() for m in kept)
+        p["heading_ids"] = merged_ids
+        p["version_hash"] = "sha256:" + hashlib.sha256(p["body"].encode("utf-8")).hexdigest()
+        stamps = [m["last_updated"] for m in members if m["last_updated"]]
+        if stamps:
+            p["last_updated"] = max(stamps)
+        sections = extract_sections(p["body"], explicit_ids=merged_ids)
+        # Positional zip is safe because concatenation preserves section order. The
+        # length guard is a backstop: if joining ever shifts a boundary (say an
+        # unbalanced code fence), keep the merged-body anchors instead of misaligning.
+        if len(sections) == len(anchors):
+            for sec, anchor in zip(sections, anchors):
+                sec["anchor"] = anchor
+        p["chunks"] = [chunk_row(source, p["page_id"], p["url"], p["title"],
+                                 p["version_hash"], p["last_updated"], sec)
+                       for sec in sections]
+
+    return [p for p in pages if id(p) not in absorbed]
+
+
 def process_page(path, docs_dir, variables, env, snippet_base, docs_base_url, source):
     """Resolve one markdown file to its cleaned body + metadata + feed rows."""
     with open(path, encoding="utf-8") as f:
         raw = f.read()
-    fm, body = clean_body(raw, variables, env, snippet_base)
+    fm, body, heading_ids = clean_body(raw, variables, env, snippet_base)
     route = compute_route(docs_dir, path)
     page_id = route.replace("/", "-").lower()
     title = fm.get("title") or page_id
@@ -259,10 +399,10 @@ def process_page(path, docs_dir, variables, env, snippet_base, docs_base_url, so
     version_hash = "sha256:" + hashlib.sha256(body.encode("utf-8")).hexdigest()
     last_updated = git_last_updated(path)
     chunks = [chunk_row(source, page_id, page_url, title, version_hash, last_updated, sec)
-              for sec in extract_sections(body)]
+              for sec in extract_sections(body, explicit_ids=heading_ids)]
     return {"fm": fm, "body": body, "route": route, "page_id": page_id, "title": title,
             "url": page_url, "version_hash": version_hash, "last_updated": last_updated,
-            "chunks": chunks}
+            "heading_ids": heading_ids, "chunks": chunks}
 
 # ----------------------------------------------------------------- main
 
@@ -277,13 +417,17 @@ def build(args):
     skip_paths = excl.get("skip_paths", [])
     docs_base_url = cfg.get("project", {}).get("docs_base_url", "https://docs.polkadot.com/")
 
-    rows = []
+    processed = []
     for path in iter_markdown(args.docs):
         rel = os.path.relpath(path, args.docs)
         if os.path.basename(path) in skip_base or any(sp in rel.split(os.sep) for sp in skip_paths):
             continue
-        rows.extend(process_page(path, args.docs, variables, env, args.snippets,
-                                 docs_base_url, args.source)["chunks"])
+        processed.append(process_page(path, args.docs, variables, env, args.snippets,
+                                      docs_base_url, args.source))
+
+    rows = []
+    for page in merge_toggle_variants(processed, args.source):
+        rows.extend(page["chunks"])
     with open(args.out, "w", encoding="utf-8") as f:
         for r in rows:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")

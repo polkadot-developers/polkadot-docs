@@ -25,7 +25,7 @@ sys.path.insert(0, os.path.join(_ROOT, "generator"))
 import yaml  # noqa: E402
 from jinja2 import Environment  # noqa: E402
 
-from generate_feed import estimate_tokens, process_page  # noqa: E402
+from generate_feed import estimate_tokens, merge_toggle_variants, process_page  # noqa: E402
 
 log = logging.getLogger("mkdocs")
 SOURCE_TAG = "polkadot-docs"
@@ -214,13 +214,21 @@ def on_post_build(config, **kwargs):
     included = _INCLUDED or {}
     rows, pages = [], []
 
+    processed = []
     for src_uri, abs_path in sorted(included.items()):
         if src_uri == "index.md":
             continue  # homepage: no .md artifact / feed entry (matches the generator)
         page = process_page(abs_path, docs_dir, cfg["variables"], cfg["env"],
                             cfg["snippets"], cfg["docs_base_url"], SOURCE_TAG)
+        page["src_uri"] = src_uri
+        processed.append(page)
+
+    # page_toggle serves every variant of a group from the canonical route and
+    # deletes the variant's own output file, so emitting artifacts and feed rows
+    # per variant would point at 404s. Fold them into the canonical page first.
+    for page in merge_toggle_variants(processed, SOURCE_TAG):
         _write_md(site_dir, page["route"], page)
-        if not _feed_excluded(src_uri, cfg, page["fm"]):
+        if not _feed_excluded(page["src_uri"], cfg, page["fm"]):
             pages.append((page["title"], page["url"]))
             rows.extend(page["chunks"])
 

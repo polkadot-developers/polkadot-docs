@@ -41,13 +41,23 @@ Get these in order before your first deploy. The last two are easy to skip and f
 
 ## Install the CLI
 
-1. Run the installer:
+The installer supports Linux and macOS. On **Windows**, work inside [WSL](https://learn.microsoft.com/windows/wsl/install) and follow the Debian/Ubuntu steps there.
+
+1. Install the base prerequisites. macOS needs no preparation: `curl` ships with the OS, and the Xcode Command Line Tools cover the rest. On a fresh Debian or Ubuntu system:
+
+    ```bash
+    sudo apt update && sudo apt install -y build-essential curl
+    ```
+
+2. Run the installer:
 
     ```bash
     curl -fsSL https://raw.githubusercontent.com/paritytech/playground-cli/main/install.sh | bash
     ```
 
-2. Open a new shell, or `source` your RC file, and verify the install:
+    The binary lands in `~/.polkadot/bin/`, with both commands symlinked into `~/.local/bin/` and that path appended to your shell RC file.
+
+3. Open a new shell, or `source` your RC file, and verify the install:
 
     ```bash
     pg --version
@@ -56,9 +66,12 @@ Get these in order before your first deploy. The last two are easy to skip and f
 !!! note "Command aliases"
     The installer registers two interchangeable commands: `playground` (canonical) and `pg` (short alias). This guide uses `pg` throughout.
 
+!!! tip "Pinning a version"
+    Pass `VERSION` to install a specific release, for example `curl -fsSL … | VERSION=v0.47.0 bash`. Later, `pg update` moves you to the newest release.
+
 ## Log In
 
-`pg login` is the first-run setup: it pairs the CLI with your signer, installs the toolchain, and requests your service allowances. It is safe to re-run; existing installs and sessions are detected and skipped.
+`pg login` is the first-run setup: it pairs the CLI with your signer, installs the toolchain, and requests your service allowances. It is safe to re-run; existing installs and sessions are detected and skipped. Do not reach for `pg init` here — that scaffolds a project from the starter template and pairs nothing.
 
 ```bash
 pg login
@@ -74,9 +87,6 @@ Three things happen, and the first two run concurrently:
 
 !!! warning "`pg deploy` needs the `ipfs` CLI, and `pg login` is what installs it"
     Do not skip this step. `pg deploy` requires the Kubo `ipfs` binary on your `PATH`; if you never log in, install it yourself with `brew install ipfs` or from [docs.ipfs.tech/install](https://docs.ipfs.tech/install/). This is a temporary requirement while the pure-JS merkleizer is being fixed.
-
-!!! note "`pg init` is a different command"
-    `pg init` does not pair anything — it scaffolds a new project from the playground starter template, a shorthand for `pg mod playground-template`. Use `pg login` to pair.
 
 !!! note "Signer modes"
     Signer choice is made at deploy time, not at login, through `pg deploy --signer`:
@@ -123,16 +133,58 @@ For the full interactive deploy walkthrough, including the domain-name rules, co
 
 ??? note "More CLI commands"
 
-    - **`pg mod`**: Clones a moddable app from the Playground registry so you can customize and redeploy it as your own Product. Only apps that opted into `--moddable` at deploy time are listed. Pass a domain label, such as `my-product` or `my-product.paseo`, to clone directly, or omit it to open an interactive picker showing every moddable app.
+    **Account and session**
+
+    - **`pg status`**: Prints your signed-in product account in both encodings (SS58 and H160), its PAS and PGAS balances, and the state of your Bulletin and smart-contract allowances. Read-only: it signs nothing and submits nothing, so it is safe to run at any time. With no session paired it prints a "log in first" notice and exits cleanly.
+
+        ```bash
+        pg status
+        ```
+
+    - **`pg drip`**: Tops up your product account with a little TestNet PAS: 1 PAS per run, up to a 10 PAS cap, from a shared dev funder rather than the public faucet. It only ever funds the caller's own account, resolved from the active session, so there is no address flag. Login never calls it for you.
+
+        ```bash
+        pg drip
+        ```
+
+    - **`pg logout`**: Signs out of the paired account, tells the paired phone to drop its side of the connection, and clears session files under `~/.polkadot-apps/`. A no-op if you are not signed in.
+
+        ```bash
+        pg logout
+        ```
+
+    **Projects and deploys**
+
+    - **`pg init`**: Scaffolds a new project from the playground starter template. A shorthand for `pg mod playground-template`.
+
+        ```bash
+        pg init
+        ```
+
+    - **`pg mod`**: Clones a moddable app from the Playground registry so you can customize and redeploy it as your own Product. Only apps that opted into `--moddable` at deploy time are listed. Pass a domain label, such as `my-product` or `my-product.paseo`, to clone directly, or omit it to open an interactive picker showing every moddable app. Source is fetched as a tarball over HTTPS, so neither `git` nor `gh` is required.
 
         ```bash
         pg mod [domain]
         ```
 
-    - **`pg logout`**: Signs out of the paired account and clears session files under `~/.polkadot-apps/`. A no-op if you are not signed in.
+    - **`pg decentralize`**: Takes a static site you already have — a live URL to mirror, or a local build directory — uploads it to the Bulletin Chain, and registers a DotNS name pointing at it. The counterpart to `pg deploy`, which builds your project first.
 
         ```bash
-        pg logout
+        pg decentralize --site https://example.com
+        pg decentralize --path ./dist
+        ```
+
+    - **`pg deploy-all`**: Deploys several apps listed in a JSON manifest in one invocation. Builds run in parallel, while all on-chain work is serialized per signing account so concurrent deploys never collide on a nonce. Non-interactive by design.
+
+        ```bash
+        pg deploy-all --manifest apps.json --signer dev --playground
+        ```
+
+    - **`pg contract`**: The playground-native path to contracts, backed by `cdm`. `pg contract deploy` builds, deploys, and registers your contracts signed by your logged-in account; `pg contract install` writes `cdm.json` and the generated type outputs. See [Deploy and Integrate a Smart Contract](/apps/build/deploy-a-smart-contract/) for the workflow, including when to call `cdm` directly instead.
+
+        ```bash
+        pg contract deploy
+        pg contract install [libraries...]
         ```
 
     - **`pg update`**: Updates `pg` to the latest version from the GitHub releases page.
@@ -140,6 +192,9 @@ For the full interactive deploy walkthrough, including the domain-name rules, co
         ```bash
         pg update
         ```
+
+!!! tip "Scripting a deploy, or handing one to an agent"
+    `pg deploy -y` runs non-interactively using defaults, skipping every prompt. It requires `--domain`, and `--signer` defaults to `dev`. For full control in CI, pass `--signer`, `--domain`, `--buildDir`, and `--playground` explicitly; add `--suri //Alice` with `--signer dev` so the dev signer uses a known keypair. See [Set Up Your AI Agent](/apps/get-started/set-up-your-ai-agent/) for orienting a coding agent around this toolchain.
 
 You have deployed a Polkadot Product. To keep building it with your own editor and toolchain, head to the Build guides; they open with [project setup](/apps/build/#set-up-your-project) so Polkadot Desktop can load your Product from `localhost` while you iterate with live reload.
 

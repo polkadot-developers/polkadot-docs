@@ -22,9 +22,38 @@ Contracts on Polkadot run as PolkaVM bytecode through the `pallet-revive` runtim
 Before starting, ensure you have:
 
 - A Polkadot Product project running locally. See [Set Up Your Project](/apps/build/#set-up-your-project).
-- An account for `cdm` to sign with. `cdm` signs contract deploys from the CLI, not through the Polkadot App; run `cdm init` to generate a keypair for the network, or pass your own with `--suri`.
-- PAS funds, an Asset Hub account mapping, and a Bulletin Chain authorization for that account. See [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/). Deploying a contract writes to Asset Hub (fees) and publishes metadata to the Bulletin Chain (authorization).
-- A local toolchain for your contract language. Contracts compile to PolkaVM, so unlike the frontend capabilities, this step needs a workstation rather than a browser alone.
+- PAS funds and a Bulletin Chain authorization for the account `cdm` will sign with. See [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/). Deploying a contract writes to Asset Hub (fees) and publishes metadata to the Bulletin Chain (authorization). The next two sections cover installing `cdm` and creating that account.
+- A workstation, not just a browser. Contracts compile to PolkaVM, so unlike the frontend capabilities this step needs a local toolchain.
+
+## Install cdm
+
+Install the `cdm` binary. The installer also pulls the Rust nightly toolchain with `rust-src` and the `cargo-pvm-contract` build tool:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/paritytech/contract-dependency-manager/main/install.sh | bash
+```
+
+Update an existing install with `cdm update`.
+
+!!! note "`cdm` and `playground` are separate installs"
+    Installing the [`playground` CLI](/apps/quick-start/) does not give you `cdm`, and vice versa. `playground deploy` shells out to its own bundled CDM pipeline for the contract step, but running `cdm` directly, as this guide does, needs the binary on your `PATH`.
+
+## Set Up a Signing Account
+
+`cdm` signs from the CLI with its own keypair, separate from the account your phone holds. Generate one for the network, then map it for `pallet-revive`:
+
+```bash
+cdm init -n paseo
+cdm account map -n paseo
+```
+
+The mapping step is required before your first deploy: `pallet-revive` needs each signing account bound to its H160 address, and without it the deploy fails. Two related subcommands are useful while you work:
+
+- **`cdm account bal -n paseo`**: Prints the account's balance and its Bulletin allowances, and links to a top-up when they run low.
+- **`cdm account set -n paseo --mnemonic "…"`**: Imports an existing account instead of generating one.
+
+!!! warning "`cdm`'s `paseo` preset is Paseo Next, not the Paseo TestNet"
+    `cdm -n paseo` targets the Paseo Asset Hub preview network (para 1500), the same network the `playground` CLI deploys to. `cdm -n devnet` targets the Paseo TestNet Asset Hub (para 1000) with a registry operated by the Polkadot Community Foundation. They are different chains with different registries, so a contract deployed under one preset is not resolvable under the other. Fund the account on the network you actually target — the [faucet](/apps/get-started/get-testnet-tokens/) needs `?parachain=1500` for Paseo Next.
 
 ## How Contracts Fit Together
 
@@ -48,7 +77,10 @@ Your frontend then reads a project-local manifest, `cdm.json`, which holds the d
 cdm template shared-counter
 ```
 
-This creates a Cargo workspace and a `cdm.json` manifest. The `shared-counter` template ships three crates under `contracts/` that demonstrate a dependency graph: `counter` holds the shared count, `counter-writer` calls `counter.increment()` through a CDM reference, and `counter-reader` queries `counter.get_count()`.
+That writes a Cargo workspace and a `cdm.json` manifest into `./shared-counter`. Pass a target directory to override the location, or `.` to scaffold into the current directory. The template ships three crates under `contracts/` that demonstrate a dependency graph: `counter` holds the shared count, `counter-writer` calls `counter.increment()` through a CDM reference, and `counter-reader` queries `counter.get_count()`.
+
+!!! tip "A fuller example"
+    `cdm template instagram` scaffolds a complete browser app rather than bare contracts, combining Product Account signing, Bulletin uploads, and `ContractManager` resolution from `cdm.json`. Reach for it when you want to read a working end-to-end Product instead of assembling one.
 
 Each crate declares its CDM package name in its own `Cargo.toml`:
 
@@ -98,16 +130,19 @@ Before deploying, change **every** `[package.metadata.cdm] package = "@example/�
 !!! tip "Prefer Solidity?"
     `cdm` also ships Solidity templates (`foundry-counter` and `hardhat-counter`) that compile to PolkaVM via `resolc`. Scaffold one the same way, for example `cdm template foundry-counter`. The deploy and frontend steps below are identical regardless of the contract language.
 
-## Install the Toolchain
+## Verify the Toolchain
 
-`cdm setup` installs the exact Rust nightly and the `cargo-pvm-contract` build tool the contract compiler needs. Run it once per workstation:
+The `cdm` installer already set up the Rust nightly, `rust-src`, and `cargo-pvm-contract` that the contract compiler needs. Confirm they are in place before your first build:
+
+```bash
+cdm setup --check
+```
+
+If anything is missing or was broken by an unrelated Rust change, `cdm setup` installs or repairs it:
 
 ```bash
 cdm setup
 ```
-
-!!! tip
-    Pass `cdm setup --check` to verify the toolchain without installing anything.
 
 ## Build and Deploy
 

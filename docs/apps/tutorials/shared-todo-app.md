@@ -25,7 +25,7 @@ What you will build, and which package carries each part:
 
 The guides cover the individual calls. This tutorial focuses on how the layers compose. Statements are capped at 512 bytes and expire after 30 seconds, so they carry individual mutations, not the whole board. The Bulletin Chain holds full snapshots, and a last-write-wins channel announces the latest snapshot's CID. This is the same split [Polkadot App](/reference/apps/hosts/polkadot-app/)'s Chat uses: gossip for signaling, Bulletin for content.
 
-The code in this tutorial is confirmed working with [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/), `@parity/product-sdk` v0.11.0, and `@parity/product-sdk-statement-store` v0.4.4.
+The code in this tutorial was verified end to end in [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/) against `@parity/product-sdk` v0.11.0 and `@parity/product-sdk-statement-store` v0.4.4. Every SDK surface it uses — `createApp`'s wallet and local-storage APIs, `CloudStorageClient.create`, `createLazySigner`, `checkAuthorization`, and `ChannelStore` — is unchanged through `@parity/product-sdk` v0.23.0 and `@parity/product-sdk-statement-store` v0.6.5, so the code still applies on the current line. Pin the versions above if you want to match the verified run exactly.
 
 ## Prerequisites
 
@@ -111,6 +111,9 @@ The [Statement Store](/reference/apps/infrastructure/statement-store/) gossips s
 The pieces:
 
 - **`createSyncClient`**: Connects a `StatementStoreClient` in host mode. The `appName` is hashed into the statement topic, so instances of this Product only see each other's traffic. Signing each statement routes through the Host to the user's Polkadot App.
+
+    The `accountId` passed to `connect()` is vestigial on current SDK versions: host mode now signs through the Host's sponsored path with the Product's allowance account, so the field is accepted for backward compatibility and ignored. Harmless to keep, and safe to drop.
+
 - **`publishEvent` / `subscribeToBoard`**: Thin typed wrappers over `publish` and `subscribe`.
 - **`applyEvent`**: The merge rule: per-todo last write wins, compared by `updatedAt`. It is idempotent, so replayed statements (including your own, which the node echoes back) are harmless no-ops.
 

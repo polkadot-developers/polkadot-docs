@@ -43,10 +43,20 @@ With the phone signer, publishing adds one more approval in the Polkadot App, fo
 
 ### Categorize the Listing
 
-Pass `--tag` to file your Product under a category in the directory, such as `social`, `gaming`, or `marketplace`. Omit the flag and the CLI prompts you with the categories it currently accepts:
+Pass `--tag` to file your Product under a category, which drives the tag filter in the playground app. Omit the flag and the CLI prompts you:
 
 ```bash
 playground deploy --domain my-product --playground --tag gaming
+```
+
+An app carries at most one tag, and the accepted values are a fixed list: `site`, `social`, `chat`, `utility`, `gaming`, `marketplace`, and `irl`. There is no free-form tag, because a value outside this list still renders on your app's card but has no filter pill, making it effectively unfilterable.
+
+### Keep a Listing Private
+
+Pass `--private` (alongside `--playground`) to publish with owner-only visibility. The listing exists but only you see it, which is useful for staging a Product in the directory before you announce it. Unlike the other listing choices, this one is never prompted for — you have to pass the flag:
+
+```bash
+playground deploy --domain my-product --playground --private
 ```
 
 ### Let Others Fork Your Product
@@ -55,6 +65,13 @@ Pass `--moddable` (alongside `--playground`) to mark your Product as one others 
 
 ```bash
 playground deploy --domain my-product --playground --moddable
+```
+
+The CLI reads your existing `origin` remote and records its URL in the Bulletin metadata. It never creates a repo or pushes for you, so set that up first. The deploy fails with an actionable message if `origin` is unset, points at a private repo, or points anywhere other than GitHub, because `pg mod` fetches source only from `codeload.github.com`:
+
+```bash
+git remote add origin https://github.com/<user>/<repo>
+git push -u origin main
 ```
 
 Anyone can then clone a moddable Product with `pg mod`:

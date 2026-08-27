@@ -10,7 +10,9 @@ page_badges:
 
 ## Introduction
 
-Every published Polkadot Product is reached by a `.dot` name, such as `awesome.dot`. That name is registered with [DotNS](/reference/apps/infrastructure/dotns/), Polkadot's decentralized, on-chain name service. DotNS turns a human-readable name into the Product bundle it points at, and it is the lookup every Host runs when a user navigates to a `.dot` address.
+Every published Polkadot Product is reached by a DotNS name, such as `awesome.dot`. That name is registered with [DotNS](/reference/apps/infrastructure/dotns/), Polkadot's decentralized, on-chain name service. DotNS turns a human-readable name into the Product bundle it points at, and it is the lookup every Host runs when a user navigates to it.
+
+--8<-- 'text/apps/network-tld.md'
 
 The registry — names, owners, and the content record each name points at — lives as contract state on Asset Hub. Resolution runs `name → namehash → contenthash → CID`: the name hashes to a deterministic key, the record's `contenthash` points at your bundle's CID, and the Host fetches and content-verifies the bundle before loading it.
 
@@ -21,23 +23,40 @@ You do not register a name as a separate chore. The [`playground` CLI](/apps/qui
 Before registering, ensure you have:
 
 - Completed [Install Desktop and Pair](/apps/get-started/) and [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/); your account needs PAS to pay fees and any name deposit.
-- The [`playground` CLI](/apps/quick-start/) installed and initialized (`pg init`).
+- The [`playground` CLI](/apps/quick-start/) installed and paired with your signer (`pg login`).
 - A Product project ready to deploy. See [Deploy Your App](/apps/deploy-your-app/).
 
 ## Choose a Name
 
-Name availability depends on the length of the base name — the part before any optional two-digit suffix. During `playground deploy`, the `domain` prompt applies these rules:
+Enter the bare label — `myproject57`, not `myproject57.paseo`. The CLI appends the environment's TLD for you, and a label that already carries a different TLD is rejected.
 
-| Base name length       | Requirement                                         |
-|------------------------|-----------------------------------------------------|
-| 9 characters or longer | Open to everyone — deploys with no personhood check |
-| 6 to 8 characters      | Requires Proof of Personhood on this network        |
-| 5 characters or fewer  | Reserved                                            |
+### Label Rules
 
-This is the practical rule the CLI enforces. The full model is finer-grained: short and premium names are reserved for accounts with [Proof of Personhood](/reference/apps/infrastructure/pop/), some open names carry a deposit that scales with length, and a two-digit suffix (such as `alice01`) changes which tier a name falls into. See the [PopRules pricing reference](/reference/apps/infrastructure/dotns/poprules-pricing/) for the complete ladder and deposit formulas.
+A label must satisfy all of these, or `playground deploy` rejects it before submitting anything on chain:
+
+- **Length**: 3 to 63 characters.
+- **Character set**: lowercase letters, digits, and dashes (`a-z`, `0-9`, `-`) only.
+- **Dashes**: cannot start or end with a dash.
+- **Digit suffix**: a trailing run of digits must be exactly two, or none at all. One trailing digit, or three or more, is rejected.
+- **Dash before a digit suffix**: a two-digit suffix cannot follow a dash. Use `my-app42`, not `my-app-42`.
+
+### Personhood Tiers
+
+Which tier a name falls into depends on its **base length** — the label length minus any two-digit suffix — and on whether that suffix is present:
+
+| Base length            | Two-digit suffix | Requirement                                          |
+|------------------------|------------------|------------------------------------------------------|
+| 9 characters or longer | Either           | Open to everyone — registers with no personhood check |
+| 6 to 8 characters      | Yes              | Requires **Lite** Proof of Personhood                 |
+| 6 to 8 characters      | No               | Requires **Full** Proof of Personhood                 |
+| 5 characters or fewer  | Either           | Reserved for governance                               |
+
+So `myproject57` (base `myproject`, 9 characters) is open to anyone, while `myproj` needs Full personhood and `myproj01` needs only Lite — adding a two-digit suffix lowers the tier a 6-to-8-character base demands. A short base stays reserved either way: `alice` and `alice01` both have a 5-character base.
+
+Beyond the tier check, some open names carry a deposit that scales with length. See the [PopRules pricing reference](/reference/apps/infrastructure/dotns/poprules-pricing/) for the complete ladder and deposit formulas.
 
 !!! note "Personhood and the network"
-    Proof of Personhood is obtained in the Polkadot App on your device; there is no CLI path to a tier. If your account has no personhood status, pick a name of 9 characters or more, which registers with no personhood check. See [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/) for how names, deposits, and personhood interact on TestNet.
+    Proof of Personhood is obtained in the Polkadot App on your device; there is no CLI path to a tier. If your account has no personhood status, pick a base name of 9 characters or more, which registers with no personhood check. See [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/) for how names, deposits, and personhood interact on TestNet.
 
 ## Register During Deploy
 
@@ -57,7 +76,7 @@ From there, the CLI registers the name on chain. If you deploy with the phone si
 !!! note "The ~60-second pause is expected"
     Between reserve and finalize, the deploy pauses for about 60 seconds. This is DotNS's commit-reveal window: the commitment is submitted first, then the name is claimed a short time later, so a watcher cannot see your desired name and race to register it ahead of you. The deploy is not stuck.
 
-Names are first come, first served. If the CLI reports that a name is [already registered](/apps/troubleshooting/#the-name-is-already-registered), choose another; if it reports the name [requires Proof of Personhood](/apps/troubleshooting/#the-name-requires-proof-of-personhood), pick a longer base name. With the dev signer, these steps run without phone prompts; the deployed name is owned by the shared dev account rather than by you.
+Names are first come, first served. If the CLI reports that a name is [already registered](/apps/troubleshooting/#the-name-is-already-registered), choose another; if it reports the name [requires Proof of Personhood](/apps/troubleshooting/#the-name-requires-proof-of-personhood), pick a longer base name or add a two-digit suffix. With the dev signer, these steps run without phone prompts; the deployed name is owned by the shared dev account rather than by you.
 
 ## Update the Bundle a Name Points At
 
@@ -69,7 +88,7 @@ Because a name's content record is mutable and the owner can transfer or repoint
 
 The `playground` CLI covers the common path — registering and repointing a name as part of a deploy. For lower-level or scriptable operations, use the dedicated [`@parity/dotns-cli`](/reference/apps/infrastructure/dotns/cli/), which exposes DotNS management directly:
 
-- **Transfer**: A `.dot` name is owned by an Asset Hub account and can be transferred to another account. A transfer changes only the owner; the name and its current content record are unchanged, so users keep seeing the same bundle until the new owner updates it. Proof of Personhood status and any tier reservations do not transfer with the name. See the [transfer reference](/reference/apps/infrastructure/dotns/transfer/).
+- **Transfer**: A DotNS name is owned by an Asset Hub account and can be transferred to another account. A transfer changes only the owner; the name and its current content record are unchanged, so users keep seeing the same bundle until the new owner updates it. Proof of Personhood status and any tier reservations do not transfer with the name. See the [transfer reference](/reference/apps/infrastructure/dotns/transfer/).
 - **Subnames**: The DotNS CLI can register subnames under a name you own.
 - **Content records**: The DotNS CLI can view and set a name's content record outside a deploy.
 

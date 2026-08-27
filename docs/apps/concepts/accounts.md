@@ -20,7 +20,7 @@ More than one account is in play when you build and deploy a Polkadot Product, a
 
 `playground deploy` signs with a different account depending on the signer mode:
 
-- **`--signer phone`** (the default for a deploy you intend to keep): The deploy is signed by a **product account derived from the phone's root key**, scoped to your Product. The CLI holds only a paired session; the secret stays on the phone, which approves each step. The CLI does not create its own account in this mode.
+- **`--signer phone`** (the choice to make for a deploy you intend to keep; omit the flag and `pg deploy` prompts you): The deploy is signed by a **product account derived from the phone's root key**, scoped to your Product. The CLI holds only a paired session; the secret stays on the phone, which approves each step. The CLI does not create its own account in this mode.
 - **`--signer dev --suri <uri>`**: The CLI signs with a **local development key** derived from the URI you pass (for example, `//Alice` or a mnemonic). This account is unrelated to the phone. No phone approvals happen.
 - **`--signer dev` with no `--suri`**: Falls back to a **shared, publicly known development mnemonic**. Anyone can control this account; never use it for a deploy you want to keep.
 
@@ -46,10 +46,14 @@ So the failure is almost always an account mismatch: you granted the allowance (
 
 Before granting an allowance, confirm which account will sign:
 
-- **In a Host**: A Product running inside Polkadot Desktop or Web can read its product account through the [`signer`](/apps/product-sdk/signer/) package (`getProductAccount`), which returns the account's SS58 address and its H160 (EVM) form. Surfacing that address in your Product's own UI during development is the most reliable way to know what you are funding.
+- **From the CLI**: Run `pg status`. It prints the product account paired with your phone in both encodings — the SS58 address and its H160 (EVM) form — along with its PAS and PGAS balances and the state of its Bulletin allowance. It is read-only: it signs nothing and submits no transactions, so it is safe to run at any point. `pg login` prints the same two addresses when a session is established.
+- **In a Host**: A Product running inside Polkadot Desktop or Web can read its product account through the [`signer`](/apps/product-sdk/signer/) package (`getProductAccount`), which returns the account's SS58 address and its H160 (EVM) form. Surfacing that address in your Product's own UI during development is the most reliable way to know what your frontend is signing with.
 
-!!! warning "There is no CLI command to print the account address"
-    The `playground` CLI does not expose a `whoami` or `accounts` command that prints the phone or session account's SS58 address. This is a known gap. Until it exists, read the address from a Product running inside a Host, or from the login output, rather than assuming which account the CLI paired.
+!!! note "The two addresses are one key"
+    `pg status` reports the SS58 and the H160 as separate rows, but they are two encodings of the same product account, not two accounts. Fund and authorize the SS58 form; `pallet-revive` contracts see the H160 form as `caller()`.
+
+!!! warning "The CLI account is not always your frontend's account"
+    `pg status` reports the account derived under `playground.dot/0`. A Product loaded from a deployed name derives under that name instead, so its account differs from the one the CLI shows. Check both when an allowance lands somewhere unexpected.
 
 ## Where to Go Next
 

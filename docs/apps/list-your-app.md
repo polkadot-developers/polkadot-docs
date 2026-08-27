@@ -10,7 +10,7 @@ page_badges:
 
 ## Introduction
 
-Deploying makes your Product reachable at its `.dot` address. Listing makes it _discoverable_: it puts your Product in a directory that users browse inside their Host, so people who have never heard your `.dot` name can still find and open it.
+Deploying makes your Product reachable at its DotNS address. Listing makes it _discoverable_: it puts your Product in a directory that users browse inside their Host, so people who have never heard your `.dot` name can still find and open it.
 
 There are two discovery surfaces:
 
@@ -21,7 +21,7 @@ Both are catalogues of published Products surfaced inside the Hosts, and both st
 
 ## The Playground Directory
 
-The Playground directory lives at `playground.dot`, which you open in the Polkadot Desktop browser. Listed Products appear under their `.dot` name, and your Product's `README.md` becomes its detail page in the directory, so make sure it is up to date before you publish.
+The Playground directory lives at `playground.dot`, which you open in the Polkadot Desktop browser. Listed Products appear under their DotNS name, and your Product's `README.md` becomes its detail page in the directory, so make sure it is up to date before you publish.
 
 ### List During Deploy
 
@@ -30,10 +30,10 @@ Listing is a choice you make during `playground deploy`. At the `publish to the 
 <div class="termynal" data-termynal>
 <span data-ty><pre>  publish to the playground?
     › yes  ·  list it in the public playground
-      no  ·  deploy to my .dot address only</pre></span>
+      no  ·  deploy to my .paseo address only</pre></span>
 </div>
 
-Choosing **no** still deploys your Product to its `.dot` address; it stays unlisted. To skip the prompt, pass the `--playground` flag:
+Choosing **no** still deploys your Product to its DotNS address; it stays unlisted. To skip the prompt, pass the `--playground` flag:
 
 ```bash
 playground deploy --domain my-product --playground
@@ -63,7 +63,7 @@ Anyone can then clone a moddable Product with `pg mod`:
 pg mod my-product
 ```
 
-`pg mod` copies a moddable Product from the Playground registry into a local project you can edit and redeploy under your own `.dot` name. Omit the domain to open a picker showing every moddable Product. See the [Quick Start](/apps/quick-start/) for the full `pg mod` reference.
+`pg mod` copies a moddable Product from the Playground registry into a local project you can edit and redeploy under your own name. Omit the domain to open a picker showing every moddable Product. See the [Quick Start](/apps/quick-start/) for the full `pg mod` reference.
 
 ### Change or Remove a Listing
 
@@ -77,7 +77,7 @@ The listing choice is made at deploy time through the `publish to the playground
 
 Browse enforces who can list, on chain, so the directory stays tied to real ownership and real people:
 
-- **Ownership**: You must own the `.dot` name you are listing.
+- **Ownership**: You must own the DotNS name you are listing.
 - **Proof of Personhood**: The listing account needs [Proof of Personhood](/reference/apps/infrastructure/pop/), Lite or Full. Personhood is obtained in the Polkadot App on your device.
 - **Rate limits**: Listings are rate-limited per personhood tier over a rolling 24 hours — Lite accounts can publish one per day, Full accounts five per day.
 

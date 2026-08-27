@@ -48,28 +48,52 @@ Your frontend then reads a project-local manifest, `cdm.json`, which holds the d
 cdm template shared-counter
 ```
 
-This creates a contract crate and a `cdm.json` manifest. The generated contract uses the PolkaVM contract SDK macros and declares its package name in `Cargo.toml`:
+This creates a Cargo workspace and a `cdm.json` manifest. The `shared-counter` template ships three crates under `contracts/` that demonstrate a dependency graph: `counter` holds the shared count, `counter-writer` calls `counter.increment()` through a CDM reference, and `counter-reader` queries `counter.get_count()`.
 
-```toml title="Cargo.toml"
+Each crate declares its CDM package name in its own `Cargo.toml`:
+
+```toml title="contracts/counter/Cargo.toml"
 [package.metadata.cdm]
 package = "@example/counter"
 ```
 
-```rust title="src/lib.rs"
-#[pvm_contract_sdk::contract]
+The contract itself is a module holding a storage struct and an `impl` block, annotated with the PolkaVM contract SDK macros:
+
+```rust title="contracts/counter/lib.rs"
+#![cfg_attr(not(feature = "abi-gen"), no_main, no_std)]
+
+#[pvm_contract_sdk::contract(allocator = "pico", allocator_size = 1024)]
 mod counter {
-    #[pvm_contract_sdk::constructor]
-    pub fn new() -> Self { /* ... */ }
+    use pvm_contract_sdk::Lazy;
 
-    #[pvm_contract_sdk::method]
-    pub fn get_count(&self) -> u64 { /* ... */ }
+    pub struct Counter {
+        // Storage slots are auto-numbered in declaration order (`count` gets slot 0).
+        count: Lazy<u32>,
+    }
 
-    #[pvm_contract_sdk::method]
-    pub fn increment(&mut self) { /* ... */ }
+    impl Counter {
+        #[pvm_contract_sdk::constructor]
+        pub fn new(&mut self) {
+            self.count.set(&0);
+        }
+
+        #[pvm_contract_sdk::method]
+        pub fn increment(&mut self) {
+            let current = self.count.get();
+            self.count.set(&(current + 1));
+        }
+
+        #[pvm_contract_sdk::method]
+        pub fn get_count(&self) -> u32 {
+            self.count.get()
+        }
+    }
 }
 ```
 
-Rename the package from `@example/counter` to a scope you control (for example, `@my-app/counter`) before deploying. The scaffolded name is a placeholder, and because registration is first-writer-owns, you want your own scope.
+Note that the constructor takes `&mut self` and initializes storage in place; it does not return `Self`. Storage fields are wrapped in `Lazy<T>` so each is read and written on demand rather than loaded wholesale.
+
+Before deploying, change **every** `[package.metadata.cdm] package = "@example/…"` entry in the workspace to a scope you control, for example `@my-app/counter`. Package names are global per registry, the scaffolded `@example` scope is a placeholder, and registration is first-writer-owns, so you want your own scope on all three crates.
 
 !!! tip "Prefer Solidity?"
     `cdm` also ships Solidity templates (`foundry-counter` and `hardhat-counter`) that compile to PolkaVM via `resolc`. Scaffold one the same way, for example `cdm template foundry-counter`. The deploy and frontend steps below are identical regardless of the contract language.

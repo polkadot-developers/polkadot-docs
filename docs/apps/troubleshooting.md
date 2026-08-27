@@ -26,19 +26,19 @@ Named entries for the failures developers hit most while building and deploying 
 
 ## The Deploy Pauses for About a Minute
 
-**Cause**: During `playground deploy`, there is a deliberate pause of about 60 seconds between reserving and finalizing your `.dot` name. This is [DotNS](/apps/register-dot-domain/)'s commit-reveal window, which prevents someone from front-running your name.
+**Cause**: During `playground deploy`, there is a deliberate pause of about 60 seconds between reserving and finalizing your DotNS name. This is [DotNS](/apps/register-dot-domain/)'s commit-reveal window, which prevents someone from front-running your name.
 
 **Resolution**: Wait. The deploy is not stuck. The next approval appears in the Polkadot App once the window elapses.
 
 ## The Name Requires Proof of Personhood
 
-**Cause**: Short and premium `.dot` names are reserved for accounts with [Proof of Personhood](/apps/concepts/identity/). A name of 6 to 8 characters needs a personhood tier; 5 characters or fewer is reserved.
+**Cause**: Short and premium DotNS names are reserved for accounts with [Proof of Personhood](/apps/concepts/identity/). A base name of 6 to 8 characters needs a personhood tier — Lite if it ends in a two-digit suffix, Full if it does not — and a base of 5 characters or fewer is reserved for governance.
 
-**Resolution**: Choose a base name of 9 characters or more, which registers with no personhood check, or obtain a personhood tier in the Polkadot App. See [Register a `.dot` Domain](/apps/register-dot-domain/#choose-a-name).
+**Resolution**: Choose a base name of 9 characters or more, which registers with no personhood check; add a two-digit suffix to drop a 6-to-8-character name from Full to Lite; or obtain a personhood tier in the Polkadot App. See [Register a `.dot` Domain](/apps/register-dot-domain/#choose-a-name).
 
 ## The Name Is Already Registered
 
-**Cause**: `.dot` names are first come, first served.
+**Cause**: DotNS names are first come, first served.
 
 **Resolution**: Choose a different name. Re-deploying a name you already own is fine and does not conflict.
 
@@ -50,9 +50,9 @@ Named entries for the failures developers hit most while building and deploying 
 
 ## The App Does Not Appear Right After Deploy
 
-**Cause**: On-chain state takes a short time to propagate after the deploy transaction finalizes, and the web gateway resolves your `.dot` name through an in-browser light client.
+**Cause**: On-chain state takes a short time to propagate after the deploy transaction finalizes, and the web gateway resolves your name through an in-browser light client.
 
-**Resolution**: Wait a few seconds and refresh. A `curl` or script against the `.dot.li` URL returns a generic gateway shell, not your app — open it in a real browser to see the resolved Product. If it still does not resolve after a minute, confirm the deploy finalized and check network status with the developer community.
+**Resolution**: Wait a few seconds and refresh. A `curl` or script against the gateway URL returns a generic gateway shell, not your app — open it in a real browser to see the resolved Product. If it still does not resolve after a minute, confirm the deploy finalized and check network status with the developer community.
 
 ## Connecting to a Chain Throws Outside a Host
 

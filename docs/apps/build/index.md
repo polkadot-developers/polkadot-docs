@@ -86,7 +86,7 @@ Your Product is now running inside the Polkadot Desktop sandbox, served from you
 
     ---
 
-    Your Product needs to remember things on this device: preferences, drafts, cached values. Per-Product key-value storage that works inside a Host or in a plain browser tab.
+    Your Product needs to remember things on this device: preferences, drafts, cached values. Per-Product key-value storage backed by the Host, with no browser `localStorage` fallback.
 
     [:octicons-arrow-right-24: Persist Data Locally](/apps/build/persist-data-locally/)
 

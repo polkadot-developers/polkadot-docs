@@ -48,9 +48,15 @@ Rules to follow:
 - Sign with a product account: getProductAccount(...).getSigner(). Approvals happen
   on the user's phone. On Paseo Next v2, do not use Polkadot.js-style signing (the
   AsPgas signed extension breaks it) — use the product-account signer.
-- Most fallible SDK calls return a Result; check `.ok` before reading `.value`. The
-  exception is a contract read: `contract.method.query()` returns `{ success, value }`,
-  so check `.success`, not `.ok`.
+- Most fallible SDK calls return a Result; check `.ok` before reading `.value`. Two
+  exceptions: a contract read, `contract.method.query()`, returns `{ success, value }`,
+  so check `.success`; and the `createApp` facade is not Result-typed except for
+  `app.cloudStorage` — `app.wallet` and `app.chain` throw, and `app.localStorage`
+  returns plain values. Prefer the individual packages (`signer`, `chain-client`,
+  `local-storage`), which are Result-typed throughout.
+- `createApp({ name })` passes `name` through as the dotNS identifier the Host derives
+  the product account from. If it is not a registered `.dot` name, `wallet.connect()`
+  resolves with zero accounts rather than erroring, so always check `accounts.length`.
 - Storage: put files/blobs on the Bulletin Chain (content-addressed by CID, retained
   ~2 weeks, renewable). Keep bulk data OUT of contracts; store only small enforced
   state on-chain. Service allowances are granted per account.

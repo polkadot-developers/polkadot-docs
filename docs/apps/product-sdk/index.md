@@ -12,7 +12,7 @@ The [Product SDK](https://github.com/paritytech/product-sdk) is the TypeScript S
 
 The SDK never dials an RPC endpoint itself. Every sensitive operation (signing, chain access, storage) goes through the Host, which selects the network, holds the user's keys, and prompts for approval on the user's phone. Your Product calls a typed method; the Host mediates the rest.
 
-Fallible operations return a typed `Result` instead of throwing, so you check `.ok` before reading `.value`. This pattern runs through the whole SDK and is covered in each [Build guide](/apps/build/).
+Fallible operations in the individual packages return a typed `Result` instead of throwing, so you check `.ok` before reading `.value`. That pattern runs through every capability package and is what each [Build guide](/apps/build/) teaches. The `createApp` facade below is thinner and does not follow it uniformly — see [What `createApp` Returns](#what-createapp-returns).
 
 ## Two Ways to Use the SDK
 
@@ -29,27 +29,53 @@ Note what is *not* there: `tx`, `keys`, `statement-store`, `terminal`, and `auth
 
 ## A Minimal Product
 
-`createApp` is the fastest way in. It wires the wallet, local storage, chain client, and cloud storage behind one object:
+`createApp` is the fastest way in. It wires the signer, local storage, chain client, and cloud storage behind one object — the signer is exposed as `app.wallet`, the facade's older name for it:
 
 ```typescript
 import { createApp } from '@parity/product-sdk';
 
-const app = await createApp({
-  name: 'my-app',
-  logLevel: 'info',
-});
+async function start() {
+  const app = await createApp({
+    name: 'my-product.dot', // also your dotNS identifier — see the warning below
+    logLevel: 'info',
+  });
 
-// Connect to host-provided accounts.
-const { accounts } = await app.wallet.connect();
-console.log('Connected accounts:', accounts);
+  // wallet.connect() throws rather than returning a Result.
+  try {
+    const { accounts } = await app.wallet.connect();
+    if (accounts.length === 0) {
+      // Connected, but the Host could not derive an account for this name.
+    } else {
+      console.log('Connected accounts:', accounts);
+    }
+  } catch (cause) {
+    // No Host, or the Host refused the connection.
+  }
 
-// Persist a value, namespaced under the app name in host storage.
-await app.localStorage.set('lastVisit', new Date().toISOString());
-const lastVisit = await app.localStorage.get('lastVisit');
-console.log('Last visit:', lastVisit);
+  // Per-Product storage, namespaced by `name`. No Result: a miss reads as null.
+  await app.localStorage.set('lastVisit', new Date().toISOString());
+  const lastVisit = await app.localStorage.get('lastVisit'); // string | null
+  console.log('Last visit:', lastVisit);
+
+  return app;
+}
 ```
 
-`createApp` returns an `App` exposing `wallet`, `localStorage`, `chain`, and `cloudStorage`, plus `getAppInfo`.
+!!! warning "`name` is also your dotNS identifier"
+    `createApp` passes `name` straight through as the signer's `dappName`, and the Host treats that as the product identifier it derives the user's account from, appending `.dot` to non-local names. If it is not a registered `.dot` name, the Host rejects the derivation and `wallet.connect()` resolves with **zero accounts** instead of failing — so the only symptom is an empty list, with no error to catch. `name` also namespaces your local storage, so changing it later moves both the derived account and every stored key.
+
+### What `createApp` Returns
+
+An `App` exposing `wallet`, `localStorage`, `chain`, and `cloudStorage`, plus `getAppInfo`. The four do not share one error convention, so check which one you are calling before writing the guard:
+
+|      Member      |                                  Convention                                   |
+|------------------|-------------------------------------------------------------------------------|
+| `wallet`         | **Throws.** `connect()` rethrows the signer's error as a plain `Error`, so the typed variant is lost — you cannot tell `HostUnavailableError` from a rejection. |
+| `localStorage`   | **Neither.** `get` resolves to `string \| null`, `set` to `void`; a failed read is indistinguishable from a missing key. |
+| `chain`          | **Throws.** `getClient` and `getRawClient` throw if the chain is not connected. |
+| `cloudStorage`   | **Returns a `Result`.** `upload` and `fetch` resolve to `ok`/`err`, matching the rest of the SDK. Also `null` entirely when cloud storage is disabled via `cloudStorage: false`. |
+
+If you want the `Result` convention throughout, use the individual packages instead: [`signer`](/apps/product-sdk/signer/) in place of `app.wallet`, [`chain-client`](/apps/product-sdk/chain-client/) in place of `app.chain`, and [`local-storage`](/apps/product-sdk/local-storage/) in place of `app.localStorage`. That is the path every [Build guide](/apps/build/) takes.
 
 !!! warning "createApp requires a Host"
     `createApp` must run inside a compatible Host ([Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/), the [Polkadot App](/reference/apps/hosts/polkadot-app/), or [Polkadot Web](/reference/apps/hosts/polkadot-web/)). Called outside one, it throws `Host storage unavailable`. For local development and tests, use the SDK's fake Host; see [Testing Without a Host](#testing-without-a-host).
@@ -120,7 +146,30 @@ The [Shared Todo App tutorial](/apps/tutorials/shared-todo-app/) uses these bind
 
 ## Testing Without a Host
 
-Because `createApp` and the host-only methods require a Host, the SDK ships fakes for local development and automated tests. The `@parity/product-sdk/testing` subpath provides `createFakeApp` and per-capability fakes (`createFakeSignerProvider`, `createFakeHostLocalStorage`, and more), so you can exercise Product logic in a plain Node or browser test without Polkadot Desktop.
+Because `createApp` and the host-only methods require a Host, the SDK ships fakes so **automated tests** can exercise Product logic in plain Node or a browser test runner. These are a test tool, not a development environment: to *develop* against a real Host, run your Product from `localhost` inside Polkadot Desktop, per [Set Up Your Project](/apps/build/#set-up-your-project).
+
+`@parity/product-sdk/testing` exports `createFakeApp`, which returns a fake `App` you can use directly in a logic test or hand to `ProductSDKContext.Provider` for a React component test:
+
+```typescript
+import { createFakeApp } from '@parity/product-sdk/testing';
+
+// Synchronous, unlike the real createApp, which returns a Promise.
+const app = createFakeApp({ wallet: { accounts: [alice, bob], selected: alice } });
+
+await app.wallet.connect();
+```
+
+It fakes `wallet`, `localStorage`, and `cloudStorage`. Each is overridable through the options, along with `name`.
+
+!!! warning "There is no chain fake, and `app.chain` throws"
+    `createFakeApp` leaves `chain` unconfigured, so `getClient` and `getRawClient` throw — deliberately, because the Host owns RPC selection and a fake would not exercise the real wiring. The SDK's own guidance is to put chain-reading logic behind an interface you control, unit-test against that, and cover the wiring in end-to-end tests. Pass a `chain` override to `createFakeApp` if you would rather supply your own double.
+
+    This matters most for [Read On-Chain Data](/apps/build/read-chain-state/), the first Build recipe, which is entirely chain reads.
+
+The subpath also re-exports the per-package fakes for [`signer`](/apps/product-sdk/signer/), [`local-storage`](/apps/product-sdk/local-storage/), [`contracts`](/apps/product-sdk/contracts/), and [`host`](/apps/product-sdk/host/) — `createFakeSignerProvider`, `createFakeHostLocalStorage`, and the rest — so one import covers them.
+
+!!! note "Statement store fakes are imported separately"
+    They are deliberately not re-exported here, for the same reason `statement-store` has no umbrella subpath: adding it would pull in a dependency the umbrella does not otherwise have, and could pin a different version than the one your Product installs. Import them from `@parity/product-sdk-statement-store/testing` instead.
 
 Individual packages also expose a dev path where it makes sense; for example, `SignerManager.connect('dev')` loads the standard Substrate dev accounts. See [Sign and Submit Transactions](/apps/build/sign-and-submit/#test-without-a-host).
 

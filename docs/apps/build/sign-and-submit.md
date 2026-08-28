@@ -95,27 +95,38 @@ const manager = new SignerManager({
 
 Call `connect()` to establish a session with the host and discover available accounts. `connect()`, `selectAccount()`, `getProductAccount()`, and `signRaw()` all return a `Result`; always check `.ok` before accessing `.value`. (`getSigner()` returns a nullable directly, not a `Result`.)
 
-!!! note "The blocks below are one flow"
-    They are consecutive fragments of a single `async` function, not standalone snippets, so the early `return`s assume an enclosing function. Paste them into one.
+Each step below is a self-contained function over the `manager` you built above, so you can paste them one at a time.
 
 ```typescript
-const connectResult = await manager.connect();
-if (!connectResult.ok) {
-  // HostUnavailableError when running outside Desktop
-  console.error(connectResult.error.message);
-  return;
-}
-
-// Auto-select the first account if none is already selected
-const accounts = connectResult.value;
-if (accounts.length > 0 && !manager.getState().selectedAccount) {
-  const selectResult = manager.selectAccount(accounts[0].address);
-  if (!selectResult.ok) {
-    console.error(selectResult.error.message);
-    return;
+async function connectAndSelect() {
+  const connectResult = await manager.connect();
+  if (!connectResult.ok) {
+    // HostUnavailableError when running outside Desktop
+    console.error(connectResult.error.message);
+    return null;
   }
+
+  const accounts = connectResult.value;
+  if (accounts.length === 0) {
+    // Connected, but the host derived no accounts for this Product.
+    return null;
+  }
+
+  // Auto-select the first account if none is already selected
+  if (!manager.getState().selectedAccount) {
+    const selectResult = manager.selectAccount(accounts[0].address);
+    if (!selectResult.ok) {
+      console.error(selectResult.error.message);
+      return null;
+    }
+  }
+
+  return manager.getState().selectedAccount;
 }
 ```
+
+!!! warning "A successful connect can still yield zero accounts"
+    `connect()` resolves with `ok([])` — not an error — when `dappName` is unset or the host rejects the derivation, typically because the `.dot` identifier is not registered for that user. Check the length before indexing, or `accounts[0].address` throws on a path the SDK treats as normal.
 
 `connect()` defaults to the host provider. Outside a host container it returns `HostUnavailableError`; use `connect('dev')` for local testing instead. See [Test Without a Host](#test-without-a-host).
 
@@ -124,13 +135,15 @@ if (accounts.length > 0 && !manager.getState().selectedAccount) {
 `getProductAccount` requests the product-scoped account for a given `dotNsIdentifier` from the host. This is a host-only API; it returns `HostUnavailableError` when the active provider is `'dev'`.
 
 ```typescript
-const accountResult = await manager.getProductAccount('my-product.dot', 0);
-if (!accountResult.ok) {
-  console.error(accountResult.error.message);
-  return;
-}
+async function loadProductAccount() {
+  const accountResult = await manager.getProductAccount('my-product.dot', 0);
+  if (!accountResult.ok) {
+    console.error(accountResult.error.message);
+    return null;
+  }
 
-const { address, publicKey } = accountResult.value;
+  return accountResult.value; // SignerAccount
+}
 ```
 
 The returned `SignerAccount` exposes:
@@ -146,19 +159,25 @@ Use `signRaw` to sign an arbitrary byte payload with the currently selected acco
 `signRaw` returns a `Result<Uint8Array, SignerError>`; it never throws. Always check `.ok` before accessing `.value`.
 
 ```typescript
-const selectResult = manager.selectAccount(accountResult.value.address);
-if (!selectResult.ok) {
-  console.error(selectResult.error.message);
-  return;
-}
+async function signMessage() {
+  const account = await loadProductAccount();
+  if (!account) return null;
 
-const payload = new TextEncoder().encode('hello polkadot');
-const result = await manager.signRaw(payload);
+  const selectResult = manager.selectAccount(account.address);
+  if (!selectResult.ok) {
+    console.error(selectResult.error.message);
+    return null;
+  }
 
-if (result.ok) {
-  console.log(result.value); // Uint8Array - the raw signature
-} else {
-  console.error(result.error.message);
+  const payload = new TextEncoder().encode('hello polkadot');
+  const result = await manager.signRaw(payload);
+
+  if (!result.ok) {
+    console.error(result.error.message);
+    return null;
+  }
+
+  return result.value; // Uint8Array - the raw signature
 }
 ```
 
@@ -180,23 +199,26 @@ const api = client.getTypedApi(dot);
 The `dot` descriptor is the typed API surface for the Polkadot relay chain. Run `npx papi add dot` in your project to pull or regenerate it.
 
 ```typescript
-const accountResult = await manager.getProductAccount('my-product.dot', 0);
-if (!accountResult.ok) return;
+async function transfer() {
+  const recipient = 'INSERT_RECIPIENT_ADDRESS';
 
-const selectResult = manager.selectAccount(accountResult.value.address);
-if (!selectResult.ok) return;
+  const account = await loadProductAccount();
+  if (!account) return null;
 
-// getSigner() returns null if no account is selected
-const signer = manager.getSigner();
-if (!signer) return;
+  const selectResult = manager.selectAccount(account.address);
+  if (!selectResult.ok) return null;
 
-const recipient = 'INSERT_RECIPIENT_ADDRESS';
-const tx = api.tx.Balances.transfer_keep_alive({
-  dest: recipient,
-  value: 1_000_000_000_000n,
-});
+  // getSigner() returns null if no account is selected
+  const signer = manager.getSigner();
+  if (!signer) return null;
 
-const result = await tx.signAndSubmit(signer);
+  const tx = api.tx.Balances.transfer_keep_alive({
+    dest: recipient,
+    value: 1_000_000_000_000n,
+  });
+
+  return tx.signAndSubmit(signer);
+}
 ```
 
 ## Handle Signing Errors
@@ -208,19 +230,25 @@ import {
   HostRejectedError,
   TimeoutError,
 } from '@parity/product-sdk-signer';
+import type { PolkadotSigner } from 'polkadot-api';
 
-try {
-  const result = await tx.signAndSubmit(signer);
-} catch (error) {
-  if (error instanceof HostRejectedError) {
-    // The user dismissed the signing prompt on the Polkadot App
-    return;
+async function submitOrReport(
+  tx: { signAndSubmit(signer: PolkadotSigner): Promise<unknown> },
+  signer: PolkadotSigner,
+) {
+  try {
+    return await tx.signAndSubmit(signer);
+  } catch (error) {
+    if (error instanceof HostRejectedError) {
+      // The user dismissed the signing prompt on the Polkadot App
+      return null;
+    }
+    if (error instanceof TimeoutError) {
+      // The signing session expired before the user responded
+      return null;
+    }
+    throw error;
   }
-  if (error instanceof TimeoutError) {
-    // The signing session expired before the user responded
-    return;
-  }
-  throw error;
 }
 ```
 
@@ -235,15 +263,20 @@ try {
 During development, use `connect('dev')` to load the standard Substrate dev accounts (Alice, Bob, Charlie, Dave, Eve, and Ferdie) without needing Polkadot Desktop. The signing API is identical — only the provider changes.
 
 ```typescript
-const result = await manager.connect('dev');
-if (!result.ok) return;
+async function devSignRaw() {
+  const result = await manager.connect('dev');
+  if (!result.ok) return null;
 
-const selectResult = manager.selectAccount(result.value[0].address);
-if (!selectResult.ok) return;
+  const [alice] = result.value;
+  if (!alice) return null;
 
-const signResult = await manager.signRaw(new TextEncoder().encode('test'));
-if (signResult.ok) {
-  console.log(signResult.value); // Uint8Array - the raw signature
+  const selectResult = manager.selectAccount(alice.address);
+  if (!selectResult.ok) return null;
+
+  const signResult = await manager.signRaw(new TextEncoder().encode('test'));
+  if (!signResult.ok) return null;
+
+  return signResult.value; // Uint8Array - the raw signature
 }
 ```
 

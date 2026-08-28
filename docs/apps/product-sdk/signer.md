@@ -35,22 +35,30 @@ Construct the manager once, connect, select an account, and sign. Each step retu
 ```typescript
 import { SignerManager } from '@parity/product-sdk-signer';
 
-const manager = new SignerManager({ ss58Prefix: 0, dappName: 'my-product' });
+async function signHello() {
+  const manager = new SignerManager({ ss58Prefix: 0, dappName: 'my-product' });
 
-const connectResult = await manager.connect();
-if (!connectResult.ok) return; // HostUnavailableError outside a Host
+  const connectResult = await manager.connect();
+  if (!connectResult.ok) return; // HostUnavailableError outside a Host
 
-manager.selectAccount(connectResult.value[0].address);
+  const [account] = connectResult.value;
+  if (!account) return; // connected, but the Host returned no accounts
 
-const signature = await manager.signRaw(new TextEncoder().encode('hello'));
-if (signature.ok) {
-  console.log(signature.value); // Uint8Array
+  manager.selectAccount(account.address);
+
+  const signature = await manager.signRaw(new TextEncoder().encode('hello'));
+  if (signature.ok) {
+    console.log(signature.value); // Uint8Array
+  }
 }
 ```
 
+!!! warning "A successful connect can still yield zero accounts"
+    `connect()` resolves with `ok([])` — not an error — when `dappName` is unset or the Host rejects the derivation, typically because the `.dot` identifier is not registered for that user. Destructure and check before indexing, or `value[0].address` throws on a path the SDK documents as normal. A Product in that state can still drive the explicit signing paths, such as `getLegacyAccountSigner`.
+
 ## Request Permissions Once Per Session
 
-Use the `onConnect` hook to request resource allocations as soon as the connection is established, before any signing call:
+Use the `onConnect` hook to request resource allocations as soon as the connection is established, before any signing call. Unlike the rest of the package, `requestResourceAllocation` **throws** rather than returning a `Result`, so guard it:
 
 ```typescript
 import { SignerManager } from '@parity/product-sdk-signer';
@@ -58,11 +66,30 @@ import { SignerManager } from '@parity/product-sdk-signer';
 const manager = new SignerManager({
   ss58Prefix: 0,
   dappName: 'my-product',
-  onConnect: async (_account, { requestResourceAllocation }) => {
-    await requestResourceAllocation([{ tag: 'AutoSigning', value: undefined }]);
+  onConnect: async (_account, { requestResourceAllocation, signal }) => {
+    try {
+      const outcomes = await requestResourceAllocation([
+        { tag: 'BulletinAllowance', value: undefined },
+      ]);
+      if (signal.aborted) return; // user disconnected mid-request
+      if (outcomes.some((outcome) => outcome !== 'Allocated')) {
+        // Degrade gracefully: treat the capability as unavailable, not fatal.
+      }
+    } catch (cause) {
+      // Typed host error — the connection itself is unaffected.
+    }
   },
 });
 ```
+
+Three things that example is doing deliberately:
+
+- **`try`/`catch`**: `requestResourceAllocation` adapts the Host's `Result`-returning call into a throwing one, so an unguarded `await` can throw inside `onConnect`. Errors thrown here are logged and do not break the connected state, but you lose the chance to react.
+- **`signal.aborted`**: The `AbortSignal` fires if the user disconnects or the manager is destroyed while the request is still in flight. Check it before acting on the outcomes.
+- **Checking the outcomes**: Each is `'Allocated'`, `'Rejected'`, or `'NotAvailable'` — bare strings here, unlike the tagged objects the [`auth`](/apps/product-sdk/auth/) package returns. See [Allowances and Permissions](/apps/concepts/allowances/) for what each resource authorizes.
+
+!!! note "Why not `AutoSigning` in this example"
+    `AutoSigning` is the most interesting resource to request and the one you cannot rely on: it returns `NotAvailable` on both the Android and iOS wallets today. Request it if you want, but treat per-transaction signing as the real path and do not build a flow that depends on the grant landing.
 
 ## Limitations
 

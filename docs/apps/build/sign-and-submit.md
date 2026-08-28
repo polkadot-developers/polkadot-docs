@@ -66,19 +66,37 @@ import { SignerManager } from '@parity/product-sdk-signer';
 const manager = new SignerManager({
   ss58Prefix: 0,
   dappName: 'my-product',
-  onConnect: async (_account, { requestResourceAllocation }) => {
-    await requestResourceAllocation([{ tag: 'AutoSigning', value: undefined }]);
+  onConnect: async (_account, { requestResourceAllocation, signal }) => {
+    try {
+      const outcomes = await requestResourceAllocation([
+        { tag: 'BulletinAllowance', value: undefined },
+      ]);
+      if (signal.aborted) return;
+      if (outcomes.some((outcome) => outcome !== 'Allocated')) {
+        // Degrade gracefully: the capability is unavailable, not fatal.
+      }
+    } catch (cause) {
+      // Typed host error; the connection itself is unaffected.
+    }
   },
 });
 ```
 
 - **`ss58Prefix`**: The SS58 address-format prefix for the target network. Use `0` for the Polkadot relay chain.
 - **`dappName`**: A human-readable name for your Product, shown in Desktop UI.
-- **`onConnect`**: Fires once per connection transition. Use `ctx.requestResourceAllocation` to request permissions such as `AutoSigning` up front, before any signing call is made.
+- **`onConnect`**: Fires once per connection transition. Request the resources your Product needs here, before any signing call is made.
+- **`ctx.requestResourceAllocation`**: The one call in this package that **throws** instead of returning a `Result`, so wrap it in `try`/`catch`. Each outcome is `'Allocated'`, `'Rejected'`, or `'NotAvailable'`; treat anything other than allocated as the capability being unavailable.
+- **`ctx.signal`**: Aborts if the user disconnects while the request is in flight. Check it before acting on the outcomes.
+
+!!! note "`AutoSigning` is not grantable yet"
+    It is the resource most worth requesting and the one you cannot depend on: both the Android and iOS wallets return `NotAvailable` for it today. Keep per-transaction signing as the real path. See [Allowances and Permissions](/apps/concepts/allowances/).
 
 ## Connect to the Host
 
 Call `connect()` to establish a session with the host and discover available accounts. `connect()`, `selectAccount()`, `getProductAccount()`, and `signRaw()` all return a `Result`; always check `.ok` before accessing `.value`. (`getSigner()` returns a nullable directly, not a `Result`.)
+
+!!! note "The blocks below are one flow"
+    They are consecutive fragments of a single `async` function, not standalone snippets, so the early `return`s assume an enclosing function. Paste them into one.
 
 ```typescript
 const connectResult = await manager.connect();

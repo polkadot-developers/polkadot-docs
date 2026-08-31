@@ -121,7 +121,7 @@ Follow these steps to use Polkadot.js Apps to activate your validator:
     You can also set the **commission** and **blocked** nominations option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations).
 
     !!! warning
-        Following Referendum [1909](https://polkadot.subsquare.io/referenda/1909){target=\_blank}, this rate is fixed on-chain at **0%** for all validators and cannot be set to anything else. Validators are rewarded through the self-stake incentive described in [Validator Compensation](/node-infrastructure/run-a-validator/requirements/#validator-compensation){target=\_blank} instead.
+        Following Referendum [1909](https://polkadot.subsquare.io/referenda/1909), this rate is fixed on-chain at **0%** for all validators and cannot be set to anything else. Validators are rewarded through the self-stake incentive described in [Validator Compensation](/node-infrastructure/run-a-validator/requirements/#validator-compensation) instead.
 
     ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-05.webp)
 

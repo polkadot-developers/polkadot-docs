@@ -146,7 +146,7 @@ flowchart TD
 
 With enough stake, you could run more than two validators. However, each validator must have enough stake behind it to maintain a spot in the validator set.
 
-Splitting stake across multiple validators also affects the self-stake incentive payout described in [Validator Self-Stake Incentive](#validator-self-stake-incentive). Because the incentive weight function is concave, the combined weight of two validators with, for example, 9,000 DOT self-stake each is not simply equal to the weight of one validator with 18,000 DOT self-stake. Factor this into your decision when choosing how many validators to run and how to split self-stake between them.
+Splitting stake across multiple validators also affects the self-stake incentive payout described in [Validator Self-Stake Incentive](#validator-self-stake-incentive). Because the incentive weight function is concave, the combined weight of two validators with, for example, 10,000 DOT self-stake each is not simply equal to the weight of one validator with 20,000 DOT self-stake. Factor this into your decision when choosing how many validators to run and how to split self-stake between them.
 
 ## Nominators and Validator Payments
 
@@ -208,8 +208,8 @@ flowchart TD
     A --> B
     B --> C
     B --> D
-    C --(2 x 0.33)--> H
-    D --(2 x 0.67)--> J
+    C --(2 x 1/3)--> H
+    D --(2 x 2/3)--> J
 ```
 
 Bob holds a smaller percentage of their node's total stake, so their stake reward is smaller than Alice's. Since there is no rate-based cut left to adjust, Bob cannot make up the difference that way. The only way for Bob to earn a larger total reward is to increase self-stake, which raises both the stake reward share shown here and the separate self-stake incentive payout described in [Validator Self-Stake Incentive](#validator-self-stake-incentive).

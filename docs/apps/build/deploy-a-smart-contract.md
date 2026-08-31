@@ -1,12 +1,12 @@
 ---
-title: Deploy and Integrate a Smart Contract
+title: Add a Smart Contract to Your Product
 description: Add a PolkaVM smart contract to your Polkadot Product — deploy it to Asset Hub with the Contract Dependency Manager and call it from your frontend.
 categories: Apps
 page_badges:
   tutorial_badge: Advanced
 ---
 
-# Deploy and Integrate a Smart Contract
+# Add a Smart Contract to Your Product
 
 ## Introduction
 
@@ -23,7 +23,7 @@ Before starting, ensure you have:
 
 - A Polkadot Product project running locally. See [Set Up Your Project](/apps/build/#set-up-your-project).
 - PAS funds and a Bulletin Chain authorization for the account `cdm` will sign with. See [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/). Deploying a contract writes to Asset Hub (fees) and publishes metadata to the Bulletin Chain (authorization). The next two sections cover installing `cdm` and creating that account.
-- A workstation, not just a browser. Contracts compile to PolkaVM, so unlike the frontend capabilities this step needs a local toolchain.
+- A workstation rather than a browser alone. Contracts compile to PolkaVM, so unlike the frontend capabilities this step needs a local toolchain.
 
 ## Install cdm
 
@@ -193,12 +193,13 @@ The `shared-counter` template ships its `cdm.json` already populated for the exa
 Install the contracts package (or use the umbrella `@parity/product-sdk`):
 
 ```bash
-npm install @parity/product-sdk-contracts @parity/product-sdk-chain-client @parity/product-sdk-descriptors
+npm install @parity/product-sdk-contracts @parity/product-sdk-chain-client @parity/product-sdk-descriptors @parity/product-sdk-signer
 ```
 
 Build a `ContractManager` from the manifest and the host-routed chain client, map your signing account once (every contract write fails with `AccountNotMapped` until you do), then get a typed handle by name. Reads use `query` (a dry run — check `.success`), and writes use `tx` (which signs through the Host — check `.ok`):
 
 ```typescript
+import { SignerManager } from '@parity/product-sdk-signer';
 import { createChainClient } from '@parity/product-sdk-chain-client';
 import { paseo_asset_hub } from '@parity/product-sdk-descriptors/paseo-asset-hub';
 import {
@@ -207,34 +208,47 @@ import {
 } from '@parity/product-sdk-contracts';
 import cdmJson from './cdm.json';
 
-const client = await createChainClient({ chains: { assetHub: paseo_asset_hub } });
+async function useCounter() {
+  // The same SignerManager setup as Sign and Submit Transactions.
+  const signerManager = new SignerManager({ ss58Prefix: 0, dappName: 'my-app.dot' });
+  const connected = await signerManager.connect();
+  if (!connected.ok) return;
 
-const manager = ContractManager.fromClient(
-  cdmJson,
-  client.raw.assetHub,
-  paseo_asset_hub,
-  { signerManager },
-);
+  const productAccount = await signerManager.getProductAccount('my-app.dot', 0);
+  if (!productAccount.ok) return;
 
-// pallet-revive requires each signing account to be mapped once.
-await ensureContractAccountMapped(manager.getRuntime(), account.address, signer);
+  const account = productAccount.value;
+  const signer = account.getSigner();
 
-const counter = manager.getContract('@my-app/counter');
+  const client = await createChainClient({ chains: { assetHub: paseo_asset_hub } });
 
-// Read: a dry run. Check .success before reading .value.
-const count = await counter.getCount.query();
-if (count.success) {
-  console.log(count.value);
-}
+  const manager = ContractManager.fromClient(
+    cdmJson,
+    client.raw.assetHub,
+    paseo_asset_hub,
+    { signerManager },
+  );
 
-// Write: signs through the Host. Returns a Result — check .ok.
-const result = await counter.increment.tx({ signer });
-if (!result.ok) {
-  console.error(result.error.message);
+  // pallet-revive requires each signing account to be mapped once.
+  await ensureContractAccountMapped(manager.getRuntime(), account.address, signer);
+
+  const counter = manager.getContract('@my-app/counter');
+
+  // Read: a dry run. Check .success before reading .value.
+  const count = await counter.getCount.query();
+  if (count.success) {
+    console.log(count.value);
+  }
+
+  // Write: signs through the Host. Returns a Result — check .ok.
+  const result = await counter.increment.tx({ signer });
+  if (!result.ok) {
+    console.error(result.error.message);
+  }
 }
 ```
 
-The `signerManager` is the same [`SignerManager`](/apps/build/sign-and-submit/) you set up for signing, and `account` and `signer` come from it. Contract writes are signed by your Product-scoped account, so they route to the user's phone for approval like any other transaction. For the full frontend surface, see [Contracts](/apps/product-sdk/contracts/).
+Passing `signerManager` to `fromClient` lets the manager resolve the current account at call time, so an account switch is picked up without rebuilding it. See [Sign and Submit Transactions](/apps/build/sign-and-submit/) for the signing setup in depth. Contract writes are signed by your Product-scoped account, so they route to the user's phone for approval like any other transaction. For the full frontend surface, see [Contracts](/apps/product-sdk/contracts/).
 
 !!! note "query returns a status, tx returns a Result"
     `query` is a dry run that does not throw on a revert; branch on `.success`, because on failure `.value` holds the dispatch-error payload, not your data. `tx` returns a `Result`; check `.ok` before assuming the write landed.
@@ -243,7 +257,16 @@ The `signerManager` is the same [`SignerManager`](/apps/build/sign-and-submit/) 
 
 Contracts are immutable once deployed. Changing contract code means deploying a new version: run `cdm deploy -n paseo --suri ...` again (or choose `yes` at the contract prompt in `playground deploy`). The registry appends a new version under the same name; run `cdm install @my-app/counter -n paseo` afterward to refresh the address and ABI in `cdm.json` so your frontend picks up the new deployment.
 
-Because a redeploy gives your contract a new on-chain address, existing users pointed at the old address keep using the old contract until they load the new bundle. For a contract with live users and stored state, plan the migration deliberately rather than redeploying in place.
+Because a redeploy gives your contract a new on-chain address, existing users pointed at the old address keep using the old contract until they load the new bundle. Storage does not move with it: the new instance starts empty, and the old one keeps serving whoever has not reloaded.
+
+For a contract with live users and stored state, that makes a redeploy a migration rather than an update. What it takes:
+
+- **Snapshot the old state before you redeploy.** Read it out through the old contract's `query` methods while its address is still the one in `cdm.json`, since afterward you need the previous address to reach it.
+- **Seed the new instance** from that snapshot, or give the contract a method that accepts it, before pointing users at the new address.
+- **Keep reading from the old address until the new one is populated**, so users who reload mid-migration do not see an empty contract.
+- **Expect a window where both are live.** Users on the old bundle keep writing to the old address until they reload, so either accept losing those writes or drain them after the fact.
+
+None of that is automated. If your contract will hold state you cannot afford to lose, design for it up front — an explicit initializer that accepts prior state costs far less than reconstructing one later.
 
 ## Where to Go Next
 

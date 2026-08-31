@@ -90,13 +90,13 @@ Your Product is now running inside the Polkadot Desktop sandbox, served from you
 
     [:octicons-arrow-right-24: Persist Data Locally](/apps/build/persist-data-locally/)
 
--   <span class="badge advanced">Advanced</span> **Deploy and Integrate a Smart Contract**
+-   <span class="badge advanced">Advanced</span> **Add a Smart Contract to Your Product**
 
     ---
 
     Your Product needs enforced, shared on-chain logic: a leaderboard, a registry, an escrow. Deploy a PolkaVM contract to Asset Hub and call it by name from your frontend.
 
-    [:octicons-arrow-right-24: Deploy and Integrate a Smart Contract](/apps/build/deploy-a-smart-contract/)
+    [:octicons-arrow-right-24: Add a Smart Contract to Your Product](/apps/build/deploy-a-smart-contract/)
 
 </div>
 
@@ -111,7 +111,7 @@ Each guide is built around one _primary_ package and weaves in _utility_ package
 |  [`cloud-storage`](/apps/product-sdk/cloud-storage/)  | A high-level client for the [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/), Polkadot's content-addressed storage. Uploads and retrieves data by CID, with chunking, manifests, and authorization handled for you. |            [Store Data on Chain](/apps/build/store-data-on-chain/)             |
 | [`statement-store`](/apps/product-sdk/statement-store/) | A pub/sub client for the [Statement Store](/reference/apps/infrastructure/statement-store/): publish and subscribe to signed, short-lived statements gossiped peer-to-peer off-chain. Ideal for real-time signaling between users.  | [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/) |
 |  [`local-storage`](/apps/product-sdk/local-storage/)  |                                                       A per-Product, per-device key-value store backed by the Host, for preferences, drafts, and cached values that persist across sessions.                                                        |           [Persist Data Locally](/apps/build/persist-data-locally/)            |
-|    [`contracts`](/apps/product-sdk/contracts/)    |                             Typed calls to `pallet-revive` (PolkaVM) smart contracts on Asset Hub, resolved by name from a `cdm.json` manifest, for enforced shared on-chain logic and state.                              |    [Deploy and Integrate a Smart Contract](/apps/build/deploy-a-smart-contract/)    |
+|    [`contracts`](/apps/product-sdk/contracts/)    |                             Typed calls to `pallet-revive` (PolkaVM) smart contracts on Asset Hub, resolved by name from a `cdm.json` manifest, for enforced shared on-chain logic and state.                              |    [Add a Smart Contract to Your Product](/apps/build/deploy-a-smart-contract/)    |
 
 These packages anchor the current recipes because their surfaces are stable. Other packages in the SDK ([`keys`](/apps/product-sdk/keys/), `crypto`, [`host`](/apps/product-sdk/host/)) will get recipes of their own as their surfaces stabilize.
 

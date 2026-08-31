@@ -62,13 +62,13 @@ The [Shared Todo App tutorial](/apps/tutorials/shared-todo-app/) builds exactly 
 
     [:octicons-arrow-right-24: Store Data on Chain](/apps/build/store-data-on-chain/)
 
--   <span class="badge guide">Guide</span> **Deploy and Integrate a Smart Contract**
+-   <span class="badge guide">Guide</span> **Add a Smart Contract to Your Product**
 
     ---
 
     Put enforced shared state in a contract, and keep bulk data out of it.
 
-    [:octicons-arrow-right-24: Deploy and Integrate a Smart Contract](/apps/build/deploy-a-smart-contract/)
+    [:octicons-arrow-right-24: Add a Smart Contract to Your Product](/apps/build/deploy-a-smart-contract/)
 
 -   <span class="badge guide">Guide</span> **Build a Shared Todo App**
 

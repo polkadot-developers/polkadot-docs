@@ -57,9 +57,12 @@ if (connection.kind === 'qr') {
 
 const session = await auth.getSessionSigner();
 if (session) {
-  console.log('signing as', session.addresses.productAddress);
-  // Use session.signer with submitAndWatch, a contract .tx(), or any PAPI call.
-  session.destroy(); // required — releases the WebSocket
+  try {
+    console.log('signing as', session.addresses.productAddress);
+    // Use session.signer with submitAndWatch, a contract .tx(), or any PAPI call.
+  } finally {
+    session.destroy(); // required — releases the WebSocket
+  }
 }
 ```
 

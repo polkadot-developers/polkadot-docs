@@ -24,7 +24,7 @@ This is the package the [`playground` CLI](/apps/quick-start/) is built on. `pg 
 
 ## Core Concepts
 
-- **`createTerminalAdapter(options)`**: The entry point. `appId` is the storage namespace and the product identity; `endpoints` defaults to Paseo, and `storageDir` overrides the on-disk session directory (`~/.polkadot-apps/` by default). Call `destroy()` when finished — the WebSocket keeps the Node event loop alive.
+- **`createTerminalAdapter(options)`**: The entry point. `appId` is the storage namespace and the product identity; `endpoints` defaults to Paseo, and `storageDir` overrides the on-disk session directory (`~/.polkadot-apps/` by default). `await destroy()` when finished — it returns a promise, and the WebSocket keeps the Node event loop alive until it settles.
 - **Pairing is a subscription, not a return value**: Subscribe to `adapter.sso.pairingStatus` and render the QR when a `pairing` status arrives, *then* await `adapter.sso.authenticate()`. Printing before any interface mounts is what keeps the code scannable.
 - **Sessions load asynchronously**: They are read from disk after the adapter starts, so `waitForSessions(adapter, timeoutMs)` bridges the gap rather than an immediate read that would see an empty list.
 - **Two signer entry points**: `createSessionSigner(session, adapter)` signs as the session's default account (`derivationIndex: 0`) under the adapter's `appId`, which is what nearly every CLI wants. `createSessionSignerForAccount(session, ref)` is the escape hatch for a non-default sub-account or a different `productId`.
@@ -45,26 +45,28 @@ import {
 
 const adapter = createTerminalAdapter({ appId: 'my-cli' });
 
-adapter.sso.pairingStatus.subscribe(async (status) => {
-  if (status.step === 'pairing') {
-    console.log(await renderQrCode(status.payload));
-    console.log('Scan with the Polkadot App…');
+try {
+  adapter.sso.pairingStatus.subscribe(async (status) => {
+    if (status.step === 'pairing') {
+      console.log(await renderQrCode(status.payload));
+      console.log('Scan with the Polkadot App…');
+    }
+  });
+
+  const result = await adapter.sso.authenticate();
+  result.match(
+    (session) => console.log('Logged in:', session?.id),
+    (error) => console.error('Failed:', error.message),
+  );
+
+  const [session] = await waitForSessions(adapter, 2000);
+  if (session) {
+    const signer = createSessionSigner(session, adapter);
+    // Pass `signer` to submitAndWatch, a contract .tx(), or any PAPI call.
   }
-});
-
-const result = await adapter.sso.authenticate();
-result.match(
-  (session) => console.log('Logged in:', session?.id),
-  (error) => console.error('Failed:', error.message),
-);
-
-const [session] = await waitForSessions(adapter, 2000);
-if (session) {
-  const signer = createSessionSigner(session, adapter);
-  // Pass `signer` to submitAndWatch, a contract .tx(), or any PAPI call.
+} finally {
+  await adapter.destroy(); // async, and required — otherwise the CLI never exits
 }
-
-adapter.destroy();
 ```
 
 ## Get an Allowance Signer
@@ -98,10 +100,11 @@ Both helpers default `sessionId` to the only paired session. With zero or more t
 
 ## Limitations
 
-- **Requires Node 21 or later.** The package relies on the global `WebSocket` that Node 21 exposes; on older versions the connection fails at runtime with `WebSocket is not defined`.
+- **Requires Node 21 or later.** The package relies on the global `WebSocket` that Node 21 was the first to expose. On Node 18 or 20 it installs fine and then fails at connect time with `WebSocket is not defined`.
 - Node only. There is no browser build, and sessions are stored on disk.
 - Allowance helpers throw rather than returning a `Result`, because they unwrap the underlying library's own result type. Catch `AllowanceError` and branch on `reason`.
-- `adapter.destroy()` is not optional: without it the WebSocket keeps the process alive and your CLI never exits.
+- `adapter.destroy()` is not optional: without it the WebSocket keeps the process alive and your CLI never exits. It is async, so `await` it, and call it from a `finally` block so a failed pairing still tears down.
+- `destroy()` suppresses one benign teardown line (`Client destroyed`) that the upstream statement-store logs to `console.error`, and exports the predicate it uses, `isBenignTeardownError`, for consumers filtering their own output. It does not cover an auth subscription left open at teardown, which still raises `Error: Not connected`.
 - The cache-only probes mirror an upstream codec that has no public probe API yet. The public surface will not change when the upstream one ships.
 - If you are on a release before 0.3, drop any `--import @parity/product-sdk-terminal/register` flag from your `node` or `tsx` invocation — that WASM loader hook has been removed and is no longer needed.
 

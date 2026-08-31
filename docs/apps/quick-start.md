@@ -31,7 +31,7 @@ Get these in order before your first deploy. The last two are easy to skip and f
 5. **Get a Bulletin Chain storage authorization** for the account that will sign. Without it, uploads are rejected at deploy time even when your balance is fine — a prerequisite that surfaces only as a failed publish. See [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/).
 
 !!! warning "Fund the account that actually signs"
-    The PAS balance and the storage authorization are both per account, and the account that signs your deploy may not be the one you expect. If a deploy fails with `no allowance set for account`, see [Accounts and Signing](/apps/concepts/accounts/) and the [troubleshooting entry](/apps/troubleshooting/#no-allowance-set-for-account). Account mapping to an EVM address is handled for you for the product account you deploy with; a smart contract needs its signing account mapped explicitly, covered in [Deploy and Integrate a Smart Contract](/apps/build/deploy-a-smart-contract/).
+    The PAS balance and the storage authorization are both per account, and the account that signs your deploy may not be the one you expect. If a deploy fails with `no allowance set for account`, see [Accounts and Signing](/apps/concepts/accounts/) and the [troubleshooting entry](/apps/troubleshooting/#no-allowance-set-for-account). Account mapping to an EVM address is handled for you for the product account you deploy with; a smart contract needs its signing account mapped explicitly, covered in [Add a Smart Contract to Your Product](/apps/build/deploy-a-smart-contract/).
 
 !!! note "What a first deploy costs"
     In one test run, taking an app live cost about 10.4 PAS: roughly 10 PAS for the name and about 0.4 PAS for a 2.6 KB upload, with each on-chain step taking around a minute. Name cost depends on length and tier, so treat these as a ballpark. On TestNet, funding is rarely the constraint.
@@ -180,7 +180,7 @@ For the full interactive deploy walkthrough, including the domain-name rules, co
         pg deploy-all --manifest apps.json --signer dev --playground
         ```
 
-    - **`pg contract`**: The playground-native path to contracts, backed by `cdm`. `pg contract deploy` builds, deploys, and registers your contracts signed by your logged-in account; `pg contract install` writes `cdm.json` and the generated type outputs. See [Deploy and Integrate a Smart Contract](/apps/build/deploy-a-smart-contract/) for the workflow, including when to call `cdm` directly instead.
+    - **`pg contract`**: The playground-native path to contracts, backed by `cdm`. `pg contract deploy` builds, deploys, and registers your contracts signed by your logged-in account; `pg contract install` writes `cdm.json` and the generated type outputs. See [Add a Smart Contract to Your Product](/apps/build/deploy-a-smart-contract/) for the workflow, including when to call `cdm` directly instead.
 
         ```bash
         pg contract deploy

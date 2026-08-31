@@ -280,12 +280,11 @@ async function devSignRaw() {
 }
 ```
 
-!!! warning
-    `getProductAccount`, `getProductAccountAlias`, and `createRingVRFProof` are host-only APIs. They return `HostUnavailableError` when the active provider is `'dev'`.
+!!! warning "Four methods are host-only"
+    `getProductAccount`, `getProductAccountAlias`, `createRingVRFProof`, and `getUserId` return `HostUnavailableError` when the active provider is `'dev'`. `getUserId` is easy to miss: [Identity](/apps/concepts/identity/#usernames-in-your-product) recommends it for reading a personhood username as a display name, so a Product that does that renders fine in a Host and fails under the dev provider.
 
 ## Limitations
 
-- `getProductAccount`, `getProductAccountAlias`, and `createRingVRFProof` require an active host connection. They are not available in `'dev'` mode.
 - The package is ESM only; your Product's build pipeline must support ESM imports.
 - `SignerManager.destroy()` is terminal. After calling it, all subsequent method calls return `DestroyedError`. Use `disconnect()` for a reversible reset.
 - Account persistence across page reloads requires the host to expose `localStorage`. Outside a host container, persistence silently no-ops.

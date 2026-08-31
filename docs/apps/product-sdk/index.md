@@ -175,10 +175,10 @@ Individual packages also expose a dev path where it makes sense; for example, `S
 
 ## Requirements
 
-- **Node.js**: version 20 or later.
+- **Node.js**: version 20 or later — **except [`terminal`](/apps/product-sdk/terminal/) and [`auth`](/apps/product-sdk/auth/), which need 21 or later.** Those two open a WebSocket through the global `WebSocket` that Node 21 was the first to expose; on Node 18 or 20 they fail at connect time with `WebSocket is not defined`, not at install time.
 - **Module format**: ESM only. The SDK does not ship CommonJS builds.
 - **TypeScript**: version 5.0 or later, if you consume the types.
-- **Runtime Host**: The umbrella package and host-only methods require a compatible Host at runtime. Use the SDK's testing fakes for local development.
+- **Runtime Host**: The umbrella package and host-only methods require a compatible Host at runtime. Use the SDK's testing fakes in automated tests.
 
 ## Where to Go Next
 

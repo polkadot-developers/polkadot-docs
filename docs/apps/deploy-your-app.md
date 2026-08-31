@@ -55,7 +55,7 @@ The CLI presents the following prompts in order:
 
 1. **Review app detail page**: A reminder that your `README.md` becomes your app's detail page on the playground. Make sure it's up to date, then press ++enter++ to continue (or ++esc++ to exit and edit it first).
 
-2. **Redeploy contracts if changed**: Smart contracts hold your app's on-chain logic and data, and deploy separately from your website. Choose **no** if you only changed the website. Choose **yes** if you changed contract code in this project. The CLI then redeploys and reinstalls the contracts and rebuilds the site to match. See [Deploy and Integrate a Smart Contract](/apps/build/deploy-a-smart-contract/) for the contract workflow in depth.
+2. **Redeploy contracts if changed**: Smart contracts hold your app's on-chain logic and data, and deploy separately from your website. Choose **no** if you only changed the website. Choose **yes** if you changed contract code in this project. The CLI then redeploys and reinstalls the contracts and rebuilds the site to match. See [Add a Smart Contract to Your Product](/apps/build/deploy-a-smart-contract/) for the contract workflow in depth.
 
     <div class="termynal" data-termynal>
     <span data-ty><pre>  did you change your smart contracts?

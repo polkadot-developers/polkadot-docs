@@ -16,7 +16,7 @@ It is the frontend counterpart to deploying a contract: once a contract is deplo
 
 - To call a contract deployed on Asset Hub: reads with `query`, signed writes with `tx`, or atomic multi-call batches with `prepare`.
 - When you have a `cdm.json` manifest (address and ABI per installed contract), which is the primary path via `ContractManager.fromClient`.
-- Not for deploying contracts; deployment is handled by the `cdm` toolchain, covered in [Deploy and Integrate a Smart Contract](/apps/build/deploy-a-smart-contract/). The target chain must expose the `Revive` pallet.
+- Not for deploying contracts; deployment is handled by the `cdm` toolchain, covered in [Add a Smart Contract to Your Product](/apps/build/deploy-a-smart-contract/). The target chain must expose the `Revive` pallet.
 
 ## Core Concepts
 
@@ -70,13 +70,13 @@ if (!result.ok) console.error(result.error.message);
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> **Deploy and Integrate a Smart Contract**
+-   <span class="badge guide">Guide</span> **Add a Smart Contract to Your Product**
 
     ---
 
     The task-focused recipe: scaffold, deploy, and register a contract, then wire it into your frontend.
 
-    [:octicons-arrow-right-24: Deploy and Integrate a Smart Contract](/apps/build/deploy-a-smart-contract/)
+    [:octicons-arrow-right-24: Add a Smart Contract to Your Product](/apps/build/deploy-a-smart-contract/)
 
 -   <span class="badge learn">Learn</span> **Transactions**
 

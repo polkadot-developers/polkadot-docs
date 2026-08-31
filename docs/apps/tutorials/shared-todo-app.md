@@ -25,7 +25,10 @@ What you will build, and which package carries each part:
 
 The guides cover the individual calls. This tutorial focuses on how the layers compose. Statements are capped at 512 bytes and expire after 30 seconds, so they carry individual mutations, not the whole board. The Bulletin Chain holds full snapshots, and a last-write-wins channel announces the latest snapshot's CID. This is the same split [Polkadot App](/reference/apps/hosts/polkadot-app/)'s Chat uses: gossip for signaling, Bulletin for content.
 
-The code in this tutorial was verified end to end in [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/) against `@parity/product-sdk` v0.11.0 and `@parity/product-sdk-statement-store` v0.4.4. Every SDK surface it uses — `createApp`'s wallet and local-storage APIs, `CloudStorageClient.create`, `createLazySigner`, `checkAuthorization`, and `ChannelStore` — is unchanged through `@parity/product-sdk` v0.23.0 and `@parity/product-sdk-statement-store` v0.6.5, so the code still applies on the current line. Pin the versions above if you want to match the verified run exactly.
+The code here is written against the current SDK line: `@parity/product-sdk` v0.25.0, `@parity/product-sdk-statement-store` v0.6.7, and `@parity/product-sdk-cloud-storage` v0.11.1. It needs at least `product-sdk` v0.18.0 and `statement-store` v0.5.0 — the releases that introduced the `Result` model and the sponsored host-signing path.
+
+!!! warning "Upgrading from an SDK before 0.18.0"
+    Version 0.18.0 moved several calls this app uses from throwing (or returning a bare value) to returning a typed `Result`: `app.cloudStorage.upload` and `.fetch`, `checkAuthorization`, and `StatementStoreClient.publish` and `ChannelStore.write` (previously `Promise<boolean>`). Code written against an earlier release keeps compiling in places but stops working, because a `Result` object is always truthy, so `if (!accepted)` on a publish never fires, and `if (!status.authorized)` always does. The snippets below check `.ok` throughout. If you are porting older code, audit every call site rather than trusting it to fail loudly.
 
 ## Prerequisites
 
@@ -43,18 +46,17 @@ Create a Next.js app and install the SDK:
 ```bash
 npx create-next-app@latest shared-todo-board --typescript --tailwind --eslint --app --no-src-dir
 cd shared-todo-board
-npm install @parity/product-sdk @parity/product-sdk-statement-store @parity/product-sdk-cloud-storage @polkadot-api/json-rpc-provider
+npm install @parity/product-sdk @parity/product-sdk-statement-store @parity/product-sdk-cloud-storage
 ```
 
-Four dependencies, for four reasons:
+Three dependencies, for three reasons:
 
 - **`@parity/product-sdk`**: The umbrella package. It re-exports the wallet, local-storage, and cloud-storage capabilities this app uses, plus the React provider. See [Umbrella or Individual Packages](/apps/build/#umbrella-or-individual-packages) if you would rather install per-capability packages.
 - **`@parity/product-sdk-statement-store`**: The pub/sub client. It is not re-exported by the umbrella, so it is always its own dependency.
-- **`@parity/product-sdk-cloud-storage`**: Installed explicitly because the app imports `CloudStorageClient` directly for its authorization pre-flight; relying on the umbrella's transitive copy would depend on npm hoisting.
-- **`@polkadot-api/json-rpc-provider`**: A one-line workaround, explained below.
+- **`@parity/product-sdk-cloud-storage`**: Installed explicitly because the app imports `CloudStorageClient` and `getBulletinAllowanceStatus` directly for its allowance pre-flight; relying on the umbrella's transitive copy would depend on npm hoisting.
 
-!!! note "Why the explicit `@polkadot-api/json-rpc-provider` dependency?"
-    Older transitive dependencies of the SDK pin `@polkadot-api/json-rpc-provider@0.0.1`, and npm hoists that version to the top of `node_modules`, which breaks the build. Declaring `^0.2.0` as a direct dependency forces the correct resolution. No `overrides` or patching is needed.
+!!! note "If the build fails on `@polkadot-api/json-rpc-provider`"
+    Earlier SDK releases had transitive dependencies pinning `@polkadot-api/json-rpc-provider@0.0.1`, which npm hoisted to the top of `node_modules` and broke the build. The current dependency tree resolves `0.2.0` throughout, so no workaround should be needed. If you do hit it, declare `@polkadot-api/json-rpc-provider@^0.2.0` as a direct dependency to force the resolution — no `overrides` or patching required.
 
 Wrap the app in `ProductSDKProvider` so every component can reach the SDK through `useProductSDK()`:
 
@@ -62,7 +64,7 @@ Wrap the app in `ProductSDKProvider` so every component can reach the SDK throug
 --8<-- "code/apps/tutorials/shared-todo-app/providers.tsx"
 ```
 
-Then mount it in the root layout. The inline script is a Polkadot Desktop workaround: it sets the host webview mark synchronously, so the SDK's container detection returns true before its bundle evaluates. It forces host mode unconditionally. That is acceptable here because every capability in this app needs the Host anyway; remove the line if your Product must also run standalone in a plain browser tab:
+Then mount it in the root layout. The inline script is a Polkadot Desktop workaround: it sets the host webview mark synchronously, so the SDK's container detection returns true before its bundle evaluates. It forces host mode unconditionally, which is acceptable here because every capability in this app needs the Host anyway. Drop the line if you want honest container detection — for a Product that renders a useful "open me in a Host" state instead of failing, say — but note that nothing in this app functions outside one:
 
 ```tsx title="app/layout.tsx"
 --8<-- "code/apps/tutorials/shared-todo-app/layout.tsx"
@@ -84,6 +86,9 @@ The app publishes todos, statements, and snapshots, and each item is attributed 
 
 The product account is a per-Product, privacy-preserving identity derived by the Host. See [Sign and Submit Transactions](/apps/build/sign-and-submit/) for how derivation and approval routing work. Outside a host container, `connect()` fails, which the page surfaces as an error banner; there is deliberately no fallback path here because every later capability needs the Host anyway.
 
+!!! note "If Connect reports no accounts"
+    `connectIdentity` throws `No accounts available from the host` when `connect()` succeeds but hands back an empty list. That is a real outcome, not a bug: the `name` you pass to `ProductSDKProvider` becomes the dotNS identifier the Host derives the account from, and a bare label like `shared-todo-board` is qualified to `shared-todo-board.dot`. If the Host declines to derive for that identifier, you get zero accounts and no error. Change `name` to a `.dot` identifier you own — the same string then also namespaces your local storage, so treat it as fixed once you pick it. See [A Minimal Product](/apps/product-sdk/#a-minimal-product) for the same trap on the `createApp` path.
+
 ## Keep State on the Device
 
 The board should render instantly on launch before the Host connection and before any network. `local-storage` gives each Product an isolated key-value store on the device, so the whole persistence layer is one key:
@@ -92,7 +97,7 @@ The board should render instantly on launch before the Host connection and befor
 --8<-- "code/apps/tutorials/shared-todo-app/board.ts"
 ```
 
-The `getJSON` and `setJSON` helpers handle serialization, and the SDK namespaces keys per Product automatically, so no prefixing is needed. The store backend is auto-detected (Host or plain browser), a detail covered in [Persist Data Locally](/apps/build/persist-data-locally/).
+The `getJSON` and `setJSON` helpers handle serialization, and the SDK namespaces keys per Product automatically, so no prefixing is needed. The store is backed by the Host — there is no browser `localStorage` fallback, so these calls only work inside a container. See [Persist Data Locally](/apps/build/persist-data-locally/).
 
 Note what this file _does not_ contain: mutation logic. Adding, toggling, and deleting todos are defined in the next section as events, so that a change made locally and a change arriving from the network flow through identical code.
 
@@ -110,9 +115,7 @@ The [Statement Store](/reference/apps/infrastructure/statement-store/) gossips s
 
 The pieces:
 
-- **`createSyncClient`**: Connects a `StatementStoreClient` in host mode. The `appName` is hashed into the statement topic, so instances of this Product only see each other's traffic. Signing each statement routes through the Host to the user's Polkadot App.
-
-    The `accountId` passed to `connect()` is vestigial on current SDK versions: host mode now signs through the Host's sponsored path with the Product's allowance account, so the field is accepted for backward compatibility and ignored. Harmless to keep, and safe to drop.
+- **`createSyncClient`**: Connects a `StatementStoreClient` in host mode. The `appName` is hashed into the statement topic, so instances of this Product only see each other's traffic. Host mode takes no account: since `statement-store` v0.5.0 the Host signs each statement itself, through the sponsored path, using the Product's allowance account. Older examples pass an `accountId` to `connect()`; it is accepted for compatibility and ignored.
 
 - **`publishEvent` / `subscribeToBoard`**: Thin typed wrappers over `publish` and `subscribe`.
 - **`applyEvent`**: The merge rule: per-todo last write wins, compared by `updatedAt`. It is idempotent, so replayed statements (including your own, which the node echoes back) are harmless no-ops.
@@ -129,7 +132,7 @@ Statements vanish after 30 seconds; the board should not. The [Bulletin Chain](/
 The pieces:
 
 - **`uploadSnapshot` / `fetchSnapshot`**: Use `app.cloudStorage` from the umbrella. `upload` signs and submits the storage transaction through the Host and resolves with the CID; `fetch` is permissionless. [Store Data on Chain](/apps/build/store-data-on-chain/) covers chunking, renewal, and the lower-level client.
-- **`ensureAuthorized`**: A pre-flight that reads your account's storage quota with `checkAuthorization` before uploading, turning a missing [storage authorization](https://paritytech.github.io/polkadot-bulletin-chain/authorizations) into an actionable error instead of a bare on-chain rejection.
+- **`ensureAuthorized`**: A pre-flight that runs before every upload, turning a missing [storage allowance](https://paritytech.github.io/polkadot-bulletin-chain/authorizations) into an actionable error instead of a bare on-chain rejection. It uses `getBulletinAllowanceStatus`, which costs one extra block read over `checkAuthorization` and derives `usable` — authorized, unexpired, and with quota left. Checking `authorized` alone would wave through an expired or exhausted allowance. Because `usable` does not know your payload size, the function also compares `remainingBytes` against the encoded snapshot.
 - **`announceSnapshot` / `onSnapshotAnnounced`**: Use the statement store's channel mechanism. Each channel keeps only its latest value per signer (one live announcement per account; `receiveSnapshot` reconciles announcements from different participants by `updatedAt`). Publishing goes through `client.publish` directly rather than `ChannelStore.write` so the statement can carry the long TTL; receiving still uses `ChannelStore`, which replays the latest live value to new subscribers. The announcement is `{ cid, updatedAt }`, comfortably inside the 512-byte cap. This is the composition the platform recommends: the channel is the index, the Bulletin Chain is the data.
 - **`mergeBoards`**: Folds a fetched snapshot into local state with the same per-todo last-write-wins rule as live sync.
 

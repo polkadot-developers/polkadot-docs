@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-Product Skills are small, modular instruction sets that teach an AI coding agent how to work effectively across specific parts of the Polkadot Products stack. A skill bundles together what the agent needs to know about one slice of the surface (chain connections, bulletin storage, contract interactions, and so on) so that when you ask it for help in that area, it has the right context loaded.
+Product Skills are small, modular instruction sets that teach an AI coding agent how to work effectively across specific parts of the Polkadot Products stack. A skill bundles together what the agent needs to know about one slice of the surface (chain connections, Bulletin storage, contract interactions, and so on) so that when you ask it for help in that area, it has the right context loaded.
 
 If you are working on a Polkadot Product with an AI coding agent, installing the relevant skills tilts the agent toward correct, idiomatic answers instead of generic boilerplate.
 
@@ -26,7 +26,7 @@ The skills live inside the [`paritytech/product-sdk`](https://github.com/parityt
 | [`product-sdk-transactions`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-transactions)     | Submit transactions, manage signers, and derive keys. Covers `@parity/product-sdk-tx`, `@parity/product-sdk-signer`, and `@parity/product-sdk-keys` — multi-provider wallet accounts, Host API signing (Desktop/Mobile), and dev signers for testnet. |
 | [`product-sdk-utilities`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-utilities)           | Foundational utilities — SS58/H160 address encoding, AES/ChaCha/NaCl crypto, HKDF key derivation, byte encoding, token (planck) formatting, key-value storage, and structured logging.                                  |
 | [`product-sdk-individuality`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/product-sdk-individuality) | Personhood and membership standing on the Individuality chain. Covers `readPersonhoodState` from a username or an account, `lookupUsername`, the seven-state `PersonhoodState` union, and `withAsPerson` for dispatching under a person origin. |
-| [`migrating-to-product-sdk`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/migrating-to-product-sdk) | Migrating an existing codebase onto `@parity/product-sdk`. Detects legacy stacks (polkadot-apps, novasamatech, hand-rolled crypto or IPFS, polkadot-api 1.x) and writes a per-repo migration spec. Discovery and planning only — it does not edit code. |
+| [`migrating-to-product-sdk`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/skills/migrating-to-product-sdk) | Migrating an existing codebase onto `@parity/product-sdk`. Detects legacy stacks (`polkadot-apps`, `novasamatech`, hand-rolled crypto or IPFS, `polkadot-api` 1.x) and writes a per-repo migration spec. Discovery and planning only — it does not edit code. |
 
 ## How to Install
 

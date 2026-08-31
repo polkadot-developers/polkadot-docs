@@ -27,7 +27,7 @@ Before starting, ensure you have:
 
 You have two installation options depending on your needs:
 
-- **Umbrella package** (recommended starting point): Install the full SDK in one command. Convenient when your Product uses several SDK features (chain client, signing, cloud storage, etc.) and bundle size is not a concern.
+- **Umbrella package** (recommended starting point): Install the full SDK in one command. Convenient when your Product uses several SDK features (chain client, signing, and cloud storage) and bundle size is not a concern.
 
     ```bash
     npm install @parity/product-sdk

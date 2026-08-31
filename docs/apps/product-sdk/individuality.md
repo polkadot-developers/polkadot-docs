@@ -10,7 +10,7 @@ categories: Apps
 
 [`@parity/product-sdk-individuality`](https://github.com/paritytech/product-sdk/tree/main/product-sdk/packages/individuality) reads a person's standing on the Individuality chain and lets your Product act as that person on it. It is the typed way to answer "is this a verified human, and how far along are they?" without learning who they are.
 
-The package has two halves. The **read** half works in both directions: given a `.dot` username or an account, what is that person's [Proof of Personhood](/reference/apps/infrastructure/pop/) state; and given an account, which usernames does it hold. The **write** half is a single function, `withAsPerson`, which wraps a signer so a transaction dispatches under a *person* origin instead of an account origin.
+The package has two halves. The _read_ half works in both directions: given a `.dot` username or an account, what is that person's [Proof of Personhood](/reference/apps/infrastructure/pop/) state; and given an account, which usernames does it hold. The _write_ half is a single function, `withAsPerson`, which wraps a signer so a transaction dispatches under a _person_ origin instead of an account origin.
 
 Reads return a typed `Result`, so you check `.ok` before reading `.value`. A username nobody owns is not a failure: it arrives on the success channel as a `UsernameUnowned` result.
 
@@ -31,7 +31,7 @@ Reads return a typed `Result`, so you check `.ok` before reading `.value`. A use
 - **`PersonhoodResult` versus `PersonhoodState`**: The outer result is `UsernameUnowned` or `Resolved`. Only `Resolved` carries an account, an optional contextual `alias`, the `state`, and `metrics`.
 - **Seven states, discriminated by `tag`**: `NotEnrolled`, `Lite`, `Candidate` (accruing score, carries `score` and `personhoodThreshold`), `MembershipReady`, `Member` (carries `activeWeeks`), `Caution` (the next absence would breach the grace policy), and `Suspended`.
 - **`metrics` is always present on a resolved read**: The same numbers the state was derived from, in every state, so a progress interface renders without branching on the tag first.
-- **`Caution.misses` is a projection**: It is what the absence window *would* hold after one more absence, not a count of past absences. A `window` of `0` means no grace at all and lands in `Caution` regardless.
+- **`Caution.misses` is a projection**: It is what the absence window _would_ hold after one more absence, not a count of past absences. A `window` of `0` means no grace at all and lands in `Caution` regardless.
 - **Lite and full usernames**: An account always has a lite username (`example.07`); a full one appears only once the person claims a bare name. `displayUsername` picks the right one, `usernameBase` extracts the letters a claim would offer, and `canClaimFullUsername` is the chain's own precondition, not an approximation.
 - **The derivation is exported separately**: `derivePersonhoodState` is pure. Feed it a snapshot you already hold and it needs no chain client and no Host.
 

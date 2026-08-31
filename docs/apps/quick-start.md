@@ -41,7 +41,7 @@ Get these in order before your first deploy. The last two are easy to skip and f
 
 ## Install the CLI
 
-The installer supports Linux and macOS. On **Windows**, work inside [WSL](https://learn.microsoft.com/windows/wsl/install) and follow the Debian/Ubuntu steps there.
+The installer supports Linux and macOS. On Windows, work inside [WSL](https://learn.microsoft.com/windows/wsl/install) and follow the Debian/Ubuntu steps there.
 
 1. Install the base prerequisites. macOS needs no preparation: `curl` ships with the OS, and the Xcode Command Line Tools cover the rest. On a fresh Debian or Ubuntu system:
 

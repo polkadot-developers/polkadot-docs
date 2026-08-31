@@ -125,7 +125,7 @@ mod counter {
 
 Note that the constructor takes `&mut self` and initializes storage in place; it does not return `Self`. Storage fields are wrapped in `Lazy<T>` so each is read and written on demand rather than loaded wholesale.
 
-Before deploying, change **every** `[package.metadata.cdm] package = "@example/…"` entry in the workspace to a scope you control, for example `@my-app/counter`. Package names are global per registry, the scaffolded `@example` scope is a placeholder, and registration is first-writer-owns, so you want your own scope on all three crates.
+Before deploying, change _every_ `[package.metadata.cdm] package = "@example/…"` entry in the workspace to a scope you control, for example `@my-app/counter`. Package names are global per registry, the scaffolded `@example` scope is a placeholder, and registration is first-writer-owns, so you want your own scope on all three crates.
 
 !!! tip "Prefer Solidity?"
     `cdm` also ships Solidity templates (`foundry-counter` and `hardhat-counter`) that compile to PolkaVM via `resolc`. Scaffold one the same way, for example `cdm template foundry-counter`. The deploy and frontend steps below are identical regardless of the contract language.

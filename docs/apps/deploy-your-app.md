@@ -147,13 +147,13 @@ The CLI presents the following prompts in order:
 
 Once the deploy completes, the CLI prints the URLs for your app. Regardless of whether you published it to the playground, your app is live at its DotNS address and reachable through the web gateway, which appends `.li` to the full name:
 
-```
+```text
 https://myproject57.paseo.li
 ```
 
 You can also navigate directly by entering your name in the [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/) browser address bar:
 
-```
+```text
 myproject57.paseo
 ```
 
@@ -161,7 +161,7 @@ myproject57.paseo
 
 Either way, the app loads directly from the Bulletin Chain — no central server involved.
 
-If you chose **yes** at the `publish to the playground?` prompt, your app is also listed in the public playground directory. Open `playground.dot` in Polkadot Desktop browser and your app appears under your name, so others can find and open it. If you chose **no** (`DotNS only`, as in this example), the app is still fully deployed and reachable at the URLs above — it just won't be listed in the directory.
+If you chose **yes** at the `publish to the playground?` prompt, your app is also listed in the public playground directory. Open `playground.dot` in Polkadot Desktop browser and your app appears under your name, so others can find and open it. If you chose **no** (`DotNS only`, as in this example), the app is still fully deployed and reachable at the URLs above, only unlisted in the directory.
 
 !!! tip
     If your app does not appear immediately, wait a few seconds and refresh. On-chain state propagation can take a short time after the deploy transaction finalizes, and the web gateway resolves your name through an in-browser light client. A `curl` or script against the gateway URL returns a generic gateway shell rather than your app — open it in a real browser. If it still does not resolve, see [Troubleshooting](/apps/troubleshooting/#the-app-does-not-appear-right-after-deploy).

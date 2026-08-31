@@ -42,7 +42,7 @@ A label must satisfy all of these, or `playground deploy` rejects it before subm
 
 ### Personhood Tiers
 
-Which tier a name falls into depends on its **base length** — the label length minus any two-digit suffix — and on whether that suffix is present:
+Which tier a name falls into depends on its _base length_, the label length minus any two-digit suffix, and on whether that suffix is present:
 
 | Base length            | Two-digit suffix | Requirement                                          |
 |------------------------|------------------|------------------------------------------------------|

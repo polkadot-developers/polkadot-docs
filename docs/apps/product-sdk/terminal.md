@@ -13,7 +13,7 @@ categories: Apps
 This is the package the [`playground` CLI](/apps/quick-start/) is built on. `pg login` is `createTerminalAdapter` plus a QR render plus `authenticate()`; `pg deploy`'s Bulletin uploads are signed by `getBulletinSigner`.
 
 !!! note "Not for Products"
-    A Polkadot Product runs inside a Host, which already owns the pairing and the signing route, so a Product uses [Signer](/apps/product-sdk/signer/) instead. Reach for this package when you are writing a Node CLI *alongside* your Product — a deploy script, a migration tool, a CI job that has to sign as you.
+    A Polkadot Product runs inside a Host, which already owns the pairing and the signing route, so a Product uses [Signer](/apps/product-sdk/signer/) instead. Reach for this package when you are writing a Node CLI _alongside_ your Product — a deploy script, a migration tool, a CI job that has to sign as you.
 
 ## When to Use It
 
@@ -25,7 +25,7 @@ This is the package the [`playground` CLI](/apps/quick-start/) is built on. `pg 
 ## Core Concepts
 
 - **`createTerminalAdapter(options)`**: The entry point. `appId` is the storage namespace and the product identity; `endpoints` defaults to Paseo, and `storageDir` overrides the on-disk session directory (`~/.polkadot-apps/` by default). `await destroy()` when finished — it returns a promise, and the WebSocket keeps the Node event loop alive until it settles.
-- **Pairing is a subscription, not a return value**: Subscribe to `adapter.sso.pairingStatus` and render the QR when a `pairing` status arrives, *then* await `adapter.sso.authenticate()`. Printing before any interface mounts is what keeps the code scannable.
+- **Pairing is a subscription, not a return value**: Subscribe to `adapter.sso.pairingStatus` and render the QR when a `pairing` status arrives, _then_ await `adapter.sso.authenticate()`. Printing before any interface mounts is what keeps the code scannable.
 - **Sessions load asynchronously**: They are read from disk after the adapter starts, so `waitForSessions(adapter, timeoutMs)` bridges the gap rather than an immediate read that would see an empty list.
 - **Two signer entry points**: `createSessionSigner(session, adapter)` signs as the session's default account (`derivationIndex: 0`) under the adapter's `appId`, which is what nearly every CLI wants. `createSessionSignerForAccount(session, ref)` is the escape hatch for a non-default sub-account or a different `productId`.
 - **Allowance signers are the canonical write path**: For Bulletin and Statement Store writes, ask the wallet for an allowance slot once and sign locally afterward. The first call prompts the phone; later calls return the cached slot key with no round trip.

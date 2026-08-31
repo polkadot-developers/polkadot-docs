@@ -25,7 +25,7 @@ The import specifiers differ between the two: the umbrella exposes subpaths like
 
 The umbrella's subpaths are a fixed set: `address`, `chain`, `cloud-storage`, `contracts`, `core`, `crypto`, `host`, `identity`, `individuality`, `local-storage`, `react`, `testing`, and `wallet`. Two of those names do not match their leaf package — `@parity/product-sdk/chain` re-exports `chain-client`, and `@parity/product-sdk/wallet` re-exports `signer`, kept under the older name for compatibility.
 
-Note what is *not* there: `tx`, `keys`, `statement-store`, `terminal`, and `auth` have no umbrella subpath and are not re-exported from the root, so install those from their own packages even when you are otherwise on the umbrella. The root entry point does re-export the most common handful directly — `createApp`, `SignerManager`, `createChainClient`, `createLocalKvStore`, `CloudStorageClient`, `isInsideContainer`, and the `Result` trio (`ok`, `err`, `isErrorOf`).
+Note what is _not_ there: `tx`, `keys`, `statement-store`, `terminal`, and `auth` have no umbrella subpath and are not re-exported from the root, so install those from their own packages even when you are otherwise on the umbrella. The root entry point does re-export the most common handful directly — `createApp`, `SignerManager`, `createChainClient`, `createLocalKvStore`, `CloudStorageClient`, `isInsideContainer`, and the `Result` trio (`ok`, `err`, `isErrorOf`).
 
 ## A Minimal Product
 
@@ -62,7 +62,7 @@ async function start() {
 ```
 
 !!! warning "`name` is also your dotNS identifier"
-    `createApp` passes `name` straight through as the signer's `dappName`, and the Host treats that as the product identifier it derives the user's account from, appending `.dot` to non-local names. If it is not a registered `.dot` name, the Host rejects the derivation and `wallet.connect()` resolves with **zero accounts** instead of failing — so the only symptom is an empty list, with no error to catch. `name` also namespaces your local storage, so changing it later moves both the derived account and every stored key.
+    `createApp` passes `name` straight through as the signer's `dappName`, and the Host treats that as the product identifier it derives the user's account from, appending `.dot` to non-local names. If it is not a registered `.dot` name, the Host rejects the derivation and `wallet.connect()` resolves with _zero accounts_ instead of failing — so the only symptom is an empty list, with no error to catch. `name` also namespaces your local storage, so changing it later moves both the derived account and every stored key.
 
 ### What `createApp` Returns
 
@@ -82,7 +82,7 @@ If you want the `Result` convention throughout, use the individual packages inst
 
 ## The Package Family
 
-Each capability is its own package. The umbrella re-exports most of them; a few (such as `statement-store`) are always installed on their own. Each capability package below has its own overview page in this section covering what it is, when to use it, its core concepts, and typical journeys. The **API reference** links point to the generated reference for the complete surface.
+Each capability is its own package. The umbrella re-exports most of them; a few (such as `statement-store`) are always installed on their own. Each capability package below has its own overview page in this section covering what it is, when to use it, its core concepts, and typical journeys. The API reference links point to the generated reference for the complete surface.
 
 |                Package                 |                                            What it does                                            |                     API reference                     |
 |:--------------------------------------:|:--------------------------------------------------------------------------------------------------:|:-----------------------------------------------------:|
@@ -99,7 +99,7 @@ Each capability is its own package. The umbrella re-exports most of them; a few 
 
 ### Command-Line Packages
 
-Two packages are for tools you run *next to* a Product — a deploy script, a migration job, a CI step — rather than inside one. A Product runs in a Host that already owns pairing and signing, so it uses [Signer](/apps/product-sdk/signer/) instead. Both require Node 21 or later.
+Two packages are for tools you run _next to_ a Product — a deploy script, a migration job, a CI step — rather than inside one. A Product runs in a Host that already owns pairing and signing, so it uses [Signer](/apps/product-sdk/signer/) instead. Both require Node 21 or later.
 
 |                Package                 |                                What it does                                |                  API reference                   |
 |:--------------------------------------:|:--------------------------------------------------------------------------:|:------------------------------------------------:|
@@ -118,7 +118,7 @@ Lower-level primitives the capability packages build on. Each has its own genera
 - **`descriptors`**: Typed chain metadata consumed by the chain client. Imported per chain (for example, `@parity/product-sdk-descriptors/paseo-asset-hub`).
 
 !!! note "`result` breaks the package-name pattern"
-    Every other package installs as `@parity/product-sdk-<name>`, but the result type ships as **`@parity/result`** — no `product-sdk-` prefix. Most Products never install it directly, since the capability packages re-export `Result`, `ok`, and `err`; if you do need it standalone, use the unprefixed name.
+    Every other package installs as `@parity/product-sdk-<name>`, but the result type ships as `@parity/result`, with no `product-sdk-` prefix. Most Products never install it directly, since the capability packages re-export `Result`, `ok`, and `err`; if you do need it standalone, use the unprefixed name.
 
 The full surface, every package, class, and method, is documented in the [Product SDK API reference](https://paritytech.github.io/product-sdk/).
 
@@ -146,7 +146,7 @@ The [Shared Todo App tutorial](/apps/tutorials/shared-todo-app/) uses these bind
 
 ## Testing Without a Host
 
-Because `createApp` and the host-only methods require a Host, the SDK ships fakes so **automated tests** can exercise Product logic in plain Node or a browser test runner. These are a test tool, not a development environment: to *develop* against a real Host, run your Product from `localhost` inside Polkadot Desktop, per [Set Up Your Project](/apps/build/#set-up-your-project).
+Because `createApp` and the host-only methods require a Host, the SDK ships fakes so _automated tests_ can exercise Product logic in plain Node or a browser test runner. These are a test tool, not a development environment: to _develop_ against a real Host, run your Product from `localhost` inside Polkadot Desktop, per [Set Up Your Project](/apps/build/#set-up-your-project).
 
 `@parity/product-sdk/testing` exports `createFakeApp`, which returns a fake `App` you can use directly in a logic test or hand to `ProductSDKContext.Provider` for a React component test:
 

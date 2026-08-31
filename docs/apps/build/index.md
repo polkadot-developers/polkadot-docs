@@ -100,7 +100,7 @@ Your Product is now running inside the Polkadot Desktop sandbox, served from you
 
 </div>
 
-## The product-sdk Packages
+## The `product-sdk` Packages
 
 Each guide is built around one _primary_ package and weaves in _utility_ packages where they are needed. The full source is at [`paritytech/product-sdk`](https://github.com/paritytech/product-sdk). Here is what each package is for:
 

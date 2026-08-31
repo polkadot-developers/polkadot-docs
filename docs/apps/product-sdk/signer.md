@@ -58,7 +58,7 @@ async function signHello() {
 
 ## Request Permissions Once Per Session
 
-Use the `onConnect` hook to request resource allocations as soon as the connection is established, before any signing call. Unlike the rest of the package, `requestResourceAllocation` **throws** rather than returning a `Result`, so guard it:
+Use the `onConnect` hook to request resource allocations as soon as the connection is established, before any signing call. Unlike the rest of the package, `requestResourceAllocation` throws rather than returning a `Result`, so guard it:
 
 ```typescript
 import { SignerManager } from '@parity/product-sdk-signer';

@@ -49,6 +49,8 @@ Polkadot is the production network where real value and live applications operat
 
 The native token for Polkadot is DOT. For more information about DOT, visit the [Native Assets](https://wiki.polkadot.com/learn/learn-dot/){target=\_blank} page on the Polkadot Wiki.
 
+For a live latency comparison of the public no-key JSON-RPC endpoints on the Polkadot relay chain (Parity, OnFinality, PublicNode), see [OpenChainBench: Polkadot RPC](https://openchainbench.com/benchmarks/polkadot-rpc){target=\_blank}, which probes `chain_getHeader` every 60 seconds from three regions.
+
 ## Polkadot TestNet (Paseo)
 
 [Paseo](https://github.com/paseo-network){target=\_blank} is the official Polkadot TestNet for parachain teams and dApp developers. As a stable, community-run TestNet that mirrors Polkadot's runtime, Paseo is specifically designed to provide a reliable testing environment for teams preparing to deploy to Polkadot MainNet.

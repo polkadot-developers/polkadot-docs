@@ -10,7 +10,7 @@ page_badges:
 
 ## Introduction
 
-This guide covers the `@parity/product-sdk-signer` package, which gives your Product a typed, host-aware signing interface for deriving accounts and signing payloads (raw bytes or full transactions) from inside a Polkadot host container. The SDK exposes a single orchestrator, `SignerManager`, that wraps both the production host path (Polkadot Desktop) and a deterministic dev path behind the same `Result`-typed API.
+This guide covers the `@parity/product-sdk-signer` package, which gives your Product a typed, host-aware signing interface for deriving accounts and signing payloads (raw bytes or full transactions) from inside a Polkadot host container. The SDK exposes a single orchestrator, `SignerManager`, that wraps both the production host path ([Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/)) and a deterministic dev path behind the same `Result`-typed API.
 
 ## Prerequisites
 
@@ -66,38 +66,67 @@ import { SignerManager } from '@parity/product-sdk-signer';
 const manager = new SignerManager({
   ss58Prefix: 0,
   dappName: 'my-product',
-  onConnect: async (_account, { requestResourceAllocation }) => {
-    await requestResourceAllocation([{ tag: 'AutoSigning', value: undefined }]);
+  onConnect: async (_account, { requestResourceAllocation, signal }) => {
+    try {
+      const outcomes = await requestResourceAllocation([
+        { tag: 'BulletinAllowance', value: undefined },
+      ]);
+      if (signal.aborted) return;
+      if (outcomes.some((outcome) => outcome !== 'Allocated')) {
+        // Degrade gracefully: the capability is unavailable, not fatal.
+      }
+    } catch (cause) {
+      // Typed host error; the connection itself is unaffected.
+    }
   },
 });
 ```
 
 - **`ss58Prefix`**: The SS58 address-format prefix for the target network. Use `0` for the Polkadot relay chain.
 - **`dappName`**: A human-readable name for your Product, shown in Desktop UI.
-- **`onConnect`**: Fires once per connection transition. Use `ctx.requestResourceAllocation` to request permissions such as `AutoSigning` up front, before any signing call is made.
+- **`onConnect`**: Fires once per connection transition. Request the resources your Product needs here, before any signing call is made.
+- **`ctx.requestResourceAllocation`**: The one call in this package that **throws** instead of returning a `Result`, so wrap it in `try`/`catch`. Each outcome is `'Allocated'`, `'Rejected'`, or `'NotAvailable'`; treat anything other than allocated as the capability being unavailable.
+- **`ctx.signal`**: Aborts if the user disconnects while the request is in flight. Check it before acting on the outcomes.
+
+!!! note "`AutoSigning` is not grantable yet"
+    It is the resource most worth requesting and the one you cannot depend on: both the Android and iOS wallets return `NotAvailable` for it today. Keep per-transaction signing as the real path. See [Allowances and Permissions](/apps/concepts/allowances/).
 
 ## Connect to the Host
 
 Call `connect()` to establish a session with the host and discover available accounts. `connect()`, `selectAccount()`, `getProductAccount()`, and `signRaw()` all return a `Result`; always check `.ok` before accessing `.value`. (`getSigner()` returns a nullable directly, not a `Result`.)
 
-```typescript
-const connectResult = await manager.connect();
-if (!connectResult.ok) {
-  // HostUnavailableError when running outside Desktop
-  console.error(connectResult.error.message);
-  return;
-}
+Each step below is a self-contained function over the `manager` you built above, so you can paste them one at a time.
 
-// Auto-select the first account if none is already selected
-const accounts = connectResult.value;
-if (accounts.length > 0 && !manager.getState().selectedAccount) {
-  const selectResult = manager.selectAccount(accounts[0].address);
-  if (!selectResult.ok) {
-    console.error(selectResult.error.message);
-    return;
+```typescript
+async function connectAndSelect() {
+  const connectResult = await manager.connect();
+  if (!connectResult.ok) {
+    // HostUnavailableError when running outside Desktop
+    console.error(connectResult.error.message);
+    return null;
   }
+
+  const accounts = connectResult.value;
+  if (accounts.length === 0) {
+    // Connected, but the host derived no accounts for this Product.
+    return null;
+  }
+
+  // Auto-select the first account if none is already selected
+  if (!manager.getState().selectedAccount) {
+    const selectResult = manager.selectAccount(accounts[0].address);
+    if (!selectResult.ok) {
+      console.error(selectResult.error.message);
+      return null;
+    }
+  }
+
+  return manager.getState().selectedAccount;
 }
 ```
+
+!!! warning "A successful connect can still yield zero accounts"
+    `connect()` resolves with `ok([])` — not an error — when `dappName` is unset or the host rejects the derivation, typically because the `.dot` identifier is not registered for that user. Check the length before indexing, or `accounts[0].address` throws on a path the SDK treats as normal.
 
 `connect()` defaults to the host provider. Outside a host container it returns `HostUnavailableError`; use `connect('dev')` for local testing instead. See [Test Without a Host](#test-without-a-host).
 
@@ -106,13 +135,15 @@ if (accounts.length > 0 && !manager.getState().selectedAccount) {
 `getProductAccount` requests the product-scoped account for a given `dotNsIdentifier` from the host. This is a host-only API; it returns `HostUnavailableError` when the active provider is `'dev'`.
 
 ```typescript
-const accountResult = await manager.getProductAccount('my-product.dot', 0);
-if (!accountResult.ok) {
-  console.error(accountResult.error.message);
-  return;
-}
+async function loadProductAccount() {
+  const accountResult = await manager.getProductAccount('my-product.dot', 0);
+  if (!accountResult.ok) {
+    console.error(accountResult.error.message);
+    return null;
+  }
 
-const { address, publicKey } = accountResult.value;
+  return accountResult.value; // SignerAccount
+}
 ```
 
 The returned `SignerAccount` exposes:
@@ -128,25 +159,31 @@ Use `signRaw` to sign an arbitrary byte payload with the currently selected acco
 `signRaw` returns a `Result<Uint8Array, SignerError>`; it never throws. Always check `.ok` before accessing `.value`.
 
 ```typescript
-const selectResult = manager.selectAccount(accountResult.value.address);
-if (!selectResult.ok) {
-  console.error(selectResult.error.message);
-  return;
-}
+async function signMessage() {
+  const account = await loadProductAccount();
+  if (!account) return null;
 
-const payload = new TextEncoder().encode('hello polkadot');
-const result = await manager.signRaw(payload);
+  const selectResult = manager.selectAccount(account.address);
+  if (!selectResult.ok) {
+    console.error(selectResult.error.message);
+    return null;
+  }
 
-if (result.ok) {
-  console.log(result.value); // Uint8Array - the raw signature
-} else {
-  console.error(result.error.message);
+  const payload = new TextEncoder().encode('hello polkadot');
+  const result = await manager.signRaw(payload);
+
+  if (!result.ok) {
+    console.error(result.error.message);
+    return null;
+  }
+
+  return result.value; // Uint8Array - the raw signature
 }
 ```
 
 ## Sign and Submit a Transaction
 
-To sign a transaction, get a `PolkadotSigner` from `SignerManager` and pass it to the `signAndSubmit` method from `polkadot-api` (PAPI). The SDK handles routing the signing request to Desktop, which renders a signing modal and forwards to the Polkadot App.
+To sign a transaction, get a `PolkadotSigner` from `SignerManager` and pass it to the `signAndSubmit` method from `polkadot-api` (PAPI). The SDK handles routing the signing request to Desktop, which renders a signing modal and forwards to the [Polkadot App](/reference/apps/hosts/polkadot-app/).
 
 `@parity/product-sdk-signer` provides only the signer interface; chain connectivity uses `polkadot-api` directly. Set up your PAPI client separately:
 
@@ -162,23 +199,26 @@ const api = client.getTypedApi(dot);
 The `dot` descriptor is the typed API surface for the Polkadot relay chain. Run `npx papi add dot` in your project to pull or regenerate it.
 
 ```typescript
-const accountResult = await manager.getProductAccount('my-product.dot', 0);
-if (!accountResult.ok) return;
+async function transfer() {
+  const recipient = 'INSERT_RECIPIENT_ADDRESS';
 
-const selectResult = manager.selectAccount(accountResult.value.address);
-if (!selectResult.ok) return;
+  const account = await loadProductAccount();
+  if (!account) return null;
 
-// getSigner() returns null if no account is selected
-const signer = manager.getSigner();
-if (!signer) return;
+  const selectResult = manager.selectAccount(account.address);
+  if (!selectResult.ok) return null;
 
-const recipient = 'INSERT_RECIPIENT_ADDRESS';
-const tx = api.tx.Balances.transfer_keep_alive({
-  dest: recipient,
-  value: 1_000_000_000_000n,
-});
+  // getSigner() returns null if no account is selected
+  const signer = manager.getSigner();
+  if (!signer) return null;
 
-const result = await tx.signAndSubmit(signer);
+  const tx = api.tx.Balances.transfer_keep_alive({
+    dest: recipient,
+    value: 1_000_000_000_000n,
+  });
+
+  return tx.signAndSubmit(signer);
+}
 ```
 
 ## Handle Signing Errors
@@ -190,19 +230,25 @@ import {
   HostRejectedError,
   TimeoutError,
 } from '@parity/product-sdk-signer';
+import type { PolkadotSigner } from 'polkadot-api';
 
-try {
-  const result = await tx.signAndSubmit(signer);
-} catch (error) {
-  if (error instanceof HostRejectedError) {
-    // The user dismissed the signing prompt on the Polkadot App
-    return;
+async function submitOrReport(
+  tx: { signAndSubmit(signer: PolkadotSigner): Promise<unknown> },
+  signer: PolkadotSigner,
+) {
+  try {
+    return await tx.signAndSubmit(signer);
+  } catch (error) {
+    if (error instanceof HostRejectedError) {
+      // The user dismissed the signing prompt on the Polkadot App
+      return null;
+    }
+    if (error instanceof TimeoutError) {
+      // The signing session expired before the user responded
+      return null;
+    }
+    throw error;
   }
-  if (error instanceof TimeoutError) {
-    // The signing session expired before the user responded
-    return;
-  }
-  throw error;
 }
 ```
 
@@ -210,31 +256,35 @@ try {
 - **`TimeoutError`**: The signing session expired. Treat this the same as a rejection.
 
 !!! tip "Design for async latency"
-    Signing is asynchronous because the Polkadot App runs on a separate device. Show a non-blocking pending state rather than freezing the interface, and make sure your retry path is idempotent in case the user attempts the same action twice.
+    Signing is asynchronous because the Polkadot App runs on a separate device. Show a non-blocking pending state rather than freezing the interface, and make sure your retry path is idempotent in case the user attempts the same action twice. There is no push notification when the phone is waiting, so a stalled-looking action is often an [unanswered prompt](/apps/troubleshooting/#the-app-seems-frozen-after-an-action).
 
 ## Test Without a Host
 
 During development, use `connect('dev')` to load the standard Substrate dev accounts (Alice, Bob, Charlie, Dave, Eve, and Ferdie) without needing Polkadot Desktop. The signing API is identical — only the provider changes.
 
 ```typescript
-const result = await manager.connect('dev');
-if (!result.ok) return;
+async function devSignRaw() {
+  const result = await manager.connect('dev');
+  if (!result.ok) return null;
 
-const selectResult = manager.selectAccount(result.value[0].address);
-if (!selectResult.ok) return;
+  const [alice] = result.value;
+  if (!alice) return null;
 
-const signResult = await manager.signRaw(new TextEncoder().encode('test'));
-if (signResult.ok) {
-  console.log(signResult.value); // Uint8Array - the raw signature
+  const selectResult = manager.selectAccount(alice.address);
+  if (!selectResult.ok) return null;
+
+  const signResult = await manager.signRaw(new TextEncoder().encode('test'));
+  if (!signResult.ok) return null;
+
+  return signResult.value; // Uint8Array - the raw signature
 }
 ```
 
-!!! warning
-    `getProductAccount`, `getProductAccountAlias`, and `createRingVRFProof` are host-only APIs. They return `HostUnavailableError` when the active provider is `'dev'`.
+!!! warning "Four methods are host-only"
+    `getProductAccount`, `getProductAccountAlias`, `createRingVRFProof`, and `getUserId` return `HostUnavailableError` when the active provider is `'dev'`. `getUserId` is easy to miss: [Identity](/apps/concepts/identity/#usernames-in-your-product) recommends it for reading a personhood username as a display name, so a Product that does that renders fine in a Host and fails under the dev provider.
 
 ## Limitations
 
-- `getProductAccount`, `getProductAccountAlias`, and `createRingVRFProof` require an active host connection. They are not available in `'dev'` mode.
 - The package is ESM only; your Product's build pipeline must support ESM imports.
 - `SignerManager.destroy()` is terminal. After calling it, all subsequent method calls return `DestroyedError`. Use `disconnect()` for a reversible reset.
 - Account persistence across page reloads requires the host to expose `localStorage`. Outside a host container, persistence silently no-ops.
@@ -257,7 +307,7 @@ if (signResult.ok) {
 
     Reference for the typed PAPI signer interface that `@parity/product-sdk-signer` exposes.
 
-    [:octicons-arrow-right-24: Visit Site](https://papi.how){target=\_blank}
+    [:octicons-arrow-right-24: Visit Site](https://papi.how)
 
 -   <span class="badge external">External</span> **Product SDK API Reference**
 
@@ -265,6 +315,6 @@ if (signResult.ok) {
 
     The full `product-sdk` surface beyond this recipe: every package, class, and method.
 
-    [:octicons-arrow-right-24: Visit Site](https://paritytech.github.io/product-sdk/){target=\_blank}
+    [:octicons-arrow-right-24: Visit Site](https://paritytech.github.io/product-sdk/)
 
 </div>

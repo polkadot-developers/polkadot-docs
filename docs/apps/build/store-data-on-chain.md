@@ -12,15 +12,10 @@ page_badges:
 
 This guide covers the [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/), Polkadot's content-addressed storage layer for Products. You write data, the chain returns a Content Identifier (CID), and anyone with that CID can fetch the data back from the network. Data is retained for about two weeks by default and can be renewed. Access is gated by a per-account storage authorization, not a token balance. The guide walks through five flows in order of complexity: a Hello World store and retrieve, a larger file upload, long-lived data with renewal, cross-chain storage via People Chain, and Preimage submission.
 
-!!! info "Storage options for your Product"
-    The Bulletin Chain is the right layer for content that needs to outlive a session and be fetched later by hash. For other shapes of data, reach for a different layer:
-
-    - **Local KvStore** (this page): Per-Product, per-device key-value. User preferences, drafts, cached values. Not synced across devices.
-    - **Bulletin Chain**: Content-addressed, on-chain, retained ~2 weeks by default and renewable. Content readers fetch later by hash: profile photos, published articles, app bundles. See [Store Data on Chain](/apps/build/store-data-on-chain/).
-    - **Statement Store**: Gossip-distributed, short-lived (default 30s TTL), allowance-gated. Real-time signaling between users: chat messages, presence, typing indicators. See [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/).
+--8<-- 'text/apps/storage-options.md'
 
 !!! note "Network"
-    The flows on this page target Paseo Next, the default environment in Polkadot Desktop development builds. If you switched environments during setup, select the matching network from the environment selector in Polkadot Desktop.
+    The flows on this page target Paseo Next, the default environment in [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/) development builds. If you switched environments during setup, select the matching network from the environment selector in Polkadot Desktop.
 
 ## Prerequisites
 
@@ -103,7 +98,7 @@ Chunked uploads are not atomic. Each chunk is a separate transaction, and the ma
 
 ## Get Authorization
 
-The Bulletin Chain has no token balance for storage; every account needs an explicit authorization. You should already have one from [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/); if not, request your storage quota directly from the [Bulletin Chain authorization page](https://paritytech.github.io/polkadot-bulletin-chain/authorizations).
+The Bulletin Chain has no token balance for storage; every account needs an explicit authorization. You should already have one from [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/); if not, request your storage quota directly from the [Bulletin Chain authorization page](https://paritytech.github.io/polkadot-bulletin-chain/authorizations). If a store is rejected, confirm the authorization is on the account that signs: see [uploads are rejected](/apps/troubleshooting/#uploads-are-rejected-or-host-storage-unavailable) in troubleshooting.
 
 !!! note
     The `authorize_account` extrinsic requires Root origin. You cannot self-authorize programmatically; on Polkadot TestNet, use the [Bulletin Chain authorization page](https://paritytech.github.io/polkadot-bulletin-chain/authorizations) before submitting any `store` extrinsic from your Product.
@@ -127,7 +122,7 @@ The returned `AuthorizationStatus`:
 
 Stored data is retained for roughly two weeks. If your Product needs the data to outlive that window, renew the storage record before it expires.
 
-Renewal needs the `(block, index)` pair from the `Stored` event of the original write. That is where `app.cloudStorage.upload()` runs out of road. `upload()` returns only the CID string. To get the bookkeeping pair, use `CloudStorageClient.store(...).send()` instead, which returns a full `StoreResult` (`cid`, `blockNumber`, `extrinsicIndex`, `size`). Persist `(blockNumber, extrinsicIndex)` for each record you intend to renew.
+Renewal needs the `(block, index)` pair from the `Stored` event of the original write. That is where `app.cloudStorage.upload()` runs out of road. `upload()` resolves with a `Result` whose value is only the CID string — no block or index. To get the bookkeeping pair, use `CloudStorageClient.store(...).send()` instead, which returns a full `StoreResult` (`cid`, `blockNumber`, `extrinsicIndex`, `size`, all but `size` optional). Persist `(blockNumber, extrinsicIndex)` for each record you intend to renew.
 
 As you approach the expiry block (current block + retention period), submit a renewal:
 
@@ -228,6 +223,6 @@ For deeper comparison and the full pallet reference, see [Data Storage Reference
 
     The full `product-sdk` surface beyond this recipe: every package, class, and method.
 
-    [:octicons-arrow-right-24: Visit Site](https://paritytech.github.io/product-sdk/){target=\_blank}
+    [:octicons-arrow-right-24: Visit Site](https://paritytech.github.io/product-sdk/)
 
 </div>

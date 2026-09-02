@@ -18,25 +18,42 @@ const SNAPSHOT_TTL_SECONDS = 3600;
 let authorizationVerified = false;
 
 /**
- * Pre-flight: verify the signing account holds a Bulletin Chain storage
- * authorization. Without one the chain rejects uploads with a bare
+ * Pre-flight: verify the signing account can store to the Bulletin Chain right
+ * now. Without a live allowance the chain rejects uploads with a bare
  * `Invalid: Payment` — this turns that into an actionable error.
+ *
+ * `getBulletinAllowanceStatus` adds one `System.Number` read on top of
+ * `checkAuthorization` and derives `usable`, which is true only when the
+ * account is authorized, the authorization has not expired, and quota remains.
+ * Checking `authorized` alone would pass an expired or exhausted allowance.
  */
-async function ensureAuthorized(app: App): Promise<void> {
+async function ensureAuthorized(app: App, byteLength: number): Promise<void> {
   if (authorizationVerified) return;
   const address = app.wallet.getSelectedAccount()?.address;
   if (!address) throw new Error('No account selected');
 
-  const { CloudStorageClient, createLazySigner } =
+  const { CloudStorageClient, createLazySigner, getBulletinAllowanceStatus } =
     await import('@parity/product-sdk-cloud-storage');
   const readOnly = await CloudStorageClient.create({
     environment: 'paseo',
     signer: createLazySigner(() => null, 'read-only client'),
   });
-  const status = await readOnly.checkAuthorization(address);
-  if (!status.authorized) {
+
+  const status = await getBulletinAllowanceStatus(readOnly.api, address);
+  if (!status.ok) {
     throw new Error(
-      `Account ${address} has no Bulletin Chain storage authorization — request an allowance from the faucet, then retry`,
+      `Could not read the storage allowance: ${status.error.message}`,
+    );
+  }
+  if (!status.value.usable) {
+    throw new Error(
+      `Account ${address} has no usable Bulletin Chain allowance (authorized: ${status.value.authorized}, blocks left: ${status.value.remainingBlocks}) — request one, then retry`,
+    );
+  }
+  // `usable` does not size-check the payload; the chain rejects an oversized store.
+  if (status.value.remainingBytes < BigInt(byteLength)) {
+    throw new Error(
+      `Snapshot is ${byteLength} bytes but only ${status.value.remainingBytes} remain in the allowance`,
     );
   }
   authorizationVerified = true;
@@ -60,8 +77,13 @@ export async function uploadSnapshot(app: App, board: Board): Promise<string> {
   if (!app.cloudStorage) {
     throw new Error('Cloud storage is disabled for this app');
   }
-  await ensureAuthorized(app);
-  return app.cloudStorage.upload(JSON.stringify(board));
+  const payload = JSON.stringify(board);
+  await ensureAuthorized(app, new TextEncoder().encode(payload).length);
+  const stored = await app.cloudStorage.upload(payload);
+  if (!stored.ok) {
+    throw new Error(`Snapshot upload failed: ${stored.error.message}`);
+  }
+  return stored.value;
 }
 
 /** Fetch and decode a board snapshot by CID. */
@@ -69,8 +91,11 @@ export async function fetchSnapshot(app: App, cid: string): Promise<Board> {
   if (!app.cloudStorage) {
     throw new Error('Cloud storage is disabled for this app');
   }
-  const bytes = await app.cloudStorage.fetch(cid);
-  return JSON.parse(new TextDecoder().decode(bytes)) as Board;
+  const fetched = await app.cloudStorage.fetch(cid);
+  if (!fetched.ok) {
+    throw new Error(`Could not fetch snapshot ${cid}: ${fetched.error.message}`);
+  }
+  return JSON.parse(new TextDecoder().decode(fetched.value)) as Board;
 }
 
 /** Create the snapshot-announcement channel on top of the sync client. */
@@ -89,7 +114,7 @@ export function announceSnapshot(
   client: StatementStoreClient,
   cid: string,
   updatedAt: number,
-): Promise<boolean> {
+) {
   return client.publish<SnapshotAnnouncement>(
     { cid, updatedAt, timestamp: Date.now() },
     { channel: SNAPSHOT_CHANNEL, ttlSeconds: SNAPSHOT_TTL_SECONDS },

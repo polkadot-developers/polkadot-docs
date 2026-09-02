@@ -29,20 +29,21 @@ export function deleteEvent(todo: Todo): BoardEvent {
   return { kind: 'delete', id: todo.id, updatedAt: Date.now() };
 }
 
-/** Connect a statement store client signing as the given account. */
-export async function createSyncClient(
-  address: string,
-): Promise<StatementStoreClient> {
+/**
+ * Connect a statement store client. In host mode the Host signs each statement
+ * with the Product's allowance account, so no account is passed in.
+ */
+export async function createSyncClient(): Promise<StatementStoreClient> {
   const client = new StatementStoreClient({ appName: APP_NAME });
-  await client.connect({ mode: 'host', accountId: [address, 42] }); // 42 = generic SS58 prefix
+  await client.connect({ mode: 'host' });
   return client;
 }
 
-/** Broadcast a mutation to every other participant. Returns false if the node rejected it. */
-export function publishEvent(
-  client: StatementStoreClient,
-  event: BoardEvent,
-): Promise<boolean> {
+/**
+ * Broadcast a mutation to every other participant. Resolves with a `Result`:
+ * check `.ok` — a rejected statement carries the reason on `.error`.
+ */
+export function publishEvent(client: StatementStoreClient, event: BoardEvent) {
   return client.publish<BoardEvent>(event);
 }
 

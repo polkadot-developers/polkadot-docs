@@ -14,25 +14,28 @@ To build and test, your account needs two things on TestNet: a balance of [PAS](
 
 Before getting started, ensure you have:
 
-- Completed the [Install Polkadot Desktop and Pair](/apps/get-started/) guide so Polkadot Desktop is paired with your signer
+- Completed the [Install Polkadot Desktop and Pair](/apps/get-started/) guide so [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/) is paired with your signer
 
 ## Get Tokens
 
 The Polkadot Faucet distributes free PAS tokens to developers.
 
-1. Open the [Polkadot Faucet](https://faucet.polkadot.io/) and select your target network from the **Network** drop-down.
+1. Open the [Polkadot Faucet for parachain 1500](https://faucet.polkadot.io/?parachain=1500). Paseo Next v2's Asset Hub is parachain 1500, so use this link rather than picking a network by hand.
 
     ![Polkadot TestNet Faucet showing the Network and Chain dropdowns, the Paseo Address input, the reCAPTCHA check, and the Get some PASs button.](/images/apps/get-started/get-testnet-tokens/get-testnet-tokens-01.webp){: .browser-extension}
 
 2. Paste the address of the account paired with Polkadot Desktop into the address field.
 3. Click **Get Some PASs** to request tokens. They arrive in your account shortly after the request is processed.
 
-!!! warning "Provisional"
-    The faucet's mapping to the current Paseo Next v2 chains is being confirmed. If your funds do not appear in Polkadot Desktop after a few minutes, contact the developer community for the current chain selection.
+!!! warning "Pick parachain 1500, not the public Paseo Asset Hub"
+    The faucet's default selection drips to the public Paseo Asset Hub (parachain 1000), which is a different chain from the one Polkadot Desktop and the `playground` CLI target. Funding that chain leaves your Paseo Next v2 balance at zero, with no error to tell you why. The `?parachain=1500` link above is the same one the `playground` CLI uses.
+
+!!! tip "Or top up from the CLI"
+    If you have paired the [`playground` CLI](/apps/quick-start/), `pg drip` funds your product account directly, no browser or captcha involved. It sends 1 PAS per run up to a 10 PAS cap, drawn from a shared dev funder rather than the public faucet. Run `pg status` afterward to confirm the balance landed on the account you expect.
 
 ## Service Allowances
 
-Some Polkadot infrastructure services use a separate allowance-based access model. These allowances are independent of your token balance; even with enough PAS to cover fees, a missing allowance will cause the service to reject your request.
+Some Polkadot infrastructure services use a separate allowance-based access model. These allowances are independent of your token balance; even with enough PAS to cover fees, a missing allowance will cause the service to reject your request. Allowances are granted per account, so a missing or misdirected one surfaces as [`no allowance set for account`](/apps/troubleshooting/#no-allowance-set-for-account) or [rejected uploads](/apps/troubleshooting/#uploads-are-rejected-or-host-storage-unavailable); see [Accounts and Signing](/apps/concepts/accounts/) for granting them to the account that actually signs.
 
 ??? note "Service Allowances: Bulletin Chain Storage"
 

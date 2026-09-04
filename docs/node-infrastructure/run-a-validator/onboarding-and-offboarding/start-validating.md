@@ -114,14 +114,14 @@ Follow these steps to use Polkadot.js Apps to activate your validator:
 
     ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-03.webp)
 
-4. Paste the session keys and proof from `author_rotateKeysWithOwner` (or use the keys from `author_rotateKeys` with `0x00` as the proof if runtime 2.2.0 is not yet live on your network), set the commission, allow or block new nominations, then click **Bond & Validate** to link your validator with its session keys.
+4. Paste the session keys and proof from `author_rotateKeysWithOwner` (or use the keys from `author_rotateKeys` with `0x00` as the proof if runtime 2.2.0 is not yet live on your network), leave the commission field at its fixed 0% value, allow or block new nominations, then click **Bond & Validate** to link your validator with its session keys.
 
     ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-04.webp)
 
-    You can also set the **commission** and **blocked** nominations option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations).
+    You can also set the **blocked** nominations option via `staking.validate` extrinsic; the **commission** parameter must be left at 0%. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations).
 
     !!! warning
-        As of the March 2026 runtime upgrade, a **minimum commission of 10%** is required for all validators. Setting a commission rate below 10% will make your validator permissionlessly chill-able through the `staking.chillOther` extrinsic. See [Minimum Commission](/node-infrastructure/run-a-validator/requirements/#minimum-commission){target=\_blank} for details.
+        Following Referendum [1909](https://polkadot.subsquare.io/referenda/1909), this rate is fixed on-chain at **0%** for all validators and cannot be set to anything else. Validators are rewarded through the self-stake incentive described in [Validator Compensation](/node-infrastructure/run-a-validator/requirements/#validator-compensation) instead.
 
     ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-05.webp)
 

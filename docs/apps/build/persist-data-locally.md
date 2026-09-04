@@ -12,12 +12,7 @@ page_badges:
 
 This guide covers the `@parity/product-sdk-local-storage` package, which provides a `LocalKvStore` for storing and retrieving key-value data between sessions. Use it for device-local data like saved preferences, unsubmitted drafts, or cached responses. Data is scoped to your Product and device; it does not sync across devices or leak between Products on the same Host.
 
-!!! info "Storage options for your Product"
-    `LocalKvStore` is the right tool for device-local, per-Product key-value data. When your data needs to outlive the device or be visible to other users, reach for an on-chain layer instead:
-
-    - **Local KvStore** (this page): Per-Product, per-device key-value. User preferences, drafts, cached values. Not synced across devices.
-    - **Bulletin Chain**: Content-addressed, on-chain, retained ~2 weeks by default and renewable. Content readers fetch later by hash: profile photos, published articles, app bundles. See [Store Data on Chain](/apps/build/store-data-on-chain/).
-    - **Statement Store**: Gossip-distributed, short-lived (default 30s TTL), allowance-gated. Real-time signaling between users: chat messages, presence, typing indicators. See [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/).
+--8<-- 'text/apps/storage-options.md'
 
 ## Prerequisites
 
@@ -30,7 +25,7 @@ Before getting started, ensure you have:
 
 You have two installation options depending on your needs:
 
-- **Umbrella package** (recommended starting point): Install the full SDK in one command. Convenient when your Product uses several SDK features (local storage, signing, cloud storage, etc.) and bundle size is not a concern.
+- **Umbrella package** (recommended starting point): Install the full SDK in one command. Convenient when your Product uses several SDK features (local storage, signing, and cloud storage) and bundle size is not a concern.
 
     ```bash
     npm install @parity/product-sdk
@@ -123,7 +118,7 @@ To remove a key or clear all storage for your Product, access `app.localStorage`
 - Storage is not synced across devices. Values written on one Host instance are not visible on another.
 - `app.localStorage.clear()` and `store.remove()` are scoped to your Product. You cannot read or modify another Product's keys.
 - React hooks (`useLocalStorage`, `useLocalStorageString`) are only available via the umbrella package `@parity/product-sdk`. The standalone `@parity/product-sdk-local-storage` package exposes no React hooks.
-- `createLocalKvStore()` requires a Host backend. Running outside a host container, it throws `Host storage unavailable`; there is no browser `localStorage` fallback. Run your Product inside Polkadot Desktop to use local storage.
+- `createLocalKvStore()` requires a Host backend. Running outside a host container, it throws `Host storage unavailable`; there is no browser `localStorage` fallback. Run your Product inside [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/) to use local storage. See [`Host storage unavailable`](/apps/troubleshooting/#uploads-are-rejected-or-host-storage-unavailable) in troubleshooting.
 
 ## Where to Go Next
 
@@ -151,6 +146,6 @@ To remove a key or clear all storage for your Product, access `app.localStorage`
 
     The full `product-sdk` surface beyond this recipe: every package, class, and method.
 
-    [:octicons-arrow-right-24: Visit Site](https://paritytech.github.io/product-sdk/){target=\_blank}
+    [:octicons-arrow-right-24: Visit Site](https://paritytech.github.io/product-sdk/)
 
 </div>

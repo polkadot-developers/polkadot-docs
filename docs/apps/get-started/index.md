@@ -10,7 +10,7 @@ page_badges:
 
 ## Introduction
 
-You should already have the Polkadot App on your phone from the [Apps overview](/apps/); it holds your key and approves signing. This page covers installing Polkadot Desktop, where your Product runs, and pairing the two with a QR scan, then forwards you to TestNet funding. About 10 minutes.
+You should already have the [Polkadot App](/reference/apps/hosts/polkadot-app/) on your phone from the [Apps overview](/apps/); it holds your key and approves signing. This page covers installing [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/), where your Product runs, and pairing the two with a QR scan, then forwards you to TestNet funding. About 10 minutes.
 
 Two pieces of the Polkadot Triangle need to be talking to each other: Polkadot Desktop, where your Product runs, and the Polkadot App on your phone, where signing happens.
 

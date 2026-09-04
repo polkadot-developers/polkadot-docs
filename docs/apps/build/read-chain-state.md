@@ -18,7 +18,7 @@ Before starting, ensure you have:
 
 - A Polkadot Product project running locally (see [Set Up Your Project](/apps/build/#set-up-your-project)) with a TypeScript toolchain
 - Node.js 20 or later with ESM support (`@parity/product-sdk-chain-client` is ESM only)
-- Polkadot Desktop to run your Product inside a host container (see [Install Desktop and Pair](/apps/get-started/))
+- [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/) to run your Product inside a host container (see [Install Desktop and Pair](/apps/get-started/))
 
 !!! note
     You do not need funded accounts to read chain state. Reads are unsigned and require only a running host container.
@@ -27,7 +27,7 @@ Before starting, ensure you have:
 
 You have two installation options depending on your needs:
 
-- **Umbrella package** (recommended starting point): Install the full SDK in one command. Convenient when your Product uses several SDK features (chain client, signing, cloud storage, etc.) and bundle size is not a concern.
+- **Umbrella package** (recommended starting point): Install the full SDK in one command. Convenient when your Product uses several SDK features (chain client, signing, and cloud storage) and bundle size is not a concern.
 
     ```bash
     npm install @parity/product-sdk
@@ -206,7 +206,7 @@ Use `client.destroy()` for normal cleanup and reserve `destroyAll()` for full-pr
 - The `paseo` and `devnet` environments are the only presets wired up today. Other `Environment` values throw at runtime.
 - The package is ESM only; your Product's build pipeline must support ESM imports.
 - Descriptors are imported by subpath (`@parity/product-sdk-descriptors/paseo-bulletin`), not from the package root. Bundlers that do not honor `exports` subpaths will fail to resolve them.
-- Host-routed reads require a host container. Development builds outside a Host can use the direct WebSocket fallback.
+- Host-routed reads require a host container; there is no direct-WebSocket fallback, so outside a Host the client [throws](/apps/troubleshooting/#connecting-to-a-chain-throws-outside-a-host). For out-of-Host development, use the SDK's testing fakes.
 - Reactive subscriptions (watching a storage item over time) are not covered on this page. A dedicated page on subscriptions will follow.
 
 ## Where to Go Next
@@ -235,6 +235,6 @@ Use `client.destroy()` for normal cleanup and reserve `destroyAll()` for full-pr
 
     The full `product-sdk` surface beyond this recipe: every package, class, and method.
 
-    [:octicons-arrow-right-24: Visit Site](https://paritytech.github.io/product-sdk/){target=\_blank}
+    [:octicons-arrow-right-24: Visit Site](https://paritytech.github.io/product-sdk/)
 
 </div>

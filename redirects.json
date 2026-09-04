@@ -1,6 +1,14 @@
 {
   "data": [
     {
+      "key": "/apps/quick-start-cli/",
+      "value": "/apps/quick-start/"
+    },
+    {
+      "key": "/apps/quick-start-revx/",
+      "value": "/apps/quick-start/"
+    },
+    {
       "key": "/chain-interactions/accounts/",
       "value": "/chain-interactions/accounts/create-account/"
     },
@@ -899,6 +907,10 @@
     {
       "key": "/smart-contracts/dev-environments/",
       "value": "/smart-contracts/dev-environments/local-dev-node/"
+    },
+    {
+      "key": "/smart-contracts/dev-environments/hardhat-polkadot/",
+      "value": "/smart-contracts/dev-environments/hardhat/"
     },
     {
       "key": "/smart-contracts/for-eth-devs/",

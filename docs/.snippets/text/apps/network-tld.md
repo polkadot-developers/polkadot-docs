@@ -1,0 +1,2 @@
+!!! warning "TestNet names end in `.paseo`, not `.dot`"
+    DotNS top-level domains are per network. On Paseo Next v2, the TestNet the `playground` CLI targets by default, names are minted under `.paseo`: you deploy `myproject57` and get `myproject57.paseo`, served at `https://myproject57.paseo.li`. Passing a name that ends in `.dot` is rejected with an actionable error, so pass the bare label (`myproject57`) and let the CLI append the environment's TLD.

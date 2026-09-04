@@ -73,8 +73,8 @@ export default function Home() {
     receiveEvent(event);
     const client = syncRef.current;
     if (client) {
-      publishEvent(client, event).then((accepted) => {
-        if (!accepted) setError('Statement rejected — check your allowance');
+      publishEvent(client, event).then((result) => {
+        if (!result.ok) setError(`Statement rejected: ${result.error.message}`);
       });
     }
   }
@@ -105,7 +105,7 @@ export default function Home() {
     try {
       const id = await connectIdentity(app);
       setIdentity(id);
-      const client = await createSyncClient(id.address);
+      const client = await createSyncClient();
       syncRef.current = client;
       subscribeToBoard(client, receiveEvent);
       const channels = createSnapshotChannel(client);

@@ -1,6 +1,6 @@
 ---
 title: Store Data on Chain
-description: Store and retrieve Bulletin Chain data from a Polkadot Product, Hello World, larger files, renewal, cross-chain via People Chain, preimage-authorized uploads.
+description: Store and retrieve Bulletin Chain data from a Polkadot Product, Hello World, larger files, renewal, and preimage-authorized uploads.
 categories: Apps
 page_badges:
   tutorial_badge: Intermediate
@@ -10,7 +10,7 @@ page_badges:
 
 ## Introduction
 
-This guide covers the [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/), Polkadot's content-addressed storage layer for Products. You write data, the chain returns a Content Identifier (CID), and anyone with that CID can fetch the data back from the network. Data is retained for about two weeks by default and can be renewed. Access is gated by a per-account storage authorization, not a token balance. The guide walks through five flows in order of complexity: a Hello World store and retrieve, a larger file upload, long-lived data with renewal, cross-chain storage via People Chain, and Preimage submission.
+This guide covers the [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/), Polkadot's content-addressed storage layer for Products. You write data, the chain returns a Content Identifier (CID), and anyone with that CID can fetch the data back from the network. Data is retained for about two weeks by default and can be renewed. Access is gated by a per-account storage authorization, not a token balance. The guide walks through four flows in order of complexity: a Hello World store and retrieve, a larger file upload, long-lived data with renewal, and Preimage submission.
 
 --8<-- 'text/apps/storage-options.md'
 
@@ -139,12 +139,9 @@ The SDK's typed Bulletin API does not expose `RetentionPeriod` or the `Utility` 
 
 ## Submit a Preimage
 
-Bulletin Chain has a second authorization model alongside the per-account quota you've been using. Instead of authorizing your account to store transactions and bytes, a privileged caller (Root on Bulletin, or the People Chain via the cross-chain dispatch covered in [Cross-Chain Storage from People Chain](#cross-chain-storage-from-people-chain)) can pre-authorize a specific content hash via the `authorize_preimage` extrinsic. Once that authorization is in place, anyone (including your Product) can submit the matching bytes via an unsigned transaction: no fees, no per-account quota debited.
+Bulletin Chain has a second authorization model alongside the per-account quota you've been using. Instead of authorizing your account to store transactions and bytes, a privileged caller (Root on Bulletin) can pre-authorize a specific content hash via the `authorize_preimage` extrinsic. Once that authorization is in place, anyone (including your Product) can submit the matching bytes via an unsigned transaction: no fees, no per-account quota debited.
 
-This is the right path when:
-
-- A sponsor (an app, a parachain, or governance) pre-authorizes content for someone else to upload.
-- The People Chain → Bulletin XCM flow described in [Cross-Chain Storage from People Chain](#cross-chain-storage-from-people-chain) authorizes a hash on Bulletin, and the actual bytes get submitted by the user's Product.
+This is the right path when a sponsor (an app, a parachain, or governance) pre-authorizes content for someone else to upload: the authorization names the content hash, and the actual bytes get submitted by the user's Product.
 
 The Host API exposes the submission side through `getPreimageManager` from `@parity/product-sdk-host` (already installed via the umbrella package in Set Up). Polkadot Desktop mediates the call. The Product never holds a signer for this path because the underlying transaction is unsigned.
 
@@ -155,11 +152,11 @@ The Host API exposes the submission side through `getPreimageManager` from `@par
 `preimageManager.submit(payload)` resolves with the Blake2b-256 hash of the payload, which is the same hash format as a Bulletin CID. The submission is rejected if no `authorize_preimage` exists for that hash. Reading is permissionless; subscribe via `preimageManager.lookup(key, callback)`.
 
 !!! warning "Provisional"
-    The Bulletin Chain preimage authorization flow is live on TestNet today, but the cross-chain authorization path (People Chain → Bulletin) and production environment endpoints are not yet finalized. The submission has a Host-side timeout (~120s on the current dev build) before it resolves; production timeouts may shift. The `@parity/product-sdk` API surface is pre-1.0; minor API changes are expected during the `0.x` line.
+    The Bulletin Chain preimage authorization flow is live on TestNet today, but production environment endpoints are not yet finalized. The submission has a Host-side timeout (~120s on the current dev build) before it resolves; production timeouts may shift. The `@parity/product-sdk` API surface is pre-1.0; minor API changes are expected during the `0.x` line.
 
 The mechanics:
 
-- Some upstream caller (Root on Bulletin, or People Chain via XCM) calls `authorize_preimage(contentHash, maxSize)`.
+- Some upstream caller (Root on Bulletin) calls `authorize_preimage(contentHash, maxSize)`.
 - Your Product calls `preimageManager.submit(payload)`.
 - Polkadot Desktop computes the Blake2b-256 hash of the payload; the chain accepts the submission only if a matching authorization exists.
 - The bytes are stored on Bulletin Chain via an unsigned transaction with no fees and no per-account quota debited.
@@ -177,8 +174,7 @@ The flows in this guide target the same chain but differ in authorization, atomi
 |:-------------------------------:|:----------------------------------------------------:|:----------------------------:|:--------------------:|:---------------------------------------------------------------:|
 | Bulletin store (small)          | Bulletin authorization                               | Single tx                    | ~2 weeks (renewable) | Most Product writes                                             |
 | Bulletin store (chunked)        | Bulletin authorization                               | Multi-tx + DAG-PB manifest   | ~2 weeks (renewable) | Files larger than 8 MiB                                         |
-| Cross-chain via People Chain    | People-Chain authorization                           | XCM (eventually consistent)  | ~2 weeks (renewable) | PoP-attached writes                                             |
-| Bulletin preimage submission    | Pre-authorized hash (no per-account quota, no fees)  | Single unsigned tx           | ~2 weeks (renewable) | Sponsored uploads; receiving People Chain → Bulletin XCM dispatches |
+| Bulletin preimage submission    | Pre-authorized hash (no per-account quota, no fees)  | Single unsigned tx           | ~2 weeks (renewable) | Sponsored uploads                                               |
 
 For deeper comparison and the full pallet reference, see [Data Storage Reference](/reference/polkadot-hub/data-storage/).
 

@@ -137,21 +137,6 @@ The SDK's typed Bulletin API does not expose `RetentionPeriod` or the `Utility` 
 !!! warning
     Each renewal generates a new `(block, index)` pair. Track the values from the latest `Renewed` event for any subsequent renewal. Using the original values after a renewal will fail. The Bulletin Chain pallet does not emit retention events ahead of expiry; your Product needs its own scheduler (cron job, queue, or background worker) to renew before the storage expires.
 
-## Cross-Chain Storage from People Chain
-
-PoP-gated identity lives on the People Chain. When a Product needs to attach content to that identity (for example, a PoP-Lite communication identifier or a verified-person attestation), the store has to be initiated on People Chain and dispatched to the Bulletin Chain via XCM.
-
-!!! warning "Provisional"
-    The cross-chain path is in flight. The flow described here is the intended shape; XCM message format and authorization model may change before the path is finalized.
-
-The flow has three phases:
-
-1. People Chain authorizes your account against its local `transactionStorage` instance (authorization on People Chain is independent of your Bulletin Chain authorization).
-2. Your account submits `transactionStorage.store(data)` on People Chain. The receipt yields a People-Chain-side `(block, index)` pair plus the computed CID.
-3. People Chain dispatches an XCM message to the Bulletin Chain that mirrors the storage record. Once XCM execution completes, the data is addressable from the Bulletin Chain's collator network with the same CID. Your Product can read it via `client.fetchBytes(cid)` exactly as if you had written directly to Bulletin.
-
-Until the XCM dispatch is wired up, treat this section as the design contract for the path; the hand-rolled cross-chain code samples will be added once the pallet shape stabilizes.
-
 ## Submit a Preimage
 
 Bulletin Chain has a second authorization model alongside the per-account quota you've been using. Instead of authorizing your account to store transactions and bytes, a privileged caller (Root on Bulletin, or the People Chain via the cross-chain dispatch covered in [Cross-Chain Storage from People Chain](#cross-chain-storage-from-people-chain)) can pre-authorize a specific content hash via the `authorize_preimage` extrinsic. Once that authorization is in place, anyone (including your Product) can submit the matching bytes via an unsigned transaction: no fees, no per-account quota debited.

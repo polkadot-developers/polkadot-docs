@@ -15,7 +15,7 @@ Registrations do not expire and there is no renewal step. A name stays with its 
 A Product developer building a typical publishing pipeline rarely calls the CLI directly — the setup track handles the common path. The CLI is the right tool when you need a fine-grained, scriptable interaction (CI publishing, batch operations across multiple names, debugging a registration failure).
 
 !!! info "CLI version"
-    This page targets `@parity/dotns-cli` `0.9.0`, the first release aligned with dotNS contracts `v0.6.0`. Earlier releases apply the previous label rules, including a cap on trailing digits that the contracts no longer enforce. The CLI is in active development and breaking changes between versions are expected.
+    This page targets `@parity/dotns-cli` `0.9.0`, the first release aligned with dotNS contracts `0.6.0`. Earlier releases apply the previous label rules, including a cap on trailing digits that the contracts no longer enforce. The CLI is in active development and breaking changes between versions are expected.
 
 ## Command Families
 

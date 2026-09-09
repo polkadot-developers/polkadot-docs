@@ -29,7 +29,7 @@ A registration creates a record; a transfer or update modifies it. A resolver re
 
 This is the same scheme ENS uses for `.eth`, which is intentional — the derivation is well-understood, well-tooled, and lets dotNS interoperate with the existing `namehash` ecosystem.
 
-One shape does not follow the recursive rule. A lite personhood username carries its separator inside the label: `michael.42` is hashed as a single label under the TLD, not as `michael` beneath `42`. Splitting such a name on its dots derives a different key, so a client that applies the recursive rule to it resolves the wrong record or none at all. The two readings are indistinguishable from the string, so a client holding only the text should read `isPopIssued(label)` on the PoP controller to learn which one it has. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
+One shape does not follow the recursive rule. A Lite username carries its separator inside the label: `joseph.42` is hashed as a single label under the TLD, not as `joseph` beneath `42`. Splitting such a name on its dots derives a different key, so a client that applies the recursive rule to it resolves the wrong record or none at all. The two readings are indistinguishable from the string, so a client holding only the text should read `isPopIssued(label)` on the PoP controller to learn which one it has. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
 
 ## Layer 3: `contenthash` → CID
 

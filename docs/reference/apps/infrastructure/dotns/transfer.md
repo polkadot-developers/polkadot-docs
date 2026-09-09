@@ -15,7 +15,7 @@ Not every name can move. A name registered on the public path is transferable. A
 This page documents the conceptual transfer flow and the rules dotNS enforces on it.
 
 !!! warning "Provisional"
-    The exact dispatch path for a name transfer (which contract, which signed extrinsic, the precise parameter shape), the supported acceptance / rejection mechanics on the receiving side, and any time-locked or escrow variants of transfer are still being finalized. This page documents the conceptual model; the operational reference will be added once confirmed.
+    The exact dispatch path for a name transfer (which contract call, the precise parameter shape) and the acceptance or rejection mechanics on the receiving side are still being finalized. This page documents the conceptual model and the rules the contracts enforce; the per-call reference will be added once confirmed.
 
 ## What Changes on Transfer
 
@@ -29,20 +29,20 @@ A transfer modifies one field of the name's record: the _owner_. Specifically:
 
 ## The Transfer Fee
 
-A transfer is priced against the name's own length rather than against what the sender paid, and two independent conditions each trigger the full charge:
+Most transfers are free. A charge applies only when one of two independent conditions holds, and it is assessed against the name itself rather than against what the sender paid:
 
-- **The recipient cannot clear the name's band**: Moving a six-character name to an account without PoP Full charges the name's own price.
+- **The recipient cannot clear the name's band**: Moving a name from a band the recipient could not have registered in, such as a six-character name going to an account without PoP Full.
 - **The move is a personhood downgrade**: If the recipient holds a lower tier than the sender, the charge applies even when both could have registered a name of that length. Passing a nine-character name from a PoP Full holder to a PoP Lite holder is charged for this reason alone.
 
-Whichever condition applies, the fee is the name's own price rather than the sum of both. Two moves are free: a transfer to the same address, and any transfer into or out of escrow, which is what makes releasing and reclaiming a name cost nothing beyond gas.
+Whichever condition applies, the fee is the name's own price under the registered cost model rather than the sum of both. Because the deployed model charges one amount for every band, that is the same figure a fresh registration pays. Two moves are exempt even when a condition would otherwise hold: a transfer to the same address, and any transfer into or out of escrow, which is what makes releasing and reclaiming a name cost nothing beyond gas.
 
 The registrar quotes the amount through `quoteTransferFee(tokenId, to)`. Quote it before submitting: the same call reverts for a soulbound name, which is the cheapest way to learn that a name cannot move at all.
 
 ## Reservations Do Not Transfer
 
-A stem reserved for a lite-username holder to claim later as a full-person name is tied to the _account_ that the gateway named, not to the name's record. Transferring the lite username does not carry the reservation with it, and reservations cannot be transferred on their own. The account the gateway named either claims the stem or lets the reservation lapse.
+A stem reserved for a Lite username holder to claim later as a full-person name is tied to the _account_ that the gateway named, not to the name's record. Transferring the Lite username does not carry the reservation with it, and reservations cannot be transferred on their own. The account the gateway named either claims the stem or lets the reservation lapse.
 
-Since a gateway-issued lite username is soulbound, this situation does not arise from a transfer of the username itself.
+Since a gateway-issued Lite username is soulbound, this situation does not arise from a transfer of the username itself.
 
 ## What a Product Should Know
 

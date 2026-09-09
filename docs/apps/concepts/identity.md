@@ -20,7 +20,7 @@ The three identities are:
 
 A [`.dot` name](/apps/register-dot-domain/) is registered with [DotNS](/reference/apps/infrastructure/dotns/) and resolves to a content record — the CID of a published Product bundle. Ownership of a name is held by an Asset Hub account, but the name is not an account and cannot sign.
 
-Transferability depends on how the name was acquired. A name registered on the public path can be transferred. A name issued through the personhood gateway is soulbound and permanently non-transferable, which includes every Lite username the gateway issues into `.dot` naming. Most names name _content_ rather than a user, but a gateway-issued name does name a person, so a client that needs to tell the two apart should read `isPopIssued(label)` on the PoP controller rather than inspect the string. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
+Transferability depends on how the name was acquired. A name registered on the public path can be transferred. A name issued through the personhood gateway is soulbound and permanently non-transferable, which includes every Lite username the gateway issues into `.dot` naming. Most names point at _content_ rather than at a user, but a gateway-issued name does identify a person, so a client that needs to tell the two apart should read `isPopIssued(label)` on the PoP controller rather than inspect the string. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
 
 A name is how users reach your Product; it is not how your Product identifies a user.
 

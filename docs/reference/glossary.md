@@ -492,6 +492,10 @@ A fixed, equal interval of time used by consensus engines such as [Aura](#author
 
 The [Polkadot](#polkadot) [light client](#light-client). Used by [Polkadot Web](#polkadot-web)'s host shell to verify chain state in-browser without running a [full node](#full-node). Planned for direct [Statement Store](#statement-store) participation by end-user apps.
 
+## Soulbound
+
+Permanently bound to the account that received it and non-transferable by design. In [dotNS](#dotns), a name issued through the personhood gateway is soulbound, because it identifies a person rather than naming content; a name registered on the public path is transferable. See [Name Transfers](/reference/apps/infrastructure/dotns/transfer/).
+
 ## Sovereign Account
 
 The unique account identifier for each chain in the relay chain ecosystem. It is often used in cross-consensus (XCM) interactions to sign XCM messages sent to the relay chain or other chains in the ecosystem.

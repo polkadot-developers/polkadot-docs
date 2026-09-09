@@ -39,8 +39,8 @@ A label must satisfy all of these, or `playground deploy` rejects it before subm
 - **Dashes**: cannot start or end with a dash.
 - **Digits**: allowed anywhere, in any quantity. A trailing run of digits no longer carries any special meaning.
 
-!!! note "Older CLI releases are stricter"
-    A CLI before `@parity/dotns-cli` `0.9.0` caps a trailing run of digits at two and rejects a longer one, which the chain no longer does. If a label with three or more trailing digits is refused before anything is submitted, the tool is out of date rather than the name being unavailable.
+!!! note "Out-of-date tooling is stricter"
+    Releases built against the previous label rules cap a trailing run of digits at two and reject a longer one, which the chain no longer does. `@parity/dotns-cli` lifted the cap in `0.9.0`. If a label with three or more trailing digits is refused before anything is submitted on chain, update your tooling rather than changing the name.
 
 ### Personhood Tiers
 
@@ -57,7 +57,7 @@ So `myproject57` is open to anyone because it is 11 characters, while `myproj` a
 Every name this path admits pays the same refundable deposit, whatever its length. See the [PopRules and Pricing reference](/reference/apps/infrastructure/dotns/poprules-pricing/) for the bands and the deposit.
 
 !!! note "Personhood and the network"
-    Proof of Personhood is obtained in the Polkadot App on your device; there is no CLI path to a tier. If your account has no personhood status, pick a name of 9 characters or more, which registers with no personhood check. A personhood username, such as `joseph.42`, is issued through the personhood gateway rather than registered here. See [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/) for how names, deposits, and personhood interact on TestNet.
+    Proof of Personhood is obtained in the Polkadot App on your device; there is no CLI path to a tier. If your account has no personhood status, pick a name of nine characters or more, which registers with no personhood check. A personhood username, such as `joseph.42`, is issued through the personhood gateway rather than registered here. See [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/) for how names, deposits, and personhood interact on TestNet.
 
 ## Register During Deploy
 

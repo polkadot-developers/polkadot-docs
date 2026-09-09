@@ -18,7 +18,9 @@ The three identities are:
 
 ## The `.dot` Name
 
-A [`.dot` name](/apps/register-dot-domain/) is registered with [DotNS](/reference/apps/infrastructure/dotns/) and resolves to a content record — the CID of a published Product bundle. Ownership of a name is held by an Asset Hub account and is transferable, but the name is not an account and cannot sign. It names _content_, not a user.
+A [`.dot` name](/apps/register-dot-domain/) is registered with [DotNS](/reference/apps/infrastructure/dotns/) and resolves to a content record — the CID of a published Product bundle. Ownership of a name is held by an Asset Hub account, but the name is not an account and cannot sign.
+
+Transferability depends on how the name was acquired. A name registered on the public path can be transferred. A name issued through the personhood gateway is soulbound and permanently non-transferable, which includes every Lite username the gateway issues into `.dot` naming. Most names name _content_ rather than a user, but a gateway-issued name does name a person, so a client that needs to tell the two apart should read `isPopIssued(label)` on the PoP controller rather than inspect the string. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
 
 A name is how users reach your Product; it is not how your Product identifies a user.
 
@@ -48,7 +50,7 @@ Your Product obtains this account through the [`signer`](/apps/product-sdk/signe
 An alias is never an account address, and — like the per-app account — it is scoped per Product so it cannot be used to correlate a user across Products. Cross-Product alias linking requires an explicit consent step. Use personhood to gate features on verified-human status (for example, one action per person) without learning who the user is.
 
 !!! warning "Names and usernames can be coupled"
-    The three identities are architecturally separate, but they are not always fully independent in practice. A `Lite` username can be mirrored into `.dot` naming by operator infrastructure, which couples a user's personhood username to a `.dot` name. Treat the identities as separate by design, but do not assume they can never be linked through operator-run mirrors.
+    The three identities are architecturally separate, but they are not always fully independent in practice. A `Lite` username is issued into `.dot` naming through the personhood gateway, which couples a user's personhood username to a `.dot` name of the same text. Treat the identities as separate by design, but do not assume they can never be linked this way.
 
 ## Usernames in Your Product
 

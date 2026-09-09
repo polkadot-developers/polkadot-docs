@@ -119,7 +119,7 @@ pg deploy
 pg deploy --signer dev --suri //Alice --domain my-product
 ```
 
-Pass the bare label to `--domain`. The CLI appends the environment's TLD, so `my-product` becomes `my-product.paseo` on Paseo Next v2. Name availability depends on the label's length and digit suffix; see [Choose a Name](/apps/register-dot-domain/#choose-a-name) for the rules the prompt enforces.
+Pass the bare label to `--domain`. The CLI appends the environment's TLD, so `my-product` becomes `my-product.paseo` on Paseo Next v2. Name availability depends on the label's length, counted as written; see [Choose a Name](/apps/register-dot-domain/#choose-a-name) for the rules the prompt enforces.
 
 --8<-- 'code/apps/quick-start/cli/termynal-deploy.html'
 

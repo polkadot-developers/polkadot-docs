@@ -1,6 +1,6 @@
 ---
 title: dotNS CLI Reference
-description: Reference for @parity/dotns-cli — the command-line tool for managing .dot name registrations, contenthash updates, transfers, and renewals.
+description: Reference for the dotNS command-line tool, covering name registration, contenthash updates, record management, and ownership transfers.
 categories: Apps, Reference
 ---
 
@@ -8,12 +8,14 @@ categories: Apps, Reference
 
 ## Introduction
 
-[`@parity/dotns-cli`](https://www.npmjs.com/package/@parity/dotns-cli) is the command-line tool for interacting with the dotNS registry — registering a `.dot` name, updating its `contenthash`, transferring ownership, and renewing where applicable. It is the canonical way to perform these operations outside of the higher-level [Register and Publish](/apps/deploy-your-app/) flow that the Polkadot Product setup track wraps.
+[`@parity/dotns-cli`](https://www.npmjs.com/package/@parity/dotns-cli) is the command-line tool for interacting with the dotNS registry: registering a `.dot` name, updating its `contenthash`, and transferring ownership. It is the canonical way to perform these operations outside of the higher-level [Register and Publish](/apps/deploy-your-app/) flow that the Polkadot Product setup track wraps.
+
+Registrations do not expire and there is no renewal step. A name stays with its owner until it is transferred or deliberately released.
 
 A Product developer building a typical publishing pipeline rarely calls the CLI directly — the setup track handles the common path. The CLI is the right tool when you need a fine-grained, scriptable interaction (CI publishing, batch operations across multiple names, debugging a registration failure).
 
 !!! info "CLI version"
-    This page targets `@parity/dotns-cli` `0.6.2`. The CLI is in active development and breaking changes between versions are expected. To follow this reference, install this version (or check the page's last update against the latest release on npm).
+    This page targets `@parity/dotns-cli` `0.9.0`, the first release aligned with dotNS contracts `v0.6.0`. Earlier releases apply the previous label rules, including a cap on trailing digits that the contracts no longer enforce. The CLI is in active development and breaking changes between versions are expected.
 
 ## Command Families
 
@@ -22,17 +24,17 @@ The CLI exposes commands across three families that map onto the dotNS contract 
 - **Registration**: Commands that create a name record:
 
     - Register a new name with a starting `contenthash`.
-    - Check PopRules eligibility for a proposed name and account (preview the deposit / free-tier outcome before submitting).
+    - Check `PopRules` eligibility for a proposed name and account, previewing the band and the deposit before submitting.
 
 - **Records management**: Commands that mutate an existing name's fields:
 
     - Update the `contenthash` to a new CID — this is what a Product owner runs when they publish a new bundle and want the `.dot` name to point at the new version.
     - Set or unset administrative fields on the record.
 
-- **Lifecycle**: Commands that change ownership or extend the registration:
+- **Lifecycle**: Commands that change ownership or a name's escrow position:
 
-    - Transfer the name to another account.
-    - Renew the registration where renewals apply.
+    - Transfer the name to another account, where the name is not soulbound.
+    - Release a name into escrow, inspect its position, and withdraw the deposit.
 
 ## Installing and Authenticating
 
@@ -45,7 +47,7 @@ For day-to-day Product publishing, the recommended account is the same paired ac
 Each command — subcommand path, required flags, optional flags, and exit codes — is enumerated here.
 
 !!! warning "Provisional"
-    Per-flag details for each command are still being audited against the published surface. The table below lists the known top-level commands at `0.6.2`; the per-flag reference will be filled in once it is confirmed against the live package.
+    Per-flag details for each command are still being audited against the published surface. The table below lists the known top-level commands at `0.9.0`; the per-flag reference will be filled in once it is confirmed against the live package.
 
 | Command                                  | Family            | Required flags | Optional flags | Notes      |
 |:-----------------------------------------|:------------------|:---------------|:---------------|:-----------|
@@ -54,9 +56,10 @@ Each command — subcommand path, required flags, optional flags, and exit codes
 | `lookup`                                 | Records           | _Pending_      | _Pending_      | _Pending_  |
 | `content view` / `content set`           | Records           | _Pending_      | _Pending_      | _Pending_  |
 | `text view` / `text set`                 | Records           | _Pending_      | _Pending_      | _Pending_  |
-| `pop set` / `pop info`                   | Records           | _Pending_      | _Pending_      | _Pending_  |
+| `pop info`                               | Records           | _Pending_      | _Pending_      | Status lookup. There is no command to set a tier. |
 | `store`                                  | Records           | _Pending_      | _Pending_      | _Pending_  |
 | `account`                                | Lifecycle         | _Pending_      | _Pending_      | _Pending_  |
+| `escrow`                                 | Lifecycle         | _Pending_      | _Pending_      | _Pending_  |
 | `bulletin`                               | Lifecycle         | _Pending_      | _Pending_      | _Pending_  |
 
 ## Where to Go Next

@@ -54,9 +54,9 @@ Some Polkadot infrastructure services use a separate allowance-based access mode
 
 ??? note "Service Allowances: dotNS Names"
 
-    [dotNS](/reference/apps/infrastructure/dotns/) (`.dot` name registration) uses a hybrid model. Open names (those that anyone can register) require a deposit paid in PAS. Names reserved for accounts with Proof of Personhood Full or PoP Lite status are free to register for eligible accounts, with no deposit required.
+    [dotNS](/reference/apps/infrastructure/dotns/) name registration charges the same refundable deposit for every name it admits on the public path, whatever its length. The deposit is paid in the network's native token, so on Paseo it is PAS, and names carry the environment's TLD rather than `.dot`. Proof of Personhood decides which names an account may register rather than what they cost. A personhood username is issued through the personhood gateway instead, and carries no deposit.
 
-    See the [dotNS PopRules pricing reference](/reference/apps/infrastructure/dotns/poprules-pricing/) for full pricing and tier details.
+    See the [dotNS PopRules and Pricing reference](/reference/apps/infrastructure/dotns/poprules-pricing/) for the bands and the deposit.
 
 ## Where to Go Next
 

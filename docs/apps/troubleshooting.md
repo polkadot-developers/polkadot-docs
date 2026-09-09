@@ -32,9 +32,9 @@ Named entries for the failures developers hit most while building and deploying 
 
 ## The Name Requires Proof of Personhood
 
-**Cause**: Short and premium DotNS names are reserved for accounts with [Proof of Personhood](/apps/concepts/identity/). A base name of 6 to 8 characters needs a personhood tier — Lite if it ends in a two-digit suffix, Full if it does not — and a base of 5 characters or fewer is reserved for governance.
+**Cause**: Short DotNS names are reserved for accounts with [Proof of Personhood](/apps/concepts/identity/). A name of 6 to 8 characters needs Full Proof of Personhood, and a name of 5 characters or fewer is not sold on this path at all. Length is counted as written, so digits do not change which band a name falls in.
 
-**Resolution**: Choose a base name of 9 characters or more, which registers with no personhood check; add a two-digit suffix to drop a 6-to-8-character name from Full to Lite; or obtain a personhood tier in the Polkadot App. See [Register a `.dot` Domain](/apps/register-dot-domain/#choose-a-name).
+**Resolution**: Choose a name of 9 characters or more, which registers with no personhood check, or obtain Full Proof of Personhood in the Polkadot App. Lite does not open the 6-to-8 band. See [Register a `.dot` Domain](/apps/register-dot-domain/#choose-a-name).
 
 ## The Name Is Already Registered
 

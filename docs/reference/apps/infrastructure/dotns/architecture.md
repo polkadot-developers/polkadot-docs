@@ -17,25 +17,25 @@ This page documents what each contract is responsible for at a conceptual level,
 
 ## Conceptual Responsibilities
 
-The contract set covers nine slices of the registry's job, grouped into three families:
+The contract set covers the registry's job in three families:
 
 - **Registry core**: The contracts that hold the name records themselves:
 
     - A registry contract holding the `(namehash → record)` mapping and gating who can write to each record.
-    - A resolver contract responding to queries — read-side surface for "what record does this `namehash` currently have?"
-    - A records contract or substructure storing the `contenthash`, owner, and other per-name fields a resolver returns.
+    - Resolver contracts responding to queries and holding the records themselves: the `contenthash`, addresses, text entries, chat keys, and reverse names. There is no separate records contract; a resolver is where a record lives.
+    - A per-user label store holding the readable label strings for the names an account owns, which is the only route back from a `namehash` to the text it came from.
 
 - **Registration and pricing**: The contracts that gate who can register what:
 
-    - A PopRules contract that evaluates a proposed registration against the pricing ladder (name length × PoP tier × suffix → free or deposit).
+    - A PopRules contract that places a label in a length band and decides who may register it, with the deposit coming from a separately registered cost model.
     - A registrar contract that orchestrates the full registration flow: PopRules check, fee collection if applicable, write to the registry.
-    - A deposit/treasury contract managing the deposits paid by open-tier registrations.
+    - An escrow contract holding the deposits registrations pay. Deposits are refundable and stay in escrow, so no value is routed to a treasury.
+    - A whitelist contract holding the per-name grants that the reserved registration path spends.
 
 - **Lifecycle**: The contracts that handle changes after registration:
 
-    - A transfer contract handling owner-changes for an existing name. See [Name Transfers](/reference/apps/infrastructure/dotns/transfer/).
-    - A renewal contract (or sub-mechanism) handling annual or per-period renewals where applicable.
-    - An admin/governance contract for operations that need to be governance-routed (reserved-name allocations, dispute resolution, contract upgrades).
+    - Owner-changes for an existing name, handled on the registrar itself through its fee-on-transfer hook and the escrow rather than by a separate contract. A gateway-issued personhood name is soulbound and cannot transfer at all. See [Name Transfers](/reference/apps/infrastructure/dotns/transfer/).
+    - Governance-routed operations, which are not a contract of their own: grants are issued on the whitelist, market switches are set on PopRules, and each upgradeable contract authorizes its own upgrade through its owner.
 
 A Product developer rarely interacts with the contracts directly — the [CLI](/reference/apps/infrastructure/dotns/cli/) and the higher-level [Register and Publish](/apps/deploy-your-app/) flow wrap the registration interactions. A Product reading name resolution data does so through the standard chain-client surface, calling into the resolver contract via the typed PAPI descriptor for Asset Hub.
 
@@ -47,7 +47,7 @@ A Product developer rarely interacts with the contracts directly — the [CLI](/
 
     ---
 
-    The ladder the registrar contract evaluates against — name length, PoP tier, deposit amounts.
+    The bands the registrar contract evaluates against: name length, the PoP tier each band requires, and the deposit.
 
     [:octicons-arrow-right-24: Reference](/reference/apps/infrastructure/dotns/poprules-pricing/)
 

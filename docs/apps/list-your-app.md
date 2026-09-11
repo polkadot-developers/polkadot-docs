@@ -14,14 +14,16 @@ Deploying makes your Product reachable at its dotNS address. Listing makes it _d
 
 There are two discovery surfaces:
 
-- **The Playground directory** (`playground.dot`): The directory the [`playground` CLI](/apps/quick-start/) publishes to. This is the path you use when you deploy with `playground deploy`.
+- **The Playground directory** (`playground.dot`): The directory the [`playground` CLI](/apps/quick-start/) publishes to on the TestNet it targets. This is the path you use when you deploy with `playground deploy`.
 - **[Browse](/reference/glossary/#browse)**: Polkadot's native discovery catalogue, surfaced in the App and Desktop dashboards. It is the broader destination for a Product that is ready for end users.
 
 Both are catalogues of published Products surfaced inside the Hosts, and both store a minimal on-chain record while pulling display details from your name's [dotNS](/reference/apps/infrastructure/dotns/) metadata. They differ in the tooling that publishes to them, covered below.
 
+--8<-- 'text/apps/network-tld.md'
+
 ## The Playground Directory
 
-The Playground directory lives at `playground.dot`, which you open in the Polkadot Desktop browser. Listed Products appear under their dotNS name, and your Product's `README.md` becomes its detail page in the directory, so make sure it is up to date before you publish.
+The Playground directory lives at `playground.dot`, which you open in the Polkadot Desktop browser. It is scoped to the TestNet the `playground` CLI targets, so treat a listing there as a way to share work in progress rather than as a launch surface; [Browse](#browse) is where a Product goes when it is ready for end users. Listed Products appear under their dotNS name, and your Product's `README.md` becomes its detail page in the directory, so make sure it is up to date before you publish.
 
 ### List During Deploy
 

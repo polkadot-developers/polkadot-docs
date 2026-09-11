@@ -1,6 +1,6 @@
 ---
 title: Deploy Your App
-description: Deploy your Polkadot Product to the playground using the playground CLI — build, upload, and publish your app on-chain and register a DotNS name.
+description: Deploy your Polkadot Product to the playground using the playground CLI — build, upload, and publish your app on-chain and register a dotNS name.
 categories: Apps
 page_badges:
   tutorial_badge: Intermediate
@@ -10,15 +10,15 @@ page_badges:
 
 ## Introduction
 
-This page covers how to take a finished Polkadot Product live with the `playground` CLI. By the end, your app bundle will be uploaded to the Bulletin Chain, registered under a DotNS name, and, if you choose, discoverable in the Polkadot Playground.
+This page covers how to take a finished Polkadot Product live with the `playground` CLI. By the end, your app bundle will be uploaded to the Bulletin Chain, registered under a dotNS name, and, if you choose, discoverable in the Polkadot Playground.
 
 --8<-- 'text/apps/network-tld.md'
 
 A deploy is really four stages, and `playground deploy` walks you through all of them in one flow:
 
 - **Build**: Compile your Product into a static bundle of files (HTML, JS, CSS, assets) with `playground build`.
-- **Register**: Reserve a DotNS name for your Product through the on-chain name service. This is the address people use to reach it. See [Register a `.dot` Domain](/apps/register-dot-domain/).
-- **Publish**: Optionally list your Product in the public Playground directory so others can discover it. Deploying without publishing keeps it reachable at its DotNS address but unlisted. See [List Your App](/apps/list-your-app/).
+- **Register**: Reserve a dotNS name for your Product through the on-chain name service. This is the address people use to reach it. See [Register a `.dot` Domain](/apps/register-dot-domain/).
+- **Publish**: Optionally list your Product in the public Playground directory so others can discover it. Deploying without publishing keeps it reachable at its dotNS address but unlisted. See [List Your App](/apps/list-your-app/).
 - **Deploy**: Upload the bundle to the Bulletin Chain and bind it to your name, so any Host can fetch and verify it directly.
 
 If your Product includes a [smart contract](/apps/build/deploy-a-smart-contract/), the deploy flow can redeploy that too, covered in the contract prompt below.
@@ -105,7 +105,7 @@ The CLI presents the following prompts in order:
 
     The label also has to be 3 to 63 lowercase characters (`a-z`, `0-9`, `-`), with no leading or trailing dash, and any trailing digit run must be exactly two digits that do not follow a dash. If registration is rejected, the name may already be [taken](/apps/troubleshooting/#the-name-is-already-registered) or [reserved for accounts with Proof of Personhood](/apps/troubleshooting/#the-name-requires-proof-of-personhood). See [Register a `.dot` Domain](/apps/register-dot-domain/#choose-a-name) for the full name rules.
 
-7. **Publish to the playground**: Choose **yes** to list your app in the public Polkadot Playground so others can find and open it. Choose **no** to still deploy it to your DotNS address, but keep it unlisted.
+7. **Publish to the playground**: Choose **yes** to list your app in the public Polkadot Playground so others can find and open it. Choose **no** to still deploy it to your dotNS address, but keep it unlisted.
 
     <div class="termynal" data-termynal>
     <span data-ty><pre>  publish to the playground?
@@ -123,12 +123,12 @@ The CLI presents the following prompts in order:
       build         skip (use existing)
       build dir     .next
       contracts     skip
-      publish       DotNS only<br>
+      publish       dotNS only<br>
       phone approvals none<br>
       enter to deploy  ·  esc to cancel</pre></span>
     </div>
 
-    Press ++enter++ to confirm. The CLI then runs the upload and on-chain registration steps. If you chose the **phone signer**, each step triggers an approval prompt in the Polkadot mobile app — open the app and approve when prompted. With the **dev signer** selected here, the upload and DotNS registration run automatically with no phone prompts, and the deploy finalizes:
+    Press ++enter++ to confirm. The CLI then runs the upload and on-chain registration steps. If you chose the **phone signer**, each step triggers an approval prompt in the Polkadot mobile app — open the app and approve when prompted. With the **dev signer** selected here, the upload and dotNS registration run automatically with no phone prompts, and the deploy finalizes:
 
     <div class="termynal" data-termynal>
     <span data-ty><pre>  playground deploy  ·  myproject57.paseo  ·  paseo next v2        v0.47.0
@@ -145,7 +145,7 @@ The CLI presents the following prompts in order:
 
 ## Open Your App
 
-Once the deploy completes, the CLI prints the URLs for your app. Regardless of whether you published it to the playground, your app is live at its DotNS address and reachable through the web gateway, which appends `.li` to the full name:
+Once the deploy completes, the CLI prints the URLs for your app. Regardless of whether you published it to the playground, your app is live at its dotNS address and reachable through the web gateway, which appends `.li` to the full name:
 
 ```text
 https://myproject57.paseo.li
@@ -157,11 +157,11 @@ You can also navigate directly by entering your name in the [Polkadot Desktop](/
 myproject57.paseo
 ```
 
-![Successfully deployed app reachable at its DotNS URL](/images/apps/deploy-your-app/deploy-your-app-01.webp)
+![Successfully deployed app reachable at its dotNS URL](/images/apps/deploy-your-app/deploy-your-app-01.webp)
 
 Either way, the app loads directly from the Bulletin Chain — no central server involved.
 
-If you chose **yes** at the `publish to the playground?` prompt, your app is also listed in the public playground directory. Open `playground.dot` in Polkadot Desktop browser and your app appears under your name, so others can find and open it. If you chose **no** (`DotNS only`, as in this example), the app is still fully deployed and reachable at the URLs above, only unlisted in the directory.
+If you chose **yes** at the `publish to the playground?` prompt, your app is also listed in the public playground directory. Open `playground.dot` in Polkadot Desktop browser and your app appears under your name, so others can find and open it. If you chose **no** (`dotNS only`, as in this example), the app is still fully deployed and reachable at the URLs above, only unlisted in the directory.
 
 !!! tip
     If your app does not appear immediately, wait a few seconds and refresh. On-chain state propagation can take a short time after the deploy transaction finalizes, and the web gateway resolves your name through an in-browser light client. A `curl` or script against the gateway URL returns a generic gateway shell rather than your app — open it in a real browser. If it still does not resolve, see [Troubleshooting](/apps/troubleshooting/#the-app-does-not-appear-right-after-deploy).
@@ -179,7 +179,7 @@ Renewal needs a bookkeeping handle from the original write: the `(block, index)`
 
 Deploy-time issues have named fixes in [Troubleshooting](/apps/troubleshooting/):
 
-- [The deploy pauses for about a minute](/apps/troubleshooting/#the-deploy-pauses-for-about-a-minute): the DotNS commit-reveal window, not a hang.
+- [The deploy pauses for about a minute](/apps/troubleshooting/#the-deploy-pauses-for-about-a-minute): the dotNS commit-reveal window, not a hang.
 - [The name is already registered](/apps/troubleshooting/#the-name-is-already-registered) or [requires Proof of Personhood](/apps/troubleshooting/#the-name-requires-proof-of-personhood): choose a different or longer name.
 - [`no allowance set for account`](/apps/troubleshooting/#no-allowance-set-for-account) or [uploads are rejected](/apps/troubleshooting/#uploads-are-rejected-or-host-storage-unavailable): the signing account is missing PAS or a storage authorization.
 - [The app does not appear right after deploy](/apps/troubleshooting/#the-app-does-not-appear-right-after-deploy): on-chain propagation and gateway resolution take a moment.

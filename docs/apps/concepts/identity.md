@@ -1,6 +1,6 @@
 ---
 title: Identity
-description: The .dot name, the per-app derived account, and Proof of Personhood as three separate identities for a Polkadot Product, and why they stay separate.
+description: The two identities a user brings to a Polkadot Product — a per-app account and Proof of Personhood — and why your Product's own .dot address is not one of them.
 categories: Apps
 ---
 
@@ -8,19 +8,14 @@ categories: Apps
 
 ## Introduction
 
-A user interacting with your Product carries three distinct identities, and they are deliberately separate. Keeping them apart is what lets the platform give your Product a stable account and optional proof that the user is a real person, without turning every Product into a tracking surface.
+A user interacting with your Product carries two identities, and they are deliberately separate:
 
-The three identities are:
+- **A per-app account**: A per-Product account derived for each user. This is the identity your Product signs and transacts with.
+- **Proof of Personhood**: A tier, a per-app alias, and sometimes a dotNS username, which together attest that the user is a unique human without revealing who they are.
 
-- **A `.dot` name**: A human-readable name that resolves to content, owned by an account but not itself an account.
-- **A per-app account**: A per-Product account derived for each user, the identity your Product signs and transacts with.
-- **Proof of Personhood**: A tier and a per-app alias that attest the user is a unique human, without revealing who they are.
+Keeping them apart is what lets the platform give your Product a stable account, and optional proof that the user is a real person, without turning every Product into a tracking surface.
 
-## The `.dot` Name
-
-A [`.dot` name](/apps/register-dot-domain/) is registered with [DotNS](/reference/apps/infrastructure/dotns/) and resolves to a content record — the CID of a published Product bundle. Ownership of a name is held by an Asset Hub account and is transferable, but the name is not an account and cannot sign. It names _content_, not a user.
-
-A name is how users reach your Product; it is not how your Product identifies a user.
+A third name comes up constantly and is _not_ a user identity: your Product's own `.dot` address, the name users type to reach it. It shares a namespace with the dotNS username, which makes the two easy to confuse, so it is covered in [Your Product's `.dot` Address](#your-products-dot-address) below.
 
 ## The Per-App Account
 
@@ -40,33 +35,42 @@ Your Product obtains this account through the [`signer`](/apps/product-sdk/signe
 
 ## Proof of Personhood
 
-[Proof of Personhood](/reference/apps/infrastructure/pop/) is a separate signal that a user is a unique human. It has two parts:
+[Proof of Personhood](/reference/apps/infrastructure/pop/) is a separate signal that a user is a unique human. It has three parts:
 
 - **A tier**: `None`, `Lite` (an attested username), or `Full` (a stronger, invitation-gated proof).
 - **A per-app alias**: A Ring-VRF-derived identifier that is deterministic for a given user and Product, and unlinkable across Products.
+- **A dotNS username**: The human-readable name the personhood gateway issues to a verified user, such as `joseph.42`.
 
 An alias is never an account address, and — like the per-app account — it is scoped per Product so it cannot be used to correlate a user across Products. Cross-Product alias linking requires an explicit consent step. Use personhood to gate features on verified-human status (for example, one action per person) without learning who the user is.
 
-!!! warning "Names and usernames can be coupled"
-    The three identities are architecturally separate, but they are not always fully independent in practice. A `Lite` username can be mirrored into `.dot` naming by operator infrastructure, which couples a user's personhood username to a `.dot` name. Treat the identities as separate by design, but do not assume they can never be linked through operator-run mirrors.
+### The dotNS Username
 
-## Usernames in Your Product
+A dotNS username is the one part of a user's identity that is human-readable and stable across Products. The personhood gateway issues it, not the public registration path, which gives it three properties that a name bought on the public path does not have:
 
-There is no built-in primitive for an in-app username, so most Products need to choose a display identity themselves. Until a primitive exists, the recommended pattern keeps you aligned with the platform's identity model rather than inventing a parallel one:
+- It is **soulbound**: permanently non-transferable, because it identifies a person rather than content.
+- It carries **no deposit**, whatever its length.
+- It is **not free-form**: the gateway refuses a stem of five characters or fewer, and a `Lite` username carries a digit suffix inside its label, as in `joseph.42`.
 
-- **Prefer the personhood username where you have it.** When the user has a `Lite` or `Full` tier, read the username the platform already associates with them (through the [`signer`](/apps/product-sdk/signer/) package's `getUserId`) and use it as the display name. This reuses an identity the user already has instead of minting a new one.
-- **Otherwise, let the user set a per-Product display name** and store it in [local storage](/apps/product-sdk/local-storage/) (device-local) or [cloud storage](/apps/product-sdk/cloud-storage/) (shared), keyed to their per-app account. Keep it scoped to your Product so it does not become a cross-Product identifier.
-- **Do not treat a display name as identity.** Authorization and uniqueness come from the per-app account and Proof of Personhood; a display name is a label on top of them.
+Read it with `getUserId` from the [`signer`](/apps/product-sdk/signer/) package, which returns it as `primaryUsername`. A user with tier `None` has no dotNS username, so treat it as optional and always have a fallback. For the pattern to follow when displaying a name in your Product, see [Show a Display Name](/apps/build/sign-and-submit/#show-a-display-name).
 
-Following this pattern means Products converge on the same approach instead of each reinventing usernames, which eases any future migration to a platform primitive.
+!!! info "One username, three names"
+    The Polkadot App's Humanity screens call this the **dotNS username**, and that is the term these docs use. You will also see it called a _personhood username_ elsewhere in this documentation, and the SDK returns it as `primaryUsername`. All three refer to the same name issued through the personhood gateway.
 
-## How the Three Fit Together
+## Your Product's `.dot` Address
 
-- Users **find** your Product by its `.dot` name.
+Your Product's [`.dot` address](/apps/register-dot-domain/) is registered with [dotNS](/reference/apps/infrastructure/dotns/) and resolves to a content record: the CID of a published Product bundle. Ownership of a name is held by an Asset Hub account, but the name is not an account and cannot sign. It is how users **reach** your Product, not how your Product identifies a **user**.
+
+The confusion is that both live in the same namespace. A name registered on the public path points at content and can be transferred. A name issued through the personhood gateway is a dotNS username: it points at a person and is soulbound.
+
+The two are indistinguishable from the string alone, so a client that needs to tell them apart should read `isPopIssued(label)` on the PoP controller rather than inspect the text. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/) for both shapes side by side.
+
+## How They Fit Together
+
+- Users **find** your Product by its `.dot` address, which identifies your Product rather than them.
 - Your Product **acts** as the user through the per-app account, signing on the user's phone.
-- Your Product optionally **gates** features on Proof of Personhood, reading a tier and a per-app alias rather than a real-world identity.
+- Your Product optionally **gates** features on Proof of Personhood, reading a tier and a per-app alias rather than a real-world identity, and **displays** the user's dotNS username when there is one.
 
-None of the three reveals the user's root key or a cross-Product identifier unless the user explicitly grants it.
+None of these reveals the user's root key or a cross-Product identifier unless the user explicitly grants it.
 
 ## Where to Go Next
 
@@ -76,7 +80,7 @@ None of the three reveals the user's root key or a cross-Product identifier unle
 
     ---
 
-    Derive and sign with the per-app account in your Product.
+    Derive and sign with the per-app account, and show the user's dotNS username in your Product.
 
     [:octicons-arrow-right-24: Sign and Submit Transactions](/apps/build/sign-and-submit/)
 

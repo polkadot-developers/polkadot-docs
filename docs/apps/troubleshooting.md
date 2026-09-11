@@ -26,19 +26,19 @@ Named entries for the failures developers hit most while building and deploying 
 
 ## The Deploy Pauses for About a Minute
 
-**Cause**: During `playground deploy`, there is a deliberate pause of about 60 seconds between reserving and finalizing your DotNS name. This is [DotNS](/apps/register-dot-domain/)'s commit-reveal window, which prevents someone from front-running your name.
+**Cause**: During `playground deploy`, there is a deliberate pause of about 60 seconds between reserving and finalizing your dotNS name. This is [dotNS](/apps/register-dot-domain/)'s commit-reveal window, which prevents someone from front-running your name.
 
 **Resolution**: Wait. The deploy is not stuck. The next approval appears in the Polkadot App once the window elapses.
 
 ## The Name Requires Proof of Personhood
 
-**Cause**: Short and premium DotNS names are reserved for accounts with [Proof of Personhood](/apps/concepts/identity/). A base name of 6 to 8 characters needs a personhood tier — Lite if it ends in a two-digit suffix, Full if it does not — and a base of 5 characters or fewer is reserved for governance.
+**Cause**: Short and premium dotNS names are reserved for accounts with [Proof of Personhood](/apps/concepts/identity/). A base name of 6 to 8 characters needs a personhood tier — Lite if it ends in a two-digit suffix, Full if it does not — and a base of 5 characters or fewer is reserved for governance.
 
 **Resolution**: Choose a base name of 9 characters or more, which registers with no personhood check; add a two-digit suffix to drop a 6-to-8-character name from Full to Lite; or obtain a personhood tier in the Polkadot App. See [Register a `.dot` Domain](/apps/register-dot-domain/#choose-a-name).
 
 ## The Name Is Already Registered
 
-**Cause**: DotNS names are first come, first served.
+**Cause**: dotNS names are first come, first served.
 
 **Resolution**: Choose a different name. Re-deploying a name you already own is fine and does not conflict.
 

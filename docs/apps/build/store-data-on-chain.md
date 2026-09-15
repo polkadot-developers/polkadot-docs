@@ -1,6 +1,6 @@
 ---
 title: Store Data on Chain
-description: Store and retrieve Bulletin Chain data from a Polkadot Product, Hello World, larger files, renewal, and preimage-authorized uploads.
+description: Store and retrieve Bulletin Chain data from a Polkadot Product, covering Hello World, larger files, and renewal.
 categories: Apps
 page_badges:
   tutorial_badge: Intermediate
@@ -137,34 +137,6 @@ The SDK's typed Bulletin API does not expose `RetentionPeriod` or the `Utility` 
 !!! warning
     Each renewal generates a new `(block, index)` pair. Track the values from the latest `Renewed` event for any subsequent renewal. Using the original values after a renewal will fail. The Bulletin Chain pallet does not emit retention events ahead of expiry; your Product needs its own scheduler (cron job, queue, or background worker) to renew before the storage expires.
 
-## Submit a Preimage
-
-Bulletin Chain has a second authorization model alongside the per-account quota you've been using. Instead of authorizing your account to store transactions and bytes, a privileged caller (Root on Bulletin) can pre-authorize a specific content hash via the `authorize_preimage` extrinsic. Once that authorization is in place, anyone (including your Product) can submit the matching bytes via an unsigned transaction: no fees, no per-account quota debited.
-
-This is the right path when a sponsor (an app, a parachain, or governance) pre-authorizes content for someone else to upload: the authorization names the content hash, and the actual bytes get submitted by the user's Product.
-
-The Host API exposes the submission side through `getPreimageManager` from `@parity/product-sdk-host` (already installed via the umbrella package in Set Up). Polkadot Desktop mediates the call. The Product never holds a signer for this path because the underlying transaction is unsigned.
-
-```typescript title="submit-preimage.ts"
---8<-- "code/apps/build/store-data-on-chain/submit-preimage.ts"
-```
-
-`preimageManager.submit(payload)` resolves with the Blake2b-256 hash of the payload, which is the same hash format as a Bulletin CID. The submission is rejected if no `authorize_preimage` exists for that hash. Reading is permissionless; subscribe via `preimageManager.lookup(key, callback)`.
-
-!!! warning "Provisional"
-
-The mechanics:
-
-- Some upstream caller (Root on Bulletin) calls `authorize_preimage(contentHash, maxSize)`.
-- Your Product calls `preimageManager.submit(payload)`.
-- Polkadot Desktop computes the Blake2b-256 hash of the payload; the chain accepts the submission only if a matching authorization exists.
-- The bytes are stored on Bulletin Chain via an unsigned transaction with no fees and no per-account quota debited.
-- Reading is permissionless: any account can fetch the bytes by hash via `preimageManager.lookup`.
-- Retention is roughly two weeks per the standard Bulletin Chain retention window; renewal works the same way as for account-authorized stores.
-- Per-transaction byte limit is the same ~8 MiB; larger payloads are split into chunks and authorized as a DAG-PB manifest plus the chunk hashes.
-
-For the underlying pallet surface (`authorize_preimage`, `refresh_preimage_authorization`, `remove_expired_preimage_authorization`), see [Preimage Authorization](/reference/polkadot-hub/data-storage/#preimage-authorization) in the Data Storage reference.
-
 ## Storage Paths at a Glance
 
 The flows in this guide target the same chain but differ in authorization, atomicity, and consumer access. Use this table to pick the right path before writing.
@@ -173,7 +145,6 @@ The flows in this guide target the same chain but differ in authorization, atomi
 |:-------------------------------:|:----------------------------------------------------:|:----------------------------:|:--------------------:|:---------------------------------------------------------------:|
 | Bulletin store (small)          | Bulletin authorization                               | Single tx                    | ~2 weeks (renewable) | Most Product writes                                             |
 | Bulletin store (chunked)        | Bulletin authorization                               | Multi-tx + DAG-PB manifest   | ~2 weeks (renewable) | Files larger than 2 MiB                                         |
-| Bulletin preimage submission    | Pre-authorized hash (no per-account quota, no fees)  | Single unsigned tx           | ~2 weeks (renewable) | Sponsored uploads                                               |
 
 For deeper comparison and the full pallet reference, see [Data Storage Reference](/reference/polkadot-hub/data-storage/).
 

@@ -152,7 +152,6 @@ The Host API exposes the submission side through `getPreimageManager` from `@par
 `preimageManager.submit(payload)` resolves with the Blake2b-256 hash of the payload, which is the same hash format as a Bulletin CID. The submission is rejected if no `authorize_preimage` exists for that hash. Reading is permissionless; subscribe via `preimageManager.lookup(key, callback)`.
 
 !!! warning "Provisional"
-    The Bulletin Chain preimage authorization flow is live on TestNet today, but production environment endpoints are not yet finalized. The submission has a Host-side timeout (~120s on the current dev build) before it resolves; production timeouts may shift. The `@parity/product-sdk` API surface is pre-1.0; minor API changes are expected during the `0.x` line.
 
 The mechanics:
 

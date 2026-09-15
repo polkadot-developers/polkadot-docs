@@ -3,4 +3,3 @@ nav:
  - 'Authorization': authorization.md
  - 'Chunked Uploads': chunked-upload.md
  - 'Renewal': renewal.md
- - 'Cross-Chain': cross-chain.md

@@ -22,7 +22,7 @@ Four properties define how a Product interacts with Bulletin:
 ## Architecture
 
 !!! warning "Provisional"
-    The full architecture diagram — the relationship between the on-chain storage records, the collator network that serves CIDs to readers, and the cross-chain delivery path from People Chain — is still being finalized. Per-layer specifics will be added once they are confirmed.
+    The full architecture diagram — the relationship between the on-chain storage records and the collator network that serves CIDs to readers — is still being finalized. Per-layer specifics will be added once they are confirmed.
 
 At a high level, two layers cooperate:
 
@@ -64,14 +64,6 @@ For the storage-layer comparison (Bulletin vs Statement Store vs local `KvStore`
     The retention lifecycle and the mechanics of renewing data before it falls off the network.
 
     [:octicons-arrow-right-24: Reference](/reference/apps/infrastructure/bulletin-chain/renewal/)
-
-- <span class="badge learn">Learn</span> **Cross-Chain**
-
-    ---
-
-    How a write initiated from the People Chain (where a Product's PoP identity lives) reaches the Bulletin Chain via XCM.
-
-    [:octicons-arrow-right-24: Reference](/reference/apps/infrastructure/bulletin-chain/cross-chain/)
 
 - <span class="badge guide">Guide</span> **Store Data on Chain**
 

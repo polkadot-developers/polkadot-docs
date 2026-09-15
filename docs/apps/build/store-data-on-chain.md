@@ -173,7 +173,7 @@ The flows in this guide target the same chain but differ in authorization, atomi
 |              Path               |                    Authorization                     |          Atomicity           |      Retention       |                            Use When                             |
 |:-------------------------------:|:----------------------------------------------------:|:----------------------------:|:--------------------:|:---------------------------------------------------------------:|
 | Bulletin store (small)          | Bulletin authorization                               | Single tx                    | ~2 weeks (renewable) | Most Product writes                                             |
-| Bulletin store (chunked)        | Bulletin authorization                               | Multi-tx + DAG-PB manifest   | ~2 weeks (renewable) | Files larger than 8 MiB                                         |
+| Bulletin store (chunked)        | Bulletin authorization                               | Multi-tx + DAG-PB manifest   | ~2 weeks (renewable) | Files larger than 2 MiB                                         |
 | Bulletin preimage submission    | Pre-authorized hash (no per-account quota, no fees)  | Single unsigned tx           | ~2 weeks (renewable) | Sponsored uploads                                               |
 
 For deeper comparison and the full pallet reference, see [Data Storage Reference](/reference/polkadot-hub/data-storage/).

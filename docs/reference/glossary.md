@@ -148,7 +148,7 @@ Bulk coretime is a fixed duration of continuous coretime represented by an NFT t
 
 ## Cross-Consensus Messaging (XCM)
 
-[Polkadot](#polkadot)'s standard for moving messages and assets between chains. Used for cross-chain [Bulletin Chain](#bulletin-chain) writes initiated from [People Chain](#people-chain), and by the members ring system to distribute ring roots to subscribing [parachains](#parachain).
+[Polkadot](#polkadot)'s standard for moving messages and assets between chains. Used by the members ring system to distribute ring roots to subscribing [parachains](#parachain).
 
 ## DAG-PB
 

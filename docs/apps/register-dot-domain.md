@@ -52,7 +52,7 @@ Which tier a name falls into depends on its length, counted as written. Digits c
 | 6 to 8 characters      | Requires Full Proof of Personhood                        |
 | 5 characters or fewer  | Reserved for governance, not sold on this path           |
 
-So `johnsmith57` is open to anyone because it is 11 characters, and so is `johnsmith` at exactly nine. `johnny` and `johnny01` both need full proof of personhood at six and eight characters, and `john` is not sold on this path at all at four. Devicehood does not open that band: a device name such as `joseph.42` is earned through the personhood gateway and cannot be registered here. Adding digits no longer lowers the tier a name demands: it only makes the name longer, which can move it into the open band.
+So `johnsmith57` is open to anyone because it is 11 characters, and so is `johnsmith` at exactly nine. `johnny` and `johnny01` both need full proof of personhood at six and eight characters, and `john` is not sold on this path at all at four. A device proof does not open that band: a device name such as `joseph.42` is earned through the personhood gateway and cannot be registered here. Adding digits no longer lowers the tier a name demands: it only makes the name longer, which can move it into the open band.
 
 Every name this path admits pays the same refundable deposit, whatever its length. See the [PopRules and Pricing reference](/reference/apps/infrastructure/dotns/poprules-pricing/) for the bands and the deposit.
 

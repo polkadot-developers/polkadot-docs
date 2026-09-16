@@ -34,7 +34,7 @@ Named entries for the failures developers hit most while building and deploying 
 
 **Cause**: Short DotNS names are reserved for accounts with [Proof of Personhood](/apps/concepts/identity/). A name of six to eight characters needs Full Proof of Personhood. A name of five characters or fewer is not sold on this path at all. Length is counted as written, so digits do not change which band a name falls in.
 
-**Resolution**: Choose a name of nine characters or more, which registers with no personhood check, or obtain Full Proof of Personhood in the Polkadot App to open the six-to-eight band. Devicehood does not open that band. See [Register a `.dot` Domain](/apps/register-dot-domain/#choose-a-name).
+**Resolution**: Choose a name of nine characters or more, which registers with no personhood check, or obtain Full Proof of Personhood in the Polkadot App to open the six-to-eight band. A device proof does not open that band. See [Register a `.dot` Domain](/apps/register-dot-domain/#choose-a-name).
 
 ## The Name Is Already Registered
 

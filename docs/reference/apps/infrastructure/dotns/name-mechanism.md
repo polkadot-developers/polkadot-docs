@@ -19,7 +19,7 @@ This page documents each of those layers so a Product developer knows what each 
 
 ## Layer 1: The Registry on Polkadot Hub
 
-The registry of names (who owns `myproduct.dot`, when the registration was last updated, what record is attached right now) lives in contract state on Polkadot Hub, where is implemented as a set of contracts (see [Architecture](/reference/apps/infrastructure/dotns/architecture/)).
+The registry of names (who owns `myproduct.dot`, when the registration was last updated, what record is attached right now) lives in contract state on Polkadot Hub, where it is implemented as a set of contracts (see [Architecture](/reference/apps/infrastructure/dotns/architecture/)).
 
 A registration creates a record; a transfer or update modifies it. A resolver reading the registry asks Polkadot Hub for the current state of a specific name and gets back the records associated with it, including the `contenthash` that points at the Product bundle.
 

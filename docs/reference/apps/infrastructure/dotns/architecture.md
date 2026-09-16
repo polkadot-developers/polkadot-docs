@@ -31,7 +31,7 @@ Every contract resolves its siblings through a single protocol registry, a keyed
     - A PopRules contract that places a label in a length band and decides who may register it, with the deposit coming from a separately registered cost model.
     - Controller contracts that orchestrate the registration flow: the PopRules check, fee collection if applicable, and the write to the registry. The public commit-reveal path and the personhood gateway are separate controllers.
     - A registrar contract that is the ERC-721 carrying ownership of public and personhood names, so owning one means holding its token. It mints and burns on a controller's instruction and holds no pricing or personhood policy of its own. A device name is the exception: it has no token, and its ownership lives on the registry record as a subname under a controller-held container.
-    - An escrow contract holding the deposits registrations pay. Deposits are refundable and stay in escrow, so no value is routed to a treasury.
+    - An escrow contract holding the deposits registrations pay. Deposits are refundable and stay in escrow, so no value is routed to a treasury. It also runs the release, redeem, withdraw, and reclaim lifecycle by which a name returns to circulation. See [Escrow and Deposits](/reference/apps/infrastructure/dotns/escrow/).
     - A cost model registry naming the pricing contract in force, which governance can repoint. The deployed model charges one deposit for every name it admits, whatever its length.
     - A whitelist contract holding the per-name grants that the reserved registration path spends.
 

@@ -25,14 +25,14 @@ A transfer modifies one field of the name's record: the _owner_. Specifically:
 - The name itself — the dotted string the user sees — does not change.
 - The attached `contenthash` does not change. Users navigating to the name continue to see the same Product bundle they saw before, unless and until the new owner updates it.
 - The PoP tier the original owner used to qualify for the name does _not_ transfer with the name. The new owner inherits the name regardless of their own PoP tier, and any later `PopRules`-evaluated operation is checked against the new owner's status.
-- The deposit follows the name rather than the account that paid it.
+- The deposit follows the name rather than the account that paid it. The escrow rebinds the refund recipient to the new holder, and nothing is refunded at transfer time. See [Escrow and Deposits](/reference/apps/infrastructure/dotns/escrow/).
 
 ## The Transfer Fee
 
 Most transfers are free. A charge applies only when one of two independent conditions holds, and it is assessed against the name itself rather than against what the sender paid:
 
 - **The recipient cannot clear the name's band**: Moving a name from a band the recipient could not have registered in, such as a six-character name going to an account without full proof of personhood.
-- **The move is a personhood downgrade**: If the recipient holds a lower tier than the sender, the charge applies even when both could have registered a name of that length. Passing a nine-character name from a holder with full proof of personhood to one with only devicehood is charged for this reason alone.
+- **The move is a personhood downgrade**: If the recipient holds a lower tier than the sender, the charge applies even when both could have registered a name of that length. Passing a nine-character name from a holder with full proof of personhood to one with only a device proof is charged for this reason alone.
 
 The fee is the name's own price under the registered cost model; the two conditions never add up. Because the deployed model charges one amount for every band, that is the same figure a fresh registration pays. Two moves are always exempt: a transfer to the same address, and any transfer into or out of escrow. The escrow exemption is why releasing and reclaiming a name costs nothing beyond gas.
 

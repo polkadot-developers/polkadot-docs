@@ -15,7 +15,7 @@ Names carry the TLD of the network the CLI targets: `.paseo` on the Paseo testne
 A Product developer building a typical publishing pipeline rarely calls the CLI directly — the setup track handles the common path. The CLI is the right tool when you need a fine-grained, scriptable interaction (CI publishing, batch operations across multiple names, debugging a registration failure).
 
 !!! info "CLI version"
-    This page targets `@parity/dotns-cli` `0.9.2`, aligned with dotNS contracts `v0.7.0`; the name rules described here are unchanged in `v0.8.0`. Earlier releases apply the previous label rules, including a cap on trailing digits that the contracts no longer enforce. The CLI is in active development and breaking changes between versions are expected.
+    This page targets `@parity/dotns-cli` `0.9.2`, aligned with dotNS contracts `0.7.0`; the name rules described here are unchanged in `0.8.0`. Earlier releases apply the previous label rules, including a cap on trailing digits that the contracts no longer enforce. The CLI is in active development and breaking changes between versions are expected.
 
 ## Command Families
 
@@ -34,7 +34,7 @@ The CLI exposes commands across three families that map onto the dotNS contract 
 - **Lifecycle**: Commands that change ownership or a name's escrow position:
 
     - Transfer a name that is not soulbound to another account.
-    - Release a name into escrow, inspect its position, and withdraw the deposit.
+    - Release a name into escrow, inspect its position, withdraw the deposit, and claim it. See [Escrow and Deposits](/reference/apps/infrastructure/dotns/escrow/).
 
 ## Installing and Authenticating
 
@@ -47,7 +47,7 @@ For day-to-day Product publishing, the recommended account is the same paired ac
 Each command — subcommand path, required flags, optional flags, and exit codes — is enumerated here.
 
 !!! warning "Provisional"
-    Per-flag details are still being confirmed against the published package. The table below lists the known top-level commands at `0.9.0`; the per-flag reference follows once confirmed.
+    Per-flag details are still being confirmed against the published package. The table below lists the known top-level commands at `0.9.2`; the per-flag reference follows once confirmed.
 
 | Command                                  | Family            | Required flags | Optional flags | Notes      |
 |:-----------------------------------------|:------------------|:---------------|:---------------|:-----------|

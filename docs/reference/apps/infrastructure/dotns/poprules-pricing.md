@@ -29,7 +29,7 @@ A name reaches an owner by one of three routes, and most of the rules on this pa
 - **PoP Full**: Proven personhood. The user completes the biometric verification flow in the Polkadot App and their key joins the membership ring on the People Chain.
 - **PoP Lite**: Attested proof of a unique device, registered on a separate ring with a governance-bounded supply.
 
-The [Proof of Personhood reference](/reference/apps/hosts/polkadot-app/pop/) documents both mechanisms.
+[Proof of Personhood in the Polkadot App](/reference/apps/hosts/polkadot-app/pop/) documents both mechanisms.
 
 `PopRules` reads an account's tier from the personhood precompile on Polkadot Hub. It passes a dotNS-scoped context, so a person gets one stable identifier for dotNS that other applications cannot correlate. No tier is self-declared, and no contract holds a user-settable status.
 
@@ -47,7 +47,7 @@ The deposit is 10 units of the network's native token (10 PAS on Paseo), and it 
 
 Only the public path charges it. A gateway-issued name carries no deposit, whatever its length, and holding PoP Full does not make a public registration free.
 
-PoP Lite does not open the six-to-eight band. An ordinary label of that length classifies as requiring PoP Full, because the Lite requirement attaches only to the separated gateway form. A Lite holder can therefore be issued `joseph.42` but cannot register `joseph` or `joseph01` on the public path.
+PoP Lite does not open the six-to-eight band. An ordinary label of that length requires PoP Full, because the Lite requirement attaches only to the dotted gateway shape. A Lite holder can therefore be issued `joseph.42` but cannot register `joseph` or `joseph01` on the public path.
 
 Two rules narrow the table:
 
@@ -64,7 +64,6 @@ A gateway name is earned rather than bought, so it carries no deposit. Proving f
 Neither shape can be bought. A label with digits but no separator, like `joseph42`, is an ordinary public name.
 
 The shape alone does not prove personhood: provenance is not written into the characters. A client reads it from `isPopIssued(label)` on the PoP controller; see [Name Mechanism and Resolution](/reference/apps/infrastructure/dotns/name-mechanism/).
-
 
 ## Migrating a Device Name to a Personhood Name
 

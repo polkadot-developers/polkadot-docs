@@ -26,8 +26,10 @@ For the Product-side how-to (registering a name, publishing your bundle), see [R
 dotNS is deployed separately on each network, and three things follow from that.
 
 - **The TLD is set at deploy time**: Each network's registry carries one TLD. A TestNet uses its own, so a name reads `awesome.paseo` on Paseo, and the planned Polkadot deployment uses `.dot`. Tools take the bare label and append the TLD of the environment they target, so a label carrying a different TLD is rejected rather than translated.
-- **The deposit is the network's native token**: The amount is 10 units of whatever the chain uses, so a registration costs 10 PAS on Paseo today, and it is designed to cost 10 DOT once dotNS deploys on Polkadot. dotNS runs on TestNets only today. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
+- **The deposit is the network's native token**: A registration costs 10 units of whatever the chain uses, so 10 PAS on Paseo. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
 - **Registrations do not cross networks**: Each deployment keeps its own registry, so holding a name on a TestNet grants no claim to the matching name on Polkadot. A name has to be registered on each network where it is needed.
+
+The deployments have different operators. Parity runs dotNS on the TestNets, including Paseo, and the planned deployment on Polkadot will be run by the [Polkadot Community Foundation](https://docs.polkadotcommunity.foundation/). The contracts are the same, but each operator configures its own deployment, so governance-set values such as the deposit amount need not match between them.
 
 !!! warning "Known gaps"
     Some operator-side procedures (migration, batch updates, contract upgrade paths) are not yet documented for this build. The reference here covers the developer-facing surface.

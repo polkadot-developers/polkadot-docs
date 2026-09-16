@@ -49,8 +49,6 @@ The two-step shape is the standard pull-payment pattern: crediting a balance can
 
 A holder who releases a name and never returns therefore keeps the value: the deposit lands in their pull-payment balance whether or not they were present when the name recycled. Reclaim also resets the name's resolver pointer, so the new registrant does not inherit the previous holder's records.
 
-<!-- TODO: state the withdrawal cooldown and redeem window durations, and whether governance can configure either. -->
-
 ## Deposits and Transfers
 
 The deposit is bound to the name rather than to the account that paid it. On every transfer the escrow rebinds the refund recipient to the new holder, and nothing is refunded at transfer time. A buyer who later releases the name withdraws the deposit the seller originally paid.

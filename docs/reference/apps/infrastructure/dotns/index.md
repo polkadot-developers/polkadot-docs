@@ -31,8 +31,8 @@ dotNS is deployed separately on each network, and three things follow from that.
 
 The deployments have different operators. Parity runs dotNS on the TestNets, including Paseo, and the planned deployment on Polkadot will be run by the [Polkadot Community Foundation](https://docs.polkadotcommunity.foundation/). The contracts are the same, but each operator configures its own deployment, so governance-set values such as the deposit amount need not match between them.
 
-!!! warning "Known gaps"
-    Some operator-side procedures (migration, batch updates, contract upgrade paths) are not yet documented for this build. The reference here covers the developer-facing surface.
+!!! note "Scope"
+    This reference covers the developer-facing surface. Operator-side procedures, such as migration, batch updates, and contract upgrade paths, are outside it.
 
 ## Where to Go Next
 

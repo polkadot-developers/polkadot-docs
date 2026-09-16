@@ -94,7 +94,7 @@ The CLI presents the following prompts in order:
     | Length                 | Requirement                                              |
     |------------------------|----------------------------------------------------------|
     | 9 characters or longer | Open to everyone, with no personhood check               |
-    | 6 to 8 characters      | Requires Full Proof of Personhood, and only while governance has the short-name market open |
+    | 6 to 8 characters      | Requires Full Proof of Personhood                        |
     | 5 characters or fewer  | Reserved for governance, not sold on this path           |
 
     <div class="termynal" data-termynal>

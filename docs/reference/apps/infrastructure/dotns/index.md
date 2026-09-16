@@ -1,6 +1,6 @@
 ---
 title: dotNS Reference
-description: Reference for dotNS — the .dot name system on Asset Hub that resolves Product names to published bundles, with PopRules eligibility and contract architecture.
+description: Reference for dotNS, the .dot name system on Polkadot Hub that resolves Product names to published bundles, with PopRules eligibility and contract architecture.
 categories: Apps, Reference
 ---
 
@@ -10,13 +10,13 @@ categories: Apps, Reference
 
 dotNS is Polkadot's decentralized name service for Products — the registry that turns a human-readable `.dot` name like `awesome.dot` into the published Polkadot Product it points at. It's the lookup every Host runs whenever a user navigates to a `.dot` address.
 
-If you have used a DNS provider, the role is similar: human-readable names map to content. The differences: dotNS is on-chain (no DNS provider in the middle), name resolution returns a [Content Identifier (CID)](/reference/glossary/#content-identifier-cid) for a Product bundle (not an IP address), and eligibility for the shorter names is tied to [Proof of Personhood](/reference/apps/infrastructure/pop/) so spam farming them is bounded.
+If you have used a DNS provider, the role is similar: human-readable names map to content. dotNS exists for the guarantees DNS lacks. A name belongs to its holder alone, with no registry operator able to suspend or transfer it, and it resolves wherever the chain is reachable, with no server in the path. Resolution returns a [Content Identifier (CID)](/reference/glossary/#content-identifier-cid) for a Product bundle rather than an IP address. And eligibility for the shorter names is tied to [Proof of Personhood](/reference/apps/infrastructure/pop/), so short, human-scale names go to people rather than to whoever arrives first with the most capital.
 
 Four properties shape how a Product developer interacts with dotNS:
 
-- **The registry lives on Asset Hub**: Names, owners, and the content references they point at are stored as contract state on Asset Hub, not on the People Chain or Bulletin Chain.
+- **The registry lives on Polkadot Hub**: Names, owners, and the content references they point at are stored as contract state on Polkadot Hub.
 - **Name resolution is content-addressed at the end**: A `.dot` name resolves to a CID, and the CID points at bytes on the [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/) (or via an IPFS gateway). See [Name Mechanism](/reference/apps/infrastructure/dotns/name-mechanism/).
-- **Eligibility is personhood-gated by PopRules**: A name's length places it in a band. Six to eight characters requires PoP Full on the public path, and only while governance has the short-name market open. Five or fewer is not sold there at all. Every name the public path admits pays the same refundable deposit, so personhood gates who may register rather than what it costs. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
+- **Eligibility is personhood-gated by PopRules**: A name's length places it in a band. Six to eight characters requires full proof of personhood on the public path. Five or fewer is not sold there at all. Every name the public path admits pays the same refundable deposit, so personhood gates who may register rather than what it costs. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
 - **The architecture is a small set of cooperating contracts**: Not a single registrar — a set of contracts each handling a slice of the model. See [Architecture](/reference/apps/infrastructure/dotns/architecture/).
 
 For the Product-side how-to (registering a name, publishing your bundle), see [Register and Publish](/apps/deploy-your-app/).
@@ -25,8 +25,8 @@ For the Product-side how-to (registering a name, publishing your bundle), see [R
 
 dotNS is deployed separately on each network, and three things follow from that.
 
-- **The TLD is set at deploy time**: Polkadot uses `.dot`, and a TestNet uses its own, so the same name is `awesome.dot` on Polkadot and `awesome.paseo` on Paseo. Tools take the bare label and append the TLD of the environment they target, so a label carrying a different TLD is rejected rather than translated.
-- **The deposit is the network's native token**: The amount is the same on every network, and the token is whatever that chain uses, so a registration costs 10 DOT on Polkadot and 10 PAS on Paseo. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
+- **The TLD is set at deploy time**: Each network's registry carries one TLD. A TestNet uses its own, so a name reads `awesome.paseo` on Paseo, and the planned Polkadot deployment uses `.dot`. Tools take the bare label and append the TLD of the environment they target, so a label carrying a different TLD is rejected rather than translated.
+- **The deposit is the network's native token**: The amount is 10 units of whatever the chain uses, so a registration costs 10 PAS on Paseo today, and it is designed to cost 10 DOT once dotNS deploys on Polkadot. dotNS runs on TestNets only today. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
 - **Registrations do not cross networks**: Each deployment keeps its own registry, so holding a name on a TestNet grants no claim to the matching name on Polkadot. A name has to be registered on each network where it is needed.
 
 !!! warning "Known gaps"
@@ -48,7 +48,7 @@ dotNS is deployed separately on each network, and three things follow from that.
 
     ---
 
-    The contract architecture on Asset Hub that backs the registry — what each contract is responsible for and how they cooperate.
+    The contract architecture on Polkadot Hub that backs the registry: what each contract is responsible for and how they cooperate.
 
     [:octicons-arrow-right-24: Reference](/reference/apps/infrastructure/dotns/architecture/)
 

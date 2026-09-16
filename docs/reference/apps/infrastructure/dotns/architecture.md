@@ -1,6 +1,6 @@
 ---
 title: dotNS Architecture
-description: The cooperating contracts on Asset Hub that back the dotNS registry — name records, ownership, content references, and PopRules enforcement.
+description: The cooperating contracts on Polkadot Hub that back the dotNS registry, covering name records, ownership, content references, and PopRules enforcement.
 categories: Apps, Reference
 ---
 
@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-dotNS is implemented as a set of cooperating contracts on Asset Hub, not as a single monolithic registrar. The split exists because the responsibilities are genuinely different: holding name records, deciding who may register a label, setting the deposit, and holding that deposit are separate jobs, and contract boundaries map cleanly onto those slices.
+dotNS is implemented as a set of cooperating contracts on Polkadot Hub, not as a single monolithic registrar. The split exists because the responsibilities are genuinely different: holding name records, deciding who may register a label, setting the deposit, and holding that deposit are separate jobs, and each gets its own contract.
 
 This page documents what each contract is responsible for at a conceptual level, so a Product developer building against the dotNS surface knows which contract handles which interaction.
 
@@ -29,17 +29,18 @@ Every contract resolves its siblings through a single protocol registry, a keyed
 - **Registration and pricing**: The contracts that gate who can register what:
 
     - A PopRules contract that places a label in a length band and decides who may register it, with the deposit coming from a separately registered cost model.
-    - A registrar contract that orchestrates the full registration flow: PopRules check, fee collection if applicable, write to the registry. The registrar is also the ERC-721 that carries ownership, so owning a name means holding its token.
+    - Controller contracts that orchestrate the registration flow: the PopRules check, fee collection if applicable, and the write to the registry. The public commit-reveal path and the personhood gateway are separate controllers.
+    - A registrar contract that is the ERC-721 carrying ownership of public and personhood names, so owning one means holding its token. It mints and burns on a controller's instruction and holds no pricing or personhood policy of its own. A device name is the exception: it has no token, and its ownership lives on the registry record as a subname under a controller-held container.
     - An escrow contract holding the deposits registrations pay. Deposits are refundable and stay in escrow, so no value is routed to a treasury.
     - A cost model registry naming the pricing contract in force, which governance can repoint. The deployed model charges one deposit for every name it admits, whatever its length.
     - A whitelist contract holding the per-name grants that the reserved registration path spends.
 
-- **Lifecycle**: How changes after registration are handled, in neither case by a contract of its own:
+- **Lifecycle**: What happens to a name after registration. Neither case has a contract of its own:
 
-    - Owner-changes for an existing name, handled on the registrar itself through its fee-on-transfer hook and the escrow rather than by a separate contract. A gateway-issued personhood name is soulbound and cannot transfer at all. See [Name Transfers](/reference/apps/infrastructure/dotns/transfer/).
-    - Governance-routed operations, spread across the contracts they act on: grants are issued on the whitelist, market switches are set on PopRules, and each upgradeable contract authorizes its own upgrade through its owner.
+    - Owner changes for an existing name happen on the registrar itself, through its fee-on-transfer hook and the escrow. A gateway-issued name cannot transfer at all: a personhood name is a soulbound token, and a device name has no token. See [Name Transfers](/reference/apps/infrastructure/dotns/transfer/).
+    - Governance-routed operations, spread across the contracts they act on: grants are issued on the whitelist, and each upgradeable contract authorizes its own upgrade through its owner.
 
-A Product developer rarely interacts with the contracts directly — the [CLI](/reference/apps/infrastructure/dotns/cli/) and the higher-level [Register and Publish](/apps/deploy-your-app/) flow wrap the registration interactions. A Product reading name resolution data does so through the standard chain-client surface, calling into the resolver contract via the typed PAPI descriptor for Asset Hub.
+A Product developer rarely interacts with the contracts directly: the [CLI](/reference/apps/infrastructure/dotns/cli/) and the higher-level [Register and Publish](/apps/deploy-your-app/) flow wrap the registration interactions. A Product reading name resolution data does so through the standard chain-client surface, calling into the resolver contract via the typed PAPI descriptor for Polkadot Hub.
 
 ## Where to Go Next
 
@@ -49,7 +50,7 @@ A Product developer rarely interacts with the contracts directly — the [CLI](/
 
     ---
 
-    The bands the registrar contract evaluates against: name length, the PoP tier each band requires, and the deposit.
+    The bands PopRules evaluates: name length, the PoP tier each band requires, and the deposit.
 
     [:octicons-arrow-right-24: Reference](/reference/apps/infrastructure/dotns/poprules-pricing/)
 

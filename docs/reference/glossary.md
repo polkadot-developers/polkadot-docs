@@ -494,7 +494,7 @@ The [Polkadot](#polkadot) [light client](#light-client). Used by [Polkadot Web](
 
 ## Soulbound
 
-Permanently bound to the account that received it and non-transferable by design. In [dotNS](#dotns), a name issued through the personhood gateway is soulbound, because it identifies a person rather than naming content; a name registered on the public path is transferable. See [Name Transfers](/reference/apps/infrastructure/dotns/transfer/).
+Permanently bound to the account that received it and non-transferable by design. In [dotNS](#dotns), a personhood name issued through the personhood gateway is soulbound, because it identifies a person rather than naming content; a name registered on the public path is transferable. A device name cannot move either, but not through this flag: it has no token at all. See [Name Transfers](/reference/apps/infrastructure/dotns/transfer/).
 
 ## Sovereign Account
 

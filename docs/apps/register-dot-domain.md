@@ -14,7 +14,7 @@ Every published Polkadot Product is reached by a DotNS name, such as `awesome.do
 
 --8<-- 'text/apps/network-tld.md'
 
-The registry — names, owners, and the content record each name points at — lives as contract state on Asset Hub. Resolution runs `name → namehash → contenthash → CID`: the name hashes to a deterministic key, the record's `contenthash` points at your bundle's CID, and the Host fetches and content-verifies the bundle before loading it.
+The registry (names, owners, and the content record each name points at) lives as contract state on Polkadot Hub. Resolution runs `name → namehash → contenthash → CID`: the name hashes to a deterministic key, the record's `contenthash` points at your bundle's CID, and the Host fetches and content-verifies the bundle before loading it.
 
 You do not register a name as a separate chore. The [`playground` CLI](/apps/quick-start/) registers it for you as part of `playground deploy`. This guide explains what happens during that step, how to choose a name that your account is allowed to register, and how to manage the name afterward.
 
@@ -28,7 +28,7 @@ Before registering, ensure you have:
 
 ## Choose a Name
 
-Enter the bare label — `myproject57`, not `myproject57.paseo`. The CLI appends the environment's TLD for you, and a label that already carries a different TLD is rejected.
+Enter the bare label: `johnsmith57`, not `johnsmith57.paseo`. The CLI appends the environment's TLD for you, and a label that already carries a different TLD is rejected.
 
 ### Label Rules
 
@@ -49,15 +49,15 @@ Which tier a name falls into depends on its length, counted as written. Digits c
 | Length                 | Requirement                                              |
 |------------------------|----------------------------------------------------------|
 | 9 characters or longer | Open to everyone, with no personhood check               |
-| 6 to 8 characters      | Requires Full Proof of Personhood, and only while governance has the short-name market open |
+| 6 to 8 characters      | Requires Full Proof of Personhood                        |
 | 5 characters or fewer  | Reserved for governance, not sold on this path           |
 
-So `myproject57` is open to anyone because it is 11 characters, while `myproj` and `myproj01` both need Full personhood at six and eight characters. Lite personhood does not open that band: a Lite username such as `joseph.42` is issued through the personhood gateway and cannot be registered here. Adding digits no longer lowers the tier a name demands: it only makes the name longer, which can move it into the open band.
+So `johnsmith57` is open to anyone because it is 11 characters, and so is `johnsmith` at exactly nine. `johnny` and `johnny01` both need full proof of personhood at six and eight characters, and `john` is not sold on this path at all at four. Devicehood does not open that band: a device name such as `joseph.42` is earned through the personhood gateway and cannot be registered here. Adding digits no longer lowers the tier a name demands: it only makes the name longer, which can move it into the open band.
 
 Every name this path admits pays the same refundable deposit, whatever its length. See the [PopRules and Pricing reference](/reference/apps/infrastructure/dotns/poprules-pricing/) for the bands and the deposit.
 
 !!! note "Personhood and the network"
-    Proof of Personhood is obtained in the Polkadot App on your device; there is no CLI path to a tier. If your account has no personhood status, pick a name of nine characters or more, which registers with no personhood check. A personhood username, such as `joseph.42`, is issued through the personhood gateway rather than registered here. See [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/) for how names, deposits, and personhood interact on TestNet.
+    Proof of Personhood is obtained in the Polkadot App on your device; there is no CLI path to a tier. If your account has no personhood status, pick a name of nine characters or more, which registers with no personhood check. A device or personhood name, such as `joseph.42`, is earned through the personhood gateway rather than registered here. See [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/) for how names, deposits, and personhood interact on TestNet.
 
 ## Register During Deploy
 
@@ -65,7 +65,7 @@ When you run `playground deploy` and reach the `domain` prompt, enter the name y
 
 <div class="termynal" data-termynal>
 <span data-ty><pre>  domain
-    › myproject57█</pre></span>
+    › johnsmith57█</pre></span>
 </div>
 
 From there, the CLI registers the name on chain. If you deploy with the phone signer, each on-chain step is a separate approval in the Polkadot App, in this order:
@@ -89,7 +89,7 @@ Because a name's content record is mutable and the owner can transfer or repoint
 
 The `playground` CLI covers the common path — registering and repointing a name as part of a deploy. For lower-level or scriptable operations, use the dedicated [`@parity/dotns-cli`](/reference/apps/infrastructure/dotns/cli/), which exposes DotNS management directly:
 
-- **Transfer**: A name registered on this path is owned by an Asset Hub account and can be transferred to another account. A transfer changes only the owner; the name and its current content record are unchanged, so users keep seeing the same bundle until the new owner updates it. Proof of Personhood status and any tier reservations do not transfer with the name, a personhood username cannot be transferred at all, and some moves carry a fee. See the [transfer reference](/reference/apps/infrastructure/dotns/transfer/).
+- **Transfer**: A name registered on this path is owned by a Polkadot Hub account and can be transferred to another account. A transfer changes only the owner; the name and its current content record are unchanged, so users keep seeing the same bundle until the new owner updates it. Proof of Personhood status and reservations do not transfer with the name. A device or personhood name cannot be transferred at all, and some moves carry a fee. See the [transfer reference](/reference/apps/infrastructure/dotns/transfer/).
 - **Subnames**: The DotNS CLI can register subnames under a name you own.
 - **Content records**: The DotNS CLI can view and set a name's content record outside a deploy.
 

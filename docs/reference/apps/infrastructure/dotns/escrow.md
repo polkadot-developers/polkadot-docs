@@ -35,7 +35,7 @@ Releasing is not a sale, and it costs nothing beyond gas. A transfer into or out
 
 `redeem(tokenId)` is the undo. While the redeem window is open, and only while the deposit has not been withdrawn, the releasing holder takes the name back. No value moves, because the deposit never left escrow.
 
-Withdrawing forecloses this. Once `withdraw` has run, the name cannot be redeemed even if the redeem window is still open.
+Withdrawing a funded deposit forecloses this. Once `withdraw` has paid one out, the name cannot be redeemed even if the redeem window is still open.
 
 ### Withdraw
 

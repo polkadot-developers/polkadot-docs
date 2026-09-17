@@ -94,7 +94,7 @@ The self-stake requirement ensures that validators have meaningful skin in the g
 
 ## Validator Compensation
 
-Following Referendum [1909](https://polkadot.subsquare.io/referenda/1909), which builds on Referendum 1890, validators no longer take a rate-based cut of nominator rewards. Any such rate is fixed on-chain at **0%**, and the maximum allowed value was updated to match, so it cannot be set to anything else.
+Following [Referendum 1909](https://polkadot.subsquare.io/referenda/1909), which builds on [Referendum 1890](https://polkadot.subsquare.io/referenda/1890), validators no longer take a rate-based cut of nominator rewards. Any such rate is fixed on-chain at **0%**, and the maximum allowed value was updated to match, so it cannot be set to anything else.
 
 Instead, validators are rewarded for their own self-stake through a self-stake incentive drawn from the [Dynamic Allocation Pool (DAP)](https://forum.polkadot.network/t/proposal-dynamic-allocation-pool-dap/15878) budget. This incentive is weighted by each validator's self-stake, so validators are compensated for skin in the game rather than for a share of nominator rewards.
 

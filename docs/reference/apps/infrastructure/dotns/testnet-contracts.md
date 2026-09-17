@@ -24,7 +24,7 @@ This page tracks the current TestNet contract addresses for the dotNS deployment
 | `DotnsPopController`       | The personhood gateway path, and the `isPopIssued` provenance record.                | `0xCC932348606cc1f3318cADeC5A5Cd2CA447f8a4b` |
 | `DotnsPopLens`             | Listing surface for a person's names, gated on `isPopIssued`.                        | `0xAE374b07c7e6f473CBa21d57e36AC15C631Abc51` |
 | `PopRules`                 | Classification and eligibility: which band a label falls in and who may register it. | `0x747B456bE03aec0b42bd85C51513730FBD45DA31` |
-| `DotnsCostModelRegistry`   | Names the cost model in force, which is what sets the deposit.                       | `0x8bfd1f0957e73716732e725802f13830B5682da4` |
+| `DotnsCostModelRegistry`   | Names the cost model in force; that model is where the deposit amount lives.         | `0x8bfd1f0957e73716732e725802f13830B5682da4` |
 | `DotnsFlatPricing`         | The registered model itself: one deposit for every band.                             | `0xD839B281dF72Df44fF275305E72cAEEc0fDAA648` |
 | `DotnsNameEscrow`          | Holds deposits and runs the release, redeem, withdraw, and reclaim lifecycle.        | `0x4881Afb78e7C908cAe818168B926229D93376520` |
 | `DotnsNameWhitelist`       | Per-name grants for reserved registration.                                           | `0x420166cD67Ca0233094E492a4BbA67045eD7C38C` |

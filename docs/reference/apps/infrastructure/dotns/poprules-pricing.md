@@ -10,7 +10,7 @@ categories: Apps, Reference
 
 `PopRules` decides which length band a `.dot` name falls in, and with it who may register the name. Proof of Personhood (PoP) gates the shorter bands. It does not change the amount charged.
 
-The amount comes from a separate cost model registered in the protocol registry. The deployed model charges one refundable deposit for every name it admits, whatever its length; the deposit is not a purchase price. Governance can replace the model, so a future release may price bands differently.
+The amount comes from a separate cost model registered in the protocol registry. The deployed model charges one refundable deposit for every name it admits, whatever its length; the deposit is not a purchase price. The amount is fixed in the model contract rather than held as a settable value, so it changes only by registering a different model.
 
 This page documents the bands, the two PoP tiers `PopRules` recognizes, and how device and personhood names differ from a name bought on the public path.
 

@@ -29,7 +29,7 @@ dotNS is deployed separately on each network, and three things follow from that.
 - **The deposit is the network's native token**: A registration costs 10 units of whatever the chain uses, so 10 PAS on Paseo. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
 - **Registrations do not cross networks**: Each deployment keeps its own registry, so holding a name on a TestNet grants no claim to the matching name on Polkadot. A name has to be registered on each network where it is needed.
 
-The deployments have different operators. Parity runs dotNS on the TestNets, including Paseo, and the planned deployment on Polkadot will be run by the [Polkadot Community Foundation](https://docs.polkadotcommunity.foundation/). The contracts are the same, but each operator configures its own deployment, so governance-set values such as the deposit amount need not match between them.
+The deployments have different operators. Parity runs dotNS on the TestNets, including Paseo, and the planned deployment on Polkadot will be run by the [Polkadot Community Foundation](https://docs.polkadotcommunity.foundation/). The contracts are the same, but each operator deploys its own instance, so deployer-set values such as the deposit amount need not match between them.
 
 !!! note "Scope"
     This reference covers the developer-facing surface. Operator-side procedures, such as migration, batch updates, and contract upgrade paths, are outside it.

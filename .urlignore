@@ -18,7 +18,8 @@ https://wiki.polkadot.com/
 https://www.ovhcloud.com/
 https://paritytech.github.io/polkadot-bulletin-chain/
 
-# Ignore sites that block scrapers (403s or 400s)
+# Ignore sites that block scrapers (403s, 400s, or 418s)
 https://x.com/
 https://twitter.com/
 https://instagram.com/
+https://www.freedesktop.org/

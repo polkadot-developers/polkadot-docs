@@ -198,7 +198,7 @@ Each capability this tutorial composed has a guide that owns the depth:
 
     ---
 
-    Bulletin Chain in depth: chunking, authorization, renewal, and preimages.
+    Bulletin Chain in depth: chunking, authorization, and renewal.
 
     [:octicons-arrow-right-24: Get Started](/apps/build/store-data-on-chain/)
 

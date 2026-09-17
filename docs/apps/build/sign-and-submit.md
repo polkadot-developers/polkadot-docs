@@ -154,9 +154,9 @@ The returned `SignerAccount` exposes:
 
 ## Show a Display Name
 
-There is no built-in primitive for an in-app username, so most Products need to choose a display identity themselves. The pattern below keeps you aligned with the platform's identity model rather than inventing a parallel one. See [Identity](/apps/concepts/identity/) for the model itself.
+There is no built-in primitive for an in-app username, so most Products need to choose a display identity themselves. [Usernames in Your Product](/apps/concepts/identity/#usernames-in-your-product) covers the pattern to follow; this section covers the call it depends on.
 
-**Prefer the user's dotNS username where there is one.** When the user has a `Lite` or `Full` personhood tier, the platform already associates a human-readable name with them. Read it with `getUserId`:
+When the user holds a personhood tier, the platform already associates an earned name with their account. Read it with `getUserId`:
 
 ```typescript
 async function loadDisplayName() {
@@ -169,14 +169,10 @@ async function loadDisplayName() {
 }
 ```
 
-**Otherwise, let the user set a per-Product display name** and store it in [local storage](/apps/product-sdk/local-storage/) (device-local) or [cloud storage](/apps/product-sdk/cloud-storage/) (shared), keyed to their per-app account. Keep it scoped to your Product so it does not become a cross-Product identifier.
-
-**Do not treat a display name as identity.** Authorization and uniqueness come from the per-app account and Proof of Personhood; a display name is a label on top of them.
+When there is no earned name to read, fall back to a per-Product display name the user sets, stored in [local storage](/apps/product-sdk/local-storage/) (device-local) or [cloud storage](/apps/product-sdk/cloud-storage/) (shared) and keyed to their per-app account. Either way, treat the result as a label rather than as identity: authorization and uniqueness come from the per-app account and Proof of Personhood.
 
 !!! warning "`getUserId` is host-only and prompts the user"
-    `getUserId` returns `HostUnavailableError` when the active provider is `'dev'`, so a Product that renders a display name works in a Host and fails under the dev provider. It also triggers a host identity-permission prompt on first use. If your Product has its own display-name chain and does not need the platform username, skip the call rather than requesting a permission you will not use.
-
-Following this pattern means Products converge on the same approach instead of each reinventing usernames, which eases any future migration to a platform primitive.
+    `getUserId` returns `HostUnavailableError` when the active provider is `'dev'`, so a Product that renders a display name works in a Host and fails under the dev provider. It also triggers a host identity-permission prompt on first use. If your Product has its own display-name chain and does not need the platform name, skip the call rather than requesting a permission you will not use.
 
 ## Sign Arbitrary Bytes
 
@@ -307,7 +303,7 @@ async function devSignRaw() {
 ```
 
 !!! warning "Four methods are host-only"
-    `getProductAccount`, `getProductAccountAlias`, `createRingVRFProof`, and `getUserId` return `HostUnavailableError` when the active provider is `'dev'`. `getUserId` is easy to miss: [Show a Display Name](#show-a-display-name) uses it to read the user's dotNS username, so a Product that does that renders fine in a Host and fails under the dev provider.
+    `getProductAccount`, `getProductAccountAlias`, `createRingVRFProof`, and `getUserId` return `HostUnavailableError` when the active provider is `'dev'`. `getUserId` is easy to miss: [Show a Display Name](#show-a-display-name) uses it to read the user's earned name, so a Product that does that renders fine in a Host and fails under the dev provider.
 
 ## Limitations
 

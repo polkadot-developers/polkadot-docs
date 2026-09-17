@@ -4,5 +4,6 @@ nav:
  - 'Architecture': architecture.md
  - 'PopRules and Pricing': poprules-pricing.md
  - 'Name Transfers': transfer.md
+ - 'Escrow and Deposits': escrow.md
  - 'CLI': cli.md
- - 'Testnet Contracts': testnet-contracts.md
+ - 'TestNet Contracts': testnet-contracts.md

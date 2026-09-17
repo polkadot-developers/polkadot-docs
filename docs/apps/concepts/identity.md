@@ -15,7 +15,7 @@ A user interacting with your Product carries two identities, and they are delibe
 
 Keeping them apart is what lets the platform give your Product a stable account, and optional proof that the user is a real person, without turning every Product into a tracking surface.
 
-A third name comes up constantly and is _not_ a user identity: your Product's own `.dot` address, the name users type to reach it. It shares a namespace with the names the personhood gateway issues, which makes the two easy to confuse, so it is covered in [Your Product's `.dot` Address](#your-products-dot-address) below.
+A related name that is not a user identity comes up constantly: your Product's own `.dot` address, the name users type to reach it. It shares a namespace with the names the personhood gateway issues, which makes the two easy to confuse, so it is covered in [Your Product's `.dot` Address](#your-products-dot-address) below.
 
 ## The Per-App Account
 
@@ -35,16 +35,13 @@ Your Product obtains this account through the [`signer`](/apps/product-sdk/signe
 
 ## Proof of Personhood
 
-[Proof of Personhood](/reference/apps/infrastructure/pop/) is a separate signal that a user is a unique human. It has three parts:
+[Proof of Personhood](/reference/apps/infrastructure/pop/) is a separate signal that a user is a unique human. It always has a tier and a per-app alias, and it sometimes has an earned name:
 
 - **A tier**: The strength of the proof, from none, through an attested proof of a unique device, to full personhood, proven in the Polkadot App. The [Proof of Personhood reference](/reference/apps/infrastructure/pop/) names the tiers.
 - **A per-app alias**: A Ring-VRF-derived identifier that is deterministic for a given user and Product, and unlinkable across Products.
 - **An earned name**: The human-readable name the personhood gateway issues to a user who has proved a tier, such as `joseph.42`.
 
 An alias is never an account address, and — like the per-app account — it is scoped per Product so it cannot be used to correlate a user across Products. Cross-Product alias linking requires an explicit consent step. Use personhood to gate features on verified-human status (for example, one action per person) without learning who the user is.
-
-!!! warning "Names and usernames can be coupled"
-    The three identities are separate by design, but not always independent in practice: the personhood gateway issues a device name into dotNS naming, which couples that username to a dotNS name of the same text. Do not assume the identities can never be linked.
 
 ### The Earned Name
 
@@ -54,6 +51,9 @@ Read it with `getUserId` from the [`signer`](/apps/product-sdk/signer/) package,
 
 !!! info "One name, several labels"
     These docs call this the **earned name**, the term the dotNS reference uses for a name the gateway grants. A name that identifies a person is a _personhood name_ and one that identifies a proved device is a _device name_; the SDK returns either as `primaryUsername`.
+
+!!! warning "An earned name and a Product address can be coupled"
+    A user's identities and your Product's address are separate by design, but not always independent in practice: the gateway issues an earned name into dotNS naming, so the name is also a dotNS name of the same text. Do not assume the two can never be linked.
 
 ## Usernames in Your Product
 
@@ -79,7 +79,7 @@ A name is how users reach your Product; it is not how your Product identifies a 
 - Your Product **acts** as the user through the per-app account, signing on the user's phone.
 - Your Product optionally **gates** features on Proof of Personhood, reading a tier and a per-app alias rather than a real-world identity, and **displays** the user's earned name when there is one.
 
-None of these reveals the user's root key or a cross-Product identifier unless the user explicitly grants it.
+None of these reveals the user's root key. The per-app account and the personhood alias stay scoped to your Product unless the user explicitly grants cross-Product linking. The earned name is the exception: it is stable across Products by design, which is why reading it goes through `getUserId` and a permission prompt.
 
 ## Where to Go Next
 

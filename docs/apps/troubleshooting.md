@@ -26,7 +26,7 @@ Named entries for the failures developers hit most while building and deploying 
 
 ## The Deploy Pauses for About a Minute
 
-**Cause**: During `playground deploy`, there is a deliberate pause of about 60 seconds between reserving and finalizing your dotNS name. This is [dotNS](/apps/register-dot-domain/)'s commit-reveal window, which prevents someone from front-running your name.
+**Cause**: During `playground deploy`, there is a deliberate pause of about 60 seconds between reserving and finalizing your dotNS name. Most of that is the tooling waiting for the commitment to settle; the [dotNS](/apps/register-dot-domain/) contract itself requires only that the commitment be six seconds old. The two-step handshake prevents someone from front-running your name.
 
 **Resolution**: Wait. The deploy is not stuck. The next approval appears in the Polkadot App once the window elapses.
 

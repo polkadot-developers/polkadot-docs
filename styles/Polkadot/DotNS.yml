@@ -1,0 +1,13 @@
+---
+# Local (not vendored): enforces the dotNS spelling the dotNS team asked for.
+# The canonical form matches the reference page's own H1, docs/reference/apps/
+# infrastructure/dotns/index.md. Contract identifiers use a different casing
+# (DotnsPopController, dotNsIdentifier) and are not matched here.
+extends: substitution
+message: "Use '%s' instead of '%s'."
+level: error
+ignorecase: false
+swap:
+  '\bDotNS\b': dotNS
+  '\bDOTNS\b': dotNS
+  '\bDotNs\b': dotNS

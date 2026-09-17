@@ -178,7 +178,7 @@ Renewal needs a bookkeeping handle from the original write: the `(block, index)`
 
 Deploy-time issues have named fixes in [Troubleshooting](/apps/troubleshooting/):
 
-- [The deploy pauses for about a minute](/apps/troubleshooting/#the-deploy-pauses-for-about-a-minute): the dotNS commit-reveal window, not a hang.
+- [The deploy pauses for about a minute](/apps/troubleshooting/#the-deploy-pauses-for-about-a-minute): the tooling waiting out the dotNS commit-reveal handshake, not a hang.
 - [The name is already registered](/apps/troubleshooting/#the-name-is-already-registered) or [requires Proof of Personhood](/apps/troubleshooting/#the-name-requires-proof-of-personhood): choose a different or longer name.
 - [`no allowance set for account`](/apps/troubleshooting/#no-allowance-set-for-account) or [uploads are rejected](/apps/troubleshooting/#uploads-are-rejected-or-host-storage-unavailable): the signing account is missing PAS or a storage authorization.
 - [The app does not appear right after deploy](/apps/troubleshooting/#the-app-does-not-appear-right-after-deploy): on-chain propagation and gateway resolution take a moment.

@@ -24,7 +24,7 @@ Before registering, ensure you have:
 
 - Completed [Install Desktop and Pair](/apps/get-started/) and [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/); your account needs PAS to pay fees and any name deposit.
 - One of the CLIs in [Ways to Register](#ways-to-register) installed. On the `playground` path that means `pg login` has paired it with your signer.
-- A Product project ready to deploy. See [Deploy Your App](/apps/deploy-your-app/).
+- A Product project ready to deploy, if you are registering as part of a deploy with `playground` or `pad`. Registering with the dotNS CLI needs no bundle. See [Deploy Your App](/apps/deploy-your-app/).
 
 ## Choose a Name
 
@@ -87,7 +87,10 @@ From there, the CLI registers the name on chain. If you deploy with the phone si
 3. **Link content**: Points the name's `contenthash` at your uploaded bundle's CID, so the name now resolves to your Product.
 
 !!! note "The ~60-second pause is expected"
-    Between reserve and finalize, the deploy pauses for about 60 seconds. This is dotNS's commit-reveal window: the commitment is submitted first, then the name is claimed a short time later, so a watcher cannot see your desired name and race to register it ahead of you. The deploy is not stuck.
+    Between reserve and finalize, the deploy pauses for about 60 seconds. Most of that is the tooling waiting for the commitment to settle: the contract requires only that the commitment be six seconds old before the name is claimed. The two-step handshake is what stops a watcher seeing your desired name and racing to register it ahead of you. The deploy is not stuck.
+
+!!! note "An abandoned commitment expires after a day"
+    A commitment is valid for `MAX_COMMITMENT_AGE`, one day. If a deploy fails between reserve and finalize and you come back later than that, the commitment is no longer claimable and the handshake starts over from the beginning.
 
 Names are first come, first served. If the CLI reports that a name is [already registered](/apps/troubleshooting/#the-name-is-already-registered), choose another; if it reports the name [requires Proof of Personhood](/apps/troubleshooting/#the-name-requires-proof-of-personhood), pick a longer name. With the dev signer, these steps run without phone prompts; the deployed name is owned by the shared dev account rather than by you.
 
@@ -100,7 +103,7 @@ npm i -g @parity/polkadot-app-deploy
 pad ./dist johnsmith57.paseo --mnemonic "$MNEMONIC"
 ```
 
-`pad` uploads the bundle to the Bulletin Chain, skipping unchanged blocks on repeat deploys, registers the name if you do not already own it, and writes the content record on Polkadot Hub. It also has a `login` mode that signs with your Polkadot App instead of a local key; it does not read the dotNS keystore, so supply the key explicitly when you are not using `login`.
+`pad` uploads the bundle to the Bulletin Chain, skipping unchanged blocks on repeat deploys, registers the name if you do not already own it, and writes the content record on Polkadot Hub. It also has a `login` mode: on TestNet a local worker registers the name and then transfers it to the signed-in account, so the deploy runs without phone taps unless you pass `--no-transfer-to-signedin-user`. `pad` does not read the dotNS keystore, so supply the key explicitly when you are not using `login`.
 
 !!! warning "Keep the mnemonic out of your shell history"
     Pass the phrase through an environment variable, never as a literal on the command line, and never commit it. A deploy key that registers names controls them.
@@ -117,7 +120,7 @@ npm i -g @parity/dotns-cli
 dotns register domain --help
 ```
 
-Registration runs the same commit-reveal handshake described above, so expect it to take a few minutes whichever tool drives it. The CLI can also preview `PopRules` eligibility for a proposed name and account, showing the band and the deposit before you submit.
+Registration runs the same commit-reveal handshake described above, so expect a comparable pause whichever tool drives it. The CLI can also preview `PopRules` eligibility for a proposed name and account, showing the band and the deposit before you submit.
 
 !!! warning "Check the flags against your version"
     The dotNS CLI's per-command flags are still being confirmed against the published package, which is why the [CLI reference](/reference/apps/infrastructure/dotns/cli/) lists command families rather than a flag table. Run `--help` on the version you installed rather than copying flags from elsewhere; the PCF publishes its own build of this tool under a different scope, and the two are not interchangeable.

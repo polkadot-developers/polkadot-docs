@@ -135,7 +135,7 @@ Two details shape how you use it: `claim_airdrop` has six gates and only two con
 
     ---
 
-    How the `.dot` name, the per-app account, and Proof of Personhood stay separate, and why.
+    How a user's per-app account and Proof of Personhood stay separate, and why.
 
     [:octicons-arrow-right-24: Identity](/apps/concepts/identity/)
 

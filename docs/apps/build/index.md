@@ -120,7 +120,7 @@ The guides also use these utility packages where relevant:
 - **[`tx`](/apps/product-sdk/tx/)**: Builds, signs, and tracks the lifecycle of transactions (used alongside [`signer`](/apps/product-sdk/signer/)).
 - **`address`**: Encodes, decodes, and validates SS58 addresses.
 - **`descriptors`**: Provides typed chain metadata for the [`chain-client`](/apps/product-sdk/chain-client/) Bring Your Own Descriptors path.
-- **`host`**: Provides low-level access to the Host API (for example, the preimage manager used for sponsored uploads).
+- **`host`**: Provides low-level access to the Host API surfaces the higher-level packages build on.
 
 ## Umbrella or Individual Packages
 

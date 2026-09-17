@@ -148,7 +148,7 @@ Bulk coretime is a fixed duration of continuous coretime represented by an NFT t
 
 ## Cross-Consensus Messaging (XCM)
 
-[Polkadot](#polkadot)'s standard for moving messages and assets between chains. Used for cross-chain [Bulletin Chain](#bulletin-chain) writes initiated from [People Chain](#people-chain), and by the members ring system to distribute ring roots to subscribing [parachains](#parachain).
+[Polkadot](#polkadot)'s standard for moving messages and assets between chains. Used by the members ring system to distribute ring roots to subscribing [parachains](#parachain).
 
 ## DAG-PB
 
@@ -491,6 +491,10 @@ A fixed, equal interval of time used by consensus engines such as [Aura](#author
 ## Smoldot
 
 The [Polkadot](#polkadot) [light client](#light-client). Used by [Polkadot Web](#polkadot-web)'s host shell to verify chain state in-browser without running a [full node](#full-node). Planned for direct [Statement Store](#statement-store) participation by end-user apps.
+
+## Soulbound
+
+Permanently bound to the account that received it and non-transferable by design. In [dotNS](#dotns), a personhood name issued through the personhood gateway is soulbound, because it identifies a person rather than naming content; a name registered on the public path is transferable. A device name cannot move either, but not through this flag: it has no token at all. See [Name Transfers](/reference/apps/infrastructure/dotns/transfer/).
 
 ## Sovereign Account
 

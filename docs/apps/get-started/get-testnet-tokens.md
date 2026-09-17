@@ -20,15 +20,15 @@ Before getting started, ensure you have:
 
 The Polkadot Faucet distributes free PAS tokens to developers.
 
-1. Open the [Polkadot Faucet for parachain 1500](https://faucet.polkadot.io/?parachain=1500). Paseo Next v2's Asset Hub is parachain 1500, so use this link rather than picking a network by hand.
+1. Open the [Polkadot Faucet for parachain 1500](https://faucet.polkadot.io/?parachain=1500). Paseo Next v2's Polkadot Hub is parachain 1500, so use this link rather than picking a network by hand.
 
     ![Polkadot TestNet Faucet showing the Network and Chain dropdowns, the Paseo Address input, the reCAPTCHA check, and the Get some PASs button.](/images/apps/get-started/get-testnet-tokens/get-testnet-tokens-01.webp){: .browser-extension}
 
 2. Paste the address of the account paired with Polkadot Desktop into the address field.
 3. Click **Get Some PASs** to request tokens. They arrive in your account shortly after the request is processed.
 
-!!! warning "Pick parachain 1500, not the public Paseo Asset Hub"
-    The faucet's default selection drips to the public Paseo Asset Hub (parachain 1000), which is a different chain from the one Polkadot Desktop and the `playground` CLI target. Funding that chain leaves your Paseo Next v2 balance at zero, with no error to tell you why. The `?parachain=1500` link above is the same one the `playground` CLI uses.
+!!! warning "Pick parachain 1500, not the public Paseo Polkadot Hub"
+    The faucet's default selection drips to the public Paseo Polkadot Hub (parachain 1000), which is a different chain from the one Polkadot Desktop and the `playground` CLI target. Funding that chain leaves your Paseo Next v2 balance at zero, with no error to tell you why. The `?parachain=1500` link above is the same one the `playground` CLI uses.
 
 !!! tip "Or top up from the CLI"
     If you have paired the [`playground` CLI](/apps/quick-start/), `pg drip` funds your product account directly, no browser or captcha involved. It sends 1 PAS per run up to a 10 PAS cap, drawn from a shared dev funder rather than the public faucet. Run `pg status` afterward to confirm the balance landed on the account you expect.
@@ -54,9 +54,9 @@ Some Polkadot infrastructure services use a separate allowance-based access mode
 
 ??? note "Service Allowances: dotNS Names"
 
-    [dotNS](/reference/apps/infrastructure/dotns/) (`.dot` name registration) uses a hybrid model. Open names (those that anyone can register) require a deposit paid in PAS. Names reserved for accounts with Proof of Personhood Full or PoP Lite status are free to register for eligible accounts, with no deposit required.
+    [dotNS](/reference/apps/infrastructure/dotns/) name registration charges the same refundable deposit for every name it admits on the public path, whatever its length. The deposit is paid in the network's native token, so on Paseo it is PAS, and names carry the environment's TLD rather than `.dot`. Proof of Personhood decides which names an account may register rather than what they cost. Device and personhood names are earned through the personhood gateway instead, and carry no deposit.
 
-    See the [dotNS PopRules pricing reference](/reference/apps/infrastructure/dotns/poprules-pricing/) for full pricing and tier details.
+    See the [dotNS PopRules and Pricing reference](/reference/apps/infrastructure/dotns/poprules-pricing/) for the bands and the deposit.
 
 ## Where to Go Next
 

@@ -18,7 +18,9 @@ The three identities are:
 
 ## The `.dot` Name
 
-A [`.dot` name](/apps/register-dot-domain/) is registered with [DotNS](/reference/apps/infrastructure/dotns/) and resolves to a content record — the CID of a published Product bundle. Ownership of a name is held by an Asset Hub account and is transferable, but the name is not an account and cannot sign. It names _content_, not a user.
+A [`.dot` name](/apps/register-dot-domain/) is registered with [DotNS](/reference/apps/infrastructure/dotns/) and resolves to a content record: the CID of a published Product bundle. Ownership of a name is held by a Polkadot Hub account, but the name is not an account and cannot sign.
+
+Transferability depends on how the name was acquired. A name anyone registered by paying the deposit can be transferred. A name earned through the personhood gateway, the route that grants device and personhood names, cannot move: it identifies the person or device that earned it, and it stays with them. Most names point at _content_ rather than at a user, but a gateway name identifies an identity (a personhood name names a person, and a device name names a unique device its holder proved), so a client that needs to tell the kinds apart should read `isPopIssued(label)` on the PoP controller rather than inspect the string. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
 
 A name is how users reach your Product; it is not how your Product identifies a user.
 
@@ -29,7 +31,7 @@ When a user opens your Product, the Host derives a **product account** for that 
 The account has two address forms, both derived from the same public key:
 
 - **SS58**: The Substrate address, used across Polkadot chains.
-- **H160**: The EVM-style address, used for `pallet-revive` contracts on Asset Hub.
+- **H160**: The EVM-style address, used for `pallet-revive` contracts on Polkadot Hub.
 
 Derivation follows a junction path of `["product", productId, derivationIndex]` applied with sr25519 soft derivation, where `productId` is normally your `.dot` name. Because soft derivation is composable on public keys, the CLI, a web Host, or any external client can compute the same address the mobile wallet derives privately, without ever seeing the secret key.
 
@@ -42,19 +44,19 @@ Your Product obtains this account through the [`signer`](/apps/product-sdk/signe
 
 [Proof of Personhood](/reference/apps/infrastructure/pop/) is a separate signal that a user is a unique human. It has two parts:
 
-- **A tier**: `None`, `Lite` (an attested username), or `Full` (a stronger, invitation-gated proof).
+- **A tier**: The strength of the proof, from none, through an attested proof of a unique device, to full personhood, proven in the Polkadot App. The [Proof of Personhood reference](/reference/apps/infrastructure/pop/) names the tiers.
 - **A per-app alias**: A Ring-VRF-derived identifier that is deterministic for a given user and Product, and unlinkable across Products.
 
 An alias is never an account address, and — like the per-app account — it is scoped per Product so it cannot be used to correlate a user across Products. Cross-Product alias linking requires an explicit consent step. Use personhood to gate features on verified-human status (for example, one action per person) without learning who the user is.
 
 !!! warning "Names and usernames can be coupled"
-    The three identities are architecturally separate, but they are not always fully independent in practice. A `Lite` username can be mirrored into `.dot` naming by operator infrastructure, which couples a user's personhood username to a `.dot` name. Treat the identities as separate by design, but do not assume they can never be linked through operator-run mirrors.
+    The three identities are separate by design, but not always independent in practice: the personhood gateway issues a device name into dotNS naming, which couples that username to a dotNS name of the same text. Do not assume the identities can never be linked.
 
 ## Usernames in Your Product
 
 There is no built-in primitive for an in-app username, so most Products need to choose a display identity themselves. Until a primitive exists, the recommended pattern keeps you aligned with the platform's identity model rather than inventing a parallel one:
 
-- **Prefer the personhood username where you have it.** When the user has a `Lite` or `Full` tier, read the username the platform already associates with them (through the [`signer`](/apps/product-sdk/signer/) package's `getUserId`) and use it as the display name. This reuses an identity the user already has instead of minting a new one.
+- **Prefer the earned name where you have it.** When the user holds any personhood tier, read the username the platform already associates with them (through the [`signer`](/apps/product-sdk/signer/) package's `getUserId`) and use it as the display name. This reuses an identity the user already has instead of minting a new one.
 - **Otherwise, let the user set a per-Product display name** and store it in [local storage](/apps/product-sdk/local-storage/) (device-local) or [cloud storage](/apps/product-sdk/cloud-storage/) (shared), keyed to their per-app account. Keep it scoped to your Product so it does not become a cross-Product identifier.
 - **Do not treat a display name as identity.** Authorization and uniqueness come from the per-app account and Proof of Personhood; a display name is a label on top of them.
 

@@ -1,6 +1,6 @@
 ---
 title: dotNS CLI Reference
-description: Reference for @parity/dotns-cli — the command-line tool for managing .dot name registrations, contenthash updates, transfers, and renewals.
+description: Reference for the dotNS command-line tool, covering name registration, contenthash updates, record management, and ownership transfers.
 categories: Apps, Reference
 ---
 
@@ -8,12 +8,14 @@ categories: Apps, Reference
 
 ## Introduction
 
-[`@parity/dotns-cli`](https://www.npmjs.com/package/@parity/dotns-cli) is the command-line tool for interacting with the dotNS registry — registering a `.dot` name, updating its `contenthash`, transferring ownership, and renewing where applicable. It is the canonical way to perform these operations outside of the higher-level [Register and Publish](/apps/deploy-your-app/) flow that the Polkadot Product setup track wraps.
+[`@parity/dotns-cli`](https://www.npmjs.com/package/@parity/dotns-cli) is the command-line tool for interacting with the dotNS registry: registering a `.dot` name, updating its `contenthash`, and transferring ownership. It is the canonical tool for these operations; the higher-level [Register and Publish](/apps/deploy-your-app/) flow wraps it for the Polkadot Product setup track.
+
+Names carry the TLD of the network the CLI targets: `.paseo` on the Paseo testnet, and `.dot` on a Polkadot deployment. Registrations do not expire and there is no renewal step. A name stays with its owner until it is transferred or deliberately released.
 
 A Product developer building a typical publishing pipeline rarely calls the CLI directly — the setup track handles the common path. The CLI is the right tool when you need a fine-grained, scriptable interaction (CI publishing, batch operations across multiple names, debugging a registration failure).
 
 !!! info "CLI version"
-    This page targets `@parity/dotns-cli` `0.6.2`. The CLI is in active development and breaking changes between versions are expected. To follow this reference, install this version (or check the page's last update against the latest release on npm).
+    This page targets `@parity/dotns-cli` `0.9.2`, aligned with dotNS contracts `0.7.0`; the name rules described here are unchanged in `0.8.0`. Earlier releases apply the previous label rules, including a cap on trailing digits that the contracts no longer enforce. The CLI is in active development and breaking changes between versions are expected.
 
 ## Command Families
 
@@ -22,21 +24,21 @@ The CLI exposes commands across three families that map onto the dotNS contract 
 - **Registration**: Commands that create a name record:
 
     - Register a new name with a starting `contenthash`.
-    - Check PopRules eligibility for a proposed name and account (preview the deposit / free-tier outcome before submitting).
+    - Check `PopRules` eligibility for a proposed name and account, previewing the band and the deposit before submitting.
 
 - **Records management**: Commands that mutate an existing name's fields:
 
     - Update the `contenthash` to a new CID — this is what a Product owner runs when they publish a new bundle and want the `.dot` name to point at the new version.
     - Set or unset administrative fields on the record.
 
-- **Lifecycle**: Commands that change ownership or extend the registration:
+- **Lifecycle**: Commands that change ownership or a name's escrow position:
 
-    - Transfer the name to another account.
-    - Renew the registration where renewals apply.
+    - Transfer a name that is not soulbound to another account.
+    - Release a name into escrow, inspect its position, withdraw the deposit, and claim it. See [Escrow and Deposits](/reference/apps/infrastructure/dotns/escrow/).
 
 ## Installing and Authenticating
 
-The CLI is distributed as an npm package. Install it globally or run via `npx`. Operations that mutate state (registration, update, transfer) require an account that can sign the resulting Asset Hub transaction — the CLI accepts a key file, a connected hardware signer, or a Polkadot App session via a pairing flow, depending on the operation and the security posture the operator chooses.
+The CLI is distributed as an npm package. Install it globally or run via `npx`. Operations that mutate state (registration, update, transfer) require an account that can sign the resulting Polkadot Hub transaction. The CLI accepts a key file, a connected hardware signer, or a Polkadot App session via a pairing flow, depending on the operation and the security posture the operator chooses.
 
 For day-to-day Product publishing, the recommended account is the same paired account a developer uses with Polkadot Desktop, so PopRules tier and any reserved-name claims continue to apply consistently across the CLI and Desktop paths.
 
@@ -45,7 +47,7 @@ For day-to-day Product publishing, the recommended account is the same paired ac
 Each command — subcommand path, required flags, optional flags, and exit codes — is enumerated here.
 
 !!! warning "Provisional"
-    Per-flag details for each command are still being audited against the published surface. The table below lists the known top-level commands at `0.6.2`; the per-flag reference will be filled in once it is confirmed against the live package.
+    Per-flag details are still being confirmed against the published package. The table below lists the known top-level commands at `0.9.2`; the per-flag reference follows once confirmed.
 
 | Command                                  | Family            | Required flags | Optional flags | Notes      |
 |:-----------------------------------------|:------------------|:---------------|:---------------|:-----------|
@@ -54,9 +56,10 @@ Each command — subcommand path, required flags, optional flags, and exit codes
 | `lookup`                                 | Records           | _Pending_      | _Pending_      | _Pending_  |
 | `content view` / `content set`           | Records           | _Pending_      | _Pending_      | _Pending_  |
 | `text view` / `text set`                 | Records           | _Pending_      | _Pending_      | _Pending_  |
-| `pop set` / `pop info`                   | Records           | _Pending_      | _Pending_      | _Pending_  |
+| `pop info`                               | Records           | _Pending_      | _Pending_      | Status lookup. There is no command to set a tier. |
 | `store`                                  | Records           | _Pending_      | _Pending_      | _Pending_  |
 | `account`                                | Lifecycle         | _Pending_      | _Pending_      | _Pending_  |
+| `escrow`                                 | Lifecycle         | _Pending_      | _Pending_      | _Pending_  |
 | `bulletin`                               | Lifecycle         | _Pending_      | _Pending_      | _Pending_  |
 
 ## Where to Go Next

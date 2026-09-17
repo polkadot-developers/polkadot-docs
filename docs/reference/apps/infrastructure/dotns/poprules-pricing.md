@@ -1,6 +1,6 @@
 ---
 title: PopRules and dotNS Pricing
-description: The pricing ladder for .dot name registration — who can register what name length at what cost, organized by PoP tier and suffix shape.
+description: How dotNS decides who may register a .dot name and what it costs, covering the three length bands, the deposit, and gateway-issued personhood names.
 categories: Apps, Reference
 ---
 
@@ -8,43 +8,70 @@ categories: Apps, Reference
 
 ## Introduction
 
-dotNS uses a scarcity ladder for `.dot` name registration. The shortest, most-premium names are reserved for governance or free to personhood holders; longer names are open to anyone for a deposit. The mechanism that enforces "free for personhood holders" is `PopRules` — the contract that evaluates a proposed registration against the registering account's PoP status and the requested name's length and suffix shape.
+`PopRules` decides which length band a `.dot` name falls in, and with it who may register the name. Proof of Personhood (PoP) gates the shorter bands. It does not change the amount charged.
 
-This page documents the ladder, the two PoP tiers `PopRules` recognizes, and the deposit formulas for open-tier registrations.
+The amount comes from a separate cost model registered in the protocol registry. The deployed model charges one refundable deposit for every name it admits, whatever its length; the deposit is not a purchase price. The amount is fixed in the model contract rather than held as a settable value, so it changes only by registering a different model.
+
+This page documents the bands, the two PoP tiers `PopRules` recognizes, and how device and personhood names differ from a name bought on the public path.
+
+## The Three Registration Paths
+
+A name reaches an owner by one of three routes, and most of the rules on this page apply to only one of them:
+
+- **The public path**: The commit-reveal route the CLI and the deploy flow use. It charges the deposit, applies the length bands, rejects any label carrying a separator, and refuses a label shorter than three characters.
+- **The personhood gateway**: The route that issues device and personhood names. It charges no deposit and refuses a stem of five characters or fewer. Gateway names cannot be transferred; see [Name Transfers](/reference/apps/infrastructure/dotns/transfer/).
+- **The reserved path**: The governance route that puts names of five characters or fewer into circulation. It mints an available label at no cost and skips the personhood check. It requires a governance-issued grant naming the label and the intended owner, or a Substrate Root origin.
 
 ## The Two PoP Tiers
 
 `PopRules` recognizes two personhood tiers, registered separately on the People Chain:
 
-- **PoP Full**: Cryptographically proven personhood, the destination state. The user completes the full biometric verification flow in the Polkadot App; their key joins the active membership ring on the People Chain. PoP Full holders can generate zero-knowledge proofs of personhood. See the [Proof of Personhood reference](/reference/apps/hosts/polkadot-app/pop/) for details.
-- **PoP Lite**: Third-party attestation. An authorized attester submits an on-chain attestation that an account belongs to a real user; the account is registered against a separate `lite-people` ring. Lite supply is bounded by governance — it is the on-ramp; Full is the destination.
+- **PoP Full**: Proven personhood. The user completes the biometric verification flow in the Polkadot App and their key joins the membership ring on the People Chain.
+- **PoP Lite**: Attested proof of a unique device, registered on a separate ring with a governance-bounded supply.
 
-Both tiers qualify for free name registration, but at different name-length tiers.
+[Proof of Personhood in the Polkadot App](/reference/apps/hosts/polkadot-app/pop/) documents both mechanisms.
 
-!!! note "Self-declared PoP tier"
-    dotNS reads PoP tier from a status the user sets themselves. On-chain verification against the People Chain is a forthcoming integration; until that ships, treat the tier check as cooperative, not adversarial.
+`PopRules` reads an account's tier from the personhood precompile on Polkadot Hub. It passes a dotNS-scoped context, so a person gets one stable identifier for dotNS that other applications cannot correlate. No tier is self-declared, and no contract holds a user-settable status.
 
-## The Pricing Ladder
+## Length Bands on the Public Path
 
-| Name format                                     | Who can register         | Deposit                                 |
-|:------------------------------------------------|:-------------------------|:----------------------------------------|
-| ≤5 chars                                        | Governance only          | —                                       |
-| 6–8 chars (no numeric suffix)                   | PoP Full holders         | Free                                    |
-| 6–8 chars + 2-digit suffix (e.g. `alice01`)     | PoP Lite or Full holders | Free                                    |
-| 9–14 chars (no numeric suffix)                  | PoP Full holders         | Free                                    |
-| 9–14 chars + 2-digit suffix (e.g. `acmecorp01`) | Anyone                   | `startingPrice × (15 − nameLength)` DOT |
-| 15+ chars                                       | Anyone                   | `startingPrice / 2` DOT                 |
+A name's band comes from its length, counted as written. Digits count like any other character, so `web3` is four characters and `hamilton01` is 10.
 
-Two patterns explain the ladder:
+| Length     | Who may register            | Deposit                 |
+|:-----------|:----------------------------|:------------------------|
+| 5 or fewer | Nobody on the public path   | Not sold                |
+| 6 to 8     | An account holding PoP Full | One deposit, refundable |
+| 9 or more  | Anyone                      | One deposit, refundable |
 
-- **Premium = short and unmarked**: A 6–8-character name with no numeric suffix is the most valuable shape; `PopRules` reserves it for PoP Full. A 6–8-character name with a 2-digit suffix is the next tier down; both PoP tiers can register one. Beyond that, the ladder opens up.
-- **Anyone can buy length**: A 9–14-character name with a numeric suffix is open to anyone for a sliding-scale deposit; the longer the name, the smaller the deposit. A 15+-character name uses a fixed half-`startingPrice` deposit.
+The deposit is 10 units of the network's native token (10 PAS on Paseo), and it does not vary with the band. See [One Deployment per Network](/reference/apps/infrastructure/dotns/#one-deployment-per-network).
 
-## Lite → Full Migration Reservation
+Only the public path charges it. A gateway-issued name carries no deposit, whatever its length, and holding PoP Full does not make a public registration free.
 
-When a PoP Lite holder registers a Lite-tier name (6–8 chars with suffix, or longer), dotNS reserves the matching no-suffix base name for them for 12 weeks. If the Lite holder upgrades to PoP Full within that window, they can claim the base name without contention — without the reservation, by the time they upgraded, someone else might have grabbed the unsuffixed name and they would have lost their identity continuity.
+PoP Lite does not open the six-to-eight band. An ordinary label of that length requires PoP Full, because the Lite requirement attaches only to the dotted gateway shape. A Lite holder can therefore be issued `joseph.42` but cannot register `joseph` or `joseph01` on the public path.
 
-The reservation is automatic. A PoP Lite holder registering `alice01.dot` reserves `alice.dot` for themselves for 12 weeks; if they upgrade to Full in that window, `alice.dot` is claimable.
+Two rules narrow the table:
+
+- **Names of five characters or fewer never reach the public path**: They enter circulation only through the reserved path.
+- **Nothing shorter than three characters reaches the public path or the gateway**: The public path rejects a shorter label outright. The gateway applies no length floor of its own, but a stem of five or fewer classifies as reserved, so it refuses one too.
+
+## Device and Personhood Names
+
+A gateway name is earned rather than bought, so it carries no deposit. Proving full personhood earns a personhood name; proving a unique device (Lite personhood) earns a device name. Contract messages and tiers still say Lite and Full; those are the proofs, and device and personhood names are what they earn. The two shapes are distinct:
+
+- **Device name**: A stem of lowercase ASCII letters, one separator, then exactly two digits, as in `joseph.42`. The stem is the part the person chose; the gateway allocates the digits so people who chose the same stem get separate names. It is banded on the stem alone rather than on the whole name.
+- **Personhood name**: Lowercase ASCII letters only, as in `joseph`. No digits and no hyphens.
+
+Neither shape can be bought. A label with digits but no separator, like `joseph42`, is an ordinary public name.
+
+The shape alone does not prove personhood: provenance is not written into the characters. A client reads it from `isPopIssued(label)` on the PoP controller; see [Name Mechanism and Resolution](/reference/apps/infrastructure/dotns/name-mechanism/).
+
+## Migrating a Device Name to a Personhood Name
+
+A device-name issuance can reserve the matching stem for the same person to claim later as a personhood name, so that upgrading from Lite to Full personhood does not cost them the name they are known by.
+
+The reservation is not automatic on a public registration, which reserves no stem at all. It is attached by the gateway, which names the base label to reserve alongside the device name it is issuing. A holder of `joseph.42` can therefore have `joseph` held for them, and claim it once they hold PoP Full.
+
+Two clocks limit the reservation. `PopRules` holds the slot for at most 12 weeks, and the queue on the PoP controller applies its own duration, which governance can configure. Once either lapses, the stem becomes available again on whatever path its length allows.
 
 ## Where to Go Next
 
@@ -62,7 +89,7 @@ The reservation is automatic. A PoP Lite holder registering `alice01.dot` reserv
 
     ---
 
-    The Product-side how-to that consumes the PopRules check — registering a `.dot` name and seeing the deposit or free-tier outcome.
+    The Product-side how-to that consumes the PopRules check: registering a `.dot` name and paying its deposit.
 
     [:octicons-arrow-right-24: Get Started](/apps/deploy-your-app/)
 </div>

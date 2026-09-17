@@ -10,24 +10,26 @@ categories: Apps, Reference
 
 A `.dot` name is the front door a user enters to reach a Polkadot Product. Behind that front door, four layers cooperate to turn the name a user typed into the bytes a Host loads into its sandbox:
 
-1. The dotNS registry on Asset Hub.
+1. The dotNS registry on Polkadot Hub.
 2. A `namehash` derivation that turns the string name into a deterministic key.
 3. A `contenthash` record that points the `namehash` at a content reference.
 4. A delivery layer (IPFS gateway, or Bulletin Chain peer-to-peer) that turns the content reference into bytes.
 
 This page documents each of those layers so a Product developer knows what each one is doing and where to look when something doesn't resolve correctly.
 
-## Layer 1: The Registry on Asset Hub
+## Layer 1: The Registry on Polkadot Hub
 
-The registry of names — who owns `myproduct.dot`, when the registration was last updated, what record is currently attached — lives in contract state on Asset Hub, not on the People Chain or Bulletin Chain. Asset Hub is the natural home: it is Polkadot's system chain for asset and registry primitives, and dotNS is implemented as a set of contracts on it (see [Architecture](/reference/apps/infrastructure/dotns/architecture/)).
+The registry of names (who owns `myproduct.dot`, when the registration was last updated, what record is attached right now) lives in contract state on Polkadot Hub, where it is implemented as a set of contracts (see [Architecture](/reference/apps/infrastructure/dotns/architecture/)).
 
-A registration creates a record; a transfer or update modifies it. A resolver reading the registry asks Asset Hub for the current state of a specific name and gets back the records associated with it, including the `contenthash` that points at the Product bundle.
+A registration creates a record; a transfer or update modifies it. A resolver reading the registry asks Polkadot Hub for the current state of a specific name and gets back the records associated with it, including the `contenthash` that points at the Product bundle.
 
 ## Layer 2: Namehash Derivation
 
 `.dot` uses an ENS-compatible `namehash` scheme to derive a deterministic key from the dotted name. For example, the name `myproduct.dot` is hashed in a recursive way (hash of `dot`, then hash of `(parent_hash, label_hash)`, where `label_hash` is the keccak hash of the label `myproduct`). The result is a fixed-size hash that the registry uses internally as the lookup key.
 
 This is the same scheme ENS uses for `.eth`, which is intentional — the derivation is well-understood, well-tooled, and lets dotNS interoperate with the existing `namehash` ecosystem.
+
+Every name follows the recursive rule, including a device name. `joseph.42` is `joseph` registered beneath its numeric container `42`, so its node is `namehash(namehash(tldNode, "42"), "joseph")`: splitting the name on its dots is exactly how the key derives. Reading `isPopIssued(label)` on the PoP controller (keyed by the full text, `joseph.42`) tells you whether the personhood gateway issued the name; it says nothing about hashing, which is the same for every name. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
 
 ## Layer 3: `contenthash` → CID
 
@@ -53,7 +55,7 @@ Stitching the four layers together, a typical resolution looks like this:
 
 1. A user navigates to `myproduct.dot` in a Host (Polkadot Web at `dot.li`, or Polkadot Desktop's address bar).
 2. The Host computes the `namehash` of `myproduct.dot`.
-3. The Host reads the contract record for that `namehash` from Asset Hub and extracts the `contenthash`.
+3. The Host reads the contract record for that `namehash` from Polkadot Hub and extracts the `contenthash`.
 4. The Host decodes the `contenthash` into a CID.
 5. The Host fetches the bytes for the CID via the configured delivery path.
 6. The Host validates the bytes against the CID (content-addressed verification) and loads them into the sandbox.
@@ -68,7 +70,7 @@ A failure at any layer surfaces as a specific shield-state transition in the Hos
 
     ---
 
-    The contract architecture on Asset Hub that backs the registry layer above.
+    The contract architecture on Polkadot Hub that backs the registry layer above.
 
     [:octicons-arrow-right-24: Reference](/reference/apps/infrastructure/dotns/architecture/)
 

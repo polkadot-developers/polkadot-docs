@@ -109,7 +109,7 @@ The Bulletin Chain has no token balance for storage; every account needs an expl
 --8<-- "code/apps/build/store-data-on-chain/check-authorization.ts"
 ```
 
-The returned `AuthorizationStatus`:
+`checkAuthorization` resolves with a `Result`, not with the status directly. Check `auth.ok` first; the status is on `auth.value`, and reading the fields off the wrapper yields `undefined` and silently takes the failure branch. On success, `auth.value` carries an `AuthorizationStatus`:
 
 - **`authorized`**: `true` when an authorization record exists for the account.
 - **`remainingTransactions`**: Number of `store` calls remaining in the quota.

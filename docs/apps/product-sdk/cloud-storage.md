@@ -25,7 +25,7 @@ Reach for it when your Product needs content that outlives a session and is addr
 - **Content addressing**: Uploads are identified by a CID (CIDv1) derived from their content, not by a path or key. The same bytes always produce the same CID.
 - **`store(data)` builder**: A fluent builder ending in `.send()`, which resolves with a `StoreResult`. Only `size` is always present; `cid`, `blockNumber`, and `extrinsicIndex` are optional. Large payloads are chunked automatically.
 - **Read helpers return a `Result`**: `fetchBytes` and `fetchJson` return a `Result` (check `.ok`); DAG-PB chunked content is reassembled for you unless you opt out.
-- **Authorization pre-flight**: `checkAuthorization` returns an `AuthorizationStatus` with the remaining transactions, bytes, and expiration, and never throws. Uploading requires an [authorization](/apps/get-started/get-testnet-tokens/) on the account.
+- **Authorization pre-flight**: `checkAuthorization` returns a `Result` wrapping an `AuthorizationStatus` with the remaining transactions, bytes, and expiration, and never throws. Uploading requires an [authorization](/apps/get-started/get-testnet-tokens/) on the account.
 - **`createLazySigner(getSigner)`**: A signer wrapper that resolves the underlying signer on each call, so you can build the client before an account is selected.
 
 ## Store and Fetch by CID

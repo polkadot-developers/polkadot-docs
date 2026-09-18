@@ -116,11 +116,11 @@ The weight function is concave, meaning each additional DOT of self-stake adds a
 
 The self-stake weight is subject to three parameters that govern how it grows:
 
-- **`OptimumSelfStake`**: Below this threshold, weight grows proportionally to the square root of self-stake.
-- **`SelfStakeSlopeFactor`**: Between the optimum and the hard cap, this dampens the growth rate.
-- **`HardCapSelfStake`**: Above this threshold, additional self-stake earns zero extra weight. A validator has no incentive to self-stake beyond this cap.
+- **`staking.optimumSelfStake`**: Below this threshold, weight grows proportionally to the square root of self-stake.
+- **`staking.selfStakeSlopeFactor`**: Between the optimum and the hard cap, this dampens the growth rate.
+- **`staking.hardCapSelfStake`**: Above this threshold, additional self-stake earns zero extra weight. A validator has no incentive to self-stake beyond this cap.
 
-To find the current values of these parameters, query the chain state for `staking.optimumSelfStake`, `staking.hardCapSelfStake`, and `staking.selfStakeSlopeFactor`, or watch for the `staking.ValidatorIncentiveConfigSet` event, which carries all three values whenever governance updates them through `set_validator_self_stake_incentive_config`.
+To find the current values, query the chain state for these three storage items, or watch for the `staking.ValidatorIncentiveConfigSet` event, which carries all three whenever governance updates them through `staking.setValidatorSelfStakeIncentiveConfig`.
 
 This incentive payout appears on-chain as the `staking.ValidatorIncentivePaid` event, separate from the era-point-based `staking.Rewarded` payout described in [Types of Validator Payouts](#types-of-validator-payouts).
 

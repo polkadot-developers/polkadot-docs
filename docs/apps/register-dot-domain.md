@@ -90,7 +90,7 @@ From there, the CLI registers the name on chain. If you deploy with the phone si
     Between reserve and finalize, the deploy pauses for about 60 seconds. Most of that is the tooling waiting for the commitment to settle: the contract requires only that the commitment be six seconds old before the name is claimed. The two-step handshake is what stops a watcher seeing your desired name and racing to register it ahead of you. The deploy is not stuck.
 
 !!! note "An abandoned commitment expires after a day"
-    A commitment is valid for `MAX_COMMITMENT_AGE`, one day. If a deploy fails between reserve and finalize and you come back later than that, the commitment is no longer claimable and the handshake starts over from the beginning.
+    A commitment is valid for one day. If a deploy fails between reserve and finalize and you come back later than that, the commitment is no longer claimable and the handshake starts over from the beginning.
 
 Names are first come, first served. If the CLI reports that a name is [already registered](/apps/troubleshooting/#the-name-is-already-registered), choose another; if it reports the name [requires Proof of Personhood](/apps/troubleshooting/#the-name-requires-proof-of-personhood), pick a longer name. With the dev signer, these steps run without phone prompts; the deployed name is owned by the shared dev account rather than by you.
 

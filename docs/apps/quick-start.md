@@ -1,6 +1,6 @@
 ---
 title: Quick Start with the CLI
-description: Install playground-cli, pair it with the Polkadot App, build your Product, and deploy it to a live DotNS name from the terminal.
+description: Install playground-cli, pair it with the Polkadot App, build your Product, and deploy it to a live dotNS name from the terminal.
 categories: Apps
 toggle:
   group: apps-quick-start
@@ -11,9 +11,9 @@ toggle:
 
 # Quick Start with the CLI
 
-Deploy a Polkadot Product from your terminal with playground-cli. The `pg` command pairs with your [Polkadot App](/reference/apps/hosts/polkadot-app/), builds your Product, uploads the bundle, and publishes it to a DotNS name. No local host setup is required to reach a live deployment.
+Deploy a Polkadot Product from your terminal with playground-cli. The `pg` command pairs with your [Polkadot App](/reference/apps/hosts/polkadot-app/), builds your Product, uploads the bundle, and publishes it to a dotNS name. No local host setup is required to reach a live deployment.
 
-The CLI is the command-line counterpart to [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/): Desktop runs published Products by their DotNS names; `pg` takes a project on disk and turns it into one. By the end of this guide, you will have a Product live at its own name, reachable in any browser through the DotNS web gateway.
+The CLI is the command-line counterpart to [Polkadot Desktop](/reference/apps/hosts/polkadot-desktop/): Desktop runs published Products by their dotNS names; `pg` takes a project on disk and turns it into one. By the end of this guide, you will have a Product live at its own name, reachable in any browser through the dotNS web gateway.
 
 --8<-- 'text/apps/network-tld.md'
 
@@ -109,7 +109,7 @@ pg build
 
 ## Deploy
 
-`pg deploy` runs the full pipeline: build the frontend, upload artifacts to the Polkadot Bulletin Chain, and register a DotNS domain under the environment's TLD (`.paseo` on Paseo Next v2). Before building, it always runs your package manager's install step to keep dependencies in sync.
+`pg deploy` runs the full pipeline: build the frontend, upload artifacts to the Polkadot Bulletin Chain, and register a dotNS domain under the environment's TLD (`.paseo` on Paseo Next v2). Before building, it always runs your package manager's install step to keep dependencies in sync.
 
 ```bash
 # Interactive - pg prompts for signer, domain, and build directory
@@ -167,7 +167,7 @@ For the full interactive deploy walkthrough, including the domain-name rules, co
         pg mod [domain]
         ```
 
-    - **`pg decentralize`**: Takes a static site you already have — a live URL to mirror, or a local build directory — uploads it to the Bulletin Chain, and registers a DotNS name pointing at it. The counterpart to `pg deploy`, which builds your project first.
+    - **`pg decentralize`**: Takes a static site you already have — a live URL to mirror, or a local build directory — uploads it to the Bulletin Chain, and registers a dotNS name pointing at it. The counterpart to `pg deploy`, which builds your project first.
 
         ```bash
         pg decentralize --site https://example.com
@@ -222,7 +222,7 @@ You have deployed a Polkadot Product. To keep building it with your own editor a
 
     ---
 
-    The full deploy flow in depth: build the bundle, register a DotNS name, publish to the playground, and go live on the Bulletin Chain.
+    The full deploy flow in depth: build the bundle, register a dotNS name, publish to the playground, and go live on the Bulletin Chain.
 
     [:octicons-arrow-right-24: Deploy Your App](/apps/deploy-your-app/)
 

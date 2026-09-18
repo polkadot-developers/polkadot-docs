@@ -14,7 +14,7 @@ The [Build guides](/apps/build/) and [Deploy Your App](/apps/deploy-your-app/) w
 
     ---
 
-    The `.dot` name, the per-app account, and Proof of Personhood as three separate identities, and why they stay separate.
+    The per-app account and Proof of Personhood as a user's two identities, and why your Product's own `.dot` address is not one of them.
 
     [:octicons-arrow-right-24: Identity](/apps/concepts/identity/)
 

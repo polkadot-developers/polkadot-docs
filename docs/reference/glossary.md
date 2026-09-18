@@ -194,7 +194,7 @@ Function objects that act as the entry points in FRAME [pallets](#pallet). Inter
 
 A human-readable name in the [dotNS](#dotns) registry on [Asset Hub](#asset-hub), of the form `something.dot`. Resolves to a content reference ([CID](#content-identifier-cid)) pointing at a published [Product](#product) bundle on [Bulletin Chain](#bulletin-chain) (or via an [IPFS](#interplanetary-file-system-ipfs) gateway), plus a wallet address for users.
 
-## DotNS
+## dotNS
 
 [Polkadot](#polkadot)'s name service. A suite of smart contracts on [Asset Hub](#asset-hub) that map `.dot` names to on-chain resources, including wallet addresses for users and [CIDs](#content-identifier-cid) for [Products](#product). Architecturally derived from ENS (Ethereum Name Service) and uses the same name-hashing scheme.
 

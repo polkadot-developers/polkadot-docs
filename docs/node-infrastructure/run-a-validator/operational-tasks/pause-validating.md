@@ -36,7 +36,7 @@ While chilled, your nominator account remains bonded, preserving your staked fun
 
 When you chill as a validator, your active validator status is paused. Although your nominators remain bonded to you, the validator bond will no longer appear as an active choice for new or revised nominations until reactivated. Any existing nominators who take no action will still have their stake linked to the validator, meaning they don’t need to reselect the validator upon reactivation. However, if nominators adjust their stakes while the validator is chilled, they will not be able to nominate the chilled validator until it resumes activity.
 
-Upon reactivating as a validator, you can reconfigure your validator preferences such as the blocked nominations option. See [Validator Compensation](/node-infrastructure/run-a-validator/requirements/#validator-compensation) for details on validator commission, which is fixed on-chain at 0% and cannot be changed. This step is essential for rejoining the active validator set and regaining eligibility for nominations.
+Upon reactivating as a validator, you can reconfigure your validator preferences, such as the blocked nominations option. See [Validator Compensation](/node-infrastructure/run-a-validator/requirements/#validator-compensation) for details on validator commission, which is fixed on-chain at 0% and cannot be changed. This step is essential for rejoining the active validator set and regaining eligibility for nominations.
 
 ## Chill Other
 

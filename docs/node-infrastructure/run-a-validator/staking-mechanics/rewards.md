@@ -94,7 +94,7 @@ This equal split applies to the era-point reward pool described in [Payout Schem
 Since [Referendum 1909](https://polkadot.subsquare.io/referenda/1909), a validator's total reward for an era is made up of two separate payouts, each recorded as a distinct on-chain event:
 
 - **`staking.Rewarded`**: The validator's share of the era-point reward pool described in [Payout Scheme](#payout-scheme). This pool is still split equally across all active validators, regardless of stake. Because validators no longer take a rate-based cut of this pool (see [Nominators and Validator Payments](#nominators-and-validator-payments)), a validator's own cut of this event depends only on the proportion of self-stake to total stake (self-stake plus nominator stake) backing their validator, the same as any nominator.
-- **`staking.ValidatorIncentivePaid`**: A separate payout from the self-stake incentive portion of the [Dynamic Allocation Pool (DAP)](https://forum.polkadot.network/t/proposal-dynamic-allocation-pool-dap/15878) budget. This payout is not part of the era-point reward pool but depends on both self-stake weight and era points earned. A validator's share is computed as: share_i = (weight_i × era_points_i) / Σ(weight_j × era_points_j), where weight_i is derived from each validator's self-stake using a concave function. A validator with zero era points receives no self-stake incentive payout for that era. See [Validator Self-Stake Incentive](#validator-self-stake-incentive) for details.
+- **`staking.ValidatorIncentivePaid`**: A separate payout from the self-stake incentive portion of the [Dynamic Allocation Pool (DAP)](https://forum.polkadot.network/t/proposal-dynamic-allocation-pool-dap/15878) budget. This payout is not part of the era-point reward pool but depends on both self-stake weight and era points earned. A validator's share is computed as `share_i = (weight_i × era_points_i) / Σ(weight_j × era_points_j)`, where `weight_i` is derived from each validator's self-stake using a concave function. A validator with zero era points receives no self-stake incentive payout for that era. See [Validator Self-Stake Incentive](#validator-self-stake-incentive) for details.
 
 ## Validator Self-Stake Incentive
 
@@ -110,9 +110,9 @@ All active validators compete for the fixed self-stake incentive allocation (22.
 
 The self-stake weight is subject to three parameters that govern how it grows:
 
-- **OptimumSelfStake**: below this threshold, weight grows proportionally to the square root of self-stake.
-- **SelfStakeSlopeFactor**: between the optimum and the hard cap, this dampens the growth rate.
-- **HardCapSelfStake**: above this threshold, additional self-stake earns zero extra weight. A validator has no incentive to self-stake beyond this cap.
+- **`OptimumSelfStake`**: Below this threshold, weight grows proportionally to the square root of self-stake.
+- **`SelfStakeSlopeFactor`**: Between the optimum and the hard cap, this dampens the growth rate.
+- **`HardCapSelfStake`**: Above this threshold, additional self-stake earns zero extra weight. A validator has no incentive to self-stake beyond this cap.
 
 The hard cap is the most important number for an operator to know when deciding how much self-stake to commit, since it defines the point beyond which increased self-stake yields no additional incentive payout.
 

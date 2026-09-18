@@ -1,7 +1,10 @@
 import { SignerManager } from '@parity/product-sdk';
 import { CloudStorageClient } from '@parity/product-sdk-cloud-storage';
 
-const signerManager = new SignerManager({ dappName: 'my-product' });
+// `dappName` is your dotNS identifier: the Host derives the product account
+// from it, appending `.dot` to a bare label. An unregistered name leaves
+// `accounts` empty rather than raising an error.
+const signerManager = new SignerManager({ dappName: 'my-product.dot' });
 await signerManager.connect();
 
 const { accounts } = signerManager.getState();

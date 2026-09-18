@@ -35,7 +35,7 @@ This split is what makes Bulletin practical at content sizes that would not fit 
 
 Bulletin is the right layer for content that needs to outlive a session and be fetched later by hash. Profile photos, published articles, app bundles, encrypted message content for chat — anything where the readers are not all present at the same moment and the bytes have to be there later, by hash.
 
-For the storage-layer comparison (Bulletin vs Statement Store vs local `KvStore`) see [Storage options for your Product](/apps/build/store-data-on-chain/), and for the Product-side how-to use [Store Data on Chain](/apps/build/store-data-on-chain/).
+For the storage-layer comparison (Bulletin vs Statement Store vs local `KvStore`) see [Where to Store Data](/apps/concepts/data-placement/), and for the Product-side how-to use [Store Data on Chain](/apps/build/store-data-on-chain/).
 
 ## Where to Go Next
 

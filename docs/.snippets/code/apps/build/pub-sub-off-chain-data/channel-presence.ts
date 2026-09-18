@@ -10,10 +10,14 @@ interface Presence {
 
 const channels = new ChannelStore<Presence>(client, { topic2: 'room-42' });
 
-await channels.write('presence/alice', {
+// `write` forwards to `publish`, so it resolves with a `Result` too.
+const written = await channels.write('presence/alice', {
   status: 'online',
   timestamp: Date.now(),
 });
+if (!written.ok) {
+  console.warn(`Channel write rejected: ${written.error.message}`);
+}
 
 // A second write on the same channel replaces the first.
 await channels.write('presence/alice', {
@@ -21,10 +25,16 @@ await channels.write('presence/alice', {
   timestamp: Date.now(),
 });
 
-channels.onChange((name, value, previous) => {
-  console.log(`${name}: ${previous?.status ?? '<none>'} → ${value.status}`);
+// `onChange` and `readAll` key channels by their hex hash, not by the readable
+// name you wrote. Use `channels.read(name)` to look a channel up by name.
+channels.onChange((channelHash, value, previous) => {
+  console.log(
+    `${channelHash}: ${previous?.status ?? '<none>'} → ${value.status}`,
+  );
 });
 
-for (const [name, value] of channels.readAll()) {
-  console.log(`${name}: ${value.status}`);
+for (const [channelHash, value] of channels.readAll()) {
+  console.log(`${channelHash}: ${value.status}`);
 }
+
+console.log(`alice is ${channels.read('presence/alice')?.status ?? 'unknown'}`);

@@ -80,7 +80,7 @@ The optional `topic2` is hashed with Blake2b-256 and added to the filter; scope 
 --8<-- "code/apps/build/pub-sub-off-chain-data/publish-statement.ts"
 ```
 
-`publish` returns `Promise<boolean>`: `true` when the node accepted the statement into its pool, `false` when it was rejected by `pallet-statement-store`'s validity check (typically allowance, size, or proof failure). It throws `StatementDataTooLargeError` if the JSON-encoded payload exceeds the per-statement size limit (512 bytes), and `StatementConnectionError` if the client is not connected.
+`publish` returns a `Result`. Check `.ok` rather than the returned object: a `Result` is always truthy, so `if (accepted)` passes for a rejected publish as readily as an accepted one. On failure, `.error` carries the reason — a `StatementSubmitError` when `pallet-statement-store`'s validity check rejects it (typically allowance or proof failure), a `StatementDataTooLargeError` when the JSON-encoded payload exceeds the per-statement size limit of 512 bytes, and a `StatementConnectionError` when the client is not connected.
 
 Two limits worth designing around:
 
@@ -97,7 +97,7 @@ Two limits worth designing around:
 --8<-- "code/apps/build/pub-sub-off-chain-data/channel-presence.ts"
 ```
 
-`channels.write(name, value)` hashes the channel name with Blake2b-256 and publishes; `channels.read(name)` returns the latest value seen on that channel; `channels.readAll()` returns the full map; `channels.onChange(callback)` fires on every transition. `ChannelStore` stamps `timestamp` for you if the value omits it. Channel scope is per-account; the pallet's replacement rule only matches statements from the same signer, so one user cannot overwrite another user's channel.
+`channels.write(name, value)` hashes the channel name with Blake2b-256 and publishes, forwarding `publish`'s `Result` to you; `channels.read(name)` returns the latest value seen on that channel; `channels.readAll()` returns the full map, keyed by channel hash rather than by the readable name; `channels.onChange(callback)` fires on every transition, and passes that same hash to the callback. `ChannelStore` stamps `timestamp` for you if the value omits it. Channel scope is per-account; the pallet's replacement rule only matches statements from the same signer, so one user cannot overwrite another user's channel.
 
 `ChannelStore` is the right primitive for soft state where only the latest version matters: presence indicators, multiplayer cursors, "now playing" status. For append-only events such as chat messages, action logs, social-feed posts, keep using `client.publish` directly so each event lives independently until its TTL.
 

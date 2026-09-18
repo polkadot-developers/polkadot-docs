@@ -39,7 +39,7 @@ You have two installation options depending on your needs:
     npm install @parity/product-sdk-chain-client
     ```
 
-All import paths shown in this guide work with both options.
+The import specifiers differ between the two. The snippets in this guide use the standalone specifier `@parity/product-sdk-chain-client`; on the umbrella, the same exports come from the `@parity/product-sdk/chain` subpath, which keeps the older name. `createChainClient` is also re-exported from the umbrella root, but `getChainAPI` and `destroyAll` are not.
 
 If you plan to use the BYOD path, also install the descriptors package regardless of which option above you chose:
 

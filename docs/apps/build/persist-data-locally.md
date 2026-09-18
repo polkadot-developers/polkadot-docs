@@ -37,7 +37,7 @@ You have two installation options depending on your needs:
     npm install @parity/product-sdk-local-storage
     ```
 
-All import paths shown in this guide work with both options.
+The import specifiers differ between the two. The snippets in this guide use the standalone specifier `@parity/product-sdk-local-storage`; on the umbrella, the same exports come from the `@parity/product-sdk/local-storage` subpath. The React hooks shown later are umbrella-only, under `@parity/product-sdk/react`.
 
 !!! note "Code examples"
     Each snippet in this guide is a standalone file you add to your Product's source tree. The filenames match the `title` shown in the code block header (for example, `initialize.ts`, `set-get-string.ts`). They are not meant to be concatenated; import and use each one independently wherever it fits in your Product.

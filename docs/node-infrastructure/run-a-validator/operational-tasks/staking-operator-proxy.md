@@ -10,7 +10,7 @@ categories: Infrastructure
 
 The Staking Operator proxy is an on-chain proxy type that enables non-custodial validator operations on Polkadot. It creates a clear separation between fund management and node operations. This separation allows capital providers (stakers) to delegate day-to-day validator operations to node runners (operators) without granting access to bonded funds.
 
-In traditional validator setups, the entity running the node typically requires broad access to the staking account, including the ability to bond, unbond, and transfer funds. The Staking Operator proxy eliminates this requirement by granting the operator only the permissions needed to manage validator operations, such as setting session keys, adjusting commission rates, and managing validator status.
+In traditional validator setups, the entity running the node typically requires broad access to the staking account, including the ability to bond, unbond, and transfer funds. The Staking Operator proxy eliminates this requirement by granting the operator only the permissions needed to manage validator operations, such as setting session keys and managing validator status.
 
 This design is particularly valuable for institutional staking arrangements, where a capital provider wants to delegate operations to a professional node operator while maintaining full control over their bonded DOT. The operator can perform all necessary day-to-day tasks without ever having the ability to move or unbond funds.
 
@@ -61,7 +61,7 @@ Follow these steps to set up a Staking Operator proxy:
 
     The proxy can be created by the stash account directly, an `Any` proxy, or a `Staking` proxy.
 
-3. **Register intent to validate**: The operator calls `staking.validate` wrapped in a `proxy.proxy` call (with the staker's account as the `real` parameter) to register as a validator and set the initial commission rate. This step must be completed before setting session keys.
+3. **Register intent to validate**: The operator calls `staking.validate` wrapped in a `proxy.proxy` call (with the staker's account as the `real` parameter) to register as a validator. This step must be completed before setting session keys.
 
 4. **Set session keys**: The operator calls `stakingRcClient.setKeys` wrapped in a `proxy.proxy` call to set the validator's session keys. This requires a deposit of approximately 60 DOT on the validator account, which is released when `stakingRcClient.purgeKeys` is called.
 
@@ -84,13 +84,12 @@ Once the staker has created the Staking Operator proxy, the operator can begin m
 The operator can perform the following actions:
 
 - **Set session keys**: Rotate or update session keys using `stakingRcClient.setKeys` on Polkadot Hub or `session.setKeys` on the relay chain. See [Key Management](/node-infrastructure/run-a-validator/operational-tasks/general-management/#key-management){target=\_blank} for best practices on managing session keys.
-- **Update commission**: Adjust the validator's commission rate by calling `staking.validate` with a new commission value.
 - **Deactivate the validator**: Temporarily pause validation by calling `staking.chill`. See [Pause Validating](/node-infrastructure/run-a-validator/operational-tasks/pause-validating/){target=\_blank} for more details on the chilling process.
 - **Remove nominators**: Kick specific nominators from the validator's nomination pool using `staking.kick`.
 - **Purge session keys**: Remove session keys using `stakingRcClient.purgeKeys` on Polkadot Hub or `session.purgeKeys` on the relay chain.
 
 !!! warning
-    The worst-case scenario with a compromised operator is that they could chill the validator, set an unfavorable commission rate, or change session keys. While these actions are disruptive, they cannot result in loss of bonded funds. The staker can revoke the proxy at any time to regain full control.
+    The worst-case scenario with a compromised operator is that they could chill the validator or change session keys. While these actions are disruptive, they cannot result in loss of bonded funds. The staker can revoke the proxy at any time to regain full control.
 
 ## Manage Session Keys on Polkadot Hub
 

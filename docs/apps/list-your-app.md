@@ -10,18 +10,20 @@ page_badges:
 
 ## Introduction
 
-Deploying makes your Product reachable at its DotNS address. Listing makes it _discoverable_: it puts your Product in a directory that users browse inside their Host, so people who have never heard your `.dot` name can still find and open it.
+Deploying makes your Product reachable at its dotNS address. Listing makes it _discoverable_: it puts your Product in a directory that users browse inside their Host, so people who have never heard your `.dot` name can still find and open it.
 
 There are two discovery surfaces:
 
-- **The Playground directory** (`playground.dot`): The directory the [`playground` CLI](/apps/quick-start/) publishes to. This is the path you use when you deploy with `playground deploy`.
+- **The Playground directory** (`playground.dot`): The directory the [`playground` CLI](/apps/quick-start/) publishes to on the TestNet it targets. This is the path you use when you deploy with `playground deploy`.
 - **[Browse](/reference/glossary/#browse)**: Polkadot's native discovery catalogue, surfaced in the App and Desktop dashboards. It is the broader destination for a Product that is ready for end users.
 
-Both are catalogues of published Products surfaced inside the Hosts, and both store a minimal on-chain record while pulling display details from your name's [DotNS](/reference/apps/infrastructure/dotns/) metadata. They differ in the tooling that publishes to them, covered below.
+Both are catalogues of published Products surfaced inside the Hosts, and both store a minimal on-chain record while pulling display details from your name's [dotNS](/reference/apps/infrastructure/dotns/) metadata. They differ in the tooling that publishes to them, covered below.
+
+--8<-- 'text/apps/network-tld.md'
 
 ## The Playground Directory
 
-The Playground directory lives at `playground.dot`, which you open in the Polkadot Desktop browser. Listed Products appear under their DotNS name, and your Product's `README.md` becomes its detail page in the directory, so make sure it is up to date before you publish.
+The Playground directory lives at `playground.dot`, which you open in the Polkadot Desktop browser. It is scoped to the TestNet the `playground` CLI targets, so treat a listing there as a way to share work in progress rather than as a launch surface; [Browse](#browse) is where a Product goes when it is ready for end users. Listed Products appear under their dotNS name, and your Product's `README.md` becomes its detail page in the directory, so make sure it is up to date before you publish.
 
 ### List During Deploy
 
@@ -33,7 +35,7 @@ Listing is a choice you make during `playground deploy`. At the `publish to the 
       no  ·  deploy to my .paseo address only</pre></span>
 </div>
 
-Choosing **no** still deploys your Product to its DotNS address; it stays unlisted. To skip the prompt, pass the `--playground` flag:
+Choosing **no** still deploys your Product to its dotNS address; it stays unlisted. To skip the prompt, pass the `--playground` flag:
 
 ```bash
 playground deploy --domain my-product --playground
@@ -94,11 +96,11 @@ The listing choice is made at deploy time through the `publish to the playground
 
 Browse enforces who can list, on chain, so the directory stays tied to real ownership and real people:
 
-- **Ownership**: You must own the DotNS name you are listing.
+- **Ownership**: You must own the dotNS name you are listing.
 - **Proof of Personhood**: The listing account needs [Proof of Personhood](/reference/apps/infrastructure/pop/), Lite or Full. Personhood is obtained in the Polkadot App on your device.
 - **Rate limits**: Listings are rate-limited per personhood tier over a rolling 24 hours — Lite accounts can publish one per day, Full accounts five per day.
 
-A listing itself stores only a minimal on-chain record: a hash of the label, the publisher's address, and a timestamp. The display name, description, and icon are not stored in the listing; they are read from your name's DotNS manifest when the directory renders, so keeping your manifest current keeps your Browse card current.
+A listing itself stores only a minimal on-chain record: a hash of the label, the publisher's address, and a timestamp. The display name, description, and icon are not stored in the listing; they are read from your name's dotNS manifest when the directory renders, so keeping your manifest current keeps your Browse card current.
 
 ### Publishing to Browse
 

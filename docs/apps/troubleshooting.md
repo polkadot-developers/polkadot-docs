@@ -26,19 +26,19 @@ Named entries for the failures developers hit most while building and deploying 
 
 ## The Deploy Pauses for About a Minute
 
-**Cause**: During `playground deploy`, there is a deliberate pause of about 60 seconds between reserving and finalizing your DotNS name. This is [DotNS](/apps/register-dot-domain/)'s commit-reveal window, which prevents someone from front-running your name.
+**Cause**: During `playground deploy`, there is a deliberate pause of about 60 seconds between reserving and finalizing your dotNS name. Most of that is the tooling waiting for the commitment to settle; the [dotNS](/apps/register-dot-domain/) contract itself requires only that the commitment be six seconds old. The two-step handshake prevents someone from front-running your name.
 
 **Resolution**: Wait. The deploy is not stuck. The next approval appears in the Polkadot App once the window elapses.
 
 ## The Name Requires Proof of Personhood
 
-**Cause**: Short DotNS names are reserved for accounts with [Proof of Personhood](/apps/concepts/identity/). A name of six to eight characters needs Full Proof of Personhood. A name of five characters or fewer is not sold on this path at all. Length is counted as written, so digits do not change which band a name falls in.
+**Cause**: Short dotNS names are reserved for accounts with [Proof of Personhood](/apps/concepts/identity/). A name of six to eight characters needs Full Proof of Personhood. A name of five characters or fewer is not sold on this path at all. Length is counted as written, so digits do not change which band a name falls in.
 
 **Resolution**: Choose a name of nine characters or more, which registers with no personhood check, or obtain Full Proof of Personhood in the Polkadot App to open the six-to-eight band. A device proof does not open that band. See [Register a `.dot` Domain](/apps/register-dot-domain/#choose-a-name).
 
 ## The Name Is Already Registered
 
-**Cause**: DotNS names are first come, first served.
+**Cause**: dotNS names are first come, first served.
 
 **Resolution**: Choose a different name. Re-deploying a name you already own is fine and does not conflict.
 

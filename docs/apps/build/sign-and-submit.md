@@ -152,6 +152,28 @@ The returned `SignerAccount` exposes:
 - **`publicKey`**: The raw 32-byte public key.
 - **`name`**: An optional display name, or `null`.
 
+## Show a Display Name
+
+There is no built-in primitive for an in-app username, so most Products need to choose a display identity themselves. [Usernames in Your Product](/apps/concepts/identity/#usernames-in-your-product) covers the pattern to follow; this section covers the call it depends on.
+
+When the user holds a personhood tier, the platform already associates an earned name with their account. Read it with `getUserId`:
+
+```typescript
+async function loadDisplayName() {
+  const idResult = await manager.getUserId();
+  if (!idResult.ok) {
+    return null; // No host, no permission, or no personhood tier
+  }
+
+  return idResult.value.primaryUsername; // e.g. 'joseph.42'
+}
+```
+
+When there is no earned name to read, fall back to a per-Product display name the user sets, stored in [local storage](/apps/product-sdk/local-storage/) (device-local) or [cloud storage](/apps/product-sdk/cloud-storage/) (shared) and keyed to their per-app account. Either way, treat the result as a label rather than as identity: authorization and uniqueness come from the per-app account and Proof of Personhood.
+
+!!! warning "`getUserId` is host-only and prompts the user"
+    `getUserId` returns `HostUnavailableError` when the active provider is `'dev'`, so a Product that renders a display name works in a Host and fails under the dev provider. It also triggers a host identity-permission prompt on first use. If your Product has its own display-name chain and does not need the platform name, skip the call rather than requesting a permission you will not use.
+
 ## Sign Arbitrary Bytes
 
 Use `signRaw` to sign an arbitrary byte payload with the currently selected account. This is useful for off-chain authentication, message proofs, and any use case that does not require a full transaction.
@@ -281,7 +303,7 @@ async function devSignRaw() {
 ```
 
 !!! warning "Four methods are host-only"
-    `getProductAccount`, `getProductAccountAlias`, `createRingVRFProof`, and `getUserId` return `HostUnavailableError` when the active provider is `'dev'`. `getUserId` is easy to miss: [Identity](/apps/concepts/identity/#usernames-in-your-product) recommends it for reading a personhood username as a display name, so a Product that does that renders fine in a Host and fails under the dev provider.
+    `getProductAccount`, `getProductAccountAlias`, `createRingVRFProof`, and `getUserId` return `HostUnavailableError` when the active provider is `'dev'`. `getUserId` is easy to miss: [Show a Display Name](#show-a-display-name) uses it to read the user's earned name, so a Product that does that renders fine in a Host and fails under the dev provider.
 
 ## Limitations
 

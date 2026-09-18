@@ -14,6 +14,8 @@ Generate and publish a Polkadot Product in the browser with RevX App Builder. Re
 
 This route does not require a local development environment. By the end, you will have configured an AI provider in App Builder, generated a Polkadot Product from a prompt, inspected the generated code, and published it to `.dot`.
 
+--8<-- 'text/apps/network-tld.md'
+
 ## Prerequisites
 
 Before starting, make sure you have:
@@ -96,7 +98,7 @@ After clicking **Start Deploy**, you will be asked to sign the transaction with 
 
 ![RevX App Builder showing the transaction signing prompt](/images/apps/quick-start/revx/revx-11.webp)
 
-After signing the transaction, you will see the deployment progress in the terminal. Your Product is now live under its `.dot` name. Open it in Polkadot Desktop, or on Polkadot Web at `https://<name>.dot.li` in any browser.
+After signing the transaction, you will see the deployment progress in the terminal. The action is labeled **Publish to .dot**, but the name you receive carries the network's TLD, so on Paseo Next v2 your Product is live under its `.paseo` name. Open it in Polkadot Desktop, or on Polkadot Web at `https://<name>.paseo.li` in any browser.
 
 ## Where to Go Next
 

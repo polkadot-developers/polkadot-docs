@@ -1,6 +1,6 @@
 ---
 title: Identity
-description: The .dot name, the per-app derived account, and Proof of Personhood as three separate identities for a Polkadot Product, and why they stay separate.
+description: The two identities a user brings to a Polkadot Product, a per-app account and Proof of Personhood, and why your Product's own .dot address is not one of them.
 categories: Apps
 ---
 
@@ -8,21 +8,14 @@ categories: Apps
 
 ## Introduction
 
-A user interacting with your Product carries three distinct identities, and they are deliberately separate. Keeping them apart is what lets the platform give your Product a stable account and optional proof that the user is a real person, without turning every Product into a tracking surface.
+A user interacting with your Product carries two identities, and they are deliberately separate:
 
-The three identities are:
+- **A per-app account**: A per-Product account derived for each user. This is the identity your Product signs and transacts with.
+- **Proof of Personhood**: A tier, a per-app alias, and sometimes an earned name, which together attest that the user is a unique human without revealing who they are.
 
-- **A `.dot` name**: A human-readable name that resolves to content, owned by an account but not itself an account.
-- **A per-app account**: A per-Product account derived for each user, the identity your Product signs and transacts with.
-- **Proof of Personhood**: A tier and a per-app alias that attest the user is a unique human, without revealing who they are.
+Keeping them apart is what lets the platform give your Product a stable account, and optional proof that the user is a real person, without turning every Product into a tracking surface.
 
-## The `.dot` Name
-
-A [`.dot` name](/apps/register-dot-domain/) is registered with [DotNS](/reference/apps/infrastructure/dotns/) and resolves to a content record: the CID of a published Product bundle. Ownership of a name is held by a Polkadot Hub account, but the name is not an account and cannot sign.
-
-Transferability depends on how the name was acquired. A name anyone registered by paying the deposit can be transferred. A name earned through the personhood gateway, the route that grants device and personhood names, cannot move: it identifies the person or device that earned it, and it stays with them. Most names point at _content_ rather than at a user, but a gateway name identifies an identity (a personhood name names a person, and a device name names a unique device its holder proved), so a client that needs to tell the kinds apart should read `isPopIssued(label)` on the PoP controller rather than inspect the string. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
-
-A name is how users reach your Product; it is not how your Product identifies a user.
+A related name that is not a user identity comes up constantly: your Product's own `.dot` address, the name users type to reach it. It shares a namespace with the names the personhood gateway issues, which makes the two easy to confuse, so it is covered in [Your Product's `.dot` Address](#your-products-dot-address) below.
 
 ## The Per-App Account
 
@@ -42,33 +35,51 @@ Your Product obtains this account through the [`signer`](/apps/product-sdk/signe
 
 ## Proof of Personhood
 
-[Proof of Personhood](/reference/apps/infrastructure/pop/) is a separate signal that a user is a unique human. It has two parts:
+[Proof of Personhood](/reference/apps/infrastructure/pop/) is a separate signal that a user is a unique human. It always has a tier and a per-app alias, and it sometimes has an earned name:
 
 - **A tier**: The strength of the proof, from none, through an attested proof of a unique device, to full personhood, proven in the Polkadot App. The [Proof of Personhood reference](/reference/apps/infrastructure/pop/) names the tiers.
 - **A per-app alias**: A Ring-VRF-derived identifier that is deterministic for a given user and Product, and unlinkable across Products.
+- **An earned name**: The human-readable name the personhood gateway issues to a user who has proved a tier, such as `joseph.42`.
 
 An alias is never an account address, and — like the per-app account — it is scoped per Product so it cannot be used to correlate a user across Products. Cross-Product alias linking requires an explicit consent step. Use personhood to gate features on verified-human status (for example, one action per person) without learning who the user is.
 
-!!! warning "Names and usernames can be coupled"
-    The three identities are separate by design, but not always independent in practice: the personhood gateway issues a device name into dotNS naming, which couples that username to a dotNS name of the same text. Do not assume the identities can never be linked.
+### The Earned Name
+
+An earned name is the one part of a user's identity that is human-readable and stable across Products. The personhood gateway issues it rather than the public registration path, which gives it properties a name bought with a deposit does not have: it is soulbound, so it never transfers, and it is not free-form, because the gateway decides the shape it issues.
+
+Read it with `getUserId` from the [`signer`](/apps/product-sdk/signer/) package, which returns it as `primaryUsername`. A user with no personhood tier has no earned name, so treat it as optional and always have a fallback. For the call and its caveats, see [Show a Display Name](/apps/build/sign-and-submit/#show-a-display-name).
+
+!!! info "One name, several labels"
+    These docs call this the **earned name**, the term the dotNS reference uses for a name the gateway grants. A name that identifies a person is a _personhood name_ and one that identifies a proved device is a _device name_; the SDK returns either as `primaryUsername`.
+
+!!! warning "An earned name and a Product address can be coupled"
+    A user's identities and your Product's address are separate by design, but not always independent in practice: the gateway issues an earned name into dotNS naming, so the name is also a dotNS name of the same text. Do not assume the two can never be linked.
 
 ## Usernames in Your Product
 
 There is no built-in primitive for an in-app username, so most Products need to choose a display identity themselves. Until a primitive exists, the recommended pattern keeps you aligned with the platform's identity model rather than inventing a parallel one:
 
-- **Prefer the earned name where you have it.** When the user holds any personhood tier, read the username the platform already associates with them (through the [`signer`](/apps/product-sdk/signer/) package's `getUserId`) and use it as the display name. This reuses an identity the user already has instead of minting a new one.
+- **Prefer the earned name where you have it.** When the user holds any personhood tier, read the username the platform already associates with them (through the [`signer`](/apps/product-sdk/signer/) package's `getUserId`) and use it as the display name. This reuses an identity the user already has instead of minting a new one. See [Show a Display Name](/apps/build/sign-and-submit/#show-a-display-name) for the call and its caveats.
 - **Otherwise, let the user set a per-Product display name** and store it in [local storage](/apps/product-sdk/local-storage/) (device-local) or [cloud storage](/apps/product-sdk/cloud-storage/) (shared), keyed to their per-app account. Keep it scoped to your Product so it does not become a cross-Product identifier.
 - **Do not treat a display name as identity.** Authorization and uniqueness come from the per-app account and Proof of Personhood; a display name is a label on top of them.
 
 Following this pattern means Products converge on the same approach instead of each reinventing usernames, which eases any future migration to a platform primitive.
 
-## How the Three Fit Together
+## Your Product's `.dot` Address
 
-- Users **find** your Product by its `.dot` name.
+A [`.dot` name](/apps/register-dot-domain/) is registered with [dotNS](/reference/apps/infrastructure/dotns/) and resolves to a content record: the CID of a published Product bundle. Ownership of a name is held by a Polkadot Hub account, but the name is not an account and cannot sign.
+
+Transferability depends on how the name was acquired. A name anyone registered by paying the deposit can be transferred. A name earned through the personhood gateway, the route that grants device and personhood names, cannot move: it identifies the person or device that earned it, and it stays with them. Most names point at _content_ rather than at a user, but a gateway name identifies an identity (a personhood name names a person, and a device name names a unique device its holder proved), so a client that needs to tell the kinds apart should read `isPopIssued(label)` on the PoP controller rather than inspect the string. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
+
+A name is how users reach your Product; it is not how your Product identifies a user. The confusion is that both live in the same namespace: a name registered by paying the deposit points at content, while a name earned through the gateway points at a person or a device.
+
+## How They Fit Together
+
+- Users **find** your Product by its `.dot` address, which identifies your Product rather than them.
 - Your Product **acts** as the user through the per-app account, signing on the user's phone.
-- Your Product optionally **gates** features on Proof of Personhood, reading a tier and a per-app alias rather than a real-world identity.
+- Your Product optionally **gates** features on Proof of Personhood, reading a tier and a per-app alias rather than a real-world identity, and **displays** the user's earned name when there is one.
 
-None of the three reveals the user's root key or a cross-Product identifier unless the user explicitly grants it.
+None of these reveals the user's root key. The per-app account and the personhood alias stay scoped to your Product unless the user explicitly grants cross-Product linking. The earned name is the exception: it is stable across Products by design, which is why reading it goes through `getUserId` and a permission prompt.
 
 ## Where to Go Next
 

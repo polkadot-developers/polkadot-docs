@@ -51,11 +51,11 @@ The descriptors package exposes typed `ChainDefinition` objects through subpath 
 
 ## Connect to a Chain
 
-The SDK provides two connection paths. The Preset path (`getChainAPI`) is the fastest way to get a working client — it comes preconfigured with descriptors and RPC endpoints for supported environments. Use the BYOD path (`createChainClient`) when you need explicit control over which chains and descriptors your Product uses.
+The SDK provides two connection paths. The Preset path (`getChainAPI`) is the fastest way to get a working client — it comes preconfigured with the descriptors for supported environments. Use the BYOD path (`createChainClient`) when you need explicit control over which chains and descriptors your Product uses. Neither path takes RPC endpoints: the Host resolves the connection from each descriptor's genesis hash.
 
 ### Connect Using a Preset
 
-`getChainAPI(env)` returns a client preconfigured with the descriptors and RPC endpoints for the requested environment.
+`getChainAPI(env)` returns a client preconfigured with the descriptors for the requested environment.
 
 ```typescript
 import { getChainAPI } from '@parity/product-sdk-chain-client';
@@ -75,7 +75,7 @@ The returned client exposes one property per chain in the preset (`assetHub`, `b
 
 ### Connect Using Custom Descriptors (BYOD)
 
-Use `createChainClient` to supply your own descriptors and RPC endpoints, importing the chain descriptor objects you need directly instead of relying on a preset.
+Use `createChainClient` to supply your own descriptors, importing the chain descriptor objects you need directly instead of relying on a preset. `ChainClientConfig` accepts a single field, `chains`.
 
 ```typescript
 import { createChainClient } from '@parity/product-sdk-chain-client';
@@ -96,7 +96,7 @@ const client = await createChainClient({
 client.destroy();
 ```
 
-The keys you choose in `chains` (`assetHub`, `bulletin`) become the property names on the returned client. Pick names that read naturally in your call sites; the rest of the SDK is fully typed against them. Connections are routed through the host at runtime, so you don't supply RPC endpoints yourself.
+The keys you choose in `chains` (`assetHub`, `bulletin`) become the property names on the returned client. Pick names that read naturally in your call sites; the rest of the SDK is fully typed against them. Connections are routed through the Host at runtime, so there is no endpoint field to set.
 
 !!! tip "Using a different chain"
     To connect to a chain other than `paseo_bulletin`, find its descriptor in `@parity/product-sdk-descriptors`, then add it under a new key in `chains`. The client surface (`client.<yourKey>.query.*`) is automatically typed to match the descriptor you supplied.

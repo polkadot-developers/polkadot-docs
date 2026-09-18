@@ -22,13 +22,12 @@ RPC nodes serving production traffic require robust hardware:
 - **Memory**: 64 GB RAM minimum; 128 GB recommended for high traffic
 - **Storage**: Storage requirements vary by parachain. Fast NVMe I/O is critical for RPC query performance
     - **System parachains**: [Snapshots](https://snapshots.polkadot.io/){target=\_blank} _may_ be available
-        - **Archive node (complete history)**: Using snapshots, expected storage requirements (including ~822 GB for the pruned relay chain) are:
-            - **Asset Hub**: ~1.2 TB
-            - **Bridge Hub**: ~1.1 TB
-            - **Collectives**: ~1 TB
-            - **People Chain**: ~900 GB
-            - **Coretime**: ~900 GB
-        - **Pruned node (recent state)**: ~200 GB total for both parachain and relay chain 
+        - **Archive node (complete history)**: Using snapshots, expected storage requirements (including ~1.2 TB for the pruned relay chain) are:
+            - **Asset Hub**: ~2.4 TB
+            - **People Chain**: ~1.6 GB
+            - **Bridge Hub**: ~1.6 TB
+            - **Coretime**: ~1.4 GB
+            - **Pruned node (recent state)**: ~200 GB total for both parachain and relay chain 
     - **Non-system parachains**: Consult the parachain team or documentation, then add ~822 GB for the pruned relay chain
 - **Network**:
     - Public IP address
@@ -56,21 +55,7 @@ Required software:
 
 To run an RPC node for a parachain, you need its chain specification file. This JSON file defines the network parameters, genesis state, and bootnodes. The process for obtaining the chain spec may differ depending on whether you’re running a system parachain or a regular parachain.
 
-### System Parachains
-
-System parachain chain specs are available from multiple sources:
-
-- **[Chainspec Collection](https://paritytech.github.io/chainspecs/)**: (Recommended) Choose a file to download from the **List of Chainspecs** section.
-- **[Polkadot SDK repository](https://github.com/paritytech/polkadot-sdk){target=\_blank}**: Download directly from the Polkadot SDK repository:
-
-    ```bash
-    # Example for People Chain
-    curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/master/cumulus/parachains/chain-specs/people-polkadot.json -o chain-spec.json
-    ```
-
-### Other Parachains
-
-For non-system parachains, check the parachain's documentation for official chain specification files.
+--8<-- 'text/node-infrastructure/chain-spec.md'
 
 ## Spin Up a Node
 
@@ -79,14 +64,15 @@ Choose the deployment option that fits your project, and follow the steps in the
 - **Docker**: Best for simpler set up and maintenance
 - **systemd**: Best for production environments requiring more control
 
-This guide uses **People Chain** as an example. To set up a different parachain, replace the chain spec file, snapshot path, and chain name with the corresponding values for your target parachain.
+This guide uses **Polkadot Asset Hub** as an example. To set up a different parachain, replace the chain spec file, snapshot path, and chain name with the corresponding values for your target parachain.
 
 System parachain details:
 
 | System Parachain   | Para ID | Chain Spec File            | Snapshot Path                          |
 |--------------------|---------|----------------------------|----------------------------------------|
-| **Bridge Hub**     | 1002    | `bridge-hub-polkadot.json` | `polkadot-bridge-hub-paritydb-archive` |
+| **Asset Hub**      | 1000    | `asset-hub-polkadot.json`  | `polkadot-asset-hub-rocksdb-archive`   |
 | **People Chain**   | 1004    | `people-polkadot.json`     | `polkadot-people-rocksdb-archive`      |
+| **Bridge Hub**     | 1002    | `bridge-hub-polkadot.json` | `polkadot-bridge-hub-paritydb-archive` |
 | **Coretime Chain** | 1005    | `coretime-polkadot.json`   | `polkadot-coretime-rocksdb-archive`    |
 
 === "Docker"
@@ -101,7 +87,7 @@ System parachain details:
         1. Create new directories:
 
             ```bash
-            mkdir -p my-node-data/chains/people-polkadot/db
+            mkdir -p my-node-data/chains/asset-hub-polkadot/db
             mkdir -p my-node-data/chains/polkadot/db
             ```
 
@@ -109,7 +95,7 @@ System parachain details:
 
             ```bash
             # Check https://snapshots.polkadot.io/ for the latest snapshot URL
-            export SNAPSHOT_URL_PARACHAIN="https://snapshots.polkadot.io/polkadot-people-rocksdb-archive/INSERT_LATEST"
+            export SNAPSHOT_URL_PARACHAIN="https://snapshots.polkadot.io/polkadot-asset-hub-rocksdb-archive/INSERT_LATEST"
 
             rclone copyurl $SNAPSHOT_URL_PARACHAIN/files.txt files.txt
             rclone copy --progress --transfers 20 \
@@ -117,7 +103,7 @@ System parachain details:
               --no-traverse --http-no-head --disable-http2 \
               --inplace --no-gzip-encoding --size-only \
               --retries 6 --retries-sleep 10s \
-              --files-from files.txt :http: my-node-data/chains/people-polkadot/db/
+              --files-from files.txt :http: my-node-data/chains/asset-hub-polkadot/db/
 
             rm files.txt
             ```
@@ -151,18 +137,18 @@ System parachain details:
         === "Archive"
 
             ```bash
-            docker run -d --name people-chain-rpc --restart unless-stopped \
+            docker run -d --name polkadot-hub-rpc --restart unless-stopped \
               -p 9944:9944 \
               -p 9933:9933 \
               -p 9615:9615 \
               -p 30334:30334 \
               -p 30333:30333 \
-              -v $(pwd)/people-polkadot.json:/people-polkadot.json \
+              -v $(pwd)/asset-hub-polkadot.json:/asset-hub-polkadot.json \
               -v $(pwd)/my-node-data:/data \
               parity/polkadot-parachain:{{dependencies.repositories.polkadot_sdk.docker_image_version}} \
-              --name=PeopleChainRPC \
+              --name=PolkadotHubRPC \
               --base-path=/data \
-              --chain=/people-polkadot.json \
+              --chain=/asset-hub-polkadot.json \
               --prometheus-external \
               --prometheus-port 9615 \
               --unsafe-rpc-external \
@@ -183,18 +169,18 @@ System parachain details:
         === "Pruned"
 
             ```bash
-            docker run -d --name people-chain-rpc --restart unless-stopped \
+            docker run -d --name polkadot-hub-rpc --restart unless-stopped \
               -p 9944:9944 \
               -p 9933:9933 \
               -p 9615:9615 \
               -p 30334:30334 \
               -p 30333:30333 \
-              -v $(pwd)/people-polkadot.json:/people-polkadot.json \
+              -v $(pwd)/asset-hub-polkadot.json:/asset-hub-polkadot.json \
               -v $(pwd)/my-node-data:/data \
               parity/polkadot-parachain:{{dependencies.repositories.polkadot_sdk.docker_image_version}} \
-              --name=PeopleChainRPC \
+              --name=PolkadotHubRPC \
               --base-path=/data \
-              --chain=/people-polkadot.json \
+              --chain=/asset-hub-polkadot.json \
               --prometheus-external \
               --prometheus-port 9615 \
               --unsafe-rpc-external \
@@ -242,19 +228,19 @@ System parachain details:
         sudo useradd -r -s /bin/bash polkadot
         
         # Create data directory
-        sudo mkdir -p /var/lib/people-chain-rpc
+        sudo mkdir -p /var/lib/polkadot-hub-rpc
 
         # Copy the chain spec to the directory
-        sudo cp people-polkadot.json /var/lib/people-chain-rpc/
+        sudo cp asset-hub-polkadot.json /var/lib/polkadot-hub-rpc/
 
         # Set permissions
-        sudo chown -R polkadot:polkadot /var/lib/people-chain-rpc
+        sudo chown -R polkadot:polkadot /var/lib/polkadot-hub-rpc
         ```
 
     4. Create a systemd service file for the Polkadot SDK RPC node:
 
         ```bash
-        sudo nano /etc/systemd/system/people-chain-rpc.service
+        sudo nano /etc/systemd/system/polkadot-hub-rpc.service
         ```
 
     5. Open the new service file and add the configuration for either an archive (complete history) or pruned (recent state) node:
@@ -263,19 +249,19 @@ System parachain details:
 
             ```ini
             [Unit]
-            Description=People Chain RPC Node
+            Description=Polkadot Hub RPC Node
             After=network.target
 
             [Service]
             Type=simple
             User=polkadot
             Group=polkadot
-            WorkingDirectory=/var/lib/people-chain-rpc
+            WorkingDirectory=/var/lib/polkadot-hub-rpc
 
             ExecStart=/usr/local/bin/polkadot-parachain \
-              --name=PeopleChainRPC \
-              --chain=/var/lib/people-chain-rpc/people-polkadot.json \
-              --base-path=/var/lib/people-chain-rpc \
+              --name=PolkadotHubRPC \
+              --chain=/var/lib/polkadot-hub-rpc/asset-hub-polkadot.json \
+              --base-path=/var/lib/polkadot-hub-rpc \
               --port=30333 \
               --rpc-port=9944 \
               --rpc-external \
@@ -288,7 +274,7 @@ System parachain details:
               --blocks-pruning=archive \
               -- \
               --chain=polkadot \
-              --base-path=/var/lib/people-chain-rpc \
+              --base-path=/var/lib/polkadot-hub-rpc \
               --port=30334 \
               --state-pruning=256 \
               --blocks-pruning=256 \
@@ -306,19 +292,19 @@ System parachain details:
 
             ```ini
             [Unit]
-            Description=People Chain RPC Node
+            Description=Polkadot Hub RPC Node
             After=network.target
 
             [Service]
             Type=simple
             User=polkadot
             Group=polkadot
-            WorkingDirectory=/var/lib/people-chain-rpc
+            WorkingDirectory=/var/lib/polkadot-hub-rpc
 
             ExecStart=/usr/local/bin/polkadot-parachain \
-              --name=PeopleChainRPC \
-              --chain=/var/lib/people-chain-rpc/people-polkadot.json \
-              --base-path=/var/lib/people-chain-rpc \
+              --name=PolkadotHubRPC \
+              --chain=/var/lib/polkadot-hub-rpc/asset-hub-polkadot.json \
+              --base-path=/var/lib/polkadot-hub-rpc \
               --port=30333 \
               --rpc-port=9944 \
               --rpc-external \
@@ -331,7 +317,7 @@ System parachain details:
               --blocks-pruning=256 \
               -- \
               --chain=polkadot \
-              --base-path=/var/lib/people-chain-rpc \
+              --base-path=/var/lib/polkadot-hub-rpc \
               --port=30334 \
               --state-pruning=256 \
               --blocks-pruning=256 \
@@ -354,10 +340,10 @@ System parachain details:
         sudo systemctl daemon-reload
 
         # Enable service to start on boot
-        sudo systemctl enable people-chain-rpc
+        sudo systemctl enable polkadot-hub-rpc
         
         # Start the Polkadot SDK node:
-        sudo systemctl start people-chain-rpc
+        sudo systemctl start polkadot-hub-rpc
         ```
 
 ### Port Mappings
@@ -372,8 +358,8 @@ System parachain details:
 - **`--unsafe-rpc-external`**: Enables external RPC access. **This command should only be used in development or properly secured environments**. For production, use a reverse proxy with authentication.
 - **`--rpc-cors=all`**: Allows all origins for CORS.
 - **`--rpc-methods=safe`**: Only allows safe RPC methods.
-- **`--state-pruning`**: Archive keeps complete state history, pruned keeps last specified number of blocks.
-- **`--blocks-pruning`**: Archive keeps all blocks, pruned keeps last specified number of finalized blocks.
+- **`--state-pruning`**: `archive` keeps complete state history, `[NUMBER]` keeps last specified number of blocks.
+- **`--blocks-pruning`**: `archive` keeps complete state history, `[NUMBER]` keeps last specified number of finalized blocks.
 - **`--prometheus-external`**: Exposes metrics externally.
 
 ## Monitor Node Synchronization
@@ -422,25 +408,25 @@ Use the following commands to manage your node:
     - **View node logs**:
 
         ```bash
-        docker logs -f people-chain-rpc
+        docker logs -f polkadot-hub-rpc
         ```
 
     - **Stop container**:
 
         ```bash
-        docker stop people-chain-rpc
+        docker stop polkadot-hub-rpc
         ```
 
     - **Start container**:
 
         ```bash
-        docker start people-chain-rpc
+        docker start polkadot-hub-rpc
         ```
 
     - **Remove container**:
 
         ```bash
-        docker rm people-chain-rpc
+        docker rm polkadot-hub-rpc
         ```
 
 === "systemd"
@@ -448,31 +434,31 @@ Use the following commands to manage your node:
     - **Check status**:
 
         ```bash
-        sudo systemctl status people-chain-rpc
+        sudo systemctl status polkadot-hub-rpc
         ```
 
     - **View node logs**:
 
         ```bash
-        sudo journalctl -u people-chain-rpc -f
+        sudo journalctl -u polkadot-hub-rpc -f
         ```
 
     - **Stop service**:
 
         ```bash
-        sudo systemctl stop people-chain-rpc
+        sudo systemctl stop polkadot-hub-rpc
         ```
 
     - **Enable service**:
 
         ```bash
-        sudo systemctl enable people-chain-rpc
+        sudo systemctl enable polkadot-hub-rpc
         ```
 
     - **Start service**:
 
         ```bash
-        sudo systemctl start people-chain-rpc
+        sudo systemctl start polkadot-hub-rpc
         ```
 
 ## Conclusion
@@ -484,4 +470,4 @@ Running a parachain RPC node provides critical infrastructure for accessing Polk
 - Implements comprehensive monitoring, security, and maintenance practices.
 - Can be adapted for any parachain by substituting the appropriate chain specification.
 
-Whether you're running a node for system parachains (People Chain, Bridge Hub, Coretime Chain) or other parachains in the ecosystem, regular maintenance and monitoring will ensure your RPC node continues to provide reliable service. Stay updated with the latest releases and best practices to keep your infrastructure secure and performant.
+Whether you're running a node for system parachains (Asset Hub, People Chain, Bridge Hub, Coretime Chain) or other parachains in the ecosystem, regular maintenance and monitoring will ensure your RPC node continues to provide reliable service. Stay updated with the latest releases and best practices to keep your infrastructure secure and performant.

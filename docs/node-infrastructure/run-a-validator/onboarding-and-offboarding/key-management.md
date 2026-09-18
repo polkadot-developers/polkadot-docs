@@ -21,94 +21,7 @@ Setting up your validator's session keys is essential to associate your node wit
 
 ### Generate Session Keys
 
-=== "Runtime 2.2.0+ (`rotateKeysWithOwner`)"
-
-    Generate session keys by running the following command on your validator node, replacing `INSERT_STASH_ACCOUNT_ID` with your validator's stash account ID:
-
-    ``` bash
-    curl -H "Content-Type: application/json" \
-    -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeysWithOwner", "params":["INSERT_STASH_ACCOUNT_ID"]}' \
-    http://localhost:9944
-    ```
-
-    This command returns a JSON object with two fields in the `result`: `keys` (the hex-encoded session keys) and `proof` (the ownership proof). Save both values for later use.
-
-    ```json
-    {
-      "jsonrpc": "2.0",
-      "result": {
-        "keys": "0xda3861a45e0197f3ca145c2c209f9126e5053fas503e459af4255cf8011d51010",
-        "proof": "0x1a2b3c4d5e6f..."
-      },
-      "id": 1
-    }
-    ```
-
-    !!! note "Subkey is no longer supported for session key generation"
-        Previously, validators could generate session keys externally using `subkey` and manually insert them into the node's keystore. This approach is no longer viable because `set_keys` now requires a cryptographic proof of ownership — each private session key must sign the stash account ID. The only way to obtain this proof is through `author_rotateKeysWithOwner`, which handles key generation, keystore insertion, and proof generation in a single step. Validators who previously relied on `subkey` for session key generation should migrate to using `author_rotateKeysWithOwner` as described above.
-
-    !!! note "No RPC to generate proof for existing keys"
-        There is currently no RPC endpoint to generate an ownership proof for session keys that are already in the node's keystore. To obtain a valid proof, you must rotate to new keys using `author_rotateKeysWithOwner`. Support for generating proofs from existing keys may be added in a future release.
-
-=== "Pre-2.2.0 (Legacy)"
-
-    Polkadot and Kusama are beyond runtime 2.2.0, so this legacy flow is no longer applicable on those networks. Use it only if you are operating on a network still running a pre-2.2.0 runtime. On such a network, there are multiple ways to create the session keys: interacting with the [Polkadot.js Apps UI](https://polkadot.js.org/apps/#/explorer){target=\_blank}, using the curl command, or using [Subkey](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html){target=\_blank}.
-
-    === "Polkadot.js Apps UI"
-
-        1. In Polkadot.js Apps, connect to your local node, navigate to the **Developer** dropdown, and select the **RPC Calls** option.
-
-        2. Construct an `author_rotateKeys` RPC call and execute it:
-
-            1. Select the **author** endpoint.
-            2. Choose the **rotateKeys()** call.
-            3. Click the **Submit RPC Call** button.
-            4. Copy the hex-encoded public key from the response.
-
-            ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/key-management-01.webp)
-
-    === "Curl"
-
-        Generate session keys by running the following command on your validator node:
-
-        ``` bash
-        curl -H "Content-Type: application/json" \
-        -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' \
-        http://localhost:9944
-        ```
-
-        This command will return a JSON object. The `result` key is the hex-encoded public part of the newly created session key. Save this for later use.
-
-        ```json
-        {"jsonrpc":"2.0","result":"0xda3861a45e0197f3ca145c2c209f9126e5053fas503e459af4255cf8011d51010","id":1}
-        ```
-
-    === "Subkey"
-
-        To create a keypair for your node's session keys, use the `subkey generate` command. This generates a set of cryptographic keys that must be stored in your node's keystore directory.
-
-        When you run the command, it produces output similar to this example:
-
-        --8<-- 'code/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/subkey-generate.html'
-
-        To properly store these keys, create a file in your keystore directory with a specific naming convention. The filename must consist of the hex string `61757261` (which represents "aura" in hex) followed by the public key without its `0x` prefix.
-
-        Using the example above, you would create a file named:
-
-        ```
-        ./keystores/6175726128cc2fdb6e28835e2bbac9a16feb65c23d448c9314ef12fe083b61bab8fc2755
-        ```
-
-        And store only the secret phrase in the file:
-
-        ```
-        "twist buffalo mixture excess device drastic vague mammal fitness punch match hammer"
-        ```
-
-    When submitting `setKeys`, use `0x00` as the proof parameter.
-
-!!! warning "Save your session key output immediately"
-    Calling `author_rotateKeys` or `author_rotateKeysWithOwner` generates **new keys every time** — it does not return previously generated keys. If you lose the output, there is no way to retrieve it. You will need to call the RPC again, which generates a fresh set of keys, and then re-submit `setKeys` with the new result.
+--8<-- 'text/node-infrastructure/generate-session-keys.md'
 
 ### Submit Transaction to Set Keys
 
@@ -184,7 +97,7 @@ For example, you can [check session keys on the Polkadot.js Apps](https://polkad
 
 ## Set the Node Key
 
-Validators on Polkadot need a static network key (also known as the node key) to maintain a stable node identity. This key ensures that your validator can maintain a consistent peer ID, even across restarts, which is crucial for maintaining reliable network connections.
+--8<-- 'text/node-infrastructure/generate-node-key.md:introduction'
 
 Starting with Polkadot version 1.11, validators without a stable network key may encounter the following error on startup:
 
@@ -192,32 +105,14 @@ Starting with Polkadot version 1.11, validators without a stable network key may
 
 ### Generate the Node Key
 
-Use one of the following methods to generate your node key:
-
-=== "Save to file"
-
-    The recommended solution is to generate a node key and save it to a file using the following command:
-
-    ``` bash
-    polkadot key generate-node-key --file INSERT_PATH_TO_NODE_KEY
-    ```
-    
-=== "Use default path"
-
-    You can also generate the node key with the following command, which will automatically save the key to the base path of your node:
-
-    ``` bash
-    polkadot key generate-node-key --default-base-path
-    ```
-
-Save the file path for reference. You will need it in the next step to configure your node with a static identity.
+--8<-- 'text/node-infrastructure/generate-node-key.md:commands'
 
 ### Set Node Key
 
 After generating the node key, configure your node to use it by specifying the path to the key file when launching your node. Add the following flag to your validator node's startup command:
 
 ``` bash
-polkadot --node-key-file INSERT_PATH_TO_NODE_KEY
+polkadot --node-key-file node.key
 ```
 
 Following these steps ensures that your node retains its identity, making it discoverable by peers without the risk of conflicting identities across sessions. For further technical background, see Polkadot SDK [Pull Request #3852](https://github.com/paritytech/polkadot-sdk/pull/3852){target=\_blank} for the rationale behind requiring static keys.

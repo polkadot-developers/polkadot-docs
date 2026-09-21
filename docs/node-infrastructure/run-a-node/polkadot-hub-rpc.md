@@ -8,7 +8,7 @@ categories: Infrastructure
 
 [Polkadot Hub](/reference/polkadot-hub/){target=\_blank} is the gateway to the Polkadot network, providing access to core services such as asset management, governance, and cross-chain messaging. Running your own RPC node gives developers and applications direct access to these services while also supporting infrastructure tasks like block indexing and SDK tool compatibility.
 
-Follow the [Parachain RPC Node](/parachain-rpc) guide in order to spin up a Polkadot Hub RPC node.
+Follow the [Parachain RPC Node](./parachain-rpc.md) guide in order to spin up a Polkadot Hub RPC node.
 
 ## Ethereum RPC Compatibility
 

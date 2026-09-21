@@ -299,6 +299,9 @@ Your collator must sync both the relay chain and parachain before producing bloc
 - Disk I/O speed
 - Current chain size
 
+!!! note
+    If you also operate relay chain nodes, such as validator or RPC nodes, you can point the collator to their RPC endpoints using the **`--relay-chain-rpc-urls`** argument. This allows the collator to retrieve relay chain data from these nodes, reducing the resources required to sync and maintain the embedded relay chain node.
+
 !!! warning
 
     Do not proceed with registration until both chains are fully synced. Monitor sync progress using the log viewing commands in the [Log Management](#commands-for-log-management) section.

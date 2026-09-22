@@ -55,12 +55,14 @@ The SDK provides two connection paths. The Preset path (`getChainAPI`) is the fa
 
 ### Connect Using a Preset
 
-`getChainAPI(env)` returns a client preconfigured with the descriptors for the requested environment.
+`getChainAPI()` returns a client preconfigured with the descriptors for the environment the Host is on. Host discovery runs first on every call: the SDK reads the Host's chains and matches the asset hub's genesis hash against its bundled descriptors, so the no-argument call is the one that lets the Host select the network.
 
 ```typescript
 import { getChainAPI } from '@parity/product-sdk-chain-client';
 
-const client = await getChainAPI('paseo');
+// No argument: the Host selects the network, matched by genesis hash.
+// Pass one — getChainAPI('paseo') — to fail loudly if the Host is elsewhere.
+const client = await getChainAPI();
 
 const fee = await client.bulletin.query.TransactionStorage.ByteFee.getValue();
 const blockNumber = await client.assetHub.query.System.Number.getValue();
@@ -68,10 +70,12 @@ const blockNumber = await client.assetHub.query.System.Number.getValue();
 client.destroy();
 ```
 
+The argument is optional, and it acts as an assertion rather than a request. When the Host reports an environment that disagrees with the one you named, the call throws `EnvironmentMismatchError` instead of connecting to the environment you asked for. Pass one to pin your Product to a single environment, or when the Host reports no usable network and discovery has nothing to match against.
+
 The returned client exposes one property per chain in the preset (`assetHub`, `bulletin`, `individuality`), each typed by the underlying [polkadot-api](https://papi.how) (PAPI) descriptor.
 
 !!! warning "Not every environment is live"
-    `getChainAPI` accepts the `Environment` values `polkadot`, `kusama`, `paseo`, `devnet`, `local`, and `westend`. Only `paseo` and `devnet` are wired up at the moment; calling an environment that is not yet live throws at runtime.
+    The `Environment` union is `polkadot`, `kusama`, `paseo`, `previewnet`, and `devnet`. Anything else is a compile error. Of those five, `paseo`, `previewnet`, and `devnet` have all three chains live; `polkadot` and `kusama` are reserved, and `getChainAPI` throws `Chain API for "<env>" is not yet available` for both.
 
 ### Connect Using Custom Descriptors (BYOD)
 
@@ -203,7 +207,7 @@ Use `client.destroy()` for normal cleanup and reserve `destroyAll()` for full-pr
 
 ## Limitations
 
-- The `paseo` and `devnet` environments are the only presets wired up today. Other `Environment` values throw at runtime.
+- The `paseo`, `previewnet`, and `devnet` environments are the presets with all three chains live. `polkadot` and `kusama` are reserved and throw at runtime.
 - The package is ESM only; your Product's build pipeline must support ESM imports.
 - Descriptors are imported by subpath (`@parity/product-sdk-descriptors/paseo-bulletin`), not from the package root. Bundlers that do not honor `exports` subpaths will fail to resolve them.
 - Host-routed reads require a host container; there is no direct-WebSocket fallback, so outside a Host the client [throws](/apps/troubleshooting/#connecting-to-a-chain-throws-outside-a-host). For out-of-Host development, use the SDK's testing fakes.

@@ -12,7 +12,7 @@ The Statement Store is Polkadot's publish/subscribe layer for short-lived, signe
 
 The split is the point: pallet rules on chain, payloads in gossip. The chain enforces who can publish and how much; the gossip layer carries the data. That is what makes the Statement Store the right tool for _real-time signaling between users_ (chat messages, presence, multiplayer cursors, typing indicators, "now playing" status), and for anything else that has to propagate fast and does not need to be permanent.
 
-For when to reach for this versus the [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/) or local storage, see the [Storage options for your Product](/apps/build/pub-sub-off-chain-data/) callout.
+For when to reach for this versus the [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/) or local storage, see [Where to Store Data](/apps/concepts/data-placement/).
 
 ## How a Statement Reaches Subscribers
 

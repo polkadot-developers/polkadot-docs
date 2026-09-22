@@ -39,7 +39,7 @@ You have two installation options depending on your needs:
     npm install @parity/product-sdk-chain-client
     ```
 
-All import paths shown in this guide work with both options.
+The import specifiers differ between the two. The snippets in this guide use the standalone specifier `@parity/product-sdk-chain-client`; on the umbrella, the same exports come from the `@parity/product-sdk/chain` subpath, which keeps the older name. `createChainClient` is also re-exported from the umbrella root, but `getChainAPI` and `destroyAll` are not.
 
 If you plan to use the BYOD path, also install the descriptors package regardless of which option above you chose:
 
@@ -51,16 +51,18 @@ The descriptors package exposes typed `ChainDefinition` objects through subpath 
 
 ## Connect to a Chain
 
-The SDK provides two connection paths. The Preset path (`getChainAPI`) is the fastest way to get a working client — it comes preconfigured with descriptors and RPC endpoints for supported environments. Use the BYOD path (`createChainClient`) when you need explicit control over which chains and descriptors your Product uses.
+The SDK provides two connection paths. The Preset path (`getChainAPI`) is the fastest way to get a working client — it comes preconfigured with the descriptors for supported environments. Use the BYOD path (`createChainClient`) when you need explicit control over which chains and descriptors your Product uses. Neither path takes RPC endpoints: the Host resolves the connection from each descriptor's genesis hash.
 
 ### Connect Using a Preset
 
-`getChainAPI(env)` returns a client preconfigured with the descriptors and RPC endpoints for the requested environment.
+`getChainAPI()` returns a client preconfigured with the descriptors for the environment the Host is on. Host discovery runs first on every call: the SDK reads the Host's chains and matches the asset hub's genesis hash against its bundled descriptors, so the no-argument call is the one that lets the Host select the network.
 
 ```typescript
 import { getChainAPI } from '@parity/product-sdk-chain-client';
 
-const client = await getChainAPI('paseo');
+// No argument: the Host selects the network, matched by genesis hash.
+// Pass one — getChainAPI('paseo') — to fail loudly if the Host is elsewhere.
+const client = await getChainAPI();
 
 const fee = await client.bulletin.query.TransactionStorage.ByteFee.getValue();
 const blockNumber = await client.assetHub.query.System.Number.getValue();
@@ -68,14 +70,16 @@ const blockNumber = await client.assetHub.query.System.Number.getValue();
 client.destroy();
 ```
 
+The argument is optional, and it acts as an assertion rather than a request. When the Host reports an environment that disagrees with the one you named, the call throws `EnvironmentMismatchError` instead of connecting to the environment you asked for. Pass one to pin your Product to a single environment, or when the Host reports no usable network and discovery has nothing to match against.
+
 The returned client exposes one property per chain in the preset (`assetHub`, `bulletin`, `individuality`), each typed by the underlying [polkadot-api](https://papi.how) (PAPI) descriptor.
 
 !!! warning "Not every environment is live"
-    `getChainAPI` accepts the `Environment` values `polkadot`, `kusama`, `paseo`, `devnet`, `local`, and `westend`. Only `paseo` and `devnet` are wired up at the moment; calling an environment that is not yet live throws at runtime.
+    The `Environment` union is `polkadot`, `kusama`, `paseo`, `previewnet`, and `devnet`. Anything else is a compile error. Of those five, `paseo`, `previewnet`, and `devnet` have all three chains live; `polkadot` and `kusama` are reserved, and `getChainAPI` throws `Chain API for "<env>" is not yet available` for both.
 
 ### Connect Using Custom Descriptors (BYOD)
 
-Use `createChainClient` to supply your own descriptors and RPC endpoints, importing the chain descriptor objects you need directly instead of relying on a preset.
+Use `createChainClient` to supply your own descriptors, importing the chain descriptor objects you need directly instead of relying on a preset. `ChainClientConfig` accepts a single field, `chains`.
 
 ```typescript
 import { createChainClient } from '@parity/product-sdk-chain-client';
@@ -96,7 +100,7 @@ const client = await createChainClient({
 client.destroy();
 ```
 
-The keys you choose in `chains` (`assetHub`, `bulletin`) become the property names on the returned client. Pick names that read naturally in your call sites; the rest of the SDK is fully typed against them. Connections are routed through the host at runtime, so you don't supply RPC endpoints yourself.
+The keys you choose in `chains` (`assetHub`, `bulletin`) become the property names on the returned client. Pick names that read naturally in your call sites; the rest of the SDK is fully typed against them. Connections are routed through the Host at runtime, so there is no endpoint field to set.
 
 !!! tip "Using a different chain"
     To connect to a chain other than `paseo_bulletin`, find its descriptor in `@parity/product-sdk-descriptors`, then add it under a new key in `chains`. The client surface (`client.<yourKey>.query.*`) is automatically typed to match the descriptor you supplied.
@@ -203,7 +207,7 @@ Use `client.destroy()` for normal cleanup and reserve `destroyAll()` for full-pr
 
 ## Limitations
 
-- The `paseo` and `devnet` environments are the only presets wired up today. Other `Environment` values throw at runtime.
+- The `paseo`, `previewnet`, and `devnet` environments are the presets with all three chains live. `polkadot` and `kusama` are reserved and throw at runtime.
 - The package is ESM only; your Product's build pipeline must support ESM imports.
 - Descriptors are imported by subpath (`@parity/product-sdk-descriptors/paseo-bulletin`), not from the package root. Bundlers that do not honor `exports` subpaths will fail to resolve them.
 - Host-routed reads require a host container; there is no direct-WebSocket fallback, so outside a Host the client [throws](/apps/troubleshooting/#connecting-to-a-chain-throws-outside-a-host). For out-of-Host development, use the SDK's testing fakes.

@@ -17,7 +17,7 @@ A Polkadot Product is a sandboxed application you build that runs inside one of 
 
 ## Architecture
 
-Your Product sits at the top of a layered stack. You write the Product itself; everything below — the [Product SDK](/reference/glossary/#polkadot-sdk) that exposes typed methods, the Polkadot Apps that load and sandbox your Product, and the underlying chains, decentralized storage, and name service — is provided by the platform. The [Host](/reference/glossary/#host) (whichever Polkadot App is loading your Product) mediates every interaction through [TrUAPI](/reference/apps/protocol/truapi/) and prompts the user for anything sensitive.
+Your Product sits at the top of a layered stack. You write the Product itself; everything below — the [Product SDK](/apps/product-sdk/) that exposes typed methods, the Polkadot Apps that load and sandbox your Product, and the underlying chains, decentralized storage, and name service — is provided by the platform. The [Host](/reference/glossary/#host) (whichever Polkadot App is loading your Product) mediates every interaction through [TrUAPI](/reference/apps/protocol/truapi/) and prompts the user for anything sensitive.
 
 ![Polkadot Apps architecture: your Polkadot Product uses the Product SDK to talk to a Polkadot App (App, Desktop, or Web), which accesses Polkadot infrastructure](/images/reference/apps/index/polkadot-environment.svg)
 ## Hosts

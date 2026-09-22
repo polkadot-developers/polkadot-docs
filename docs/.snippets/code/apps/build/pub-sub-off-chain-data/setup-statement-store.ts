@@ -1,7 +1,9 @@
 import { createApp } from '@parity/product-sdk';
 import { StatementStoreClient } from '@parity/product-sdk-statement-store';
 
-const app = await createApp({ name: 'my-product' });
+// `name` is your dotNS identifier: the Host derives the product account from
+// it. An unregistered name leaves `accounts` empty rather than raising an error.
+const app = await createApp({ name: 'my-product.dot' });
 const { accounts } = await app.wallet.connect();
 if (accounts.length === 0) {
   throw new Error(
@@ -9,6 +11,7 @@ if (accounts.length === 0) {
   );
 }
 
+// `appName` is the gossip topic this client subscribes to, not a dotNS name.
 export const client = new StatementStoreClient({ appName: 'my-product' });
 await client.connect({
   mode: 'host',

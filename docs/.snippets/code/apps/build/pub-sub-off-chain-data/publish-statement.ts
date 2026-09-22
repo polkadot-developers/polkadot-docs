@@ -8,6 +8,8 @@ interface ChatMessage {
   ts: number;
 }
 
+// `publish` resolves with a `Result`. A `Result` is always truthy, so check
+// `.ok` rather than the returned object itself.
 const accepted = await client.publish<ChatMessage>(
   {
     text: 'Hello, room!',
@@ -20,8 +22,8 @@ const accepted = await client.publish<ChatMessage>(
   },
 );
 
-if (accepted) {
+if (accepted.ok) {
   console.log('Statement accepted into the gossip layer');
 } else {
-  console.warn('Statement rejected by the network');
+  console.warn(`Statement rejected: ${accepted.error.message}`);
 }

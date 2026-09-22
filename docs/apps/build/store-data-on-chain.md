@@ -46,6 +46,9 @@ Create the SDK app and connect the wallet:
 
 `createApp({ name })` returns an `App` with `app.wallet`, `app.localStorage`, `app.chain`, and `app.cloudStorage`, the high-level Bulletin Chain API exposing `upload()`, `fetch()`, and `computeCid()`. The exported `app` is reused across the simple sections that follow.
 
+!!! warning "`name` is also your dotNS identifier"
+    `createApp` passes `name` through as the signer's `dappName`, and the Host treats that as the product identifier it derives the user's account from, appending `.dot` to a bare label. If the name is not a registered `.dot` name, the Host rejects the derivation and `wallet.connect()` resolves with _zero accounts_ rather than failing, so the only symptom is an empty list. Every upload on this page needs a selected account, so guard the list before going further. See [Product SDK](/apps/product-sdk/) for the full `createApp` contract.
+
 ## Store a Hello World
 
 The simplest write: a short string, one line.
@@ -109,7 +112,7 @@ The Bulletin Chain has no token balance for storage; every account needs an expl
 --8<-- "code/apps/build/store-data-on-chain/check-authorization.ts"
 ```
 
-The returned `AuthorizationStatus`:
+`checkAuthorization` resolves with a `Result`, not with the status directly. Check `auth.ok` first; the status is on `auth.value`, and reading the fields off the wrapper yields `undefined` and silently takes the failure branch. On success, `auth.value` carries an `AuthorizationStatus`:
 
 - **`authorized`**: `true` when an authorization record exists for the account.
 - **`remainingTransactions`**: Number of `store` calls remaining in the quota.

@@ -42,7 +42,7 @@ You have two installation options depending on your needs:
     npm install @parity/product-sdk-signer
     ```
 
-All import paths shown in this guide work with both options.
+The import specifiers differ between the two. The snippets in this guide use the standalone specifier `@parity/product-sdk-signer`; on the umbrella, the same exports come from the `@parity/product-sdk/wallet` subpath, which keeps the older name. `SignerManager` is also re-exported from the umbrella root.
 
 ## How Product Accounts Work
 

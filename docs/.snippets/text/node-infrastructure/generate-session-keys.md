@@ -1,7 +1,7 @@
 !!! warning "Breaking change introduced in runtime 2.2.0"
-Runtime 2.2.0 introduced a new session key generation flow using the `author_rotateKeysWithOwner` RPC, which requires your stash account as a parameter and returns both the session keys and a cryptographic proof of ownership. This proof must be included later when submitting `setKeys`. The previous `author_rotateKeys` RPC and the Subkey approach are no longer supported for new key generation. If your node already has session keys set on-chain and you are not rotating them, no action is required.
+    Runtime 2.2.0 introduced a new session key generation flow using the `author_rotateKeysWithOwner` RPC, which requires your stash account as a parameter and returns both the session keys and a cryptographic proof of ownership. This proof must be included later when submitting `setKeys`. The previous `author_rotateKeys` RPC and the Subkey approach are no longer supported for new key generation. If your node already has session keys set on-chain and you are not rotating them, no action is required.
 
-Polkadot and Kusama are beyond runtime 2.2.0, so the new flow is the only supported path on both networks. The **Pre-2.2.0 (Legacy)** tab below is kept for reference and applies only to chains still running a pre-2.2.0 runtime.
+    Polkadot and Kusama are beyond runtime 2.2.0, so the new flow is the only supported path on both networks. The **Pre-2.2.0 (Legacy)** tab below is kept for reference and applies only to chains still running a pre-2.2.0 runtime.
 
 === "Runtime 2.2.0+ (`rotateKeysWithOwner`)"
 
@@ -27,7 +27,7 @@ Polkadot and Kusama are beyond runtime 2.2.0, so the new flow is the only suppor
     ```
 
     !!! note "Subkey is no longer supported for session key generation"
-        Previously, nodes could generate session keys externally using `subkey` and manually insert them into the node's keystore. This approach is no longer viable because `set_keys` now requires a cryptographic proof of ownership — each private session key must sign the stash account ID. The only way to obtain this proof is through `author_rotateKeysWithOwner`, which handles key generation, keystore insertion, and proof generation in a single step. Nodes who previously relied on `subkey` for session key generation should migrate to using `author_rotateKeysWithOwner` as described above.
+        Previously, nodes could generate session keys externally using `subkey` and manually insert them into the node's keystore. This approach is no longer viable because `set_keys` now requires a cryptographic proof of ownership — each private session key must sign the stash account ID. The only way to obtain this proof is through `author_rotateKeysWithOwner`, which handles key generation, keystore insertion, and proof generation in a single step. Operators who previously relied on `subkey` for session key generation should migrate to using `author_rotateKeysWithOwner` as described above.
 
 === "Pre-2.2.0 (Legacy)"
 
@@ -87,5 +87,5 @@ Polkadot and Kusama are beyond runtime 2.2.0, so the new flow is the only suppor
     When submitting `setKeys`, use `0x00` as the proof parameter.
 
 !!! warning "Save your session key output immediately"
-You must save these session keys as you'll need them for on-chain registration. 
-Calling `author_rotateKeys` or `author_rotateKeysWithOwner` generates **new keys every time** — it does not return previously generated keys. If you lose the output, there is no way to retrieve it. You will need to call the RPC again, which generates a fresh set of keys, and then re-submit `setKeys` with the new result.
+    You must save these session keys as you'll need them for on-chain registration.
+    Calling `author_rotateKeys` or `author_rotateKeysWithOwner` generates **new keys every time** — it does not return previously generated keys. If you lose the output, there is no way to retrieve it. You will need to call the RPC again, which generates a fresh set of keys, and then re-submit `setKeys` with the new result.

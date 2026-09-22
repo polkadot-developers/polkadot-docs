@@ -199,9 +199,10 @@ Using your preferred deployment method, take the following steps to set up and r
         sudo useradd -r -s /bin/bash polkadot
         ```
 
-    2. Copy your chain spec and node key to the directory:
+    2. Create the data directory, then copy your chain spec and node key into it:
 
         ```bash
+        sudo mkdir -p /var/lib/polkadot-collator
         sudo cp chain-spec.json /var/lib/polkadot-collator/
         sudo cp node.key /var/lib/polkadot-collator/
         ```

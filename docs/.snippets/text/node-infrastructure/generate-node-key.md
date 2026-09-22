@@ -1,5 +1,5 @@
 # --8<-- [start:introduction]
-Validators and collators on Polkadot need a static network key (also known as the node key) to maintain a stable node identity. 
+Validators and collators on Polkadot need a static network key (also known as the node key) to maintain a stable node identity.
 This key ensures that your node can maintain a consistent peer ID, even across restarts, which is crucial for maintaining reliable network connections.
 # --8<-- [end:introduction]
 

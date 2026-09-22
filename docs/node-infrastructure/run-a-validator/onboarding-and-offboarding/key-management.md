@@ -14,11 +14,6 @@ After setting up your node environment as shown in the [Setup](/node-infrastruct
 
 Setting up your validator's session keys is essential to associate your node with your stash account on the Polkadot network. Validators use session keys to participate in the consensus process. Your validator can only perform its role in the network by properly setting session keys which consist of several key pairs for different parts of the protocol (e.g., GRANDPA, BABE). These keys must be registered on-chain and associated with your validator node to ensure it can participate in validating blocks.
 
-!!! warning "Breaking change introduced in runtime 2.2.0"
-    Runtime 2.2.0 introduced a new session key generation flow using the `author_rotateKeysWithOwner` RPC, which requires your stash account as a parameter and returns both the session keys and a cryptographic proof of ownership. This proof must be included when submitting `setKeys`. The previous `author_rotateKeys` RPC and the Subkey approach are no longer supported for new key generation. If your validator already has session keys set on-chain and you are not rotating them, no action is required.
-
-    Polkadot and Kusama are beyond runtime 2.2.0, so the new flow is the only supported path on both networks. The **Pre-2.2.0 (Legacy)** tab below is kept for reference and applies only to networks still running a pre-2.2.0 runtime.
-
 ### Generate Session Keys
 
 --8<-- 'text/node-infrastructure/generate-session-keys.md'
@@ -112,7 +107,7 @@ Starting with Polkadot version 1.11, validators without a stable network key may
 After generating the node key, configure your node to use it by specifying the path to the key file when launching your node. Add the following flag to your validator node's startup command:
 
 ``` bash
-polkadot --node-key-file node.key
+polkadot --node-key-file INSERT_PATH_TO_NODE_KEY
 ```
 
 Following these steps ensures that your node retains its identity, making it discoverable by peers without the risk of conflicting identities across sessions. For further technical background, see Polkadot SDK [Pull Request #3852](https://github.com/paritytech/polkadot-sdk/pull/3852){target=\_blank} for the rationale behind requiring static keys.

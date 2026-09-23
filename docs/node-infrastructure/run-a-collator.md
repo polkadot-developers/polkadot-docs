@@ -355,7 +355,7 @@ The registration process varies by system parachain. General steps include the f
     1. Locate **Developer > Extrinsics**.
     2. Select your account.
     3. Choose the **`session.setKeys`** extrinsic.
-    4. Enter the following information ([generated above](#generate-session-keys)):
+    4. Enter the values returned by [Generate Session Keys](#generate-session-keys):
         - **`keys`**
         - **`proof`**
     5. Click **Submit Transaction** and sign the transaction.

@@ -654,6 +654,6 @@ Running a parachain RPC node provides critical infrastructure for accessing Polk
 - Supports flexible deployment with both Docker and systemd options.
 - Implements comprehensive monitoring, security, and maintenance practices.
 - Can be adapted for any parachain by substituting the appropriate chain specification.
-- Optionally enables Ethereum RPC compatibility for seamless integration with EVM tools and wallets
+- Optionally enables Ethereum RPC compatibility for integration with EVM tools and wallets.
 
 Whether you're running a node for system parachains (Asset Hub, People Chain, Bridge Hub, Coretime Chain) or other parachains in the ecosystem, regular maintenance and monitoring will ensure your RPC node continues to provide reliable service. Stay updated with the latest releases and best practices to keep your infrastructure secure and performant.

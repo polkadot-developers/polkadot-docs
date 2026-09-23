@@ -19,7 +19,7 @@ Obtain the chain specification for your target system parachain using one of the
 
     ```bash
     curl -sL -o chain-spec.json \
-      https://raw.githubusercontent.com/paritytech/polkadot-sdk/master/cumulus/parachains/chain-specs/asset-hub-polkadot.json 
+      https://raw.githubusercontent.com/paritytech/polkadot-sdk/master/cumulus/parachains/chain-specs/asset-hub-polkadot.json
     ```
 
 ### Other Parachains

@@ -25,7 +25,7 @@ Follow these steps to generate a node key:
 
 # --8<-- [start:polkadot-parachain]
     === "polkadot-parachain binary"
-    
+
         ```bash
         polkadot-parachain key generate-node-key --file node.key
         ```

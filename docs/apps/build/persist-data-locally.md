@@ -23,15 +23,15 @@ Before getting started, ensure you have:
 
 ## Install the SDK
 
-You have two installation options depending on your needs:
+--8<-- 'text/apps/install-sdk.md'
 
-- **Umbrella package** (recommended starting point): Install the full SDK in one command. Convenient when your Product uses several SDK features (local storage, signing, and cloud storage) and bundle size is not a concern.
+- **Umbrella package**: The whole SDK in one dependency.
 
     ```bash
     npm install @parity/product-sdk
     ```
 
-- **Individual package**: Install only what you use. Keeps your bundle smaller and makes dependencies explicit; switch to this later as a bundle-size optimization.
+- **Individual package**: Only local storage.
 
     ```bash
     npm install @parity/product-sdk-local-storage

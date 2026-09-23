@@ -6,9 +6,9 @@ import { createApp } from '@parity/product-sdk';
 // list instead of failing, so check the list before you rely on it.
 export const app = await createApp();
 
-const { accounts } = await app.wallet.connect();
+export const { accounts } = await app.wallet.connect();
 if (accounts.length === 0) {
   throw new Error(
-    'The Host derived no account for this Product. Check that you are signed in to Polkadot Desktop.',
+    'The Host returned no account for this Product. Check that you are signed in to Polkadot Desktop.',
   );
 }

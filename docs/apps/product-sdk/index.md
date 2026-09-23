@@ -23,7 +23,7 @@ The SDK ships as one umbrella package that re-exports most capabilities, plus in
 
 The import specifiers differ between the two: the umbrella exposes subpaths like `@parity/product-sdk/cloud-storage`, while the standalone package is `@parity/product-sdk-cloud-storage`. Switching styles means updating your imports.
 
-The umbrella's subpaths are a fixed set: `address`, `chain`, `cloud-storage`, `contracts`, `core`, `crypto`, `host`, `identity`, `individuality`, `local-storage`, `react`, `testing`, and `wallet`. Two of those names do not match their leaf package — `@parity/product-sdk/chain` re-exports `chain-client`, and `@parity/product-sdk/wallet` re-exports `signer`, kept under the older name for compatibility.
+The umbrella's subpaths are a fixed set: `address`, `chain`, `cloud-storage`, `contracts`, `core`, `crypto`, `host`, `identity`, `individuality`, `local-storage`, `react`, `renderer`, `testing`, and `wallet`. Two of those names do not match their leaf package — `@parity/product-sdk/chain` re-exports `chain-client`, and `@parity/product-sdk/wallet` re-exports `signer`, kept under the older name for compatibility.
 
 Note what is _not_ there: `tx`, `keys`, `statement-store`, `terminal`, and `auth` have no umbrella subpath and are not re-exported from the root, so install those from their own packages even when you are otherwise on the umbrella. The root entry point does re-export the most common handful directly — `createApp`, `SignerManager`, `createChainClient`, `createLocalKvStore`, `CloudStorageClient`, `isInsideContainer`, and the `Result` trio (`ok`, `err`, `isErrorOf`).
 
@@ -35,24 +35,22 @@ Note what is _not_ there: `tx`, `keys`, `statement-store`, `terminal`, and `auth
 import { createApp } from '@parity/product-sdk';
 
 async function start() {
-  const app = await createApp({
-    name: 'my-product.dot', // also your dotNS identifier — see the warning below
-    logLevel: 'info',
-  });
+  // Throws outside a host container; the Host supplies the Product's identity.
+  const app = await createApp({ logLevel: 'info' });
 
   // wallet.connect() throws rather than returning a Result.
   try {
     const { accounts } = await app.wallet.connect();
     if (accounts.length === 0) {
-      // Connected, but the Host could not derive an account for this name.
+      // Connected, but the Host did not derive an account for this Product.
     } else {
       console.log('Connected accounts:', accounts);
     }
   } catch (cause) {
-    // No Host, or the Host refused the connection.
+    // The Host refused the connection.
   }
 
-  // Per-Product storage, namespaced by `name`. No Result: a miss reads as null.
+  // Per-Product storage, namespaced by the Host's product ID. No Result: a miss reads as null.
   await app.localStorage.set('lastVisit', new Date().toISOString());
   const lastVisit = await app.localStorage.get('lastVisit'); // string | null
   console.log('Last visit:', lastVisit);
@@ -61,8 +59,10 @@ async function start() {
 }
 ```
 
-!!! warning "`name` is also your dotNS identifier"
-    `createApp` passes `name` straight through as the signer's `dappName`, and the Host treats that as the product identifier it derives the user's account from, appending `.dot` to non-local names. If it is not a registered `.dot` name, the Host rejects the derivation and `wallet.connect()` resolves with _zero accounts_ instead of failing — so the only symptom is an empty list, with no error to catch. `name` also namespaces your local storage, so changing it later moves both the derived account and every stored key.
+!!! warning "The Host supplies your Product's identity"
+    Since `@parity/product-sdk` v0.30.0, `createApp` takes no `name`. It reads the product ID the Host loaded your Product under, derives the user's account from that ID, and namespaces local storage under the ID minus its final domain suffix: `my-product.dot` becomes `my-product`, and local development IDs such as `localhost:3000` stay unchanged. A `name` you still pass is ignored and logged as a warning. Releases before v0.30.0 require `name` and use it for both the account and the storage namespace.
+
+    `createApp` throws `HostUnavailableError` outside a host container. Inside one, if the Host declines to derive an account (for example, because the user is signed out), `wallet.connect()` resolves with _zero accounts_ instead of failing, so the only symptom is an empty list.
 
 ### What `createApp` Returns
 

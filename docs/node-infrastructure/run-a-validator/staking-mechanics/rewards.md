@@ -66,6 +66,8 @@ However, despite this increased variance, rewards tend to even out over time due
 
 Validator rewards are distributed equally among all validators in the active set, regardless of the total stake behind each validator. However, individual payouts may differ based on the number of era points a validator has earned. Although factors like network connectivity can affect era points, well-performing validators should accumulate similar totals over time.
 
+A validator that is elected but earns no era points, for example because it is offline and produces no blocks, receives nothing from the era-point reward pool for that era, and neither do its nominators. The validator is still exposed for the era, so a `staking.payoutStakers` call for it succeeds but transfers nothing. `staking.erasRewardPoints(era)` lists only validators that earned points, so check for a non-zero entry there to confirm a validator has rewards worth claiming for an era.
+
 Validators can also receive tips from users, which incentivize them to include certain transactions in their blocks. Validators retain 100% of these tips.
 
 Rewards are paid out in the network's native token (DOT for Polkadot and KSM for Kusama). 

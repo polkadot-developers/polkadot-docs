@@ -100,7 +100,10 @@ Starting with Polkadot version 1.11, validators without a stable network key may
 
 ### Generate the Node Key
 
---8<-- 'text/node-infrastructure/generate-node-key.md:commands'
+--8<-- 'text/node-infrastructure/generate-node-key.md:command'
+    --8<-- 'text/node-infrastructure/generate-node-key.md:polkadot'
+
+--8<-- 'text/node-infrastructure/generate-node-key.md:conclusion'
 
 ### Set Node Key
 

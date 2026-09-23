@@ -1,4 +1,3 @@
 nav:
- - 'Parachain RPC Node': parachain-rpc.md
- - 'Polkadot Hub RPC Node': polkadot-hub-rpc.md
  - 'Relay Chain Nodes': relay-chain
+ - 'Parachain RPC Node': parachain-rpc.md

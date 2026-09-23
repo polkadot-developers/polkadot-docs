@@ -132,7 +132,12 @@ This guide provides two deployment options. Select the option that best fits you
 
 ## Generate Node Key
 
---8<-- 'text/node-infrastructure/generate-node-key.md'
+--8<-- 'text/node-infrastructure/generate-node-key.md:introduction'
+
+--8<-- 'text/node-infrastructure/generate-node-key.md:command'
+    --8<-- 'text/node-infrastructure/generate-node-key.md:polkadot-parachain'
+
+--8<-- 'text/node-infrastructure/generate-node-key.md:conclusion'
 
 ## Obtain Chain Specification
 
@@ -350,9 +355,9 @@ The registration process varies by system parachain. General steps include the f
     1. Locate **Developer > Extrinsics**.
     2. Select your account.
     3. Choose the **`session.setKeys`** extrinsic.
-    4. Enter the following information:
-        - **`keys`**: Your session keys (from `author_rotateKeys`)
-        - **`proof`**: 0x00 (typically)
+    4. Enter the following information ([generated above](#generate-session-keys)):
+        - **`keys`**
+        - **`proof`**
     5. Click **Submit Transaction** and sign the transaction.
     
     ![](/images/node-infrastructure/run-a-collator/run-a-collator-02.webp)

@@ -5,7 +5,7 @@
 
 === "Runtime 2.2.0+ (`rotateKeysWithOwner`)"
 
-    Generate session keys by running the following command on your validator node, replacing `INSERT_STASH_ACCOUNT_ID` with your validator's stash account ID:
+    Generate session keys by running the following command on your node, replacing `INSERT_STASH_ACCOUNT_ID` with your stash account ID:
 
     ``` bash
     curl -H "Content-Type: application/json" \
@@ -48,7 +48,7 @@
 
     === "Curl"
 
-        Generate session keys by running the following command on your validator node:
+        Generate session keys by running the following command on your node:
 
         ``` bash
         curl -H "Content-Type: application/json" \

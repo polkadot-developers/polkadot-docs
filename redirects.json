@@ -506,7 +506,7 @@
     },
     {
       "key": "/infrastructure/running-a-node/",
-      "value": "/node-infrastructure/run-a-node/polkadot-hub-rpc/"
+      "value": "/node-infrastructure/run-a-node/parachain-rpc/"
     },
     {
       "key": "/infrastructure/running-a-node/setup-bootnode/",
@@ -577,6 +577,10 @@
       "value": "/node-infrastructure/run-a-validator/staking-mechanics/rewards/"
     },
     {
+      "key": "/node-infrastructure/run-a-node/polkadot-hub-rpc/",
+      "value": "/node-infrastructure/run-a-node/parachain-rpc/"
+    },
+    {
       "key": "/node-infrastructure/run-a-node/relay-chain/",
       "value": "/node-infrastructure/run-a-node/relay-chain/full-node/"
     },
@@ -598,7 +602,7 @@
     },
     {
       "key": "/nodes-and-validators/run-a-node/",
-      "value": "/node-infrastructure/run-a-node/polkadot-hub-rpc/"
+      "value": "/node-infrastructure/run-a-node/parachain-rpc/"
     },
     {
       "key": "/parachains/",

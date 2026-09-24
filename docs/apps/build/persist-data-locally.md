@@ -23,7 +23,7 @@ Before getting started, ensure you have:
 
 ## Install the SDK
 
---8<-- 'text/apps/install-sdk.md'
+--8<-- 'text/apps/install-packages.md'
 
 - **Umbrella package**: The whole SDK in one dependency.
 

@@ -57,7 +57,7 @@ The simplest write: a short string, one line.
 --8<-- "code/apps/build/store-data-on-chain/hello-bulletin.ts"
 ```
 
-`app.cloudStorage.upload(data)` accepts a string or `Uint8Array`, signs the underlying transaction with your paired account, and resolves with the CID, a Blake2b-256 content hash encoded as a CIDv1 string. Internally the SDK uses the chunking pipeline with a DAG-PB manifest, so the same call shape works for any payload size; see [Store a Larger File](#store-a-larger-file) for the chunk-level controls.
+`app.cloudStorage.upload(data)` accepts a string or `Uint8Array`, signs the underlying transaction with your paired account, and resolves with a `Result` whose `value` is the CID, a Blake2b-256 content hash encoded as a CIDv1 string. Internally the SDK uses the chunking pipeline with a DAG-PB manifest, so the same call shape works for any payload size; see [Store a Larger File](#store-a-larger-file) for the chunk-level controls.
 
 You should see something like:
 
@@ -81,7 +81,7 @@ For libp2p / Helia / Smoldot retrieval paths (when you want to fetch outside a P
 
 `app.cloudStorage.upload()` chunks transparently above a 2 MiB threshold and stores a DAG-PB manifest that references each chunk's CID, returning the manifest CID. For most Products, that is all you need. Pass any `Uint8Array` to `upload()` and the SDK handles chunking, manifest generation, and the underlying transactions for you.
 
-For finer control, such as custom chunk size, per-chunk progress callbacks, or access to the individual chunk CIDs, drop one level lower to `CloudStorageClient` from `@parity/product-sdk-cloud-storage`. This is also the path you use for the next two sections (authorization checks, renewal). `CloudStorageClient` needs a signer, and `App` does not expose the one `createApp` holds, so this setup builds its own with `SignerManager`. Set its `dappName` to the product ID the Host loads your Product under, so it derives the same account as `app.wallet`:
+For finer control, such as custom chunk size, per-chunk progress callbacks, or access to the individual chunk CIDs, drop one level lower to `CloudStorageClient`, which the umbrella re-exports from `@parity/product-sdk-cloud-storage`. This is also the path you use for the next two sections (authorization checks, renewal). `CloudStorageClient` needs a signer, and `App` does not expose the one `createApp` holds, so this setup builds its own with `SignerManager`. Set its `dappName` to the product ID the Host loads your Product under, so it derives the same account as `app.wallet`:
 
 ```typescript title="setup-client.ts"
 --8<-- "code/apps/build/store-data-on-chain/setup-client.ts"

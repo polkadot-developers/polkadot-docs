@@ -132,82 +132,16 @@ This guide provides two deployment options. Select the option that best fits you
 
 ## Generate Node Key
 
-Generating a stable node key enables a consistent peer ID across the network. Follow these steps to generate a node key:
+--8<-- 'text/node-infrastructure/generate-node-key.md:introduction'
 
-1. Create a directory for node data:
+--8<-- 'text/node-infrastructure/generate-node-key.md:command'
+    --8<-- 'text/node-infrastructure/generate-node-key.md:polkadot-parachain'
 
-    ```bash
-    sudo mkdir -p /var/lib/polkadot-collator
-    ```
-
-2. Generate your node key using Docker:
-
-    ```bash
-    docker run -it parity/subkey:latest generate-node-key > /var/lib/polkadot-collator/node.key
-    ```
-
-3. Locate your peer ID in the displayed output. It will be similar to the following example:
-
-    ```bash
-    12D3KooWExcVYu7Mvjd4kxPVLwN2ZPnZ5NyLZ5ft477wqzfP2q6E
-    ```
-
-Be sure to save the peer ID for future reference.
+--8<-- 'text/node-infrastructure/generate-node-key.md:conclusion'
 
 ## Obtain Chain Specification
 
-Download the chain specification for your target system parachain using one of the following options:
-
-=== "Download from Chainspec Collection (Recommended)"
-
-    Download the chain specification directly using `curl`. For example, to download the Asset Hub Polkadot chain spec:
-
-    ```bash
-    curl -sL -o chain-spec.json \
-      https://paritytech.github.io/chainspecs/polkadot/parachain/asset-hub/chainspec.json
-    ```
-
-    For other system parachains, find the correct URL in the [Chainspec Collection](https://paritytech.github.io/chainspecs/){target=\_blank} under the [**List of Chainspecs**](https://paritytech.github.io/chainspecs/#list-of-chainspecs){target=\_blank}.
-
-=== "Build Chain Spec from Runtime"
-
-    Follow these steps to build a chainspec from the runtime:
-
-    1. Clone the runtimes repository and navigate into it:
-
-        ```bash
-        git clone https://github.com/polkadot-fellows/runtimes.git
-        cd runtimes
-        ```
-
-    2. Build the desired runtime. Use the following command for Polkadot Hub:
-
-        ```bash
-        cargo build --release -p asset-hub-polkadot-runtime
-        ```
-
-    3. Install the `chain-spec-builder` dependency:
-
-        ```bash
-        cargo install --locked staging-chain-spec-builder@14.0.0
-        ```
-
-    4. Finally, generate the chain spec:
-
-        ```bash
-        chain-spec-builder create \
-            --relay-chain polkadot \
-            --para-id 1000 \
-            --runtime target/release/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.compact.compressed.wasm \
-            named-preset production > chain-spec.json
-        ```
-
-        ??? tip "System Parachain Para IDs"
-
-            - **Polkadot Hub**: 1000
-            - **Bridge Hub**: 1002
-            - **People Chain**: 1004
-            - **Coretime Chain**: 1005
+--8<-- 'text/node-infrastructure/chain-spec.md'
 
 ## Run the Collator
 
@@ -215,12 +149,12 @@ Using your preferred deployment method, take the following steps to set up and r
 
 === "Docker"
 
-    1. Create a directory for collator data and copy the chain spec:
+    1. Create a directory for collator data and copy the chain spec and node key:
 
         ```bash
         mkdir -p collator-data
         cp chain-spec.json collator-data/
-        cp /var/lib/polkadot-collator/node.key collator-data/
+        cp node.key collator-data/
         ```
 
     2. Launch the collator using Docker:
@@ -232,10 +166,9 @@ Using your preferred deployment method, take the following steps to set up and r
           -p 9944:9944 \
           -p 9615:9615 \
           -v $(pwd)/collator-data:/data \
-          -v $(pwd)/chain-spec.json:/chain-spec.json \
           parity/polkadot-parachain:{{dependencies.repositories.polkadot_sdk.docker_image_version}} \
           --collator \
-          --chain=/chain-spec.json \
+          --chain=/data/chain-spec.json \
           --base-path=/data \
           --port=30333 \
           --rpc-port=9944 \
@@ -271,10 +204,12 @@ Using your preferred deployment method, take the following steps to set up and r
         sudo useradd -r -s /bin/bash polkadot
         ```
 
-    2. Copy your chain spec to the directory:
+    2. Create the data directory, then copy your chain spec and node key into it:
 
         ```bash
+        sudo mkdir -p /var/lib/polkadot-collator
         sudo cp chain-spec.json /var/lib/polkadot-collator/
+        sudo cp node.key /var/lib/polkadot-collator/
         ```
 
     3. Set permissions:
@@ -370,6 +305,9 @@ Your collator must sync both the relay chain and parachain before producing bloc
 - Disk I/O speed
 - Current chain size
 
+!!! note
+    If you also operate relay chain nodes, such as validator or RPC nodes, you can point the collator to their RPC endpoints using the **`--relay-chain-rpc-urls`** argument. This allows the collator to retrieve relay chain data from these nodes, reducing the resources required to sync and maintain the embedded relay chain node.
+
 !!! warning
 
     Do not proceed with registration until both chains are fully synced. Monitor sync progress using the log viewing commands in the [Log Management](#commands-for-log-management) section.
@@ -378,15 +316,7 @@ Your collator must sync both the relay chain and parachain before producing bloc
 
 Session keys are cryptographic keys used by your collator node to sign authorship information when producing blocks. They uniquely identify your collator on the network and must be registered on-chain before your collator can participate in block production.
 
-Once your node is fully synced, use the following command to generate session keys via RPC:
-
-```bash
-curl -H "Content-Type: application/json" \
-  -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' \
-  http://localhost:9944
-```
-
-This command returns session keys as a hex string in the terminal. You must save these session keys as you'll need them for on-chain registration. As session keys are stored in the node's database, if you wipe the database, you'll also need to generate new keys.
+--8<-- 'text/node-infrastructure/generate-session-keys.md'
 
 ## Register Collator for Selection
 
@@ -425,9 +355,9 @@ The registration process varies by system parachain. General steps include the f
     1. Locate **Developer > Extrinsics**.
     2. Select your account.
     3. Choose the **`session.setKeys`** extrinsic.
-    4. Enter the following information:
-        - **`keys`**: Your session keys (from `author_rotateKeys`)
-        - **`proof`**: 0x00 (typically)
+    4. Enter the values returned by [Generate Session Keys](#generate-session-keys):
+        - **`keys`**
+        - **`proof`**
     5. Click **Submit Transaction** and sign the transaction.
     
     ![](/images/node-infrastructure/run-a-collator/run-a-collator-02.webp)

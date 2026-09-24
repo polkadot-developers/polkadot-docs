@@ -62,7 +62,7 @@ Running a validator requires significant technical expertise, reliable infrastru
 
     Provide API access for applications, explorers, and wallets.
 
-    [:octicons-arrow-right-24: Run a Node](/node-infrastructure/run-a-node/polkadot-hub-rpc/)
+    [:octicons-arrow-right-24: Run a Node](/node-infrastructure/run-a-node/parachain-rpc/)
 
 -   **Run a Collator**
 

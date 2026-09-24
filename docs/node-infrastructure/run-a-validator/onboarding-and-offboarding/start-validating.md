@@ -56,16 +56,17 @@ The next step is to sync your node with the chosen blockchain network. Synchroni
 
     The output logs provide information such as the current block number, node name, and network connections. Monitor the sync progress and any errors that might occur during the process. Look for information about the latest processed block and compare it with the current highest block using tools like [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} or [Polkadot.js Apps Explorer](https://polkadot.js.org/apps/#/explorer){target=\_blank}.
 
+    !!! note
+        If your node reports zero peers and cannot synchronize the chain, as in the following output, make sure you have libp2p port `30333` activated. It will take some time to discover other peers over the network.
+
+        --8<-- 'code/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/terminal-output-02.html'
+
 ### Database Snapshot Services
 
 If you'd like to speed up the process further, you can use a database snapshot. Snapshots are compressed backups of the blockchain's database directory and can significantly reduce the time required to sync a new node. Parity provides official database snapshots for Polkadot, Kusama, Westend, and other chains at [snapshots.polkadot.io](https://snapshots.polkadot.io/){target=\_blank}.
 
 !!!warning
     Although snapshots are convenient, syncing from scratch is recommended for security purposes. If snapshots become corrupted and most nodes rely on them, the network could inadvertently run on a non-canonical chain.
-
---8<-- 'code/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/terminal-output-02.html'
-
-If you see terminal output similar to the preceding, and you are unable to synchronize the chain due to having zero peers, make sure you have libp2p port `30333` activated. It will take some time to discover other peers over the network.
 
 ## Bond DOT
 

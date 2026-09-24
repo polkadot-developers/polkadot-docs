@@ -32,7 +32,7 @@ Before starting, ensure you have:
 
 ## Install the SDK
 
-Lead with the umbrella `@parity/product-sdk` (the recommended starting point), alongside the `statement-store` package the snippets import directly. `statement-store` has no umbrella subpath, so it is installed on its own whichever option you take:
+This guide builds on `createApp`, which only the umbrella package provides, and on `statement-store`, which has no umbrella subpath, so install both:
 
 ```bash
 npm install @parity/product-sdk @parity/product-sdk-statement-store
@@ -41,13 +41,21 @@ npm install @parity/product-sdk @parity/product-sdk-statement-store
 !!! note "Versions the snippets target"
     The snippets target `@parity/product-sdk` v0.30.0 and `@parity/product-sdk-statement-store` v0.6.11; every SDK surface they use is present on that line. If you pin an earlier release, pass `createApp` a `name` (required before v0.30.0) and check the return types first: v0.18.0 moved `StatementStoreClient.publish` and `ChannelStore.write` from `Promise<boolean>` to a typed `Result`. A `Result` object is always truthy, so code written for the older shape keeps compiling and stops working.
 
-The umbrella package provides `createApp` and re-exports the rest of the SDK; switch to individual packages later as a bundle-size optimization. See [Umbrella or Individual Packages](/apps/build/#umbrella-or-individual-packages) for the tradeoff.
+See [Umbrella or Individual Packages](/apps/build/#umbrella-or-individual-packages) for how the install styles compare.
 
 ## Set Up Your Statement Store Client
 
 Every snippet in this guide is Product code: modules placed inside the Product running at `localhost:3000` (per [Set Up Your Project](/apps/build/#set-up-your-project)), loaded by Polkadot Desktop. Signing requests route through the Host (Polkadot Desktop) to the user's paired Polkadot App on their phone, which holds the signing keys; your Product never derives, sees, or holds keys.
 
 `StatementStoreClient` is the high-level client. It wraps the People Chain node's `statement_submit` and `statement_subscribeStatement` JSON-RPC methods, handles JSON encoding of your payload, requests authentication proofs from the Host, and deduplicates incoming statements. Connect it once at the top of your Product:
+
+Start with the shared app setup, which creates the SDK app and connects the wallet. It is the same file [Store Data on Chain](/apps/build/store-data-on-chain/) uses:
+
+```typescript title="setup-app.ts"
+--8<-- "code/apps/build/shared/setup-app.ts"
+```
+
+Then create the Statement Store client for the first connected account:
 
 ```typescript title="setup-statement-store.ts"
 --8<-- "code/apps/build/pub-sub-off-chain-data/setup-statement-store.ts"

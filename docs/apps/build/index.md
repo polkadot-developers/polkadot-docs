@@ -124,7 +124,7 @@ The guides also use these utility packages where relevant:
 
 ## Umbrella or Individual Packages
 
-Every guide works with either install style; choose based on your needs:
+Most guides work with either install style. Guides built on `createApp`, such as [Store Data on Chain](/apps/build/store-data-on-chain/) and [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/), need the umbrella package, because `createApp` has no standalone package. Choose based on your needs:
 
 - **Umbrella package**: `npm install @parity/product-sdk`. One dependency that re-exports everything. Convenient when your Product uses several capabilities and bundle size is not a concern.
 - **Individual packages**: `npm install @parity/product-sdk-cloud-storage` (and so on). Install only what you use to keep your bundle smaller and your dependencies explicit.

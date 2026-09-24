@@ -4,7 +4,10 @@ import { app } from './setup-app';
 
 const CID_STRING = 'INSERT_CID';
 
-const bytes = await app.cloudStorage!.fetch(CID_STRING);
+const fetched = await app.cloudStorage!.fetch(CID_STRING);
+if (!fetched.ok) throw new Error(`Fetch failed: ${fetched.error.message}`);
+
+const bytes = fetched.value;
 console.log(`Retrieved ${bytes.length} bytes`);
 console.log(new TextDecoder().decode(bytes));
 

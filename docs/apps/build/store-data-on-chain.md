@@ -26,13 +26,13 @@ Before starting, ensure you have:
 
 ## Install the SDK
 
-Install the SDK in your Product's project:
+This guide builds on `createApp`, which only the umbrella package provides, so install the umbrella:
 
 ```bash
 npm install @parity/product-sdk
 ```
 
-The umbrella package brings in `@parity/product-sdk-cloud-storage` (where `CloudStorageClient` lives, used later for advanced operations), `@parity/product-sdk-host` (the Preimage manager used later), and `polkadot-api` itself. To keep your bundle smaller, you can install those individual packages directly instead. See [Umbrella or Individual Packages](/apps/build/#umbrella-or-individual-packages) for the tradeoff.
+Every snippet imports from `@parity/product-sdk`, including `SignerManager` and `CloudStorageClient`, which the umbrella re-exports from its root, so no other package is needed. See [Umbrella or Individual Packages](/apps/build/#umbrella-or-individual-packages) for how the install styles compare.
 
 ## Set Up Your Storage Client
 
@@ -41,10 +41,10 @@ Every snippet in this guide is Product code: modules you place inside the Produc
 Create the SDK app and connect the wallet:
 
 ```typescript title="setup-app.ts"
---8<-- "code/apps/build/store-data-on-chain/setup-app.ts"
+--8<-- "code/apps/build/shared/setup-app.ts"
 ```
 
-`createApp()` returns an `App` with `app.wallet`, `app.localStorage`, `app.chain`, and `app.cloudStorage`, the high-level Bulletin Chain API exposing `upload()`, `fetch()`, and `computeCid()`. The exported `app` is reused across the simple sections that follow.
+`createApp()` returns an `App` with `app.wallet`, `app.localStorage`, `app.chain`, and `app.cloudStorage`, the high-level Bulletin Chain API exposing `upload()`, `fetch()`, and `computeCid()`. The exported `app` and `accounts` are reused across the simple sections that follow, and the same setup file is shared with [Publish and Subscribe to Off-Chain Data](/apps/build/pub-sub-off-chain-data/).
 
 !!! warning "The Host supplies your Product's identity"
     Since `@parity/product-sdk` v0.30.0, `createApp` takes no `name`: it derives the user's account from the product ID the Host loaded your Product under. Releases before v0.30.0 require `name` and derive the account from it instead. If the Host declines to derive an account, `wallet.connect()` resolves with _zero accounts_ rather than failing, so the only symptom is an empty list. Every upload on this page needs a selected account, so guard the list before going further. See [Product SDK](/apps/product-sdk/) for the full `createApp` contract.
@@ -57,7 +57,7 @@ The simplest write: a short string, one line.
 --8<-- "code/apps/build/store-data-on-chain/hello-bulletin.ts"
 ```
 
-`app.cloudStorage.upload(data)` accepts a string or `Uint8Array`, signs the underlying transaction with your paired account, and resolves with the CID, a Blake2b-256 content hash encoded as a CIDv1 string. Internally the SDK uses the chunking pipeline with a DAG-PB manifest, so the same call shape works for any payload size; see [Store a Larger File](#store-a-larger-file) for the chunk-level controls.
+`app.cloudStorage.upload(data)` accepts a string or `Uint8Array`, signs the underlying transaction with your paired account, and resolves with a `Result` whose `value` is the CID, a Blake2b-256 content hash encoded as a CIDv1 string. Internally the SDK uses the chunking pipeline with a DAG-PB manifest, so the same call shape works for any payload size; see [Store a Larger File](#store-a-larger-file) for the chunk-level controls.
 
 You should see something like:
 
@@ -81,7 +81,7 @@ For libp2p / Helia / Smoldot retrieval paths (when you want to fetch outside a P
 
 `app.cloudStorage.upload()` chunks transparently above a 2 MiB threshold and stores a DAG-PB manifest that references each chunk's CID, returning the manifest CID. For most Products, that is all you need. Pass any `Uint8Array` to `upload()` and the SDK handles chunking, manifest generation, and the underlying transactions for you.
 
-For finer control, such as custom chunk size, per-chunk progress callbacks, or access to the individual chunk CIDs, drop one level lower to `CloudStorageClient` from `@parity/product-sdk-cloud-storage`. This is also the path you use for the next two sections (authorization checks, renewal), so the setup snippet pays off immediately:
+For finer control, such as custom chunk size, per-chunk progress callbacks, or access to the individual chunk CIDs, drop one level lower to `CloudStorageClient`, which the umbrella re-exports from `@parity/product-sdk-cloud-storage`. This is also the path you use for the next two sections (authorization checks, renewal). `CloudStorageClient` needs a signer, and `App` does not expose the one `createApp` holds, so this setup builds its own with `SignerManager`. Set its `dappName` to the product ID the Host loads your Product under, so it derives the same account as `app.wallet`:
 
 ```typescript title="setup-client.ts"
 --8<-- "code/apps/build/store-data-on-chain/setup-client.ts"

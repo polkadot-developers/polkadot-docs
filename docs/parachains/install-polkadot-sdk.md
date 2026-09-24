@@ -40,6 +40,16 @@ Xcode Command Line Tools provide essential build dependencies including `clang`,
 xcode-select --install
 ```
 
+!!! warning "Troubleshooting `libclang.dylib` not found"
+    On some macOS versions, the build fails while compiling `librocksdb-sys` with a `Library not loaded: @rpath/libclang.dylib` error, even though the Command Line Tools include `libclang`. The Command Line Tools directory isn't on the default library search path, so the build script can't load it. To fix this, point the build to the library by running the following commands before you compile:
+
+    ```bash
+    export LIBCLANG_PATH=/Library/Developer/CommandLineTools/usr/lib
+    export DYLD_FALLBACK_LIBRARY_PATH="$LIBCLANG_PATH:$DYLD_FALLBACK_LIBRARY_PATH"
+    ```
+
+    To keep these settings for new terminal sessions, add both lines to your shell profile, such as `~/.zshrc`.
+
 ### Install Homebrew
 
 In most cases, you should use Homebrew to install and manage packages on macOS computers. If you don't already have Homebrew installed on your local computer, you should download and install it before continuing.

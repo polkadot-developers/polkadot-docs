@@ -39,7 +39,7 @@ npm install @parity/product-sdk @parity/product-sdk-statement-store
 ```
 
 !!! note "Versions the snippets target"
-    The snippets target `@parity/product-sdk` v0.29.0 and `@parity/product-sdk-statement-store` v0.6.11; every SDK surface they use is present on that line. If you pin an earlier release, check the return types first: v0.18.0 moved `StatementStoreClient.publish` and `ChannelStore.write` from `Promise<boolean>` to a typed `Result`. A `Result` object is always truthy, so code written for the older shape keeps compiling and stops working.
+    The snippets target `@parity/product-sdk` v0.30.0 and `@parity/product-sdk-statement-store` v0.6.11; every SDK surface they use is present on that line. If you pin an earlier release, pass `createApp` a `name` (required before v0.30.0) and check the return types first: v0.18.0 moved `StatementStoreClient.publish` and `ChannelStore.write` from `Promise<boolean>` to a typed `Result`. A `Result` object is always truthy, so code written for the older shape keeps compiling and stops working.
 
 The umbrella package provides `createApp` and re-exports the rest of the SDK; switch to individual packages later as a bundle-size optimization. See [Umbrella or Individual Packages](/apps/build/#umbrella-or-individual-packages) for the tradeoff.
 

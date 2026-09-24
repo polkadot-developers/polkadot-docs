@@ -54,9 +54,10 @@ Rules to follow:
   `app.cloudStorage` — `app.wallet` and `app.chain` throw, and `app.localStorage`
   returns plain values. Prefer the individual packages (`signer`, `chain-client`,
   `local-storage`), which are Result-typed throughout.
-- `createApp({ name })` passes `name` through as the dotNS identifier the Host derives
-  the product account from. If it is not a registered `.dot` name, `wallet.connect()`
-  resolves with zero accounts rather than erroring, so always check `accounts.length`.
+- From `@parity/product-sdk` v0.30.0, call `createApp()` with no `name`: the Host's
+  product ID supplies the identity, and a `name` is ignored with a warning. If the Host
+  declines to derive an account, `wallet.connect()` resolves with zero accounts rather
+  than erroring, so always check `accounts.length`.
 - Storage: put files/blobs on the Bulletin Chain (content-addressed by CID, retained
   ~2 weeks, renewable). Keep bulk data OUT of contracts; store only small enforced
   state on-chain. Service allowances are granted per account.

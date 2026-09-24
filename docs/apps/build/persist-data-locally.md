@@ -89,7 +89,7 @@ Pass a `prefix` option to `createLocalKvStore()` to prepend `prefix:` to every k
 The Host-enforced Product-level namespace is separate from any developer-defined prefix. The Host's Product namespace is applied on top of your `prefix`, so a key `'setting'` in a `{ prefix: 'feature' }` store ends up stored as something like `'myproduct.dot:feature:setting'`, without you needing to construct that path yourself.
 
 !!! warning "Prefixed stores do not share a key space"
-    `app.localStorage` is itself a prefixed store: `createApp` builds it as `createLocalKvStore({ prefix: name })` using the `name` you passed. A store you create with a different `prefix` writes under a different path, so a key written through `createLocalKvStore({ prefix: 'feature' })` and read back through `app.localStorage` resolves to `null` rather than raising an error. Read and write each key through the same store.
+    `app.localStorage` is itself a prefixed store: `createApp` builds it with a prefix taken from the Host's product ID, minus the final domain suffix (`my-product.dot` becomes `my-product`). Before v0.30.0, the prefix is the `name` you passed. A store you create with a different `prefix` writes under a different path, so a key written through `createLocalKvStore({ prefix: 'feature' })` and read back through `app.localStorage` resolves to `null` rather than raising an error. Read and write each key through the same store.
 
 ## Use React Hooks
 

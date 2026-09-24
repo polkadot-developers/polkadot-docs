@@ -44,10 +44,10 @@ Create the SDK app and connect the wallet:
 --8<-- "code/apps/build/store-data-on-chain/setup-app.ts"
 ```
 
-`createApp({ name })` returns an `App` with `app.wallet`, `app.localStorage`, `app.chain`, and `app.cloudStorage`, the high-level Bulletin Chain API exposing `upload()`, `fetch()`, and `computeCid()`. The exported `app` is reused across the simple sections that follow.
+`createApp()` returns an `App` with `app.wallet`, `app.localStorage`, `app.chain`, and `app.cloudStorage`, the high-level Bulletin Chain API exposing `upload()`, `fetch()`, and `computeCid()`. The exported `app` is reused across the simple sections that follow.
 
-!!! warning "`name` is also your dotNS identifier"
-    `createApp` passes `name` through as the signer's `dappName`, and the Host treats that as the product identifier it derives the user's account from, appending `.dot` to a bare label. If the name is not a registered `.dot` name, the Host rejects the derivation and `wallet.connect()` resolves with _zero accounts_ rather than failing, so the only symptom is an empty list. Every upload on this page needs a selected account, so guard the list before going further. See [Product SDK](/apps/product-sdk/) for the full `createApp` contract.
+!!! warning "The Host supplies your Product's identity"
+    Since `@parity/product-sdk` v0.30.0, `createApp` takes no `name`: it derives the user's account from the product ID the Host loaded your Product under. Releases before v0.30.0 require `name` and derive the account from it instead. If the Host declines to derive an account, `wallet.connect()` resolves with _zero accounts_ rather than failing, so the only symptom is an empty list. Every upload on this page needs a selected account, so guard the list before going further. See [Product SDK](/apps/product-sdk/) for the full `createApp` contract.
 
 ## Store a Hello World
 

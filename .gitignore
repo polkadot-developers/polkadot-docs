@@ -15,8 +15,8 @@ scripts/__pycache__/*
 # MkDocs social cards
 .cache/
 
-# Vale rules and the PaperMoon vocab are VENDORED (committed) into
-# styles/PaperMoon/ and styles/config/vocabularies/PaperMoon/ so linting is
+# Vale rules and the style guide vocab are VENDORED (committed) into
+# styles/StyleGuide/ and styles/config/vocabularies/StyleGuide/ so linting is
 # self-contained. Refresh from upstream with sync-styleguide-vale.sh.
 
 # Claude

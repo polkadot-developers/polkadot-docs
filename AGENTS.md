@@ -4,26 +4,24 @@ This file is loaded automatically by coding agents (Claude Code, Cursor, Codex, 
 
 ## Style and authoring rules
 
-Documentation in this repository follows the **PaperMoon Documentation Style Guide**. The agent-loadable rule set lives in a separate repository so it can be shared across customers and updated independently:
+Documentation in this repository follows the **Documentation Style Guide**. The agent-loadable rule set lives in a separate repository so it can be shared across projects and updated independently:
 
-- **Canonical source**: [`papermoonio/documentation-style-guide/AGENTS.md`](https://github.com/papermoonio/documentation-style-guide/blob/main/AGENTS.md)
-- **Prose reference**: [`papermoonio/documentation-style-guide/style-guide.md`](https://github.com/papermoonio/documentation-style-guide/blob/main/style-guide.md)
-- **Reviewer checklist**: [`papermoonio/documentation-style-guide/checklist.md`](https://github.com/papermoonio/documentation-style-guide/blob/main/checklist.md)
+- **Canonical source**: [`paritytech/documentation-style-guide/AGENTS.md`](https://github.com/paritytech/documentation-style-guide/blob/main/AGENTS.md)
+- **Prose reference**: [`paritytech/documentation-style-guide/style-guide.md`](https://github.com/paritytech/documentation-style-guide/blob/main/style-guide.md)
+- **Reviewer checklist**: [`paritytech/documentation-style-guide/checklist.md`](https://github.com/paritytech/documentation-style-guide/blob/main/checklist.md)
 
 **Read the canonical `AGENTS.md` before authoring.** It front-loads the rules that AI-generated documentation most often violates — list punctuation, bold misuse, em dashes, banned phrases, terminology, code-identifier backticks, identifier consistency, image filenames, and the "no redundant subheadings above lead-in lists" rule. The pre-output checklist at the bottom of that file is the last thing to run before returning a draft.
 
 ## Linting
 
-Vale rules and the PaperMoon vocab are not copied into this repo — they are pulled from the canonical [`papermoonio/documentation-style-guide`](https://github.com/papermoonio/documentation-style-guide) repo on every CI run, and on demand for local linting. The single source of truth is the styleguide repo.
+Vale rules and the style guide vocab are vendored (committed) from the canonical [`paritytech/documentation-style-guide`](https://github.com/paritytech/documentation-style-guide) repo into `styles/StyleGuide/` and `styles/config/vocabularies/StyleGuide/`, so linting needs no external fetch. Project-specific vocab lives in `styles/config/vocabularies/Polkadot/`.
 
 ```bash
-./.github/scripts/sync-styleguide-vale.sh   # pull canonical Vale rules + PaperMoon vocab
-vale .                              # lint
+vale .                                      # lint
+./.github/scripts/sync-styleguide-vale.sh   # refresh vendored rules + vocab from upstream, then commit
 ```
 
-The `styles/PaperMoon/` and `styles/config/vocabularies/PaperMoon/` directories are gitignored. Project-specific vocab lives in `styles/config/vocabularies/Polkadot/` and is committed.
-
-CI runs the sync script and then Vale against changed markdown files on every pull request (see `.github/workflows/vale.yml`).
+CI runs Vale against changed markdown files on every pull request (see `.github/workflows/vale.yml`).
 
 ## Project-specific rules
 
@@ -39,8 +37,8 @@ These supplement (and where they conflict, override) the canonical styleguide:
 When rules conflict:
 
 1. **This file** (`polkadot-docs/AGENTS.md`) — project-specific overrides win.
-2. **PaperMoon canonical styleguide** — default.
-3. **Google developer documentation style guide** — fallback for anything the PaperMoon guide does not cover.
+2. **Canonical Documentation Style Guide** — default.
+3. **Google developer documentation style guide** — fallback for anything the Documentation Style Guide does not cover.
 
 ## How to use this in an agent session
 

@@ -2,7 +2,7 @@
 
 This repository is the monorepo for the [Polkadot developer documentation](https://docs.polkadot.com). It contains both the documentation content and the MkDocs configuration used to build and serve the site.
 
-The documentation source files are written in [Markdown](https://daringfireball.net/projects/markdown) and generally follow the [PaperMoon style guide](https://github.com/papermoonio/documentation-style-guide/blob/main/style-guide.md).
+The documentation source files are written in [Markdown](https://daringfireball.net/projects/markdown) and generally follow the [Documentation Style Guide](https://github.com/paritytech/documentation-style-guide/blob/main/style-guide.md).
 
 ## Repository Structure
 

@@ -11,4 +11,4 @@ Choose one:
 ## ✅ Checklist
 
 - [ ] Changes tested  
-- [ ] [PaperMoon Style Guide](https://github.com/papermoonio/documentation-style-guide) followed
+- [ ] [Documentation Style Guide](https://github.com/paritytech/documentation-style-guide) followed

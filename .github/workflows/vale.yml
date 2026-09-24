@@ -5,7 +5,8 @@ on:
     paths:
       - "**.md"
       - ".vale.ini"
-      - "styles/config/vocabularies/Polkadot/**"
+      - "styles/StyleGuide/**"
+      - "styles/config/vocabularies/**"
       - ".github/scripts/sync-styleguide-vale.sh"
       - ".github/workflows/vale.yml"
 
@@ -22,7 +23,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Vale rules are vendored in styles/PaperMoon/ (committed) — no sync needed.
+      # Vale rules are vendored in styles/StyleGuide/ (committed) — no sync needed.
 
       - name: List changed markdown files
         id: changed

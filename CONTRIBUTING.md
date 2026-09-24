@@ -1,6 +1,6 @@
 # Contribute to the Polkadot Docs
 
-> **📋 Essential**: All contributions must follow the [PaperMoon Style Guide](https://github.com/papermoonio/documentation-style-guide).
+> **📋 Essential**: All contributions must follow the [Documentation Style Guide](https://github.com/paritytech/documentation-style-guide).
 
 ## Contents
 
@@ -36,7 +36,7 @@ For simple contributions like fixing typos or making small text changes, you can
 1. Navigate to the file you want to edit on GitHub.
 2. Click the pencil icon (✏️) to edit the file.
 3. Make your changes in the online editor.
-4. Follow the [PaperMoon Style Guide](https://github.com/papermoonio/documentation-style-guide).
+4. Follow the [Documentation Style Guide](https://github.com/paritytech/documentation-style-guide).
 
 ### Creating Your Pull Request
 
@@ -73,7 +73,7 @@ Before making contributions, set up the monorepo locally:
 
 4. Make your changes:
 
-   - Follow the [PaperMoon Style Guide](https://github.com/papermoonio/documentation-style-guide).
+   - Follow the [Documentation Style Guide](https://github.com/paritytech/documentation-style-guide).
    - Test your changes locally (see [Run Polkadot Docs Locally](../README.md#run-polkadot-docs-locally)).
 
 5. Create pull request:
@@ -86,16 +86,16 @@ Before making contributions, set up the monorepo locally:
 Making changes to existing pages is the simplest contribution:
 
 1. **Edit the content**: Make your improvements directly to the existing markdown file.
-2. **Follow style guide**: Ensure your changes maintain proper formatting according to the [PaperMoon Documentation Style Guide](https://github.com/papermoonio/documentation-style-guide).
+2. **Follow style guide**: Ensure your changes maintain proper formatting according to the [Documentation Style Guide](https://github.com/paritytech/documentation-style-guide).
 3. **Test locally**: Verify your changes render correctly by running the Polkadot docs locally. Instructions can be found in the [README](README.md#run-polkadot-docs-locally).
 
 ## Add a New Page
 
-**Requirement**: Follow the [PaperMoon Documentation Style Guide](https://github.com/papermoonio/documentation-style-guide).
+**Requirement**: Follow the [Documentation Style Guide](https://github.com/paritytech/documentation-style-guide).
 
 To add a page to an existing section:
 
-1. Create your markdown file following [naming conventions](https://github.com/papermoonio/documentation-style-guide/blob/main/style-guide.md#naming-conventions).
+1. Create your markdown file following [naming conventions](https://github.com/paritytech/documentation-style-guide/blob/main/style-guide.md#naming-conventions).
 
 2. Include required frontmatter (see [Frontmatter Reference](#frontmatter-reference) for all available fields):
 
@@ -167,7 +167,7 @@ To create an entirely new section of documentation:
 
 This section covers tutorial-specific requirements and formatting.
 
-**Requirement**: Follow the [PaperMoon Documentation Style Guide](https://github.com/papermoonio/documentation-style-guide).
+**Requirement**: Follow the [Documentation Style Guide](https://github.com/paritytech/documentation-style-guide).
 
 Place your tutorial under the most relevant existing section of the docs. Set up file and asset paths to match the surrounding structure:
 

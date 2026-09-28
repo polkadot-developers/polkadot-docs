@@ -365,7 +365,7 @@ The registration process varies by system parachain. General steps include the f
     !!! note
         The first `session.setKeys` call holds a deposit equal to `session.keyDeposit`. The call fails if your free balance is below the ED plus this deposit. Rotating keys that are already registered is not charged again. Calling `session.purgeKeys` releases the deposit. Keys registered before the deposit was introduced stay deposit-free.
 
-        Query the current deposit in Polkadot.js Apps under **Developer > Chain State > Constants > `session.keyDeposit`**, since runtime upgrades can change it. If the constant is zero or isn't listed, no deposit applies.
+        Query the current deposit in Polkadot.js Apps under **Developer > Chain State > Constants > `session.keyDeposit`**, since runtime upgrades can change it. If the constant isn't listed, the runtime charges no deposit.
 
 4. (Optional - primarily for non-system parachains) If the parachain uses on-chain bonding for collator selection, register as a candidate using Polkadot.js Apps:
 

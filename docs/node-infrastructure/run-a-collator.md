@@ -80,7 +80,7 @@ Required software:
 
 Your account must meet the following requirements:
 
-- **Funded account**: Free balance on the target chain must cover transaction fees, the session key deposit (`Session.KeyDeposit`), and the [existential deposit (ED)](/reference/glossary/#existential-deposit). For on-chain selection, the `CandidacyBond` comes on top of that. Query the current deposit in Polkadot.js Apps under **Developer > Chain State > Constants > `session.keyDeposit`**, since runtime upgrades can change it.
+- **Funded account**: Free balance on the target chain must cover transaction fees, the session key deposit (`session.keyDeposit`), and the [existential deposit (ED)](/reference/glossary/#existential-deposit), plus the `CandidacyBond` for on-chain selection.
 
 You will also need the following, which are generated or configured later in this guide:
 
@@ -363,7 +363,9 @@ The registration process varies by system parachain. General steps include the f
     ![](/images/node-infrastructure/run-a-collator/run-a-collator-02.webp)
 
     !!! note
-        The first `session.setKeys` call holds a deposit equal to `Session.KeyDeposit`. The call fails if your free balance is below the ED plus this deposit. Rotating keys that are already registered is not charged again. Calling `session.purgeKeys` releases the deposit. Keys registered before the deposit was introduced stay deposit-free.
+        The first `session.setKeys` call holds a deposit equal to `session.keyDeposit`. The call fails if your free balance is below the ED plus this deposit. Rotating keys that are already registered is not charged again. Calling `session.purgeKeys` releases the deposit. Keys registered before the deposit was introduced stay deposit-free.
+
+        Query the current deposit in Polkadot.js Apps under **Developer > Chain State > Constants > `session.keyDeposit`**, since runtime upgrades can change it. If the constant is zero or isn't listed, no deposit applies.
 
 4. (Optional - primarily for non-system parachains) If the parachain uses on-chain bonding for collator selection, register as a candidate using Polkadot.js Apps:
 

@@ -363,7 +363,7 @@ The registration process varies by system parachain. General steps include the f
     ![](/images/node-infrastructure/run-a-collator/run-a-collator-02.webp)
 
     !!! note
-        The first `session.setKeys` call holds a deposit equal to `Session.KeyDeposit`. The call fails if your free balance is below the ED plus this deposit. Rotating keys that are already registered is not charged again. Calling `session.purgeKeys` releases the deposit. Keys registered before the deposit was introduced, including genesis keys, stay deposit-free.
+        The first `session.setKeys` call holds a deposit equal to `Session.KeyDeposit`. The call fails if your free balance is below the ED plus this deposit. Rotating keys that are already registered is not charged again. Calling `session.purgeKeys` releases the deposit. Keys registered before the deposit was introduced stay deposit-free.
 
 4. (Optional - primarily for non-system parachains) If the parachain uses on-chain bonding for collator selection, register as a candidate using Polkadot.js Apps:
 

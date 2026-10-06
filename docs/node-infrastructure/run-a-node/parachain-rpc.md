@@ -20,7 +20,7 @@ RPC nodes serving production traffic require robust hardware:
 
 - **CPU**: 8+ cores; 16+ cores for high traffic
 - **Memory**: 64 GB RAM minimum; 128 GB recommended for high traffic
-- **Storage**: Total required storage is the size of the pruned relay chain state plus the size of the parachain state. [Snapshots](https://snapshots.polkadot.io/){target=\_blank} _may_ be available. Fast NVMe I/O is critical for RPC query performance
+- **Storage**: Total required storage is the size of the pruned relay chain state plus the size of the parachain state. [Snapshots](https://snapshots.polkadot.io/) _may_ be available. Fast NVMe I/O is critical for RPC query performance
     - **Pruned Polkadot Relay Chain**: ~40 GB using warp sync
     - **System parachains**:
         - **Archive node (complete history)**: Using snapshots, expected storage requirements are:
@@ -42,15 +42,15 @@ RPC nodes serving production traffic require robust hardware:
         - **8545**: Ethereum JSON-RPC (if running `eth-rpc` adapter)
 
 !!! note
-    For development or low-traffic scenarios, you can reduce these requirements proportionally. Consider using a reverse proxy ([nginx](https://nginx.org/){target=\_blank}, [Caddy](https://caddyserver.com/){target=\_blank}) for production deployments.
+    For development or low-traffic scenarios, you can reduce these requirements proportionally. Consider using a reverse proxy ([nginx](https://nginx.org/), [Caddy](https://caddyserver.com/)) for production deployments.
 
 ### Software Requirements
 
 Required software:
 
 - **Operating system**: Ubuntu 22.04 LTS (recommended) or similar Linux distribution
-- **[Docker](https://www.docker.com/get-started/){target=\_blank}**: Required for obtaining binaries and running containers
-- **[rclone](https://rclone.org/downloads/){target=\_blank}**: (Optional but recommended) Command-line program for managing files on cloud storage
+- **[Docker](https://www.docker.com/get-started/)**: Required for obtaining binaries and running containers
+- **[rclone](https://rclone.org/downloads/)**: (Optional but recommended) Command-line program for managing files on cloud storage
 
 ## Obtain the Chain Specification
 
@@ -115,7 +115,7 @@ System parachain details:
                 - **`--retries-sleep 10s`**: Waits 10 seconds between retry attempts
                 - **`--size-only`**: Only transfers if sizes differ (prevents unnecessary re-downloads)
 
-    3. Launch the parachain node using the official [Parity Docker image](https://hub.docker.com/r/parity/polkadot-parachain){target=\_blank}:
+    3. Launch the parachain node using the official [Parity Docker image](https://hub.docker.com/r/parity/polkadot-parachain):
 
         === "Archive"
 
@@ -189,7 +189,7 @@ System parachain details:
 
 === "systemd"
 
-    1. Download the `polkadot-parachain` binary from the latest stable [Polkadot SDK release](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank}:
+    1. Download the `polkadot-parachain` binary from the latest stable [Polkadot SDK release](https://github.com/paritytech/polkadot-sdk/releases):
 
         ```bash
         # Download the latest stable release (check releases page for current version)
@@ -458,7 +458,7 @@ Use the following commands to manage your node:
 !!! note
     Ethereum RPC compatibility is supported only on some chains, such as Polkadot Hub.
 
-Ethereum RPC compatibility is provided through the `eth-rpc` adapter, which is part of [pallet-revive](https://paritytech.github.io/polkadot-sdk/master/pallet_revive_eth_rpc/index.html){target=\_blank}. This adapter translates Ethereum JSON-RPC calls into Polkadot SDK-compatible requests, enabling integration with Ethereum tools like [MetaMask](https://metamask.io/){target=\_blank}, [Hardhat](https://hardhat.org/){target=\_blank}, and [Ethers.js](https://docs.ethers.org/v6/){target=\_blank}.
+Ethereum RPC compatibility is provided through the `eth-rpc` adapter, which is part of [pallet-revive](https://paritytech.github.io/polkadot-sdk/master/pallet_revive_eth_rpc/index.html). This adapter translates Ethereum JSON-RPC calls into Polkadot SDK-compatible requests, enabling integration with Ethereum tools like [MetaMask](https://metamask.io/), [Hardhat](https://hardhat.org/), and [Ethers.js](https://docs.ethers.org/v6/).
 
 ### Prerequisites
 
@@ -484,7 +484,7 @@ You can run the Ethereum RPC adapter using Docker or as a systemd service.
       --node-rpc-url=ws://127.0.0.1:9944 \
       --rpc-port=8545 \
       --base-path=/data \
-      --unsafe-rpc-external \
+      --rpc-external \
       --rpc-cors=all
     ```
 
@@ -532,7 +532,7 @@ You can run the Ethereum RPC adapter using Docker or as a systemd service.
           --node-rpc-url=ws://127.0.0.1:9944 \
           --rpc-port=8545 \
           --base-path=/var/lib/eth-rpc \
-          --unsafe-rpc-external \
+          --rpc-external \
           --rpc-cors=all
 
         Restart=always
@@ -543,7 +543,7 @@ You can run the Ethereum RPC adapter using Docker or as a systemd service.
         ```
 
         !!! warning
-            The `--unsafe-rpc-external` flag exposes your RPC endpoint publicly. For production deployments, consider using a reverse proxy with authentication and rate limiting, or bind to a specific interface.
+            The `--rpc-external` flag exposes your RPC endpoint publicly. For production deployments, consider using a reverse proxy with authentication and rate limiting, or bind to a specific interface.
 
     4. Start the service:
 
@@ -561,17 +561,17 @@ The adapter accepts the following key parameters:
 |:---------:|:-----------:|:-------:|
 | `--node-rpc-url` | Polkadot SDK-based node WebSocket URL | `ws://127.0.0.1:9944` |
 | `--rpc-port` | Ethereum RPC server port | `8545` |
-| `--unsafe-rpc-external` | Enable external RPC access | Disabled |
+| `--rpc-external` | Listen for RPC connections on all network interfaces instead of only on `localhost` | Disabled |
 | `--rpc-cors` | CORS allowed origins | None |
 | `--eth-pruning` | Block storage strategy: `archive` for persistent on-disk DB with full historical sync, or `<N>` for in-memory DB keeping latest N blocks | `archive` |
 | `--base-path` | Directory for persistent database storage (`eth-rpc.db` is created inside this directory) | OS default data directory |
 | `--dev` | Use temporary on-disk directory, deleted on exit | Disabled |
 
 !!! warning
-    The `--unsafe-rpc-external` flag exposes your RPC endpoint publicly. For production deployments, use a reverse proxy with proper authentication and rate limiting.
+    The `--rpc-external` flag exposes your RPC endpoint publicly. For production deployments, use a reverse proxy with proper authentication and rate limiting.
 
 ??? note "Migrating from previous CLI flags"
-    As of [PR #11153](https://github.com/paritytech/polkadot-sdk/pull/11153){target=\_blank}, the following flags have been removed and replaced:
+    As of [PR #11153](https://github.com/paritytech/polkadot-sdk/pull/11153), the following flags have been removed and replaced:
 
     | Previous Flag | Replacement |
     |:-------------:|:-----------:|
@@ -592,7 +592,7 @@ Your node setup provides two distinct API interfaces:
 
 ### Verify the Ethereum RPC Adapter
 
-To verify the Ethereum RPC adapter is working correctly, you can test standard Ethereum JSON-RPC methods like `eth_chainId`, `eth_blockNumber`, and `eth_getBlockByNumber`. For a complete list of supported methods and example queries, see the [JSON-RPC APIs](/smart-contracts/for-eth-devs/json-rpc-apis/){target=\_blank} reference.
+To verify the Ethereum RPC adapter is working correctly, you can test standard Ethereum JSON-RPC methods like `eth_chainId`, `eth_blockNumber`, and `eth_getBlockByNumber`. For a complete list of supported methods and example queries, see the [JSON-RPC APIs](/smart-contracts/for-eth-devs/json-rpc-apis/) reference.
 
 ### Manage the Ethereum RPC Adapter
 

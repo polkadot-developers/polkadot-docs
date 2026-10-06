@@ -133,6 +133,12 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
         https://services.polkadothub-rpc.com/mainnet/
         ```
 
+    === "Saxemberg"
+
+        ```text
+        https://doteth.saxemberg.com
+        ```
+
     ---
     
     Block explorer URL

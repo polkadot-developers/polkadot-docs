@@ -21,8 +21,7 @@ There are two primary ways to obtain coretime:
 In this tutorial, you will:
 
 - Understand the different coretime options available.
-- Learn how to purchase a core via bulk coretime.
-- Assign your parachain to a core for block production.
+- Learn how bulk coretime is purchased and assigned to a parachain.
 - Explore on-demand coretime as an alternative approach.
 
 ## Prerequisites
@@ -78,22 +77,16 @@ Upon successful submission, your parachain will produce a new block. You can ver
 
 Bulk coretime offers a cost-effective way to maintain continuous block production. It lets you reserve a core for up to 28 days and renew it as needed.
 
-You can purchase and manage cores on the [Coretime Chain](https://wiki.polkadot.com/learn/learn-system-chains/#coretime-chain){target=\_blank}, a system parachain that runs the [`pallet_broker`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank} to handle core sales, allocation, and renewal across the Polkadot ecosystem.
+You purchase and manage cores on the [Coretime Chain](https://wiki.polkadot.com/learn/learn-system-chains/#coretime-chain), a system parachain that runs [`pallet_broker`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html) to handle core sales, allocation, and renewal across the Polkadot ecosystem.
 
-!!!tip
-    Paseo has a unique process for obtaining coretime cores. Refer to the [PAS-10 Onboard Paras Coretime](https://github.com/paseo-network/paseo-action-submission/blob/main/pas/PAS-10-Onboard-paras-coretime.md#summary){target=\_blank} guide for detailed instructions.
+### Bulk Coretime Extrinsics
 
-This tutorial shows you how to purchase bulk coretime using the [RegionX Coretime Marketplace](https://app.regionx.tech){target=\_blank}, a user-friendly interface for buying and managing cores on both the Polkadot TestNet and production networks.
+Obtaining bulk coretime for a parachain takes two extrinsics on the Coretime Chain:
 
-![RegionX home page with Wallet connected](/images/parachains/launch-a-parachain/obtain-coretime/obtain-coretime-02.webp)
+- **[`broker.purchase`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/struct.Pallet.html#method.purchase)**: Buys a core in the current sale. The `price_limit` parameter caps what you pay, and the call fails with an `Overpriced` error if the current price is higher. A successful purchase emits a [`Purchased`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/enum.Event.html#variant.Purchased) event containing the `region_id` of the region you now own.
+- **[`broker.assign`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/struct.Pallet.html#method.assign)**: Assigns a region you own to a task, which for a parachain is its parachain ID. The [`finality`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/enum.Finality.html) parameter is either `Provisional`, which keeps the region with you so you can change the assignment later, or `Final`, which fixes the assignment and makes the region eligible for renewal. Choose `Final` if you plan to renew the core.
 
-### Connect Your Wallet to RegionX
-
-1. Visit the [RegionX App](https://app.regionx.tech){target=\_blank}.
-
-2. Click the **Connect Wallet** button in the upper right corner.
-
-3. Select your wallet provider and approve the connection.
+The region you buy covers the sale's upcoming period, so your parachain starts producing blocks on that core when the region begins, not immediately after assignment.
 
 ### Obtain Coretime Chain Funds
 
@@ -115,59 +108,21 @@ To purchase a core, you need funds on the Coretime Chain. You can fund your acco
 
     Alternatively, to expedite the process, you can send a message to the [Paseo Support channel](https://matrix.to/#/#paseo-testnet-support:parity.io){target=\_blank} on Matrix, and the Paseo team will assist you in funding your account.
 
-### Purchase a Core
+### Obtain a Core on Paseo
 
-1. From the RegionX home page, ensure the correct network is selected using the network switch in the top right corner (set to **Paseo**).
+Paseo allocates cores through its own onboarding process, which prioritizes teams based on the resources available on the network:
 
-2. Review the information displayed on the home page, including:
-    - **Cores Remaining**: Number of available cores
-    - **Cores Offered**: Total cores in the current sale
-    - **Current price**: The price per core in PAS tokens
-    - **Auction Phase Status**: Current phase and progress
+1. Read the [PAS-10 Onboard Paras Coretime](https://github.com/paseo-network/paseo-action-submission/blob/main/pas/PAS-10-Onboard-paras-coretime.md#summary) guide, which describes the onboarding flow.
 
-3. Click the **Purchase New Core** button displayed on the page.
+2. Open a parachain onboarding issue in the [Paseo support repository](https://github.com/paseo-network/support/issues).
 
-4. A modal will appear detailing the transaction details and fees. Review the information carefully.
+3. Once the Paseo team has processed your request, purchase a core with `broker.purchase` and assign it to your parachain ID with `broker.assign`, using `Final` finality if you plan to renew.
 
-5. Click **Ok** and sign the transaction using your connected wallet.
+If no cores are available or you run into problems, follow up on your onboarding issue or ask in the [Paseo Support channel](https://matrix.to/#/#paseo-testnet-support:parity.io) on Matrix.
 
-6. Wait for the transaction to be confirmed on-chain.
+### Verify Block Production
 
-### Verify Your Purchase
-
-1. Once the transaction is confirmed, navigate to [**My Regions**](https://app.regionx.tech/regions){target=\_blank} from the left menu.
-
-2. You should see your newly purchased core listed in your dashboard.
-
-Congratulations! You've successfully purchased a core using RegionX.
-
-### Assign Your Parachain to the Core
-
-With your core purchased, you now need to assign your parachain to it for block production:
-
-1. From the **My Regions** page, click on your core to select it.
-
-2. Click the **Assign** option from the left-hand menu.
-
-3. A modal will appear, allowing you to add a new task.
-
-4. Click **Add Task** and enter the following information:
-
-    - **Parachain ID**: Your reserved parachain identifier
-    - **Project Name**: The name of your parachain project
-
-5. Click **Add Task** to proceed.
-
-6. Select your parachain task from the list.
-
-7. Set the core's **Finality** setting:
-
-    - **Provisional**: Allows interlacing and partitioning of the core, but the region cannot be renewed as-is.
-    - **Final**: Prevents modification of the core but allows renewal. Choose this if you plan to renew the core.
-
-8. Sign and submit the transaction.
-
-Once confirmed, your parachain will be assigned to the core and should begin producing blocks (provided your collator is running and synced with the relay chain).
+Once the region assigned to your parachain begins, check your collator node logs. They should show new blocks being produced and finalized, provided your collator is running and synced with the relay chain.
 
 ## Next Steps
 

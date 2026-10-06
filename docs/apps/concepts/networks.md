@@ -1,6 +1,6 @@
 ---
 title: Networks
-description: The two TestNet environments a Polkadot Product can target — Paseo Next v2 and the devnet — how they relate and the differences that affect your app.
+description: The two TestNet environments a Polkadot Product can target — Paseo Next v2 and Products Devnet — how they relate and the differences that affect your app.
 categories: Apps
 ---
 
@@ -11,7 +11,7 @@ categories: Apps
 Two TestNet environments are available while you build Polkadot Products, and they are separate networks, not two names for one. The [Product SDK](/apps/product-sdk/) exposes both as presets:
 
 - **`paseo` (Paseo Next v2)**: The environment Polkadot Desktop development builds default to. It is a preview network and the successor to Paseo Next v1.
-- **`devnet`**: A public Paseo TestNet run by the [Polkadot Community Foundation](https://docs.polkadotcommunity.foundation/) (PCF), not by Parity.
+- **`devnet` (Products Devnet)**: A public Paseo TestNet operated by the [Polkadot Community Foundation](https://docs.polkadotcommunity.foundation/) (PCF) using open-source technology developed by Parity. Parity does not operate it.
 
 Both expose the same core chains a Product uses — Asset Hub, the Bulletin Chain, and Individuality (the chain that carries identity, personhood, and the Statement Store, which the reference docs also call the People Chain) — so most Product code runs on either without changes. The production `polkadot` and `kusama` presets are not live yet; requesting them throws.
 
@@ -30,7 +30,7 @@ Beyond signing, the two networks are separate deployments with separate operator
 Whether the [Proof of Personhood](/apps/concepts/identity/) Full tier is active on a given network depends on operator-side configuration, so it can differ between environments and over time. Treat a `None` or `Lite` result as the safe default in your Product, and gate features so they still work when a higher tier is unavailable.
 
 !!! warning "Confirm current per-network capabilities"
-    Which personhood tiers, discovery directories, and services are live on each network is evolving and is not fully captured in these docs. Before depending on a specific capability being present on `devnet` or `paseo`, confirm its current status with that network's operator rather than assuming the two match.
+    Which personhood tiers, discovery directories, and services are live on each network is evolving and is not fully captured in these docs. Before depending on a specific capability being present on Products Devnet or Paseo Next v2, confirm its current status with that network's operator rather than assuming the two match.
 
 ## Where to Go Next
 

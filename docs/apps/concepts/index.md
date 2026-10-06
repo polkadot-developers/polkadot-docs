@@ -46,7 +46,7 @@ The [Build guides](/apps/build/) and [Deploy Your App](/apps/deploy-your-app/) w
 
     ---
 
-    Paseo Next v2 and the devnet: how they relate and the differences that affect your app.
+    Paseo Next v2 and Products Devnet: how they relate and the differences that affect your app.
 
     [:octicons-arrow-right-24: Networks](/apps/concepts/networks/)
 

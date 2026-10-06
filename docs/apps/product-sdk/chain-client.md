@@ -21,7 +21,7 @@ Because the Host owns the connection, your Product never picks an RPC endpoint o
 
 ## Core Concepts
 
-- **`getChainAPI(env)`**: The zero-config factory. Pass `'paseo'` (or `'devnet'`) and it lazy-loads the descriptors and returns a client with fixed `assetHub`, `bulletin`, and `individuality` keys.
+- **`getChainAPI(env)`**: The zero-config factory. Pass `'paseo'` (or `'devnet'` for Products Devnet, operated by the Polkadot Community Foundation) and it lazy-loads the descriptors and returns a client with fixed `assetHub`, `bulletin`, and `individuality` keys.
 - **`createChainClient(config)`**: The bring-your-own-descriptors factory. You pass a `chains` map of names to descriptors, and each becomes a typed API on the returned client.
 - **`ChainClient`**: The returned object. Each configured key is a typed PAPI `TypedApi`; `.raw` exposes the underlying `PolkadotClient` per chain for advanced use; and `.destroy()` tears down the connections.
 - **Connection caching**: Clients are cached by a genesis-hash fingerprint of their chain set. Two calls with the same descriptors share one instance, so you do not accumulate duplicate connections.

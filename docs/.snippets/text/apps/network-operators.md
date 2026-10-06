@@ -1,0 +1,5 @@
+!!! note "Who operates each environment"
+    Polkadot Products can target environments run by two different operators. Each operator deploys, maintains, and supports its own environment, so report a service or network problem to the operator of the environment where it occurs.
+
+    - **Parity**: Runs Paseo Next v2 (the `paseo` preset, parachain 1500) and the services on it, including dotNS and the Playground directory. These docs cover this environment and the `playground` CLI that targets it. Parity's development builds of Polkadot Desktop are published on the [`polkadot-desktop-community` releases page](https://github.com/paritytech/polkadot-desktop-community/releases).
+    - **Polkadot Community Foundation (PCF)**: Runs the `devnet` environment and everything on it, including its chains, registries, and deployments. PCF also publishes its own builds of the Polkadot App and Polkadot Desktop, and the `pad` tooling that publishes to Browse. Parity does not operate or support `devnet`; report issues with it in PCF's [`products-devnet-issues` repository](https://github.com/Polkadot-Community-Foundation/products-devnet-issues).

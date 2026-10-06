@@ -27,9 +27,11 @@ Before getting started, ensure you have:
 - A device (iOS or Android) with a working camera
 - Network connectivity on both devices
 
+--8<-- 'text/apps/network-operators.md'
+
 ## Install Polkadot Desktop
 
-1. Download the development build of [Polkadot Desktop](https://www.polkadotcommunity.foundation/desktop).
+1. Download the latest development build of Polkadot Desktop for your platform from the [`polkadot-desktop-community` releases page](https://github.com/paritytech/polkadot-desktop-community/releases).
 
 2. Install the application using your platform's standard installer.
 

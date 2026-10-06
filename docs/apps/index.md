@@ -11,8 +11,15 @@ categories: Apps
 The Polkadot App is your wallet, identity, and signer: the center of everything you build. Install it first; every path below connects through it.
 
 <div class="button-wrapper" markdown>
-[:material-apple: App Store — Coming soon](){ .md-button .disabled-button }   [:material-google-play: Google Play](https://play.google.com/store/apps/details?id=io.pcf.polkadotapp){ .md-button }
+[:material-apple: App Store — Coming soon](){ .md-button .disabled-button }   [:material-android: Android (APK)](https://github.com/paritytech/trinity-user-agents/releases/tag/nightly-android){ .md-button }
 </div>
+
+The Android build is a nightly APK published by Parity, so you install it from the release page rather than from Google Play. The release offers two APKs:
+
+- **`app-gp-nightly.apk`**: For devices with Google Play services.
+- **`app-vanilla-nightly.apk`**: For devices without Google Play services.
+
+Android blocks APKs from outside an app store by default. When prompted, allow the app you downloaded the APK with, such as your browser or file manager, to install unknown apps, then open the APK to install it.
 
 ## Then Pick Your Path
 

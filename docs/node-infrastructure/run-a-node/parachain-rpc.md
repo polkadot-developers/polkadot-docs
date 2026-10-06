@@ -10,7 +10,7 @@ categories: Infrastructure
 
 A parachain RPC node provides direct access to a specific parachain on the Polkadot network, enabling developers and applications to interact with its assets, governance, cross-chain messages, and more. Running your own node also supports essential infrastructure tasks, such as block indexing and compatibility with Polkadot SDK tools.
 
-Through the parachain RPC (WebSocket port 9944, HTTP port 9933), your node acts as the bridge between the parachain and applications. This page walks through setting up a node from scratch, covering hardware requirements and deployment options using Docker or systemd.
+Through the parachain RPC (port 9944, serving both WebSocket and HTTP), your node acts as the bridge between the parachain and applications. This page walks through setting up a node from scratch, covering hardware requirements and deployment options using Docker or systemd.
 
 ## Prerequisites
 
@@ -21,14 +21,14 @@ RPC nodes serving production traffic require robust hardware:
 - **CPU**: 8+ cores; 16+ cores for high traffic
 - **Memory**: 64 GB RAM minimum; 128 GB recommended for high traffic
 - **Storage**: Total required storage is the size of the pruned relay chain state plus the size of the parachain state. [Snapshots](https://snapshots.polkadot.io/){target=\_blank} _may_ be available. Fast NVMe I/O is critical for RPC query performance
-    - **Pruned Polkadot Relay Chain**: ~1.2 TB using snapshot
+    - **Pruned Polkadot Relay Chain**: ~40 GB using warp sync
     - **System parachains**:
         - **Archive node (complete history)**: Using snapshots, expected storage requirements are:
             - **Asset Hub**: ~1.2 TB
             - **People Chain**: ~400 GB
             - **Bridge Hub**: ~400 GB
             - **Coretime**: ~200 GB
-        - **Pruned node (recent state)**: Snapshots are not available, but a pruned node requires less disk space than an archive node.
+        - **Pruned node (recent state)**: Snapshots are not available. A pruned node uses warp sync instead and requires far less disk space than an archive node.
     - **Non-system parachains**: Consult the parachain team or documentation
 - **Network**:
     - Public IP address
@@ -38,8 +38,7 @@ RPC nodes serving production traffic require robust hardware:
     - Open ports:
         - **30333**: Parachain P2P
         - **30334**: Relay chain P2P
-        - **9944**: Polkadot SDK WebSocket RPC
-        - **9933**: Polkadot SDK HTTP RPC
+        - **9944**: Polkadot SDK RPC (WebSocket and HTTP)
         - **8545**: Ethereum JSON-RPC (if running `eth-rpc` adapter)
 
 !!! note
@@ -81,16 +80,15 @@ System parachain details:
 
     1. Download your parachain's chain specification as described in [Obtain the Chain Specification](#obtain-the-chain-specification).
 
-    2. (Optional but recommended) Download pre-synced [snapshots](https://snapshots.polkadot.io/){target=\_blank} to cut initial sync time from days to hours:
+    2. (Archive nodes only, optional but recommended) Download a pre-synced parachain [snapshot](https://snapshots.polkadot.io/) to cut initial sync time from days to hours:
 
         !!! note
-            Snapshots are available for system parachains and the Polkadot relay chain. For other parachains, check with the parachain team for snapshot availability or sync from genesis.
+            Archive snapshots are available for system parachains. For other parachains, check with the parachain team for snapshot availability or sync from genesis. Skip this step for a pruned node, which uses warp sync instead. The relay chain does not need a snapshot because it always uses warp sync in this guide.
 
-        1. Create new directories:
+        1. Create a new directory:
 
             ```bash
             mkdir -p my-node-data/chains/asset-hub-polkadot/db
-            mkdir -p my-node-data/chains/polkadot/db
             ```
 
         2. Download and save the archive parachain snapshot:
@@ -117,23 +115,6 @@ System parachain details:
                 - **`--retries-sleep 10s`**: Waits 10 seconds between retry attempts
                 - **`--size-only`**: Only transfers if sizes differ (prevents unnecessary re-downloads)
 
-        3. Repeat the process for the pruned relay chain snapshot:
-
-            ```bash
-            # Check https://snapshots.polkadot.io/ for the latest snapshot URL
-            export SNAPSHOT_URL_RELAY="https://snapshots.polkadot.io/polkadot-rocksdb-prune/INSERT_LATEST"
-
-            rclone copyurl $SNAPSHOT_URL_RELAY/files.txt files.txt
-            rclone copy --progress --transfers 20 \
-              --http-url $SNAPSHOT_URL_RELAY \
-              --no-traverse --http-no-head --disable-http2 \
-              --inplace --no-gzip-encoding --size-only \
-              --retries 6 --retries-sleep 10s \
-              --files-from files.txt :http: my-node-data/chains/polkadot/db/
-
-            rm files.txt
-            ```
-
     3. Launch the parachain node using the official [Parity Docker image](https://hub.docker.com/r/parity/polkadot-parachain){target=\_blank}:
 
         === "Archive"
@@ -141,7 +122,6 @@ System parachain details:
             ```bash
             docker run -d --name polkadot-hub-rpc --restart unless-stopped \
               -p 9944:9944 \
-              -p 9933:9933 \
               -p 9615:9615 \
               -p 30334:30334 \
               -p 30333:30333 \
@@ -153,7 +133,7 @@ System parachain details:
               --chain=/chain-spec.json \
               --prometheus-external \
               --prometheus-port 9615 \
-              --unsafe-rpc-external \
+              --rpc-external \
               --rpc-port=9944 \
               --rpc-cors=all \
               --rpc-methods=safe \
@@ -163,6 +143,7 @@ System parachain details:
               -- \
               --base-path=/data \
               --chain=polkadot \
+              --sync=warp \
               --state-pruning=256 \
               --blocks-pruning=256 \
               --rpc-port=0
@@ -173,7 +154,6 @@ System parachain details:
             ```bash
             docker run -d --name polkadot-hub-rpc --restart unless-stopped \
               -p 9944:9944 \
-              -p 9933:9933 \
               -p 9615:9615 \
               -p 30334:30334 \
               -p 30333:30333 \
@@ -185,16 +165,18 @@ System parachain details:
               --chain=/chain-spec.json \
               --prometheus-external \
               --prometheus-port 9615 \
-              --unsafe-rpc-external \
+              --rpc-external \
               --rpc-port=9944 \
               --rpc-cors=all \
               --rpc-methods=safe \
               --rpc-max-connections=1000 \
+              --sync=warp \
               --state-pruning=1000 \
-              --blocks-pruning=256 \
+              --blocks-pruning=1000 \
               -- \
               --base-path=/data \
               --chain=polkadot \
+              --sync=warp \
               --state-pruning=256 \
               --blocks-pruning=256 \
               --rpc-port=0
@@ -278,6 +260,7 @@ System parachain details:
               --chain=polkadot \
               --base-path=/var/lib/polkadot-hub-rpc \
               --port=30334 \
+              --sync=warp \
               --state-pruning=256 \
               --blocks-pruning=256 \
               --rpc-port=0
@@ -315,12 +298,14 @@ System parachain details:
               --rpc-max-connections=1000 \
               --prometheus-port=9615 \
               --prometheus-external \
+              --sync=warp \
               --state-pruning=1000 \
-              --blocks-pruning=256 \
+              --blocks-pruning=1000 \
               -- \
               --chain=polkadot \
               --base-path=/var/lib/polkadot-hub-rpc \
               --port=30334 \
+              --sync=warp \
               --state-pruning=256 \
               --blocks-pruning=256 \
               --rpc-port=0
@@ -351,18 +336,23 @@ System parachain details:
 ### Port Mappings
 
 - **`9944`**: Polkadot SDK RPC endpoint (WebSocket/HTTP)
-- **`9933`**: Polkadot SDK HTTP RPC endpoint
 - **`9615`**: Prometheus metrics endpoint
 - **`30333/30334`**: P2P networking ports
 
 ### Node Configuration Parameters
 
-- **`--unsafe-rpc-external`**: Enables external RPC access. **This command should only be used in development or properly secured environments**. For production, use a reverse proxy with authentication.
+- **`--rpc-external`**: Listens for RPC connections on all network interfaces instead of only on `localhost`. Combine it with `--rpc-methods=safe` and, for production, a reverse proxy with rate limiting.
+- **`--unsafe-rpc-external`**: Behaves like `--rpc-external` but skips the check that rejects external RPC access on validator nodes. An RPC node does not need it.
 - **`--rpc-cors=all`**: Allows all origins for CORS.
 - **`--rpc-methods=safe`**: Only allows safe RPC methods.
-- **`--state-pruning`**: `archive` keeps complete state history, `[NUMBER]` keeps last specified number of finalized blocks.
-- **`--blocks-pruning`**: `archive` keeps all blocks, `[NUMBER]` keeps last specified number of finalized blocks.
+- **`--sync=warp`**: Downloads the latest finalized state with a finality proof instead of executing every block since genesis. When `--blocks-pruning` is set to a number, the node then backfills only the headers and justifications of older blocks. Warp sync only applies when the database is empty and cannot be combined with `--state-pruning=archive` or `--state-pruning=archive-canonical`.
+- **`--state-pruning`**: `archive` keeps the state of all blocks, `archive-canonical` keeps the state of finalized blocks only, and `[NUMBER]` keeps the state of the last specified number of finalized blocks. Defaults to `256`.
+- **`--blocks-pruning`**: `archive` keeps all block bodies, `archive-canonical` keeps the bodies of finalized blocks only, and `[NUMBER]` keeps the bodies of the last specified number of finalized blocks. Defaults to `archive-canonical`, so set a number explicitly on pruned nodes. Block headers are always kept.
 - **`--prometheus-external`**: Exposes metrics externally.
+- **`--`**: Separates parachain flags from relay chain flags. Flags after `--` configure the embedded Polkadot relay chain node.
+
+!!! warning
+    The state pruning mode is stored in the database when the node first starts. Later runs fail if `--state-pruning` does not match the stored mode, except that `[NUMBER]` can change. To switch between a pruned node and an archive node, delete the database and sync again.
 
 ## Monitor Node Synchronization
 
@@ -474,7 +464,7 @@ Ethereum RPC compatibility is provided through the `eth-rpc` adapter, which is p
 
 Before starting the Ethereum RPC adapter:
 
-- **Node synchronization**: Your Polkadot Hub node must be fully synchronized. The `eth-rpc` adapter requires access to current chain state and fails to start if the node is still syncing.
+- **Node synchronization**: Let your Polkadot Hub node finish syncing before you start the adapter. On startup, the `eth-rpc` adapter reads `pallet-revive` configuration from the node's latest block and fails to start if that block predates `pallet-revive`, for example, early in the initial sync.
 - **Archive node recommended**: For full Ethereum RPC compatibility, run an archive node (`--state-pruning=archive`). The `eth-rpc` adapter may fail to query historical state on pruned nodes.
 - **RPC accessibility**: The Polkadot SDK-based RPC endpoint must be accessible (default: `ws://127.0.0.1:9944`).
 
@@ -484,13 +474,13 @@ You can run the Ethereum RPC adapter using Docker or as a systemd service.
 
 === "Docker"
 
-    Start the adapter using the official [Parity eth-rpc Docker image](https://hub.docker.com/r/paritypr/eth-rpc/tags){target=\_blank}:
+    Start the adapter using the official [Parity eth-rpc Docker image](https://hub.docker.com/r/parity/eth-rpc/tags):
 
     ```bash
     docker run -d --name eth-rpc --restart unless-stopped \
       --network=host \
       -v /var/lib/eth-rpc:/data \
-      paritypr/eth-rpc:master-1ea05e17 \
+      parity/eth-rpc:stable2606-2 \
       --node-rpc-url=ws://127.0.0.1:9944 \
       --rpc-port=8545 \
       --base-path=/data \
@@ -502,7 +492,7 @@ You can run the Ethereum RPC adapter using Docker or as a systemd service.
         The `-v` flag maps the host directory `/var/lib/eth-rpc` to `/data` inside the container. The `--base-path` flag references this container path to persist the `eth-rpc.db` database across restarts.
 
     !!! note
-        Check the [Docker Hub tags page](https://hub.docker.com/r/paritypr/eth-rpc/tags){target=\_blank} for the latest image version. Tags follow the format `master-<commit-hash>`.
+        Check the [Docker Hub tags page](https://hub.docker.com/r/parity/eth-rpc/tags) for newer releases. Tags follow the Polkadot SDK release naming, such as `stable2606-2`.
 
 === "systemd"
 

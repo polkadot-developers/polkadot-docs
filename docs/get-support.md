@@ -21,7 +21,7 @@ Developer support is split by who operates the service you are using. Find your 
 | :-------------------- | :----------- |
 | Polkadot SDK, runtime development, parachains, or core Polkadot infrastructure | [Polkadot Developer Support](#support-channels) |
 | Paseo Next v2, or Parity's tools for building Polkadot Products, such as the `playground` CLI | [Polkadot Developer Support](#support-channels), or the tool's own GitHub repository for bug reports |
-| Products Devnet, PCF's Polkadot App builds (including the Google Play app), deploying a Polkadot Product to Products Devnet, or `pad` | PCF Developer Support: [`products-devnet-issues`](https://github.com/Polkadot-Community-Foundation/products-devnet-issues) |
+| Products Devnet, PCF's Polkadot App builds (including the Google Play app), deploying a Polkadot Product to Products Devnet, or `pad` | PCF Developer Support: [`products-devnet-issues`](https://github.com/Polkadot-Community-Foundation/products-devnet-issues), or `#devnet-discussion` on the [Polkadot Discord server](https://discord.com/invite/eD4jMYbC5U) |
 
 The Polkadot Community Foundation (PCF) operates Products Devnet and its Polkadot App builds using open-source technology developed by Parity. Parity does not operate those services, so the Polkadot Developer Support channels cannot resolve problems with them.
 

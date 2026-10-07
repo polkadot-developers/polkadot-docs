@@ -49,15 +49,15 @@ Which tier a name falls into depends on its length, counted as written. Digits c
 | Length                 | Requirement                                              |
 |------------------------|----------------------------------------------------------|
 | 9 characters or longer | Open to everyone, with no personhood check               |
-| 6 to 8 characters      | Requires Full Proof of Personhood                        |
+| 6 to 8 characters      | Requires Proof of Personhood                             |
 | 5 characters or fewer  | Reserved for governance, not sold on this path           |
 
-So `johnsmith57` is open to anyone because it is 11 characters, and so is `johnsmith` at exactly nine. `johnny` and `johnny01` both need full proof of personhood at six and eight characters, and `john` is not sold on this path at all at four. A device proof does not open that band: a device name such as `joseph.42` is earned through the personhood gateway and cannot be registered here. Adding digits no longer lowers the tier a name demands: it only makes the name longer, which can move it into the open band.
+So `johnsmith57` is open to anyone because it is 11 characters, and so is `johnsmith` at exactly nine. `johnny` and `johnny01` both need proof of personhood at six and eight characters, and `john` is not sold on this path at all at four. A device proof does not open that band: a device name such as `johnny.42` is earned through the personhood gateway and cannot be registered here. Adding digits no longer lowers the tier a name demands: it only makes the name longer, which can move it into the open band.
 
 Every name this path admits pays the same refundable deposit, whatever its length. See the [PopRules and Pricing reference](/reference/apps/infrastructure/dotns/poprules-pricing/) for the bands and the deposit.
 
 !!! note "Personhood and the network"
-    Proof of Personhood is obtained in the Polkadot App on your device; there is no CLI path to a tier. If your account has no personhood status, pick a name of nine characters or more, which registers with no personhood check. A device or personhood name, such as `joseph.42`, is earned through the personhood gateway rather than registered here. See [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/) for how names, deposits, and personhood interact on TestNet.
+    Proof of Personhood is obtained in the Polkadot App on your device; there is no CLI path to a tier. If your account has no personhood status, pick a name of nine characters or more, which registers with no personhood check. A device or personhood name, such as `johnny.42`, is earned through the personhood gateway rather than registered here. See [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/) for how names, deposits, and personhood interact on TestNet.
 
 ## Ways to Register
 

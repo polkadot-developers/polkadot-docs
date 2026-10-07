@@ -16,7 +16,7 @@ Four properties shape how a Product developer interacts with dotNS:
 
 - **The registry lives on Polkadot Hub**: Names, owners, and the content references they point at are stored as contract state on Polkadot Hub.
 - **Name resolution is content-addressed at the end**: A `.dot` name resolves to a CID, and the CID points at bytes on the [Bulletin Chain](/reference/apps/infrastructure/bulletin-chain/) (or via an IPFS gateway). See [Name Mechanism](/reference/apps/infrastructure/dotns/name-mechanism/).
-- **Eligibility is personhood-gated by PopRules**: A name's length places it in a band. Six to eight characters requires full proof of personhood on the public path. Five or fewer is not sold there at all. Every name the public path admits pays the same refundable deposit, so personhood gates who may register rather than what it costs. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
+- **Eligibility is personhood-gated by PopRules**: A name's length places it in a band. Six to eight characters requires proof of personhood on the public path. Five or fewer is not sold there at all. Every name the public path admits pays the same refundable deposit, so personhood gates who may register rather than what it costs. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
 - **The architecture is a small set of cooperating contracts**: Not a single registrar — a set of contracts each handling a slice of the model. See [Architecture](/reference/apps/infrastructure/dotns/architecture/).
 
 For the Product-side how-to (registering a name, publishing your bundle), see [Register and Publish](/apps/deploy-your-app/).

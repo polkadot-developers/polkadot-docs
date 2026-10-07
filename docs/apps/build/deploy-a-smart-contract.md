@@ -53,7 +53,7 @@ The mapping step is required before your first deploy: `pallet-revive` needs eac
 - **`cdm account set -n paseo --mnemonic "…"`**: Imports an existing account instead of generating one.
 
 !!! warning "`cdm`'s `paseo` preset is Paseo Next, not the Paseo TestNet"
-    `cdm -n paseo` targets the Paseo Asset Hub preview network (para 1500), the same network the `playground` CLI deploys to. `cdm -n devnet` targets the Paseo TestNet Asset Hub (para 1000) with a registry operated by the Polkadot Community Foundation. They are different chains with different registries, so a contract deployed under one preset is not resolvable under the other. Fund the account on the network you actually target — the [faucet](/apps/get-started/get-testnet-tokens/) needs `?parachain=1500` for Paseo Next.
+    `cdm -n paseo` targets the Paseo Asset Hub preview network (para 1500), the same network the `playground` CLI deploys to. `cdm -n devnet` targets Products Devnet, the Paseo TestNet Asset Hub (para 1000) with a registry operated by the Polkadot Community Foundation (PCF). Problems with Products Devnet go to PCF, not Parity; see [Choose the Right Channel](/get-support/#choose-the-right-channel). They are different chains with different registries, so a contract deployed under one preset is not resolvable under the other. Fund the account on the network you actually target — the [faucet](/apps/get-started/get-testnet-tokens/) needs `?parachain=1500` for Paseo Next.
 
 ## How Contracts Fit Together
 

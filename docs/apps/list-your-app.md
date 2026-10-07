@@ -104,7 +104,7 @@ A listing itself stores only a minimal on-chain record: a hash of the label, the
 
 ### Publishing to Browse
 
-Publishing into the on-chain Browse catalogue is handled by the Polkadot Community Foundation's deploy tooling (`pad`), which is separate from the `playground` CLI. The `playground` CLI publishes to the Playground directory described above, not to Browse. For the `pad` publish and unpublish flow, the personhood requirements, and the Browse contract details, see the [Polkadot Community Foundation developer documentation](https://docs.polkadotcommunity.foundation).
+Publishing into the on-chain Browse catalogue is handled by the Polkadot Community Foundation's (PCF) deploy tooling (`pad`), which is separate from the `playground` CLI. PCF supports `pad`, so report problems with it to PCF; see [Choose the Right Channel](/get-support/#choose-the-right-channel). The `playground` CLI publishes to the Playground directory described above, not to Browse. For the `pad` publish and unpublish flow, the personhood requirements, and the Browse contract details, see the [Polkadot Community Foundation developer documentation](https://docs.polkadotcommunity.foundation).
 
 !!! note "Two toolchains, two directories"
     These docs standardize on the `playground` CLI, whose listing path is the Playground directory. Browse is populated by the Community Foundation's `pad` tooling. The two are separate publish mechanisms that share the same idea: a discovery directory of published Products surfaced inside the Hosts.

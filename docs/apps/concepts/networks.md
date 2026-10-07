@@ -1,6 +1,6 @@
 ---
 title: Networks
-description: The two TestNet environments a Polkadot Product can target — Paseo Next v2 and the devnet — how they relate and the differences that affect your app.
+description: The two TestNet environments a Polkadot Product can target — Paseo Next v2 and Products Devnet — how they relate and the differences that affect your app.
 categories: Apps
 ---
 
@@ -11,9 +11,11 @@ categories: Apps
 Two TestNet environments are available while you build Polkadot Products, and they are separate networks, not two names for one. The [Product SDK](/apps/product-sdk/) exposes both as presets:
 
 - **`paseo` (Paseo Next v2)**: The environment Polkadot Desktop development builds default to. It is a preview network and the successor to Paseo Next v1.
-- **`devnet`**: A third-party public Paseo TestNet, run by the [Polkadot Community Foundation](https://docs.polkadotcommunity.foundation/).
+- **`devnet` (Products Devnet)**: A public Paseo TestNet operated by the [Polkadot Community Foundation](https://docs.polkadotcommunity.foundation/) (PCF) using open-source technology developed by Parity. Parity does not operate it.
 
 Both expose the same core chains a Product uses — Asset Hub, the Bulletin Chain, and Individuality (the chain that carries identity, personhood, and the Statement Store, which the reference docs also call the People Chain) — so most Product code runs on either without changes. The production `polkadot` and `kusama` presets are not live yet; requesting them throws.
+
+--8<-- 'text/apps/network-operators.md'
 
 ## What Differs
 
@@ -21,14 +23,14 @@ The one behavioral difference documented today that can affect your app is trans
 
 - **`AsPgas` signed extension (Paseo Next v2)**: Paseo Next v2 ships an `AsPgas` signed extension that legacy Polkadot.js-style signing does not understand, so that path fails with an error about the unsupported signed extension. Sign through the product account instead — get a signer from [`getProductAccount(...).getSigner()`](/apps/product-sdk/signer/), which routes through the Host's transaction path and preserves the extension. This is the path the SDK guides already use, so following them keeps you compatible.
 
-Beyond signing, the two networks are documented as parallel and equivalent in capability. Endpoints and preset details are re-homed as the networks evolve, so resolve them from the SDK preset rather than hardcoding.
+Beyond signing, the two networks are separate deployments with separate operators, so do not assume they offer the same capabilities. Endpoints and preset details are re-homed as the networks evolve, so resolve them from the SDK preset rather than hardcoding.
 
 ## Proof of Personhood Availability
 
 Whether the [Proof of Personhood](/apps/concepts/identity/) Full tier is active on a given network depends on operator-side configuration, so it can differ between environments and over time. Treat a `None` or `Lite` result as the safe default in your Product, and gate features so they still work when a higher tier is unavailable.
 
 !!! warning "Confirm current per-network capabilities"
-    Which personhood tiers, discovery directories, and services are live on each network is evolving and is not fully captured in these docs. Before depending on a specific capability being present on `devnet` or `paseo`, confirm its current status with the developer community rather than assuming parity between the two.
+    Which personhood tiers, discovery directories, and services are live on each network is evolving and is not fully captured in these docs. Before depending on a specific capability being present on Products Devnet or Paseo Next v2, confirm its current status with that network's operator rather than assuming the two match.
 
 ## Where to Go Next
 

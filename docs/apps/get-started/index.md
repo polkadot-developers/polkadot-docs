@@ -22,14 +22,18 @@ Polkadot Desktop never holds your private key. Your identity lives on the Polkad
 
 Before getting started, ensure you have:
 
-- The [Polkadot App](/apps/) installed on your phone with an account created (your developer identity and signing device for Polkadot Products)
+- The [Polkadot App](/apps/#get-the-polkadot-app) installed on your phone with an account created (your developer identity and signing device for Polkadot Products)
 - A workstation running macOS, Windows, or Linux
 - A device (iOS or Android) with a working camera
 - Network connectivity on both devices
 
+On Android, the Polkadot App is installed from Parity's APK rather than Google Play, which requires allowing installs from unknown apps. See [Get the Polkadot App](/apps/#get-the-polkadot-app).
+
+--8<-- 'text/apps/network-operators.md'
+
 ## Install Polkadot Desktop
 
-1. Download the development build of [Polkadot Desktop](https://www.polkadotcommunity.foundation/desktop).
+1. Download the latest development build of Polkadot Desktop for your platform from the [`polkadot-desktop-community` releases page](https://github.com/paritytech/polkadot-desktop-community/releases).
 
 2. Install the application using your platform's standard installer.
 

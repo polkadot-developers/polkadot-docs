@@ -8,6 +8,8 @@ categories: Apps
 
 Named entries for the failures developers hit most while building and deploying Polkadot Products. Each one states the cause and the resolution.
 
+--8<-- 'text/apps/network-operators.md'
+
 ## `no allowance set for account`
 
 **Cause**: [Allowances](/apps/concepts/allowances/) are granted per account. This error means the account that actually signed the request has no allowance — almost always because the allowance was granted to a _different_ account than the one signing. Common ways this happens: you funded a dev key but signed with your phone account (or the reverse), or your Product derived its [per-app account](/apps/concepts/accounts/) under a different `productId` than the one you granted the allowance under (for example, running from `localhost`, which derives under `playground.dot`, versus a `<name>.dot.li` URL, which derives under `<name>.dot`).

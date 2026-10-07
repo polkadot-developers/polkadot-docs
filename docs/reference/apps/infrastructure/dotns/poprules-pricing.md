@@ -22,7 +22,7 @@ A name reaches an owner by one of three routes, and most of the rules on this pa
 - **The personhood gateway**: The route that issues device and personhood names. It charges no deposit and refuses a stem of five characters or fewer. Gateway names cannot be transferred; see [Name Transfers](/reference/apps/infrastructure/dotns/transfer/).
 - **The reserved path**: The governance route that puts names of five characters or fewer into circulation. It mints an available label at no cost and skips the personhood check. It requires a governance-issued grant naming the label and the intended owner, or a Substrate Root origin.
 
-## The Two PoP Tiers
+## The Two Proof Tiers
 
 `PopRules` recognizes two proof tiers, registered separately on the People Chain:
 

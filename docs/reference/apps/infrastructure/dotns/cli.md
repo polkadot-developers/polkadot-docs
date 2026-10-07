@@ -70,7 +70,7 @@ The table lists every command in `0.10.0`. Run `dotns <command> --help` for each
 | `text` | `view`, `set` | Read and set a name's text records. |
 | `primary` | `set`, `status` | Set and show the primary name for an account. |
 | `delegate` | `set`, `revoke`, `status`, `records`, `records-status` | Let another account manage a name, or edit records on all of an owner's names. |
-| `escrow` | `status`, `positions`, `release`, `redeem`, `withdraw`, `claim-withdrawal`, `balance`, `refunds`, `list`, `claim`, `claim-batch` | Manage deposits, the release lifecycle, and the pull-payment balance. |
+| `escrow` | `status`, `positions`, `release`, `redeem`, `withdraw`, `claim-withdrawal`, `balance`, `refunds list`, `refunds claim`, `refunds claim-batch` | Manage deposits, the release lifecycle, the pull-payment balance, and the time-locked refund ledger. |
 | `pop` | `info` | Show an account's personhood status. There is no command to set a tier. |
 | `store` | `claim`, `info`, `list`, `names`, `cids`, `get`, `set`, `delete`, `sync` | Manage the account's User Store and the names in its label store. |
 | `account` | `address`, `info`, `map`, `is-mapped`, `grant` | Show account details and balances, map a Substrate account to its EVM address, and show a name's governance grant. |

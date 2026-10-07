@@ -133,4 +133,4 @@ def main(releases_source_file):
         sys.exit(1)
 
 if __name__ == "__main__":
-    main("variables.yml")
+    main("docs/variables.yml")

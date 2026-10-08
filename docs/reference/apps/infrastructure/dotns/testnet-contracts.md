@@ -31,7 +31,7 @@ This page tracks the current TestNet contract addresses for the dotNS deployment
 | `DotnsContentResolver`     | The `contenthash` record a Product resolves through.                                 | `0x7F74D7CD50f5a834270E2ad395a01b01891AB37d` |
 | `StoreFactory`             | Deploys the per-user label store that maps a node back to its text.                  | `0x99605a926FcB40aB520F659c6505E5ff862771f6` |
 
-These addresses come from the `paseo-assethub` deployment, on chain ID `420420417`, which runs dotNS `1.0.0`. The protocol registry is the authoritative source: `get(key)` returns the address each key points at now. The `deployments.json` asset published with each [dotNS release](https://github.com/paritytech/dotns/releases) records the addresses at release time, so it can fall behind a later in-place upgrade.
+These addresses come from the `paseo-assethub` deployment, on chain ID `420420417`, which runs dotNS `1.0.0`. TestNets are upgraded in place from one release to the next. Upgradeable contracts keep their addresses across an upgrade, but a contract that cannot be upgraded in place is redeployed at a new address when a release changes it. This is why TestNet addresses can differ from the `deployments.json` asset published with each [dotNS release](https://github.com/paritytech/dotns/releases), which records the addresses at release time. The protocol registry is the authoritative source: `get(key)` returns the address each key points at now.
 
 Only `DotnsProtocolRegistry` needs to be configured by hand. Every other address is resolved from it at call time, so an integration that holds the registry address can find the rest without pinning them.
 

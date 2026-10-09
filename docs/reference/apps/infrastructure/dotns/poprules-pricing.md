@@ -22,14 +22,14 @@ A name reaches an owner by one of three routes, and most of the rules on this pa
 - **The personhood gateway**: The route that issues device and personhood names. It charges no deposit and refuses a stem of five characters or fewer. Gateway names cannot be transferred; see [Name Transfers](/reference/apps/infrastructure/dotns/transfer/).
 - **The reserved path**: The governance route that puts names of five characters or fewer into circulation. It mints an available label at no cost and skips the personhood check. It requires a governance-issued grant naming the label and the intended owner, or a Substrate Root origin.
 
-## The Two PoP Tiers
+## The Two Proof Tiers
 
-`PopRules` recognizes two personhood tiers, registered separately on the People Chain:
+`PopRules` recognizes two proof tiers, registered separately on the People Chain:
 
-- **PoP Full**: Proven personhood. The user completes the biometric verification flow in the Polkadot App and their key joins the membership ring on the People Chain.
-- **PoP Lite**: Attested proof of a unique device, registered on a separate ring with a governance-bounded supply.
+- **Personhood**: Proven personhood. The user completes the biometric verification flow in the Polkadot App and their key joins the membership ring on the People Chain.
+- **Devicehood**: Attested proof of a unique device, registered on a separate ring with a governance-bounded supply.
 
-[Proof of Personhood in the Polkadot App](/reference/apps/hosts/polkadot-app/pop/) documents both mechanisms.
+[Proof of Personhood in the Polkadot App](/reference/apps/hosts/polkadot-app/pop/) documents both mechanisms, where they are called PoP Full and PoP Lite.
 
 `PopRules` reads an account's tier from the personhood precompile on Polkadot Hub. It passes a dotNS-scoped context, so a person gets one stable identifier for dotNS that other applications cannot correlate. No tier is self-declared, and no contract holds a user-settable status.
 
@@ -40,14 +40,14 @@ A name's band comes from its length, counted as written. Digits count like any o
 | Length     | Who may register            | Deposit                 |
 |:-----------|:----------------------------|:------------------------|
 | 5 or fewer | Nobody on the public path   | Not sold                |
-| 6 to 8     | An account holding PoP Full | One deposit, refundable |
+| 6 to 8     | An account with personhood  | One deposit, refundable |
 | 9 or more  | Anyone                      | One deposit, refundable |
 
 The deposit is 10 units of the network's native token (10 PAS on Paseo), and it does not vary with the band. See [One Deployment per Network](/reference/apps/infrastructure/dotns/#one-deployment-per-network).
 
-Only the public path charges it. A gateway-issued name carries no deposit, whatever its length, and holding PoP Full does not make a public registration free.
+Only the public path charges it. A gateway-issued name carries no deposit, whatever its length, and holding personhood does not make a public registration free.
 
-PoP Lite does not open the six-to-eight band. An ordinary label of that length requires PoP Full, because the Lite requirement attaches only to the dotted gateway shape. A Lite holder can therefore be issued `joseph.42` but cannot register `joseph` or `joseph01` on the public path.
+Devicehood does not open the six-to-eight band. An ordinary label of that length requires personhood, because devicehood applies only to the dotted gateway shape. An account with devicehood can therefore be issued `joseph.42` but cannot register `joseph` or `joseph01` on the public path.
 
 Two rules narrow the table:
 
@@ -56,7 +56,7 @@ Two rules narrow the table:
 
 ## Device and Personhood Names
 
-A gateway name is earned rather than bought, so it carries no deposit. Proving full personhood earns a personhood name; proving a unique device (Lite personhood) earns a device name. Contract messages and tiers still say Lite and Full; those are the proofs, and device and personhood names are what they earn. The two shapes are distinct:
+A gateway name is earned rather than bought, so it carries no deposit. Proving personhood earns a personhood name; proving a unique device (devicehood) earns a device name. The two shapes are distinct:
 
 - **Device name**: A stem of lowercase ASCII letters, one separator, then exactly two digits, as in `joseph.42`. The stem is the part the person chose; the gateway allocates the digits so people who chose the same stem get separate names. It is banded on the stem alone rather than on the whole name.
 - **Personhood name**: Lowercase ASCII letters only, as in `joseph`. No digits and no hyphens.
@@ -67,9 +67,9 @@ The shape alone does not prove personhood: provenance is not written into the ch
 
 ## Migrating a Device Name to a Personhood Name
 
-A device-name issuance can reserve the matching stem for the same person to claim later as a personhood name, so that upgrading from Lite to Full personhood does not cost them the name they are known by.
+A device-name issuance can reserve the matching stem for the same person to claim later as a personhood name, so that moving from devicehood to personhood does not cost them the name they are known by.
 
-The reservation is not automatic on a public registration, which reserves no stem at all. It is attached by the gateway, which names the base label to reserve alongside the device name it is issuing. A holder of `joseph.42` can therefore have `joseph` held for them, and claim it once they hold PoP Full.
+The reservation is not automatic on a public registration, which reserves no stem at all. It is attached by the gateway, which names the base label to reserve alongside the device name it is issuing. A holder of `joseph.42` can therefore have `joseph` held for them, and claim it once they prove personhood. Claiming it from the device name carries the device name's chat key over and records a public link between the two names, so anyone can see that `joseph` and `joseph.42` belong together.
 
 Two clocks limit the reservation. `PopRules` holds the slot for at most 12 weeks, and the queue on the PoP controller applies its own duration, which governance can configure. Once either lapses, the stem becomes available again on whatever path its length allows.
 

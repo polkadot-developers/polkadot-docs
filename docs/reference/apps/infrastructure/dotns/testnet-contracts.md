@@ -22,16 +22,16 @@ This page tracks the current TestNet contract addresses for the dotNS deployment
 | `DotnsRegistrar`           | The ERC-721 for public and personhood names. A device name has no token.             | `0x4f06E818Ba3d987704fd91cf3d868E4b019106Ab` |
 | `DotnsRegistrarController` | The public commit-reveal registration path.                                          | `0xBdaA01bD1bA67d709F2b1fF286Da0d854977EA30` |
 | `DotnsPopController`       | The personhood gateway path, and the `isPopIssued` provenance record.                | `0xCC932348606cc1f3318cADeC5A5Cd2CA447f8a4b` |
-| `DotnsPopLens`             | Listing surface for a person's names, gated on `isPopIssued`.                        | `0xAE374b07c7e6f473CBa21d57e36AC15C631Abc51` |
+| `DotnsPopLens`             | Listing surface for a person's names, gated on `isPopIssued`.                        | `0x309C5ff21f9082A53211500c6f33cA2a21024Ae4` |
 | `PopRules`                 | Classification and eligibility: which band a label falls in and who may register it. | `0x747B456bE03aec0b42bd85C51513730FBD45DA31` |
 | `DotnsCostModelRegistry`   | Names the cost model in force; that model is where the deposit amount lives.         | `0x8bfd1f0957e73716732e725802f13830B5682da4` |
 | `DotnsFlatPricing`         | The registered model itself: one deposit for every band.                             | `0xD839B281dF72Df44fF275305E72cAEEc0fDAA648` |
 | `DotnsNameEscrow`          | Holds deposits and runs the release, redeem, withdraw, and reclaim lifecycle.        | `0x4881Afb78e7C908cAe818168B926229D93376520` |
 | `DotnsNameWhitelist`       | Per-name grants for reserved registration.                                           | `0x420166cD67Ca0233094E492a4BbA67045eD7C38C` |
 | `DotnsContentResolver`     | The `contenthash` record a Product resolves through.                                 | `0x7F74D7CD50f5a834270E2ad395a01b01891AB37d` |
-| `StoreFactory`             | Deploys the per-user label store that maps a node back to its text.                  | `0x709A027F446a9e2a4BB9cb9a9c754435b19e32B7` |
+| `StoreFactory`             | Deploys the per-user label store that maps a node back to its text.                  | `0x99605a926FcB40aB520F659c6505E5ff862771f6` |
 
-These addresses come from the `paseo-assethub` deployment artifact, on chain ID `420420417`. The authoritative copy is the `deployments.json` asset published with every [dotNS release](https://github.com/paritytech/dotns/releases); read it there if this table falls behind a tag.
+These addresses come from the `paseo-assethub` deployment, on chain ID `420420417`, which runs dotNS `1.0.0`. TestNets are upgraded in place from one release to the next. Upgradeable contracts keep their addresses across an upgrade, but a contract that cannot be upgraded in place is redeployed at a new address when a release changes it. This is why TestNet addresses can differ from the `deployments.json` asset published with each [dotNS release](https://github.com/paritytech/dotns/releases), which records the addresses at release time. The protocol registry is the authoritative source: `get(key)` returns the address each key points at now.
 
 Only `DotnsProtocolRegistry` needs to be configured by hand. Every other address is resolved from it at call time, so an integration that holds the registry address can find the rest without pinning them.
 

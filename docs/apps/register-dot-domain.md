@@ -59,7 +59,7 @@ The six-to-eight band is closed on this path by a governance switch in `PopRules
 Every name this path admits pays the same refundable deposit, whatever its length. See the [PopRules and Pricing reference](/reference/apps/infrastructure/dotns/poprules-pricing/) for the bands and the deposit.
 
 !!! note "Personhood and the network"
-    Proof of Personhood is obtained in the Polkadot App on your device; there is no CLI path to a tier. On this path, pick a name of nine characters or more, which registers with no personhood check. A shorter name is available only as a device or personhood name, such as `johnny.42` or `johnny`, which is earned through the personhood gateway rather than registered here. See [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/) for how names, deposits, and personhood interact on TestNet.
+    Proof of Personhood is obtained in the Polkadot App on your device; there is no CLI path to a tier. On this path, pick a name of nine characters or more, which registers with no personhood check. A name of six to eight characters is available only as a device or personhood name, such as `johnny.42` or `johnny`, which is earned through the personhood gateway rather than registered here. See [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/) for how names, deposits, and personhood interact on TestNet.
 
 ## Ways to Register
 

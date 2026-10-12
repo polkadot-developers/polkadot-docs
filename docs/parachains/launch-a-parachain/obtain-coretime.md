@@ -8,6 +8,23 @@ page_badges:
 ---
 
 # Obtain Coretime
+!!! warning "Faucet & 60 DOT Deposit - Required Before Starting!"
+
+    Before purchasing coretime, you need these:
+
+    **1. Get Paseo DOT from Faucet:**
+    You need PAS tokens for coretime fees.
+    - Faucet: https://faucet.paseo.network/
+    - Alt Faucet: https://faucet.polkadot.io/?parachain=1005
+
+    **2. Keep 65 DOT on Paseo Asset Hub:**
+    Parachain registration needs a **60 DOT deposit** on 
+    Asset Hub (Paseo Asset Hub). Keep 65 DOT total 
+    (60 for deposit + 5 for fees). This deposit is 
+    reserved and returned when you deregister.
+
+    **If you skip this, you will get error:**
+    `InsufficientBalance` or `DepositFailed` on Paseo.
 
 ## Introduction
 

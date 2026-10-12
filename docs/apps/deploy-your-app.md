@@ -94,7 +94,7 @@ The CLI presents the following prompts in order:
     | Length                 | Requirement                                              |
     |------------------------|----------------------------------------------------------|
     | 9 characters or longer | Open to everyone, with no personhood check               |
-    | 6 to 8 characters      | Requires Proof of Personhood                             |
+    | 6 to 8 characters      | Not sold on this path; earned in the Polkadot App        |
     | 5 characters or fewer  | Reserved for governance, not sold on this path           |
 
     <div class="termynal" data-termynal>
@@ -102,7 +102,7 @@ The CLI presents the following prompts in order:
       › myproject57█</pre></span>
     </div>
 
-    The label also has to be 3 to 63 lowercase characters (`a-z`, `0-9`, `-`), with no leading or trailing dash. Digits are allowed anywhere and in any quantity. If registration is rejected, the name may already be [taken](/apps/troubleshooting/#the-name-is-already-registered) or [reserved for accounts with Proof of Personhood](/apps/troubleshooting/#the-name-requires-proof-of-personhood). See [Register a `.dot` Domain](/apps/register-dot-domain/#choose-a-name) for the full name rules.
+    The label also has to be 3 to 63 lowercase characters (`a-z`, `0-9`, `-`), with no leading or trailing dash. Digits are allowed anywhere and in any quantity. If registration is rejected, the name may already be [taken](/apps/troubleshooting/#the-name-is-already-registered) or [too short to buy](/apps/troubleshooting/#short-names-are-not-for-sale). See [Register a `.dot` Domain](/apps/register-dot-domain/#choose-a-name) for the full name rules.
 
 7. **Publish to the playground**: Choose **yes** to list your app in the public Polkadot Playground so others can find and open it. Choose **no** to still deploy it to your dotNS address, but keep it unlisted.
 
@@ -179,7 +179,7 @@ Renewal needs a bookkeeping handle from the original write: the `(block, index)`
 Deploy-time issues have named fixes in [Troubleshooting](/apps/troubleshooting/):
 
 - [The deploy pauses for about a minute](/apps/troubleshooting/#the-deploy-pauses-for-about-a-minute): the tooling waiting out the dotNS commit-reveal handshake, not a hang.
-- [The name is already registered](/apps/troubleshooting/#the-name-is-already-registered) or [requires Proof of Personhood](/apps/troubleshooting/#the-name-requires-proof-of-personhood): choose a different or longer name.
+- [The name is already registered](/apps/troubleshooting/#the-name-is-already-registered) or is [too short to buy](/apps/troubleshooting/#short-names-are-not-for-sale): choose a different or longer name.
 - [`no allowance set for account`](/apps/troubleshooting/#no-allowance-set-for-account) or [uploads are rejected](/apps/troubleshooting/#uploads-are-rejected-or-host-storage-unavailable): the signing account is missing PAS or a storage authorization.
 - [The app does not appear right after deploy](/apps/troubleshooting/#the-app-does-not-appear-right-after-deploy): on-chain propagation and gateway resolution take a moment.
 

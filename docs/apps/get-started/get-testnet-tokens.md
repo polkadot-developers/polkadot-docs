@@ -54,7 +54,7 @@ Some Polkadot infrastructure services use a separate allowance-based access mode
 
 ??? note "Service Allowances: dotNS Names"
 
-    [dotNS](/reference/apps/infrastructure/dotns/) name registration charges the same refundable deposit for every name it admits on the public path, whatever its length. The deposit is paid in the network's native token, so on Paseo it is PAS, and names carry the environment's TLD rather than `.dot`. Proof of Personhood decides which names an account may register rather than what they cost. Device and personhood names are earned through the personhood gateway instead, and carry no deposit.
+    [dotNS](/reference/apps/infrastructure/dotns/) name registration charges the same refundable deposit for every name it admits on the public path, whatever its length. The deposit is paid in the network's native token, so on Paseo it is PAS, and names carry the environment's TLD rather than `.dot`. The public path sells only names of nine characters or more. Shorter device and personhood names are earned through the personhood gateway instead, and carry no deposit.
 
     See the [dotNS PopRules and Pricing reference](/reference/apps/infrastructure/dotns/poprules-pricing/) for the bands and the deposit.
 

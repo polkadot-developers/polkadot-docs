@@ -32,11 +32,11 @@ Named entries for the failures developers hit most while building and deploying 
 
 **Resolution**: Wait. The deploy is not stuck. The next approval appears in the Polkadot App once the window elapses.
 
-## The Name Requires Proof of Personhood
+## Short Names Are Not for Sale
 
-**Cause**: Short dotNS names are reserved for accounts with [Proof of Personhood](/apps/concepts/identity/). A name of six to eight characters needs Proof of Personhood. A name of five characters or fewer is not sold on this path at all. Length is counted as written, so digits do not change which band a name falls in.
+**Cause**: Registering a name of six to eight characters fails with `Short names are not for sale`. The public registration path that `playground`, `pad`, and the dotNS CLI use sells only names of nine characters or more. The six-to-eight band is closed by a governance switch in `PopRules`, which is off by default, so [Proof of Personhood](/apps/concepts/identity/) does not open it. A name of five characters or fewer is reserved for governance. Length is counted as written, so digits do not change which band a name falls in.
 
-**Resolution**: Choose a name of nine characters or more, which registers with no personhood check, or obtain Proof of Personhood in the Polkadot App to open the six-to-eight band. A device proof does not open that band. See [Register a `.dot` Domain](/apps/register-dot-domain/#choose-a-name).
+**Resolution**: Choose a name of nine characters or more. A name of six to eight characters is available only as a personhood or device name, earned through Proof of Personhood in the Polkadot App. See [Register a `.dot` Domain](/apps/register-dot-domain/#choose-a-name).
 
 ## The Name Is Already Registered
 

@@ -42,22 +42,24 @@ A label must satisfy all of these, or registration is rejected before anything i
 !!! note "Out-of-date tooling is stricter"
     Releases built against the previous label rules cap a trailing run of digits at two and reject a longer one, which the chain no longer does. `@parity/dotns-cli` lifted the cap in `0.9.0`. If a label with three or more trailing digits is refused before anything is submitted on chain, update your tooling rather than changing the name.
 
-### Personhood Tiers
+### Length Bands
 
-Which tier a name falls into depends on its length, counted as written. Digits count like any other character:
+Which band a name falls into depends on its length, counted as written. Digits count like any other character:
 
 | Length                 | Requirement                                              |
 |------------------------|----------------------------------------------------------|
 | 9 characters or longer | Open to everyone, with no personhood check               |
-| 6 to 8 characters      | Requires Proof of Personhood                             |
+| 6 to 8 characters      | Not sold on this path; earned in the Polkadot App        |
 | 5 characters or fewer  | Reserved for governance, not sold on this path           |
 
-So `johnsmith57` is open to anyone because it is 11 characters, and so is `johnsmith` at exactly nine. `johnny` and `johnny01` both need proof of personhood at six and eight characters, and `john` is not sold on this path at all at four. A device proof does not open that band: a device name such as `johnny.42` is earned through the personhood gateway and cannot be registered here. Adding digits no longer lowers the tier a name demands: it only makes the name longer, which can move it into the open band.
+So `johnsmith57` is open to anyone because it is 11 characters, and so is `johnsmith` at exactly nine. `johnny` and `johnny01`, at six and eight characters, cannot be registered on this path whatever personhood status the account holds, and neither can `john` at four. `johnny` can still be earned as a personhood name in the Polkadot App. `johnny01` cannot be earned there either, because a gateway name never carries digits without a separator. Adding digits no longer lowers the tier a name demands: it only makes the name longer, which can move it into the open band.
+
+The six-to-eight band is closed on this path by a governance switch in `PopRules`, which is off by default. While it is off, registering a name of that length fails with `Short names are not for sale`.
 
 Every name this path admits pays the same refundable deposit, whatever its length. See the [PopRules and Pricing reference](/reference/apps/infrastructure/dotns/poprules-pricing/) for the bands and the deposit.
 
 !!! note "Personhood and the network"
-    Proof of Personhood is obtained in the Polkadot App on your device; there is no CLI path to a tier. If your account has no personhood status, pick a name of nine characters or more, which registers with no personhood check. A device or personhood name, such as `johnny.42`, is earned through the personhood gateway rather than registered here. See [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/) for how names, deposits, and personhood interact on TestNet.
+    Proof of Personhood is obtained in the Polkadot App on your device; there is no CLI path to a tier. On this path, pick a name of nine characters or more, which registers with no personhood check. A shorter name is available only as a device or personhood name, such as `johnny.42` or `johnny`, which is earned through the personhood gateway rather than registered here. See [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/) for how names, deposits, and personhood interact on TestNet.
 
 ## Ways to Register
 
@@ -92,7 +94,7 @@ From there, the CLI registers the name on chain. If you deploy with the phone si
 !!! note "An abandoned commitment expires after a day"
     A commitment is valid for one day. If a deploy fails between reserve and finalize and you come back later than that, the commitment is no longer claimable and the handshake starts over from the beginning.
 
-Names are first come, first served. If the CLI reports that a name is [already registered](/apps/troubleshooting/#the-name-is-already-registered), choose another; if it reports the name [requires Proof of Personhood](/apps/troubleshooting/#the-name-requires-proof-of-personhood), pick a longer name. With the dev signer, these steps run without phone prompts; the deployed name is owned by the shared dev account rather than by you.
+Names are first come, first served. If the CLI reports that a name is [already registered](/apps/troubleshooting/#the-name-is-already-registered), choose another; if it reports that [short names are not for sale](/apps/troubleshooting/#short-names-are-not-for-sale), pick a name of nine characters or more. With the dev signer, these steps run without phone prompts; the deployed name is owned by the shared dev account rather than by you.
 
 ## Register with `pad`
 

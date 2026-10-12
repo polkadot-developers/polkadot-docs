@@ -37,17 +37,19 @@ A name reaches an owner by one of three routes, and most of the rules on this pa
 
 A name's band comes from its length, counted as written. Digits count like any other character, so `web3` is four characters and `hamilton01` is 10.
 
-| Length     | Who may register            | Deposit                 |
-|:-----------|:----------------------------|:------------------------|
-| 5 or fewer | Nobody on the public path   | Not sold                |
-| 6 to 8     | An account with personhood  | One deposit, refundable |
-| 9 or more  | Anyone                      | One deposit, refundable |
+| Length     | Who may register                                         | Deposit                 |
+|:-----------|:---------------------------------------------------------|:------------------------|
+| 5 or fewer | Nobody on the public path                                | Not sold                |
+| 6 to 8     | Closed by default; when open, an account with personhood | One deposit, refundable |
+| 9 or more  | Anyone                                                   | One deposit, refundable |
+
+The six-to-eight band is closed on the public path by default. `PopRules` admits it only while `shortNamesEnabled` is set, and only a Root origin can set it: governance on MainNet, and the sudo pallet on TestNets. The switch is off on Paseo, so a public registration of six to eight characters fails with `Short names are not for sale`, whatever tier the account holds. The gateway and the reserved path do not consult the switch, so personhood and device names of that length are still issued.
 
 The deposit is 10 units of the network's native token (10 PAS on Paseo), and it does not vary with the band. See [One Deployment per Network](/reference/apps/infrastructure/dotns/#one-deployment-per-network).
 
 Only the public path charges it. A gateway-issued name carries no deposit, whatever its length, and holding personhood does not make a public registration free.
 
-Devicehood does not open the six-to-eight band. An ordinary label of that length requires personhood, because devicehood applies only to the dotted gateway shape. An account with devicehood can therefore be issued `joseph.42` but cannot register `joseph` or `joseph01` on the public path.
+Devicehood does not open the six-to-eight band, even while the switch is set. An ordinary label of that length requires personhood, because devicehood applies only to the dotted gateway shape. An account with devicehood can therefore be issued `joseph.42` but cannot register `joseph` or `joseph01` on the public path.
 
 Two rules narrow the table:
 

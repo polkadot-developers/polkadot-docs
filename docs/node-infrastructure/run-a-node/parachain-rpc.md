@@ -480,7 +480,7 @@ You can run the Ethereum RPC adapter using Docker or as a systemd service.
     docker run -d --name eth-rpc --restart unless-stopped \
       --network=host \
       -v /var/lib/eth-rpc:/data \
-      parity/eth-rpc:stable2606-2 \
+      parity/eth-rpc:{{dependencies.repositories.polkadot_sdk.docker_image_version}} \
       --node-rpc-url=ws://127.0.0.1:9944 \
       --rpc-port=8545 \
       --base-path=/data \
@@ -492,7 +492,7 @@ You can run the Ethereum RPC adapter using Docker or as a systemd service.
         The `-v` flag maps the host directory `/var/lib/eth-rpc` to `/data` inside the container. The `--base-path` flag references this container path to persist the `eth-rpc.db` database across restarts.
 
     !!! note
-        Check the [Docker Hub tags page](https://hub.docker.com/r/parity/eth-rpc/tags) for newer releases. Tags follow the Polkadot SDK release naming, such as `stable2606-2`.
+        Check the [Docker Hub tags page](https://hub.docker.com/r/parity/eth-rpc/tags) for newer releases. Tags follow the Polkadot SDK release naming, such as `{{dependencies.repositories.polkadot_sdk.docker_image_version}}`.
 
 === "systemd"
 

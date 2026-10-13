@@ -67,13 +67,10 @@ npm install ethers
 Add the Solidity compiler so you can generate standard EVM bytecode:
 
 ```bash
-npm install --save-dev solc
+npm install --save-dev solc@{{ dependencies.javascript_packages.solc.version }}
 ```
 
 This guide uses `solc` version `{{ dependencies.javascript_packages.solc.version }}`.
-
-!!! tip
-    The sample scripts use ECMAScript modules. Add `"type": "module"` to your `package.json` (or rename the files to `.mjs`) so that `node` can run the `import` statements.
 
 ## Set Up the Ethers.js Provider
 

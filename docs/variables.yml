@@ -78,13 +78,13 @@ dependencies:
       name: 'solc'
       version: 0.8.35
     web3_js:
-      name: '@web3js'
+      name: web3
       version: 4.16.0
     viem:
       name: viem
       version: 2.57.5
     ethersjs:
-      name: '@ethersjs'
+      name: ethers
       version: 6.16.0
     paraspell_sdk:
       name: '@paraspell/sdk'

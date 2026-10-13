@@ -36,8 +36,8 @@ RPC nodes serving production traffic require robust hardware:
     - 1 Gbps connection for high traffic scenarios
     - Consider DDoS protection and rate limiting for production deployments
     - Open ports:
-        - **30333**: Parachain P2P
-        - **30334**: Relay chain P2P
+        - **30333**: Parachain P2P (TCP, and UDP for WebRTC)
+        - **30334**: Relay chain P2P (TCP, and UDP for WebRTC)
         - **9944**: Polkadot SDK RPC (WebSocket and HTTP)
         - **8545**: Ethereum JSON-RPC (if running `eth-rpc` adapter)
 
@@ -124,7 +124,9 @@ System parachain details:
               -p 9944:9944 \
               -p 9615:9615 \
               -p 30334:30334 \
+              -p 30334:30334/udp \
               -p 30333:30333 \
+              -p 30333:30333/udp \
               -v $(pwd)/chain-spec.json:/chain-spec.json \
               -v $(pwd)/my-node-data:/data \
               parity/polkadot-parachain:{{dependencies.repositories.polkadot_sdk.docker_image_version}} \
@@ -156,7 +158,9 @@ System parachain details:
               -p 9944:9944 \
               -p 9615:9615 \
               -p 30334:30334 \
+              -p 30334:30334/udp \
               -p 30333:30333 \
+              -p 30333:30333/udp \
               -v $(pwd)/chain-spec.json:/chain-spec.json \
               -v $(pwd)/my-node-data:/data \
               parity/polkadot-parachain:{{dependencies.repositories.polkadot_sdk.docker_image_version}} \
@@ -337,7 +341,7 @@ System parachain details:
 
 - **`9944`**: Polkadot SDK RPC endpoint (WebSocket/HTTP)
 - **`9615`**: Prometheus metrics endpoint
-- **`30333/30334`**: P2P networking ports
+- **`30333/30334`**: P2P networking ports. TCP carries regular peer connections. UDP on the same port numbers carries WebRTC connections, which full nodes accept by default on the litep2p network backend.
 
 ### Node Configuration Parameters
 
@@ -480,7 +484,7 @@ You can run the Ethereum RPC adapter using Docker or as a systemd service.
     docker run -d --name eth-rpc --restart unless-stopped \
       --network=host \
       -v /var/lib/eth-rpc:/data \
-      parity/eth-rpc:stable2606-2 \
+      parity/eth-rpc:{{dependencies.repositories.polkadot_sdk.docker_image_version}} \
       --node-rpc-url=ws://127.0.0.1:9944 \
       --rpc-port=8545 \
       --base-path=/data \
@@ -492,14 +496,14 @@ You can run the Ethereum RPC adapter using Docker or as a systemd service.
         The `-v` flag maps the host directory `/var/lib/eth-rpc` to `/data` inside the container. The `--base-path` flag references this container path to persist the `eth-rpc.db` database across restarts.
 
     !!! note
-        Check the [Docker Hub tags page](https://hub.docker.com/r/parity/eth-rpc/tags) for newer releases. Tags follow the Polkadot SDK release naming, such as `stable2606-2`.
+        Check the [Docker Hub tags page](https://hub.docker.com/r/parity/eth-rpc/tags) for newer releases. Tags follow the Polkadot SDK release naming, such as `{{dependencies.repositories.polkadot_sdk.docker_image_version}}`.
 
 === "systemd"
 
     1. Build the `eth-rpc` binary from the Polkadot SDK source:
 
         ```bash
-        git clone https://github.com/paritytech/polkadot-sdk.git
+        git clone --branch {{dependencies.repositories.polkadot_sdk.version}} --depth 1 https://github.com/paritytech/polkadot-sdk.git
         cd polkadot-sdk
         cargo build -p pallet-revive-eth-rpc --bin eth-rpc --release
 

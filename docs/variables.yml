@@ -15,8 +15,8 @@ dependencies:
       docker_image_version: 1.93.0
     polkadot_sdk:
       repository_url: https://github.com/paritytech/polkadot-sdk
-      version: polkadot-stable2603-1
-      docker_image_version: stable2603-1
+      version: polkadot-stable2606-3
+      docker_image_version: stable2606-3
     open_zeppelin_contracts:
       repository_url: https://github.com/OpenZeppelin/openzeppelin-contracts
       version: v5.6.1
@@ -54,7 +54,7 @@ dependencies:
       ignore_updates: true
     polkadot_omni_node:
       name: polkadot-omni-node
-      version: 0.15.0
+      version: 0.22.0
   javascript_packages:
     chopsticks:
       name: '@acala-network/chopsticks'

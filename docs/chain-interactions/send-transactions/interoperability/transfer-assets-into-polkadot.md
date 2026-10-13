@@ -86,7 +86,7 @@ Install dev dependencies:
 npm install --save-dev @types/node tsx typescript
 ```
 
-Install the ParaSpell SDK, its Snowbridge extension, and [viem](https://viem.sh/){target=\_blank}, which the extension uses to sign Ethereum transactions:
+Install the ParaSpell SDK, its Snowbridge extension, and [viem](https://viem.sh/), which the extension uses to sign Ethereum transactions:
 
 ```bash
 npm install @paraspell/sdk@{{dependencies.javascript_packages.paraspell_sdk.version}} @paraspell/evm-snowbridge@{{dependencies.javascript_packages.paraspell_sdk.version}} polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}} viem@{{dependencies.javascript_packages.viem.version}}
@@ -100,9 +100,9 @@ Now add the following setup code to `index.ts`:
 
 Replace the following placeholders:
 
-- `INSERT_API_KEY`: Your Ethereum RPC provider API key.
-- `0xINSERT_PRIVATE_KEY`: The private key of the Ethereum account holding your WETH, including the `0x` prefix.
-- `INSERT_YOUR_POLKADOT_ADDRESS`: The Polkadot account address (SS58 format) that will receive the bridged tokens on Polkadot Hub.
+- **`INSERT_API_KEY`**: Your Ethereum RPC provider API key.
+- **`INSERT_PRIVATE_KEY`**: The private key of the Ethereum account holding your WETH, as a `0x`-prefixed hex string.
+- **`INSERT_YOUR_POLKADOT_ADDRESS`**: The Polkadot account address (SS58 format) that will receive the bridged tokens on Polkadot Hub.
 
 !!!warning "Security Warning"
     Never commit private keys or seed phrases to production code. Use environment variables or secure key management systems.

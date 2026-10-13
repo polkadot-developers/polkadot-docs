@@ -1,6 +1,6 @@
 import { Builder, getBridgeStatus } from '@paraspell/sdk';
 import { approveToken, getTokenBalance } from '@paraspell/evm-snowbridge';
-import { createPublicClient, createWalletClient, formatUnits, http } from 'viem';
+import { createPublicClient, createWalletClient, formatUnits, http, type Hex } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { mainnet } from 'viem/chains';
 
@@ -22,7 +22,7 @@ const RECIPIENT_ADDRESS = 'INSERT_YOUR_POLKADOT_ADDRESS';
 // Connect to Ethereum mainnet
 // For a browser wallet (MetaMask), use custom(window.ethereum) as the transport
 const walletClient = createWalletClient({
-  account: privateKeyToAccount('0xINSERT_PRIVATE_KEY'),
+  account: privateKeyToAccount('INSERT_PRIVATE_KEY' as Hex),
   chain: mainnet,
   transport: http(ETH_RPC),
 });

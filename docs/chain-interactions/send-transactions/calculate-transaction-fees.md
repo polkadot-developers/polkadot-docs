@@ -44,7 +44,7 @@ npm init -y && npm pkg set type=module
 Install the required packages:
 
 ```bash
-npm install polkadot-api
+npm install polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}}
 npm install --save-dev typescript tsx
 ```
 
@@ -68,8 +68,8 @@ Key aspects of the code:
 
 - **Transaction creation**: The `api.tx.Balances.transfer_keep_alive()` method constructs a balance transfer transaction.
 - **`dest` parameter**: Specifies the recipient using a `MultiAddress` type with `Id` variant.
+- **`getFakeTxCreator()`**: Creates a transaction creator from the sender's address that uses a dummy signature, so you can estimate fees without the sender's private key.
 - **`getEstimatedFees()`**: Returns the estimated fee in plancks (the smallest unit, where 1 DOT = 10^10 plancks).
-- The method applies a dummy signature internally to simulate the transaction.
 
 Execute the script using `tsx`:
 

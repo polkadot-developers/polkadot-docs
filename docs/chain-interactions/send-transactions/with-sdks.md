@@ -55,7 +55,7 @@ Select your preferred SDK below to see complete, runnable examples that send bal
     2. Install dependencies:
 
         ```bash
-        npm install polkadot-api @polkadot/util-crypto @polkadot/keyring && \
+        npm install polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}} @polkadot/util-crypto @polkadot/keyring && \
         npm install --save-dev @types/node tsx typescript
         ```
 

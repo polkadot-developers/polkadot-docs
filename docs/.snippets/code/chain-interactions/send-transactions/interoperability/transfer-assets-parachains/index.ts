@@ -4,7 +4,7 @@ import {
   mnemonicToEntropy,
   ss58Address,
 } from '@polkadot-labs/hdkd-helpers';
-import { getPolkadotSigner } from 'polkadot-api/signer';
+import { getTxCreator } from 'polkadot-api/tx-creator';
 import { sr25519CreateDerive } from '@polkadot-labs/hdkd';
 import { inspect } from 'util';
 
@@ -20,7 +20,7 @@ function getSigner() {
   const miniSecret = entropyToMiniSecret(entropy);
   const derive = sr25519CreateDerive(miniSecret);
   const keyPair = derive('');
-  return getPolkadotSigner(keyPair.publicKey, 'Sr25519', keyPair.sign);
+  return getTxCreator(keyPair.publicKey, 'Sr25519', keyPair.sign);
 }
 
 const RECIPIENT_ADDRESS = ss58Address(getSigner().publicKey);
@@ -42,7 +42,10 @@ async function transfer() {
 
   console.log('Built transaction:', inspect(tx, { colors: true, depth: null }));
 
-  const result = await tx.signAndSubmit(signer);
+  // Polkadot Hub TestNet requires a value for its RestrictOrigins extension
+  const result = await tx.createAndSubmit(signer, {
+    customSignedExtensions: { RestrictOrigins: { value: true } },
+  });
   console.log(inspect(result, { colors: true, depth: null }));
   process.exit(0);
 }

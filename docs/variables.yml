@@ -67,7 +67,7 @@ dependencies:
       version: 16.5.6
     polkadot_api:
       name: polkadot-api
-      version: 2.1.0
+      version: 3.2.1
     resolc:
       name: '@parity/resolc'
       version: 1.2.0
@@ -88,7 +88,13 @@ dependencies:
       version: 6.16.0
     paraspell_sdk:
       name: '@paraspell/sdk'
+      version: 14.4.3
+    paraspell_sdk_pjs:
+      name: '@paraspell/sdk-pjs'
+      # Held on 13.x: transfer-assets-into-polkadot uses EvmBuilder, removed in 14.0.0.
+      # Remove once that page is migrated.
       version: 13.4.0
+      ignore_updates: true
     hdkd:
       name: '@polkadot-labs/hdkd'
       version: 0.0.32

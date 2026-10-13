@@ -7,7 +7,7 @@ import {
   entropyToMiniSecret,
   mnemonicToEntropy,
 } from '@polkadot-labs/hdkd-helpers';
-import { getPolkadotSigner } from 'polkadot-api/signer';
+import { getTxCreator } from 'polkadot-api/tx-creator';
 import { CID } from 'multiformats/cid';
 import { readFile } from 'fs/promises';
 
@@ -30,7 +30,7 @@ async function main() {
   const miniSecret = entropyToMiniSecret(mnemonicToEntropy(DEV_PHRASE));
   const derive = sr25519CreateDerive(miniSecret);
   const hdkdKeyPair = derive('//Alice');
-  const signer = getPolkadotSigner(
+  const signer = getTxCreator(
     hdkdKeyPair.publicKey,
     'Sr25519',
     hdkdKeyPair.sign
@@ -45,7 +45,7 @@ async function main() {
   console.log('Submitting store transaction...');
   const result = await api.tx.TransactionStorage.store({
     data: new Uint8Array(fileData),
-  }).signAndSubmit(signer);
+  }).createAndSubmit(signer);
 
   console.log(`Transaction included in block: ${result.block.hash}`);
   console.log(`Transaction index: ${result.block.index}`);

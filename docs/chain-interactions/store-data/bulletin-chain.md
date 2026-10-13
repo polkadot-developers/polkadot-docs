@@ -209,7 +209,7 @@ Stored data is retained for a limited period (~2 weeks on Polkadot TestNet). If 
     const result = await api.tx.TransactionStorage.renew({
       block: INSERT_BLOCK_NUMBER,
       index: INSERT_INDEX,
-    }).signAndSubmit(signer);
+    }).createAndSubmit(signer);
     console.log(`Renewal included in block: ${result.block.hash}`);
     ```
 

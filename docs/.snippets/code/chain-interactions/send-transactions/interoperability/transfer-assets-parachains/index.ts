@@ -4,9 +4,14 @@ import {
   mnemonicToEntropy,
   ss58Address,
 } from '@polkadot-labs/hdkd-helpers';
+import { createClient } from 'polkadot-api';
+import { getWsProvider } from 'polkadot-api/ws';
 import { getTxCreator } from 'polkadot-api/tx-creator';
 import { sr25519CreateDerive } from '@polkadot-labs/hdkd';
 import { inspect } from 'util';
+
+// Paseo Asset Hub RPC endpoint
+const ASSET_HUB_PASEO_RPC = 'wss://asset-hub-paseo-rpc.n.dwellir.com';
 
 // PAS token has 10 decimals
 const PAS_UNITS = 10_000_000_000n;
@@ -28,8 +33,10 @@ const SENDER_ADDRESS = ss58Address(getSigner().publicKey);
 
 async function transfer() {
   const signer = getSigner();
+  // Use your own client so the connection stays open until finalization
+  const client = createClient(getWsProvider(ASSET_HUB_PASEO_RPC));
 
-  const tx = await Builder()
+  const tx = await Builder(client)
     .from('AssetHubPaseo')
     .to('PeoplePaseo')
     .currency({
@@ -47,6 +54,7 @@ async function transfer() {
     customSignedExtensions: { RestrictOrigins: { value: true } },
   });
   console.log(inspect(result, { colors: true, depth: null }));
+  client.destroy();
   process.exit(0);
 }
 

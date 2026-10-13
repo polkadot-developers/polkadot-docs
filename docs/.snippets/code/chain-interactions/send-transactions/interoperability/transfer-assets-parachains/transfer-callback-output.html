@@ -1,72 +1,193 @@
 <div id="termynal" data-termynal>
   <span data-ty>...</span>
   <span data-ty>{
-  txHash: '0x6fbecc0b284adcff46ab39872659c2567395c865adef5f8cbea72f25b6042609',
+  txHash: '0xd3a3436a3266a514c2eee14f02eebc83dbe091499233bea44ec84c0b8d5a04f3',
   block: {
     index: 2,
-    number: 2524809,
-    hash: '0xa39a96d5921402c6e8f67e48b8395d6b21382c72d4d30f8497a0e9f890bc0d4c'
+    number: 14399920,
+    hash: '0xa43911a433e9911c2d3c981125c56f952d4a2574364e23caa6591a2bf204fc30'
   },
   ok: true,
   events: [
     {
+      phase: { type: 'ApplyExtrinsic', value: 2 },
+      event: {
+        type: 'Balances',
+        value: {
+          type: 'Withdraw',
+          value: {
+            who: '5FRP1btumyfgwaZK7EcTDGu1KRXPHyh3jXDo7rKx9dDt736R',
+            amount: 10757248n
+          }
+        }
+      },
+      topics: [],
       type: 'Balances',
       value: {
         type: 'Withdraw',
         value: {
-          who: '15DMtB5BDCJqw4uZtByTWXGqViAVx7XjRsxWbTH5tfrHLe8j',
-          amount: 15668864n
+          who: '5FRP1btumyfgwaZK7EcTDGu1KRXPHyh3jXDo7rKx9dDt736R',
+          amount: 10757248n
         }
-      },
-      topics: []
+      }
     },
     {
+      phase: { type: 'ApplyExtrinsic', value: 2 },
+      event: {
+        type: 'Balances',
+        value: {
+          type: 'Minted',
+          value: {
+            who: '5EYCAe5ijiYgWYWi1fs8Xz1td1djEtJVVnNfzvDRP4VtLL7Y',
+            amount: 100000000000n
+          }
+        }
+      },
+      topics: [],
       type: 'Balances',
       value: {
-        type: 'Burned',
+        type: 'Minted',
         value: {
-          who: '15DMtB5BDCJqw4uZtByTWXGqViAVx7XjRsxWbTH5tfrHLe8j',
+          who: '5EYCAe5ijiYgWYWi1fs8Xz1td1djEtJVVnNfzvDRP4VtLL7Y',
           amount: 100000000000n
         }
-      },
-      topics: []
+      }
     },
     {
+      phase: { type: 'ApplyExtrinsic', value: 2 },
+      event: {
+        type: 'Balances',
+        value: {
+          type: 'Withdraw',
+          value: {
+            who: '5FRP1btumyfgwaZK7EcTDGu1KRXPHyh3jXDo7rKx9dDt736R',
+            amount: 100000000000n
+          }
+        }
+      },
+      topics: [],
+      type: 'Balances',
+      value: {
+        type: 'Withdraw',
+        value: {
+          who: '5FRP1btumyfgwaZK7EcTDGu1KRXPHyh3jXDo7rKx9dDt736R',
+          amount: 100000000000n
+        }
+      }
+    },
+    {
+      phase: { type: 'ApplyExtrinsic', value: 2 },
+      event: {
+        type: 'Balances',
+        value: { type: 'BurnedDebt', value: { amount: 100000000000n } }
+      },
+      topics: [],
+      type: 'Balances',
+      value: { type: 'BurnedDebt', value: { amount: 100000000000n } }
+    },
+    {
+      phase: { type: 'ApplyExtrinsic', value: 2 },
+      event: {
+        type: 'PolkadotXcm',
+        value: {
+          type: 'Attempted',
+          value: {
+            outcome: {
+              type: 'Complete',
+              value: { used: { ref_time: 456990000n, proof_size: 3675n } }
+            }
+          }
+        }
+      },
+      topics: [],
       type: 'PolkadotXcm',
       value: {
         type: 'Attempted',
         value: {
           outcome: {
             type: 'Complete',
-            value: { used: { ref_time: 190990000n, proof_size: 3593n } }
+            value: { used: { ref_time: 456990000n, proof_size: 3675n } }
+          }
+        }
+      }
+    },
+    {
+      phase: { type: 'ApplyExtrinsic', value: 2 },
+      event: {
+        type: 'Balances',
+        value: {
+          type: 'Withdraw',
+          value: {
+            who: '5FRP1btumyfgwaZK7EcTDGu1KRXPHyh3jXDo7rKx9dDt736R',
+            amount: 304850000n
           }
         }
       },
-      topics: []
-    },
-    {
+      topics: [],
       type: 'Balances',
       value: {
-        type: 'Burned',
+        type: 'Withdraw',
         value: {
-          who: '15DMtB5BDCJqw4uZtByTWXGqViAVx7XjRsxWbTH5tfrHLe8j',
+          who: '5FRP1btumyfgwaZK7EcTDGu1KRXPHyh3jXDo7rKx9dDt736R',
           amount: 304850000n
         }
-      },
-      topics: []
+      }
     },
     {
+      phase: { type: 'ApplyExtrinsic', value: 2 },
+      event: {
+        type: 'Balances',
+        value: {
+          type: 'Deposit',
+          value: {
+            who: '5EYCAe5ijiYfyeZ2JJCGq56LmPyNRAKzpG4QkoQkkQNB5e6Z',
+            amount: 304850000n
+          }
+        }
+      },
+      topics: [],
       type: 'Balances',
       value: {
-        type: 'Minted',
+        type: 'Deposit',
         value: {
-          who: '14xmwinmCEz6oRrFdczHKqHgWNMiCysE2KrA4jXXAAM1Eogk',
+          who: '5EYCAe5ijiYfyeZ2JJCGq56LmPyNRAKzpG4QkoQkkQNB5e6Z',
           amount: 304850000n
         }
-      },
-      topics: []
+      }
     },
     {
+      phase: { type: 'ApplyExtrinsic', value: 2 },
+      event: {
+        type: 'PolkadotXcm',
+        value: {
+          type: 'FeesPaid',
+          value: {
+            paying: {
+              parents: 0,
+              interior: {
+                type: 'X1',
+                value: {
+                  type: 'AccountId32',
+                  value: {
+                    network: { type: 'Polkadot', value: undefined },
+                    id: '0x947969a3f6ef591e0d5aaad926e2662c54d6cc3e5636e1615ee97fd75da6822b'
+                  }
+                }
+              }
+            },
+            fees: [
+              {
+                id: {
+                  parents: 1,
+                  interior: { type: 'Here', value: undefined }
+                },
+                fun: { type: 'Fungible', value: 304850000n }
+              }
+            ]
+          }
+        }
+      },
+      topics: [],
       type: 'PolkadotXcm',
       value: {
         type: 'FeesPaid',
@@ -79,13 +200,7 @@
                 type: 'AccountId32',
                 value: {
                   network: { type: 'Polkadot', value: undefined },
-                  id: FixedSizeBinary {
-                    asText: [Function (anonymous)],
-                    asHex: [Function (anonymous)],
-                    asOpaqueHex: [Function (anonymous)],
-                    asBytes: [Function (anonymous)],
-                    asOpaqueBytes: [Function (anonymous)]
-                  }
+                  id: '0x947969a3f6ef591e0d5aaad926e2662c54d6cc3e5636e1615ee97fd75da6822b'
                 }
               }
             }
@@ -100,26 +215,107 @@
             }
           ]
         }
-      },
-      topics: []
+      }
     },
     {
+      phase: { type: 'ApplyExtrinsic', value: 2 },
+      event: {
+        type: 'XcmpQueue',
+        value: {
+          type: 'XcmpMessageSent',
+          value: {
+            message_hash: '0x29622b09f4b7d2f40568b592b56e09e3204db2866d7e1873cdcc8ecec4edd4e2'
+          }
+        }
+      },
+      topics: [],
       type: 'XcmpQueue',
       value: {
         type: 'XcmpMessageSent',
         value: {
-          message_hash: FixedSizeBinary {
-            asText: [Function (anonymous)],
-            asHex: [Function (anonymous)],
-            asOpaqueHex: [Function (anonymous)],
-            asBytes: [Function (anonymous)],
-            asOpaqueBytes: [Function (anonymous)]
+          message_hash: '0x29622b09f4b7d2f40568b592b56e09e3204db2866d7e1873cdcc8ecec4edd4e2'
+        }
+      }
+    },
+    {
+      phase: { type: 'ApplyExtrinsic', value: 2 },
+      event: {
+        type: 'PolkadotXcm',
+        value: {
+          type: 'Sent',
+          value: {
+            origin: {
+              parents: 0,
+              interior: {
+                type: 'X1',
+                value: {
+                  type: 'AccountId32',
+                  value: {
+                    network: { type: 'Polkadot', value: undefined },
+                    id: '0x947969a3f6ef591e0d5aaad926e2662c54d6cc3e5636e1615ee97fd75da6822b'
+                  }
+                }
+              }
+            },
+            destination: {
+              parents: 1,
+              interior: { type: 'X1', value: { type: 'Parachain', value: 1004 } }
+            },
+            message: [
+              {
+                type: 'ReceiveTeleportedAsset',
+                value: [
+                  {
+                    id: {
+                      parents: 1,
+                      interior: { type: 'Here', value: undefined }
+                    },
+                    fun: { type: 'Fungible', value: 100000000000n }
+                  }
+                ]
+              },
+              { type: 'ClearOrigin', value: undefined },
+              {
+                type: 'BuyExecution',
+                value: {
+                  fees: {
+                    id: {
+                      parents: 1,
+                      interior: { type: 'Here', value: undefined }
+                    },
+                    fun: { type: 'Fungible', value: 100000000000n }
+                  },
+                  weight_limit: { type: 'Unlimited', value: undefined }
+                }
+              },
+              {
+                type: 'DepositAsset',
+                value: {
+                  assets: {
+                    type: 'Wild',
+                    value: { type: 'AllCounted', value: 1 }
+                  },
+                  beneficiary: {
+                    parents: 0,
+                    interior: {
+                      type: 'X1',
+                      value: {
+                        type: 'AccountId32',
+                        value: {
+                          network: undefined,
+                          id: '0x947969a3f6ef591e0d5aaad926e2662c54d6cc3e5636e1615ee97fd75da6822b'
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            message_id: '0x299bf4e0a399c33c1958158112c359a916391bb382838e2b1fade126396cc7dd'
           }
         }
       },
-      topics: []
-    },
-    {
+      topics: [],
       type: 'PolkadotXcm',
       value: {
         type: 'Sent',
@@ -132,20 +328,14 @@
                 type: 'AccountId32',
                 value: {
                   network: { type: 'Polkadot', value: undefined },
-                  id: FixedSizeBinary {
-                    asText: [Function (anonymous)],
-                    asHex: [Function (anonymous)],
-                    asOpaqueHex: [Function (anonymous)],
-                    asBytes: [Function (anonymous)],
-                    asOpaqueBytes: [Function (anonymous)]
-                  }
+                  id: '0x947969a3f6ef591e0d5aaad926e2662c54d6cc3e5636e1615ee97fd75da6822b'
                 }
               }
             }
           },
           destination: {
             parents: 1,
-            interior: { type: 'X1', value: { type: 'Parachain', value: 1002 } }
+            interior: { type: 'X1', value: { type: 'Parachain', value: 1004 } }
           },
           message: [
             {
@@ -189,13 +379,7 @@
                       type: 'AccountId32',
                       value: {
                         network: undefined,
-                        id: FixedSizeBinary {
-                          asText: [Function (anonymous)],
-                          asHex: [Function (anonymous)],
-                          asOpaqueHex: [Function (anonymous)],
-                          asBytes: [Function (anonymous)],
-                          asOpaqueBytes: [Function (anonymous)]
-                        }
+                        id: '0x947969a3f6ef591e0d5aaad926e2662c54d6cc3e5636e1615ee97fd75da6822b'
                       }
                     }
                   }
@@ -203,53 +387,105 @@
               }
             }
           ],
-          message_id: FixedSizeBinary {
-            asText: [Function (anonymous)],
-            asHex: [Function (anonymous)],
-            asOpaqueHex: [Function (anonymous)],
-            asBytes: [Function (anonymous)],
-            asOpaqueBytes: [Function (anonymous)]
+          message_id: '0x299bf4e0a399c33c1958158112c359a916391bb382838e2b1fade126396cc7dd'
+        }
+      }
+    },
+    {
+      phase: { type: 'ApplyExtrinsic', value: 2 },
+      event: {
+        type: 'Balances',
+        value: {
+          type: 'Deposit',
+          value: {
+            who: '5FRP1btumyfgwaZK7EcTDGu1KRXPHyh3jXDo7rKx9dDt736R',
+            amount: 311610n
           }
         }
       },
-      topics: []
-    },
-    {
+      topics: [],
       type: 'Balances',
       value: {
         type: 'Deposit',
         value: {
-          who: '13UVJyLgBASGhE2ok3TvxUfaQBGUt88JCcdYjHvUhvQkFTTx',
-          amount: 15668864n
+          who: '5FRP1btumyfgwaZK7EcTDGu1KRXPHyh3jXDo7rKx9dDt736R',
+          amount: 311610n
         }
-      },
-      topics: []
+      }
     },
     {
+      phase: { type: 'ApplyExtrinsic', value: 2 },
+      event: {
+        type: 'Balances',
+        value: {
+          type: 'Deposit',
+          value: {
+            who: '5EYCAe5gKBMwLZyq5dw41Hw3V68nsCVTZQ2d4AYfbMb4kF29',
+            amount: 10445638n
+          }
+        }
+      },
+      topics: [],
+      type: 'Balances',
+      value: {
+        type: 'Deposit',
+        value: {
+          who: '5EYCAe5gKBMwLZyq5dw41Hw3V68nsCVTZQ2d4AYfbMb4kF29',
+          amount: 10445638n
+        }
+      }
+    },
+    {
+      phase: { type: 'ApplyExtrinsic', value: 2 },
+      event: {
+        type: 'TransactionPayment',
+        value: {
+          type: 'TransactionFeePaid',
+          value: {
+            who: '5FRP1btumyfgwaZK7EcTDGu1KRXPHyh3jXDo7rKx9dDt736R',
+            actual_fee: 10445638n,
+            tip: 0n
+          }
+        }
+      },
+      topics: [],
       type: 'TransactionPayment',
       value: {
         type: 'TransactionFeePaid',
         value: {
-          who: '15DMtB5BDCJqw4uZtByTWXGqViAVx7XjRsxWbTH5tfrHLe8j',
-          actual_fee: 15668864n,
+          who: '5FRP1btumyfgwaZK7EcTDGu1KRXPHyh3jXDo7rKx9dDt736R',
+          actual_fee: 10445638n,
           tip: 0n
         }
-      },
-      topics: []
+      }
     },
     {
+      phase: { type: 'ApplyExtrinsic', value: 2 },
+      event: {
+        type: 'System',
+        value: {
+          type: 'ExtrinsicSuccess',
+          value: {
+            dispatch_info: {
+              weight: { ref_time: 1361426000n, proof_size: 7357n },
+              class: { type: 'Normal', value: undefined },
+              pays_fee: { type: 'Yes', value: undefined }
+            }
+          }
+        }
+      },
+      topics: [],
       type: 'System',
       value: {
         type: 'ExtrinsicSuccess',
         value: {
           dispatch_info: {
-            weight: { ref_time: 952851000n, proof_size: 13382n },
+            weight: { ref_time: 1361426000n, proof_size: 7357n },
             class: { type: 'Normal', value: undefined },
             pays_fee: { type: 'Yes', value: undefined }
           }
         }
-      },
-      topics: []
+      }
     }
   ]
 }</span>

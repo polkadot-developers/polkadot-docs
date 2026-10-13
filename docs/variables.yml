@@ -64,7 +64,7 @@ dependencies:
       version: 5.18.3
     polkadot_js_api:
       name: '@polkadot/api'
-      version: 16.5.6
+      version: 17.0.2
     polkadot_api:
       name: polkadot-api
       version: 3.2.1
@@ -81,20 +81,14 @@ dependencies:
       name: '@web3js'
       version: 4.16.0
     viem:
-      name: '@viem'
-      version: 2.44.4 
+      name: viem
+      version: 2.57.5
     ethersjs:
       name: '@ethersjs'
       version: 6.16.0
     paraspell_sdk:
       name: '@paraspell/sdk'
       version: 14.4.3
-    paraspell_sdk_pjs:
-      name: '@paraspell/sdk-pjs'
-      # Held on 13.x: transfer-assets-into-polkadot uses EvmBuilder, removed in 14.0.0.
-      # Remove once that page is migrated.
-      version: 13.4.0
-      ignore_updates: true
     hdkd:
       name: '@polkadot-labs/hdkd'
       version: 0.0.32

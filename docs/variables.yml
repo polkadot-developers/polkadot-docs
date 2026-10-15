@@ -70,13 +70,13 @@ dependencies:
       version: 2.1.0
     resolc:
       name: '@parity/resolc'
-      version: 1.2.0
+      version: 1.4.0
     hardhat_polkadot:
       name: '@parity/hardhat-polkadot'
       version: 0.3.0
     solc:
       name: 'solc'
-      version: 0.8.35
+      version: 0.8.36
     web3_js:
       name: '@web3js'
       version: 4.16.0

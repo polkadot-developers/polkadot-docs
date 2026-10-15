@@ -70,7 +70,7 @@ npm install web3
 Add the Solidity compiler so you can generate standard EVM bytecode:
 
 ```bash
-npm install --save-dev solc
+npm install --save-dev solc@{{ dependencies.javascript_packages.solc.version }}
 ```
 
 ## Set Up the Web3 Provider

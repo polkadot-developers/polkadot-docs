@@ -10,12 +10,12 @@ categories: Apps, Reference
 
 [`@parity/dotns-cli`](https://www.npmjs.com/package/@parity/dotns-cli) is the command-line tool for interacting with the dotNS registry: registering a `.dot` name, updating its `contenthash`, and transferring ownership. It is the canonical tool for these operations; the higher-level [Register and Publish](/apps/deploy-your-app/) flow wraps it for the Polkadot Product setup track.
 
-Names carry the TLD of the network the CLI targets: `.paseo` on the Paseo testnet, and `.dot` on a Polkadot deployment. Registrations do not expire and there is no renewal step. A name stays with its owner until it is transferred or deliberately released.
+Names carry the TLD of the network the CLI targets: `.dot` on Polkadot, and `.paseo` on the Paseo TestNet. Registrations do not expire and there is no renewal step. A name stays with its owner until it is transferred or deliberately released.
 
 A Product developer building a typical publishing pipeline rarely calls the CLI directly — the setup track handles the common path. The CLI is the right tool when you need a fine-grained, scriptable interaction (CI publishing, batch operations across multiple names, debugging a registration failure).
 
 !!! info "CLI version"
-    This page targets `@parity/dotns-cli` `0.10.0`, aligned with dotNS contracts `1.0.0` and compatible with `0.8.0`; deployments older than `0.8.0` are no longer supported. The CLI is in active development and breaking changes between versions are expected.
+    This page targets `@parity/dotns-cli` `1.0.0`, aligned with dotNS contracts `1.0.0` and compatible with `0.8.0`. Before it reads or signs, the CLI checks the protocol release the network declares, and it refuses a network that declares any other release. The CLI is in active development and breaking changes between versions are expected.
 
 ## Command Families
 
@@ -48,7 +48,7 @@ The CLI groups its commands into five families that map onto the dotNS contract 
 
 ## Installing and Authenticating
 
-The CLI is distributed as an npm package and installs the `dotns` command. Install it globally or run it with `npx`. It targets one environment at a time, set with `--env`: `paseo-v2` (the default), `previewnet`, or `devnet`.
+The CLI is distributed as an npm package and installs the `dotns` command. Install it globally or run it with `npx`. It targets one environment at a time, set with `--env` or `DOTNS_ENV`: `polkadot` (the default), `paseo-v2`, or `previewnet`. On `polkadot`, registrations, transfers, and Bulletin uploads spend DOT, so pass `--env paseo-v2` to work on the TestNet.
 
 Operations that mutate state (registration, record updates, transfers) need an account that can sign the resulting Polkadot Hub transaction. The CLI signs with one of the following:
 
@@ -56,11 +56,13 @@ Operations that mutate state (registration, record updates, transfers) need an a
 - **A mnemonic or key URI**: Passed with `--mnemonic` or `--key-uri`, or through the matching environment variables, which suits CI pipelines.
 - **The Polkadot App**: `--signer qr` pairs the CLI with the Polkadot App by QR code, so the App signs each transaction. This signer is experimental.
 
+With none of these configured, a command that signs stops before it connects. The CLI signs with the shared development account only when you pass `--allow-dev-account` or set `DOTNS_ALLOW_DEV_ACCOUNT=1`.
+
 The `PopRules` check reads the personhood status of the account the name is registered to: the signing account, or the account passed with `register domain --owner`.
 
 ## Command Surface
 
-The table lists every command in `0.10.0`. Run `dotns <command> --help` for each command's flags.
+The table lists every command in `1.0.0`. Run `dotns <command> --help` for each command's flags.
 
 | Command | Subcommands | Purpose |
 |:--------|:------------|:--------|
@@ -89,11 +91,19 @@ The table lists every command in `0.10.0`. Run `dotns <command> --help` for each
 
     [:octicons-arrow-right-24: Get Started](/apps/deploy-your-app/)
     
+- <span class="badge learn">Learn</span> **MainNet Contracts**
+
+    ---
+
+    The Polkadot contract addresses the CLI targets by default.
+
+    [:octicons-arrow-right-24: Reference](/reference/apps/infrastructure/dotns/mainnet-contracts/)
+
 - <span class="badge learn">Learn</span> **TestNet Contracts**
 
     ---
 
-    The current TestNet contract addresses the CLI targets when operating in TestNet mode.
+    The Paseo TestNet contract addresses the CLI targets with `--env paseo-v2`.
 
     [:octicons-arrow-right-24: Reference](/reference/apps/infrastructure/dotns/testnet-contracts/)
 

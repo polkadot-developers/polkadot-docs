@@ -25,11 +25,11 @@ For the Product-side how-to (registering a name, publishing your bundle), see [R
 
 dotNS is deployed separately on each network, and three things follow from that.
 
-- **The TLD is set at deploy time**: Each network's registry carries one TLD. A TestNet uses its own, so a name reads `awesome.paseo` on Paseo, and the planned Polkadot deployment uses `.dot`. Tools take the bare label and append the TLD of the environment they target, so a label carrying a different TLD is rejected rather than translated.
-- **The deposit is the network's native token**: A registration costs 10 units of whatever the chain uses, so 10 PAS on Paseo. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
+- **The TLD is set at deploy time**: Each network's registry carries one TLD. A TestNet uses its own, so a name reads `awesome.paseo` on Paseo, and the Polkadot deployment uses `.dot`. Tools take the bare label and append the TLD of the environment they target, so a label carrying a different TLD is rejected rather than translated.
+- **The deposit is the network's native token**: A registration costs 10 units of whatever the chain uses, so 10 DOT on Polkadot and 10 PAS on Paseo. See [PopRules and Pricing](/reference/apps/infrastructure/dotns/poprules-pricing/).
 - **Registrations do not cross networks**: Each deployment keeps its own registry, so holding a name on a TestNet grants no claim to the matching name on Polkadot. A name has to be registered on each network where it is needed.
 
-The deployments have different operators. Parity runs dotNS on Paseo Next v2, and the [Polkadot Community Foundation](https://docs.polkadotcommunity.foundation/) runs the Products Devnet deployment and will run the planned deployment on Polkadot. The contracts are the same, but each operator deploys its own instance, so deployer-set values such as the deposit amount need not match between them.
+The deployments have different operators. Parity runs dotNS on Paseo Next v2, and the [Polkadot Community Foundation](https://docs.polkadotcommunity.foundation/) runs the Products Devnet deployment and the deployment on Polkadot. The contracts are the same, but each operator deploys its own instance, so deployer-set values such as the deposit amount need not match between them. For the addresses, see [MainNet Contracts](/reference/apps/infrastructure/dotns/mainnet-contracts/) and [TestNet Contracts](/reference/apps/infrastructure/dotns/testnet-contracts/).
 
 !!! note "Scope"
     This reference covers the developer-facing surface. Operator-side procedures, such as migration, batch updates, and contract upgrade paths, are outside it.

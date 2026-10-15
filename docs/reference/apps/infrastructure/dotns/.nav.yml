@@ -6,4 +6,5 @@ nav:
  - 'Name Transfers': transfer.md
  - 'Escrow and Deposits': escrow.md
  - 'CLI': cli.md
+ - 'MainNet Contracts': mainnet-contracts.md
  - 'TestNet Contracts': testnet-contracts.md

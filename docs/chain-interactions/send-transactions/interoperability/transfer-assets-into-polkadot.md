@@ -86,29 +86,33 @@ Install dev dependencies:
 npm install --save-dev @types/node tsx typescript
 ```
 
-Sending assets from Ethereum to Polkadot requires the PJS version of the ParaSpell SDK. Install the necessary dependencies using the following command:
+Install the ParaSpell SDK, its Snowbridge extension, and [viem](https://viem.sh/), which the extension uses to sign Ethereum transactions:
 
 ```bash
-npm install @paraspell/sdk-pjs@{{dependencies.javascript_packages.paraspell_sdk_pjs.version}} @polkadot/api@{{dependencies.javascript_packages.polkadot_js_api.version}} @polkadot/types@{{dependencies.javascript_packages.polkadot_js_api.version}} ethers@{{dependencies.javascript_packages.ethersjs.version}}
+npm install @paraspell/sdk@{{dependencies.javascript_packages.paraspell_sdk.version}} @paraspell/evm-snowbridge@{{dependencies.javascript_packages.paraspell_sdk.version}} polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}} viem@{{dependencies.javascript_packages.viem.version}}
 ```
 
 Now add the following setup code to `index.ts`:
 
 ```ts title="index.ts"
---8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/index.ts:1:29'
+--8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/index.ts:1:34'
 ```
 
-Replace `INSERT_YOUR_POLKADOT_ADDRESS` with your Polkadot account address (SS58 format) that will receive the bridged tokens on Polkadot Hub.
+Replace the following placeholders:
+
+- **`INSERT_API_KEY`**: Your Ethereum RPC provider API key.
+- **`INSERT_PRIVATE_KEY`**: The private key of the Ethereum account holding your WETH, as a `0x`-prefixed hex string.
+- **`INSERT_YOUR_POLKADOT_ADDRESS`**: The Polkadot account address (SS58 format) that will receive the bridged tokens on Polkadot Hub.
 
 !!!warning "Security Warning"
     Never commit private keys or seed phrases to production code. Use environment variables or secure key management systems.
 
 ## Approve Tokens for Bridging
 
-Before bridging ERC-20 tokens, you must approve the Snowbridge Gateway contract to spend your tokens. The ParaSpell SDK provides the following helper functions for approving spending:
+Before bridging ERC-20 tokens, you must approve the Snowbridge Gateway contract to spend your tokens. The `@paraspell/evm-snowbridge` package provides helper functions to check your balance and current allowance and to approve spending:
 
 ```ts title="index.ts"
---8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/index.ts:31:51'
+--8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/index.ts:36:61'
 ```
 
 Run the approval script:
@@ -126,16 +130,16 @@ You will see output confirming the token balance and approval similar to the fol
 Now build and execute the bridge transfer from Ethereum to Polkadot Hub:
 
 ```ts title="index.ts"
---8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/index.ts:55:81'
+--8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/index.ts:63:89'
 ```
 
-Comment out the `approveTokens()` function and run the transfer:
+Comment out the `approveTokens()` call and run the transfer:
 
 ```bash
 npx tsx index.ts
 ```
 
-After submitting the transaction, you will see the Ethereum transaction hash included in the terminal output similar to the following:
+The `signAndSubmit()` call resolves once the transaction is confirmed on Ethereum and has emitted the bridge message. You will see the Ethereum transaction hash in the terminal output similar to the following:
 
 --8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/transfer-output.html'
 
@@ -147,11 +151,19 @@ Bridge transfers from Ethereum to Polkadot take approximately 30 minutes. You ca
 - **Etherscan** - Track your Ethereum transaction on [etherscan.io](https://etherscan.io/){target=\_blank}
 - **Polkadot.js Apps** - Monitor incoming transfers on [Polkadot Hub](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-asset-hub-rpc.polkadot.io#/accounts){target=\_blank}
 
-You can also check the bridge status programmatically:
+You can also check the bridge status programmatically. First, comment out the `bridgeToPolkadot()` call so the script doesn't send another transfer. Then add the following code to `index.ts`:
 
 ```ts title="index.ts"
---8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/index.ts:85:89'
+--8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/index.ts:91:99'
 ```
+
+Run the script:
+
+```bash
+npx tsx index.ts
+```
+
+The script prints `Bridge Status: Normal` while the bridge is operating.
 
 ## Supported Assets and Destinations
 
@@ -163,7 +175,7 @@ Snowbridge can bridge any ERC-20 token from Ethereum, but the destination chain 
 You can query which assets are supported for a specific route using the ParaSpell SDK as follows:
 
 ```ts title="index.ts"
-import { getSupportedAssets } from '@paraspell/sdk-pjs';
+import { getSupportedAssets } from '@paraspell/sdk';
 
 // Get assets supported for Ethereum → Polkadot Hub transfers
 const supportedAssets = getSupportedAssets('Ethereum', 'AssetHubPolkadot');
@@ -188,21 +200,26 @@ To transfer to a different destination, change the `.to()` parameter and verify 
 // Check if WETH is supported on Hydration
 const hydrationAssets = getSupportedAssets('Ethereum', 'Hydration');
 const wethSupported = hydrationAssets.some(a => a.symbol === 'WETH');
+console.log('WETH supported on Hydration:', wethSupported);
 
 if (wethSupported) {
-  await EvmBuilder(provider)
+  const txHash = await Builder()
     .from('Ethereum')
     .to('Hydration')
-    .currency({ symbol: 'WETH', amount: amount })
-    .recipient(recipientAddress)
-    .signer(signer)
-    .build();
+    .currency({ symbol: 'WETH', amount: AMOUNT })
+    .recipient(RECIPIENT_ADDRESS)
+    .sender(walletClient)
+    .signAndSubmit();
+  console.log(`Transaction hash: ${txHash}`);
 }
 ```
 
 --8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/hydration-check-output.html'
 
 ???- code "Complete `index.ts` script"
+
+    !!! warning
+        The complete script calls `approveTokens()`, `bridgeToPolkadot()`, and `checkBridgeStatus()`. Every run of `bridgeToPolkadot()` sends another WETH transfer, so leave only the call for the step you want to run uncommented.
 
     ```typescript title="index.ts"
     --8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/index.ts'

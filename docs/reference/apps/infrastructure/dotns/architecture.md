@@ -13,7 +13,7 @@ dotNS is implemented as a set of cooperating contracts on Polkadot Hub, not as a
 This page documents what each contract is responsible for at a conceptual level, so a Product developer building against the dotNS surface knows which contract handles which interaction.
 
 !!! note "Where to find addresses and ABIs"
-    This page documents conceptual responsibilities rather than per-contract interfaces. For the deployed contract names and their addresses, see [TestNet Contracts](/reference/apps/infrastructure/dotns/testnet-contracts/); generate the ABIs you build against from the artifact published with each release.
+    This page documents conceptual responsibilities rather than per-contract interfaces. For the deployed contract names and their addresses, see [MainNet Contracts](/reference/apps/infrastructure/dotns/mainnet-contracts/) and [TestNet Contracts](/reference/apps/infrastructure/dotns/testnet-contracts/); generate the ABIs you build against from the artifact published with each release.
 
 ## Conceptual Responsibilities
 
@@ -53,6 +53,14 @@ A Product developer rarely interacts with the contracts directly: the [CLI](/ref
     The bands PopRules evaluates: name length, the PoP tier each band requires, and the deposit.
 
     [:octicons-arrow-right-24: Reference](/reference/apps/infrastructure/dotns/poprules-pricing/)
+
+- <span class="badge learn">Learn</span> **MainNet Contracts**
+
+    ---
+
+    The Polkadot addresses for the dotNS contract set, and how to resolve them from the protocol registry.
+
+    [:octicons-arrow-right-24: Reference](/reference/apps/infrastructure/dotns/mainnet-contracts/)
 
 - <span class="badge learn">Learn</span> **TestNet Contracts**
 

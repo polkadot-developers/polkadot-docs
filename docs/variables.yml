@@ -89,12 +89,6 @@ dependencies:
     paraspell_sdk:
       name: '@paraspell/sdk'
       version: 14.4.3
-    paraspell_sdk_pjs:
-      name: '@paraspell/sdk-pjs'
-      # Held on 13.x: transfer-assets-into-polkadot uses EvmBuilder, removed in 14.0.0.
-      # Remove once that page is migrated.
-      version: 13.4.0
-      ignore_updates: true
     hdkd:
       name: '@polkadot-labs/hdkd'
       version: 0.0.32

@@ -15,7 +15,7 @@ Names carry the TLD of the network the CLI targets: `.dot` on Polkadot, and `.pa
 A Product developer building a typical publishing pipeline rarely calls the CLI directly — the setup track handles the common path. The CLI is the right tool when you need a fine-grained, scriptable interaction (CI publishing, batch operations across multiple names, debugging a registration failure).
 
 !!! info "CLI version"
-    This page targets `@parity/dotns-cli` `1.0.0`, aligned with dotNS contracts `1.0.0` and compatible with `0.8.0`. Before it reads or signs, the CLI checks the protocol release the network declares, and it refuses a network that declares any other release. The CLI is in active development and breaking changes between versions are expected.
+    This page targets `@parity/dotns-cli` `1.0.0`, aligned with dotNS contracts `1.0.0` and compatible with `0.8.0`. Before it reads or signs, the CLI checks the protocol release the network declares, and it refuses a network that declares any release other than `0.8.0` or `1.0.0`, or declares none. The CLI is in active development and breaking changes between versions are expected.
 
 ## Command Families
 

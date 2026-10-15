@@ -8,7 +8,7 @@ categories: Apps, Reference
 
 ## Introduction
 
-This page lists the contract addresses for the dotNS deployment on Polkadot Hub. A Product or tool that calls the registry directly on MainNet needs these addresses; the [CLI](/reference/apps/infrastructure/dotns/cli/) resolves them internally.
+This page lists the contract addresses for the dotNS deployment on Polkadot Hub. A Product or tool that calls the registry directly on MainNet needs these addresses; the [CLI](/reference/apps/infrastructure/dotns/cli/) ships with them for its `polkadot` environment.
 
 !!! note "Resolve addresses rather than pinning them"
     An integration that calls contracts should hold only the protocol registry address and resolve the rest from it.

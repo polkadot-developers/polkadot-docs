@@ -115,10 +115,13 @@ pad ./dist johnsmith57.paseo --mnemonic "$MNEMONIC"
 
 ## Register with the dotNS CLI
 
-The [dotNS CLI](/reference/apps/infrastructure/dotns/cli/) registers a name on its own, with no bundle and no deploy involved. Reach for it when you want to hold a name before the Product is ready, script a batch of names, or debug a registration that failed:
+The [dotNS CLI](/reference/apps/infrastructure/dotns/cli/) registers a name on its own, with no bundle and no deploy involved. Reach for it when you want to hold a name before the Product is ready, script a batch of names, or debug a registration that failed.
+
+From `1.0.0`, the CLI targets Polkadot by default, where a registration spends DOT. To register on the TestNet this guide uses, set `DOTNS_ENV=paseo-v2` or pass `--env paseo-v2` on each command:
 
 ```bash
 npm i -g @parity/dotns-cli
+export DOTNS_ENV=paseo-v2
 dotns register domain --help
 ```
 
@@ -133,7 +136,7 @@ Registration binds the name to your account once. Publishing a new version of yo
 
 - **`playground`**: Re-run `playground deploy` against the same name.
 - **`pad`**: Re-run the same command; it uploads only the changed blocks and rewrites the content record.
-- **`dotns`**: Set the record directly with the CLI's `content set` command once you have the new CID.
+- **`dotns`**: Set the record directly with the CLI's `content set` command once you have the new CID, targeting the same network you registered the name on.
 
 Because a name's content record is mutable and the owner can transfer or repoint it, treat a name as a pointer rather than a permanent identity. Code that consumes another Product should verify the `contenthash` it resolves at use time, not assume a name maps to the same bundle forever.
 

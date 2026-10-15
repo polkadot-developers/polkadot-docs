@@ -54,6 +54,14 @@ A Product developer rarely interacts with the contracts directly: the [CLI](/ref
 
     [:octicons-arrow-right-24: Reference](/reference/apps/infrastructure/dotns/poprules-pricing/)
 
+- <span class="badge learn">Learn</span> **MainNet Contracts**
+
+    ---
+
+    The Polkadot addresses for the dotNS contract set, and how to resolve them from the protocol registry.
+
+    [:octicons-arrow-right-24: Reference](/reference/apps/infrastructure/dotns/mainnet-contracts/)
+
 - <span class="badge learn">Learn</span> **TestNet Contracts**
 
     ---

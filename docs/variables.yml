@@ -70,13 +70,13 @@ dependencies:
       version: 3.2.1
     resolc:
       name: '@parity/resolc'
-      version: 1.2.0
+      version: 1.4.0
     hardhat_polkadot:
       name: '@parity/hardhat-polkadot'
       version: 0.3.0
     solc:
       name: 'solc'
-      version: 0.8.35
+      version: 0.8.36
     web3_js:
       name: web3
       version: 4.16.0
@@ -89,6 +89,12 @@ dependencies:
     paraspell_sdk:
       name: '@paraspell/sdk'
       version: 14.4.3
+    paraspell_sdk_pjs:
+      name: '@paraspell/sdk-pjs'
+      # Held on 13.x: transfer-assets-into-polkadot uses EvmBuilder, removed in 14.0.0.
+      # Remove once that page is migrated.
+      version: 13.4.0
+      ignore_updates: true
     hdkd:
       name: '@polkadot-labs/hdkd'
       version: 0.0.32

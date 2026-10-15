@@ -56,8 +56,8 @@ npm init -y
 Install viem along with other necessary dependencies, including [`solc`](https://www.npmjs.com/package/solc){target=\_blank}, which enables compiling smart contracts' EVM bytecode.
 
 ```bash
-# Install viem and resolc
-npm install viem solc
+# Install viem and solc
+npm install viem solc@{{ dependencies.javascript_packages.solc.version }}
 
 # Install TypeScript and development dependencies
 npm install --save-dev typescript ts-node @types/node

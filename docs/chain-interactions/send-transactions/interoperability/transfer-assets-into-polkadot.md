@@ -89,7 +89,7 @@ npm install --save-dev @types/node tsx typescript
 Install the ParaSpell SDK, its Snowbridge extension, and [viem](https://viem.sh/), which the extension uses to sign Ethereum transactions:
 
 ```bash
-npm install @paraspell/sdk@{{dependencies.javascript_packages.paraspell_sdk.version}} @paraspell/evm-snowbridge@{{dependencies.javascript_packages.paraspell_sdk.version}} polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}} viem@{{dependencies.javascript_packages.viem.version}}
+npm install @paraspell/sdk-pjs@{{dependencies.javascript_packages.paraspell_sdk_pjs.version}} @polkadot/api@{{dependencies.javascript_packages.polkadot_js_api.version}} @polkadot/types@{{dependencies.javascript_packages.polkadot_js_api.version}} ethers@{{dependencies.javascript_packages.ethersjs.version}}
 ```
 
 Now add the following setup code to `index.ts`:

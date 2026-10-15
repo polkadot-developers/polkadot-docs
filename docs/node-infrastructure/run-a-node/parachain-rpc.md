@@ -36,8 +36,8 @@ RPC nodes serving production traffic require robust hardware:
     - 1 Gbps connection for high traffic scenarios
     - Consider DDoS protection and rate limiting for production deployments
     - Open ports:
-        - **30333**: Parachain P2P (TCP, and UDP for WebRTC)
-        - **30334**: Relay chain P2P (TCP, and UDP for WebRTC)
+        - **30333**: Parachain P2P over TCP, plus UDP for Web Real-Time Communication (WebRTC)
+        - **30334**: Relay chain P2P over TCP, plus UDP for WebRTC
         - **9944**: Polkadot SDK RPC (WebSocket and HTTP)
         - **8545**: Ethereum JSON-RPC (if running `eth-rpc` adapter)
 

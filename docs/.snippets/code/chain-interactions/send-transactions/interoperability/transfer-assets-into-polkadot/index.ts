@@ -1,11 +1,16 @@
 import { Builder, getBridgeStatus } from '@paraspell/sdk';
 import { approveToken, getTokenBalance } from '@paraspell/evm-snowbridge';
+import { createClient } from 'polkadot-api';
+import { getWsProvider } from 'polkadot-api/ws';
 import { createPublicClient, createWalletClient, formatUnits, http, type Hex } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { mainnet } from 'viem/chains';
 
 // Ethereum mainnet RPC endpoint (use your own API key)
 const ETH_RPC = 'https://eth-mainnet.g.alchemy.com/v2/INSERT_API_KEY';
+
+// Polkadot Bridge Hub RPC endpoint, used to check the bridge status
+const BRIDGE_HUB_RPC = 'wss://polkadot-bridge-hub-rpc.polkadot.io';
 
 // WETH contract address on Ethereum mainnet
 const WETH_ADDRESS = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
@@ -85,9 +90,10 @@ bridgeToPolkadot();
 
 async function checkBridgeStatus() {
   // Check the current status of the Snowbridge
-  const status = await getBridgeStatus();
+  const client = createClient(getWsProvider(BRIDGE_HUB_RPC));
+  const status = await getBridgeStatus(client);
   console.log('Bridge Status:', status);
-  process.exit(0);
+  client.destroy();
 }
 
 checkBridgeStatus();

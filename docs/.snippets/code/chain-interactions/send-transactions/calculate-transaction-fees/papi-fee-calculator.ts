@@ -1,6 +1,7 @@
 import { createClient } from 'polkadot-api';
 import { polkadotTestNet } from '@polkadot-api/descriptors';
 import { getWsProvider } from 'polkadot-api/ws';
+import { getFakeTxCreator } from 'polkadot-api/tx-creator';
 
 async function calculateFees() {
   // Connect to chain
@@ -27,7 +28,11 @@ async function calculateFees() {
     });
 
     // Estimate fees
-    const estimatedFees = await tx.getEstimatedFees(aliceAddress);
+    // Polkadot Hub TestNet requires a value for its RestrictOrigins extension
+    const estimatedFees = await tx.getEstimatedFees(
+      getFakeTxCreator(aliceAddress),
+      { customSignedExtensions: { RestrictOrigins: { value: true } } }
+    );
 
     console.log(`Estimated fee: ${Number(estimatedFees) / 1e10} DOT`);
     console.log(`Transaction amount: ${Number(amount) / 1e10} DOT`);

@@ -4,7 +4,7 @@ import {
   entropyToMiniSecret,
   mnemonicToEntropy,
 } from "@polkadot-labs/hdkd-helpers";
-import { getPolkadotSigner } from "polkadot-api/signer";
+import { getTxCreator } from "polkadot-api/tx-creator";
 import { createClient } from "polkadot-api";
 import { assetHub } from "@polkadot-api/descriptors";
 import { getWsProvider } from "polkadot-api/ws";
@@ -19,7 +19,7 @@ const createSigner = async () => {
   const miniSecret = entropyToMiniSecret(entropy);
   const derive = sr25519CreateDerive(miniSecret);
   const hdkdKeyPair = derive("//Alice");
-  const polkadotSigner = getPolkadotSigner(
+  const polkadotSigner = getTxCreator(
     hdkdKeyPair.publicKey,
     "Sr25519",
     hdkdKeyPair.sign
@@ -40,7 +40,7 @@ const tx = api.tx.Balances.transfer_keep_alive({
 
 const signer = await createSigner();
 
-const result = await tx.signAndSubmit(signer, {
+const result = await tx.createAndSubmit(signer, {
   asset: {
     parents: 0,
     interior: {

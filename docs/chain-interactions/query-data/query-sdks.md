@@ -47,7 +47,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     2. Install dependencies:
 
         ```bash
-        npm install polkadot-api && \
+        npm install polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}} && \
         npm install --save-dev @types/node tsx typescript
         ```
 

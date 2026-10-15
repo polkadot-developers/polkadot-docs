@@ -4,9 +4,14 @@ import {
   mnemonicToEntropy,
   ss58Address,
 } from '@polkadot-labs/hdkd-helpers';
-import { getPolkadotSigner } from 'polkadot-api/signer';
+import { createClient } from 'polkadot-api';
+import { getWsProvider } from 'polkadot-api/ws';
+import { getTxCreator } from 'polkadot-api/tx-creator';
 import { sr25519CreateDerive } from '@polkadot-labs/hdkd';
 import { inspect } from 'util';
+
+// Paseo Asset Hub RPC endpoint
+const ASSET_HUB_PASEO_RPC = 'wss://asset-hub-paseo-rpc.n.dwellir.com';
 
 // PAS token has 10 decimals
 const PAS_UNITS = 10_000_000_000n;
@@ -20,7 +25,7 @@ function getSigner() {
   const miniSecret = entropyToMiniSecret(entropy);
   const derive = sr25519CreateDerive(miniSecret);
   const keyPair = derive('');
-  return getPolkadotSigner(keyPair.publicKey, 'Sr25519', keyPair.sign);
+  return getTxCreator(keyPair.publicKey, 'Sr25519', keyPair.sign);
 }
 
 const RECIPIENT_ADDRESS = ss58Address(getSigner().publicKey);
@@ -28,8 +33,10 @@ const SENDER_ADDRESS = ss58Address(getSigner().publicKey);
 
 async function transfer() {
   const signer = getSigner();
+  // Use your own client so the connection stays open until finalization
+  const client = createClient(getWsProvider(ASSET_HUB_PASEO_RPC));
 
-  const tx = await Builder()
+  const tx = await Builder(client)
     .from('AssetHubPaseo')
     .to('PeoplePaseo')
     .currency({
@@ -42,8 +49,12 @@ async function transfer() {
 
   console.log('Built transaction:', inspect(tx, { colors: true, depth: null }));
 
-  const result = await tx.signAndSubmit(signer);
+  // Polkadot Hub TestNet requires a value for its RestrictOrigins extension
+  const result = await tx.createAndSubmit(signer, {
+    customSignedExtensions: { RestrictOrigins: { value: true } },
+  });
   console.log(inspect(result, { colors: true, depth: null }));
+  client.destroy();
   process.exit(0);
 }
 

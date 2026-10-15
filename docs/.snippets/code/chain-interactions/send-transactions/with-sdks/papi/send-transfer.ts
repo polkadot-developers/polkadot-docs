@@ -3,7 +3,7 @@ import { getWsProvider } from 'polkadot-api/ws';
 import { polkadotTestNet } from '@polkadot-api/descriptors';
 import { cryptoWaitReady } from '@polkadot/util-crypto';
 import { Keyring } from '@polkadot/keyring';
-import { getPolkadotSigner } from 'polkadot-api/signer';
+import { getTxCreator } from 'polkadot-api/tx-creator';
 
 const POLKADOT_TESTNET_RPC = 'INSERT_WS_ENDPOINT';
 const SENDER_MNEMONIC = 'INSERT_MNEMONIC';
@@ -26,8 +26,8 @@ async function main() {
     const api = client.getTypedApi(polkadotTestNet);
     console.log('Connected to Polkadot Testnet');
 
-    // Create signer using getPolkadotSigner
-    const signer = getPolkadotSigner(
+    // Create signer using getTxCreator
+    const signer = getTxCreator(
       sender.publicKey,
       'Sr25519',
       async (input) => sender.sign(input)
@@ -40,7 +40,10 @@ async function main() {
     });
 
     console.log('\nSigning and submitting transaction...');
-    const { txHash } = await tx.signAndSubmit(signer);
+    // Polkadot Hub TestNet requires a value for its RestrictOrigins extension
+    const { txHash } = await tx.createAndSubmit(signer, {
+      customSignedExtensions: { RestrictOrigins: { value: true } },
+    });
     console.log(`Transaction submitted with hash: ${txHash}`);
 
     await client.destroy();

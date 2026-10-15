@@ -65,7 +65,7 @@ npm install --save @paraspell/sdk@{{dependencies.javascript_packages.paraspell_s
 Now add the following setup code to `index.ts`:
 
 ```ts title="index.ts"
---8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/index.ts:1:27'
+--8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/index.ts:1:32'
 ```
 
 Replace the `INSERT_YOUR_SEED_PHRASE` with the seed phrase from your Polkadot development account.
@@ -84,8 +84,10 @@ In this example, you will transfer 10 PAS tokens from Paseo's Asset Hub to Paseo
 Add the ParaSpell transaction code to your `index.ts` file:
 
 ```ts title="index.ts"
---8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/index.ts:29:47'
+--8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/index.ts:34:59'
 ```
+
+The function passes its own PAPI client to `Builder()`. ParaSpell manages connections it creates on its own and can close them about a minute after the transaction is built, before it's finalized. Passing your own client keeps the connection open until you call `client.destroy()`.
 
 Do not execute it just yet. You will perform a dry run of this transaction first to ensure it works as expected.
 
@@ -96,7 +98,7 @@ Dry runs simulate the transaction without broadcasting it, allowing you to confi
 Add the following dry run code to your `index.ts` script:
 
 ```ts title="index.ts"
---8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/index.ts:49:70'
+--8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/index.ts:61:82'
 ```
 Run the script using the following command:
 
@@ -113,7 +115,7 @@ The result of the dry run will look similar to the following example output:
 Check if the recipient account meets the Existential Deposit (ED) requirement before sending by using [`verifyEdOnDestination`](https://paraspell.github.io/docs/xcm-api/xcm-sdk-functionality.html#verify-ed-on-destination){target=\_blank}:
 
 ```ts title="index.ts"
---8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/index.ts:72:88'
+--8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/index.ts:84:100'
 ```
 Comment out the `dryRunTransfer()` function so that it is not executed again. Then, execute the `verifyED()` by running the following command:
 
@@ -132,7 +134,7 @@ Before sending an XCM transaction, it is helpful to estimate the fees associated
 ParaSpell has a helpful function for this: [`getTransferInfo()`](https://paraspell.github.io/docs/xcm-sdk/xcm-utils.html#xcm-transfer-info){target=\_blank}. This function returns an estimate of the associated XCM fees, along with the account's balance before and after the fees are paid.
 
 ```ts title="index.ts"
---8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/index.ts:90:106'
+--8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/index.ts:102:118'
 ```
 
 Comment out the `verifyED()` function so it doesn't execute again. Then, execute the `XcmTransferInfo()` function by running the following command:
@@ -154,7 +156,7 @@ Now that you have:
 You can execute the transfer function by adding the following function call:
 
 ```typescript title="index.ts"
---8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/index.ts:108:108'
+--8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/index.ts:120:120'
 ```
 
 Comment out the `XcmTransferInfo()` function so it doesn't execute again. Then, execute the transfer by running the following command: 

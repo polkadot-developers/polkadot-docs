@@ -1,25 +1,23 @@
 <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx tsx index.ts</span>
   <span data-ty>{
-  failureReason: undefined,
-  failureChain: undefined,
+  success: true,
+  dryRunError: undefined,
   origin: {
     success: true,
-    fee: 17965000n,
-    currency: 'PAS',
+    fee: 315295638n,
     asset: {
       symbol: 'PAS',
       isNative: true,
       decimals: 10,
       existentialDeposit: '100000000',
       location: { parents: 1, interior: { Here: null } },
-      isFeeAsset: true,
-      amount: 100000000000n
+      isFeeAsset: true
     },
     weight: undefined,
     forwardedXcms: [
       {
-        type: 'V3',
+        type: 'V5',
         value: {
           parents: 1,
           interior: { type: 'X1', value: { type: 'Parachain', value: 1004 } }
@@ -27,18 +25,15 @@
       },
       [
         {
-          type: 'V3',
+          type: 'V5',
           value: [
             {
               type: 'ReceiveTeleportedAsset',
               value: [
                 {
                   id: {
-                    type: 'Concrete',
-                    value: {
-                      parents: 1,
-                      interior: { type: 'Here', value: undefined }
-                    }
+                    parents: 1,
+                    interior: { type: 'Here', value: undefined }
                   },
                   fun: { type: 'Fungible', value: 100000000000n }
                 }
@@ -50,11 +45,8 @@
               value: {
                 fees: {
                   id: {
-                    type: 'Concrete',
-                    value: {
-                      parents: 1,
-                      interior: { type: 'Here', value: undefined }
-                    }
+                    parents: 1,
+                    interior: { type: 'Here', value: undefined }
                   },
                   fun: { type: 'Fungible', value: 100000000000n }
                 },
@@ -76,13 +68,7 @@
                       type: 'AccountId32',
                       value: {
                         network: undefined,
-                        id: FixedSizeBinary {
-                          asText: [Function (anonymous)],
-                          asHex: [Function (anonymous)],
-                          asOpaqueHex: [Function (anonymous)],
-                          asBytes: [Function (anonymous)],
-                          asOpaqueBytes: [Function (anonymous)]
-                        }
+                        id: '0x947969a3f6ef591e0d5aaad926e2662c54d6cc3e5636e1615ee97fd75da6822b'
                       }
                     }
                   }
@@ -91,13 +77,7 @@
             },
             {
               type: 'SetTopic',
-              value: FixedSizeBinary {
-                asText: [Function (anonymous)],
-                asHex: [Function (anonymous)],
-                asOpaqueHex: [Function (anonymous)],
-                asBytes: [Function (anonymous)],
-                asOpaqueBytes: [Function (anonymous)]
-              }
+              value: '0x3a3ca709763f26b075ad9a05591e089aa7e8893d48b98c4d3c838a90b8b8c369'
             }
           ]
         }
@@ -105,12 +85,9 @@
     ],
     destParaId: 1004
   },
-  assetHub: undefined,
-  bridgeHub: undefined,
   destination: {
     success: true,
-    fee: 817598n,
-    currency: 'PAS',
+    fee: 3168127n,
     asset: {
       symbol: 'PAS',
       isNative: true,
@@ -119,7 +96,7 @@
       location: { parents: 1, interior: { Here: null } },
       isFeeAsset: true
     },
-    weight: { refTime: 176858000n, proofSize: 0n },
+    weight: { refTime: 297040000n, proofSize: 3593n },
     forwardedXcms: [],
     destParaId: undefined
   },

@@ -1,5 +1,5 @@
 import { Binary, createClient, Transaction } from 'polkadot-api';
-import { getPolkadotSigner } from 'polkadot-api/signer';
+import { getTxCreator } from 'polkadot-api/tx-creator';
 import { getWsProvider } from 'polkadot-api/ws';
 import { polkadotHub } from '@polkadot-api/descriptors';
 import { sr25519CreateDerive } from '@polkadot-labs/hdkd';
@@ -14,7 +14,7 @@ const toHuman = (_key: any, value: any) => {
     return Number(value);
   }
 
-  // In v2, raw binary values are Uint8Arrays rather than Binary instances.
+  // Raw binary values are Uint8Arrays rather than Binary instances.
   if (value instanceof Uint8Array) {
     return Binary.toHex(value);
   }
@@ -28,7 +28,7 @@ function getSigner() {
   const derive = sr25519CreateDerive(miniSecret);
   const alice = derive('//Alice');
 
-  return getPolkadotSigner(alice.publicKey, 'Sr25519', alice.sign);
+  return getTxCreator(alice.publicKey, 'Sr25519', alice.sign);
 }
 
 async function main() {
@@ -39,16 +39,12 @@ async function main() {
   const callData = Binary.fromHex(
     '0x1f0803010100411f0300010100fc39fcf04a8071b7409823b7c82427ce67910c6ed80aa0e5093aff234624c8200304000002043205011f0092e81d790000000000',
   );
-  // In v2, Transaction has two generic parameters: <Asset, Ext>.
-  const tx: Transaction<string, any> = await api.txFromCallData(callData);
+  const tx: Transaction = await api.txFromCallData(callData);
   console.log('👀 Executing XCM:', JSON.stringify(tx.decodedCall, toHuman, 2));
 
   await new Promise<void>((resolve) => {
-    const subscription = tx.signSubmitAndWatch(aliceSigner).subscribe((ev) => {
-      if (
-        ev.type === 'finalized' ||
-        (ev.type === 'txBestBlocksState' && ev.found)
-      ) {
+    const subscription = tx.createSubmitAndWatch(aliceSigner).subscribe((ev) => {
+      if (ev.type === 'finalized' || ev.type === 'inBestBlock') {
         console.log(
           `📦 Included in block #${ev.block.number}: ${ev.block.hash}`,
         );

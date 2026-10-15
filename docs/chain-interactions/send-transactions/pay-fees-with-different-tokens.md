@@ -160,7 +160,7 @@ Set up the required imports and define the target address, transfer amount, and 
 === "PAPI"
 
     ```typescript title="fee-payment-transaction.ts"
-    --8<-- "code/chain-interactions/send-transactions/pay-fees-with-different-tokens/papi/fee-payment-transaction.ts:1:16"
+    --8<-- "code/chain-interactions/send-transactions/pay-fees-with-different-tokens/papi/fee-payment-transaction.ts:1:15"
     ```
 
 === "Polkadot.js"
@@ -184,7 +184,7 @@ Create a signer using Alice's development account and connect to the local Polka
 === "PAPI"
 
     ```typescript title="fee-payment-transaction.ts"
-    --8<-- "code/chain-interactions/send-transactions/pay-fees-with-different-tokens/papi/fee-payment-transaction.ts:18:37"
+    --8<-- "code/chain-interactions/send-transactions/pay-fees-with-different-tokens/papi/fee-payment-transaction.ts:17:34"
     ```
 
 === "Polkadot.js"
@@ -210,7 +210,7 @@ Create a standard DOT transfer transaction that sends 3 DOT to Bob's address whi
 === "PAPI"
 
     ```typescript title="fee-payment-transaction.ts"
-    --8<-- "code/chain-interactions/send-transactions/pay-fees-with-different-tokens/papi/fee-payment-transaction.ts:39:42"
+    --8<-- "code/chain-interactions/send-transactions/pay-fees-with-different-tokens/papi/fee-payment-transaction.ts:36:39"
     ```
 
 === "Polkadot.js"
@@ -231,10 +231,10 @@ The key part of this tutorial is specifying an alternative asset for fee payment
 
 === "PAPI"
 
-    In PAPI, you specify the alternative asset through the `asset` parameter in the `signAndSubmit` options:
+    In PAPI, you specify the alternative asset through the `asset` parameter in the `createAndSubmit` options:
 
     ```typescript title="fee-payment-transaction.ts"
-    --8<-- "code/chain-interactions/send-transactions/pay-fees-with-different-tokens/papi/fee-payment-transaction.ts:44:69"
+    --8<-- "code/chain-interactions/send-transactions/pay-fees-with-different-tokens/papi/fee-payment-transaction.ts:41:66"
     ```
 
 === "Polkadot.js"

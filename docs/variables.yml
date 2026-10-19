@@ -15,8 +15,8 @@ dependencies:
       docker_image_version: 1.93.0
     polkadot_sdk:
       repository_url: https://github.com/paritytech/polkadot-sdk
-      version: polkadot-stable2606-3
-      docker_image_version: stable2606-3
+      version: polkadot-stable2609
+      docker_image_version: stable2609
     open_zeppelin_contracts:
       repository_url: https://github.com/OpenZeppelin/openzeppelin-contracts
       version: v5.6.1
@@ -54,7 +54,9 @@ dependencies:
       ignore_updates: true
     polkadot_omni_node:
       name: polkadot-omni-node
-      version: 0.22.0
+      # Matches the crate version shipped in polkadot_sdk.version; update it with the SDK.
+      version: 0.21.0
+      ignore_updates: true
   javascript_packages:
     chopsticks:
       name: '@acala-network/chopsticks'
@@ -67,7 +69,7 @@ dependencies:
       version: 17.0.2
     polkadot_api:
       name: polkadot-api
-      version: 3.2.1
+      version: 3.2.2
     resolc:
       name: '@parity/resolc'
       version: 1.4.0
@@ -82,10 +84,10 @@ dependencies:
       version: 4.16.0
     viem:
       name: viem
-      version: 2.57.5
+      version: 2.57.7
     ethersjs:
       name: ethers
-      version: 6.16.0
+      version: 6.17.0
     paraspell_sdk:
       name: '@paraspell/sdk'
       version: 14.4.3

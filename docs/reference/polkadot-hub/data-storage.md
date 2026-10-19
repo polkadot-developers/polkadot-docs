@@ -41,7 +41,11 @@ Authorization is consumed as you store data — each storage transaction decreme
 
 ### Who Grants Authorization
 
-The `authorize_account` and `authorize_preimage` extrinsics require **Root origin**, meaning only privileged accounts can grant authorization. How this works depends on the network:
+The `authorize_account` and `authorize_preimage` extrinsics require the _authorizer_ origin. On Polkadot TestNet, the authorizer origin accepts Root, sibling parachains that are allowed to manage authorizations, and accounts that Root registers with `add_authorizer`. Each registered account has a budget that limits how much authorization it can grant.
+
+<!-- VERIFY: Authorizer composition taken from runtimes/bulletin-paseo/src/storage.rs on polkadot-bulletin-chain main, not from the deployed Paseo Bulletin Next runtime. Confirm the deployed runtime matches. -->
+
+How you get authorization depends on the network:
 
 | Network | Authorization Source |
 |:--:|:--:|
@@ -53,7 +57,7 @@ The `authorize_account` and `authorize_preimage` extrinsics require **Root origi
 
 Account authorization grants a specific account the ability to store any data on-chain, up to the allocated transaction and byte limits. This is the most common authorization type for active users.
 
-- Granted via the `authorize_account` extrinsic (Root origin)
+- Granted via the `authorize_account` extrinsic (authorizer origin)
 - Can be refreshed with `refresh_account_authorization`
 - Expired authorizations can be cleaned up with `remove_expired_account_authorization`
 
@@ -61,7 +65,7 @@ Account authorization grants a specific account the ability to store any data on
 
 Preimage authorization grants storage access to anyone who can provide the preimage of a specific hash. This is useful for sponsored uploads where a third party authorizes the storage of specific, known content without needing to know which account will submit it.
 
-- Granted via the `authorize_preimage` extrinsic (Root origin)
+- Granted via the `authorize_preimage` extrinsic (authorizer origin)
 - Can be refreshed with `refresh_preimage_authorization`
 - Expired authorizations can be cleaned up with `remove_expired_preimage_authorization`
 
@@ -75,24 +79,31 @@ The `transactionStorage` pallet is the core module for interacting with the Bull
 
 | Extrinsic | Description | Origin |
 |:--:|:--:|:--:|
-| `store(data)` | Store arbitrary data on-chain. Returns a CID for the stored content | Signed |
-| `store_with_cid_config(data, cid_config)` | Store data with a custom CID configuration (e.g., codec, hash function) | Signed |
-| `renew(block, index)` | Renew a previously stored transaction by specifying the block number and transaction index | Signed |
-| `check_proof(proof)` | Submit a storage proof for verification | None |
-| `authorize_account(account, expiration)` | Authorize an account to store data until the specified block | Root |
-| `authorize_preimage(hash, expiration)` | Authorize a preimage hash for storage access until the specified block | Root |
-| `refresh_account_authorization(account, expiration)` | Extend the expiration of an existing account authorization | Root |
-| `refresh_preimage_authorization(hash, expiration)` | Extend the expiration of an existing preimage authorization | Root |
-| `remove_expired_account_authorization(account)` | Remove an expired account authorization to free storage | Signed |
-| `remove_expired_preimage_authorization(hash)` | Remove an expired preimage authorization to free storage | Signed |
+| `store(data)` | Store data on-chain. Emits `Stored` with the transaction index, content hash, and CID | Authorized account |
+| `store_with_cid_config(cid, data)` | Store data with an explicit CID configuration (codec and hashing algorithm) | Authorized account |
+| `authorize_account(who, transactions, bytes)` | Authorize an account to store up to `bytes` bytes in `transactions` transactions. Calling it again before the authorization expires adds to the existing allowance | Authorizer |
+| `authorize_preimage(content_hash, max_size)` | Authorize anyone to store data with the given content hash, up to `max_size` bytes | Authorizer |
+| `refresh_account_authorization(who)` | Extend the expiration of an existing account authorization. The allowance is unchanged | Authorizer |
+| `refresh_preimage_authorization(content_hash)` | Extend the expiration of an existing preimage authorization. The allowance is unchanged | Authorizer |
+| `remove_expired_account_authorization(who)` | Remove an expired account authorization from storage | Any account |
+| `remove_expired_preimage_authorization(content_hash)` | Remove an expired preimage authorization from storage | Any account |
+| `add_authorizer(who, budget)` | Allow an account to grant authorizations, within the given budget | Root |
+| `remove_authorizer(who)` | Remove an account from the allowed authorizers | Root |
+| `remove_exhausted_authorizer(who)` | Remove an authorizer whose budget is used up or whose validity period has ended | Any account |
+| `apply_block_inherents(proof)` | Submit the block's storage proof | None (inherent) |
+
+Authorizations expire after a fixed number of blocks (14 days on Polkadot TestNet).
 
 The pallet also exposes the following storage items:
 
 | Storage Item | Type | Description |
 |:--:|:--:|:--:|
-| `Authorizations` | `Map<AccountId, BlockNumber>` | Maps authorized accounts to their authorization expiration block |
-| `PreimageAuthorizations` | `Map<Hash, BlockNumber>` | Maps authorized preimage hashes to their authorization expiration block |
-| `Transactions` | `Map<BlockNumber, Vec<TransactionInfo>>` | Stores transaction metadata indexed by block number |
+| `Authorizations` | `Map<AuthorizationScope, Authorization>` | Active authorizations, keyed by account (`Account`) or content hash (`Preimage`) |
+| `AllowedAuthorizers` | `Map<AccountId, AuthorizerBudget>` | Accounts allowed to grant authorizations, with their remaining budget |
+| `Transactions` | `Map<BlockNumber, Vec<TransactionInfo>>` | Metadata of the transactions stored in each block |
+| `TransactionByContentHash` | `Map<Hash, (BlockNumber, u32)>` | Most recent block number and transaction index for each content hash. Updated on every renewal |
+| `BlockTransactions` | `Vec<TransactionInfo>` | Transactions stored in the current block |
+| `ProofChecked` | `bool` | Whether the storage proof was checked in the current block |
 | `ByteFee` | `Balance` | The fee charged per byte of stored data |
 | `EntryFee` | `Balance` | The base fee charged per storage transaction |
 | `RetentionPeriod` | `BlockNumber` | The number of blocks for which stored data is retained |
@@ -101,15 +112,56 @@ The pallet emits the following events:
 
 | Event | Description |
 |:--:|:--:|
-| `Stored` | Emitted when data is successfully stored. Contains the transaction index, content hash, and CID |
-| `Renewed` | Emitted when a stored transaction is renewed |
+| `Stored` | Emitted when data is stored. Contains the transaction index, content hash, and CID |
 | `ProofChecked` | Emitted when a storage proof is successfully verified |
 | `AccountAuthorized` | Emitted when an account is granted storage authorization |
-| `PreimageAuthorized` | Emitted when a preimage hash is granted storage authorization |
 | `AccountAuthorizationRefreshed` | Emitted when an account authorization is refreshed |
+| `PreimageAuthorized` | Emitted when a content hash is granted storage authorization |
 | `PreimageAuthorizationRefreshed` | Emitted when a preimage authorization is refreshed |
-| `AccountAuthorizationRemoved` | Emitted when an expired account authorization is removed |
-| `PreimageAuthorizationRemoved` | Emitted when an expired preimage authorization is removed |
+| `ExpiredAccountAuthorizationRemoved` | Emitted when an expired account authorization is removed |
+| `ExpiredPreimageAuthorizationRemoved` | Emitted when an expired preimage authorization is removed |
+| `AuthorizerAdded` | Emitted when an account is added to the allowed authorizers |
+| `AuthorizerRemoved` | Emitted when Root removes an account from the allowed authorizers |
+| `ExhaustedAuthorizerRemoved` | Emitted when an authorizer is removed because its budget is used up or its validity period has ended |
+
+## Data Renewal Pallet
+
+Stored data is removed when its retention period ends. The `dataRenewal` pallet extends the retention of data stored through the `transactionStorage` pallet. Renewal calls identify the data in one of two ways:
+
+- **`Position { block, index }`**: The block number and transaction index of the most recent store or renewal of the data.
+- **`ContentHash(hash)`**: The content hash of the data. The chain maps each content hash to its most recent position, so this form keeps working after the data is renewed.
+
+The pallet provides the following extrinsics:
+
+| Extrinsic | Description | Origin |
+|:--:|:--:|:--:|
+| `renew(entry)` | Schedule a one-time renewal. It takes effect when the retention period ends, and the registration is then removed. The renewal is paid from your authorization when you register it | Authorized account |
+| `force_renew(entry)` | Renew the data immediately | Authorized account |
+| `enable_auto_renew(content_hash)` | Renew the data at the end of every retention period. The first renewal is paid when you register; later renewals are charged to your authorization, and the registration is dropped if your authorization cannot cover one | Authorized account |
+| `disable_auto_renew(content_hash)` | Cancel recurring renewal. The owner can disable it only after the prepaid first renewal has taken effect | Authorized account that owns the registration, or Root |
+| `process_pending_renewals()` | Process the renewals due in the current block | None (inherent) |
+
+Renewed data counts against your authorization's byte allowance and against a chain-wide cap on renewed storage (`MaxPermanentStorageSize`).
+
+The pallet exposes the following storage items:
+
+| Storage Item | Type | Description |
+|:--:|:--:|:--:|
+| `Renewals` | `Map<Hash, RenewalData>` | Renewal registrations, keyed by content hash |
+| `PendingRenewals` | `Vec<(Hash, TransactionInfo, RenewalData)>` | Renewals to process in the current block |
+| `PermanentStorageUsed` | `u64` | Total bytes of renewed data on chain, across all accounts |
+
+The pallet emits the following events:
+
+| Event | Description |
+|:--:|:--:|
+| `Renewed` | Emitted when data is renewed immediately with `force_renew`. Contains the new transaction index and the content hash |
+| `RenewalEnabled` | Emitted when a renewal is registered. `recurring` is `true` for `enable_auto_renew` |
+| `AutoRenewalDisabled` | Emitted when recurring renewal is disabled |
+| `DataRenewed` | Emitted when a registered renewal takes effect. Contains the new transaction index, the content hash, and the account |
+| `RenewalFailed` | Emitted when a registered renewal cannot be paid from the account's authorization. The registration is dropped and the data expires |
+| `PermanentStorageUsedUpdated` | Emitted when the total of renewed storage changes |
+| `PermanentStorageNearCap` | Emitted when the total of renewed storage crosses 80% of `MaxPermanentStorageSize` |
 
 ## IPFS Integration and Data Retrieval
 
@@ -144,7 +196,7 @@ The typical lifecycle of data on the Bulletin Chain follows these steps:
 1. **Authorization**: Obtain authorization to store data through the faucet (Polkadot TestNet) or from a privileged account (MainNet).
 2. **Storage**: Submit a `store` or `store_with_cid_config` transaction with your data payload.
 3. **Retrieval**: Fetch data from collator nodes using the CID via the Console UI, Direct P2P (Helia), the Bulletin Chain IPFS gateway, or (coming soon) the Smoldot light client.
-4. **Renewal**: Before the retention period expires, submit a `renew` transaction to extend the data's lifetime.
+4. **Renewal**: Before the retention period ends, register a renewal with the `dataRenewal` pallet: `renew` for a one-time renewal or `enable_auto_renew` for recurring renewal. Use `force_renew` to renew immediately.
 
 ## Size Limits
 

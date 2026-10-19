@@ -12,7 +12,7 @@ import { CID } from 'multiformats/cid';
 import { readFile } from 'fs/promises';
 
 // Bulletin Chain Polkadot TestNet RPC endpoint
-const BULLETIN_RPC = 'wss://paseo-bulletin-rpc.polkadot.io';
+const BULLETIN_RPC = 'wss://paseo-bulletin-next-rpc.polkadot.io';
 
 // Path to the image you want to store
 const FILE_PATH = 'INSERT_IMAGE_PATH';
@@ -60,7 +60,7 @@ async function main() {
       console.log(`Index: ${event.value.value.index}`);
       console.log(`CID: ${cid.toString()}`);
       console.log(`\nRetrieve via IPFS gateway:`);
-      console.log(`https://paseo-ipfs.polkadot.io/ipfs/${cid.toString()}`);
+      console.log(`https://paseo-bulletin-next-ipfs.polkadot.io/ipfs/${cid.toString()}`);
     }
   }
 

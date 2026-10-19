@@ -128,7 +128,7 @@ When you store data on the Bulletin Chain, the following happens:
 |:--:|:--:|:--:|
 | [Console UI](https://paritytech.github.io/polkadot-bulletin-chain/){target=\_blank} | Available | Download data via the Bulletin Chain Console UI using P2P or the IPFS gateway. The simplest option — no code required |
 | Direct P2P ([Helia](https://helia.io/){target=\_blank}) | Available | Connect to collator nodes via [libp2p](https://libp2p.io/){target=\_blank} and fetch data using the CID. The recommended decentralized approach for production applications |
-| Bulletin Chain IPFS Gateway | Available | Access data via `https://paseo-ipfs.polkadot.io/ipfs/<CID>` for Polkadot TestNet. Can also be used programmatically via `fetch()` |
+| Bulletin Chain IPFS Gateway | Available | Access data via `https://paseo-bulletin-next-ipfs.polkadot.io/ipfs/<CID>` for Polkadot TestNet. Can also be used programmatically via `fetch()` |
 | Smoldot Light Client | Coming Soon | Fully decentralized retrieval via the `bitswap_block` RPC, enabling trustless data access without connecting to a full node |
 
 !!! warning
@@ -160,8 +160,8 @@ For files larger than the max transaction size, data must be split into chunks u
 
 | Network | Endpoint |
 |:--:|:--:|
-| Bulletin Chain RPC (Polkadot TestNet) | `wss://paseo-bulletin-rpc.polkadot.io` |
-| IPFS Gateway (Polkadot TestNet) | `https://paseo-ipfs.polkadot.io` |
+| Bulletin Chain RPC (Polkadot TestNet) | `wss://paseo-bulletin-next-rpc.polkadot.io` |
+| IPFS Gateway (Polkadot TestNet) | `https://paseo-bulletin-next-ipfs.polkadot.io` |
 
 ## Where to Go Next
 

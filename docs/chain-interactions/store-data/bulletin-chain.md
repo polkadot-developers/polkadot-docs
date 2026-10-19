@@ -56,7 +56,7 @@ For this tutorial, we're going to use the testnet faucet for authorizations.
 Now that your account is authorized, you can store your image on-chain. Choose the method that best fits your workflow.
 
 !!! note
-    You can also interact with the Bulletin Chain directly through [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpaseo-bulletin-rpc.polkadot.io){target=\_blank} or [dev.papi.how](https://dev.papi.how/){target=\_blank} by submitting extrinsics from the `transactionStorage` pallet.
+    You can also interact with the Bulletin Chain directly through [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpaseo-bulletin-next-rpc.polkadot.io){target=\_blank} or [dev.papi.how](https://dev.papi.how/){target=\_blank} by submitting extrinsics from the `transactionStorage` pallet.
 
 === "Console UI"
 
@@ -101,7 +101,7 @@ Now that your account is authorized, you can store your image on-chain. Choose t
     3. Fetch the Bulletin Chain metadata and generate typed descriptors:
 
         ```bash
-        npx papi add bulletin -w wss://paseo-bulletin-rpc.polkadot.io
+        npx papi add bulletin -w wss://paseo-bulletin-next-rpc.polkadot.io
         ```
 
         This command connects to the Bulletin Chain RPC endpoint, downloads the chain metadata, and generates typed descriptors that provide full type safety for all pallet interactions.
@@ -143,7 +143,7 @@ The Bulletin Chain follows a "write-to-chain, read-from-network" architecture â€
     2. Choose a retrieval method:
 
         - **P2P Connection**: Connects directly to Bulletin Chain collator nodes (decentralized, recommended).
-        - **IPFS Gateway**: Uses the Bulletin Chain's IPFS gateway at `https://paseo-ipfs.polkadot.io`.
+        - **IPFS Gateway**: Uses the Bulletin Chain's IPFS gateway at `https://paseo-bulletin-next-ipfs.polkadot.io`.
 
     3. Enter your **CID** in the "Fetch by CID" field â€” you can use either the `bafk2bzace...` format or the hex-encoded `0x0155a0e4...` format.
     4. Click **Fetch Data** to retrieve your content. The UI also generates a direct **Gateway Link** you can open in your browser.
@@ -154,7 +154,7 @@ The Bulletin Chain follows a "write-to-chain, read-from-network" architecture â€
         You can also access your data directly in the browser via the Bulletin Chain IPFS gateway:
 
         ```text
-        https://paseo-ipfs.polkadot.io/ipfs/<CID>
+        https://paseo-bulletin-next-ipfs.polkadot.io/ipfs/<CID>
         ```
 
         For fully decentralized retrieval, use P2P or the upcoming Smoldot light client.
@@ -165,7 +165,7 @@ The Bulletin Chain follows a "write-to-chain, read-from-network" architecture â€
 
     ```typescript
     const cid = 'INSERT_CID';
-    const response = await fetch(`https://paseo-ipfs.polkadot.io/ipfs/${cid}`);
+    const response = await fetch(`https://paseo-bulletin-next-ipfs.polkadot.io/ipfs/${cid}`);
     const data = await response.arrayBuffer();
     console.log(`Retrieved ${data.byteLength} bytes`);
     ```

@@ -16,7 +16,7 @@ In this tutorial, you'll walk through a common developer scenario: storing an im
 
 - A Polkadot account (SS58 format) — see [Create an Account](/chain-interactions/accounts/create-account/){target=\_blank} if you need one
 - A browser wallet extension (Polkadot.js, Talisman, SubWallet, or Fearless)
-- An image or file to store (under ~8 MiB per transaction; for larger files, you can chunk your data — see [Size Limits](/reference/polkadot-hub/data-storage/#size-limits){target=\_blank})
+- An image or file to store (at most 2 MiB per transaction; for larger files, you can chunk your data — see [Size Limits](/reference/polkadot-hub/data-storage/#size-limits))
 - Authorization to store data on the Bulletin Chain (covered in the next section)
 - For the PAPI method: [Node.js](https://nodejs.org/){target=\_blank} v18 or higher
 
@@ -115,7 +115,7 @@ Now that your account is authorized, you can store your image on-chain. Choose t
     ```
 
     !!! note
-        Replace `INSERT_IMAGE_PATH` with the path to your image (e.g., `./logo.png`). Ensure the file is under ~8 MiB. For the signer, replace the dev phrase with your own mnemonic for a Polkadot TestNet-authorized account.
+        Replace `INSERT_IMAGE_PATH` with the path to your image (e.g., `./logo.png`). Ensure the file is at most 2 MiB. For the signer, replace the dev phrase with your own mnemonic for a Polkadot TestNet-authorized account.
 
     Run the script:
 

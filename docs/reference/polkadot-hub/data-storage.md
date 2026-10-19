@@ -25,7 +25,7 @@ The Bulletin Chain is suited for any scenario where you need decentralized, cont
 - **Authorization-based access**: Accounts must be authorized before they can submit storage transactions.
 - **Content Identifiers (CIDs)**: Stored data is addressable via IPFS-compatible CIDs, enabling interoperability with IPFS tooling.
 - **Retention periods**: Stored data is retained for a limited period (~2 weeks on Polkadot TestNet) and must be renewed to persist beyond that.
-- **Chunked uploads**: Large files (up to ~64 MiB) can be split into chunks, each stored as a separate transaction (max ~8 MiB per transaction).
+- **Chunked uploads**: Files larger than 2 MiB must be split into chunks, each stored as a separate transaction (max 2 MiB per transaction).
 
 ## Authorization
 
@@ -71,7 +71,7 @@ Preimage authorization grants storage access to anyone who can provide the preim
 
 ### Capacity Planning
 
-When requesting authorization, estimate how many transactions and bytes you need. For simple uploads, a single file under 8 MiB requires one transaction. For chunked uploads (files over 8 MiB), each 1 MiB chunk requires a separate transaction, plus one additional transaction for the manifest. For example, a 100 MiB file would require approximately 101 transactions.
+When requesting authorization, estimate how many transactions and bytes you need. For simple uploads, a single file of up to 2 MiB requires one transaction. For chunked uploads (files over 2 MiB), each chunk requires a separate transaction, plus one additional transaction for the manifest. With the Bulletin SDKs' default chunk size of 1 MiB, a 10 MiB file requires 11 transactions.
 
 ## Transaction Storage Pallet
 
@@ -202,11 +202,14 @@ The typical lifecycle of data on the Bulletin Chain follows these steps:
 
 | Parameter | Value |
 |:---:|:--:|
-| Max transaction size | ~8 MiB |
-| Max file size (chunked) | ~64 MiB |
+| Max transaction size | 2 MiB |
+| Default chunk size (Bulletin SDKs) | 1 MiB |
+| Max file size per chunking operation (Bulletin SDKs) | 64 MiB |
 | Retention period (Polkadot TestNet) | ~2 weeks |
 
 For files larger than the max transaction size, data must be split into chunks using the [DAG-PB (UnixFS)](https://ipld.io/specs/codecs/dag-pb/){target=\_blank} standard. Each chunk is stored as a separate transaction. A final manifest transaction is uploaded last, containing the CIDs of all chunks. The manifest's CID becomes the root CID for the complete file. IPFS clients can then retrieve and reassemble the file automatically using the manifest.
+
+The Bulletin SDKs chunk at most 64 MiB in a single operation. To store a larger file, split it into segments of at most 64 MiB and chunk each segment separately.
 
 ## Network Endpoints
 

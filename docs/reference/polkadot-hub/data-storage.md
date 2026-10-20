@@ -29,21 +29,19 @@ The Bulletin Chain is suited for any scenario where you need decentralized, cont
 
 ## Authorization
 
-The Bulletin Chain has no token balances — there are no fees to pay. Instead, storage access is controlled through an authorization system that prevents spam and ensures fair usage. Currently, only OpenGov can provide authorizations but the PoP (Proof of Personhood) subsystem is also planned to have this privilege in the future.
+The Bulletin Chain has no token balances — there are no fees to pay. Instead, storage access is controlled through an authorization system that prevents spam and ensures fair usage. Only privileged origins can grant authorizations, as described in [Who Grants Authorization](#who-grants-authorization).
 
 Authorization is not a token transfer — it's a **permission entry** recorded in the chain's storage that specifies:
 
 - The **account** allowed to store data
 - The number of **transactions** and **bytes** the account can use
-- An optional **expiration block** after which the authorization becomes invalid
+- An **expiration block** after which the authorization becomes invalid, set a fixed number of blocks after the authorization is granted (14 days on Polkadot TestNet)
 
 Authorization is consumed as you store data — each storage transaction decrements your remaining transaction count and byte allowance. Once your allocation is used up or the expiration block is reached, you need a new authorization.
 
 ### Who Grants Authorization
 
 The `authorize_account` and `authorize_preimage` extrinsics require the _authorizer_ origin. On Polkadot TestNet, the authorizer origin accepts Root, sibling parachains that are allowed to manage authorizations, and accounts that Root registers with `add_authorizer`. Each registered account has a budget that limits how much authorization it can grant.
-
-<!-- VERIFY: Authorizer composition taken from runtimes/bulletin-paseo/src/storage.rs on polkadot-bulletin-chain main, not from the deployed Paseo Bulletin Next runtime. Confirm the deployed runtime matches. -->
 
 How you get authorization depends on the network:
 
@@ -75,12 +73,12 @@ When requesting authorization, estimate how many transactions and bytes you need
 
 ## Transaction Storage Pallet
 
-The `transactionStorage` pallet is the core module for interacting with the Bulletin Chain. It provides the following extrinsics:
+The `TransactionStorage` pallet is the core module for interacting with the Bulletin Chain. It provides the following extrinsics:
 
 | Extrinsic | Description | Origin |
 |:--:|:--:|:--:|
-| `store(data)` | Store data on-chain. Emits `Stored` with the transaction index, content hash, and CID | Authorized account |
-| `store_with_cid_config(cid, data)` | Store data with an explicit CID configuration (codec and hashing algorithm) | Authorized account |
+| `store(data)` | Store data on-chain. Emits `Stored` with the transaction index, content hash, and CID | Authorized account, Root, or unsigned with a matching preimage authorization |
+| `store_with_cid_config(cid, data)` | Store data with an explicit CID configuration (codec and hashing algorithm) | Authorized account, Root, or unsigned with a matching preimage authorization |
 | `authorize_account(who, transactions, bytes)` | Authorize an account to store up to `bytes` bytes in `transactions` transactions. Calling it again before the authorization expires adds to the existing allowance | Authorizer |
 | `authorize_preimage(content_hash, max_size)` | Authorize anyone to store data with the given content hash, up to `max_size` bytes | Authorizer |
 | `refresh_account_authorization(who)` | Extend the expiration of an existing account authorization. The allowance is unchanged | Authorizer |
@@ -126,7 +124,7 @@ The pallet emits the following events:
 
 ## Data Renewal Pallet
 
-Stored data is removed when its retention period ends. The `dataRenewal` pallet extends the retention of data stored through the `transactionStorage` pallet. Renewal calls identify the data in one of two ways:
+Stored data is removed when its retention period ends. The `DataRenewal` pallet extends the retention of data stored through the `TransactionStorage` pallet. Renewal calls identify the data in one of two ways:
 
 - **`Position { block, index }`**: The block number and transaction index of the most recent store or renewal of the data.
 - **`ContentHash(hash)`**: The content hash of the data. The chain maps each content hash to its most recent position, so this form keeps working after the data is renewed.
@@ -136,7 +134,7 @@ The pallet provides the following extrinsics:
 | Extrinsic | Description | Origin |
 |:--:|:--:|:--:|
 | `renew(entry)` | Schedule a one-time renewal. It takes effect when the retention period ends, and the registration is then removed. The renewal is paid from your authorization when you register it | Authorized account |
-| `force_renew(entry)` | Renew the data immediately | Authorized account |
+| `force_renew(entry)` | Renew the data immediately | Authorized account, Root, or unsigned with a matching preimage authorization |
 | `enable_auto_renew(content_hash)` | Renew the data at the end of every retention period. The first renewal is paid when you register; later renewals are charged to your authorization, and the registration is dropped if your authorization cannot cover one | Authorized account |
 | `disable_auto_renew(content_hash)` | Cancel recurring renewal. The owner can disable it only after the prepaid first renewal has taken effect | Authorized account that owns the registration, or Root |
 | `process_pending_renewals()` | Process the renewals due in the current block | None (inherent) |
@@ -196,7 +194,7 @@ The typical lifecycle of data on the Bulletin Chain follows these steps:
 1. **Authorization**: Obtain authorization to store data through the faucet (Polkadot TestNet) or from a privileged account (MainNet).
 2. **Storage**: Submit a `store` or `store_with_cid_config` transaction with your data payload.
 3. **Retrieval**: Fetch data from collator nodes using the CID via the Console UI, Direct P2P (Helia), the Bulletin Chain IPFS gateway, or (coming soon) the Smoldot light client.
-4. **Renewal**: Before the retention period ends, register a renewal with the `dataRenewal` pallet: `renew` for a one-time renewal or `enable_auto_renew` for recurring renewal. Use `force_renew` to renew immediately.
+4. **Renewal**: Before the retention period ends, register a renewal with the `DataRenewal` pallet: `renew` for a one-time renewal or `enable_auto_renew` for recurring renewal. Use `force_renew` to renew immediately.
 
 ## Size Limits
 

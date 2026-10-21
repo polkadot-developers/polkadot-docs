@@ -16,7 +16,7 @@ In this tutorial, you'll walk through a common developer scenario: storing an im
 
 - A Polkadot account (SS58 format) — see [Create an Account](/chain-interactions/accounts/create-account/){target=\_blank} if you need one
 - A browser wallet extension (Polkadot.js, Talisman, SubWallet, or Fearless)
-- An image or file to store (under ~8 MiB per transaction; for larger files, you can chunk your data — see [Size Limits](/reference/polkadot-hub/data-storage/#size-limits){target=\_blank})
+- An image or file to store (at most 2 MiB per transaction; for larger files, you can chunk your data — see [Size Limits](/reference/polkadot-hub/data-storage/#size-limits))
 - Authorization to store data on the Bulletin Chain (covered in the next section)
 - For the PAPI method: [Node.js](https://nodejs.org/){target=\_blank} v18 or higher
 
@@ -49,14 +49,14 @@ For this tutorial, we're going to use the testnet faucet for authorizations.
         Authorization has an expiration block. Once expired, unused authorization is not refunded — you'll need to request new authorization.
 
 !!! note
-    The `authorize_account` extrinsic requires Root origin (a privileged account). You cannot self-authorize programmatically — on Polkadot TestNet, use the Console UI faucet to authorize your account before using PAPI to store data.
+    The `authorize_account` extrinsic requires the authorizer origin: Root, or an account or parachain allowed to grant authorizations. You cannot self-authorize programmatically. On Polkadot TestNet, use the Console UI faucet to authorize your account before using PAPI to store data.
 
 ## Store Your Image
 
 Now that your account is authorized, you can store your image on-chain. Choose the method that best fits your workflow.
 
 !!! note
-    You can also interact with the Bulletin Chain directly through [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpaseo-bulletin-next-rpc.polkadot.io){target=\_blank} or [dev.papi.how](https://dev.papi.how/){target=\_blank} by submitting extrinsics from the `transactionStorage` pallet.
+    You can also interact with the Bulletin Chain directly through [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpaseo-bulletin-next-rpc.polkadot.io) or [dev.papi.how](https://dev.papi.how/) by submitting extrinsics from the `TransactionStorage` pallet to store data and from the `DataRenewal` pallet to renew it.
 
 === "Console UI"
 
@@ -77,7 +77,7 @@ Now that your account is authorized, you can store your image on-chain. Choose t
         ![](/images/chain-interactions/store-data/bulletin-chain/bulletin-chain-7.webp)
 
     !!! warning
-        Save the **Block Number** and **Transaction Index** — you'll need these values to renew your data before it expires. The Console UI auto-saves this to your browser history, but you should record it separately as well.
+        Save the **CID** — you'll need it to renew your data before it expires. The Console UI auto-saves your uploads to your browser history, but you should record the CID separately as well.
 
 === "PAPI"
 
@@ -115,7 +115,7 @@ Now that your account is authorized, you can store your image on-chain. Choose t
     ```
 
     !!! note
-        Replace `INSERT_IMAGE_PATH` with the path to your image (e.g., `./logo.png`). Ensure the file is under ~8 MiB. For the signer, replace the dev phrase with your own mnemonic for a Polkadot TestNet-authorized account.
+        Replace `INSERT_IMAGE_PATH` with the path to your image (e.g., `./logo.png`). Ensure the file is at most 2 MiB. For the signer, replace the dev phrase with your own mnemonic for a Polkadot TestNet-authorized account.
 
     Run the script:
 
@@ -129,7 +129,7 @@ Now that your account is authorized, you can store your image on-chain. Choose t
 
 ## Verify Your Stored Image
 
-After storing your image, you can verify it was successfully recorded using the **Explorer** in the Console UI. Navigate to the block number from the `Stored` event to see the `TransactionStorage.Stored` event with the content hash and CID.
+After storing your image, you can verify it was successfully recorded using the **Explorer** in the Console UI. Navigate to the block number where your image was stored, shown on the **Upload** page or printed by the store script, to see the `TransactionStorage.Stored` event with the content hash and CID.
 
 ![](/images/chain-interactions/store-data/bulletin-chain/bulletin-chain-8.webp)
 
@@ -191,39 +191,49 @@ Stored data is retained for a limited period (~2 weeks on Polkadot TestNet). If 
 
 === "Console UI"
 
-    1. Navigate to the **Renew** page in the [Bulletin Chain Console](https://paritytech.github.io/polkadot-bulletin-chain/){target=\_blank}.
-    2. Select your stored transaction from the **Load from History** dropdown, or manually enter the **Block Number** and **Transaction Index**.
-
-        ![](/images/chain-interactions/store-data/bulletin-chain/bulletin-chain-10.webp)
-
-    3. Click **Lookup Transaction** to view the transaction details, including the content hash, size, and expiration status.
-
-        ![](/images/chain-interactions/store-data/bulletin-chain/bulletin-chain-11.webp)
-
-    4. Click **Renew Storage** and approve the transaction in your wallet extension.
+    1. Navigate to the **Renew** page in the [Bulletin Chain Console](https://paritytech.github.io/polkadot-bulletin-chain/) and connect your wallet.
+    2. Find your data in one of the following ways:
+        - On the **By CID** tab, enter your CID and click **Resolve CID**.
+        - On the **By Block + Index** tab, enter the **Block Number** and **Transaction Index** and click **Lookup Transaction**.
+    3. Check the expiration status, then choose an action and approve the transaction in your wallet extension:
+        - **Renew**: Schedules one renewal that takes effect when the current retention period ends. This is the `renew` call in the PAPI tab.
+        - **Renew immediately**: Renews the data now, and the full retention period restarts from the current block. This is the `force_renew` call.
+        - **Enable auto-renew**: Renews the data at the end of every retention period. The first renewal is prepaid, and later renewals use your authorization until it runs out. This is the `enable_auto_renew` call.
 
 === "PAPI"
 
+    Register a renewal with the `DataRenewal` pallet. Identify your data by the content hash that the store script printed:
+
     ```typescript
-    console.log('Renewing stored data...');
-    const result = await api.tx.TransactionStorage.renew({
-      block: INSERT_BLOCK_NUMBER,
-      index: INSERT_INDEX,
+    console.log('Registering renewal...');
+    const result = await api.tx.DataRenewal.renew({
+      entry: { type: 'ContentHash', value: 'INSERT_CONTENT_HASH' },
     }).createAndSubmit(signer);
-    console.log(`Renewal included in block: ${result.block.hash}`);
+    console.log(`Renewal registered in block: ${result.block.hash}`);
     ```
 
     You should see output similar to:
 
     --8<-- 'code/chain-interactions/store-data/bulletin-chain/renew-data-ts.html'
 
-Renewal resets the retention timer, keeping your image available for another full retention period.
+The `renew` call registers a one-time renewal. When the retention period of your data ends, the chain stores the data again, so it stays available for another full retention period. The renewal is paid from your authorization when you register it. Each content hash can have only one registered renewal at a time, so registering again before this one takes effect fails with `RenewalAlreadyEnabled`.
+
+The `DataRenewal` pallet also provides the following alternatives:
+
+- **`force_renew`**: Renews the data immediately. It takes the same `entry` argument as `renew`.
+- **`enable_auto_renew`**: Renews the data at the end of every retention period. It takes the data's content hash. Each renewal after the first is charged to your authorization, and recurring renewal stops if your authorization cannot cover it.
 
 !!! warning
-    Each renewal generates a **new block number and index**. You must track the latest `(block, index)` pair from the `Renewed` event for any subsequent renewals. Using the original values after a renewal will fail.
+    You can also identify the data by its position, using the block number and the `Index` value that the store script printed:
 
-    !!! note
-        In the future, you'll be able to reference all data by CID instead of needing to track block number and index pairs.
+    ```typescript
+    entry: {
+      type: 'Position',
+      value: { block: INSERT_BLOCK_NUMBER, index: INSERT_INDEX },
+    },
+    ```
+
+    A position identifies one stored copy of the data and stays valid until that copy's retention period ends. Each renewal stores a new copy at a new block number and index. When a `renew` takes effect, the original copy expires at the same time, and calls that use its position fail with `RenewedNotFound`. After `force_renew`, the original copy keeps its position until its own period ends, so renewing that position again stores another copy. The content hash always resolves to the latest copy.
 
 ## Where to Go Next
 

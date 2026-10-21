@@ -216,7 +216,7 @@ Stored data is retained for a limited period (~2 weeks on Polkadot TestNet). If 
 
     --8<-- 'code/chain-interactions/store-data/bulletin-chain/renew-data-ts.html'
 
-The `renew` call registers a one-time renewal. When the retention period of your data ends, the chain stores the data again, so it stays available for another full retention period. The renewal is paid from your authorization when you register it.
+The `renew` call registers a one-time renewal. When the retention period of your data ends, the chain stores the data again, so it stays available for another full retention period. The renewal is paid from your authorization when you register it. Each content hash can have only one registered renewal at a time, so registering again before this one takes effect fails with `RenewalAlreadyEnabled`.
 
 The `DataRenewal` pallet also provides the following alternatives:
 
@@ -233,7 +233,7 @@ The `DataRenewal` pallet also provides the following alternatives:
     },
     ```
 
-    A position is valid only until the data is renewed. Each renewal stores the data at a new block number and index, and the original position no longer resolves: calls that use it fail with `RenewedNotFound`. The content hash always resolves to the data's most recent position.
+    A position identifies one stored copy of the data and stays valid until that copy's retention period ends. Each renewal stores a new copy at a new block number and index. When a `renew` takes effect, the original copy expires at the same time, and calls that use its position fail with `RenewedNotFound`. After `force_renew`, the original copy keeps its position until its own period ends, so renewing that position again stores another copy. The content hash always resolves to the latest copy.
 
 ## Where to Go Next
 

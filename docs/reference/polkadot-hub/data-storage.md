@@ -139,7 +139,9 @@ The pallet provides the following extrinsics:
 | `disable_auto_renew(content_hash)` | Cancel recurring renewal. The owner can disable it only after the prepaid first renewal has taken effect | Authorized account that owns the registration, or Root |
 | `process_pending_renewals()` | Process the renewals due in the current block | None (inherent) |
 
-Renewed data counts against your authorization's byte allowance and against a chain-wide cap on renewed storage (`MaxPermanentStorageSize`).
+Each content hash can have only one registered renewal at a time, across all accounts: `renew` and `enable_auto_renew` fail with `RenewalAlreadyEnabled` while a registration exists.
+
+Renewed bytes are tracked separately from stored bytes. A renewal is rejected when the bytes already renewed under the authorization, plus the size of the data, would exceed the authorization's byte allowance (`InvalidTransaction::Custom(5)`), or when it would exceed the chain-wide cap on renewed storage, `MaxPermanentStorageSize` (`InvalidTransaction::Custom(6)`). To check whether a renewal would be accepted, call the `BulletinTransactionStorageApi.can_renew(account, entry)` runtime API.
 
 The pallet exposes the following storage items:
 

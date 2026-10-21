@@ -167,12 +167,12 @@ If you chose **yes** at the `publish to the playground?` prompt, your app is als
 
 ## Keep Your App Available
 
-Data published to the Bulletin Chain, including your app bundle, is retained for about two weeks by default and must be renewed to persist beyond that. The exact retention window is still being finalized, so treat "about two weeks" as provisional. Renewal is a separate transaction that pushes the expiration forward without moving the data or changing its CID.
+Data published to the Bulletin Chain, including your app bundle, is retained for about two weeks by default and must be renewed to persist beyond that. The exact retention window is still being finalized, so treat "about two weeks" as provisional. Renewal is a separate transaction that keeps the data available for another retention window without changing its CID.
 
-Renewal needs a bookkeeping handle from the original write: the `(block, index)` pair from the `Stored` event. That pair is captured at write time and cannot be cheaply recovered afterward, so record it when you publish.
+Renewal identifies each stored record by its content hash, which you can derive from the record's CID. Your app bundle is stored as several chunks, each in its own transaction, plus a manifest that lists them, so keeping the bundle available means renewing the manifest and every chunk.
 
-!!! warning "The CLI deploy does not surface the renewal handle yet"
-    `playground deploy` prints only the `app cid` and `ipfs cid`, not the block number and index that renewal needs, so a bundle deployed through the CLI has no captured renewal handle today. If your app must outlive the retention window, publish its data through the programmatic `CloudStorageClient.store(...).send()` path, which returns the `(block, index)` pair, and track it. See [Store Data on Chain](/apps/build/store-data-on-chain/) for the store receipt and renewal flow, and the [Bulletin Chain renewal reference](/reference/apps/infrastructure/bulletin-chain/renewal/) for the mechanics.
+!!! warning "The CLI deploy does not renew your bundle"
+    `playground deploy` does not renew the data it uploads. The `app cid` it prints is the bundle's manifest, and its links are the chunk CIDs, so you can renew the whole bundle from that one CID without uploading it again. The [renewal example in Store Data on Chain](/apps/build/store-data-on-chain/#renew-long-lived-data) reads the manifest and renews the manifest and every chunk. See the [Bulletin Chain renewal reference](/reference/apps/infrastructure/bulletin-chain/renewal/) for the mechanics.
 
 ## If a Deploy Fails
 
@@ -207,7 +207,7 @@ Deploy-time issues have named fixes in [Troubleshooting](/apps/troubleshooting/)
 
     ---
 
-    The store receipt, chunking, authorization, and the renewal handle in full.
+    The store receipt, chunking, authorization, and renewal in full.
 
     [:octicons-arrow-right-24: Store Data on Chain](/apps/build/store-data-on-chain/)
 

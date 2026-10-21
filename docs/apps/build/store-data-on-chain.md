@@ -32,7 +32,7 @@ This guide builds on `createApp`, which only the umbrella package provides, so i
 npm install @parity/product-sdk
 ```
 
-Every snippet imports from `@parity/product-sdk`, including `SignerManager` and `CloudStorageClient`, which the umbrella re-exports from its root, and `parseCid`, which it re-exports from its `@parity/product-sdk/cloud-storage` subpath, so no other package is needed. See [Umbrella or Individual Packages](/apps/build/#umbrella-or-individual-packages) for how the install styles compare.
+Every snippet imports from `@parity/product-sdk`, including `SignerManager` and `CloudStorageClient`, which the umbrella re-exports from its root, and `parseCid` and `CidCodec`, which it re-exports from its `@parity/product-sdk/cloud-storage` subpath, so no other package is needed. The renewal example is the exception: it also uses `@ipld/dag-pb` to read chunked-upload manifests. See [Umbrella or Individual Packages](/apps/build/#umbrella-or-individual-packages) for how the install styles compare.
 
 ## Set Up Your Storage Client
 
@@ -125,26 +125,37 @@ The Bulletin Chain has no token balance for storage; every account needs an expl
 
 Stored data is retained for roughly two weeks. If your Product needs the data to outlive that window, renew it before it expires.
 
-Renewal identifies the data by its content hash, which you can derive from its CID. For a single-transaction upload, the CID that `app.cloudStorage.upload()` returns is all you need. A chunked upload stores each chunk and the manifest as separate transactions, and each one has its own retention period, so keeping a chunked file available means renewing the manifest CID and every chunk CID. `CloudStorageClient.store(...).send()` returns the chunk CIDs in `StoreResult.chunks.chunkCids`; `app.cloudStorage.upload()` returns only the manifest CID.
+Renewal identifies the data by its content hash, which is the multihash digest of its CID. What you renew depends on the kind of CID:
 
-Register a renewal before the data expires:
+- **Single-transaction CID**: The CID codec is raw (`CidCodec.Raw`, and the string starts with `bafk`). Renew that one content hash.
+- **Manifest CID**: The CID codec is DAG-PB (`CidCodec.DagPb`, and the string starts with `bafy`). A chunked upload stores each chunk and the manifest as separate transactions, each with its own retention period, so renew the manifest and every chunk. The manifest lists the chunk CIDs as its links.
+
+The following example takes the CID that an upload returned, collects the content hashes of the manifest and its chunks when the CID is a manifest, and registers a renewal for each one. It reads the manifest with `fetchBytes(cid, { noReassemble: true })` and decodes it with `@ipld/dag-pb`, so install that package too:
+
+```bash
+npm install @ipld/dag-pb
+```
 
 ```typescript title="renew-data.ts"
 --8<-- "code/apps/build/store-data-on-chain/renew-data.ts"
 ```
 
-`client.inner.renew(contentHash)` registers a one-time renewal. When the current retention period ends, the chain stores the data again, and it stays available for another full period. The renewal is paid from your authorization when you register it, including the size of the data. `client.inner` is the underlying Bulletin SDK client, which `CloudStorageClient` exposes for operations beyond its own surface, and `send()` resolves with a `TransactionReceipt` that includes `blockHash`, `txHash`, and `blockNumber`.
+If you uploaded with `CloudStorageClient.store(...).send()`, `StoreResult.chunks.chunkCids` already holds the chunk CIDs as `CID` objects, so you can read each content hash from `chunkCid.multihash.digest` without fetching the manifest.
+
+`client.inner.renew(contentHash)` registers a one-time renewal. When the current retention period ends, the chain stores the data again, and it stays available for another full period. The renewal is paid from your authorization when you register it. `client.inner` is the underlying Bulletin SDK client, which `CloudStorageClient` exposes for operations beyond its own surface, and `send()` resolves with a `TransactionReceipt` that includes `blockHash`, `txHash`, and `blockNumber`.
+
+Renewals have their own byte budget. The chain counts renewed bytes separately from stored bytes, and it rejects a renewal when the bytes already renewed under your authorization, plus the size of this data, would exceed the authorization's byte allowance. The `remainingBytes` that `checkAuthorization` reports covers stored bytes only, so it does not predict whether a renewal succeeds.
 
 The underlying client also provides the following alternatives:
 
 - **`client.inner.enableAutoRenew(contentHash)`**: Renews the data at the end of every retention period, until your authorization can no longer cover a renewal.
-- **`client.inner.forceRenew(contentHash)`**: Renews the data immediately, and the retention period restarts from the current block.
-- **`client.renew(block, index)`**: Renews by position, using the `blockNumber` and `extrinsicIndex` from a single-transaction `StoreResult`. Despite its name, `extrinsicIndex` holds the index from the `Stored` event, which is the value renewal expects. A position stops resolving once the data is renewed, so prefer the content hash.
+- **`client.inner.forceRenew(contentHash)`**: Stores a new copy of the data immediately, with a retention period that starts from the current block.
+- **`client.renew(block, index)`**: Renews by position, using the `blockNumber` and `extrinsicIndex` from a single-transaction `StoreResult`. Despite its name, `extrinsicIndex` holds the index from the `Stored` event, which is the value renewal expects. A position identifies one stored copy and stays valid only until that copy's retention period ends. After `forceRenew`, the original copy keeps its position until then, so renewing that position stores and pays for yet another copy. Prefer the content hash, which always resolves to the latest copy.
 
-The SDK's typed Bulletin API does not expose `RetentionPeriod` or the `Utility` pallet directly. If you need to read the retention period from chain state, or batch many renewals atomically via `Utility.batch_all`, generate the full PAPI bulletin descriptor with `npx papi add bulletin -w <RPC>` and submit through `polkadot-api` directly because `@parity/product-sdk-cloud-storage` is intentionally a narrow surface.
+The cloud storage client's typed API does not expose `RetentionPeriod`, the `Utility` pallet, or the renewal pre-flight. For those, create a `polkadot-api` client with the `paseo_bulletin` descriptor from `@parity/product-sdk-descriptors/paseo-bulletin`. It provides `query.TransactionStorage.RetentionPeriod`, the `BulletinTransactionStorageApi.can_renew(account, entry)` runtime API, which reports whether a renewal would be accepted, and the `DataRenewal` calls. To register many renewals in one transaction, pass those calls to `batchSubmitAndWatch` from `@parity/product-sdk-tx`, which wraps them in `Utility.batch_all`; see [Transactions](/apps/product-sdk/tx/).
 
 !!! warning
-    The Bulletin Chain does not notify your Product before data expires. Either enable auto-renewal or run your own scheduler (a cron job, queue, or background worker) that registers renewals before the data expires.
+    Each content hash can have only one registered renewal at a time, across all accounts. Registering a renewal again before the current one takes effect fails with `RenewalAlreadyEnabled`, so register once per retention period. The Bulletin Chain does not notify your Product before data expires: either enable auto-renewal or run your own scheduler (a cron job, queue, or background worker) that registers renewals in time.
 
 ## Storage Paths at a Glance
 

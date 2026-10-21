@@ -77,7 +77,7 @@ if (!status.ok) {
 - Uploading requires a signer and an on-chain storage authorization for the account.
 - `authorizeAccount` is additive and is deliberately not retried; verify the result with `checkAuthorization` before retrying yourself.
 - `verifyStored` needs a known block; it does not scan the whole chain.
-- A chunked upload (large files) returns no `blockNumber` or `extrinsicIndex`, so it cannot be renewed by position. [Renew it by content hash](/apps/build/store-data-on-chain/#renew-long-lived-data) instead: the manifest CID and every chunk CID in `StoreResult.chunks.chunkCids`.
+- A chunked upload (large files) returns no `blockNumber` or `extrinsicIndex`, so it cannot be renewed by position. [Renew it by content hash](/apps/build/store-data-on-chain/#renew-long-lived-data) instead: the manifest CID and every chunk CID, which you can read from `StoreResult.chunks.chunkCids` or from the manifest's links.
 
 ## Where to Go Next
 

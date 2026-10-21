@@ -32,7 +32,11 @@ A _renewal_ is a separate transaction, submitted to the `DataRenewal` pallet, th
 - **Immediate renewal (`force_renew`)**: Stores the data again right away. The new window starts from the current block.
 - **Auto-renewal (`enable_auto_renew`)**: Renews the data at the end of every window, until the account's authorization can no longer cover a renewal.
 
-A renewal identifies the data by its content hash, which is the multihash digest of its CID, or by its position (block number and index). Each renewal stores the data at a new position, so a position stops resolving once the data is renewed, while the content hash always resolves to the most recent one.
+One-time and immediate renewals identify the data by its content hash, which is the multihash digest of its CID, or by its position (block number and index). Auto-renewal, and disabling it, take the content hash only.
+
+A position identifies one stored copy of the data and stays valid until that copy's retention window ends. Each renewal stores a new copy at a new position. When a renewal takes effect at the end of the window, the original copy expires at the same time. After an immediate renewal, the original copy keeps its position until its own window ends, so renewing that position again stores and pays for another copy. The content hash always resolves to the latest copy.
+
+Each content hash can have only one registered renewal at a time, across all accounts. Registering a one-time renewal or auto-renewal while one is already registered fails with `RenewalAlreadyEnabled`, so a one-time renewal is registered once per window.
 
 A chunked upload is several storage records: one per chunk, plus the manifest. Each record has its own window, so keeping a chunked file available means renewing the manifest and every chunk.
 
@@ -40,13 +44,15 @@ Renewal does not change the CID — readers continue to use the same hash they h
 
 ## What Renewal Costs
 
-Renewal draws on the renewing account's [authorization](/reference/apps/infrastructure/bulletin-chain/authorization/): each renewal uses one transaction and counts the size of the data against the account's byte allowance. One-time and immediate renewals are charged when you submit them; auto-renewal prepays the first renewal and charges each later one when it takes effect.
+Renewal draws on the renewing account's [authorization](/reference/apps/infrastructure/bulletin-chain/authorization/): each renewal uses one transaction, and its size is added to a renewed-bytes counter that the authorization keeps separately from the bytes it has stored. One-time and immediate renewals are charged when you submit them; auto-renewal prepays the first renewal and charges each later one when it takes effect.
 
-Unlike a store, a renewal is rejected when the bytes it would add exceed the account's remaining byte allowance (`PERMANENT_ALLOWANCE_EXCEEDED`). The chain also caps the total size of renewed data across all accounts (`CHAIN_PERMANENT_CAP_REACHED`). If an auto-renewal cannot be paid, its registration is dropped and the data expires.
+Unlike a store, a renewal is rejected when the renewed-bytes counter plus the size of the data would exceed the authorization's byte allowance. Stored bytes do not count toward this check: an account with a 10 MiB allowance that has stored 9 MiB can still renew 8 MiB, while an account that has renewed 9.5 MiB cannot renew another 1 MiB. The chain also caps the total size of renewed data across all accounts. Clients see these rejections as `InvalidTransaction::Custom(5)` (the pallet's `PERMANENT_ALLOWANCE_EXCEEDED`) and `InvalidTransaction::Custom(6)` (`CHAIN_PERMANENT_CAP_REACHED`). If an auto-renewal cannot be paid, its registration is dropped and the data expires.
+
+The storage quota a Product reads for stores does not predict renewals. To check whether a renewal would be accepted, call the `BulletinTransactionStorageApi.can_renew(account, entry)` runtime API.
 
 For long-lived content (a profile photo, a published article, an app bundle), a Product should:
 
-- Budget for periodic renewals, in both transactions and bytes, as part of the account's quota planning.
+- Budget for periodic renewals as part of the account's quota planning, counting renewed bytes against the byte allowance separately from stored bytes.
 - Register renewals before the expiration block, not at it, because submission, inclusion, and finalization take time. For auto-renewal, keep the account's authorization active, because each later renewal is charged to it.
 
 ## What Happens to Forgotten Data

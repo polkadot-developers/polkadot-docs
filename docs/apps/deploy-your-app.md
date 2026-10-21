@@ -169,10 +169,10 @@ If you chose **yes** at the `publish to the playground?` prompt, your app is als
 
 Data published to the Bulletin Chain, including your app bundle, is retained for about two weeks by default and must be renewed to persist beyond that. The exact retention window is still being finalized, so treat "about two weeks" as provisional. Renewal is a separate transaction that keeps the data available for another retention window without changing its CID.
 
-Renewal identifies each stored record by its content hash, which you can derive from the record's CID. Your app bundle is stored as several chunks, each in its own transaction, so keeping the bundle available means renewing every chunk.
+Renewal identifies each stored record by its content hash, which you can derive from the record's CID. Your app bundle is stored as several chunks, each in its own transaction, plus a manifest that lists them, so keeping the bundle available means renewing the manifest and every chunk.
 
 !!! warning "The CLI deploy does not renew your bundle"
-    `playground deploy` does not renew the data it uploads, and it prints only the `app cid` and `ipfs cid`, not the CIDs of the individual chunks that renewal needs. If your app must outlive the retention window, publish its data through the programmatic `CloudStorageClient.store(...).send()` path, which returns every chunk CID, and renew each one. See [Store Data on Chain](/apps/build/store-data-on-chain/#renew-long-lived-data) for the renewal flow, and the [Bulletin Chain renewal reference](/reference/apps/infrastructure/bulletin-chain/renewal/) for the mechanics.
+    `playground deploy` does not renew the data it uploads. The `app cid` it prints is the bundle's manifest, and its links are the chunk CIDs, so you can renew the whole bundle from that one CID without uploading it again. The [renewal example in Store Data on Chain](/apps/build/store-data-on-chain/#renew-long-lived-data) reads the manifest and renews the manifest and every chunk. See the [Bulletin Chain renewal reference](/reference/apps/infrastructure/bulletin-chain/renewal/) for the mechanics.
 
 ## If a Deploy Fails
 
@@ -207,7 +207,7 @@ Deploy-time issues have named fixes in [Troubleshooting](/apps/troubleshooting/)
 
     ---
 
-    The store receipt, chunking, authorization, and the renewal handle in full.
+    The store receipt, chunking, authorization, and renewal in full.
 
     [:octicons-arrow-right-24: Store Data on Chain](/apps/build/store-data-on-chain/)
 

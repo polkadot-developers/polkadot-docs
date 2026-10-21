@@ -29,7 +29,7 @@ Do not put bulk data in a contract — file contents, images, long text, or anyt
 
 Use [cloud storage](/apps/product-sdk/cloud-storage/) for content that outlives a session: profile photos, uploads, published posts, snapshots of app state. You upload bytes and get back a CID; anyone with the CID can fetch and verify the bytes.
 
-The key tradeoff is **retention**. Stored data is kept for about two weeks by default and must be renewed to persist beyond that, and renewal needs a bookkeeping handle captured at write time. Plan for renewal from the start; see [Deploy Your App](/apps/deploy-your-app/#keep-your-app-available) for what to capture and the current limitation.
+The key tradeoff is **retention**. Stored data is kept for about two weeks by default and must be renewed to persist beyond that. Renewal works from a CID, but a chunked upload needs the CID of every chunk, so capture those at write time. Plan for renewal from the start; see [Store Data on Chain](/apps/build/store-data-on-chain/#renew-long-lived-data) for how to renew, and [Deploy Your App](/apps/deploy-your-app/#keep-your-app-available) for the limitation on bundles deployed through the CLI.
 
 ## Statement Store
 

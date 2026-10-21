@@ -32,7 +32,7 @@ This guide builds on `createApp`, which only the umbrella package provides, so i
 npm install @parity/product-sdk
 ```
 
-Every snippet imports from `@parity/product-sdk`, including `SignerManager` and `CloudStorageClient`, which the umbrella re-exports from its root, so no other package is needed. See [Umbrella or Individual Packages](/apps/build/#umbrella-or-individual-packages) for how the install styles compare.
+Every snippet imports from `@parity/product-sdk`, including `SignerManager` and `CloudStorageClient`, which the umbrella re-exports from its root, and `parseCid`, which it re-exports from its `@parity/product-sdk/cloud-storage` subpath, so no other package is needed. See [Umbrella or Individual Packages](/apps/build/#umbrella-or-individual-packages) for how the install styles compare.
 
 ## Set Up Your Storage Client
 
@@ -95,7 +95,7 @@ The `client.store(...)` builder takes the same chunking pipeline `app.cloudStora
 --8<-- "code/apps/build/store-data-on-chain/store-large-file.ts"
 ```
 
-The returned `StoreResult.cid` is the manifest CID; `StoreResult.chunks.chunkCids` lists each chunk's individual CID. `withCallback()` receives per-chunk progress events as the upload streams. The Bulletin Chain has a per-transaction byte limit of about 8 MiB on TestNet; see [Size Limits](/reference/polkadot-hub/data-storage/#size-limits). Chunks must stay under that.
+The returned `StoreResult.cid` is the manifest CID; `StoreResult.chunks.chunkCids` lists each chunk's individual CID. `withCallback()` receives per-chunk progress events as the upload streams. The Bulletin Chain limits each transaction to 2 MiB; see [Size Limits](/reference/polkadot-hub/data-storage/#size-limits). Chunks cannot exceed that.
 
 Chunked uploads are not atomic. Each chunk is a separate transaction, and the manifest is one more on top. If chunk N fails after chunks 0..N-1 have already landed, the earlier chunks remain on chain and consume your authorization. There is no rollback. Inspect the `chunkCids` on the thrown error and either resume from the failed chunk or, if the use case demands it, abandon the partial upload.
 
@@ -104,7 +104,7 @@ Chunked uploads are not atomic. Each chunk is a separate transaction, and the ma
 The Bulletin Chain has no token balance for storage; every account needs an explicit authorization. You should already have one from [Get TestNet Tokens](/apps/get-started/get-testnet-tokens/); if not, request your storage quota directly from the [Bulletin Chain authorization page](https://paritytech.github.io/polkadot-bulletin-chain/authorizations). If a store is rejected, confirm the authorization is on the account that signs: see [uploads are rejected](/apps/troubleshooting/#uploads-are-rejected-or-host-storage-unavailable) in troubleshooting.
 
 !!! note
-    The `authorize_account` extrinsic requires Root origin. You cannot self-authorize programmatically; on Polkadot TestNet, use the [Bulletin Chain authorization page](https://paritytech.github.io/polkadot-bulletin-chain/authorizations) before submitting any `store` extrinsic from your Product.
+    The `authorize_account` extrinsic requires the authorizer origin: Root, or an account or parachain allowed to grant authorizations. You cannot self-authorize programmatically; on Polkadot TestNet, use the [Bulletin Chain authorization page](https://paritytech.github.io/polkadot-bulletin-chain/authorizations) before submitting any `store` extrinsic from your Product.
 
 `CloudStorageClient` (introduced in [Store a Larger File](#store-a-larger-file)) exposes `client.checkAuthorization(address)` as a pre-flight check before submitting a store:
 
@@ -123,22 +123,28 @@ The Bulletin Chain has no token balance for storage; every account needs an expl
 
 ## Renew Long-Lived Data
 
-Stored data is retained for roughly two weeks. If your Product needs the data to outlive that window, renew the storage record before it expires.
+Stored data is retained for roughly two weeks. If your Product needs the data to outlive that window, renew it before it expires.
 
-Renewal needs the `(block, index)` pair from the `Stored` event of the original write. That is where `app.cloudStorage.upload()` runs out of road. `upload()` resolves with a `Result` whose value is only the CID string — no block or index. To get the bookkeeping pair, use `CloudStorageClient.store(...).send()` instead, which returns a full `StoreResult` (`cid`, `blockNumber`, `extrinsicIndex`, `size`, all but `size` optional). Persist `(blockNumber, extrinsicIndex)` for each record you intend to renew.
+Renewal identifies the data by its content hash, which you can derive from its CID. For a single-transaction upload, the CID that `app.cloudStorage.upload()` returns is all you need. A chunked upload stores each chunk and the manifest as separate transactions, and each one has its own retention period, so keeping a chunked file available means renewing the manifest CID and every chunk CID. `CloudStorageClient.store(...).send()` returns the chunk CIDs in `StoreResult.chunks.chunkCids`; `app.cloudStorage.upload()` returns only the manifest CID.
 
-As you approach the expiry block (current block + retention period), submit a renewal:
+Register a renewal before the data expires:
 
 ```typescript title="renew-data.ts"
 --8<-- "code/apps/build/store-data-on-chain/renew-data.ts"
 ```
 
-`client.renew(block, index).send()` builds and submits the call, returning a `TransactionReceipt` with `blockHash`, `txHash`, and `blockNumber`. The `Renewed` event carries the new `(block, index)` pair; capture it so the next renewal uses the latest values.
+`client.inner.renew(contentHash)` registers a one-time renewal. When the current retention period ends, the chain stores the data again, and it stays available for another full period. The renewal is paid from your authorization when you register it, including the size of the data. `client.inner` is the underlying Bulletin SDK client, which `CloudStorageClient` exposes for operations beyond its own surface, and `send()` resolves with a `TransactionReceipt` that includes `blockHash`, `txHash`, and `blockNumber`.
+
+The underlying client also provides the following alternatives:
+
+- **`client.inner.enableAutoRenew(contentHash)`**: Renews the data at the end of every retention period, until your authorization can no longer cover a renewal.
+- **`client.inner.forceRenew(contentHash)`**: Renews the data immediately, and the retention period restarts from the current block.
+- **`client.renew(block, index)`**: Renews by position, using the `blockNumber` and `extrinsicIndex` from a single-transaction `StoreResult`. Despite its name, `extrinsicIndex` holds the index from the `Stored` event, which is the value renewal expects. A position stops resolving once the data is renewed, so prefer the content hash.
 
 The SDK's typed Bulletin API does not expose `RetentionPeriod` or the `Utility` pallet directly. If you need to read the retention period from chain state, or batch many renewals atomically via `Utility.batch_all`, generate the full PAPI bulletin descriptor with `npx papi add bulletin -w <RPC>` and submit through `polkadot-api` directly because `@parity/product-sdk-cloud-storage` is intentionally a narrow surface.
 
 !!! warning
-    Each renewal generates a new `(block, index)` pair. Track the values from the latest `Renewed` event for any subsequent renewal. Using the original values after a renewal will fail. The Bulletin Chain pallet does not emit retention events ahead of expiry; your Product needs its own scheduler (cron job, queue, or background worker) to renew before the storage expires.
+    The Bulletin Chain does not notify your Product before data expires. Either enable auto-renewal or run your own scheduler (a cron job, queue, or background worker) that registers renewals before the data expires.
 
 ## Storage Paths at a Glance
 

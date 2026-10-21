@@ -44,9 +44,11 @@ const client = await CloudStorageClient.create({
 });
 
 const stored = await client.store(bytes).send();
-console.log(stored.cid, stored.blockNumber, stored.size);
+if (!stored.cid) throw new Error('The store returned no CID.');
+const cid = stored.cid.toString();
+console.log(cid, stored.blockNumber, stored.size);
 
-const fetched = await client.fetchBytes(stored.cid);
+const fetched = await client.fetchBytes(cid);
 if (fetched.ok) {
   console.log(new TextDecoder().decode(fetched.value));
 }
@@ -75,7 +77,7 @@ if (!status.ok) {
 - Uploading requires a signer and an on-chain storage authorization for the account.
 - `authorizeAccount` is additive and is deliberately not retried; verify the result with `checkAuthorization` before retrying yourself.
 - `verifyStored` needs a known block; it does not scan the whole chain.
-- A chunked upload (large files) returns no `blockNumber` or `extrinsicIndex` — the `(block, index)` pair [renewal](/apps/deploy-your-app/#keep-your-app-available) needs. Capture that pair from a single, unchunked store, or track renewal for large data another way.
+- A chunked upload (large files) returns no `blockNumber` or `extrinsicIndex`, so it cannot be renewed by position. [Renew it by content hash](/apps/build/store-data-on-chain/#renew-long-lived-data) instead: the manifest CID and every chunk CID in `StoreResult.chunks.chunkCids`.
 
 ## Where to Go Next
 

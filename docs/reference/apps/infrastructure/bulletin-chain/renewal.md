@@ -26,28 +26,35 @@ After the expiration block:
 
 ## What Renewal Does
 
-A _renewal_ is a separate transaction (signed and submitted like any other) that extends the expiration block of an existing storage record. The data itself doesn't move — what changes is the record's expiration. After renewal:
+A _renewal_ is a separate transaction, submitted to the `DataRenewal` pallet, that keeps a storage record alive for another retention window. Renewal comes in three forms:
 
-- The on-chain record's expiration is pushed forward by another default window.
-- Collators continue to hold and serve the bytes.
+- **One-time renewal (`renew`)**: Registered ahead of time. When the current window ends, the chain stores the data again for another full window.
+- **Immediate renewal (`force_renew`)**: Stores the data again right away. The new window starts from the current block.
+- **Auto-renewal (`enable_auto_renew`)**: Renews the data at the end of every window, until the account's authorization can no longer cover a renewal.
+
+A renewal identifies the data by its content hash, which is the multihash digest of its CID, or by its position (block number and index). Each renewal stores the data at a new position, so a position stops resolving once the data is renewed, while the content hash always resolves to the most recent one.
+
+A chunked upload is several storage records: one per chunk, plus the manifest. Each record has its own window, so keeping a chunked file available means renewing the manifest and every chunk.
 
 Renewal does not change the CID — readers continue to use the same hash they had before. A Product that has published a CID externally (in another statement, embedded in a `.dot` site, referenced by another pallet) does not have to update those references when it renews.
 
 ## What Renewal Costs
 
-Renewal consumes a transaction from the renewing account's [authorization](/reference/apps/infrastructure/bulletin-chain/authorization/) quota — same as the original upload would. Bytes are _not_ counted again (you are not re-uploading content), so the byte counter doesn't decrement, but each renewal call consumes one transaction.
+Renewal draws on the renewing account's [authorization](/reference/apps/infrastructure/bulletin-chain/authorization/): each renewal uses one transaction and counts the size of the data against the account's byte allowance. One-time and immediate renewals are charged when you submit them; auto-renewal prepays the first renewal and charges each later one when it takes effect.
+
+Unlike a store, a renewal is rejected when the bytes it would add exceed the account's remaining byte allowance (`PERMANENT_ALLOWANCE_EXCEEDED`). The chain also caps the total size of renewed data across all accounts (`CHAIN_PERMANENT_CAP_REACHED`). If an auto-renewal cannot be paid, its registration is dropped and the data expires.
 
 For long-lived content (a profile photo, a published article, an app bundle), a Product should:
 
-- Budget for periodic renewals as part of the account's quota planning.
-- Schedule renewals before the expiration block, not at it — submission, inclusion, and finalization take time, and an authorization that itself expires on the same block prevents the renewal from going through.
+- Budget for periodic renewals, in both transactions and bytes, as part of the account's quota planning.
+- Register renewals before the expiration block, not at it, because submission, inclusion, and finalization take time. For auto-renewal, keep the account's authorization active, because each later renewal is charged to it.
 
 ## What Happens to Forgotten Data
 
 If a Product (or its operator) forgets to renew, the data eventually becomes unreachable. There is no manual recovery: once collators have evicted the bytes, only re-uploading the same payload from outside the chain restores availability. The CID will be the same (because the bytes are the same), but a new upload is a fresh transaction against a fresh authorization slot.
 
 !!! warning "Provisional"
-    The exact default retention window, the renewal grace period (if any) between expiration and eviction, and any batch-renewal primitives for renewing many CIDs in a single transaction are still being finalized. The conceptual lifecycle above is stable.
+    The exact default retention window and the renewal grace period (if any) between expiration and eviction are still being finalized. The conceptual lifecycle above is stable.
 
 ## Where to Go Next
 

@@ -12,7 +12,7 @@ import { CID } from 'multiformats/cid';
 import { readFile } from 'fs/promises';
 
 // Bulletin Chain Polkadot TestNet RPC endpoint
-const BULLETIN_RPC = 'wss://paseo-bulletin-rpc.polkadot.io';
+const BULLETIN_RPC = 'wss://paseo-bulletin-next-rpc.polkadot.io';
 
 // Path to the image you want to store
 const FILE_PATH = 'INSERT_IMAGE_PATH';
@@ -47,8 +47,9 @@ async function main() {
     data: new Uint8Array(fileData),
   }).createAndSubmit(signer);
 
-  console.log(`Transaction included in block: ${result.block.hash}`);
-  console.log(`Transaction index: ${result.block.index}`);
+  console.log(
+    `Transaction included in block #${result.block.number} (${result.block.hash})`
+  );
 
   // Check events for the Stored event containing the CID
   for (const event of result.events) {
@@ -58,9 +59,10 @@ async function main() {
 
       console.log('\nImage stored successfully!');
       console.log(`Index: ${event.value.value.index}`);
+      console.log(`Content hash: ${event.value.value.content_hash}`);
       console.log(`CID: ${cid.toString()}`);
       console.log(`\nRetrieve via IPFS gateway:`);
-      console.log(`https://paseo-ipfs.polkadot.io/ipfs/${cid.toString()}`);
+      console.log(`https://paseo-bulletin-next-ipfs.polkadot.io/ipfs/${cid.toString()}`);
     }
   }
 

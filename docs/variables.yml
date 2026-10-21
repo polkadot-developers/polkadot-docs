@@ -90,7 +90,7 @@ dependencies:
       version: 6.17.0
     paraspell_sdk:
       name: '@paraspell/sdk'
-      version: 14.4.3
+      version: 14.4.4
     hdkd:
       name: '@polkadot-labs/hdkd'
       version: 0.0.32

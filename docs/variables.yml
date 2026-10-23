@@ -78,7 +78,9 @@ dependencies:
       version: 0.3.0
     solc:
       name: 'solc'
-      version: 0.8.36
+      # Used by the ethers.js, Web3.js, and viem pages, which compile EVM bytecode
+      # with plain solc. Not tied to resolc, which declares its own solc range.
+      version: 0.8.38
     web3_js:
       name: web3
       version: 4.16.0

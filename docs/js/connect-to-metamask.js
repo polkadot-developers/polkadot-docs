@@ -185,4 +185,6 @@ const syncConnectButtons = async () => {
 if (provider && connectMetaMaskBodyButtons.length > 0) {
   provider.on('chainChanged', syncConnectButtons);
   provider.on('accountsChanged', syncConnectButtons);
+  // Show an existing connection on load; this never prompts the wallet
+  syncConnectButtons();
 }

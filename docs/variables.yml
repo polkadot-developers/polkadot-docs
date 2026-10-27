@@ -86,7 +86,7 @@ dependencies:
       version: 4.16.0
     viem:
       name: viem
-      version: 2.57.8
+      version: 2.57.12
     ethersjs:
       name: ethers
       version: 6.17.0

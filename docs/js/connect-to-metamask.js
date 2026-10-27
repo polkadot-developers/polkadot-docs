@@ -168,11 +168,16 @@ const resetConnectButtons = () => {
  or chainChanged as soon as a page subscribes, so reloading here loops forever.
  */
 const syncConnectButtons = async () => {
-  resetConnectButtons();
-  const { connectedNetwork, connectedNetworkButton } =
-    await getConnectedNetwork();
-  if (connectedNetwork) {
-    await displayConnectedAccount(connectedNetwork, connectedNetworkButton);
+  try {
+    resetConnectButtons();
+    const { connectedNetwork, connectedNetworkButton } =
+      await getConnectedNetwork();
+    if (connectedNetwork) {
+      await displayConnectedAccount(connectedNetwork, connectedNetworkButton);
+    }
+  } catch (e) {
+    // A locked wallet can reject these calls; keep the default buttons
+    console.debug('Could not sync wallet state', e);
   }
 };
 

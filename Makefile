@@ -4,12 +4,12 @@ MKDOCS      := $(VENV)/bin/mkdocs
 PYTHON      := $(VENV)/bin/python
 SCRIPTS_DIR := scripts
 
-PYTHON_BIN := $(shell command -v python3.10 2>/dev/null || command -v python3 2>/dev/null || command -v python 2>/dev/null)
+PYTHON_BIN := $(shell command -v python3.12 2>/dev/null || command -v python3 2>/dev/null || command -v python 2>/dev/null)
 
 ARGS ?=
 
 ifeq ($(PYTHON_BIN),)
-$(error No Python interpreter found. Install Python 3.10 from https://python.org and ensure it is on your PATH)
+$(error No Python interpreter found. Install Python 3.12 from https://python.org and ensure it is on your PATH)
 endif
 
 .DEFAULT_GOAL := help

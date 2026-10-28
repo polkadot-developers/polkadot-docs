@@ -9,7 +9,7 @@ set SCRIPTS_DIR=scripts
 
 :: Detect python3 or python
 set PYTHON_BIN=
-where python3.10 >nul 2>&1 && set PYTHON_BIN=python3.10
+where python3.12 >nul 2>&1 && set PYTHON_BIN=python3.12
 if "%PYTHON_BIN%"=="" where python3 >nul 2>&1 && set PYTHON_BIN=python3
 if "%PYTHON_BIN%"=="" where python >nul 2>&1 && set PYTHON_BIN=python
 if "%PYTHON_BIN%"=="" (

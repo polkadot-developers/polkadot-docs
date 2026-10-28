@@ -81,12 +81,13 @@ const connectNetwork = async (network) => {
 // Fix for getConnectedNetwork
 const getConnectedNetwork = async () => {
   const chainId = await provider.request({ method: 'eth_chainId' });
-  const connectedHubNetwork = Object.values(supportedNetworks).find(
-    (network) => network.chainId === chainId
+  const connectedHubEntry = Object.entries(supportedNetworks).find(
+    ([, network]) => network.chainId === chainId
   );
-  if (connectedHubNetwork) {
+  if (connectedHubEntry) {
+    const [networkKey, connectedHubNetwork] = connectedHubEntry;
     const connectedNetworkButton = document.querySelector(
-      `.connect-network[data-value="${connectedHubNetwork.name}"]`
+      `.connect-metamask[value="${networkKey}"]`
     );
     return { connectedNetwork: connectedHubNetwork, connectedNetworkButton };
   } else {
@@ -99,7 +100,9 @@ const getConnectedNetwork = async () => {
 
 /* Updates the button to show the connected network. */
 const displayConnectedAccount = async (connectedNetwork, networkButton) => {
-  const accounts = await provider.request({ method: 'eth_requestAccounts' });
+  if (!networkButton) return;
+  // eth_accounts does not prompt the wallet; only a button click should
+  const accounts = await provider.request({ method: 'eth_accounts' });
   if (!accounts || accounts.length === 0) return;
 
   const shortenedAccount = `${accounts[0].slice(0, 6)}...${accounts[0].slice(
@@ -149,22 +152,39 @@ connectMetaMaskBodyButtons.forEach((btn) => {
   });
 });
 
-if (provider) {
-  provider.on('chainChanged', () => {
-    window.location.reload();
+/* Resets the buttons to their default state. */
+const resetConnectButtons = () => {
+  connectMetaMaskBodyButtons.forEach((btn) => {
+    btn.textContent =
+      'Connect to ' + supportedNetworks[btn.getAttribute('value')]?.name;
+    btn.disabled = false;
+    btn.classList.remove('disabled-button');
   });
-  provider.on('accountsChanged', async (accounts) => {
-    if (accounts.length > 0) {
-      const { connectedNetwork, connectedNetworkButton } =
-        await getConnectedNetwork();
-      if (connectedNetwork) {
-        await displayConnectedAccount(
-          connectedNetwork,
-          connectedNetworkButton
-        );
-      }
-    } else {
-      window.location.reload();
+};
+
+/*
+ Keeps the buttons in sync with the wallet without reloading the page.
+ Some wallets (e.g. Core, Rabby, a locked MetaMask) emit accountsChanged([])
+ or chainChanged as soon as a page subscribes, so reloading here loops forever.
+ */
+const syncConnectButtons = async () => {
+  try {
+    resetConnectButtons();
+    const { connectedNetwork, connectedNetworkButton } =
+      await getConnectedNetwork();
+    if (connectedNetwork) {
+      await displayConnectedAccount(connectedNetwork, connectedNetworkButton);
     }
-  });
+  } catch (e) {
+    // A locked wallet can reject these calls; keep the default buttons
+    console.debug('Could not sync wallet state', e);
+  }
+};
+
+// Loaded on every page, but only pages with buttons need wallet events
+if (provider && connectMetaMaskBodyButtons.length > 0) {
+  provider.on('chainChanged', syncConnectButtons);
+  provider.on('accountsChanged', syncConnectButtons);
+  // Show an existing connection on load; this never prompts the wallet
+  syncConnectButtons();
 }

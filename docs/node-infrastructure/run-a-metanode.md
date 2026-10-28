@@ -32,15 +32,11 @@ The following table lists the recommended minimum requirements for each service 
 
 Every machine needs a public IP address and must run Linux with kernel 5.16 or later. When you choose hardware, also consider the following details:
 
-- **CPU**: The validator requires an x86-64 processor, either Intel Ice Lake or newer (Xeon or Core) or AMD Zen3 or newer (EPYC or Ryzen), with simultaneous multithreading (SMT, or Hyper-Threading on Intel) disabled. Prioritize [single-threaded performance](https://www.cpubenchmark.net/singleThread.html) over core count.
+- **CPU**: The validator must meet the processor requirements in [Validator Requirements](/node-infrastructure/run-a-validator/requirements/#minimum-hardware-requirements), including disabled simultaneous multithreading. Prioritize single-threaded performance over core count.
 - **Storage**: Prioritize latency over throughput. Fast disk I/O is critical for collator block production. Validator and single-machine storage requirements grow with the chains.
-- **Relay chain data**: The collator figures assume that each collator reads relay chain data from your validator's RPC endpoint through `--relay-chain-rpc-urls` and keeps no relay chain state, as described in [Run a Block-Producing Collator](/node-infrastructure/run-a-collator/#run-the-collator). This removes about 95% of a collator's database storage.
-- **Single machine**: CPU and storage are the sum of the per-service figures. Memory and network are lower than the sum, at 64 GB instead of 96 GB and 1 Gbit/s instead of 1.5 Gbit/s, because the services do not all reach peak load at the same time. In stress tests, a single machine that runs all three services stayed well within these figures.
+- **Network**: The collator figures are higher than the 100+ Mbit/s in [Run a Block-Producing Collator](/node-infrastructure/run-a-collator/#hardware-requirements) because metanode collators also serve RPC requests and light clients.
+- **Relay chain data**: To use storage efficiently, point each collator at your validator's RPC endpoint with `--relay-chain-rpc-urls`, as described in [Run a Block-Producing Collator](/node-infrastructure/run-a-collator/#run-the-collator). The collator then reads relay chain data from the validator and runs a lightweight relay chain node instead of keeping a full relay chain database, which reduces the collator's relay chain database storage by about 95%.
+- **Single machine**: CPU and storage are the sum of the per-service figures, including 24 cores for optimal performance. Memory and network are lower than the sum because the services do not all reach peak load at the same time: 64 GB of memory instead of 96 GB (128 GB instead of 160 GB for optimal performance), and 1 Gbit/s of network instead of 1.5 Gbit/s.
 
 !!! warning "Validator Hardware Alone Is Not Enough"
     The hardware listed in [Validator Requirements](/node-infrastructure/run-a-validator/requirements/#minimum-hardware-requirements) is not enough to also run the collators. Running the validator and the Asset Hub collator on a machine that meets only the validator requirements leaves too few resources for validation.
-
-## Run All Metanode Services
-
-!!! warning "Under Construction"
-    This section is under construction. It will explain how to configure and run the validator and the collators, including the light client and RPC services that they serve, on separate machines or on a single machine.

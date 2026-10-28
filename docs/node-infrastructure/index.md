@@ -80,4 +80,12 @@ Running a validator requires significant technical expertise, reliable infrastru
 
     [:octicons-arrow-right-24: Run a Validator](/node-infrastructure/run-a-validator/requirements/)
 
+-   **Run a Metanode**
+
+    ---
+
+    Run a validator with Asset Hub and People Chain collators that serve RPC and light clients.
+
+    [:octicons-arrow-right-24: Run a Metanode](/node-infrastructure/run-a-metanode/)
+
 </div>

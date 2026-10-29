@@ -14,7 +14,7 @@ categories: Infrastructure
 In the first phase, a metanode operator is a [validator](/node-infrastructure/run-a-validator/requirements/) operator who also provides the minimum services that [Polkadot Products](/apps/) need:
 
 - Producing blocks for Asset Hub and People Chain as [collators](/node-infrastructure/run-a-collator/).
-- Serving smoldot [light clients](/reference/tools/light-clients/) over WebRTC for the relay chain, Asset Hub, and People Chain.
+- Serving smoldot [light clients](/reference/tools/light-clients/) over WebRTC for the relay chain, Asset Hub, and People Chain, which requires additional node configuration covered in a later update.
 - Serving remote procedure call (RPC) requests for the relay chain, Asset Hub, and People Chain.
 
 You can run the validator and the collators on separate machines or together on a single machine. [Hardware Requirements](#hardware-requirements) covers both options.

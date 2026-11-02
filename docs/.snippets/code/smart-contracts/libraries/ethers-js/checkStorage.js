@@ -67,7 +67,7 @@ const interactWithStorageContract = async (
 
 const providerConfig = {
   name: 'polkadot-hub',
-  rpc: 'https://services.polkadothub-rpc.com/testnet',
+  rpc: 'https://eth-rpc-testnet.polkadot.io',
   chainId: 420420417,
 };
 

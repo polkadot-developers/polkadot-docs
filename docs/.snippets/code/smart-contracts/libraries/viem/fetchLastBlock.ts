@@ -1,6 +1,6 @@
 import { createPublicClient, http } from 'viem';
 
-const transport = http('https://services.polkadothub-rpc.com/testnet');
+const transport = http('https://eth-rpc-testnet.polkadot.io');
 
 // Configure the Polkadot Hub chain
 const polkadotHubTestnet = {
@@ -14,7 +14,7 @@ const polkadotHubTestnet = {
   },
   rpcUrls: {
     default: {
-      http: ['https://services.polkadothub-rpc.com/testnet'],
+      http: ['https://eth-rpc-testnet.polkadot.io'],
     },
   },
 } as const;

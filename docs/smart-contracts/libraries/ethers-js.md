@@ -87,7 +87,7 @@ To interact with Polkadot Hub, you must set up an Ethers.js provider. This provi
 
     ```js
     const PROVIDER_RPC = {
-        rpc: 'https://services.polkadothub-rpc.com/testnet',
+        rpc: 'https://eth-rpc-testnet.polkadot.io',
         chainId: 420420417,
         name: 'polkadot-hub-testnet'
     };

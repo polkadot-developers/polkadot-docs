@@ -3,7 +3,7 @@ from web3 import Web3
 
 def main():
     try:
-        PROVIDER_RPC = "https://services.polkadothub-rpc.com/testnet"
+        PROVIDER_RPC = "https://eth-rpc-testnet.polkadot.io"
         web3 = Web3(Web3.HTTPProvider(PROVIDER_RPC))
         latest_block = web3.eth.block_number
         print("Last block: " + str(latest_block))

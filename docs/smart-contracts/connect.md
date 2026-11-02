@@ -62,12 +62,6 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
         https://eth-rpc-testnet.polkadot.io/
         ```
 
-    === "OpsLayer"
-
-        ```text
-        https://services.polkadothub-rpc.com/testnet/
-        ```
-
     ---
     
     Block explorer URL
@@ -125,12 +119,6 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
 
         ```text
         https://eth-rpc.polkadot.io/
-        ```
-
-    === "OpsLayer"
-
-        ```text
-        https://services.polkadothub-rpc.com/mainnet/
         ```
 
     ---

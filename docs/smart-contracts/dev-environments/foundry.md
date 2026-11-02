@@ -151,8 +151,8 @@ Foundry's nightly build supports three Polkadot chains:
 
 |       Network        |         Chain Flag         |             Built-in RPC Endpoint              |  Chain ID   |
 | :------------------: | :------------------------: | :--------------------------------------------: | :---------: |
-| **Polkadot TestNet** | `--chain polkadot-testnet` | `https://services.polkadothub-rpc.com/testnet` | `420420417` |
-|     **Polkadot**     |     `--chain polkadot`     | `https://services.polkadothub-rpc.com/mainnet` | `420420419` |
+| **Polkadot TestNet** | `--chain polkadot-testnet` | `https://eth-rpc-testnet.polkadot.io` | `420420417` |
+|     **Polkadot**     |     `--chain polkadot`     | `https://eth-rpc.polkadot.io` | `420420419` |
 |      **Kusama**      |      `--chain kusama`      | `https://kusama-asset-hub-eth-rpc.polkadot.io` | `420420418` |
 
 ## Deploy a Contract
@@ -181,7 +181,7 @@ To deploy a contract to Polkadot Hub TestNet:
 ```bash
 forge create src/Counter.sol:Counter \
     --chain polkadot-testnet \
-    --rpc-url https://services.polkadothub-rpc.com/testnet \
+    --rpc-url https://eth-rpc-testnet.polkadot.io \
     --private-key $PRIVATE_KEY \
     --broadcast
 ```
@@ -192,7 +192,7 @@ You'll see output with the deployed contract address:
     <span data-ty="input"><span class="file-path"></span>forge create src/Counter.sol:Counter \
     <br>
     <span data-ty>--chain polkadot-testnet</span>
-    <span data-ty>--rpc-url https://services.polkadothub-rpc.com/testnet</span>
+    <span data-ty>--rpc-url https://eth-rpc-testnet.polkadot.io</span>
     <span data-ty>--private-key $PRIVATE_KEY</span>
     <span data-ty>--broadcast</span>
     <span data-ty>[⠊] Compiling...</span>

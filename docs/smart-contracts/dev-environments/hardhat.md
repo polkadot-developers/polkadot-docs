@@ -100,7 +100,7 @@ To use Hardhat with Polkadot Hub, define the network configuration in your `hard
       solidity: '0.8.28',
       networks: {
         polkadotTestnet: {
-          url: 'https://services.polkadothub-rpc.com/testnet',
+          url: 'https://eth-rpc-testnet.polkadot.io',
           chainId: 420420417,
           accounts: [vars.get('PRIVATE_KEY')],
         },
@@ -157,7 +157,7 @@ Add the `etherscan` configuration to your `hardhat.config.ts`. Choose Blockscout
       solidity: '0.8.28',
       networks: {
         polkadotTestnet: {
-          url: 'https://services.polkadothub-rpc.com/testnet',
+          url: 'https://eth-rpc-testnet.polkadot.io',
           chainId: 420420417,
           accounts: [vars.get('PRIVATE_KEY')],
         },
@@ -196,7 +196,7 @@ Add the `etherscan` configuration to your `hardhat.config.ts`. Choose Blockscout
       solidity: '0.8.28',
       networks: {
         polkadotTestnet: {
-          url: 'https://services.polkadothub-rpc.com/testnet',
+          url: 'https://eth-rpc-testnet.polkadot.io',
           chainId: 420420417,
           accounts: [vars.get('PRIVATE_KEY')],
         },

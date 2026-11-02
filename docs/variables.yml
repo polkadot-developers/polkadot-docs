@@ -86,13 +86,13 @@ dependencies:
       version: 4.16.0
     viem:
       name: viem
-      version: 2.57.12
+      version: 2.57.14
     ethersjs:
       name: ethers
       version: 6.17.0
     paraspell_sdk:
       name: '@paraspell/sdk'
-      version: 14.4.4
+      version: 14.5.0
     hdkd:
       name: '@polkadot-labs/hdkd'
       version: 0.0.32

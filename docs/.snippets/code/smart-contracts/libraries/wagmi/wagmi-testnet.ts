@@ -12,7 +12,7 @@ const assetHub = {
   },
   rpcUrls: {
     default: {
-      http: ['https://services.polkadothub-rpc.com/testnet'],
+      http: ['https://eth-rpc-testnet.polkadot.io'],
     },
   },
 } as const;

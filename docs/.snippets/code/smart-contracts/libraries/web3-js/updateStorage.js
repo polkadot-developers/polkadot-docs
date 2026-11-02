@@ -55,7 +55,7 @@ const updateStorage = async (config) => {
 };
 
 const config = {
-  rpcUrl: 'https://services.polkadothub-rpc.com/testnet',
+  rpcUrl: 'https://eth-rpc-testnet.polkadot.io',
   privateKey: 'INSERT_PRIVATE_KEY',
   contractAddress: 'INSERT_CONTRACT_ADDRESS',
 };

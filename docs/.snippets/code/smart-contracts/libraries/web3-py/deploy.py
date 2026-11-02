@@ -114,7 +114,7 @@ def deploy(config):
 
 if __name__ == "__main__":
     deployment_config = {
-        "rpc_url": "https://services.polkadothub-rpc.com/testnet",
+        "rpc_url": "https://eth-rpc-testnet.polkadot.io",
         "private_key": "INSERT_PRIVATE_KEY"
     }
     

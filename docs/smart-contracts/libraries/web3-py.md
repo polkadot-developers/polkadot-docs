@@ -49,7 +49,7 @@ To interact with Polkadot Hub, you must set up a Web3.py provider. This provider
     Replace `INSERT_RPC_URL` with the appropriate value. For instance, to connect to Polkadot Hub TestNet, use the following parameter:
 
     ```python
-    PROVIDER_RPC = 'https://services.polkadothub-rpc.com/testnet'
+    PROVIDER_RPC = 'https://eth-rpc-testnet.polkadot.io'
     ```
 
 With the Web3 provider set up, start querying the blockchain. For instance, you can use the following code snippet to fetch the latest block number of the chain.

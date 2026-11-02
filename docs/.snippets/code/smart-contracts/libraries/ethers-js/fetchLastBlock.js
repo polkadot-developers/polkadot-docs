@@ -10,7 +10,7 @@ const createProvider = (rpcUrl, chainId, chainName) => {
 };
 
 const PROVIDER_RPC = {
-  rpc: 'https://services.polkadothub-rpc.com/testnet',
+  rpc: 'https://eth-rpc-testnet.polkadot.io',
   chainId: 420420417,
   name: 'polkadot-hub-testnet',
 };

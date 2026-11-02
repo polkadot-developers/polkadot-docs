@@ -87,7 +87,7 @@ const deployContract = async (contractName, privateKey, providerConfig) => {
 };
 
 const providerConfig = {
-  rpc: 'https://services.polkadothub-rpc.com/testnet',
+  rpc: 'https://eth-rpc-testnet.polkadot.io',
   chainId: 420420417,
   name: 'polkadotTestNet',
 };

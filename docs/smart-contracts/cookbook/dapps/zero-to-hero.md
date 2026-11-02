@@ -170,7 +170,7 @@ const config: HardhatUserConfig = {
     polkadotTestNet: {
       type: "http",
       chainType: "l1",
-      url: 'https://services.polkadothub-rpc.com/testnet',
+      url: 'https://eth-rpc-testnet.polkadot.io',
       accounts: [process.env.PRIVATE_KEY || ''],
     },
   },
@@ -272,7 +272,7 @@ To interact with Polkadot Hub, you need to set up a [Public Client](https://viem
 import { createPublicClient, http, createWalletClient, custom } from 'viem'
 import 'viem/window';
 
-const transport = http('https://services.polkadothub-rpc.com/testnet')
+const transport = http('https://eth-rpc-testnet.polkadot.io')
 
 // Configure the Polkadot Testnet Hub chain
 export const polkadotTestnet = {
@@ -286,7 +286,7 @@ export const polkadotTestnet = {
   },
   rpcUrls: {
     default: {
-      http: ['https://services.polkadothub-rpc.com/testnet'],
+      http: ['https://eth-rpc-testnet.polkadot.io'],
     },
   },
 } as const

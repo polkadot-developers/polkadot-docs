@@ -72,7 +72,7 @@ dependencies:
       version: 3.3.0
     resolc:
       name: '@parity/resolc'
-      version: 1.4.0
+      version: 1.5.0
     hardhat_polkadot:
       name: '@parity/hardhat-polkadot'
       version: 0.3.0
